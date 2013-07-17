@@ -115,53 +115,12 @@ autocmd MyAutoCmd BufWritePost $MYVIMRC source $MYVIMRC |
 autocmd MyAutoCmd BufWritePost $MYGVIMRC if has('gui_running') | source $MYGVIMRC
 endif
 "" }}}
-" NeoBundle {{{1
-filetype off
 
-if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim
-  call neobundle#rc(expand('~/.vim/bundle/'))
+"~/.vimpluginがある場合はそっちも読み込む
+if filereadable(expand('~/.vimplugin'))
+    source ~/.vimplugin
 endif
 
-NeoBundle 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/vimproc'
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'https://github.com/mattn/qiita-vim.git'
-NeoBundle 'https://github.com/h1mesuke/unite-outline.git'
-
-" Powerline {{{2
-NeoBundle 'taichouchou2/alpaca_powertabline'
-NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
-
-"TweetVim 前提 {{{2
-NeoBundle 'https://github.com/basyura/bitly.vim.git'
-NeoBundle 'https://github.com/basyura/TweetVim.git'
-NeoBundle 'https://github.com/basyura/twibill.vim.git'
-NeoBundle 'https://github.com/h1mesuke/unite-outline.git'
-NeoBundle 'https://github.com/mattn/webapi-vim.git'
-NeoBundle 'https://github.com/tyru/open-browser.vim.git'
-NeoBundle 'https://github.com/yomi322/neco-tweetvim.git'
-NeoBundle 'https://github.com/yomi322/unite-tweetvim.git'
-
-"カラースキーム {{{2
-NeoBundle 'vim-scripts/chlordane.vim'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'tomasr/molokai.git'
-NeoBundle 'nanotech/jellybeans.vim'
-NeoBundle 'https://github.com/therubymug/vim-pyte.git'
-
-NeoBundle 'ujihisa/unite-colorscheme'
-"<leader>+ucでunite-colorschemeを呼び出す
-nnoremap <Leader>uc :<C-u>Unite colorscheme -auto-preview<CR>
-
-"numbers.vim {{{2
-NeoBundle 'https://github.com/myusuf3/numbers.vim.git'
-nnoremap <F3> :NumbersToggle<CR>
-" }}}2
-
-filetype plugin indent on     " required!
-filetype indent on
 syntax on
 " }}}1
 
