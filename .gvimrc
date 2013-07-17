@@ -16,7 +16,7 @@ set guioptions-=L
 
 "カラースキームの設定
 colorscheme solarized
-set bg=dark
+set bg=light
 let g:solarized_visibilty = "high"
 let g:solarized_contrast = "high"
 
