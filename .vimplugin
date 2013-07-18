@@ -30,6 +30,10 @@ NeoBundle 'https://github.com/yomi322/unite-tweetvim.git'
 "アイコンを表示(ImageMagickが必要)
 let g:tweetvim_display_icon = 1
 
+"ショートカット設定
+nnoremap ,th :<C-u>TweetVimHomeTimeline<CR>
+nnoremap ,ts :<C-u>TweetVimSay<CR>
+
 "カラースキーム {{{2
 NeoBundle 'vim-scripts/chlordane.vim'
 NeoBundle 'altercation/vim-colors-solarized'
