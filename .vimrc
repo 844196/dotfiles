@@ -6,6 +6,9 @@ set modeline
 "モードライン3行目までを検索
 set modelines=3
 
+"シンタックス有効
+syntax on
+
 "新しい行のインデントを現在行と同じにする
 set autoindent
 
@@ -114,15 +117,14 @@ autocmd MyAutoCmd BufWritePost $MYVIMRC source $MYVIMRC |
 \if has('gui_running') | source $MYGVIMRC
 autocmd MyAutoCmd BufWritePost $MYGVIMRC if has('gui_running') | source $MYGVIMRC
 endif
-"" }}}
+"" }}}1
 
+"プラグイン周りは別ファイルに移した
 "~/.vimpluginがある場合はそっちも読み込む
 if filereadable(expand('~/.vimplugin'))
     source ~/.vimplugin
 endif
 
-syntax on
-" }}}1
 
 " vim: foldmethod=marker
 " vim: foldcolumn=3
