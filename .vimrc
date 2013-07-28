@@ -71,6 +71,9 @@ command! Memo edit ~/Dropbox/memo/memo.md
 set tabstop=4
 set shiftwidth=4
 
+"markdownファイルのシンタックス関連付け
+autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+
 " リマップ {{{1
 
 "ノーマルモードでEnterを押すと空行を挿入
@@ -82,14 +85,6 @@ nnoremap ; :
 
 "検索結果のハイライトをEsc連打でクリアする
 nnoremap <ESC><ESC> :nohlsearch<CR>
-
-"カッコ系を入力したら自動で中にカーソルを移動させる
-imap {} {}<Left>
-imap [] []<Left>
-imap "" ""<Left>
-imap '' ''<Left>
-imap <> <><Left>
-imap () ()<Left>
 
 "カンマを打ったら自動でスペースを入れる
 inoremap , ,<Space>
