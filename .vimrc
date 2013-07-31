@@ -84,7 +84,7 @@ noremap <S-CR> O<ESC>
 nnoremap ; :
 
 "F5でBGを変更
-call togglebg#map('<F5>')
+call togglebg#map("<F5>")
 
 "カッコ系を入力したら自動で中にカーソルを移動させる
 imap {} {}<Left>
