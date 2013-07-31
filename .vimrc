@@ -83,6 +83,14 @@ noremap <S-CR> O<ESC>
 ";を:に置き換え
 nnoremap ; :
 
+"カッコ系を入力したら自動で中にカーソルを移動させる
+imap {} {}<Left>
+imap [] []<Left>
+imap "" ""<Left>
+imap '' ''<Left>
+imap <> <><Left>
+imap () ()<Left>
+
 "検索結果のハイライトをEsc連打でクリアする
 nnoremap <ESC><ESC> :nohlsearch<CR>
 
