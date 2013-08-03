@@ -20,7 +20,6 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'https://github.com/h1mesuke/unite-outline.git'
-NeoBundle 'https://github.com/thinca/vim-splash'
 
 "Powerline {{{2
 NeoBundle 'bling/vim-airline'
