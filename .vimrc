@@ -97,9 +97,6 @@ imap () ()<Left>
 "検索結果のハイライトをEsc連打でクリアする
 nnoremap <ESC><ESC> :nohlsearch<CR>
 
-"カンマを打ったら自動でスペースを入れる
-inoremap , ,<Space>
-
 "insert modeでjjでnormal modeへ
 inoremap jj <Esc>
 
