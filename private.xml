@@ -11,4 +11,10 @@
 		<identifier>option.enter.option_n</identifier>
 		<autogen>__KeyToKey__ KeyCode::M, ModifierFlag::CONTROL_L, KeyCode::RETURN</autogen>
 	</item>
+
+	<item>
+		<name>CONTROL_L+o to F8</name>
+		<identifier>option.F8.option_h</identifier>
+		<autogen>__KeyToKey__ KeyCode::O, ModifierFlag::CONTROL_L, KeyCode::F8</autogen>
+	</item>
 </root>
