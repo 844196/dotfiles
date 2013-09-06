@@ -104,6 +104,10 @@ inoremap jj <Esc>
 nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent> <Space>eg :<C-u>edit $MYGVIMRC<CR>
 
+" tmpファイル
+command! -nargs=1 -complete=filetype Tmp edit ~/.vim_tmp/tmp.<args>
+command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
+
 ".vimrcや.gvimrcを変更すると、自動的に変更が反映されるようにする
 augroup MyAutoCmd
 autocmd!

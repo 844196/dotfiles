@@ -18,26 +18,37 @@ NeoBundle 'Shougo/vimproc', {
       \ }
 
 NeoBundle 'Shougo/vimshell'
+
+"Unite {{2
 NeoBundle 'Shougo/unite.vim'
+
+let g:unite_enable_start_insert = 1
+nnoremap <leader>f :<C-u>Unite file<CR>
+nnoremap <leader>b :<C-u>Unite buffer<CR>
+
+
 NeoBundle 'https://github.com/h1mesuke/unite-outline.git'
+NeoBundle 'lilydjwg/colorizer'
+
 
 "Powerline {{{2
 NeoBundle 'bling/vim-airline'
-let g:airline_theme='solarized'
+let g:airline_theme='molokai'
 
-"powerline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_branch_prefix = ' '
-let g:airline_readonly_symbol = ''
-let g:airline_linecolumn_prefix = ' '
+  " powerline symbols
+  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = ''
+  let g:airline_branch_prefix = ' '
+  let g:airline_readonly_symbol = ''
+  let g:airline_linecolumn_prefix = ' '
 
 "カラースキーム {{{2
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'tomasr/molokai.git'
 NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'vim-scripts/Colour-Sampler-Pack'
 
 "<leader>+ucでunite-colorschemeを呼び出す
 NeoBundle 'ujihisa/unite-colorscheme'
