@@ -103,7 +103,7 @@ if s:iswin
 elseif s:ismac
     autocmd MyAutoCmd GUIEnter * set guifont=Ricty\ Regular:h17
 elseif s:isunix
-    autocmd MyAutoCmd GUIEnter * set guifont=Osaka-Mono\ 13
+    autocmd MyAutoCmd GUIEnter * set guifont=DejaVu\ Sand\ Mono\ 13
 endif
 
 "gvimの時はフォントを綺麗にする
