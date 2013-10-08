@@ -9,7 +9,7 @@ set noswapfile
 set nobackup
 
 "<space>evで.vimrcを編集
-nnoremap <silent> <Space>ev :<C-u>tabedit $MYVIMRC<CR>
+nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
 
 "augroup設定
 augroup MyAutoCmd
@@ -89,12 +89,13 @@ set showcmd
 "不可視文字を表示
 set list
 if !s:iswin
-    set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+    set listchars=tab:»-,trail:-,eol:¬,nbsp:%
 endif
 
 "日本語入力時のカーソル色を変更
-if has('gui_running')
-    autocmd MyAutoCmd ColorScheme * highlight CursorIM guibg=Green guifg=NONE
+if has('multi_byte_ime')
+    autocmd MyAutoCmd ColorScheme * highlight Cursor guifg=NONE guibg=red
+    autocmd MyAutoCmd ColorScheme * highlight CursorIM guifg=NONE guibg=Green
 endif
 
 "フォント
@@ -159,7 +160,7 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 
 " tmpファイル
-command! -nargs=1 -complete=filetype Tmp tabedit ~/tmp.<args>
+command! -nargs=1 -complete=filetype Tmp edit ~/tmp.<args>
 nnoremap <silent><F2> :<C-u>Tmp md<CR>
 
 "}}}
