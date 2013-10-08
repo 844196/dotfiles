@@ -55,6 +55,9 @@ if !has('gui_running')
     colorscheme desert
 endif
 
+"スクロール時に5行を確保
+set scrolloff=10
+
 "行番号を表示する
 set number
 
