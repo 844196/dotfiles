@@ -259,7 +259,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
           \    },
           \ }
     NeoBundle 'Shougo/vimshell.vim'
-    NeoBundle 'terryma/vim-multiple-cursors'
 
     "カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
@@ -295,26 +294,26 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 "==================================================================
 "vim-sound {{{
 
-    if isdirectory(expand("~/Dropbox/Vim/MinecraftSound/"))
-        let s:se_path = "~/Dropbox/Vim/MinecraftSound/"
-        let s:se_ext = ".wav"
-        function! s:change_sound_name(base_name)
-          return expand(s:se_path . a:base_name . s:se_ext)
-        endfunction
+    "if isdirectory(expand("~/Dropbox/Vim/MinecraftSound/"))
+    "    let s:se_path = "~/Dropbox/Vim/MinecraftSound/"
+    "    let s:se_ext = ".wav"
+    "    function! s:change_sound_name(base_name)
+    "      return expand(s:se_path . a:base_name . s:se_ext)
+    "    endfunction
 
-        function! PlaySE(name)
-            call sound#play_wav(s:change_sound_name(a:name))
-        endfunction
+    "    function! PlaySE(name)
+    "        call sound#play_wav(s:change_sound_name(a:name))
+    "    endfunction
 
-        autocmd BufEnter * call PlaySE("door_open")
-        autocmd InsertEnter * call PlaySE("in")
-        autocmd InsertLeave * call PlaySE("out")
+    "    autocmd BufEnter * call PlaySE("door_open")
+    "    autocmd InsertEnter * call PlaySE("in")
+    "    autocmd InsertLeave * call PlaySE("out")
 
-        nnoremap <silent> J 20j:<C-u>call PlaySE("portal2")<CR>
-        nnoremap <silent> K 20k:<C-u>call PlaySE("portal2")<CR>
-        nnoremap <silent> L 10l:<C-u>call PlaySE("portal2")<CR>
-        nnoremap <silent> H 10h:<C-u>call PlaySE("portal2")<CR>
-    endif
+    "    nnoremap <silent> J 20j:<C-u>call PlaySE("portal2")<CR>
+    "    nnoremap <silent> K 20k:<C-u>call PlaySE("portal2")<CR>
+    "    nnoremap <silent> L 10l:<C-u>call PlaySE("portal2")<CR>
+    "    nnoremap <silent> H 10h:<C-u>call PlaySE("portal2")<CR>
+    "endif
 
 
 "}}}
