@@ -88,7 +88,9 @@ set showcmd
 
 "不可視文字を表示
 set list
-set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+if !s:iswin
+    set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+endif
 
 "日本語入力時のカーソル色を変更
 if has('gui_running')
