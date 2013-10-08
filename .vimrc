@@ -9,7 +9,7 @@ set noswapfile
 set nobackup
 
 "<space>evで.vimrcを編集
-nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent> <Space>ev :<C-u>tabedit $MYVIMRC<CR>
 
 "augroup設定
 augroup MyAutoCmd
@@ -159,7 +159,7 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 
 " tmpファイル
-command! -nargs=1 -complete=filetype Tmp edit ~/tmp.<args>
+command! -nargs=1 -complete=filetype Tmp tabedit ~/tmp.<args>
 nnoremap <silent><F2> :<C-u>Tmp md<CR>
 
 "}}}
@@ -179,6 +179,9 @@ endif
 "}}}
 "==================================================================
 "編集設定 {{{
+
+"変更中のファイルでも、保存しないで他のファイルを表示する
+set hidden
 
 "ノーマルモードでEnterを押すと空行を挿入
 noremap <CR> o<ESC>
@@ -287,25 +290,26 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 "==================================================================
 "vim-sound {{{
 
-    let s:se_path = "~/Dropbox/Vim/MinecraftSound/"
-    let s:se_ext = ".wav"
-    function! s:change_sound_name(base_name)
-      return expand(s:se_path . a:base_name . s:se_ext)
-    endfunction
+    if isdirectory(expand("~/Dropbox/Vim/MinecraftSound/"))
+        let s:se_path = "~/Dropbox/Vim/MinecraftSound/"
+        let s:se_ext = ".wav"
+        function! s:change_sound_name(base_name)
+          return expand(s:se_path . a:base_name . s:se_ext)
+        endfunction
 
-    function! PlaySE(name)
-        call sound#play_wav(s:change_sound_name(a:name))
-    endfunction
+        function! PlaySE(name)
+            call sound#play_wav(s:change_sound_name(a:name))
+        endfunction
 
-    autocmd BufEnter * call PlaySE("door_open")
-    autocmd InsertCharPre * call PlaySE("stone3")
-    autocmd InsertEnter * call PlaySE("in")
-    autocmd InsertLeave * call PlaySE("out")
+        autocmd BufEnter * call PlaySE("door_open")
+        autocmd InsertEnter * call PlaySE("in")
+        autocmd InsertLeave * call PlaySE("out")
 
-    nnoremap <silent> J 20j:<C-u>call PlaySE("portal2")<CR>
-    nnoremap <silent> K 20k:<C-u>call PlaySE("portal2")<CR>
-    nnoremap <silent> L 10l:<C-u>call PlaySE("portal2")<CR>
-    nnoremap <silent> H 10h:<C-u>call PlaySE("portal2")<CR>
+        nnoremap <silent> J 20j:<C-u>call PlaySE("portal2")<CR>
+        nnoremap <silent> K 20k:<C-u>call PlaySE("portal2")<CR>
+        nnoremap <silent> L 10l:<C-u>call PlaySE("portal2")<CR>
+        nnoremap <silent> H 10h:<C-u>call PlaySE("portal2")<CR>
+    endif
 
 
 "}}}
