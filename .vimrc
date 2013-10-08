@@ -259,6 +259,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
           \    },
           \ }
     NeoBundle 'Shougo/vimshell.vim'
+    NeoBundle 'terryma/vim-multiple-cursors'
 
     "カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
