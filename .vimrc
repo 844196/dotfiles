@@ -11,6 +11,9 @@ set nobackup
 "<space>evで.vimrcを編集
 nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
 
+"<F5>で.vimrcを編集
+nnoremap <F5> : <C-u>edit $MYVIMRC<CR>
+
 "augroup設定
 augroup MyAutoCmd
     autocmd!
