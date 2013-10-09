@@ -64,6 +64,9 @@ set scrolloff=10
 "行番号を表示する
 set number
 
+"コマンド補完
+set wildmenu
+
 "相対行番号を表示
 if version >= 703
     function! ToggleNumberOption()
@@ -110,7 +113,7 @@ if s:iswin
 elseif s:ismac
     autocmd MyAutoCmd GUIEnter * set guifont=Ricty\ Regular:h17
 elseif s:isunix
-    autocmd MyAutoCmd GUIEnter * set guifont=DejaVu\ Sand\ Mono\ 13
+    autocmd MyAutoCmd GUIEnter * set guifont=DejaVu\ Sand\ Mono\ 11
 endif
 
 "gvimの時はフォントを綺麗にする
