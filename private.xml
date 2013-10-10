@@ -1,12 +1,6 @@
 <?xml version="1.0"?>
 <root>
 	<item>
-		<name>CONTROL_L+h to Backspace</name>
-		<identifier>option.backspace.option_h</identifier>
-		<autogen>__KeyToKey__ KeyCode::H, ModifierFlag::CONTROL_L, KeyCode::DELETE</autogen>
-	</item>
-
-	<item>
 		<name>CONTROL_L+m to Enter</name>
 		<identifier>option.enter.option_n</identifier>
 		<autogen>__KeyToKey__ KeyCode::M, ModifierFlag::CONTROL_L, KeyCode::RETURN</autogen>
