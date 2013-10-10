@@ -191,6 +191,9 @@ endif
 "変更中のファイルでも、保存しないで他のファイルを表示する
 set hidden
 
+"右に開く
+set splitright
+
 "ノーマルモードでEnterを押すと空行を挿入
 noremap <CR> o<ESC>
 noremap <S-CR> O<ESC>
@@ -281,10 +284,11 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
           \    },
           \ }
     NeoBundle 'Shougo/vimshell.vim'
-
     NeoBundle 'basyura/TweetVim'
     NeoBundle 'tyru/open-browser.vim'
     NeoBundle 'basyura/twibill.vim'
+    NeoBundle 'ryutorion/vim-itunes'
+    NeoBundle 'Shougo/unite.vim'
 
     "カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
@@ -342,7 +346,7 @@ endif
 
 "vimrc_localがあったら読み込む
 if filereadable(expand($HOME.'/.vimrc_local'))
-    source $HOME./.vimrc_local
+    source $HOME/.vimrc_local
 endif
 
 
