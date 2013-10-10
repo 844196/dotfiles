@@ -109,7 +109,7 @@ endif
 
 "フォント
 if s:iswin
-    autocmd MyAutoCmd GUIEnter * set guifont=MS_Gothic:h10:cSHIFTJIS
+    autocmd MyAutoCmd GUIEnter * set guifont=MS_Gothic:h11:cSHIFTJIS
 elseif s:ismac
     autocmd MyAutoCmd GUIEnter * set guifont=Ricty\ Regular:h17
 elseif s:isunix
@@ -122,11 +122,9 @@ if has('gui_running')
 endif
 
 "スクロールバーとか表示しない
-set guioptions-=T
-set guioptions-=r
-set guioptions-=L
-set guioptions-=m
-set guioptions-=e
+if has('gui_running')
+    autocmd MyAutoCmd GUIEnter * set guioptions=NONE
+endif
 
 
 "}}}
@@ -197,7 +195,8 @@ set hidden
 noremap <CR> o<ESC>
 noremap <S-CR> O<ESC>
 
-";を:に置き換え
+";と:を入れ替える
+nnoremap : ;
 nnoremap ; :
 
 "<Space>でコマンドライン
@@ -265,6 +264,10 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
           \ }
     NeoBundle 'Shougo/vimshell.vim'
 
+    NeoBundle 'basyura/TweetVim'
+    NeoBundle 'tyru/open-browser.vim'
+    NeoBundle 'basyura/twibill.vim'
+
     "カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
     NeoBundle 'w0ng/vim-hybrid'
@@ -289,6 +292,17 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
 "}}}
 "==================================================================
+"TweetVim {{{
+
+    "<Space>tsでツイートバッファを表示
+    nnoremap <Space>ts :<C-u>TweetVimSay<CR>
+
+    "<Space>thでタイムラインを表示
+    nnoremap <Space>th :<C-u>TweetVimHomeTimeline<CR>
+
+
+"}}}
+"==================================================================
 "colorscheme {{{
 
     "hybridを使用
@@ -303,6 +317,16 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 "==================================================================
 
 endif
+
+"}}}
+"==================================================================
+"vimrc_local設定 {{{
+
+"vimrc_localがあったら読み込む
+if filereadable(expand($HOME.'/.vimrc_local'))
+    source $HOME./.vimrc_local
+endif
+
 
 "==================================================================
 "
