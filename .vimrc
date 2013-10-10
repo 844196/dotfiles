@@ -9,10 +9,7 @@ set noswapfile
 set nobackup
 
 "<space>evで.vimrcを編集
-nnoremap <silent> <Space>ev :<C-u>edit $MYVIMRC<CR>
-
-"<F5>で.vimrcを編集
-nnoremap <F5> : <C-u>edit $MYVIMRC<CR>
+nnoremap <Space>ev :<C-u>edit $MYVIMRC<CR>
 
 "augroup設定
 augroup MyAutoCmd
@@ -113,7 +110,7 @@ if s:iswin
 elseif s:ismac
     autocmd MyAutoCmd GUIEnter * set guifont=Ricty\ Regular:h17
 elseif s:isunix
-    autocmd MyAutoCmd GUIEnter * set guifont=DejaVu\ Sand\ Mono\ 11
+    autocmd MyAutoCmd GUIEnter * set guifont=DejaVu\ Sans\ Mono\ 11
 endif
 
 "gvimの時はフォントを綺麗にする
@@ -168,7 +165,7 @@ autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 
 " tmpファイル
 command! -nargs=1 -complete=filetype Tmp edit ~/tmp.<args>
-nnoremap <silent><F2> :<C-u>Tmp md<CR>
+nnoremap <F2> :<C-u>Tmp md<CR>
 
 "}}}
 "==================================================================
