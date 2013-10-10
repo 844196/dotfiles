@@ -292,7 +292,11 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 "colorscheme {{{
 
     "hybridを使用
-    autocmd MyAutoCmd GUIEnter * colorscheme hybrid
+    if has('gui_running')
+        autocmd MyAutoCmd GUIEnter * colorscheme hybrid
+    else
+        colorscheme hybrid
+    endif
 
 
 "}}}
