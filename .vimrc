@@ -247,8 +247,6 @@ function! Scouter(file, ...)
 endfunction
 command! -bar -bang -nargs=? -complete=file Scouter
 \        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
-command! -bar -bang -nargs=? -complete=file GScouter
-\        echo Scouter(empty(<q-args>) ? $MYGVIMRC : expand(<q-args>), <bang>0)
 
 
 "}}}
@@ -281,6 +279,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
           \    },
           \ }
     NeoBundle 'Shougo/vimshell.vim'
+    NeoBundle 'ujihisa/vimshell-ssh'
     NeoBundle 'basyura/TweetVim'
     NeoBundle 'tyru/open-browser.vim'
     NeoBundle 'basyura/twibill.vim'
