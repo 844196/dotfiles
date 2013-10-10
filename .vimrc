@@ -200,8 +200,8 @@ nnoremap : ;
 nnoremap ; :
 
 "<Space>でコマンドライン
-nnoremap <Space> :
-vnoremap <Space> :
+nnoremap <Space> :<C-u>
+vnoremap <Space> :<C-u>
 
 "カッコ系を入力したら自動で中にカーソルを移動させる
 imap {} {}<Left>
