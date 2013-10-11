@@ -135,14 +135,8 @@ if has('gui_running')
         nnoremap <silent><Right> :<C-u>SM 2<CR>
         nnoremap <silent><Left> :<C-u>SM 0<CR>
     else
-        function! Migi()
-            set columns=161
-        endfunction
-        function! Modos()
-            set columns=80
-        endfunction
-        nnoremap <silent><Right> :<C-u>call Migi()<CR>
-        nnoremap <silent><Left> :<C-u>call Modos()<CR>
+        nnoremap <silent><Right> :<C-u>set columns=161<CR>
+        nnoremap <silent><Left> :<C-u>set columns=80<CR>
     endif
 endif
 
