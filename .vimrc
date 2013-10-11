@@ -283,8 +283,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle 'basyura/TweetVim'
     NeoBundle 'tyru/open-browser.vim'
     NeoBundle 'basyura/twibill.vim'
-    NeoBundle 'ryutorion/vim-itunes'
-    NeoBundle 'Shougo/unite.vim'
 
     "カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
