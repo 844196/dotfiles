@@ -11,6 +11,12 @@ set nobackup
 "<space>evで.vimrcを編集
 nnoremap <Space>ev :<C-u>edit $MYVIMRC<CR>
 
+".vimrcを自動再読み込み
+autocmd MyAutoCmd BufWritePost $MYVIMRC nested source $MYVIMRC
+
+"<C-h>でヘルプを引く
+nnoremap <C-h> :<C-u>help<Space>
+
 "augroup設定
 augroup MyAutoCmd
     autocmd!
@@ -123,6 +129,23 @@ if has('gui_running')
     autocmd MyAutoCmd GUIEnter * set guioptions=NONE
 endif
 
+"<Right>でウィンドウを右に伸ばす <Left>で戻す
+if has('gui_running')
+    if has('kaoriya')
+        nnoremap <silent><Right> :<C-u>SM 2<CR>
+        nnoremap <silent><Left> :<C-u>SM 0<CR>
+    else
+        function! Migi()
+            set columns=161
+        endfunction
+        function! Modos()
+            set columns=80
+        endfunction
+        nnoremap <silent><Right> :<C-u>call Migi()<CR>
+        nnoremap <silent><Left> :<C-u>call Modos()<CR>
+    endif
+endif
+
 
 "}}}
 "==================================================================
@@ -232,6 +255,13 @@ else
     set t_vb=
 endif
 
+"<Space>vsで縦分割後、新しいバッファに移動
+function! Fuyasu()
+    vsplit
+    winc l
+endfunction
+nnoremap <silent><Space>vs :<C-u>call Fuyasu()<CR>
+
 
 "}}}
 "==================================================================
@@ -319,6 +349,14 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
 "}}}
 "==================================================================
+"VimSell {{{
+
+    "<Leader>sでVimShellを開く
+    nnoremap <silent><Leader>s :<C-u>VimShell<CR>
+
+
+"}}}
+"==================================================================
 "colorscheme {{{
 
     "hybridを使用
@@ -341,6 +379,12 @@ endif
 "vimrc_localがあったら読み込む
 if filereadable(expand($HOME.'/.vimrc_local'))
     source $HOME/.vimrc_local
+
+    "<Space>elで.vimrc_localを編集
+    nnoremap <Space>el :<C-u>edit $HOME/.vimrc_local<CR>
+
+    ".vimrc_localを編集したら自動再読み込み
+    autocmd MyAutoCmd BufWritePost $HOME/.vimrc_local nested source $HOME/.vimrc_local
 endif
 
 
