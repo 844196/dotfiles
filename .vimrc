@@ -8,6 +8,11 @@ set nocompatible
 set noswapfile
 set nobackup
 
+"augroup設定
+augroup MyAutoCmd
+    autocmd!
+augroup END
+
 "<space>evで.vimrcを編集
 nnoremap <Space>ev :<C-u>edit $MYVIMRC<CR>
 
@@ -16,11 +21,6 @@ autocmd MyAutoCmd BufWritePost $MYVIMRC nested source $MYVIMRC
 
 "<C-h>でヘルプを引く
 nnoremap <C-h> :<C-u>help<Space>
-
-"augroup設定
-augroup MyAutoCmd
-    autocmd!
-augroup END
 
 "Windows環境用変数宣言
 let s:iswin = has('win32') || has('win64') || has('win32unix')
