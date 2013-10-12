@@ -250,7 +250,7 @@ else
 endif
 
 "<Space>vsで縦分割後、新しいバッファに移動
-nnoremap <Space>vs :<C-u>vsplit\|winc l
+nnoremap <Space>vs :<C-u>vsplit\|winc l<CR>
 
 
 "}}}
