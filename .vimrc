@@ -104,12 +104,6 @@ if !s:iswin
     set listchars=tab:»-,trail:-,eol:¬,nbsp:%
 endif
 
-"日本語入力時のカーソル色を変更
-if has('multi_byte_ime')
-    autocmd MyAutoCmd ColorScheme * highlight Cursor guifg=NONE guibg=red
-    autocmd MyAutoCmd ColorScheme * highlight CursorIM guifg=NONE guibg=Green
-endif
-
 "フォント
 if s:iswin
     autocmd MyAutoCmd GUIEnter * set guifont=MS_Gothic:h11:cSHIFTJIS
@@ -354,6 +348,12 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         autocmd MyAutoCmd GUIEnter * colorscheme hybrid
     else
         colorscheme hybrid
+    endif
+
+    "日本語入力時のカーソル色を変更
+    if has('multi_byte_ime') || has('xim')
+        autocmd MyAutoCmd GUIEnter * highlight Cursor guifg=NONE guibg=#cc6666
+        autocmd MyAutoCmd GUIEnter * highlight CursorIM guifg=NONE guibg=#b5bd68
     endif
 
 
