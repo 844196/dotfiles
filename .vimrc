@@ -71,18 +71,7 @@ set number
 set wildmenu
 
 "相対行番号を表示
-if version >= 703
-    function! ToggleNumberOption()
-        if &number
-            set relativenumber
-        else
-            set number
-        endif
-    endfunction
-
-    command! -nargs=0 ToggleNumber call ToggleNumberOption()
-    nnoremap <silent><F3> :<C-u>ToggleNumber<CR>
-endif
+nnoremap <silent><F3> :<C-u>setlocal relativenumber!<CR>
 
 "行数指定
 if has('gui_running')
