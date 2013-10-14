@@ -291,6 +291,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle 'tyru/open-browser.vim'
     NeoBundle 'basyura/twibill.vim'
     NeoBundle 'glidenote/newdayone.vim'
+    NeoBundle 'thinca/vim-quickrun'
 
     "カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
