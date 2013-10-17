@@ -290,6 +290,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle 'basyura/TweetVim'
     NeoBundle 'tyru/open-browser.vim'
     NeoBundle 'basyura/twibill.vim'
+    NeoBundle 'mattn/webapi-vim'
     NeoBundle 'glidenote/newdayone.vim'
     NeoBundle 'thinca/vim-quickrun'
 
@@ -323,7 +324,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     nnoremap <Space>ts :<C-u>TweetVimSay<CR>
 
     "<Space>thでタイムラインを表示
-    nnoremap <Space>th :<C-u>TweetVimHomeTimeline<CR>
+    nnoremap <Space>th :<C-u>TweetVimUserStream<CR>
 
 
 "}}}
