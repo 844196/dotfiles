@@ -403,12 +403,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         "メモディレクトリを宣言
         let g:memopath = '~/Dropbox/Memo/'
 
-        "メモ一覧呼び出し
-        command! -nargs=0 MemoList :Unite memo -buffer-name=memo_list -winheight=10 -max-multi-lines=1
-
-        "メモgrep
-        command! -nargs=0 MemoGrep :execute('Unite grep:' . g:memopath . ' -no-quit')
-
         "メモ一覧呼び出しリマップ
         nnoremap <F2> :MemoList<CR>
     "}}}
