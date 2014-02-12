@@ -1,1 +1,2 @@
 alias ls='ls -a'
+alias rmdir='rm -rf'
