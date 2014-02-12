@@ -161,7 +161,7 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 "ファイル設定 {{{
 
 "markdownファイルのシンタックス関連付け
-autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+autocmd MyAutoCmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 
 " tmpファイル
 command! -nargs=1 -complete=filetype Tmp edit ~/tmp.<args>
@@ -239,22 +239,44 @@ nnoremap <Space>vs :<C-u>vsplit\|winc l<CR>
 "http://qiita.com/s_of_p/items/a80020cf32f3de5d044c
 nnoremap B :<C-u>ls<CR>:b
 
+"JとgJを入れ替える
+nnoremap J gJ
+nnoremap gJ J
+
+":qを:bdに置き換え
+cnoreabbrev <expr> q 'bd'
+
 
 "}}}
 "==================================================================
-"スパウザー {{{
+"Vim Script {{{
 
-function! Scouter(file, ...)
-  let pat = '^\s*$\|^\s*"'
-  let lines = readfile(a:file)
-  if !a:0 || !a:1
-    let lines = split(substitute(join(lines, "\n"), '\n\s*\\', '', 'g'), "\n")
-  endif
-  return len(filter(lines,'v:val !~ pat'))
+    "スパウザー {{{
+    function! Scouter(file, ...)
+      let pat = '^\s*$\|^\s*"'
+      let lines = readfile(a:file)
+      if !a:0 || !a:1
+        let lines = split(substitute(join(lines, "\n"), '\n\s*\\', '', 'g'), "\n")
+      endif
+      return len(filter(lines,'v:val !~ pat'))
+    endfunction
+    command! -bar -bang -nargs=? -complete=file Scouter
+    \        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
+    "}}}
+
+"ToDoとか {{{
+function! s:ToggleDone(line)
+    if a:line =~ '^"*\s*\[D\]'
+        call setline('.', substitute(a:line, '\[D\]<.*>', '\[ \]', ''))
+    else
+        call setline('.', substitute(a:line, '\[ \]', '[D]<' . strftime("%Y/%m/%d %H:%M") . '>', ''))
+    endif
 endfunction
-command! -bar -bang -nargs=? -complete=file Scouter
-\        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
+command! -nargs=0 ToggleDone call s:ToggleDone(getline('.'))
+nnoremap <Space>td :<C-u>ToggleDone<CR>
 
+nnoremap <F1> :<C-u>edit ~/DropBox/Memo/ToDo.md<CR>
+"}}}
 
 "}}}
 "==================================================================
@@ -291,8 +313,19 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle 'tyru/open-browser.vim'
     NeoBundle 'basyura/twibill.vim'
     NeoBundle 'mattn/webapi-vim'
-    NeoBundle 'glidenote/newdayone.vim'
     NeoBundle 'thinca/vim-quickrun'
+    NeoBundle 'thinca/vim-splash'
+    NeoBundle 'Shougo/unite.vim'
+
+    "自作
+    NeoBundle 'memo.vim', {
+        \ 'base' : '~/dotfiles/vimscript',
+        \ 'type' : 'nosync'
+        \ }
+    NeoBundle 'Log.vim', {
+        \ 'base' : '~/dotfiles/vimscript',
+        \ 'type' : 'nosync'
+        \ }
 
     "カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
@@ -303,58 +336,92 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     filetype plugin indent on
 
 
-"}}}
-"==================================================================
-"lightline.vim {{{
+    "lightline.vim {{{
+        "hybridテーマを使用
+        let g:lightline = {}
+        let g:lightline.colorscheme = 'hybrid'
+        autocmd MyAutoCmd VimEnter * call lightline#colorscheme()
 
-    "hybridテーマを使用
-    let g:lightline = {}
-    let g:lightline.colorscheme = 'hybrid'
-    autocmd MyAutoCmd VimEnter * call lightline#colorscheme()
+        "lightline入れてるからモードを表示させない
+        set noshowmode
+    "}}}
 
-    "lightline入れてるからモードを表示させない
-    set noshowmode
+    "TweetVim {{{
+        "<Space>tsでツイートバッファを表示
+        nnoremap <Space>ts :<C-u>TweetVimSay<CR>
 
+        "<Space>thでタイムラインを表示
+        nnoremap <Space>th :<C-u>TweetVimUserStream<CR>
 
-"}}}
-"==================================================================
-"TweetVim {{{
+        "セパレートを表示しない
+        let g:tweetvim_display_separator = 0
+    "}}}
 
-    "<Space>tsでツイートバッファを表示
-    nnoremap <Space>ts :<C-u>TweetVimSay<CR>
+    "VimSell {{{
+        "<Leader>sでVimShellを開く
+        nnoremap <silent><Leader>s :<C-u>VimShell<CR>
+    "}}}
 
-    "<Space>thでタイムラインを表示
-    nnoremap <Space>th :<C-u>TweetVimUserStream<CR>
+    "colorscheme {{{
+        "hybridを使用
+        if has('gui_running')
+            autocmd MyAutoCmd GUIEnter * colorscheme hybrid
+        else
+            colorscheme hybrid
+        endif
 
+        "日本語入力時のカーソル色を変更
+        if has('multi_byte_ime') || has('xim')
+            autocmd MyAutoCmd GUIEnter * highlight Cursor guifg=NONE guibg=#cc6666
+            autocmd MyAutoCmd GUIEnter * highlight CursorIM guifg=NONE guibg=#b5bd68
+        endif
+    "}}}
 
-"}}}
-"==================================================================
-"VimSell {{{
+    "vim-splash {{{
+        "splash.txtの場所
+        let g:splash#path = $HOME.'/dotfiles/splash.txt'
+    "}}}
 
-    "<Leader>sでVimShellを開く
-    nnoremap <silent><Leader>s :<C-u>VimShell<CR>
+    "vim-quickrun {{{
+        "Markdown用設定
+        let g:quickrun_config = {}
+        let g:quickrun_config.markdown = {
+              \ 'outputter' : 'null',
+              \ 'command'   : 'open',
+              \ 'cmdopt'    : '-a',
+              \ 'args'      : 'Marked',
+              \ 'exec'      : '%c %o %a %s',
+              \ }
+    "}}}
 
+    "Unite {{{
+        "バッファ一覧をUniteに置き換え
+        nnoremap B :<C-u>Unite<Space>buffer<CR>
+    "}}}
 
-"}}}
-"==================================================================
-"colorscheme {{{
+    "memo.vim {{{
+        "メモディレクトリを宣言
+        let g:memopath = '~/Dropbox/Memo/'
 
-    "hybridを使用
-    if has('gui_running')
-        autocmd MyAutoCmd GUIEnter * colorscheme hybrid
-    else
-        colorscheme hybrid
-    endif
+        "メモ一覧呼び出し
+        command! -nargs=0 MemoList :Unite memo -buffer-name=memo_list -winheight=10 -max-multi-lines=1
 
-    "日本語入力時のカーソル色を変更
-    if has('multi_byte_ime') || has('xim')
-        autocmd MyAutoCmd GUIEnter * highlight Cursor guifg=NONE guibg=#cc6666
-        autocmd MyAutoCmd GUIEnter * highlight CursorIM guifg=NONE guibg=#b5bd68
-    endif
+        "メモgrep
+        command! -nargs=0 MemoGrep :execute('Unite grep:' . g:memopath . ' -no-quit')
 
+        "メモ一覧呼び出しリマップ
+        nnoremap <F2> :MemoList<CR>
+    "}}}
 
-"}}}
-"==================================================================
+    "Log.vim {{{
+        "<Space>htで入力待機、<Space>ciで<center><i>～</i></center>に置換
+        nnoremap <Space>ht :<C-u>Htag 
+        nnoremap <silent><Space>ci :<C-u>Htag i\|Htag center<CR>
+
+        "<Space>imで標準置換、<Space>icでCC置換
+        nnoremap <silent><Space>im :<C-u>F2M NO<CR>
+        nnoremap <silent><Space>ic :<C-u>F2M CC<CR>
+    "}}}
 
 endif
 
