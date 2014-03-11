@@ -1,0 +1,26 @@
+update
+
+upgrade
+
+# Repository
+tap phinze/homebrew-cask || true
+tap homebrew/binary || true
+
+# install
+install fontforge
+install lua
+install vim --with-lua
+
+# cask install
+install brew-cask
+
+cask install skype
+cask install dropbox
+cask install fluid
+cask install iterm2
+cask install alfred
+cask install keyremap4macbook
+cask install hyperswitch
+cask install prepros
+
+clean
