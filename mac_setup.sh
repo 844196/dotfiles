@@ -7,10 +7,7 @@ ln -s $HOMW/dotfiles/.zshrc $HOME/.zshrc
 
 #Homebrew
 ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-brew update
-brew install fontforge
-brew install lua
-brew install vim --with-lua
+brew bundle
 
 #Ricty
 git clone https://github.com/yascentur/Ricty.git $HOME/Ricty
