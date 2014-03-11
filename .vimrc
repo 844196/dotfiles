@@ -401,6 +401,10 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     "Unite {{{
         "バッファ一覧をUniteに置き換え
         nnoremap B :<C-u>Unite<Space>buffer<CR>
+
+        "<Leader><Leader>でUnite file
+        nnoremap <Leader><Leader> :Unite file<CR>
+
     "}}}
 
     "Unite-outline {{{
