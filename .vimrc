@@ -56,11 +56,6 @@ if !has('gui_running')
     set t_Co=256
 endif
 
-"ターミナルの場合はdesertを使用
-if !has('gui_running')
-    colorscheme desert
-endif
-
 "スクロール時に5行を確保
 set scrolloff=10
 
@@ -123,6 +118,9 @@ if has('gui_running')
     endif
 endif
 
+"<C-Tab>でタブ切り替え
+nnoremap <C-Tab> gt
+
 
 "}}}
 "==================================================================
@@ -135,6 +133,10 @@ set expandtab
 "BackSpace押したらスペース4つ消せるよ
 set tabstop=4
 set shiftwidth=4
+
+"HTMLとCSSのときはインデントをスペース2つへ
+autocmd! MyAutoCmd FileType html setlocal tabstop=2 shiftwidth=2
+autocmd! MyAutoCmd FileType css setlocal tabstop=2 shiftwidth=2
 
 "新しい行を作った時に高度な自動インデントを行う
 set smarttab
@@ -210,12 +212,6 @@ imap "" ""<Left>
 imap '' ''<Left>
 imap <> <><Left>
 imap () ()<Left>
-
-"insert modeでjjでnormal modeへ
-inoremap jj <Esc>
-
-"<S-Space>でnormal modeへ
-inoremap <S-Space> <Esc>
 
 "insertモードを抜けるとIMEオフ
 if has('multi_byte_ime') || has('xim')
@@ -316,6 +312,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle 'thinca/vim-quickrun'
     NeoBundle 'thinca/vim-splash'
     NeoBundle 'Shougo/unite.vim'
+    NeoBundle 'nathanaelkane/vim-indent-guides'
+    NeoBundle 'h1mesuke/unite-outline'
+    NeoBundle 'Shougo/neocomplete.vim'
 
     "自作
     NeoBundle 'memo.vim', {
@@ -360,6 +359,11 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     "VimSell {{{
         "<Leader>sでVimShellを開く
         nnoremap <silent><Leader>s :<C-u>VimShell<CR>
+
+        "プロンプトを標識に
+        let g:prompt = "(๑•﹏•) "
+        let g:vimshell_prompt_expr = 'g:prompt.getcwd()." $ "'
+        let g:vimshell_prompt_pattern = '^(๑•﹏•)\ \f\+ $ '
     "}}}
 
     "colorscheme {{{
@@ -399,6 +403,11 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         nnoremap B :<C-u>Unite<Space>buffer<CR>
     "}}}
 
+    "Unite-outline {{{
+        "アウトラインのインデントを4つへ
+        let g:unite_source_outline_indent_width = 4
+    "}}}
+
     "memo.vim {{{
         "メモディレクトリを宣言
         let g:memopath = '~/Dropbox/Memo/'
@@ -415,6 +424,27 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         "<Space>imで標準置換、<Space>icでCC置換
         nnoremap <silent><Space>im :<C-u>F2M NO<CR>
         nnoremap <silent><Space>ic :<C-u>F2M CC<CR>
+    "}}}
+
+    "vim-indent-guides {{{
+        "ガイドラインの色を変更
+        let g:indent_guides_auto_colors=0
+        autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
+        autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
+
+        "ガイドラインの大きさを1に変更
+        let g:indent_guides_guide_size=1
+
+        "<F5>でガイドの表示切り替え
+        nnoremap <silent><F5> :IndentGuidesToggle<CR>
+    "}}}
+
+    "neocomplete {{{
+        "Vim起動時から補完スタート
+        let g:neocomplete#enable_at_startup = 1
+
+        "<F4>で補完切り替え
+        nnoremap <F4> :NeoCompleteToggle<CR>
     "}}}
 
 endif
