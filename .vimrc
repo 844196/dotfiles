@@ -197,10 +197,6 @@ set splitright
 noremap <CR> o<ESC>
 noremap <S-CR> O<ESC>
 
-";と:を入れ替える
-nnoremap : ;
-nnoremap ; :
-
 "<Space>でコマンドライン
 nnoremap <Space> :<C-u>
 vnoremap <Space> :<C-u>

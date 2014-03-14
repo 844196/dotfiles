@@ -10,6 +10,8 @@ tap homebrew/binary || true
 install fontforge
 install lua
 install vim --with-lua
+install tmux
+install reattach-to-user-namespace
 
 # cask install
 install brew-cask
