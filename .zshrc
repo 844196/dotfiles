@@ -26,6 +26,17 @@ SPROMPT="%B%F{red}(๑•﹏•)%f%b < もしかして %r ? [n, y, a, e]:"
 # /usr/binより/usr/local/binを優先
 export PATH=/usr/local/bin:$PATH
 
+# 重複パスを登録しない
+typeset -U path cdpath fpath manpath
+
+## sudo用のpathを設定
+typeset -xT SUDO_PATH sudo_path
+typeset -U sudo_path
+sudo_path=({/usr/local,/usr,}/sbin(N-/))
+
+# pathを設定
+path=(~/bin(N-/) /usr/local/bin(N-/) ${path})
+
 # リロード
 alias reload="source ~/.zshrc"
 
@@ -49,5 +60,3 @@ function pcolor() {
     done
     echo
 } 
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

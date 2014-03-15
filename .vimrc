@@ -157,6 +157,9 @@ set nowrapscan
 "検索結果のハイライトをEsc連打でクリアする
 nnoremap <ESC><ESC> :nohlsearch<CR>
 
+"大文字、小文字を区別しない
+set ignorecase
+
 
 "}}}
 "==================================================================
@@ -400,6 +403,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
         "<Leader><Leader>でUnite file
         nnoremap <Leader><Leader> :Unite file<CR>
+
+        "インサートモードオン
+        let g:unite_enable_start_insert = 1
 
     "}}}
 

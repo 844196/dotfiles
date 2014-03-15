@@ -1,17 +1,18 @@
-#/bin/sh
+#!/bin/sh
 cityname='Monbetsu'
-unit="°C"
 
-get=$(curl http://api.openweathermap.org/data/2.5/weather?q=$cityname,jp\&units=metric\&lang=en 2>/dev/null | jq '.name, .weather[].icon, .main.temp, .main.temp_max, .main.temp_min, .wind.speed')
+unit='°C'
+LF=$(printf '\\\\012')
 
-IFS='\
-    '
-set -- $get
+get=$(curl "http://api.openweathermap.org/data/2.5/weather?q=$cityname,jp&units=metric&lang=en" 2>/dev/null | sed -e 's/,/'"$LF"'/g' -e 's/"//g' -e 's/{//g' -e 's/}//g' -e 's/\[//g' -e 's/\]//g')
 
-location=$(echo $1 | sed -e 's/"//g')
-cond=$(echo $2 | sed -e 's/"//g')
-wind="⚐"$6"m"
+location=`echo $get | grep -e 'name:' | sed -e 's/name://'`
+temp=`echo $get | grep -e 'main:temp:' | sed -e 's/main:temp://'`
+tempmax=`echo $get | grep -e 'temp_max:' | sed -e 's/temp_max://'`
+tempmin=`echo $get | grep -e 'temp_min:' | sed -e 's/temp_min://'`
+wind=`echo $get | grep -e 'wind:speed:' | sed -e 's/wind:speed://'`
 
+cond=`echo $get | grep -e 'icon:' | sed -e 's/icon://'`
 case $cond in
     '01d'|'01n'|'02d'|'02n')
         sign='☀ ';;
@@ -27,4 +28,4 @@ case $cond in
         sign='?';;
 esac
 
-echo "$location\n$sign\n$3$unit\n$4$unit\n$5$unit\n$wind">$HOME/.weather
+echo "$location\n$sign\n$temp$unit\n$tempmax$unit\n$tempmin$unit\n⚐${wind}m" >$HOME/.weather
