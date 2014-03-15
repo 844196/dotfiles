@@ -1,14 +1,34 @@
 <?xml version="1.0"?>
 <root>
-	<item>
-		<name>CONTROL_L+m to Enter</name>
-		<identifier>option.enter.option_n</identifier>
-		<autogen>__KeyToKey__ KeyCode::M, ModifierFlag::CONTROL_L, KeyCode::RETURN</autogen>
-	</item>
+    <appdef>
+        <appname>iTERM2</appname>
+        <equal>com.googlecode.iterm2</equal>
+    </appdef>
+    <appdef>
+        <appname>MACVIM</appname>
+        <equal>org.vim.MacVim</equal>
+    </appdef>
 
-	<item>
-		<name>CONTROL_L+o to F8</name>
-		<identifier>option.F8.option_h</identifier>
-		<autogen>__KeyToKey__ KeyCode::O, ModifierFlag::CONTROL_L, KeyCode::F8</autogen>
-	</item>
+
+    <item>
+        <name>CONTROL_L+m to Enter</name>
+        <identifier>option.enter.option_n</identifier>
+        <autogen>__KeyToKey__ KeyCode::M, ModifierFlag::CONTROL_L, KeyCode::RETURN</autogen>
+    </item>
+
+    <item>
+        <name>CONTROL_L+o to F8</name>
+        <identifier>option.F8.option_h</identifier>
+        <autogen>__KeyToKey__ KeyCode::O, ModifierFlag::CONTROL_L, KeyCode::F8</autogen>
+    </item>
+
+    <item>
+        <name>Leave Insert Mode with EISUU (vim keybind apps)</name>
+        <identifier>private.vim_keybind_apps_esc_with_eisuu</identifier>
+        <only>iTERM2,TERMINAL,MACVIM</only>
+        <autogen>--KeyToKey-- KeyCode::ESCAPE, KeyCode::ESCAPE, KeyCode::JIS_EISUU</autogen>
+        <autogen>--KeyToKey-- KeyCode::BRACKET_LEFT, VK_CONTROL, KeyCode::BRACKET_LEFT, VK_CONTROL, KeyCode::JIS_EISUU</autogen>
+    </item>
+
+
 </root>
