@@ -2,6 +2,7 @@
 autoload -U compinit; compinit
 setopt -U auto_cd
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+setopt pushd_ignore_dups
 
 setopt auto_menu
 zstyle ':completion:*:default' menu select=1
@@ -17,7 +18,7 @@ setopt correct
 # ひょうしき
 #PROMPT="%B%F{green}(๑•﹏•)%f%b %# "
 PROMPT="%B%F{green}(๑•﹏•)%f%b %/%\ $ "
-SPROMPT="%B%F{red}(๑•﹏•)%f%b < もしかして %r ? [n, y, a, e]:"
+SPROMPT="%B%F{red}(๑•﹏•)%f%b < もしかして %r ? [y, n, a, e]:"
 
 # 右プロンプトにディレクトリを表示
 #RPROMPT="[%~%\]"
