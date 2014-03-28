@@ -24,6 +24,3 @@ sh ricty_generator.sh Inconsolata.otf migu-1m-regular.ttf migu-1m-bold.ttf
 cp Ricty*.ttf $HOME/Library/Fonts/
 cd $HOME
 rm -rf $HOME/Ricty
-
-#zsh
-chsh -s /bin/zsh

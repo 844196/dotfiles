@@ -1,0 +1,20 @@
+#!/bin/sh
+
+quotes=(`cat "$HOME/dotfiles/shellscript/sachikosay_quotes.txt" | sed -e "s/○○/$USER/g" -e "s/プロデューサー/$USER/g"`)
+i=`expr $RANDOM % \( ${#quotes[@]} - 1 \)`
+cnt=`expr ${#quotes[$i]} - 24`
+
+echo "\n${quotes[$i]}\n"
+printf '￣￣￣￣￣￣￣￣￣￣￣＼／￣￣￣￣￣￣￣￣￣￣￣'
+if test $cnt -gt 0; then for e in `seq $cnt`; do printf '￣'; done; fi
+sachiko="\
+
+                     , -――- 、
+                  ／          ヽ、
+                /爻ﾉﾘﾉﾊﾉﾘlﾉ ゝ  l
+             ＜ﾉﾘﾉ‐'    ｰ  ﾘ ＞ }
+                l ﾉ ┃    ┃ l ﾉ  ﾉ
+                l人   r‐┐   !ﾉ＾)
+                   ゝ \` ´ ‐＜´
+"
+echo "$sachiko"

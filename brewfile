@@ -12,6 +12,9 @@ install lua
 install vim --with-lua
 install tmux
 install reattach-to-user-namespace
+install jq
+install ruby
+install zsh
 
 # cask install
 install brew-cask

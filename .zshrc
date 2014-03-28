@@ -26,6 +26,7 @@ SPROMPT="%B%F{red}(๑•﹏•)%f%b < もしかして %r ? [y, n, a, e]:"
 
 # /usr/binより/usr/local/binを優先
 export PATH=/usr/local/bin:$PATH
+export PATH=$HOME/dotfiles/shellscript:$PATH
 
 # 重複パスを登録しない
 typeset -U path cdpath fpath manpath
@@ -60,4 +61,8 @@ function pcolor() {
         fi
     done
     echo
-} 
+}
+
+# weather.sh用環境変数
+export LOCATION='Monbetsu'
+export TMP=$HOME/.tmp

@@ -49,6 +49,32 @@ if !exists(':Htag')
 endif
 
 
+"メモ作成
+function! s:create_log_post()
+    let s:title = input('Title: ')
+
+    let s:filename = g:logpath . strftime('%Y-%m-%d-') . s:title . '.md'
+
+    let s:template = [
+                \'---',
+                \'layout: post',
+                \'title: ' . s:title,
+                \'---',
+                \'',
+                \'',
+                \]
+
+    execute 'new ' . s:filename
+    call setline(1, s:template)
+    execute '999'
+    execute 'write'
+endfunction
+
+command! -nargs=0 LogNew call s:create_log_post()
+
+command! -nargs=0 LogGrep :execute('Unite grep:' . g:logpath . ' -no-quit')
+
+
 "読み込み前の&cpoの値を読み込み
 let &cpo = s:save_cpo
 "作業用変数を削除
