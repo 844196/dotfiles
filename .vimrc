@@ -169,7 +169,7 @@ set ignorecase
 autocmd MyAutoCmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 
 " tmpファイル
-command! -nargs=1 -complete=filetype Tmp edit ~/tmp.<args>
+command! -nargs=1 -complete=filetype Tmp edit $TMP/tmp.<args>
 nnoremap <F2> :<C-u>Tmp md<CR>
 
 "}}}
@@ -430,6 +430,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         "<Space>imで標準置換、<Space>icでCC置換
         nnoremap <silent><Space>im :<C-u>F2M NO<CR>
         nnoremap <silent><Space>ic :<C-u>F2M CC<CR>
+
+        "メモディレクトリを宣言
+        let g:logpath = '~/Dropbox/Log/_posts/'
     "}}}
 
     "vim-indent-guides {{{
