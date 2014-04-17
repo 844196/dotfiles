@@ -107,19 +107,11 @@ if has('gui_running')
     autocmd MyAutoCmd GUIEnter * set guioptions=NONE
 endif
 
-"<Right>でウィンドウを右に伸ばす <Left>で戻す
-if has('gui_running')
-    if has('kaoriya')
-        nnoremap <silent><Right> :<C-u>SM 2<CR>
-        nnoremap <silent><Left> :<C-u>SM 0<CR>
-    else
-        nnoremap <silent><Right> :<C-u>set columns=161<CR>
-        nnoremap <silent><Left> :<C-u>set columns=80<CR>
-    endif
-endif
-
 "<C-Tab>でタブ切り替え
 nnoremap <C-Tab> gt
+
+"stで新しいタブ
+nnoremap st :tabnew<CR>
 
 
 "}}}
@@ -238,8 +230,11 @@ nnoremap B :<C-u>ls<CR>:b
 nnoremap J gJ
 nnoremap gJ J
 
-":qを:bdに置き換え
-cnoreabbrev <expr> q 'bd'
+"方向キーでバッファの大きさを変える
+nnoremap <Right> <C-w>>
+nnoremap <Left> <C-w><
+nnoremap <Up> <C-w>+
+nnoremap <Down> <C-w>-
 
 
 "}}}
@@ -329,6 +324,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle 'altercation/vim-colors-solarized'
     NeoBundle 'w0ng/vim-hybrid'
     NeoBundle 'cocopon/lightline-hybrid.vim'
+    NeoBundle 'ujihisa/unite-colorscheme'
 
     "事後
     filetype plugin indent on
@@ -351,8 +347,20 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         "<Space>thでタイムラインを表示
         nnoremap <Space>th :<C-u>TweetVimUserStream<CR>
 
-        "セパレートを表示しない
-        let g:tweetvim_display_separator = 0
+        "空文字セパレートを表示
+        let g:tweetvim_display_separator = 1
+        let g:tweetvim_empty_separator = 1
+
+        "スクリーンネームを表示
+        let g:tweetvim_display_username = 1
+
+        "アイコンを表示
+        if has('MacVim')
+            " 1.環境設定→詳細→`Core Textレンダラを使用する`をオフにしてMacVim.appを終了させる
+            " 2.MacVim.appを開きなおして、`Core Text〜`をオンにしてもっかい終了
+            " 3.最後に開き直すと表示される。
+            let g:tweetvim_display_icon = 1
+        endif
     "}}}
 
     "VimSell {{{
@@ -423,9 +431,11 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     "}}}
 
     "Log.vim {{{
-        "<Space>htで入力待機、<Space>ciで<center><i>～</i></center>に置換
+        "<Space>htで入力待機
         nnoremap <Space>ht :<C-u>Htag 
-        nnoremap <silent><Space>ci :<C-u>Htag i\|Htag center<CR>
+
+        "<space>ciで<div class="caption"></div>を挿入
+        nnoremap <silent><Space>ci :<C-u>LogCaption<CR>
 
         "<Space>imで標準置換、<Space>icでCC置換
         nnoremap <silent><Space>im :<C-u>F2M NO<CR>
