@@ -312,6 +312,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle 'nathanaelkane/vim-indent-guides'
     NeoBundle 'h1mesuke/unite-outline'
     NeoBundle 'Shougo/neocomplete.vim'
+    NeoBundle 'mattn/emmet-vim'
 
     "自作
     NeoBundle 'memo.vim', {
@@ -468,6 +469,14 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         "<F4>で補完切り替え
         nnoremap <F4> :NeoCompleteToggle<CR>
     "}}}
+
+    "emmet-vim {{{
+        "スニペット言語設定
+        let g:user_emmet_settings = {
+                \ 'lang' : 'ja'
+                \ }
+    "}}}
+
 
 endif
 
