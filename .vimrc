@@ -398,15 +398,22 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     "}}}
 
     "vim-quickrun {{{
-        "Markdown用設定
         let g:quickrun_config = {}
-        let g:quickrun_config.markdown = {
-              \ 'outputter' : 'null',
-              \ 'command'   : 'open',
-              \ 'cmdopt'    : '-a',
-              \ 'args'      : 'Marked',
-              \ 'exec'      : '%c %o %a %s',
-              \ }
+        let g:quickrun_config = {
+                    \   "_" : {
+                    \       "outputter/buffer/split" : ":botright 8sp",
+                    \       "outputter/buffer/close_on_empty" : 1,
+                    \       "runner" : "vimproc",
+                    \       "runner/vimproc/updatetime" : 60
+                    \   },
+                    \   "markdown" : {
+                    \       "outputter" : "null",
+                    \       "command"   : "open",
+                    \       "cmdopt"    : "-a",
+                    \       "args"      : "Marked",
+                    \       "exec"      : "%c %o %a %s",
+                    \   },
+                    \ }
     "}}}
 
     "Unite {{{
