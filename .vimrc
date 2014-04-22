@@ -152,6 +152,10 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 "大文字、小文字を区別しない
 set ignorecase
 
+"検索語句を画面中央に
+nnoremap n nzz
+nnoremap N Nzz
+
 
 "}}}
 "==================================================================
@@ -161,8 +165,7 @@ set ignorecase
 autocmd MyAutoCmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 
 " tmpファイル
-command! -nargs=1 -complete=filetype Tmp edit $TMP/tmp.<args>
-nnoremap <F2> :<C-u>Tmp md<CR>
+command! -nargs=1 -complete=filetype Tmp edit $HOME/tmp.<args>
 
 "}}}
 "==================================================================
@@ -355,7 +358,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         let g:tweetvim_display_username = 1
 
         "アイコンを表示
-        if has('MacVim')
+        if has('gui_running') || has('mac')
             " 1.環境設定→詳細→`Core Textレンダラを使用する`をオフにしてMacVim.appを終了させる
             " 2.MacVim.appを開きなおして、`Core Text〜`をオンにしてもっかい終了
             " 3.最後に開き直すと表示される。
