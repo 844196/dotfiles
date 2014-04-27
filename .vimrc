@@ -333,6 +333,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle 'w0ng/vim-hybrid'
     NeoBundle 'cocopon/lightline-hybrid.vim'
     NeoBundle 'ujihisa/unite-colorscheme'
+    NeoBundle 'tomasr/molokai'
+    NeoBundle 'morhetz/gruvbox'
+    NeoBundle 'sjl/badwolf'
 
     "事後
     filetype plugin indent on
