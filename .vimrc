@@ -323,6 +323,10 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         \ 'base' : '~/dotfiles/vimscript',
         \ 'type' : 'nosync'
         \ }
+    NeoBundle 'lightline-badwolf.vim', {
+        \ 'base' : '~/dotfiles/vimscript',
+        \ 'type' : 'nosync'
+        \ }
 
     "カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
@@ -337,7 +341,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     "lightline.vim {{{
         "hybridテーマを使用
         let g:lightline = {}
-        let g:lightline.colorscheme = 'hybrid'
+        let g:lightline.colorscheme = 'badwolf'
         autocmd MyAutoCmd VimEnter * call lightline#colorscheme()
 
         "lightline入れてるからモードを表示させない
@@ -380,9 +384,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     "colorscheme {{{
         "hybridを使用
         if has('gui_running')
-            autocmd MyAutoCmd GUIEnter * colorscheme hybrid
+            autocmd MyAutoCmd GUIEnter * colorscheme badwolf
         else
-            colorscheme hybrid
+            colorscheme badwolf
         endif
 
         "日本語入力時のカーソル色を変更
