@@ -92,7 +92,7 @@ endif
 if s:iswin
     autocmd MyAutoCmd GUIEnter * set guifont=MS_Gothic:h11:cSHIFTJIS
 elseif s:ismac
-    autocmd MyAutoCmd GUIEnter * set guifont=Ricty\ Regular:h17
+    autocmd MyAutoCmd GUIEnter * set guifont=Ricty\ Regular\ for\ Powerline:h17
 elseif s:isunix
     autocmd MyAutoCmd GUIEnter * set guifont=DejaVu\ Sans\ Mono\ 11
 endif
@@ -344,7 +344,17 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     "lightline.vim {{{
         "hybridテーマを使用
         let g:lightline = {}
-        let g:lightline.colorscheme = 'badwolf'
+        let g:lightline = {
+                    \ 'colorscheme' : 'badwolf',
+                    \ 'separator' : {
+                            \ 'left' : "⮀",
+                            \ 'right' : "⮂"
+                            \ },
+                    \ 'subseparator' : {
+                            \ 'left' : "⮁",
+                            \ 'right' : "⮃"
+                            \ }
+                    \ }
         autocmd MyAutoCmd VimEnter * call lightline#colorscheme()
 
         "lightline入れてるからモードを表示させない
