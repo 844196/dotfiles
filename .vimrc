@@ -172,7 +172,7 @@ command! -nargs=1 -complete=filetype Tmp edit $HOME/tmp.<args>
 "レジスタ・クリップボード設定 {{{
 
 "内容確認
-nnoremap R :<C-u>registers<CR>
+"nnoremap R :<C-u>registers<CR>
 
 "クリップボード連携
 if has('gui_running')
