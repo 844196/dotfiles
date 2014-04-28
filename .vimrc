@@ -323,10 +323,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         \ 'base' : '~/dotfiles/vimscript',
         \ 'type' : 'nosync'
         \ }
-    NeoBundle 'lightline-badwolf.vim', {
-        \ 'base' : '~/dotfiles/vimscript',
-        \ 'type' : 'nosync'
-        \ }
 
     "カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
@@ -337,6 +333,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle 'morhetz/gruvbox'
     NeoBundle 'sjl/badwolf'
     NeoBundle 'cocopon/colorswatch.vim'
+    NeoBundle '844196/lightline-badwolf.vim'
 
     "事後
     filetype plugin indent on
