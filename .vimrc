@@ -285,7 +285,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
     "NeoBundleを初期化
     "この関数は自動的にfiletype offを行う
-    call neobundle#rc(expand('~/.vim/bundle/'))
+    call neobundle#begin(expand('~/.vim/bundle/'))
 
     "NeoBundle自体
     NeoBundleFetch 'Shougo/neobundle.vim'
@@ -337,6 +337,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle '844196/lightline-badwolf.vim'
 
     "事後
+    call neobundle#end()
     filetype plugin indent on
 
 
