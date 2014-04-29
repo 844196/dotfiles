@@ -111,7 +111,7 @@ endif
 nnoremap <C-Tab> gt
 
 "stで新しいタブ
-nnoremap st :tabnew<CR>
+nnoremap <Space>st :tabnew<CR>
 
 
 "}}}
