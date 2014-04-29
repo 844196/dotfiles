@@ -278,13 +278,14 @@ nnoremap <F1> :<C-u>edit ~/DropBox/Memo/ToDo.md<CR>
 "NeoBundleがある時だけ以下を読み込み
 if glob('~/.vim/bundle/neobundle.vim') != ''
 
-    "初期化
-    filetype off
-
+    "runtimepathを追加
     if has('vim_starting')
         set runtimepath+=~/.vim/bundle/neobundle.vim/
-        call neobundle#rc(expand('~/.vim/bundle/'))
     endif
+
+    "NeoBundleを初期化
+    "この関数は自動的にfiletype offを行う
+    call neobundle#rc(expand('~/.vim/bundle/'))
 
     "NeoBundle自体
     NeoBundleFetch 'Shougo/neobundle.vim'
