@@ -283,7 +283,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         set runtimepath+=~/.vim/bundle/neobundle.vim/
     endif
 
-    "NeoBundleを初期化
+    "プラグイン読み込み開始
     "この関数は自動的にfiletype offを行う
     call neobundle#begin(expand('~/.vim/bundle/'))
 
@@ -336,8 +336,10 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle 'cocopon/colorswatch.vim'
     NeoBundle '844196/lightline-badwolf.vim'
 
-    "事後
+    "プラグイン読み込み終了
     call neobundle#end()
+
+    "よく分かんなかったです（無知）
     filetype plugin indent on
 
 
