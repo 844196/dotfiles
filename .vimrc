@@ -340,6 +340,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     "プラグイン読み込み終了
     call neobundle#end()
 
+    "未導入プラグインチェック
+    NeoBundleCheck
+
     "よく分かんなかったです（無知）
     filetype plugin indent on
 
