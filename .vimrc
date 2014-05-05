@@ -344,7 +344,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
 
     "lightline.vim {{{
-        "hybridテーマを使用
         let g:lightline = {}
         let g:lightline.component_function = {}
         let g:lightline = {
