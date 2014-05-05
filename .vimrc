@@ -314,6 +314,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle 'h1mesuke/unite-outline'
     NeoBundle 'Shougo/neocomplete.vim'
     NeoBundle 'mattn/emmet-vim'
+    NeoBundle 'tpope/vim-fugitive'
 
     "自作
     NeoBundle 'memo.vim', {
