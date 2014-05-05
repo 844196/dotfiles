@@ -1,12 +1,10 @@
 "==================================================================
 "基本設定 {{{
 
-"vi互換をオフする
-set nocompatible
-
-"スワップ・バックアップを作成しない
+"スワップ・バックアップ・アンドゥファイルを作成しない
 set noswapfile
 set nobackup
+set noundofile
 
 "augroup設定
 augroup MyAutoCmd
@@ -112,6 +110,15 @@ nnoremap <C-Tab> gt
 
 "stで新しいタブ
 nnoremap <Space>st :tabnew<CR>
+
+"iTermでインサートモード時、カーソルを正しく変形させる
+if exists('$TMUX')
+        let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+        let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+    else
+        let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+        let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 
 
 "}}}
@@ -239,6 +246,9 @@ nnoremap <Left> <C-w><
 nnoremap <Up> <C-w>+
 nnoremap <Down> <C-w>-
 
+"<BS>で行末やインサート開始前の文字列を消せられる
+set backspace=indent,eol,start
+
 
 "}}}
 "==================================================================
@@ -314,6 +324,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle 'h1mesuke/unite-outline'
     NeoBundle 'Shougo/neocomplete.vim'
     NeoBundle 'mattn/emmet-vim'
+    NeoBundle 'tpope/vim-fugitive'
 
     "自作
     NeoBundle 'memo.vim', {
@@ -339,24 +350,45 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     "プラグイン読み込み終了
     call neobundle#end()
 
+    "未導入プラグインチェック
+    NeoBundleCheck
+
     "よく分かんなかったです（無知）
     filetype plugin indent on
 
 
     "lightline.vim {{{
-        "hybridテーマを使用
         let g:lightline = {}
+        let g:lightline.component_function = {}
         let g:lightline = {
-                    \ 'colorscheme' : 'badwolf',
-                    \ 'separator' : {
-                            \ 'left' : "⮀",
-                            \ 'right' : "⮂"
-                            \ },
-                    \ 'subseparator' : {
-                            \ 'left' : "⮁",
-                            \ 'right' : "⮃"
-                            \ }
-                    \ }
+            \ 'colorscheme' : 'badwolf',
+            \ 'separator' : {
+            \   'left' : "⮀",
+            \   'right' : "⮂"
+            \   },
+            \ 'subseparator' : {
+            \   'left' : "⮁",
+            \   'right' : "⮃"
+            \   },
+            \ 'component_function' : {
+            \   'fugitive' : 'LightlineFugitive',
+            \   },
+            \ 'active' : {
+            \   'left' : [ ['mode', 'paste'], ['readonly', 'fugitive', 'relativepath', 'modified'] ]
+            \   },
+            \ }
+
+        "Gitブランチを表示
+        let g:lightline.component_function.fugitive = 'LightlineFugitive'
+        function! LightlineFugitive()
+            if exists("*fugitive#head")
+                let _ = fugitive#head()
+                return strlen(_) ? '⭠ '._ : ''
+            endif
+            return ''
+        endfunction
+
+        "ステータスラインカラースキーム読み込み
         autocmd MyAutoCmd VimEnter * call lightline#colorscheme()
 
         "lightline入れてるからモードを表示させない
