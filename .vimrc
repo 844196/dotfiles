@@ -4,9 +4,10 @@
 "vi互換をオフする
 set nocompatible
 
-"スワップ・バックアップを作成しない
+"スワップ・バックアップ・アンドゥファイルを作成しない
 set noswapfile
 set nobackup
+set noundofile
 
 "augroup設定
 augroup MyAutoCmd
