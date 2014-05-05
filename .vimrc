@@ -347,22 +347,22 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         let g:lightline = {}
         let g:lightline.component_function = {}
         let g:lightline = {
-                    \ 'colorscheme' : 'badwolf',
-                    \ 'separator' : {
-                            \ 'left' : "⮀",
-                            \ 'right' : "⮂"
-                            \ },
-                    \ 'subseparator' : {
-                            \ 'left' : "⮁",
-                            \ 'right' : "⮃"
-                            \ },
-                    \ 'component_function' : {
-                            \ 'fugitive' : 'LightlineFugitive',
-                            \ },
-                    \ 'active' : {
-                            \ 'left' : [ ['mode', 'paste'], ['readonly', 'fugitive', 'relativepath', 'modified'] ]
-                            \ },
-                    \ }
+            \ 'colorscheme' : 'badwolf',
+            \ 'separator' : {
+            \   'left' : "⮀",
+            \   'right' : "⮂"
+            \   },
+            \ 'subseparator' : {
+            \   'left' : "⮁",
+            \   'right' : "⮃"
+            \   },
+            \ 'component_function' : {
+            \   'fugitive' : 'LightlineFugitive',
+            \   },
+            \ 'active' : {
+            \   'left' : [ ['mode', 'paste'], ['readonly', 'fugitive', 'relativepath', 'modified'] ]
+            \   },
+            \ }
 
         "Gitブランチを表示
         let g:lightline.component_function.fugitive = 'LightlineFugitive'
