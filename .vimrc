@@ -346,6 +346,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     "lightline.vim {{{
         "hybridテーマを使用
         let g:lightline = {}
+        let g:lightline.component_function = {}
         let g:lightline = {
                     \ 'colorscheme' : 'badwolf',
                     \ 'separator' : {
@@ -355,8 +356,26 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                     \ 'subseparator' : {
                             \ 'left' : "⮁",
                             \ 'right' : "⮃"
-                            \ }
+                            \ },
+                    \ 'component_function' : {
+                            \ 'fugitive' : 'LightlineFugitive',
+                            \ },
+                    \ 'active' : {
+                            \ 'left' : [ ['mode', 'paste'], ['readonly', 'fugitive', 'relativepath', 'modified'] ]
+                            \ },
                     \ }
+
+        "Gitブランチを表示
+        let g:lightline.component_function.fugitive = 'LightlineFugitive'
+        function! LightlineFugitive()
+            if exists("*fugitive#head")
+                let _ = fugitive#head()
+                return strlen(_) ? '⭠ '._ : ''
+            endif
+            return ''
+        endfunction
+
+        "ステータスラインカラースキーム読み込み
         autocmd MyAutoCmd VimEnter * call lightline#colorscheme()
 
         "lightline入れてるからモードを表示させない
