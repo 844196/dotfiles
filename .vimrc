@@ -237,6 +237,9 @@ nnoremap <Left> <C-w><
 nnoremap <Up> <C-w>+
 nnoremap <Down> <C-w>-
 
+"<BS>で行末やインサート開始前の文字列を消せられる
+set backspace=indent,eol,start
+
 
 "}}}
 "==================================================================
