@@ -20,9 +20,12 @@ setopt correct
 PROMPT="%B%F{green}(๑•﹏•)%f%b %/%\ $ "
 SPROMPT="%B%F{red}(๑•﹏•)%f%b < もしかして %r ? [y, n, a, e]:"
 
-# 右プロンプトにディレクトリを表示
-#RPROMPT="[%~%\]"
-#setopt transient_rprompt
+# 右プロンプトにGitブランチを表示
+RPROMPT=%F{239}$'`get-branch-name`'%f
+setopt prompt_subst
+function get-branch-name {
+    echo `git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1]/'`
+}
 
 # /usr/binより/usr/local/binを優先
 export PATH=/usr/local/bin:$PATH
