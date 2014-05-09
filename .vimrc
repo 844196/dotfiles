@@ -303,61 +303,75 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     "プラグイン
     NeoBundle 'itchyny/lightline.vim'
     NeoBundle 'lilydjwg/colorizer'
+    NeoBundle 'Shougo/vimshell.vim', {
+                \ 'depends' : [ 'Shougo/vimproc' ]
+                \ }
     NeoBundle 'Shougo/vimproc', {
-          \ 'build' : {
-          \     'windows' : 'make -f make_mingw32.mak',
-          \     'cygwin' : 'make -f make_cygwin.mak',
-          \     'mac' : 'make -f make_mac.mak',
-          \     'unix' : 'make -f make_unix.mak',
-          \    },
-          \ }
-    NeoBundle 'Shougo/vimshell.vim'
-    NeoBundle 'ujihisa/vimshell-ssh'
-    NeoBundle 'basyura/TweetVim'
-    NeoBundle 'tyru/open-browser.vim'
-    NeoBundle 'basyura/twibill.vim'
-    NeoBundle 'mattn/webapi-vim'
+                \ 'build' : {
+                \     'windows' : 'make -f make_mingw32.mak',
+                \     'cygwin' : 'make -f make_cygwin.mak',
+                \     'mac' : 'make -f make_mac.mak',
+                \     'unix' : 'make -f make_unix.mak'
+                \     }
+                \ }
+    NeoBundle 'basyura/TweetVim', {
+                \ 'depends' : [
+                \     'tyru/open-browser.vim',
+                \     'basyura/twibill.vim',
+                \     'mattn/webapi-vim'
+                \     ]
+                \ }
     NeoBundle 'thinca/vim-quickrun'
     NeoBundle 'thinca/vim-splash'
     NeoBundle 'Shougo/unite.vim'
     NeoBundle 'nathanaelkane/vim-indent-guides'
-    NeoBundle 'h1mesuke/unite-outline'
     NeoBundle 'Shougo/neocomplete.vim'
     NeoBundle 'mattn/emmet-vim'
     NeoBundle 'tpope/vim-fugitive'
 
     "自作
     NeoBundle 'memo.vim', {
-        \ 'base' : '~/dotfiles/vimscript',
-        \ 'type' : 'nosync'
-        \ }
+                \ 'base' : '~/dotfiles/vimscript',
+                \ 'type' : 'nosync'
+                \ }
     NeoBundle 'Log.vim', {
-        \ 'base' : '~/dotfiles/vimscript',
-        \ 'type' : 'nosync'
-        \ }
+                \ 'base' : '~/dotfiles/vimscript',
+                \ 'type' : 'nosync'
+                \ }
 
     "カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
     NeoBundle 'w0ng/vim-hybrid'
-    NeoBundle 'cocopon/lightline-hybrid.vim'
+    NeoBundle 'cocopon/lightline-hybrid.vim', {
+                \ 'depends' : [
+                \       'itchyny/lightline.vim',
+                \       'w0ng/vim-hybrid'
+                \       ]
+                \ }
     NeoBundle 'ujihisa/unite-colorscheme'
     NeoBundle 'tomasr/molokai'
     NeoBundle 'morhetz/gruvbox'
     NeoBundle 'sjl/badwolf'
     NeoBundle 'cocopon/colorswatch.vim'
-    NeoBundle '844196/lightline-badwolf.vim'
+    NeoBundle '844196/lightline-badwolf.vim', {
+                \ 'depends' : [
+                \       'itchyny/lightline.vim',
+                \       'sjl/badwolf'
+                \       ]
+                \ }
 
     "プラグイン読み込み終了
     call neobundle#end()
 
-    "未導入プラグインチェック
-    NeoBundleCheck
-
     "よく分かんなかったです（無知）
     filetype plugin indent on
 
+    "未導入プラグインチェック
+    NeoBundleCheck
+
 
     "lightline.vim {{{
+    if neobundle#tap('lightline.vim')
         let g:lightline = {}
         let g:lightline.component_function = {}
         let g:lightline = {
@@ -393,9 +407,13 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
         "lightline入れてるからモードを表示させない
         set noshowmode
+
+        call neobundle#untap()
+    endif
     "}}}
 
     "TweetVim {{{
+    if neobundle#tap('TweetVim')
         "<Space>tsでツイートバッファを表示
         nnoremap <Space>ts :<C-u>TweetVimSay<CR>
 
@@ -416,9 +434,13 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             " 3.最後に開き直すと表示される。
             let g:tweetvim_display_icon = 1
         endif
+
+        call neobundle#untap()
+    endif
     "}}}
 
     "VimSell {{{
+    if neobundle#tap('vimshell.vim')
         "<Leader>sでVimShellを開く
         nnoremap <silent><Leader>s :<C-u>VimShell<CR>
 
@@ -426,10 +448,13 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         let g:prompt = "(๑•﹏•) "
         let g:vimshell_prompt_expr = 'g:prompt.getcwd()." $ "'
         let g:vimshell_prompt_pattern = '^(๑•﹏•)\ \f\+ $ '
+
+        call neobundle#untap()
+    endif
     "}}}
 
     "colorscheme {{{
-        "hybridを使用
+    if neobundle#tap('badwolf')
         if has('gui_running')
             autocmd MyAutoCmd GUIEnter * colorscheme badwolf
         else
@@ -441,14 +466,22 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             autocmd MyAutoCmd GUIEnter * highlight Cursor guifg=NONE guibg=#cc6666
             autocmd MyAutoCmd GUIEnter * highlight CursorIM guifg=NONE guibg=#b5bd68
         endif
+
+        call neobundle#untap()
+    endif
     "}}}
 
     "vim-splash {{{
+    if neobundle#tap('vim-splash')
         "splash.txtの場所
         let g:splash#path = $HOME.'/dotfiles/splash.txt'
+
+        call neobundle#untap()
+    endif
     "}}}
 
     "vim-quickrun {{{
+    if neobundle#tap('vim-quickrun')
         let g:quickrun_config = {}
         let g:quickrun_config = {
                     \   "_" : {
@@ -465,9 +498,13 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                     \       "exec"      : "%c %o %a %s",
                     \   },
                     \ }
+
+        call neobundle#untap()
+    endif
     "}}}
 
     "Unite {{{
+    if neobundle#tap('unite.vim')
         "バッファ一覧をUniteに置き換え
         nnoremap B :<C-u>Unite<Space>buffer<CR>
 
@@ -477,22 +514,24 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         "インサートモードオン
         let g:unite_enable_start_insert = 1
 
-    "}}}
-
-    "Unite-outline {{{
-        "アウトラインのインデントを4つへ
-        let g:unite_source_outline_indent_width = 4
+        call neobundle#untap()
+    endif
     "}}}
 
     "memo.vim {{{
+    if neobundle#tap('memo.vim')
         "メモディレクトリを宣言
         let g:memopath = '~/Dropbox/Memo/'
 
         "メモ一覧呼び出しリマップ
         nnoremap <F2> :MemoList<CR>
+
+        call neobundle#untap()
+    endif
     "}}}
 
     "Log.vim {{{
+    if neobundle#tap('Log.vim')
         "<Space>htで入力待機
         nnoremap <Space>ht :<C-u>Htag 
 
@@ -505,9 +544,13 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
         "メモディレクトリを宣言
         let g:logpath = '~/Dropbox/Log/_posts/'
+
+        call neobundle#untap()
+    endif
     "}}}
 
     "vim-indent-guides {{{
+    if neobundle#tap('vim-indent-guides')
         "ガイドラインの色を変更
         let g:indent_guides_auto_colors=0
         autocmd MyAutoCmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
@@ -518,21 +561,32 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
         "<F5>でガイドの表示切り替え
         nnoremap <silent><F5> :IndentGuidesToggle<CR>
+
+        call neobundle#untap()
+    endif
     "}}}
 
     "neocomplete {{{
+    if neobundle#tap('neocomplete.vim')
         "Vim起動時から補完スタート
         let g:neocomplete#enable_at_startup = 1
 
         "<F4>で補完切り替え
         nnoremap <F4> :NeoCompleteToggle<CR>
+
+        call neobundle#untap()
+    endif
     "}}}
 
     "emmet-vim {{{
+    if neobundle#tap('emmet-vim')
         "スニペット言語設定
         let g:user_emmet_settings = {
                 \ 'lang' : 'ja'
                 \ }
+
+        call neobundle#untap()
+    endif
     "}}}
 
 
