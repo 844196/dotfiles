@@ -17,7 +17,7 @@ setopt correct
 
 # ひょうしき
 #PROMPT="%B%F{green}(๑•﹏•)%f%b %# "
-PROMPT="%B%F{green}(๑•﹏•)%f%b %/%\ $ "
+PROMPT="%B%F{green}(๑•﹏•)%f%b %/%\ %(!.#.$) "
 SPROMPT="%B%F{red}(๑•﹏•)%f%b < もしかして %r ? [y, n, a, e]:"
 
 # 右プロンプトにGitブランチを表示
