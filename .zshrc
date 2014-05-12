@@ -16,9 +16,10 @@ setopt print_eight_bit
 setopt correct
 
 # ひょうしき
-#PROMPT="%B%F{green}(๑•﹏•)%f%b %# "
 PROMPT="%B%F{green}(๑•﹏•)%f%b %/%\ %(!.#.$) "
-SPROMPT="%B%F{red}(๑•﹏•)%f%b < もしかして %r ? [y, n, a, e]:"
+
+# もしかして
+SPROMPT="%B%F{red}(๑•﹏•)%f%b < %rってなんですかね... [y, n, a, e]:"
 
 # 右プロンプトにGitブランチを表示
 RPROMPT=%F{239}$'`get-branch-name`'%f
