@@ -324,10 +324,11 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle 'thinca/vim-quickrun'
     NeoBundle 'thinca/vim-splash'
     NeoBundle 'Shougo/unite.vim'
-    NeoBundle 'nathanaelkane/vim-indent-guides'
+    "NeoBundle 'nathanaelkane/vim-indent-guides'
     NeoBundle 'Shougo/neocomplete.vim'
     NeoBundle 'mattn/emmet-vim'
     NeoBundle 'tpope/vim-fugitive'
+    NeoBundle 'Yggdroot/indentLine'
 
     "自作
     NeoBundle 'memo.vim', {
@@ -588,6 +589,14 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         call neobundle#untap()
     endif
     "}}}
+
+    "indentLine
+    if neobundle#tap('indentLine')
+        nnoremap <silent><F5> :IndentLinesToggle<CR>
+        let g:indentLine_color_term = 239
+
+        call neobundle#untap()
+    endif
 
 
 endif
