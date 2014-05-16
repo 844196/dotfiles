@@ -19,7 +19,7 @@ setopt correct
 PROMPT="%B%F{green}(๑•﹏•)%f%b %/%\ %(!.#.$) "
 
 # もしかして
-SPROMPT="%B%F{red}(๑•﹏•)%f%b < %rってなんですかね... [y, n, a, e]:"
+SPROMPT="%B%F{red}(๑•﹏•)%f%b < %rのことですかね...? [y, n, a, e]:"
 
 # 右プロンプトにGitブランチを表示
 RPROMPT=%F{239}$'`get-branch-name`'%f
