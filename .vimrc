@@ -377,14 +377,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         let g:lightline.component_function = {}
         let g:lightline = {
             \ 'colorscheme' : 'badwolf',
-            \ 'separator' : {
-            \   'left' : "⮀",
-            \   'right' : "⮂"
-            \   },
-            \ 'subseparator' : {
-            \   'left' : "⮁",
-            \   'right' : "⮃"
-            \   },
             \ 'component_function' : {
             \   'fugitive' : 'LightlineFugitive',
             \   },
