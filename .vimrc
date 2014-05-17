@@ -324,10 +324,11 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle 'thinca/vim-quickrun'
     NeoBundle 'thinca/vim-splash'
     NeoBundle 'Shougo/unite.vim'
-    NeoBundle 'nathanaelkane/vim-indent-guides'
+    "NeoBundle 'nathanaelkane/vim-indent-guides'
     NeoBundle 'Shougo/neocomplete.vim'
     NeoBundle 'mattn/emmet-vim'
     NeoBundle 'tpope/vim-fugitive'
+    NeoBundle 'Yggdroot/indentLine'
 
     "自作
     NeoBundle 'memo.vim', {
@@ -376,14 +377,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         let g:lightline.component_function = {}
         let g:lightline = {
             \ 'colorscheme' : 'badwolf',
-            \ 'separator' : {
-            \   'left' : "⮀",
-            \   'right' : "⮂"
-            \   },
-            \ 'subseparator' : {
-            \   'left' : "⮁",
-            \   'right' : "⮃"
-            \   },
             \ 'component_function' : {
             \   'fugitive' : 'LightlineFugitive',
             \   },
@@ -444,10 +437,21 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         "<Leader>sでVimShellを開く
         nnoremap <silent><Leader>s :<C-u>VimShell<CR>
 
-        "プロンプトを標識に
-        let g:prompt = "(๑•﹏•) "
-        let g:vimshell_prompt_expr = 'g:prompt.getcwd()." $ "'
-        let g:vimshell_prompt_pattern = '^(๑•﹏•)\ \f\+ $ '
+        "X | _ | X
+        let g:vimshell_prompt_expr = '"X | _ | X ".escape(getcwd(), "\\[]()?! ")." $ "'
+        let g:vimshell_prompt_pattern = '^X\ |\ _\ |\ X\ \(\f\|\\.\)\+ $ '
+
+        "右プロンプトにGitブランチを表示
+        let g:vimshell_right_prompt='Git_branch()'
+        function! Git_branch()
+            let s:branch = substitute(system("git rev-parse --abbrev-ref HEAD 2> /dev/null"), '\n', '', 'g')
+            if s:branch == ''
+                return ''
+            else
+                let s:echo_branch = '[➦ ' . s:branch . ']'
+                return s:echo_branch
+            endif
+        endfunction
 
         call neobundle#untap()
     endif
@@ -588,6 +592,14 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         call neobundle#untap()
     endif
     "}}}
+
+    "indentLine
+    if neobundle#tap('indentLine')
+        nnoremap <silent><F5> :IndentLinesToggle<CR>
+        let g:indentLine_color_term = 239
+
+        call neobundle#untap()
+    endif
 
 
 endif
