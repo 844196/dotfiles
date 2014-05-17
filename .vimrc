@@ -438,8 +438,8 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         nnoremap <silent><Leader>s :<C-u>VimShell<CR>
 
         "X | _ | X
-        let g:vimshell_prompt_expr = '"X | _ | X ".getcwd()." $ "'
-        let g:vimshell_prompt_pattern = '^X\ |\ _\ |\ X\ \f\+ $ '
+        let g:vimshell_prompt_expr = '"X | _ | X ".escape(getcwd(), "\\[]()?! ")." $ "'
+        let g:vimshell_prompt_pattern = '^X\ |\ _\ |\ X\ \(\f\|\\.\)\+ $ '
 
         call neobundle#untap()
     endif
