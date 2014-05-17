@@ -441,6 +441,18 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         let g:vimshell_prompt_expr = '"X | _ | X ".escape(getcwd(), "\\[]()?! ")." $ "'
         let g:vimshell_prompt_pattern = '^X\ |\ _\ |\ X\ \(\f\|\\.\)\+ $ '
 
+        "右プロンプトにGitブランチを表示
+        let g:vimshell_right_prompt='Git_branch()'
+        function! Git_branch()
+            let s:branch = substitute(system("git rev-parse --abbrev-ref HEAD 2> /dev/null"), '\n', '', 'g')
+            if s:branch == ''
+                return ''
+            else
+                let s:echo_branch = '[➦ ' . s:branch . ']'
+                return s:echo_branch
+            endif
+        endfunction
+
         call neobundle#untap()
     endif
     "}}}
