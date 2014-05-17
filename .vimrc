@@ -448,8 +448,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             if s:branch == ''
                 return ''
             else
-                let s:echo_branch = '[➦ ' . s:branch . ']'
-                return s:echo_branch
+                return '[➦ ' . s:branch . ']'
             endif
         endfunction
 
