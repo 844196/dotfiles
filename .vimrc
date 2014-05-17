@@ -437,10 +437,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         "<Leader>sでVimShellを開く
         nnoremap <silent><Leader>s :<C-u>VimShell<CR>
 
-        "プロンプトを標識に
-        let g:prompt = "(๑•﹏•) "
-        let g:vimshell_prompt_expr = 'g:prompt.getcwd()." $ "'
-        let g:vimshell_prompt_pattern = '^(๑•﹏•)\ \f\+ $ '
+        "X | _ | X
+        let g:vimshell_prompt_expr = '"X | _ | X ".getcwd()." $ "'
+        let g:vimshell_prompt_pattern = '^X\ |\ _\ |\ X\ \f\+ $ '
 
         call neobundle#untap()
     endif
