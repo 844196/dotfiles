@@ -1,5 +1,3 @@
-alias ls='ls -aF'
-alias rmdir='rm -rf'
 alias quicklook = 'qlmanage -p $$args'
 alias l = quicklook
 alias cls = clear
