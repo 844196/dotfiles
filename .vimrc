@@ -594,8 +594,14 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
     "indentLine
     if neobundle#tap('indentLine')
+        "<F5>でガイドの表示切り替え
         nnoremap <silent><F5> :IndentLinesToggle<CR>
+
+        "インデントの色を変更（ターミナル）
         let g:indentLine_color_term = 239
+
+        "インデントを1レベルから表示
+        let g:indentLine_showFirstIndentLevel = 1
 
         call neobundle#untap()
     endif
