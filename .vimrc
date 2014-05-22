@@ -280,19 +280,6 @@ set backspace=indent,eol,start
     \        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
     "}}}
 
-"ToDoとか {{{
-function! s:ToggleDone(line)
-    if a:line =~ '^"*\s*\[D\]'
-        call setline('.', substitute(a:line, '\[D\]<.*>', '\[ \]', ''))
-    else
-        call setline('.', substitute(a:line, '\[ \]', '[D]<' . strftime("%Y/%m/%d %H:%M") . '>', ''))
-    endif
-endfunction
-command! -nargs=0 ToggleDone call s:ToggleDone(getline('.'))
-nnoremap <Space>td :<C-u>ToggleDone<CR>
-
-nnoremap <F1> :<C-u>edit ~/DropBox/Memo/ToDo.md<CR>
-"}}}
 
 "}}}
 "==================================================================
