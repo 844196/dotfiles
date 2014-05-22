@@ -120,6 +120,19 @@ if exists('$TMUX')
         let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
+if has('gui_running') || has('mac')
+    "起動時、透過度10%
+    autocmd MyAutoCmd GUIEnter * set transparency=10
+
+    "<F12>で30%ずつ透過度を上げる
+    nnoremap <expr><F12> &transparency+30 >= 100 ? ":set transparency=0\<CR>" : ":let &transparency=&transparency+30\<CR>"
+
+    "Vimがウィンドウフォーカスを失うとほぼ透明になる
+    "フォーカスが戻ると透過度も元の10%になる
+    autocmd MyAutoCmd FocusGained * set transparency=10
+    autocmd MyAutoCmd FocusLost * set transparency=90
+endif
+
 
 "}}}
 "==================================================================
@@ -267,19 +280,6 @@ set backspace=indent,eol,start
     \        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
     "}}}
 
-"ToDoとか {{{
-function! s:ToggleDone(line)
-    if a:line =~ '^"*\s*\[D\]'
-        call setline('.', substitute(a:line, '\[D\]<.*>', '\[ \]', ''))
-    else
-        call setline('.', substitute(a:line, '\[ \]', '[D]<' . strftime("%Y/%m/%d %H:%M") . '>', ''))
-    endif
-endfunction
-command! -nargs=0 ToggleDone call s:ToggleDone(getline('.'))
-nnoremap <Space>td :<C-u>ToggleDone<CR>
-
-nnoremap <F1> :<C-u>edit ~/DropBox/Memo/ToDo.md<CR>
-"}}}
 
 "}}}
 "==================================================================
@@ -448,8 +448,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             if s:branch == ''
                 return ''
             else
-                let s:echo_branch = '[➦ ' . s:branch . ']'
-                return s:echo_branch
+                return '[➦ ' . s:branch . ']'
             endif
         endfunction
 
@@ -595,8 +594,14 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
     "indentLine
     if neobundle#tap('indentLine')
+        "<F5>でガイドの表示切り替え
         nnoremap <silent><F5> :IndentLinesToggle<CR>
+
+        "インデントの色を変更（ターミナル）
         let g:indentLine_color_term = 239
+
+        "インデントを1レベルから表示
+        let g:indentLine_showFirstIndentLevel = 1
 
         call neobundle#untap()
     endif
