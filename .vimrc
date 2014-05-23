@@ -404,6 +404,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         function! MyFilename()
             let s:fname = expand('%:~')
             return &ft == 'vimshell' ? vimshell#get_status_string() :
+            \ &ft == 'unite' ? unite#get_status_string() :
             \ ('' != s:fname ? s:fname : '[No Name]')
         endfunction
 
