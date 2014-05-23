@@ -51,8 +51,6 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
-alias ls="ls -aF"
-alias rmdir="rm -rf"
 alias cls="clear"
 alias quicklook="qlmanage -p"
 alias l="qlmanage -p"
