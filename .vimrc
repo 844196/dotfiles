@@ -395,7 +395,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         function! LightlineFugitive()
             if exists("*fugitive#head")
                 let _ = fugitive#head()
-                return strlen(_) ? '⭠ '._ : ''
+                return strlen(_) ? "\u2b60"._ : ''
             endif
             return ''
         endfunction
@@ -473,7 +473,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             if s:branch == ''
                 return ''
             else
-                return '[➦ ' . s:branch . ']'
+                return "[\u27a6 " . s:branch . ']'
             endif
         endfunction
 
