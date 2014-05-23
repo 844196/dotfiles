@@ -324,7 +324,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                 \     ]
                 \ }
     NeoBundle 'thinca/vim-quickrun'
-    NeoBundle 'thinca/vim-splash'
+    "NeoBundle 'thinca/vim-splash'
     NeoBundle 'Shougo/unite.vim'
     "NeoBundle 'nathanaelkane/vim-indent-guides'
     NeoBundle 'Shougo/neocomplete.vim'
