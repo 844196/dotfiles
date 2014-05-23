@@ -82,8 +82,10 @@ set showcmd
 
 "不可視文字を表示
 set list
-if !s:iswin
+if s:ismac
     set listchars=tab:»-,trail:-,eol:¬,nbsp:%
+else
+    set listchars=trail:-
 endif
 
 "フォント
