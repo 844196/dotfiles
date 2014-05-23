@@ -381,7 +381,8 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             \ 'colorscheme' : 'badwolf',
             \ 'component_function' : {
             \   'fugitive' : 'LightlineFugitive',
-            \   'filename' : 'MyFilename'
+            \   'filename' : 'MyFilename',
+            \   'mode'     : 'Mymode'
             \   },
             \ 'active' : {
             \   'left' : [ ['mode', 'paste'], ['readonly', 'fugitive', 'filename', 'modified'] ],
@@ -415,6 +416,14 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         "UniteとかVimshellでもlightlineのステータスラインを表示
         let g:unite_force_overwrite_statusline=0
         let g:vimshell_force_overwrite_statusline=0
+
+        "プラグイン別のモード表示
+        function! Mymode()
+            return &ft == 'unite' ? 'Unite' :
+            \ &ft == 'vimshell' ? 'VimShell' :
+            \ &ft == 'tweetvim' ? 'TweetVim' :
+            \ lightline#mode()
+        endfunction
 
         call neobundle#untap()
     endif
