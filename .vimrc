@@ -82,8 +82,10 @@ set showcmd
 
 "不可視文字を表示
 set list
-if !s:iswin
+if s:ismac
     set listchars=tab:»-,trail:-,eol:¬,nbsp:%
+else
+    set listchars=trail:-
 endif
 
 "フォント
@@ -322,7 +324,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                 \     ]
                 \ }
     NeoBundle 'thinca/vim-quickrun'
-    NeoBundle 'thinca/vim-splash'
+    "NeoBundle 'thinca/vim-splash'
     NeoBundle 'Shougo/unite.vim'
     "NeoBundle 'nathanaelkane/vim-indent-guides'
     NeoBundle 'Shougo/neocomplete.vim'
@@ -379,9 +381,12 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             \ 'colorscheme' : 'badwolf',
             \ 'component_function' : {
             \   'fugitive' : 'LightlineFugitive',
+            \   'filename' : 'MyFilename',
+            \   'mode'     : 'Mymode'
             \   },
             \ 'active' : {
-            \   'left' : [ ['mode', 'paste'], ['readonly', 'fugitive', 'relativepath', 'modified'] ]
+            \   'left' : [ ['mode', 'paste'], ['readonly', 'fugitive', 'filename', 'modified'] ],
+            \   'right': [ ['lineinfo'], ['fileformat', 'fileencoding', 'filetype'] ]
             \   },
             \ }
 
@@ -395,11 +400,31 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             return ''
         endfunction
 
+        "カレントバッファのタイトル
+        function! MyFilename()
+            let s:fname = expand('%:~')
+            return &ft == 'vimshell' ? vimshell#get_status_string() :
+            \ &ft == 'unite' ? unite#get_status_string() :
+            \ ('' != s:fname ? s:fname : '[No Name]')
+        endfunction
+
         "ステータスラインカラースキーム読み込み
         autocmd MyAutoCmd VimEnter * call lightline#colorscheme()
 
         "lightline入れてるからモードを表示させない
         set noshowmode
+
+        "UniteとかVimshellでもlightlineのステータスラインを表示
+        let g:unite_force_overwrite_statusline=0
+        let g:vimshell_force_overwrite_statusline=0
+
+        "プラグイン別のモード表示
+        function! Mymode()
+            return &ft == 'unite' ? 'Unite' :
+            \ &ft == 'vimshell' ? 'VimShell' :
+            \ &ft == 'tweetvim' ? 'TweetVim' :
+            \ lightline#mode()
+        endfunction
 
         call neobundle#untap()
     endif
@@ -462,12 +487,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             autocmd MyAutoCmd GUIEnter * colorscheme badwolf
         else
             colorscheme badwolf
-        endif
-
-        "日本語入力時のカーソル色を変更
-        if has('multi_byte_ime') || has('xim')
-            autocmd MyAutoCmd GUIEnter * highlight Cursor guifg=NONE guibg=#cc6666
-            autocmd MyAutoCmd GUIEnter * highlight CursorIM guifg=NONE guibg=#b5bd68
         endif
 
         call neobundle#untap()
