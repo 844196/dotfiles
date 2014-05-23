@@ -412,6 +412,10 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         "lightline入れてるからモードを表示させない
         set noshowmode
 
+        "UniteとかVimshellでもlightlineのステータスラインを表示
+        let g:unite_force_overwrite_statusline=0
+        let g:vimshell_force_overwrite_statusline=0
+
         call neobundle#untap()
     endif
     "}}}
