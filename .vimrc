@@ -488,12 +488,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             colorscheme badwolf
         endif
 
-        "日本語入力時のカーソル色を変更
-        if has('multi_byte_ime') || has('xim')
-            autocmd MyAutoCmd GUIEnter * highlight Cursor guifg=NONE guibg=#cc6666
-            autocmd MyAutoCmd GUIEnter * highlight CursorIM guifg=NONE guibg=#b5bd68
-        endif
-
         call neobundle#untap()
     endif
     "}}}
