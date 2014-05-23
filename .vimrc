@@ -381,9 +381,11 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             \ 'colorscheme' : 'badwolf',
             \ 'component_function' : {
             \   'fugitive' : 'LightlineFugitive',
+            \   'filename' : 'MyFilename'
             \   },
             \ 'active' : {
-            \   'left' : [ ['mode', 'paste'], ['readonly', 'fugitive', 'relativepath', 'modified'] ]
+            \   'left' : [ ['mode', 'paste'], ['readonly', 'fugitive', 'filename', 'modified'] ],
+            \   'right': [ ['lineinfo'], ['fileformat', 'fileencoding', 'filetype'] ]
             \   },
             \ }
 
@@ -395,6 +397,13 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                 return strlen(_) ? '⭠ '._ : ''
             endif
             return ''
+        endfunction
+
+        "カレントバッファのタイトル
+        function! MyFilename()
+            let s:fname = expand('%:~')
+            return &ft == 'vimshell' ? vimshell#get_status_string() :
+            \ ('' != s:fname ? s:fname : '[No Name]')
         endfunction
 
         "ステータスラインカラースキーム読み込み
