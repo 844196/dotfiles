@@ -1,0 +1,37 @@
+#!/bin/sh
+
+dotfiles=(.vimrc .vimshrc .zshrc .tmux.conf)
+base_dir=$(cd $(dirname $0);pwd)
+
+_usage() {
+    echo "usage: $0 [-icr]"
+    echo "\t-i install dotfiles"
+    echo "\t-c copy dotfiles (useful dotfiles test)"
+    echo "\t-r remove dotfiles"
+    exit 1
+}
+
+while getopts :icr opts; do
+    case $opts in
+        i) enable_i='t';;
+        c) enable_c='t';;
+        r) enable_r='t';;
+        :|\?) _usage;;
+    esac
+done
+
+[ "${enable_i}${enable_c}${enable_r}" != 't' ] && _usage
+
+if [ "${enable_i}" == 't' ]; then
+    for file in ${dotfiles[@]}; do
+        ln -s ${base_dir}/${file} ${HOME}/${file}
+    done
+elif [ "${enable_c}" == 't' ]; then
+    for file in ${dotfiles[@]}; do
+        cp ${base_dir}/${file} ${HOME}/${file}
+    done
+elif [ "${enable_r}" == 't' ]; then
+    for file in ${dotfiles[@]}; do
+        rm ${HOME}/${file}
+    done
+fi
