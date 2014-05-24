@@ -393,6 +393,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             \   'left' : [ ['mode', 'paste'], ['readonly', 'fugitive', 'filename', 'modified'] ],
             \   'right': [ ['lineinfo'], ['fileformat', 'fileencoding', 'filetype'] ]
             \   },
+            \ 'inactive' : {
+            \   'right' : [ ['lineinfo'] ]
+            \   }
             \ }
 
         "Gitブランチを表示
