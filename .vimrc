@@ -309,9 +309,18 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
     "プラグイン
     NeoBundle 'itchyny/lightline.vim'
-    NeoBundle 'lilydjwg/colorizer'
-    NeoBundle 'Shougo/vimshell.vim', {
-                \ 'depends' : [ 'Shougo/vimproc' ]
+    NeoBundleLazy 'lilydjwg/colorizer', {
+                \ 'autoload' : {
+                \   'filetypes' : [ 'html', 'css' ],
+                \   'commands' : 'ColorHighlight'
+                \   }
+                \ }
+    NeoBundleLazy 'Shougo/vimshell.vim', {
+                \ 'depends' : 'Shougo/vimproc',
+                \ 'autoload' : {
+                \   'commands' : 'VimShell',
+                \   'mappings' : '<Plug>(vimshell_'
+                \   }
                 \ }
     NeoBundle 'Shougo/vimproc', {
                 \ 'build' : {
@@ -321,19 +330,39 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                 \     'unix' : 'make -f make_unix.mak'
                 \     }
                 \ }
-    NeoBundle 'basyura/TweetVim', {
+    NeoBundleLazy 'basyura/TweetVim', {
                 \ 'depends' : [
                 \     'tyru/open-browser.vim',
                 \     'basyura/twibill.vim',
                 \     'mattn/webapi-vim'
-                \     ]
+                \     ],
+                \ 'autoload' : {
+                \   'commands' : [ 'TweetVimUserStream', 'TweetVimSay' ]
+                \   }
                 \ }
-    NeoBundle 'thinca/vim-quickrun'
+    NeoBundleLazy 'thinca/vim-quickrun', {
+                \ 'autoload' : {
+                \   'mappings' : '<Leader>r',
+                \   'commands' : 'QuickRun'
+                \   }
+                \ }
     "NeoBundle 'thinca/vim-splash'
-    NeoBundle 'Shougo/unite.vim'
+    NeoBundleLazy 'Shougo/unite.vim', {
+                \ 'autoload' : {
+                \   'commands' : 'Unite'
+                \   }
+                \ }
     "NeoBundle 'nathanaelkane/vim-indent-guides'
-    NeoBundle 'Shougo/neocomplete.vim'
-    NeoBundle 'mattn/emmet-vim'
+    NeoBundleLazy 'Shougo/neocomplete.vim', {
+                \ 'autoload' : {
+                \   'insert' : '1'
+                \   }
+                \ }
+    NeoBundleLazy 'mattn/emmet-vim', {
+                \ 'autoload' : {
+                \   'filetypes' : [ 'html', 'markdown' ],
+                \   }
+                \ }
     NeoBundle 'tpope/vim-fugitive'
     NeoBundle 'Yggdroot/indentLine'
 
