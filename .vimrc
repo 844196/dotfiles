@@ -123,16 +123,21 @@ if exists('$TMUX')
 endif
 
 if has('gui_running') || has('mac')
-    "起動時、透過度10%
-    autocmd MyAutoCmd GUIEnter * set transparency=10
-
     "<F12>で30%ずつ透過度を上げる
     nnoremap <expr><F12> &transparency+30 >= 100 ? ":set transparency=0\<CR>" : ":let &transparency=&transparency+30\<CR>"
 
-    "Vimがウィンドウフォーカスを失うとほぼ透明になる
-    "フォーカスが戻ると透過度も元の10%になる
-    autocmd MyAutoCmd FocusGained * set transparency=10
-    autocmd MyAutoCmd FocusLost * set transparency=90
+    augroup Touka
+        autocmd!
+
+        "起動時、透過度10%
+        autocmd GUIEnter * set transparency=10
+
+        "Vimがウィンドウフォーカスを失うとほぼ透明になる
+        "フォーカスが戻ると透過度も元の10%になる
+        autocmd FocusGained * set transparency=10
+        autocmd FocusLost * set transparency=90
+
+    augroup END
 endif
 
 
@@ -304,9 +309,18 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
     "プラグイン
     NeoBundle 'itchyny/lightline.vim'
-    NeoBundle 'lilydjwg/colorizer'
-    NeoBundle 'Shougo/vimshell.vim', {
-                \ 'depends' : [ 'Shougo/vimproc' ]
+    NeoBundleLazy 'lilydjwg/colorizer', {
+                \ 'autoload' : {
+                \   'filetypes' : [ 'html', 'css' ],
+                \   'commands' : 'ColorHighlight'
+                \   }
+                \ }
+    NeoBundleLazy 'Shougo/vimshell.vim', {
+                \ 'depends' : 'Shougo/vimproc',
+                \ 'autoload' : {
+                \   'commands' : 'VimShell',
+                \   'mappings' : '<Plug>(vimshell_'
+                \   }
                 \ }
     NeoBundle 'Shougo/vimproc', {
                 \ 'build' : {
@@ -316,19 +330,39 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                 \     'unix' : 'make -f make_unix.mak'
                 \     }
                 \ }
-    NeoBundle 'basyura/TweetVim', {
+    NeoBundleLazy 'basyura/TweetVim', {
                 \ 'depends' : [
                 \     'tyru/open-browser.vim',
                 \     'basyura/twibill.vim',
                 \     'mattn/webapi-vim'
-                \     ]
+                \     ],
+                \ 'autoload' : {
+                \   'commands' : [ 'TweetVimUserStream', 'TweetVimSay' ]
+                \   }
                 \ }
-    NeoBundle 'thinca/vim-quickrun'
+    NeoBundleLazy 'thinca/vim-quickrun', {
+                \ 'autoload' : {
+                \   'mappings' : '<Leader>r',
+                \   'commands' : 'QuickRun'
+                \   }
+                \ }
     "NeoBundle 'thinca/vim-splash'
-    NeoBundle 'Shougo/unite.vim'
+    NeoBundleLazy 'Shougo/unite.vim', {
+                \ 'autoload' : {
+                \   'commands' : 'Unite'
+                \   }
+                \ }
     "NeoBundle 'nathanaelkane/vim-indent-guides'
-    NeoBundle 'Shougo/neocomplete.vim'
-    NeoBundle 'mattn/emmet-vim'
+    NeoBundleLazy 'Shougo/neocomplete.vim', {
+                \ 'autoload' : {
+                \   'insert' : '1'
+                \   }
+                \ }
+    NeoBundleLazy 'mattn/emmet-vim', {
+                \ 'autoload' : {
+                \   'filetypes' : [ 'html', 'markdown' ],
+                \   }
+                \ }
     NeoBundle 'tpope/vim-fugitive'
     NeoBundle 'Yggdroot/indentLine'
 
@@ -388,6 +422,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             \   'left' : [ ['mode', 'paste'], ['readonly', 'fugitive', 'filename', 'modified'] ],
             \   'right': [ ['lineinfo'], ['fileformat', 'fileencoding', 'filetype'] ]
             \   },
+            \ 'inactive' : {
+            \   'right' : [ ['lineinfo'] ]
+            \   }
             \ }
 
         "Gitブランチを表示
@@ -395,7 +432,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         function! LightlineFugitive()
             if exists("*fugitive#head")
                 let _ = fugitive#head()
-                return strlen(_) ? '⭠ '._ : ''
+                return strlen(_) ? "\u2b60"._ : ''
             endif
             return ''
         endfunction
@@ -473,7 +510,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             if s:branch == ''
                 return ''
             else
-                return '[➦ ' . s:branch . ']'
+                return "[\u27a6 " . s:branch . ']'
             endif
         endfunction
 
