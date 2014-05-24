@@ -51,8 +51,6 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
-alias ls="ls -aF"
-alias rmdir="rm -rf"
 alias cls="clear"
 alias quicklook="qlmanage -p"
 alias l="qlmanage -p"
@@ -70,3 +68,8 @@ function pcolor() {
 # weather.sh用環境変数
 export LOCATION='Monbetsu'
 export TMP=$HOME/.tmp
+
+# .zshrc_localがあったらそれも読み込む
+if [ -f ~/.zshrc_local ]; then
+    source ~/.zshrc_local
+fi
