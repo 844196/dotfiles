@@ -68,3 +68,8 @@ function pcolor() {
 # weather.sh用環境変数
 export LOCATION='Monbetsu'
 export TMP=$HOME/.tmp
+
+# .zshrc_localがあったらそれも読み込む
+if [ -f ~/.zshrc_local ]; then
+    source ~/.zshrc_local
+fi
