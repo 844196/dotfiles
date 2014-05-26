@@ -122,24 +122,6 @@ if exists('$TMUX')
         let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
-if has('gui_running') || has('mac')
-    "<F12>で30%ずつ透過度を上げる
-    nnoremap <expr><F12> &transparency+30 >= 100 ? ":set transparency=0\<CR>" : ":let &transparency=&transparency+30\<CR>"
-
-    augroup Touka
-        autocmd!
-
-        "起動時、透過度10%
-        autocmd GUIEnter * set transparency=10
-
-        "Vimがウィンドウフォーカスを失うとほぼ透明になる
-        "フォーカスが戻ると透過度も元の10%になる
-        autocmd FocusGained * set transparency=10
-        autocmd FocusLost * set transparency=90
-
-    augroup END
-endif
-
 
 "}}}
 "==================================================================
