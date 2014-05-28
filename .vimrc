@@ -303,7 +303,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundleLazy 'Shougo/vimshell.vim', {
                 \ 'depends' : 'Shougo/vimproc',
                 \ 'autoload' : {
-                \   'commands' : 'VimShell',
+                \   'commands' : [ 'VimShell', 'VimShellPop' ],
                 \   'mappings' : '<Plug>(vimshell_'
                 \   }
                 \ }
@@ -483,6 +483,10 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     if neobundle#tap('vimshell.vim')
         "<Leader>sでVimShellを開く
         nnoremap <silent><Leader>s :<C-u>VimShell<CR>
+
+        "<C-X><C-V>でVimShell(Pop)を開く
+        nnoremap <silent><C-x><C-v>  :<C-u>VimShellPop -toggle<CR>
+        inoremap <silent><C-x><C-v>  <ESC>:<C-u>VimShellPop -toggle<CR>
 
         "X | _ | X
         let g:vimshell_prompt_expr = '"X | _ | X ".escape(getcwd(), "\\[]()?! ")." $ "'
