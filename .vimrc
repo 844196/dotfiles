@@ -11,6 +11,9 @@ augroup MyAutoCmd
     autocmd!
 augroup END
 
+"$MYVIMRCを指定
+let $MYVIMRC = resolve(expand('~/.vimrc'))
+
 "<space>evで.vimrcを編集
 nnoremap <Space>ev :<C-u>edit $MYVIMRC<CR>
 
