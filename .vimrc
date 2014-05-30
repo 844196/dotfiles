@@ -487,9 +487,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         "<Leader>sでVimShellを開く
         nnoremap <silent><Leader>s :<C-u>VimShell<CR>
 
-        "<C-X><C-V>でVimShell(Pop)を開く
-        nnoremap <silent><C-x><C-v>  :<C-u>VimShellPop -toggle<CR>
-        inoremap <silent><C-x><C-v>  <ESC>:<C-u>VimShellPop -toggle<CR>
+        "<C-g>でVimShell(Pop)を開く
+        nnoremap <silent><C-g> :<C-u>VimShellPop -toggle<CR>
+        inoremap <silent><C-g> <ESC>:<C-u>VimShellPop -toggle<CR>
 
         " X | _ | X
         let g:vimshell_prompt_expr = '"X | _ | X ".escape(getcwd(), "\\[]()?! ")." $ "'
