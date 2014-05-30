@@ -512,6 +512,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             "行番号を表示しない
             setlocal nonumber
 
+            "<C-l>で画面クリア
+            imap <buffer><C-l> <Plug>(vimshell_clear)
+
         endfunction
 
         call neobundle#untap()
