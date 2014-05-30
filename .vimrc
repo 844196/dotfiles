@@ -509,6 +509,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
         autocmd! MyAutoCmd FileType vimshell call s:vimshell_my_settings()
         function! s:vimshell_my_settings()
+            "行番号を表示しない
+            setlocal nonumber
+
         endfunction
 
         call neobundle#untap()
