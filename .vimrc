@@ -23,6 +23,9 @@ autocmd MyAutoCmd BufWritePost $MYVIMRC nested source $MYVIMRC
 "<C-h>でヘルプを引く
 nnoremap <C-h> :<C-u>help<Space>
 
+"qでヘルプを閉じる
+autocmd! MyAutoCmd FileType help nnoremap <buffer>q :quit<CR>
+
 "Windows環境用変数宣言
 let s:iswin = has('win32') || has('win64') || has('win32unix')
 
@@ -488,9 +491,10 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         nnoremap <silent><C-x><C-v>  :<C-u>VimShellPop -toggle<CR>
         inoremap <silent><C-x><C-v>  <ESC>:<C-u>VimShellPop -toggle<CR>
 
-        "X | _ | X
+        " X | _ | X
         let g:vimshell_prompt_expr = '"X | _ | X ".escape(getcwd(), "\\[]()?! ")." $ "'
         let g:vimshell_prompt_pattern = '^X\ |\ _\ |\ X\ \(\f\|\\.\)\+ $ '
+        highlight vimshellPrompt ctermfg=yellow guifg=orange
 
         "右プロンプトにGitブランチを表示
         let g:vimshell_right_prompt='Git_branch()'
@@ -501,6 +505,20 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             else
                 return "[\u27a6 " . s:branch . ']'
             endif
+        endfunction
+
+        autocmd! MyAutoCmd FileType vimshell call s:vimshell_my_settings()
+        function! s:vimshell_my_settings()
+            "行番号を表示しない
+            setlocal nonumber
+
+            "<C-l>で画面クリア
+            imap <buffer><C-l> <Plug>(vimshell_clear)
+
+            "どの行にいても最終行のプロンプトへフォーカスを移す
+            nmap <buffer>I G<Plug>(vimshell_insert_head)
+            nmap <buffer>A G<Plug>(vimshell_append_end)
+
         endfunction
 
         call neobundle#untap()
