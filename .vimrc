@@ -515,6 +515,10 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             "<C-l>で画面クリア
             imap <buffer><C-l> <Plug>(vimshell_clear)
 
+            "どの行にいても最終行のプロンプトへフォーカスを移す
+            nmap <buffer>I G<Plug>(vimshell_insert_head)
+            nmap <buffer>A G<Plug>(vimshell_append_end)
+
         endfunction
 
         call neobundle#untap()
