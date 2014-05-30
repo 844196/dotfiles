@@ -491,9 +491,10 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         nnoremap <silent><C-x><C-v>  :<C-u>VimShellPop -toggle<CR>
         inoremap <silent><C-x><C-v>  <ESC>:<C-u>VimShellPop -toggle<CR>
 
-        "X | _ | X
+        " X | _ | X
         let g:vimshell_prompt_expr = '"X | _ | X ".escape(getcwd(), "\\[]()?! ")." $ "'
         let g:vimshell_prompt_pattern = '^X\ |\ _\ |\ X\ \(\f\|\\.\)\+ $ '
+        highlight vimshellPrompt ctermfg=yellow guifg=orange
 
         "右プロンプトにGitブランチを表示
         let g:vimshell_right_prompt='Git_branch()'
