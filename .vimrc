@@ -507,6 +507,10 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             endif
         endfunction
 
+        autocmd! MyAutoCmd FileType vimshell call s:vimshell_my_settings()
+        function! s:vimshell_my_settings()
+        endfunction
+
         call neobundle#untap()
     endif
     "}}}
