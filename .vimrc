@@ -24,7 +24,7 @@ autocmd MyAutoCmd BufWritePost $MYVIMRC nested source $MYVIMRC
 nnoremap <C-h> :<C-u>help<Space>
 
 "qでヘルプを閉じる
-autocmd! MyAutoCmd FileType help nnoremap <buffer>q :quit<CR>
+autocmd! MyAutoCmd FileType help nnoremap <silent><buffer>q :quit<CR>
 
 "Windows環境用変数宣言
 let s:iswin = has('win32') || has('win64') || has('win32unix')
@@ -178,6 +178,14 @@ nnoremap N Nzz
 
 "markdownファイルのシンタックス関連付け
 autocmd MyAutoCmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+
+"fencedcode内でもシンタックスハイライト
+let g:markdown_fenced_languages = [
+            \ 'css',
+            \ 'html',
+            \ 'sh',
+            \ 'vim'
+            \ ]
 
 " tmpファイル
 command! -nargs=1 -complete=filetype Tmp edit $HOME/tmp.<args>
@@ -565,6 +573,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                     \   },
                     \ }
 
+        "<C-c>でquickrun停止
+        nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+
         call neobundle#untap()
     endif
     "}}}
@@ -579,6 +590,13 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
         "インサートモードオン
         let g:unite_enable_start_insert = 1
+
+        "<Esc><Esc>でUniteを閉じる
+        autocmd MyAutoCmd FileType unite call s:unite_my_settings()
+        function! s:unite_my_settings()
+            nmap <silent><buffer><Esc><Esc> <Plug>(unite_exit)
+            imap <silent><buffer><Esc><Esc> <Plug>(unite_exit)
+        endfunction
 
         call neobundle#untap()
     endif
