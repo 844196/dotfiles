@@ -24,7 +24,7 @@ autocmd MyAutoCmd BufWritePost $MYVIMRC nested source $MYVIMRC
 nnoremap <C-h> :<C-u>help<Space>
 
 "qでヘルプを閉じる
-autocmd! MyAutoCmd FileType help nnoremap <buffer>q :quit<CR>
+autocmd! MyAutoCmd FileType help nnoremap <silent><buffer>q :quit<CR>
 
 "Windows環境用変数宣言
 let s:iswin = has('win32') || has('win64') || has('win32unix')
