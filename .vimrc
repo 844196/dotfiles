@@ -591,6 +591,13 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         "インサートモードオン
         let g:unite_enable_start_insert = 1
 
+        "<Esc><Esc>でUniteを閉じる
+        autocmd MyAutoCmd FileType unite call s:unite_my_settings()
+        function! s:unite_my_settings()
+            nmap <silent><buffer><Esc><Esc> <Plug>(unite_exit)
+            imap <silent><buffer><Esc><Esc> <Plug>(unite_exit)
+        endfunction
+
         call neobundle#untap()
     endif
     "}}}
