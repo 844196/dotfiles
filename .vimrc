@@ -179,6 +179,14 @@ nnoremap N Nzz
 "markdownファイルのシンタックス関連付け
 autocmd MyAutoCmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 
+"fencedcode内でもシンタックスハイライト
+let g:markdown_fenced_languages = [
+            \ 'css',
+            \ 'html',
+            \ 'sh',
+            \ 'vim'
+            \ ]
+
 " tmpファイル
 command! -nargs=1 -complete=filetype Tmp edit $HOME/tmp.<args>
 
