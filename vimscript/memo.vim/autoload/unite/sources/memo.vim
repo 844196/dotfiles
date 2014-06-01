@@ -5,28 +5,48 @@ set cpo&vim
 "メモ一覧
 let s:memo = { 'name': 'memo' }
 
-function! s:memo.gather_candidates(args, context)
-    let s:list = glob(g:memopath . "*.md")
+let s:filter = {
+            \ 'name' : 'my_filter'
+            \ }
 
-    let s:c1 = substitute(s:list, '\/Users\/s083027\/Dropbox\/Memo\/', '', 'g')
-    let s:c2 = split(s:c1, "\n")
-    call remove(s:c2, match(s:c2, "ToDo.md"))
-    let s:c3 = join(s:c2, "\n")
+function! s:filter.filter(candidates, context)
+    for candidates in a:candidates
+        let memo = candidates.source__memo
+        let candidates.word = printf("%-60S - %10S", memo.title, memo.date)
+    endfor
+    return a:candidates
+endfunction
+call unite#define_filter(s:filter)
 
-    let s:c4 = substitute(s:c3, '20\d.-\(0\|1\)\d-\(0\|1\|2\|3\)\d\zs_\ze.*\.md', ' | ', 'g')
-    let s:c5 = substitute(s:c4, '\.md', '', 'g')
-    let s:c6 = split(s:c5, "\n")
-
-    return map(s:c2, '{
-        \ "word": v:val,
-        \ "source": s:c5,
-        \ "kind": "file",
-        \ "action__path": g:memopath . v:val,
-        \ "action__line": v:key + 1,
-        \ }')
+function! s:memopath()
+    return expand(g:memopath)
 endfunction
 
+function! s:all_memo()
+    let list = split(glob(s:memopath() . "/*.md"), "\n")
+    return map(list, '{
+                \ "date" : fnamemodify(v:val, ":t:r")[0:9],
+                \ "title" : substitute(fnamemodify(v:val, ":t:r"), "^....-..-.._", "", ""),
+                \ "path" : v:val
+                \ }')
+endfunction
+
+function! s:memo.gather_candidates(args, context)
+    let ret = []
+    for val in s:all_memo()
+        let candidates = {
+                    \ "word" : val.title,
+                    \ "source" : "memo",
+                    \ "kind" : "file",
+                    \ "action__path" : val.path,
+                    \ "source__memo" : val
+                    \ }
+        call add(ret, candidates)
+    endfor
+    return ret
+endfunction
 call unite#custom_source('memo', 'sorters', 'sorter_reverse')
+call unite#custom_source('memo', 'converters', 'my_filter')
 
 function! unite#sources#memo#define()
     return s:memo
