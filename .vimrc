@@ -194,9 +194,6 @@ command! -nargs=1 -complete=filetype Tmp edit $HOME/tmp.<args>
 " ==================================================================
 " レジスタ・クリップボード設定 {{{
 
-" 内容確認
-" nnoremap R :<C-u>registers<CR>
-
 " クリップボード連携
 if has('gui_running')
     set clipboard&
@@ -342,13 +339,11 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                 \   'commands' : 'QuickRun'
                 \   }
                 \ }
-    " NeoBundle 'thinca/vim-splash'
     NeoBundleLazy 'Shougo/unite.vim', {
                 \ 'autoload' : {
                 \   'commands' : 'Unite'
                 \   }
                 \ }
-    " NeoBundle 'nathanaelkane/vim-indent-guides'
     NeoBundleLazy 'Shougo/neocomplete.vim', {
                 \ 'autoload' : {
                 \   'insert' : '1'
