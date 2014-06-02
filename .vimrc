@@ -524,6 +524,14 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
         endfunction
 
+        " VimShellからGitを使いやすくする
+        if has('gui_macvim')
+            " $EDITORをMacVimに設定
+            " commit messageとかが出来るようになる
+            let g:vimshell_editor_command = '/Applications/MacVim.app/Contents/MacOS/Vim --servername=VIM --remote-tab-wait-silent'
+
+        endif
+
         call neobundle#untap()
     endif
     " }}}
