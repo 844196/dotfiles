@@ -530,6 +530,21 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             " commit messageとかが出来るようになる
             let g:vimshell_editor_command = '/Applications/MacVim.app/Contents/MacOS/Vim --servername=VIM --remote-tab-wait-silent'
 
+            " :bdしないとVimShellからの出てきたバッファの内容をVimShellへ反映できない
+            " :w -> :bd はめんどいので、:wqを:w | bdへ置き換える（gitcommitファイル限定）
+            autocmd MyAutoCmd FileType gitcommit cnoreabbrev <buffer><expr> wq 'WQ'
+            autocmd MyAutoCmd FileType gitcommit command! -nargs=? -complete=dir -bang -buffer WQ call s:replace_wq_to_wbd('<bang>')
+
+            function! s:replace_wq_to_wbd(bang)
+                if a:bang == ''
+                    write
+                    bd
+                else
+                    write!
+                    bd!
+                endif
+            endfunction
+
         endif
 
         call neobundle#untap()
