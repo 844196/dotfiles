@@ -220,12 +220,13 @@ nnoremap <Space> :<C-u>
 vnoremap <Space> :<C-u>
 
 " カッコ系を入力したら自動で中にカーソルを移動させる
-imap {} {}<Left>
-imap [] []<Left>
-imap "" ""<Left>
-imap '' ''<Left>
-imap <> <><Left>
-imap () ()<Left>
+inoremap {} {}<Left>
+inoremap [] []<Left>
+inoremap "" ""<Left>
+inoremap '' ''<Left>
+inoremap <> <><Left>
+inoremap () ()<Left>
+inoremap `` ``<Left>
 
 " insertモードを抜けるとIMEオフ
 if has('multi_byte_ime') || has('xim')
