@@ -226,7 +226,6 @@ inoremap "" ""<Left>
 inoremap '' ''<Left>
 inoremap <> <><Left>
 inoremap () ()<Left>
-inoremap `` ``<Left>
 
 " insertモードを抜けるとIMEオフ
 if has('multi_byte_ime') || has('xim')
