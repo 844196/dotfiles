@@ -226,7 +226,6 @@ inoremap "" ""<Left>
 inoremap '' ''<Left>
 inoremap <> <><Left>
 inoremap () ()<Left>
-inoremap `` ``<Left>
 
 " insertモードを抜けるとIMEオフ
 if has('multi_byte_ime') || has('xim')
@@ -587,7 +586,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                     \       "outputter" : "null",
                     \       "command"   : "open",
                     \       "cmdopt"    : "-a",
-                    \       "args"      : "Marked",
+                    \       "args"      : 'Marked\ 2',
                     \       "exec"      : "%c %o %a %s",
                     \   },
                     \ }
