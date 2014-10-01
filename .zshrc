@@ -15,8 +15,14 @@ setopt print_eight_bit
 # もしかして機能
 setopt correct
 
+# プロンプト文字の評価
+setopt prompt_subst
+
+# 色
+autoload -Uz colors; colors
+
 # ひょうしき
-PROMPT="%B%F{green}(๑•﹏•)%f%b %/%\ %(!.#.$) "
+PROMPT="%(?.%B%F{green}.%B%F{blue})%(?!(๑•﹏•)!(๑>﹏<%))%f%b %/%\ %(!.#.$) "
 
 # もしかして
 SPROMPT="%B%F{red}(๑•﹏•)%f%b < %rのことですかね...? [y, n, a, e]:"
