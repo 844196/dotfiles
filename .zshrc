@@ -101,6 +101,17 @@ function pcolor() {
     echo
 }
 
+# tmux自動起動
+if [ -z "${TMUX}" -a -z "${STY}" ]; then
+    if type tmux >/dev/null 2>&1; then
+        if tmux has-session && tmux list-sessions | grep -q '.*]$'; then
+            tmux attach
+        else
+            tmux new-session
+        fi
+    fi
+fi
+
 # .zshrc_localがあったらそれも読み込む
 if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
