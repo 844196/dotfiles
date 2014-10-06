@@ -28,11 +28,15 @@ setopt prompt_subst
 # 色
 autoload -Uz colors; colors
 
-# ひょうしき
-PROMPT="%(?.%B%F{green}.%B%F{blue})%(?!(๑•﹏•)!(๑>﹏<%))%f%b %/%\ %(!.#.$) "
+# プロンプト
 
-# もしかして
-SPROMPT="%B%F{red}(๑•﹏•)%f%b < %rのことですかね...? [y, n, a, e]:"
+    if [ $ismac = '0' ]; then
+        PROMPT="%(?.%B%F{green}.%B%F{blue})%(?!(๑•﹏•)!(๑>﹏<%))%f%b %/%\ %(!.#.$) "
+        SPROMPT="%B%F{red}(๑•﹏•)%f%b < %rのことですかね...? [y, n, a, e]:"
+    else
+        PROMPT="%(?.%B%F{yellow}.%B%F{blue})%(?!(X | _ | )!(X > _ < %))%f%b %/%\ %(!.#.$) "
+        SPROMPT="%B%F{red}(X | _ | )%f%b < お前が%rと思うんならそうなんだろう. お前ん中ではな. [y, n, a, e]:"
+    fi
 
 # 右プロンプトにGitブランチを表示
 RPROMPT=%F{239}$'`get-branch-name`'%f
