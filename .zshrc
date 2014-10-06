@@ -1,3 +1,10 @@
+# 環境依存
+if [ `uname` = 'Darwin' ]; then
+    ismac='0'
+else
+    ismac='1'
+fi
+
 # 補完
 autoload -U compinit; compinit
 setopt -U auto_cd
