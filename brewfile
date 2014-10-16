@@ -2,6 +2,9 @@ update
 
 upgrade
 
+# repository
+tap peco/peco
+
 # install
 install fontforge
 install lua
@@ -12,3 +15,4 @@ install jq
 install ruby
 install zsh
 install nkf
+install peco
