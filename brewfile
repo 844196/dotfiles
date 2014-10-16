@@ -2,10 +2,6 @@ update
 
 upgrade
 
-# Repository
-tap phinze/homebrew-cask || true
-tap homebrew/binary || true
-
 # install
 install fontforge
 install lua
@@ -15,16 +11,3 @@ install reattach-to-user-namespace
 install jq
 install ruby
 install zsh
-
-# cask install
-install brew-cask
-
-cask install skype
-cask install dropbox
-cask install iterm2
-cask install alfred
-cask install keyremap4macbook
-cask install hyperswitch
-cask install prepros
-
-cask alfred link
