@@ -11,3 +11,4 @@ install reattach-to-user-namespace
 install jq
 install ruby
 install zsh
+install nkf
