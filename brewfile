@@ -4,6 +4,7 @@ upgrade
 
 # repository
 tap peco/peco
+tap sanemat/font
 
 # install
 install fontforge
@@ -16,3 +17,4 @@ install ruby
 install zsh
 install nkf
 install peco
+install ricty
