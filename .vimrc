@@ -72,11 +72,6 @@ set wildmenu
 " 相対行番号を表示
 nnoremap <silent><F3> :<C-u>setlocal relativenumber!<CR>
 
-" 行数指定
-if has('gui_running')
-    autocmd MyAutoCmd GUIEnter * set lines=52
-endif
-
 " カーソル位置をハイライト
 set cursorline
 
@@ -92,25 +87,6 @@ if s:ismac
     set listchars=tab:»-,trail:-,eol:¬,nbsp:%
 else
     set listchars=trail:-
-endif
-
-" フォント
-if s:iswin
-    autocmd MyAutoCmd GUIEnter * set guifont=MS_Gothic:h11:cSHIFTJIS
-elseif s:ismac
-    autocmd MyAutoCmd GUIEnter * set guifont=Ricty\ Regular\ for\ Powerline:h17
-elseif s:isunix
-    autocmd MyAutoCmd GUIEnter * set guifont=DejaVu\ Sans\ Mono\ 11
-endif
-
-" gvimの時はフォントを綺麗にする
-if has('gui_running')
-    autocmd MyAutoCmd GUIEnter * set antialias
-endif
-
-" スクロールバーとか表示しない
-if has('gui_running')
-    autocmd MyAutoCmd GUIEnter * set guioptions=NONE
 endif
 
 " <C-Tab>でタブ切り替え
@@ -190,16 +166,6 @@ let g:markdown_fenced_languages = [
 "  tmpファイル
 command! -nargs=1 -complete=filetype Tmp edit $HOME/tmp.<args>
 
-" }}}
-" ==================================================================
-" レジスタ・クリップボード設定 {{{
-
-" クリップボード連携
-if has('gui_running')
-    set clipboard&
-    set clipboard+=unnamed
-endif
-
 
 " }}}
 " ==================================================================
@@ -235,12 +201,8 @@ if has('multi_byte_ime') || has('xim')
 endif
 
 " ち～ん（笑）って鳴らさない
-if has('gui_running')
-    autocmd MyAutoCmd GUIEnter * set visualbell t_vb=
-else
-    set visualbell
-    set t_vb=
-endif
+set visualbell
+set t_vb=
 
 " <Space>vsで縦分割後、新しいバッファに移動
 nnoremap <Space>vs :<C-u>vsplit\|winc l<CR>
@@ -545,18 +507,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                 endif
             endfunction
 
-        endif
-
-        call neobundle#untap()
-    endif
-    " }}}
-
-    " colorscheme {{{
-    if neobundle#tap('badwolf')
-        if has('gui_running')
-            autocmd MyAutoCmd GUIEnter * colorscheme badwolf
-        else
-            colorscheme badwolf
         endif
 
         call neobundle#untap()
