@@ -563,15 +563,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     endif
     " }}}
 
-    " vim-splash {{{
-    if neobundle#tap('vim-splash')
-        " splash.txtの場所
-        let g:splash#path = $HOME.'/dotfiles/splash.txt'
-
-        call neobundle#untap()
-    endif
-    " }}}
-
     " vim-quickrun {{{
     if neobundle#tap('vim-quickrun')
         let g:quickrun_config = {}
