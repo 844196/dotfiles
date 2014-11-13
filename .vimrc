@@ -563,15 +563,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     endif
     " }}}
 
-    " vim-splash {{{
-    if neobundle#tap('vim-splash')
-        " splash.txtの場所
-        let g:splash#path = $HOME.'/dotfiles/splash.txt'
-
-        call neobundle#untap()
-    endif
-    " }}}
-
     " vim-quickrun {{{
     if neobundle#tap('vim-quickrun')
         let g:quickrun_config = {}
@@ -646,23 +637,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
         " メモディレクトリを宣言
         let g:logpath = '~/Dropbox/Log/_posts/'
-
-        call neobundle#untap()
-    endif
-    " }}}
-
-    " vim-indent-guides {{{
-    if neobundle#tap('vim-indent-guides')
-        " ガイドラインの色を変更
-        let g:indent_guides_auto_colors=0
-        autocmd MyAutoCmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
-        autocmd MyAutoCmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
-
-        " ガイドラインの大きさを1に変更
-        let g:indent_guides_guide_size=1
-
-        " <F5>でガイドの表示切り替え
-        nnoremap <silent><F5> :IndentGuidesToggle<CR>
 
         call neobundle#untap()
     endif
