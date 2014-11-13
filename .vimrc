@@ -651,23 +651,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     endif
     " }}}
 
-    " vim-indent-guides {{{
-    if neobundle#tap('vim-indent-guides')
-        " ガイドラインの色を変更
-        let g:indent_guides_auto_colors=0
-        autocmd MyAutoCmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
-        autocmd MyAutoCmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
-
-        " ガイドラインの大きさを1に変更
-        let g:indent_guides_guide_size=1
-
-        " <F5>でガイドの表示切り替え
-        nnoremap <silent><F5> :IndentGuidesToggle<CR>
-
-        call neobundle#untap()
-    endif
-    " }}}
-
     " neocomplete {{{
     if neobundle#tap('neocomplete.vim')
         " Vim起動時から補完スタート
