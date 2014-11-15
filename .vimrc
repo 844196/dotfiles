@@ -27,13 +27,13 @@ nnoremap <C-h> :<C-u>help<Space>
 autocmd! MyAutoCmd FileType help nnoremap <silent><buffer>q :quit<CR>
 
 " Windows環境用変数宣言
-let s:iswin = has('win32') || has('win64') || has('win32unix')
+let g:iswin = has('win32') || has('win64') || has('win32unix')
 
 " Mac環境用変数宣言
-let s:ismac = has('mac')
+let g:ismac = has('mac')
 
 " unix環境用変数宣言
-let s:isunix = has('unix')
+let g:isunix = has('unix')
 
 
 " }}}
@@ -83,7 +83,7 @@ set showcmd
 
 " 不可視文字を表示
 set list
-if s:ismac
+if g:ismac
     set listchars=tab:»-,trail:-,eol:¬,nbsp:%
 else
     set listchars=trail:-
