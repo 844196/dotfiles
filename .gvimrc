@@ -2,11 +2,11 @@
 set lines=52
 
 " フォント
-if s:iswin
+if g:iswin
     set guifont=MS_Gothic:h11:cSHIFTJIS
-elseif s:ismac
+elseif g:ismac
     set guifont=Ricty\ Regular\ for\ Powerline:h17
-elseif s:isunix
+elseif g:isunix
     set guifont=DejaVu\ Sans\ Mono\ 11
 endif
 
