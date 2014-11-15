@@ -366,6 +366,12 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         let g:lightline.component_function = {}
         let g:lightline = {
             \ 'colorscheme' : 'badwolf',
+            \ 'component' : {
+            \   'lineinfo' : '%{ winwidth(0) > 70 ? "\u2b61 " . line(".") . ":" . col(".") : " " }',
+            \   'fileformat' : '%{ winwidth(0) > 70 ? &fileformat : "" }',
+            \   'fileencoding' : '%{ winwidth(0) > 70 ? strlen(&fenc)?&fenc:&enc : "" }',
+            \   'filetype' : '%{ winwidth(0) > 70 ? strlen(&filetype)?&filetype:"no ft" : "" }'
+            \   },
             \ 'component_function' : {
             \   'fugitive' : 'LightlineFugitive',
             \   'filename' : 'MyFilename',
