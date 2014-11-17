@@ -27,5 +27,5 @@ set visualbell t_vb=
 if neobundle#tap('badwolf')
     colorscheme badwolf
 
-    call neobundle#untap
+    call neobundle#untap()
 endif
