@@ -11,11 +11,13 @@ augroup MyAutoCmd
     autocmd!
 augroup END
 
-" $MYVIMRCを指定
+" $MYVIMRC, $MYGVIMRCを指定
 let $MYVIMRC = resolve(expand('~/.vimrc'))
+let $MYGVIMRC = resolve(expand('~/.gvimrc'))
 
-" <space>evで.vimrcを編集
+" <space>evで.vimrcを、<space>egで.gvimrcを編集
 nnoremap <Space>ev :<C-u>edit $MYVIMRC<CR>
+nnoremap <Space>eg :<C-u>edit $MYGVIMRC<CR>
 
 " .vimrcを自動再読み込み
 autocmd MyAutoCmd BufWritePost $MYVIMRC nested source $MYVIMRC
