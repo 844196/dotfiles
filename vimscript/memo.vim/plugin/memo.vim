@@ -12,21 +12,34 @@ set cpo&vim
 
 "メモ作成
 function! s:open_memo_file()
+    " タイトル取得
     let s:title = input('Title: ')
-
+    " ファイルネーム生成
     let s:filename = g:memopath . strftime('%Y-%m-%d_') . s:title . '.md'
 
-    let s:template = [
-                \'# ' . s:title,
-                \'date : ' . strftime("%Y-%m-%d"),
-                \'',
-                \'',
-                \]
+    " タイトルが空ならエラーメッセージを出力して終了
+    if empty(s:title)
+        redraw | echohl ErrorMsg | echo 'ファイル名がありません' | echohl None
+    " 同名ファイルがすでに存在するならエラーメッセージを出力して終了
+    elseif filereadable(expand(s:filename))
+        redraw | echohl ErrorMsg | echo '同名のファイルが存在します' | echohl None
+    " 問題ない場合テンプレートをバッファに書き込み保存
+    else
+        " テンプレート
+        let s:template = [
+                    \'# ' . s:title,
+                    \'date : ' . strftime("%Y-%m-%d"),
+                    \'',
+                    \'',
+                    \]
 
-    execute 'new ' . s:filename
-    call setline(1, s:template)
-    execute '999'
-    execute 'write'
+        " 保存
+        execute 'new ' . s:filename
+        call setline(1, s:template)
+        execute '999'
+        execute 'write'
+    endif
+
 endfunction
 
 command! -nargs=0 MemoNew call s:open_memo_file()
