@@ -314,6 +314,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                 \ }
     NeoBundle 'tpope/vim-fugitive'
     NeoBundle 'Yggdroot/indentLine'
+    NeoBundle 'haya14busa/incsearch.vim'
 
     " 自作
     NeoBundle 'memo.vim', {
@@ -628,6 +629,14 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
         " インデントを1レベルから表示
         let g:indentLine_showFirstIndentLevel = 1
+
+        call neobundle#untap()
+    endif
+
+    if neobundle#tap('incsearch.vim')
+        " リマップ
+        map / <Plug>(incsearch-forward)
+        map ? <Plug>(incsearch-backward)
 
         call neobundle#untap()
     endif
