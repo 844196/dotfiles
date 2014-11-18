@@ -404,9 +404,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             \ ('' != s:fname ? s:fname : '[No Name]')
         endfunction
 
-        " ステータスラインカラースキーム読み込み
-        autocmd MyAutoCmd VimEnter * call lightline#colorscheme()
-
         " lightline入れてるからモードを表示させない
         set noshowmode
 
