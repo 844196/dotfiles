@@ -266,12 +266,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
     " プラグイン
     NeoBundle 'itchyny/lightline.vim'
-    NeoBundleLazy 'lilydjwg/colorizer', {
-                \ 'autoload' : {
-                \   'filetypes' : [ 'html', 'css' ],
-                \   'commands' : 'ColorHighlight'
-                \   }
-                \ }
     NeoBundleLazy 'Shougo/vimshell.vim', {
                 \ 'depends' : 'Shougo/vimproc',
                 \ 'autoload' : {
