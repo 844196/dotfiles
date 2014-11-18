@@ -11,11 +11,13 @@ augroup MyAutoCmd
     autocmd!
 augroup END
 
-" $MYVIMRCを指定
+" $MYVIMRC, $MYGVIMRCを指定
 let $MYVIMRC = resolve(expand('~/.vimrc'))
+let $MYGVIMRC = resolve(expand('~/.gvimrc'))
 
-" <space>evで.vimrcを編集
+" <space>evで.vimrcを、<space>egで.gvimrcを編集
 nnoremap <Space>ev :<C-u>edit $MYVIMRC<CR>
+nnoremap <Space>eg :<C-u>edit $MYGVIMRC<CR>
 
 " .vimrcを自動再読み込み
 autocmd MyAutoCmd BufWritePost $MYVIMRC nested source $MYVIMRC
@@ -264,12 +266,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
     " プラグイン
     NeoBundle 'itchyny/lightline.vim'
-    NeoBundleLazy 'lilydjwg/colorizer', {
-                \ 'autoload' : {
-                \   'filetypes' : [ 'html', 'css' ],
-                \   'commands' : 'ColorHighlight'
-                \   }
-                \ }
     NeoBundleLazy 'Shougo/vimshell.vim', {
                 \ 'depends' : 'Shougo/vimproc',
                 \ 'autoload' : {
@@ -321,10 +317,12 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
     " 自作
     NeoBundle 'memo.vim', {
+                \ 'depends' : 'Shougo/unite.vim',
                 \ 'base' : '~/dotfiles/vimscript',
                 \ 'type' : 'nosync'
                 \ }
     NeoBundle 'Log.vim', {
+                \ 'depends' : 'Shougo/unite.vim',
                 \ 'base' : '~/dotfiles/vimscript',
                 \ 'type' : 'nosync'
                 \ }
@@ -338,7 +336,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                 \       'w0ng/vim-hybrid'
                 \       ]
                 \ }
-    NeoBundle 'ujihisa/unite-colorscheme'
+    NeoBundle 'ujihisa/unite-colorscheme', {
+                \ 'depends' : 'Shougo/unite.vim'
+                \ }
     NeoBundle 'tomasr/molokai'
     NeoBundle 'morhetz/gruvbox'
     NeoBundle 'sjl/badwolf'
@@ -366,6 +366,12 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         let g:lightline.component_function = {}
         let g:lightline = {
             \ 'colorscheme' : 'badwolf',
+            \ 'component' : {
+            \   'lineinfo' : '%{ winwidth(0) > 70 ? "\u2b61 " . line(".") . ":" . col(".") : " " }',
+            \   'fileformat' : '%{ winwidth(0) > 70 ? &fileformat : "" }',
+            \   'fileencoding' : '%{ winwidth(0) > 70 ? strlen(&fenc)?&fenc:&enc : "" }',
+            \   'filetype' : '%{ winwidth(0) > 70 ? strlen(&filetype)?&filetype:"no ft" : "" }'
+            \   },
             \ 'component_function' : {
             \   'fugitive' : 'LightlineFugitive',
             \   'filename' : 'MyFilename',
