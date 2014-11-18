@@ -1,3 +1,16 @@
+functions _zstart() {
+    dot="$(tput smso)  $(tput rmso)"
+    clear
+    echo "
+     $dot  $dot    $dot      $dot  $dot      $dot              $dot                  $dot
+   $dot$dot$dot$dot$dot  $dot    $dot    $dot          $dot$dot      $dot    $dot$dot$dot    $dot$dot  $dot
+     $dot  $dot    $dot    $dot    $dot$dot    $dot  $dot  $dot    $dot        $dot  $dot$dot    $dot$dot
+   $dot$dot$dot$dot$dot      $dot      $dot  $dot  $dot  $dot  $dot  $dot        $dot      $dot$dot  $dot  $dot
+     $dot  $dot    $dot  $dot      $dot$dot    $dot  $dot  $dot  $dot      $dot$dot$dot  $dot$dot    $dot  $dot
+    "
+}
+_zstart
+
 # 環境依存
 if [ `uname` = 'Darwin' ]; then
     ismac='0'
@@ -10,10 +23,10 @@ autoload -U compinit; compinit
 setopt -U auto_cd
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 setopt pushd_ignore_dups
-
 setopt auto_menu
 zstyle ':completion:*:default' menu select=1
 setopt list_packed
+bindkey "[Z" reverse-menu-complete
 
 # 言語
 export LANG=ja_JP.UTF-8
@@ -31,7 +44,7 @@ autoload -Uz colors; colors
 # プロンプト
 
     if [ $ismac = '0' ]; then
-        PROMPT="%(?.%B%F{green}.%B%F{blue})%(?!(๑•﹏•)!(๑>﹏<%))%f%b %/%\ %(!.#.$) "
+        PROMPT="%(?.%B%F{green}.%B%F{blue})%(?!(๑•﹏•)!(๑>﹏<%))%f%b %B%F{blue}%/%\ %(!.#.$)%f%b "
         SPROMPT="%B%F{red}(๑•﹏•)%f%b < %rのことですかね...? [y, n, a, e]:"
     else
         PROMPT="%(?.%B%F{yellow}.%B%F{blue})%(?!(X | _ | )!(X > _ < %))%f%b %/%\ %(!.#.$) "
@@ -86,6 +99,12 @@ alias ....="cd ../../.."
 alias cls="clear"
 alias quicklook="qlmanage -p"
 alias l="qlmanage -p"
+alias ls='ls -GFh'
+
+if [ -e /Applications/MacVim.app ]; then
+    alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+    alias gvim='/Applications/MacVim.app/Contents/MacOS/mvim'
+fi
 
 function pcolor() {
     for ((f = 0; f < 255; f++)); do
@@ -96,6 +115,17 @@ function pcolor() {
     done
     echo
 }
+
+functions _his() {
+    BUFFER=$(fc -l -n 1 | tail -r | peco --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle -R -c
+}
+if which peco >/dev/null 2>&1; then
+    zle -N _his
+    alias his='_his'
+    bindkey '^R' _his
+fi
 
 # tmux自動起動
 if [ -z "${TMUX}" -a -z "${STY}" ]; then
