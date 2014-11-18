@@ -75,21 +75,6 @@ setopt hist_no_store
 # 履歴の空白はつめる
 setopt hist_reduce_blanks
 
-# /usr/binより/usr/local/binを優先
-export PATH=/usr/local/bin:$PATH
-export PATH=$HOME/dotfiles/shellscript:$PATH
-
-# 重複パスを登録しない
-typeset -U path cdpath fpath manpath
-
-## sudo用のpathを設定
-typeset -xT SUDO_PATH sudo_path
-typeset -U sudo_path
-sudo_path=({/usr/local,/usr,}/sbin(N-/))
-
-# pathを設定
-path=(~/bin(N-/) /usr/local/bin(N-/) ${path})
-
 # リロード
 alias reload="source ~/.zshrc"
 
