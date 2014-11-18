@@ -323,10 +323,12 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
     " 自作
     NeoBundle 'memo.vim', {
+                \ 'depends' : 'Shougo/unite.vim',
                 \ 'base' : '~/dotfiles/vimscript',
                 \ 'type' : 'nosync'
                 \ }
     NeoBundle 'Log.vim', {
+                \ 'depends' : 'Shougo/unite.vim',
                 \ 'base' : '~/dotfiles/vimscript',
                 \ 'type' : 'nosync'
                 \ }
@@ -340,7 +342,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                 \       'w0ng/vim-hybrid'
                 \       ]
                 \ }
-    NeoBundle 'ujihisa/unite-colorscheme'
+    NeoBundle 'ujihisa/unite-colorscheme', {
+                \ 'depends' : 'Shougo/unite.vim'
+                \ }
     NeoBundle 'tomasr/molokai'
     NeoBundle 'morhetz/gruvbox'
     NeoBundle 'sjl/badwolf'
