@@ -315,13 +315,11 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle 'tpope/vim-fugitive'
     NeoBundle 'Yggdroot/indentLine'
     NeoBundle 'haya14busa/incsearch.vim'
+    NeoBundle '844196/memo.vim', {
+                \ 'depends' : 'Shougo/unite.vim'
+                \ }
 
     " 自作
-    NeoBundle 'memo.vim', {
-                \ 'depends' : 'Shougo/unite.vim',
-                \ 'base' : '~/dotfiles/vimscript',
-                \ 'type' : 'nosync'
-                \ }
     NeoBundle 'Log.vim', {
                 \ 'depends' : 'Shougo/unite.vim',
                 \ 'base' : '~/dotfiles/vimscript',
@@ -571,7 +569,14 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         let g:memopath = '~/Dropbox/Memo/'
 
         " メモ一覧呼び出しリマップ
-        nnoremap <F2> :MemoList<CR>
+        nnoremap <silent><F2> :<C-u>Unite memo
+                    \ -buffer-name=memo_list -winheight=10 -max-multi-lines=1
+                    \ <CR>
+
+        " メモGrep呼び出しリマップ
+        nnoremap <silent><C-n> :<C-u>execute(
+                    \ 'Unite grep:' . g:memopath . ' -no-empty -winheight=10'
+                    \ )<CR>
 
         call neobundle#untap()
     endif
