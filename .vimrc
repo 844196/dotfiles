@@ -575,7 +575,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
         " メモGrep呼び出しリマップ
         nnoremap <silent><C-n> :<C-u>execute(
-                    \ 'Unite grep:' . g:memopath . ' -no-empty -winheight=10'
+                    \ 'Unite grep:' . memo#getpath() . ' -no-empty -winheight=10'
                     \ )<CR>
 
         call neobundle#untap()
