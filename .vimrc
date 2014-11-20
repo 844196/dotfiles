@@ -229,24 +229,6 @@ set backspace=indent,eol,start
 
 " }}}
 " ==================================================================
-" Vim Script {{{
-
-    " スパウザー {{{
-    function! Scouter(file, ...)
-      let pat = '^\s*$\|^\s*"'
-      let lines = readfile(a:file)
-      if !a:0 || !a:1
-        let lines = split(substitute(join(lines, "\n"), '\n\s*\\', '', 'g'), "\n")
-      endif
-      return len(filter(lines,'v:val !~ pat'))
-    endfunction
-    command! -bar -bang -nargs=? -complete=file Scouter
-    \        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
-    " }}}
-
-
-" }}}
-" ==================================================================
 " プラグイン設定 {{{
 
 " NeoBundleがある時だけ以下を読み込み
@@ -315,6 +297,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle 'tpope/vim-fugitive'
     NeoBundle 'Yggdroot/indentLine'
     NeoBundle 'haya14busa/incsearch.vim'
+    NeoBundle 'thinca/vim-scouter'
     NeoBundle '844196/memo.vim', {
                 \ 'depends' : 'Shougo/unite.vim'
                 \ }
