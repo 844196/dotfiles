@@ -301,12 +301,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle '844196/memo.vim', {
                 \ 'depends' : 'Shougo/unite.vim'
                 \ }
-
-    " 自作
-    NeoBundle 'Log.vim', {
-                \ 'depends' : 'Shougo/unite.vim',
-                \ 'base' : '~/dotfiles/vimscript',
-                \ 'type' : 'nosync'
+    NeoBundle 'gist:844196/4c1dc9a89dd02ece4ebe', {
+                \ 'name' : 'Img_to_markdown.vim',
+                \ 'script_type' : 'plugin'
                 \ }
 
     " カラースキーム
@@ -565,20 +562,10 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     endif
     " }}}
 
-    " Log.vim {{{
-    if neobundle#tap('Log.vim')
-        " <Space>htで入力待機
-        nnoremap <Space>ht :<C-u>Htag 
-
-        " <space>ciで<div class="caption"></div>を挿入
-        nnoremap <silent><Space>ci :<C-u>LogCaption<CR>
-
-        " <Space>imで標準置換、<Space>icでCC置換
-        nnoremap <silent><Space>im :<C-u>F2M NO<CR>
-        nnoremap <silent><Space>ic :<C-u>F2M CC<CR>
-
-        " メモディレクトリを宣言
-        let g:logpath = '~/Dropbox/Log/_posts/'
+    " Img_to_markdown.vim {{{
+    if neobundle#tap('Img_to_markdown.vim')
+        " <Space>imで置換
+        nmap <silent><Space>im <Plug>(img_to_markdown)
 
         call neobundle#untap()
     endif
