@@ -8,9 +8,6 @@
 #
 
 base=${0##*/}
-OLD_IFS=${IFS}
-IFS=","
-
 _error() {
     echo "${base%.sh}: invaild argument" 1>&2
     exit 1
@@ -18,10 +15,8 @@ _error() {
 
 if [ -z "${1}" ]; then _error; fi
 
-brewfile=(`cat ${1} | grep -v -e '^$' -e '^#' | tr -s "\n" ','`)
-
-for command in ${brewfile[@]}; do
-    brew ${command}
-done
-
-IFS=${OLD_IFS}
+while read line; do
+    if $(echo ${line} | grep -qv -e '^$' -e '^#'); then
+        brew ${line}
+    fi
+done < ${1}
