@@ -346,7 +346,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         let g:lightline = {
             \ 'colorscheme' : 'badwolf',
             \ 'component' : {
-            \   'lineinfo' : '%{ winwidth(0) > 70 ? "\u2b61 " . line(".") . ":" . col(".") : " " }',
+            \   'lineinfo' : '%{ winwidth(0) > 70 ? g:vimrc_local_LinecolumnSymbol . " " . line(".") . ":" . col(".") : " " }',
             \   'fileformat' : '%{ winwidth(0) > 70 ? &fileformat : "" }',
             \   'fileencoding' : '%{ winwidth(0) > 70 ? strlen(&fenc)?&fenc:&enc : "" }',
             \   'filetype' : '%{ winwidth(0) > 70 ? strlen(&filetype)?&filetype:"no ft" : "" }'
@@ -370,7 +370,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         function! LightlineFugitive()
             if exists("*fugitive#head")
                 let _ = fugitive#head()
-                return strlen(_) ? "\u2b60"._ : ''
+                return strlen(_) ? g:vimrc_local_BranchSymbol._ : ''
             endif
             return ''
         endfunction
@@ -450,7 +450,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             if s:branch == ''
                 return ''
             else
-                return "[\u27a6 " . s:branch . ']'
+                return '[' . g:vimrc_local_BranchSymbol . s:branch . ']'
             endif
         endfunction
 
