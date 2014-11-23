@@ -11,7 +11,8 @@ $ curl -sL 844196.com/dot | sh
 $ git clone https://github.com/844196/dotfiles ~/dotfiles
 ```
 
-### .vimrc_local
+## Local settings
+## .vimrc_local
 ```vim
 " Colorscheme
 if neobundle#tap('badwolf')
