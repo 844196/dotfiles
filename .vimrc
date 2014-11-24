@@ -343,6 +343,8 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     if neobundle#tap('lightline.vim')
         let g:lightline = {}
         let g:lightline.component_function = {}
+        let g:vimrc_local_BranchSymbol = ''
+        let g:vimrc_local_LinecolumnSymbol = ''
         let g:lightline = {
             \ 'colorscheme' : 'badwolf',
             \ 'component' : {
