@@ -12,7 +12,7 @@ $ git clone https://github.com/844196/dotfiles ~/dotfiles
 ```
 
 ## Local settings
-## .vimrc_local
+### .vimrc_local
 ```vim
 " Colorscheme
 if neobundle#tap('badwolf')
