@@ -3,7 +3,7 @@
 
 # 導入するドットファイルを宣言
 
-    dotfiles=(.vimrc .gvimrc .vimshrc .zshrc .zshenv .tmux.conf)
+    dotfiles=(.vimrc .gvimrc .vimshrc .zshrc .zshenv .tmux.conf .gitconfig .gitignore_global)
 
 
 # 環境の判定
