@@ -163,7 +163,7 @@ _git() {
 }
 
 alias st='_git status'
-alias ck='_git checkout'
+alias ck='git checkout `git branch | sed -e "s/\*.*$//g" | peco | awk "{print \$1}"`'
 alias br='_git branch'
 alias co='_git commit'
 alias mr='_git merge'
