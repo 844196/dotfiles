@@ -149,6 +149,26 @@ if which peco >/dev/null 2>&1; then
     bindkey '^R' _his
 fi
 
+# Git
+_git() {
+    if `git status >/dev/null 2>&1`; then
+        command=${1}
+        shift
+        git ${command} "$@"
+        return 0
+    else
+        echo "_git: Not a git repository" 1>&2
+        return 1
+    fi
+}
+
+alias st='_git status'
+alias ck='_git checkout'
+alias br='_git branch'
+alias co='_git commit'
+alias mr='_git merge'
+alias pu='_git push'
+
 # tmux自動起動
 if [ -z "${TMUX}" -a -z "${STY}" ]; then
     if type tmux >/dev/null 2>&1; then
