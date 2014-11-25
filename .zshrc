@@ -42,21 +42,43 @@ setopt prompt_subst
 autoload -Uz colors; colors
 
 # プロンプト
+autoload -Uz vcs_info
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' max-exports 3
+zstyle ':vcs_info:git:*' stagedstr " "
+zstyle ':vcs_info:git:*' unstagedstr " "
+zstyle ':vcs_info:*' formats "%b" "%c%u"
 
-    if [ $ismac = '0' ]; then
-        PROMPT="%(?.%B%F{green}.%B%F{blue})%(?!(๑•﹏•)!(๑>﹏<%))%f%b %B%F{blue}%/%\ %(!.#.$)%f%b "
-        SPROMPT="%B%F{red}(๑•﹏•)%f%b < %rのことですかね...? [y, n, a, e]:"
+_update_vcs_info() {
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+
+    if [[ -z ${vcs_info_msg_0_} ]]; then
+        psvar[1]=""
+        psvar[2]=""
     else
-        PROMPT="%(?.%B%F{yellow}.%B%F{blue})%(?!(X | _ | )!(X > _ < %))%f%b %/%\ %(!.#.$) "
-        SPROMPT="%B%F{red}(X | _ | )%f%b < お前が%rと思うんならそうなんだろう. お前ん中ではな. [y, n, a, e]:"
+        if [[ -n "${vcs_info_msg_1_}" ]]; then
+            psvar[1]=""
+            psvar[2]=( "☂ ${vcs_info_msg_0_}" )
+        else
+            psvar[1]=( "☀ ${vcs_info_msg_0_}" )
+            psvar[2]=""
+        fi
     fi
-
-# 右プロンプトにGitブランチを表示
-RPROMPT=%F{239}$'`get-branch-name`'%f
-setopt prompt_subst
-function get-branch-name {
-    echo `git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1]/'`
 }
+
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _update_vcs_info
+
+PROMPT="
+%B%F{34}%n@%m%f%b:%~ %F{34}%1v%f%F{red}%2v%f
+%B%(?.%F{blue}.%F{red})%(!.#.⟩)%f%b "
+
+if [ $ismac = '0' ]; then
+    SPROMPT="%B%F{red}(๑•﹏•)%f%b < %rのこと言ってるんですかね...? [y, n, a, e]:"
+else
+    SPROMPT="%B%F{red}(X | _ | )%f%b < お前が%rと思うんならそうなんだろう. お前ん中ではな. [y, n, a, e]:"
+fi
 
 # 履歴ファイルの保存先
 export HISTFILE=$HOME/.zsh_history
