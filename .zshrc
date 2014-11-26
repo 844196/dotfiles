@@ -162,6 +162,14 @@ _git() {
     fi
 }
 
+chpwd() {
+    if `git status >/dev/null 2>&1`; then
+        alias -g B='`git branch | peco | head -n 1 | sed -e "s/^\*\s//g"`'
+    else
+        unalias \B
+    fi
+}
+
 alias st='_git status'
 alias ck='git checkout `git branch | sed -e "s/\*.*$//g" | peco | awk "{print \$1}"`'
 alias br='_git branch'
