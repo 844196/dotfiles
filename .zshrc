@@ -46,8 +46,9 @@ autoload -Uz colors; colors
 autoload -Uz vcs_info
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' max-exports 3
-zstyle ':vcs_info:git:*' stagedstr " "
-zstyle ':vcs_info:git:*' unstagedstr " "
+zstyle ':vcs_info:git:*' stagedstr "+"
+zstyle ':vcs_info:git:*' unstagedstr "-"
+zstyle ':vcs_info:git:*' branchformat '%b:r%r'
 zstyle ':vcs_info:*' formats "%b" "%c%u"
 
 _update_vcs_info() {
@@ -60,9 +61,9 @@ _update_vcs_info() {
     else
         if [[ -n "${vcs_info_msg_1_}" ]]; then
             psvar[1]=""
-            psvar[2]=( "☂ ${vcs_info_msg_0_}" )
+            psvar[2]=( "✘ [⭠${vcs_info_msg_0_}][${vcs_info_msg_1_}]" )
         else
-            psvar[1]=( "☀ ${vcs_info_msg_0_}" )
+            psvar[1]=( "✔ [⭠${vcs_info_msg_0_}]" )
             psvar[2]=""
         fi
     fi
@@ -70,7 +71,7 @@ _update_vcs_info() {
 add-zsh-hook precmd _update_vcs_info
 
 PROMPT="
-%B%F{34}%n@%m%f%b:%~ %F{34}%1v%f%F{red}%2v%f
+%B%F{34}%n@%m%f%b:%d %F{34}%1v%f%F{red}%2v%f
 %B%(?.%F{blue}.%F{red})%(!.#.⟩)%f%b "
 
 RPROMPT="%F{239}[%D %*]%f"
