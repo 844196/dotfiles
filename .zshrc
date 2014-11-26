@@ -175,7 +175,7 @@ _git_alias_B() {
 add-zsh-hook precmd _git_alias_B
 
 alias st='_git status'
-alias ck='git checkout `git branch | sed -e "s/\*.*$//g" | peco | awk "{print \$1}"`'
+alias ck='git checkout'
 alias br='_git branch'
 alias co='_git commit'
 alias mr='_git merge'
