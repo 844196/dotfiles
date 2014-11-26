@@ -35,8 +35,9 @@ setopt print_eight_bit
 # もしかして機能
 setopt correct
 
-# プロンプト文字の評価
+# プロンプト文字、関数の評価
 setopt prompt_subst
+autoload -Uz add-zsh-hook
 
 # 色
 autoload -Uz colors; colors
@@ -66,8 +67,6 @@ _update_vcs_info() {
         fi
     fi
 }
-
-autoload -Uz add-zsh-hook
 add-zsh-hook precmd _update_vcs_info
 
 PROMPT="
@@ -162,13 +161,18 @@ _git() {
     fi
 }
 
-chpwd() {
+_git_alias_B() {
     if `git status >/dev/null 2>&1`; then
-        alias -g B='`git branch | peco | head -n 1 | sed -e "s/^\*\s//g"`'
+        if `which peco >/dev/null 2>&1`; then
+            alias -g B='`git branch | peco | head -n 1 | sed -e "s/^\*\s//g"`'
+        else
+            unalias \B >/dev/null 2>&1
+        fi
     else
-        unalias \B
+        unalias \B >/dev/null 2>&1
     fi
 }
+add-zsh-hook precmd _git_alias_B
 
 alias st='_git status'
 alias ck='git checkout `git branch | sed -e "s/\*.*$//g" | peco | awk "{print \$1}"`'
