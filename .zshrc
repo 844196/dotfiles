@@ -1,12 +1,12 @@
 functions _zstart() {
-    dot="$(tput smso)  $(tput rmso)"
+    d="$(tput smso)  $(tput rmso)"
     clear
     echo "
-     $dot  $dot    $dot      $dot  $dot      $dot              $dot                  $dot
-   $dot$dot$dot$dot$dot  $dot    $dot    $dot          $dot$dot      $dot    $dot$dot$dot    $dot$dot  $dot
-     $dot  $dot    $dot    $dot    $dot$dot    $dot  $dot  $dot    $dot        $dot  $dot$dot    $dot$dot
-   $dot$dot$dot$dot$dot      $dot      $dot  $dot  $dot  $dot  $dot  $dot        $dot      $dot$dot  $dot  $dot
-     $dot  $dot    $dot  $dot      $dot$dot    $dot  $dot  $dot  $dot      $dot$dot$dot  $dot$dot    $dot  $dot
+     $d  $d    $d      $d  $d      $d              $d                  $d
+   $d$d$d$d$d  $d    $d    $d          $d$d      $d    $d$d$d    $d$d  $d
+     $d  $d    $d    $d    $d$d    $d  $d  $d    $d        $d  $d$d    $d$d
+   $d$d$d$d$d      $d      $d  $d  $d  $d  $d  $d        $d      $d$d  $d  $d
+     $d  $d    $d  $d      $d$d    $d  $d  $d  $d      $d$d$d  $d$d    $d  $d
     "
 }
 _zstart
