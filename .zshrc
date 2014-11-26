@@ -43,32 +43,35 @@ autoload -Uz add-zsh-hook
 autoload -Uz colors; colors
 
 # プロンプト
-autoload -Uz vcs_info
-zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' max-exports 3
-zstyle ':vcs_info:git:*' stagedstr "+"
-zstyle ':vcs_info:git:*' unstagedstr "-"
-zstyle ':vcs_info:git:*' branchformat '%b:r%r'
-zstyle ':vcs_info:*' formats "%b" "%c%u"
+_currentBranch() {
+    git rev-parse --abbrev-ref HEAD
+}
 
-_update_vcs_info() {
+_branchStatus() {
+    if `git status | grep -v -e '^\s' -e '^$' | grep -sq "${1}"`; then true; else false; fi
+}
+
+_updateGitInfo() {
     psvar=()
-    LANG=en_US.UTF-8 vcs_info
-
-    if [[ -z ${vcs_info_msg_0_} ]]; then
+    if `git status >/dev/null 2>&1`; then
+        if _branchStatus "clean"; then _symbol="✔ "; else _symbol="✘ "; fi
+        if _branchStatus "to\sbe"; then _notCommit="[+]"; else _notCommit=""; fi
+        if _branchStatus "not\sstaged"; then _notStage="[-]"; else _notStage=""; fi
+        if _branchStatus "Untracked"; then _notTrack="[N]"; else _notTrack=""; fi
+        _info="${_symbol}[⭠`_currentBranch`]${_notTrack}${_notCommit}${_notStage}"
+        if _branchStatus "clean"; then
+            psvar[1]="${_info}"
+            psvar[2]=""
+        else
+            psvar[1]=""
+            psvar[2]="${_info}"
+        fi
+    else
         psvar[1]=""
         psvar[2]=""
-    else
-        if [[ -n "${vcs_info_msg_1_}" ]]; then
-            psvar[1]=""
-            psvar[2]=( "✘ [⭠${vcs_info_msg_0_}][${vcs_info_msg_1_}]" )
-        else
-            psvar[1]=( "✔ [⭠${vcs_info_msg_0_}]" )
-            psvar[2]=""
-        fi
     fi
 }
-add-zsh-hook precmd _update_vcs_info
+add-zsh-hook precmd _updateGitInfo
 
 PROMPT="
 %B%F{34}%n@%m%f%b:%d %F{34}%1v%f%F{red}%2v%f
