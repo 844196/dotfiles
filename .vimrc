@@ -345,13 +345,14 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         let g:lightline.component_function = {}
         let g:vimrc_local_BranchSymbol = ''
         let g:vimrc_local_LinecolumnSymbol = ''
+        let g:vimrc_local_FiletypeSymbol = ''
         let g:lightline = {
             \ 'colorscheme' : 'badwolf',
             \ 'component' : {
             \   'lineinfo' : '%{ winwidth(0) > 70 ? g:vimrc_local_LinecolumnSymbol . " " . line(".") . ":" . col(".") : " " }',
             \   'fileformat' : '%{ winwidth(0) > 70 ? &fileformat : "" }',
             \   'fileencoding' : '%{ winwidth(0) > 70 ? strlen(&fenc)?&fenc:&enc : "" }',
-            \   'filetype' : '%{ winwidth(0) > 70 ? strlen(&filetype)?&filetype:"no ft" : "" }'
+            \   'filetype' : '%{ winwidth(0) > 70 ? strlen(&filetype)?g:vimrc_local_FiletypeSymbol." ".&filetype:"no ft" : "" }'
             \   },
             \ 'component_function' : {
             \   'fugitive' : 'LightlineFugitive',
