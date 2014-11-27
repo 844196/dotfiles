@@ -154,14 +154,14 @@ if which peco >/dev/null 2>&1; then
 fi
 
 # Git
-_git() {
+_git_alias() {
     if `git status >/dev/null 2>&1`; then
         command=${1}
         shift
         git ${command} "$@"
         return 0
     else
-        echo "_git: Not a git repository" 1>&2
+        echo "_git_alias: Not a git repository" 1>&2
         return 1
     fi
 }
@@ -179,12 +179,13 @@ _git_alias_B() {
 }
 add-zsh-hook precmd _git_alias_B
 
-alias st='_git status'
-alias ck='git checkout'
-alias br='_git branch'
-alias co='_git commit'
-alias mr='_git merge'
-alias pu='_git push'
+alias st='_git_alias status'
+alias ck='_git_alias checkout'
+alias br='_git_alias branch'
+alias co='_git_alias commit'
+alias mr='_git_alias merge'
+alias pu='_git_alias push'
+alias di='_git_alias diff'
 
 # tmux自動起動
 if [ -z "${TMUX}" -a -z "${STY}" ]; then
