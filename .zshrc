@@ -159,6 +159,7 @@ _git_alias() {
         command=${1}
         shift
         git ${command} "$@"
+        if [ "${command}" = 'status' ]; then :; else echo ''; git status; fi
         return 0
     else
         echo "_git_alias: Not a git repository" 1>&2
