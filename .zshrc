@@ -78,8 +78,6 @@ PROMPT="
 %B%F{34}%n@%m%f%b:%d %F{34}%1v%f%F{red}%2v%f
 %B%(?.%F{blue}.%F{red})%(!.#.❯)%f%b "
 
-RPROMPT="%F{239}[%D %*]%f"
-
 if [ $ismac = '0' ]; then
     SPROMPT="%B%F{red}(๑•﹏•)%f%b < %rのこと言ってるんですかね...? [y, n, a, e]:"
 else
