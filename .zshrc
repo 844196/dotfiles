@@ -76,7 +76,7 @@ add-zsh-hook precmd _updateGitInfo
 
 PROMPT="
 %B%F{34}%n@%m%f%b:%d %F{34}%1v%f%F{red}%2v%f
-%B%(?.%F{blue}.%F{red})%(!.#.⟩)%f%b "
+%B%(?.%F{blue}.%F{red})%(!.#.❯)%f%b "
 
 RPROMPT="%F{239}[%D %*]%f"
 
