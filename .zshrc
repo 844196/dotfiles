@@ -58,7 +58,8 @@ _updateGitInfo() {
         if _branchStatus "to\sbe"; then _notCommit="[+]"; else _notCommit=""; fi
         if _branchStatus "not\sstaged"; then _notStage="[-]"; else _notStage=""; fi
         if _branchStatus "Untracked"; then _notTrack="[N]"; else _notTrack=""; fi
-        _info="${_symbol}[⭠`_currentBranch`]${_notTrack}${_notCommit}${_notStage}"
+        _tranckingBranch="`git rev-parse --abbrev-ref @{u} 2>/dev/null | xargs -IBRANCH echo " -> [⭠BRANCH]"`"
+        _info="${_symbol}[⭠`_currentBranch`]${_notTrack}${_notCommit}${_notStage}${_tranckingBranch}"
         if _branchStatus "clean"; then
             psvar[1]="${_info}"
             psvar[2]=""
