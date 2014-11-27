@@ -361,10 +361,10 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             \   },
             \ 'active' : {
             \   'left' : [ ['mode', 'paste'], ['readonly', 'fugitive', 'filename', 'modified'] ],
-            \   'right': [ ['lineinfo'], ['fileformat', 'fileencoding', 'filetype'] ]
+            \   'right': [ ['lineinfo'], ['filetype'], ['fileformat', 'fileencoding'] ]
             \   },
             \ 'inactive' : {
-            \   'right' : [ ['lineinfo'] ]
+            \   'right' : [ ['lineinfo'], ['filetype'] ]
             \   }
             \ }
 
