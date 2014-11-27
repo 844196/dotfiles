@@ -187,6 +187,9 @@ alias co='_git_alias commit'
 alias mr='_git_alias merge'
 alias pu='_git_alias push'
 alias di='_git_alias diff'
+alias rb='_git_alias rebase'
+alias gg='_git_alias graph'
+alias lg='_git_alias logg'
 
 # tmux自動起動
 if [ -z "${TMUX}" -a -z "${STY}" ]; then
