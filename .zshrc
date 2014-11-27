@@ -76,9 +76,7 @@ add-zsh-hook precmd _updateGitInfo
 
 PROMPT="
 %B%F{34}%n@%m%f%b:%d %F{34}%1v%f%F{red}%2v%f
-%B%(?.%F{blue}.%F{red})%(!.#.⟩)%f%b "
-
-RPROMPT="%F{239}[%D %*]%f"
+%B%(?.%F{blue}.%F{red})%(!.#.❯)%f%b "
 
 if [ $ismac = '0' ]; then
     SPROMPT="%B%F{red}(๑•﹏•)%f%b < %rのこと言ってるんですかね...? [y, n, a, e]:"
@@ -156,14 +154,15 @@ if which peco >/dev/null 2>&1; then
 fi
 
 # Git
-_git() {
+_git_alias() {
     if `git status >/dev/null 2>&1`; then
         command=${1}
         shift
         git ${command} "$@"
+        if [ "${command}" = 'status' ]; then :; else echo ''; git status; fi
         return 0
     else
-        echo "_git: Not a git repository" 1>&2
+        echo "_git_alias: Not a git repository" 1>&2
         return 1
     fi
 }
@@ -181,12 +180,16 @@ _git_alias_B() {
 }
 add-zsh-hook precmd _git_alias_B
 
-alias st='_git status'
-alias ck='git checkout'
-alias br='_git branch'
-alias co='_git commit'
-alias mr='_git merge'
-alias pu='_git push'
+alias st='_git_alias status'
+alias ck='_git_alias checkout'
+alias br='_git_alias branch'
+alias co='_git_alias commit'
+alias mr='_git_alias merge'
+alias pu='_git_alias push'
+alias di='_git_alias diff'
+alias rb='_git_alias rebase'
+alias gg='_git_alias graph'
+alias lg='_git_alias logg'
 
 # tmux自動起動
 if [ -z "${TMUX}" -a -z "${STY}" ]; then
