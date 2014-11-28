@@ -45,6 +45,9 @@ let g:isunix = has('unix')
 " シンタックス有効
 syntax on
 
+" なんか早くなるらしい
+set synmaxcol=300
+
 " モードラインを有効にする
 set modeline
 
@@ -607,6 +610,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
         " インデントを1レベルから表示
         let g:indentLine_showFirstIndentLevel = 1
+
+        " なんか早くなるらしい
+        let g:indentLine_faster = 1
 
         call neobundle#untap()
     endif
