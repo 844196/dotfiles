@@ -183,6 +183,19 @@ _git_alias_B() {
 }
 add-zsh-hook precmd _git_alias_B
 
+_git_alias_C() {
+    if `git status >/dev/null 2>&1`; then
+        if `which peco >/dev/null 2>&1`; then
+            alias -g C='`git log --oneline | peco | cut -d" " -f1`'
+        else
+            unalias \C >/dev/null 2>&1
+        fi
+    else
+        unalias \C >/dev/null 2>&1
+    fi
+}
+add-zsh-hook precmd _git_alias_C
+
 alias st='_git_alias status'
 alias ck='_git_alias checkout'
 alias br='_git_alias branch'
