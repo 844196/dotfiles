@@ -350,7 +350,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         let g:vimrc_local_LinecolumnSymbol = ''
         let g:vimrc_local_FiletypeSymbol = ''
         let g:lightline = {
-            \ 'colorscheme' : 'badwolf',
             \ 'component' : {
             \   'lineinfo' : '%{ winwidth(0) > 70 ? g:vimrc_local_LinecolumnSymbol . " " . line(".") . ":" . col(".") : " " }',
             \   'fileformat' : '%{ winwidth(0) > 70 ? &fileformat : "" }',
