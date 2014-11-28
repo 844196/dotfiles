@@ -43,24 +43,27 @@ autoload -Uz add-zsh-hook
 autoload -Uz colors; colors
 
 # プロンプト
-_currentBranch() {
-    git rev-parse --abbrev-ref HEAD
-}
-
-_branchStatus() {
-    if `git status | grep -v -e '^\s' -e '^$' | grep -sq "${1}"`; then true; else false; fi
-}
-
 _updateGitInfo() {
     psvar=()
     if `git status >/dev/null 2>&1`; then
-        if _branchStatus "clean"; then _symbol="✔ "; else _symbol="✘ "; fi
-        if _branchStatus "to\sbe"; then _notCommit="[+]"; else _notCommit=""; fi
-        if _branchStatus "not\sstaged"; then _notStage="[-]"; else _notStage=""; fi
-        if _branchStatus "Untracked"; then _notTrack="[N]"; else _notTrack=""; fi
+        _branchStatus=`git status | grep -v -e '^\s' -e '^$'`
+        _currentBranch=`git rev-parse --abbrev-ref HEAD`
         _tranckingBranch="`git rev-parse --abbrev-ref @{u} 2>/dev/null | xargs -IBRANCH echo " -> [⭠BRANCH]"`"
-        _info="${_symbol}[⭠`_currentBranch`]${_notTrack}${_notCommit}${_notStage}${_tranckingBranch}"
-        if _branchStatus "clean"; then
+
+        if `echo ${_branchStatus} | grep -sq "clean"`; then _symbol="✔ "; else _symbol="✘ "; fi
+        if `echo ${_branchStatus} | grep -sq "to\sbe"`; then _notCommit="[+]"; else _notCommit=""; fi
+        if `echo ${_branchStatus} | grep -sq "not\sstaged"`; then _notStage="[-]"; else _notStage=""; fi
+        if `echo ${_branchStatus} | grep -sq "Untracked"`; then _notTrack="[N]"; else _notTrack=""; fi
+
+        if [ "${_currentBranch}" = 'HEAD' ]; then
+            _branch="[➦ ${_currentBranch}(`git rev-parse --short HEAD`)]"
+        else
+            _branch="[⭠${_currentBranch}]"
+        fi
+
+        _info="${_symbol}${_branch}${_notTrack}${_notCommit}${_notStage}${_tranckingBranch}"
+
+        if `echo ${_branchStatus} | grep -sq "clean"`; then
             psvar[1]="${_info}"
             psvar[2]=""
         else
