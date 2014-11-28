@@ -75,7 +75,7 @@ _updateGitInfo() {
 add-zsh-hook precmd _updateGitInfo
 
 PROMPT="
-%B%F{34}%n@%m%f%b:%d %F{34}%1v%f%F{red}%2v%f
+%B%F{cyan}%n@%m%f%b: %F{yellow}%~%f %F{green}%1v%f%F{red}%2v%f
 %B%(?.%F{blue}.%F{red})%(!.#.❯)%f%b "
 
 if [ $ismac = '0' ]; then
