@@ -14,5 +14,5 @@
     pushinsteadof = "https://github.com/"
     pushinsteadof = "git://github.com/"
 [alias]
-    graph = log --graph --branches --pretty=format:'%d [%h] %s'
-    logg = log --stat --pretty=format:'%Cblue%h %Cgreen%ar %Cred%an %Creset%s %Cred%d%Creset'
+    graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    logg = log --stat --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
