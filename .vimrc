@@ -403,6 +403,28 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             \ lightline#mode()
         endfunction
 
+        " リロード
+        augroup LightLineColorscheme
+            autocmd!
+            autocmd ColorScheme * call s:lightline_update()
+        augroup END
+        function! s:lightline_update()
+            if !exists('g:loaded_lightline')
+                return
+            endif
+            try
+                if g:colors_name =~# 'wombat\|solarized\|landscape\|jellybeans\|Tomorrow'
+                  let g:lightline.colorscheme =
+                        \ substitute(substitute(g:colors_name, '-', '_', 'g'), '256.*', '', '') .
+                        \ (g:colors_name ==# 'solarized' ? '_' . &background : '')
+                  call lightline#init()
+                  call lightline#colorscheme()
+                  call lightline#update()
+                endif
+                catch
+            endtry
+        endfunction
+
         call neobundle#untap()
     endif
     " }}}
