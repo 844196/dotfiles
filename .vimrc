@@ -349,8 +349,10 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         let g:vimrc_local_BranchSymbol = ''
         let g:vimrc_local_LinecolumnSymbol = ''
         let g:vimrc_local_FiletypeSymbol = ''
+        let g:vimrc_local_ReadonlySymbol = 'RO'
         let g:lightline = {
             \ 'component' : {
+            \   'readonly' : '%{ &readonly ? g:vimrc_local_ReadonlySymbol : "" }',
             \   'lineinfo' : '%{ winwidth(0) > 70 ? g:vimrc_local_LinecolumnSymbol . " " . line(".") . ":" . col(".") : " " }',
             \   'fileformat' : '%{ winwidth(0) > 70 ? &fileformat : "" }',
             \   'fileencoding' : '%{ winwidth(0) > 70 ? strlen(&fenc)?&fenc:&enc : "" }',
@@ -375,7 +377,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         function! LightlineFugitive()
             if exists("*fugitive#head")
                 let _ = fugitive#head()
-                return strlen(_) ? g:vimrc_local_BranchSymbol._ : ''
+                return strlen(_) ? g:vimrc_local_BranchSymbol.' '._ : ''
             endif
             return ''
         endfunction
