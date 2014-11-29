@@ -22,10 +22,3 @@ set clipboard+=unnamed
 
 " ち～ん（笑）って鳴らさない
 set visualbell t_vb=
-
-" colorscheme
-if neobundle#tap('badwolf')
-    colorscheme badwolf
-
-    call neobundle#untap()
-endif
