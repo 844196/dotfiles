@@ -23,6 +23,12 @@
     </item>
 
     <item>
+        <name>CONTROL_L+i to F7</name>
+        <identifier>option.F7.option_i</identifier>
+        <autogen>__KeyToKey__ KeyCode::I, ModifierFlag::CONTROL_L, KeyCode::F7</autogen>
+    </item>
+
+    <item>
         <name>Leave Insert Mode with EISUU (vim keybind apps)</name>
         <identifier>private.vim_keybind_apps_esc_with_eisuu</identifier>
         <only>iTERM2,TERMINAL,MACVIM</only>
