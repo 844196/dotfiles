@@ -228,6 +228,16 @@ nnoremap <Down> <C-w>-
 " <BS>で行末やインサート開始前の文字列を消せられる
 set backspace=indent,eol,start
 
+" 挿入モード・コマンドラインモード時のカーソル移動
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+
 
 " }}}
 " ==================================================================
