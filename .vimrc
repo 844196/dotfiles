@@ -317,6 +317,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                 \ 'name' : 'Img_to_markdown.vim',
                 \ 'script_type' : 'plugin'
                 \ }
+    NeoBundle 'boucherm/ShowMotion'
 
     " カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
@@ -653,6 +654,17 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         " リマップ
         map / <Plug>(incsearch-forward)
         map ? <Plug>(incsearch-backward)
+
+        call neobundle#untap()
+    endif
+
+    if neobundle#tap('ShowMotion')
+        " リマップ
+        nmap w <Plug>(show-motion-w)
+        nmap W <Plug>(show-motion-W)
+        nmap b <Plug>(show-motion-b)
+        nmap e <Plug>(show-motion-e)
+        nmap E <Plug>(show-motion-E)
 
         call neobundle#untap()
     endif
