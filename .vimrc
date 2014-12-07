@@ -318,6 +318,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                 \ 'script_type' : 'plugin'
                 \ }
     NeoBundle 'boucherm/ShowMotion'
+    NeoBundle 'osyo-manga/vim-over'
 
     " カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
@@ -665,6 +666,21 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         nmap b <Plug>(show-motion-b)
         nmap e <Plug>(show-motion-e)
         nmap E <Plug>(show-motion-E)
+
+        call neobundle#untap()
+    endif
+
+    if neobundle#tap('vim-over')
+        " プロンプト
+        let g:over_command_line_prompt = '[over]:'
+        " 置換したらハイライトを消す
+        let g:over_enable_auto_nohlsearch = 1
+
+        " リマップ
+        noremap <silent>:s/ :OverCommandLine s/<CR>
+        noremap <silent><Space>s/ :OverCommandLine s/<CR>
+        nnoremap <silent>%s/ :OverCommandLine %s/<CR>
+        nnoremap <silent><Space>%s/ :OverCommandLine %s/<CR>
 
         call neobundle#untap()
     endif
