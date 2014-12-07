@@ -187,8 +187,7 @@ noremap <CR> o<ESC>
 noremap <S-CR> O<ESC>
 
 " <Space>でコマンドライン
-nnoremap <Space> :<C-u>
-vnoremap <Space> :<C-u>
+noremap <Space> :
 
 " カッコ系を入力したら自動で中にカーソルを移動させる
 inoremap {} {}<Left>
