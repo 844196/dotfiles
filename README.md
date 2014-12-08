@@ -24,10 +24,12 @@ if neobundle#tap('badwolf')
 endif
 
 " Unicode Symbols
-let g:vimrc_local_BranchSymbol = "\u2b60"
-let g:vimrc_local_LinecolumnSymbol = "\u2b61"
-let g:vimrc_local_FiletypeSymbol = "\u2b62\u2b63"
-let g:vimrc_local_ReadonlySymbol = "\u2b64"
+let g:vimrc_local_unicode_symbol = {
+            \ 'Branch'    : "\u2b60",
+            \ 'LineColumn': "\u2b61",
+            \ 'FileType'  : "\u2b62\u2b63",
+            \ 'ReadOnly'  : "\u2b64"
+            \ }
 let g:lightline.separator = {
             \ 'left' : "\u2b80", 'right' : "\u2b82"
             \ }
