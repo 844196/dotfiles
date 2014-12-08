@@ -682,10 +682,8 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         let g:over_enable_auto_nohlsearch = 1
 
         " リマップ
-        noremap <silent>:s/ :OverCommandLine s/<CR>
-        noremap <silent><Space>s/ :OverCommandLine s/<CR>
-        nnoremap <silent>%s/ :OverCommandLine %s/<CR>
-        nnoremap <silent><Space>%s/ :OverCommandLine %s/<CR>
+        nmap <silent><Space>s/ :OverCommandLine s/<CR>
+        nmap <silent><Space>%s/ :OverCommandLine %s/<CR>
 
         call neobundle#untap()
     endif
