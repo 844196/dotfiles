@@ -47,6 +47,7 @@ syntax on
 
 " なんか早くなるらしい
 set synmaxcol=300
+set ttyfast
 
 " モードラインを有効にする
 set modeline
