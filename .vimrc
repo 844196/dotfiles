@@ -704,7 +704,8 @@ if filereadable(expand($HOME.'/.vimrc_local'))
     " <Space>elで.vimrc_localを編集
     nnoremap <Space>el :<C-u>edit $HOME/.vimrc_local<CR>
 
-    " .vimrc_localを編集したら自動再読み込み
+    " .vimrc、.vimrc_localを編集したら自動再読み込み
+    autocmd MyAutoCmd BufWritePost $MYVIMRC nested source $HOME/.vimrc_local
     autocmd MyAutoCmd BufWritePost $HOME/.vimrc_local nested source $HOME/.vimrc_local
 endif
 
