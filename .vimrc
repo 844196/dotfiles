@@ -105,7 +105,7 @@ endif
 nnoremap <C-Tab> gt
 
 " stで新しいタブ
-nnoremap <Space>st :tabnew<CR>
+nnoremap <Space>st :<C-u>tabnew<CR>
 
 " iTermでインサートモード時、カーソルを正しく変形させる
 if exists('$TMUX')
@@ -155,7 +155,7 @@ set incsearch
 set nowrapscan
 
 " 検索結果のハイライトをEsc連打でクリアする
-nnoremap <ESC><ESC> :nohlsearch<CR>
+nnoremap <ESC><ESC> :<C-u>nohlsearch<CR>
 
 " 大文字、小文字を区別しない
 set ignorecase
@@ -579,7 +579,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         nnoremap <Space>b :<C-u>Unite<Space>buffer<CR>
 
         " <Leader><Leader>でUnite file
-        nnoremap <Leader><Leader> :Unite file<CR>
+        nnoremap <Leader><Leader> :<C-u>Unite file<CR>
 
         " インサートモードオン
         let g:unite_enable_start_insert = 1
@@ -629,7 +629,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         let g:neocomplete#enable_at_startup = 1
 
         " <F4>で補完切り替え
-        nnoremap <F4> :NeoCompleteToggle<CR>
+        nnoremap <F4> :<C-u>NeoCompleteToggle<CR>
 
         call neobundle#untap()
     endif
@@ -649,7 +649,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     " indentLine
     if neobundle#tap('indentLine')
         " <F5>でガイドの表示切り替え
-        nnoremap <silent><F5> :IndentLinesToggle<CR>
+        nnoremap <silent><F5> :<C-u>IndentLinesToggle<CR>
 
         " インデントの色を変更（ターミナル）
         let g:indentLine_color_term = 239
