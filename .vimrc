@@ -362,17 +362,15 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     if neobundle#tap('lightline.vim')
         let g:lightline = {}
         let g:lightline.component_function = {}
-        let g:vimrc_local_BranchSymbol = ''
-        let g:vimrc_local_LinecolumnSymbol = ''
-        let g:vimrc_local_FiletypeSymbol = ''
-        let g:vimrc_local_ReadonlySymbol = 'RO'
+        let g:vimrc_local_unicode_symbol = {}
+        let g:vimrc_local_unicode_symbol.ReadOnly = 'RO'
         let g:lightline = {
             \ 'component' : {
-            \   'readonly' : '%{ &readonly ? g:vimrc_local_ReadonlySymbol : "" }',
-            \   'lineinfo' : '%{ winwidth(0) > 70 ? g:vimrc_local_LinecolumnSymbol . " " . line(".") . ":" . col(".") : " " }',
+            \   'readonly' : '%{ &readonly ? g:vimrc_local_unicode_symbol.ReadOnly : "" }',
+            \   'lineinfo' : '%{ winwidth(0) > 70 ? g:vimrc_local_unicode_symbol.LineColumn . " " . line(".") . ":" . col(".") : " " }',
             \   'fileformat' : '%{ winwidth(0) > 70 ? &fileformat : "" }',
             \   'fileencoding' : '%{ winwidth(0) > 70 ? strlen(&fenc)?&fenc:&enc : "" }',
-            \   'filetype' : '%{ winwidth(0) > 70 ? strlen(&filetype)?g:vimrc_local_FiletypeSymbol." ".&filetype:"no ft" : "" }'
+            \   'filetype' : '%{ winwidth(0) > 70 ? strlen(&filetype)?g:vimrc_local_unicode_symbol.FileType ." ".&filetype:"no ft" : "" }'
             \   },
             \ 'component_function' : {
             \   'fugitive' : 'LightlineFugitive',
@@ -393,7 +391,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         function! LightlineFugitive()
             if exists("*fugitive#head")
                 let _ = fugitive#head()
-                return strlen(_) ? g:vimrc_local_BranchSymbol.' '._ : ''
+                return strlen(_) ? g:vimrc_local_unicode_symbol.Branch .' '._ : ''
             endif
             return ''
         endfunction
@@ -495,7 +493,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             if s:branch == ''
                 return ''
             else
-                return '[' . g:vimrc_local_BranchSymbol . s:branch . ']'
+                return '[' . g:vimrc_local_unicode_symbol.Branch . s:branch . ']'
             endif
         endfunction
 
