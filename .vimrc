@@ -668,6 +668,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         nmap w <Plug>(show-motion-w)
         nmap W <Plug>(show-motion-W)
         nmap b <Plug>(show-motion-b)
+        nmap B <Plug>(show-motion-B)
         nmap e <Plug>(show-motion-e)
         nmap E <Plug>(show-motion-E)
 
