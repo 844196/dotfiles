@@ -51,9 +51,6 @@ let g:isunix = has('unix')
 " ==================================================================
 " 表示設定 {{{
 
-" シンタックス有効
-syntax on
-
 " なんか早くなるらしい
 set synmaxcol=300
 set ttyfast
@@ -714,6 +711,14 @@ if filereadable(expand($HOME.'/.vimrc_local'))
     autocmd MyAutoCmd BufWritePost $MYVIMRC nested source $HOME/.vimrc_local
     autocmd MyAutoCmd BufWritePost $HOME/.vimrc_local nested source $HOME/.vimrc_local
 endif
+
+
+" }}}
+" ==================================================================
+" 最終処理 {{{
+
+" シンタックス有効
+syntax on
 
 
 " }}}
