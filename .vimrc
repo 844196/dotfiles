@@ -250,6 +250,9 @@ cnoremap <C-f> <Right>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 
+" 矩形選択で自由に選択する
+set virtualedit+=block
+
 
 " }}}
 " ==================================================================
