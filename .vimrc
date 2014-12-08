@@ -363,8 +363,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     if neobundle#tap('lightline.vim')
         let g:lightline = {}
         let g:lightline.component_function = {}
-        let g:vimrc_local_unicode_symbol = {}
-        let g:vimrc_local_unicode_symbol.ReadOnly = 'RO'
+        let g:vimrc_local_unicode_symbol = { 'Branch': '', 'LineColumn': '', 'FileType': '', 'ReadOnly': 'RO' }
         let g:lightline = {
             \ 'component' : {
             \   'readonly' : '%{ &readonly ? g:vimrc_local_unicode_symbol.ReadOnly : "" }',
