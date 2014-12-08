@@ -396,8 +396,8 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         let g:lightline.component_function.fugitive = 'LightlineFugitive'
         function! LightlineFugitive()
             if exists("*fugitive#head")
-                let _ = fugitive#head()
-                return strlen(_) ? g:vimrc_local_unicode_symbol.Branch .' '._ : ''
+                let s:_ = fugitive#head()
+                return strlen(s:_) ? g:vimrc_local_unicode_symbol.Branch .' '.s:_ : ''
             endif
             return ''
         endfunction
