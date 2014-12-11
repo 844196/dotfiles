@@ -25,16 +25,5 @@ if neobundle#tap('badwolf')
 endif
 
 " Unicode Symbols
-let g:vimrc_local_unicode_symbol = {
-            \ 'Branch'    : "\u2b60",
-            \ 'LineColumn': "\u2b61",
-            \ 'FileType'  : "\u2b62\u2b63",
-            \ 'ReadOnly'  : "\u2b64"
-            \ }
-let g:lightline.separator = {
-            \ 'left' : "\u2b80", 'right' : "\u2b82"
-            \ }
-let g:lightline.subseparator = {
-            \ 'left' : "\u2b81", 'right' : "\u2b83"
-            \ }
+let g:rich_symbols = '1'
 ```
