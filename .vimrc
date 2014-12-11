@@ -368,18 +368,54 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundleCheck
 
 
+    " 各プラグイン用リッチシンボル設定
+    function! s:rich_unicode_symbols()
+        if exists('g:rich_symbols') && g:rich_symbols =~# '1\|true\|rich\|fancy'
+            let g:rich_unicode_symbol = {
+                        \ 'Branch'    : "\u2b60",
+                        \ 'LineColumn': "\u2b61",
+                        \ 'FileType'  : "\u2b62\u2b63",
+                        \ 'ReadOnly'  : "\u2b64"
+                        \ }
+            let g:lightline.separator = {
+                        \ 'left' : "\u2b80",
+                        \ 'right': "\u2b82"
+                        \ }
+            let g:lightline.subseparator = {
+                        \ 'left' : "\u2b81",
+                        \ 'right': "\u2b83"
+                        \ }
+        else
+            let g:rich_unicode_symbol = {
+                        \ 'Branch'    : '',
+                        \ 'LineColumn': '',
+                        \ 'FileType'  : '',
+                        \ 'ReadOnly'  : 'RO'
+                        \ }
+            let g:lightline.separator = {
+                        \ 'left' : '',
+                        \ 'right': ''
+                        \ }
+            let g:lightline.subseparator = {
+                        \ 'left' : '|',
+                        \ 'right': '|'
+                        \ }
+        endif
+    endfunction
+    autocmd MyAutoCmd ColorScheme * call s:rich_unicode_symbols()
+    autocmd MyAutoCmd BufWritePost $MYVIMRC,~/.vimrc_local call s:rich_unicode_symbols()
+
     " lightline.vim {{{
     if neobundle#tap('lightline.vim')
         let g:lightline = {}
         let g:lightline.component_function = {}
-        let g:vimrc_local_unicode_symbol = { 'Branch': '', 'LineColumn': '', 'FileType': '', 'ReadOnly': 'RO' }
         let g:lightline = {
             \ 'component' : {
-            \   'readonly' : '%{ &readonly ? g:vimrc_local_unicode_symbol.ReadOnly : "" }',
-            \   'lineinfo' : '%{ winwidth(0) > 70 ? g:vimrc_local_unicode_symbol.LineColumn . " " . line(".") . ":" . col(".") : " " }',
+            \   'readonly' : '%{ &readonly ? g:rich_unicode_symbol.ReadOnly : "" }',
+            \   'lineinfo' : '%{ winwidth(0) > 70 ? g:rich_unicode_symbol.LineColumn . " " . line(".") . ":" . col(".") : " " }',
             \   'fileformat' : '%{ winwidth(0) > 70 ? &fileformat : "" }',
             \   'fileencoding' : '%{ winwidth(0) > 70 ? strlen(&fenc)?&fenc:&enc : "" }',
-            \   'filetype' : '%{ winwidth(0) > 70 ? strlen(&filetype)?g:vimrc_local_unicode_symbol.FileType ." ".&filetype:"no ft" : "" }'
+            \   'filetype' : '%{ winwidth(0) > 70 ? strlen(&filetype)?g:rich_unicode_symbol.FileType ." ".&filetype:"no ft" : "" }'
             \   },
             \ 'component_function' : {
             \   'fugitive' : 'LightlineFugitive',
@@ -400,7 +436,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         function! LightlineFugitive()
             if exists("*fugitive#head")
                 let s:_ = fugitive#head()
-                return strlen(s:_) ? g:vimrc_local_unicode_symbol.Branch .' '.s:_ : ''
+                return strlen(s:_) ? g:rich_unicode_symbol.Branch .' '.s:_ : ''
             endif
             return ''
         endfunction
@@ -502,7 +538,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             if s:branch == ''
                 return ''
             else
-                return '[' . g:vimrc_local_unicode_symbol.Branch . s:branch . ']'
+                return '[' . g:rich_unicode_symbol.Branch . s:branch . ']'
             endif
         endfunction
 
