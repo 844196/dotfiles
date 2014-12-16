@@ -693,9 +693,6 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         " インデントを1レベルから表示
         let g:indentLine_showFirstIndentLevel = 1
 
-        " なんか早くなるらしい
-        let g:indentLine_faster = 1
-
         " 入力中は表示しない
         autocmd MyAutoCmd InsertEnter * IndentLinesDisable
         autocmd MyAutoCmd InsertLeave * IndentLinesEnable
