@@ -225,7 +225,7 @@ nnoremap <Space>vs :<C-u>vsplit\|winc l<CR>
 
 " バッファを選択する際に、同時にリストを表示する
 " http://qiita.com/s_of_p/items/a80020cf32f3de5d044c
-nnoremap <Space>B :<C-u>ls<CR>:b
+nnoremap <Leader>B :<C-u>ls<CR>:b
 
 " JとgJを入れ替える
 nnoremap J gJ
@@ -612,7 +612,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     " Unite {{{
     if neobundle#tap('unite.vim')
         " バッファ一覧をUniteに置き換え
-        nnoremap <Space>b :<C-u>Unite<Space>buffer<CR>
+        nnoremap <Leader>b :<C-u>Unite<Space>buffer<CR>
 
         " <Leader><Leader>でUnite file
         nnoremap <Leader><Leader> :<C-u>Unite file<CR>
