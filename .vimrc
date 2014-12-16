@@ -696,6 +696,10 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         " なんか早くなるらしい
         let g:indentLine_faster = 1
 
+        " 入力中は表示しない
+        autocmd MyAutoCmd InsertEnter * IndentLinesDisable
+        autocmd MyAutoCmd InsertLeave * IndentLinesEnable
+
         call neobundle#untap()
     endif
 
