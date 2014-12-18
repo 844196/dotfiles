@@ -2,7 +2,7 @@
 	name = Masaya Takeda
 	email = 844196@gmail.com
 [core]
-	editor = /usr/bin/vim
+	editor = vim
 	excludesfile = ~/.gitignore_global
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
