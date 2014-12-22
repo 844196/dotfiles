@@ -334,6 +334,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                 \ }
     NeoBundle 'boucherm/ShowMotion'
     NeoBundle 'osyo-manga/vim-over'
+    NeoBundle 'osyo-manga/vim-anzu'
 
     " カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
@@ -420,11 +421,12 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             \ 'component_function' : {
             \   'fugitive' : 'LightlineFugitive',
             \   'filename' : 'MyFilename',
-            \   'mode'     : 'Mymode'
+            \   'mode'     : 'Mymode',
+            \   'anzu'     : 'anzu#search_status'
             \   },
             \ 'active' : {
             \   'left' : [ ['mode', 'paste'], ['readonly', 'fugitive', 'filename', 'modified'] ],
-            \   'right': [ ['lineinfo'], ['filetype'], ['fileformat', 'fileencoding'] ]
+            \   'right': [ ['anzu', 'lineinfo'], ['filetype'], ['fileformat', 'fileencoding'] ]
             \   },
             \ 'inactive' : {
             \   'right' : [ ['lineinfo'], ['filetype'] ]
@@ -704,6 +706,8 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         " リマップ
         map / <Plug>(incsearch-forward)
         map ? <Plug>(incsearch-backward)
+        map n <Plug>(incsearch-nohl-n)
+        map N <Plug>(incsearch-nohl-N)
 
         call neobundle#untap()
     endif
@@ -729,6 +733,17 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         " リマップ
         map <silent><Space>s/ :OverCommandLine s/<CR>
         map <silent><Space>%s/ :OverCommandLine %s/<CR>
+
+        call neobundle#untap()
+    endif
+
+    if neobundle#tap('vim-anzu')
+        " incsearchと共存させる
+        nmap n <Plug>(incsearch-nohl)<Plug>(anzu-n)
+        nmap N <Plug>(incsearch-nohl)<Plug>(anzu-N)
+
+        " <ESC><ESC>でステータスを消す
+        nmap <silent><Esc><Esc> :<C-u>nohlsearch<CR><Plug>(anzu-clear-search-status)
 
         call neobundle#untap()
     endif
