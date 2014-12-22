@@ -155,7 +155,7 @@ set incsearch
 set nowrapscan
 
 " 検索結果のハイライトをEsc連打でクリアする
-nnoremap <ESC><ESC> :<C-u>nohlsearch<CR>
+nnoremap <silent><ESC><ESC> :<C-u>nohlsearch<CR>
 
 " 大文字、小文字を区別しない
 set ignorecase
