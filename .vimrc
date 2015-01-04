@@ -675,9 +675,11 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
     " emmet-vim {{{
     if neobundle#tap('emmet-vim')
-        " スニペット言語設定
         let g:user_emmet_settings = {
-                \ 'lang' : 'ja'
+                \ 'lang' : 'ja',
+                \   'html': {
+                \     'indentation': '  '
+                \   }
                 \ }
 
         call neobundle#untap()
