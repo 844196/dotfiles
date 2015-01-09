@@ -199,7 +199,7 @@ add-zsh-hook precmd _git_alias_C
 alias st='_git_alias status'
 alias ck='_git_alias checkout'
 alias br='_git_alias branch'
-alias co='_git_alias commit'
+alias co='_git_alias commit -v'
 alias mr='_git_alias merge'
 alias pu='_git_alias push'
 alias di='_git_alias diff'
