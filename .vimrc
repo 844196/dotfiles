@@ -349,6 +349,11 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                 \       'osyo-manga/vim-watchdogs'
                 \   ]
                 \ }
+    NeoBundle 'KazuakiM/vim-qfstatusline', {
+                \  'depends': [
+                \       'osyo-manga/vim-watchdogs'
+                \   ]
+                \ }
 
     " カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
@@ -438,9 +443,15 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             \   'mode'     : 'Mymode',
             \   'anzu'     : 'anzu#search_status'
             \   },
+            \ 'component_expand' : {
+            \   'qfstatusline': 'qfstatusline#Update'
+            \   },
+            \ 'component_type' : {
+            \   'qfstatusline': 'error'
+            \   },
             \ 'active' : {
             \   'left' : [ ['mode', 'paste'], ['readonly', 'fugitive', 'filename', 'modified'] ],
-            \   'right': [ ['anzu', 'lineinfo'], ['filetype'], ['fileformat', 'fileencoding'] ]
+            \   'right': [ ['qfstatusline', 'anzu', 'lineinfo'], ['filetype'], ['fileformat', 'fileencoding'] ]
             \   },
             \ 'inactive' : {
             \   'right' : [ ['lineinfo'], ['filetype'] ]
@@ -815,6 +826,19 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                     \ "hook/qfsigns_update/enable_exit": 1,
                     \ "hook/qfsigns_update/priority_exit": 3
                     \ })
+
+        call neobundle#untap()
+    endif
+
+    if neobundle#tap('vim-qfstatusline')
+        call extend(g:quickrun_config['watchdogs_checker/_'], {
+                    \ "hook/qfstatusline_update/enable_exit": 1,
+                    \ "hook/qfstatusline_update/priority_exit": 3
+                    \ })
+        let g:Qfstatusline#UpdateCmd = function('lightline#update')
+
+        " エラーメッセージを表示しない
+        let g:Qfstatusline#Text = 0
 
         call neobundle#untap()
     endif
