@@ -860,7 +860,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     if neobundle#tap('unite-quickfix')
         " <Leader>qでquickfixを表示
         nnoremap <silent><Leader>q :<C-u>Unite quickfix
-                    \ -no-empty -direction=botright -no-start-insert -no-quit -auto-preview
+                    \ -no-empty -direction=botright -no-start-insert -no-quit
                     \ <CR>
 
         call neobundle#untap()
