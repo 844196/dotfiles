@@ -354,6 +354,11 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                 \       'osyo-manga/vim-watchdogs'
                 \   ]
                 \ }
+    NeoBundle 'osyo-manga/unite-quickfix', {
+                \  'depends': [
+                \       'osyo-manga/vim-watchdogs'
+                \   ]
+                \ }
 
     " カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
@@ -839,6 +844,15 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
         " エラーメッセージを表示しない
         let g:Qfstatusline#Text = 0
+
+        call neobundle#untap()
+    endif
+
+    if neobundle#tap('unite-quickfix')
+        " <Leader>qでquickfixを表示
+        nnoremap <silent><Leader>q :<C-u>Unite quickfix
+                    \ -no-empty -direction=botright -no-start-insert -no-quit -auto-preview
+                    \ <CR>
 
         call neobundle#untap()
     endif
