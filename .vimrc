@@ -117,7 +117,7 @@ if exists('$TMUX')
 endif
 
 " 折り返した行がインデントに沿うようになる
-if has("patch-7.4.338")
+if has('patch-7.4.338')
     set breakindent
 endif
 
@@ -475,7 +475,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         " Gitブランチを表示
         let g:lightline.component_function.fugitive = 'LightlineFugitive'
         function! LightlineFugitive()
-            if exists("*fugitive#head")
+            if exists('*fugitive#head')
                 let s:_ = fugitive#head()
                 return strlen(s:_) ? g:rich_unicode_symbol.Branch .' '.s:_ : ''
             endif
@@ -575,7 +575,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         " 右プロンプトにGitブランチを表示
         let g:vimshell_right_prompt='Git_branch()'
         function! Git_branch()
-            let s:branch = substitute(system("git rev-parse --abbrev-ref HEAD 2> /dev/null"), '\n', '', 'g')
+            let s:branch = substitute(system('git rev-parse --abbrev-ref HEAD 2> /dev/null'), '\n', '', 'g')
             if s:branch == ''
                 return ''
             else
