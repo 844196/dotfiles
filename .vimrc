@@ -335,6 +335,15 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
     NeoBundle 'boucherm/ShowMotion'
     NeoBundle 'osyo-manga/vim-over'
     NeoBundle 'osyo-manga/vim-anzu'
+    NeoBundle 'osyo-manga/vim-watchdogs', {
+                \   'depends': [
+                \       'osyo-manga/shabadou.vim',
+                \       'Shougo/vimproc',
+                \       'thinca/vim-quickrun',
+                \       'cohama/vim-hier',
+                \       'dannyob/quickfixstatus',
+                \   ]
+                \ }
 
     " カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
@@ -746,6 +755,52 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
         " <ESC><ESC>でステータスを消す
         nmap <silent><Esc><Esc> :<C-u>nohlsearch<CR><Plug>(anzu-clear-search-status)
+
+        call neobundle#untap()
+    endif
+
+    if neobundle#tap('vim-watchdogs')
+        " quickfixの窓を表示しない
+        " 問題無かったらその旨表示する
+        call extend(g:quickrun_config, {
+                    \   "watchdogs_checker/_": {
+                    \       "outputter/quickfix/open_cmd": "",
+                    \       "hook/echo/enable": 1,
+                    \       "hook/echo/output_success": "[watchdogs] No Errors Found."
+                    \   }
+                    \ })
+
+        " 保存時にシンタックスチェック
+        let g:watchdogs_check_BufWritePost_enable = 1
+
+        " 一定周期でシンタックスチェック
+        let g:watchdogs_check_CursorHold_enable = 1
+
+        " vimは（あれば）vintでシンタックスチェック
+        call extend(g:quickrun_config, {
+                    \   "watchdogs_checker/vint": {
+                    \       "command": "vint",
+                    \       "exec": "%c %o %s:p "
+                    \   },
+                    \   "vim/watchdogs_checker": {
+                    \       "type": executable("vint") ? "watchdogs_checker/vint" : ""
+                    \   }
+                    \ })
+
+        " shとzshは（あれば）shellcheckでシンタックスチェック
+        call extend(g:quickrun_config, {
+                    \   "watchdogs_checker/shellcheck": {
+                    \       "command": "shellcheck",
+                    \       "cmdopt": "-f\ gcc",
+                    \       "exec": "%c %o %s:p "
+                    \   },
+                    \   "sh/watchdogs_checker": {
+                    \       "type": executable("shellcheck") ? "watchdogs_checker/shellcheck" : ""
+                    \   },
+                    \   "zsh/watchdogs_checker": {
+                    \       "type": executable("shellcheck") ? "watchdogs_checker/shellcheck" : ""
+                    \   }
+                    \ })
 
         call neobundle#untap()
     endif
