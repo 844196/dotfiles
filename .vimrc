@@ -359,6 +359,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                 \       'osyo-manga/vim-watchdogs'
                 \   ]
                 \ }
+    NeoBundle 'osyo-manga/vim-sound'
 
     " カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
@@ -853,6 +854,32 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         nnoremap <silent><Leader>q :<C-u>Unite quickfix
                     \ -no-empty -direction=botright -no-start-insert -no-quit -auto-preview
                     \ <CR>
+
+        call neobundle#untap()
+    endif
+
+    if neobundle#tap('vim-sound')
+        function! s:change_sound_name(basename)
+            return expand(s:se_path . a:basename . s:se_ext)
+        endfunction
+
+        function! PlaySE(name)
+            call sound#play_wav(s:change_sound_name(a:name))
+        endfunction
+
+        " ディレクトリがある時だけ効果音を設定
+        let s:se_path = '~/Dropbox/soundeffect/'
+        let s:se_ext = '.wav'
+        if isdirectory(expand(s:se_path))
+            augroup SoundEffect
+                autocmd!
+            augroup END
+
+            autocmd SoundEffect BufReadPost  * call PlaySE("open")
+            autocmd SoundEffect BufWritePost * call PlaySE("save")
+            autocmd SoundEffect BufLeave     * call PlaySE("move")
+            autocmd SoundEffect CompleteDone * call PlaySE("complete_done")
+        endif
 
         call neobundle#untap()
     endif
