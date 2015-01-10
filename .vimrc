@@ -253,6 +253,14 @@ cnoremap <C-e> <End>
 " 矩形選択で自由に選択する
 set virtualedit+=block
 
+" クリップボード連携
+if has('mac')
+    set clipboard=unnamed
+endif
+
+" 全行ヤンク
+command! PBcopy %y
+
 
 " }}}
 " ==================================================================
