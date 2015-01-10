@@ -344,6 +344,11 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                 \       'dannyob/quickfixstatus',
                 \   ]
                 \ }
+    NeoBundle 'KazuakiM/vim-qfsigns', {
+                \  'depends': [
+                \       'osyo-manga/vim-watchdogs'
+                \   ]
+                \ }
 
     " カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
@@ -800,6 +805,15 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
                     \   "zsh/watchdogs_checker": {
                     \       "type": executable("shellcheck") ? "watchdogs_checker/shellcheck" : ""
                     \   }
+                    \ })
+
+        call neobundle#untap()
+    endif
+
+    if neobundle#tap('vim-qfsigns')
+        call extend(g:quickrun_config['watchdogs_checker/_'], {
+                    \ "hook/qfsigns_update/enable_exit": 1,
+                    \ "hook/qfsigns_update/priority_exit": 3
                     \ })
 
         call neobundle#untap()
