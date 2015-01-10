@@ -267,7 +267,7 @@ command! PBcopy %y
 " プラグイン設定 {{{
 
 " NeoBundleがある時だけ以下を読み込み
-if glob('~/.vim/bundle/neobundle.vim') != ''
+if glob('~/.vim/bundle/neobundle.vim') !=? ''
 
     " runtimepathを追加
     if has('vim_starting')
@@ -485,9 +485,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         " カレントバッファのタイトル
         function! MyFilename()
             let s:fname = expand('%:~')
-            return &ft == 'vimshell' ? vimshell#get_status_string() :
-            \ &ft == 'unite' ? unite#get_status_string() :
-            \ ('' != s:fname ? s:fname : '[No Name]')
+            return &ft ==# 'vimshell' ? vimshell#get_status_string() :
+            \ &ft ==# 'unite' ? unite#get_status_string() :
+            \ ('' !=? s:fname ? s:fname : '[No Name]')
         endfunction
 
         " lightline入れてるからモードを表示させない
@@ -499,9 +499,9 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
 
         " プラグイン別のモード表示
         function! Mymode()
-            return &ft == 'unite' ? 'Unite' :
-            \ &ft == 'vimshell' ? 'VimShell' :
-            \ &ft == 'tweetvim' ? 'TweetVim' :
+            return &ft ==# 'unite' ? 'Unite' :
+            \ &ft ==# 'vimshell' ? 'VimShell' :
+            \ &ft ==# 'tweetvim' ? 'TweetVim' :
             \ lightline#mode()
         endfunction
 
@@ -576,7 +576,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
         let g:vimshell_right_prompt='Git_branch()'
         function! Git_branch()
             let s:branch = substitute(system('git rev-parse --abbrev-ref HEAD 2> /dev/null'), '\n', '', 'g')
-            if s:branch == ''
+            if s:branch ==? ''
                 return ''
             else
                 return '[' . g:rich_unicode_symbol.Branch . s:branch . ']'
@@ -609,7 +609,7 @@ if glob('~/.vim/bundle/neobundle.vim') != ''
             autocmd MyAutoCmd FileType gitcommit command! -nargs=? -complete=dir -bang -buffer WQ call s:replace_wq_to_wbd('<bang>')
 
             function! s:replace_wq_to_wbd(bang)
-                if a:bang == ''
+                if a:bang ==? ''
                     write
                     bd
                 else
