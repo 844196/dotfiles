@@ -2,3 +2,14 @@ alias quicklook = 'qlmanage -p $$args'
 alias l = quicklook
 alias cls = clear
 alias reload = vimsh ~/.vimshrc
+
+alias st = 'git status'
+alias ck = 'git checkout'
+alias br = 'git branch'
+alias co = 'git commit -v'
+alias mr = 'git merge'
+alias pu = 'git push'
+alias di = 'git diff'
+alias rb = 'git rebase'
+alias gg = 'git graph | head'
+alias lg = 'git logg'
