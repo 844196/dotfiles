@@ -1,3 +1,7 @@
+" set encoding UTF-8
+set encoding=utf-8
+scriptencoding utf-8
+
 " 行数指定
 set lines=52
 
