@@ -220,8 +220,9 @@ endif
 set visualbell
 set t_vb=
 
-" <Space>vsで縦分割後、新しいバッファに移動
-nnoremap <Space>vs :<C-u>vsplit\|winc l<CR>
+" <Space>vsで縦分割、<Space>spで横分割
+nnoremap <silent><Space>vs :<C-u>vsplit<CR>
+nnoremap <silent><Space>sp :<C-u>sp<CR>
 
 " バッファを選択する際に、同時にリストを表示する
 " http://qiita.com/s_of_p/items/a80020cf32f3de5d044c
