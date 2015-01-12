@@ -5,7 +5,7 @@ set lines=52
 if g:iswin
     set guifont=MS_Gothic:h11:cSHIFTJIS
 elseif g:ismac
-    set guifont=Ricty\ Regular\ for\ Powerline:h17
+    set guifont=Ricty\ Regular\ for\ Powerline:h16
 elseif g:isunix
     set guifont=DejaVu\ Sans\ Mono\ 11
 endif
