@@ -515,7 +515,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                 return
             endif
             try
-                if g:colors_name =~# 'wombat\|solarized\|landscape\|jellybeans\|Tomorrow'
+                if g:colors_name =~# 'wombat\|solarized\|landscape\|jellybeans\|Tomorrow\|badwolf'
                   let g:lightline.colorscheme =
                         \ substitute(substitute(g:colors_name, '-', '_', 'g'), '256.*', '', '') .
                         \ (g:colors_name ==# 'solarized' ? '_' . &background : '')
