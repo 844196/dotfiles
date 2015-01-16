@@ -354,16 +354,14 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                 \   ]
                 \ }
     NeoBundle 'KazuakiM/vim-qfsigns', {
-                \  'depends': [
-                \       'osyo-manga/vim-watchdogs'
-                \   ]
+                \  'depends': 'osyo-manga/vim-watchdogs'
                 \ }
     NeoBundle 'KazuakiM/vim-qfstatusline', {
-                \  'depends': [
-                \       'osyo-manga/vim-watchdogs'
-                \   ]
+                \  'depends': 'osyo-manga/vim-watchdogs'
                 \ }
-    NeoBundle 'osyo-manga/unite-quickfix'
+    NeoBundle 'osyo-manga/unite-quickfix', {
+                \   'depends': 'Shougo/unite.vim'
+                \ }
     NeoBundle 'osyo-manga/vim-sound'
 
     " カラースキーム
