@@ -363,11 +363,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                 \       'osyo-manga/vim-watchdogs'
                 \   ]
                 \ }
-    NeoBundle 'osyo-manga/unite-quickfix', {
-                \  'depends': [
-                \       'osyo-manga/vim-watchdogs'
-                \   ]
-                \ }
+    NeoBundle 'osyo-manga/unite-quickfix'
     NeoBundle 'osyo-manga/vim-sound'
 
     " カラースキーム
