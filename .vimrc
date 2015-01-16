@@ -817,7 +817,8 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                     \   "watchdogs_checker/shellcheck": {
                     \       "command": "shellcheck",
                     \       "cmdopt": "-f\ gcc",
-                    \       "exec": "%c %o %s:p "
+                    \       "exec": "%c %o %s:p ",
+                    \       "errorformat": "%f:%l:%c: %m"
                     \   },
                     \   "sh/watchdogs_checker": {
                     \       "type": executable("shellcheck") ? "watchdogs_checker/shellcheck" : ""
