@@ -386,6 +386,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                 \       'sjl/badwolf'
                 \       ]
                 \ }
+    NeoBundle 'chriskempson/base16-vim'
 
     " プラグイン読み込み終了
     call neobundle#end()
