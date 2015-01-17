@@ -207,6 +207,11 @@ alias rb='_git_alias rebase'
 alias gg='_git_alias graph | head'
 alias lg='_git_alias logg'
 
+# .zshrc_localがあったらそれも読み込む
+if [ -f ~/.zshrc_local ]; then
+    source ~/.zshrc_local
+fi
+
 # tmux自動起動
 if [ -z "${TMUX}" -a -z "${STY}" ]; then
     if type tmux >/dev/null 2>&1; then
@@ -216,9 +221,4 @@ if [ -z "${TMUX}" -a -z "${STY}" ]; then
             tmux new-session
         fi
     fi
-fi
-
-# .zshrc_localがあったらそれも読み込む
-if [ -f ~/.zshrc_local ]; then
-    source ~/.zshrc_local
 fi
