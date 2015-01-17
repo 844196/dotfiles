@@ -387,6 +387,12 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                 \       ]
                 \ }
     NeoBundle 'chriskempson/base16-vim'
+    NeoBundle 'shinchu/lightline-gruvbox.vim', {
+                \   'depends': [
+                \       'itchyny/lightline.vim',
+                \       'morhetz/gruvbox'
+                \       ]
+                \ }
 
     " プラグイン読み込み終了
     call neobundle#end()
@@ -511,7 +517,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                 return
             endif
             try
-                if g:colors_name =~# 'wombat\|solarized\|landscape\|jellybeans\|Tomorrow\|badwolf'
+                if g:colors_name =~# 'wombat\|solarized\|landscape\|jellybeans\|Tomorrow\|badwolf\|gruvbox'
                   let g:lightline.colorscheme =
                         \ substitute(substitute(g:colors_name, '-', '_', 'g'), '256.*', '', '') .
                         \ (g:colors_name ==# 'solarized' ? '_' . &background : '')
