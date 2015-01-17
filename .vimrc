@@ -341,7 +341,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                 \ 'name' : 'Img_to_markdown.vim',
                 \ 'script_type' : 'plugin'
                 \ }
-    NeoBundle 'boucherm/ShowMotion'
+    NeoBundleDisable 'boucherm/ShowMotion'
     NeoBundle 'osyo-manga/vim-over'
     NeoBundle 'osyo-manga/vim-anzu'
     NeoBundle 'osyo-manga/vim-watchdogs', {
