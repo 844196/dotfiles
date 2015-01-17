@@ -22,7 +22,7 @@ augroup END
 
 " $MYVIMRC, $MYGVIMRCを指定
 let $MYVIMRC = resolve(expand('~/.vimrc'))
-let $MYGVIMRC = resolve(expand('~/.gvimrc'))
+let $MYGVIMRC = resolve(expand('~/dotfiles/.gvimrc'))
 
 " <space>evで.vimrcを、<space>egで.gvimrcを編集
 nnoremap <Space>ev :<C-u>edit $MYVIMRC<CR>
@@ -535,6 +535,8 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
 
     " TweetVim {{{
     if neobundle#tap('TweetVim')
+        let g:tweetvim_config_dir = expand($HOME.'/.vim/tweetvim')
+
         " <Space>tsでツイートバッファを表示
         nnoremap <Space>ts :<C-u>TweetVimSay<CR>
 
@@ -562,6 +564,8 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
 
     " VimSell {{{
     if neobundle#tap('vimshell.vim')
+        let g:vimshell_vimshrc_path = '~/dotfiles/.vimshrc'
+
         " <Leader>sでVimShellを開く
         nnoremap <silent><Leader>s :<C-u>VimShell<CR>
 
@@ -899,15 +903,15 @@ endif
 " vimrc_local設定 {{{
 
 " vimrc_localがあったら読み込む
-if filereadable(expand($HOME.'/.vimrc_local'))
-    source $HOME/.vimrc_local
+if filereadable(expand($HOME.'/.vim/.vimrc_local'))
+    source $HOME/.vim/.vimrc_local
 
     " <Space>elで.vimrc_localを編集
-    nnoremap <Space>el :<C-u>edit $HOME/.vimrc_local<CR>
+    nnoremap <Space>el :<C-u>edit $HOME/.vim/.vimrc_local<CR>
 
     " .vimrc、.vimrc_localを編集したら自動再読み込み
-    autocmd MyAutoCmd BufWritePost $MYVIMRC nested source $HOME/.vimrc_local
-    autocmd MyAutoCmd BufWritePost $HOME/.vimrc_local nested source $HOME/.vimrc_local
+    autocmd MyAutoCmd BufWritePost $MYVIMRC nested source $HOME/.vim/.vimrc_local
+    autocmd MyAutoCmd BufWritePost $HOME/.vim/.vimrc_local nested source $HOME/.vim/.vimrc_local
 endif
 
 
