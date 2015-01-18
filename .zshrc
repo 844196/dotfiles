@@ -209,7 +209,7 @@ alias lg='_git_alias logg'
 
 # .zshrc_localがあったらそれも読み込む
 if [ -f $ZDOTDIR/.zshrc_local ]; then
-    source ~/.zshrc_local
+    source $ZDOTDIR/.zshrc_local
 fi
 
 # tmux自動起動
