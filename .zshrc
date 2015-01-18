@@ -88,7 +88,7 @@ else
 fi
 
 # 履歴ファイルの保存先
-export HISTFILE=$HOME/.zsh_history
+export HISTFILE=$ZDOTDIR/.zsh_history
 
 # メモリに保存される履歴
 export HISTSIZE=1000
@@ -118,7 +118,7 @@ setopt hist_no_store
 setopt hist_reduce_blanks
 
 # リロード
-alias reload="source ~/.zshrc"
+alias reload="source $ZDOTDIR/.zshrc"
 
 # エイリアス
 alias ..="cd .."
@@ -208,7 +208,7 @@ alias gg='_git_alias graph | head'
 alias lg='_git_alias logg'
 
 # .zshrc_localがあったらそれも読み込む
-if [ -f ~/.zshrc_local ]; then
+if [ -f $ZDOTDIR/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
 
