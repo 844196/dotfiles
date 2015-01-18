@@ -20,9 +20,10 @@ augroup MyAutoCmd
     autocmd!
 augroup END
 
-" $MYVIMRC, $MYGVIMRCを指定
+" $MYVIMRC, $MYGVIMRC, viminfoを指定
 let $MYVIMRC = resolve(expand('~/.vimrc'))
 let $MYGVIMRC = resolve(expand('~/dotfiles/.gvimrc'))
+set viminfo+=n~/.vim/.viminfo
 
 " <space>evで.vimrcを、<space>egで.gvimrcを編集
 nnoremap <Space>ev :<C-u>edit $MYVIMRC<CR>
