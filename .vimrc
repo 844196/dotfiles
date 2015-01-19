@@ -364,6 +364,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                 \   'depends': 'Shougo/unite.vim'
                 \ }
     NeoBundle 'osyo-manga/vim-sound'
+    NeoBundle 'itchyny/vim-autoft'
 
     " カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
@@ -892,6 +893,15 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
             autocmd SoundEffect BufLeave     * call PlaySE("move")
             autocmd SoundEffect CompleteDone * call PlaySE("complete_done")
         endif
+
+        call neobundle#untap()
+    endif
+
+    if neobundle#tap('vim-autoft')
+        let g:autoft_config = [
+                    \   { 'filetype': 'sh', 'pattern': '\%^#!.*\%(\<sh\>\|\<bash\>\)\s*$' },
+                    \   { 'filetype': 'markdown', 'pattern': '^## .*$' }
+                    \ ]
 
         call neobundle#untap()
     endif
