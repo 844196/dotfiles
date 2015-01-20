@@ -126,6 +126,9 @@ endif
 " 行が長くてもとりあえず表示してくれる
 set display=lastline
 
+" Toggle Cursorcolumn Hilight
+nnoremap <silent><Leader>c :<C-u>setlocal cursorcolumn!<CR>
+
 
 " }}}
 " ==================================================================
