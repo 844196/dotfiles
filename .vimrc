@@ -129,6 +129,16 @@ set display=lastline
 " Toggle Cursorcolumn Hilight
 nnoremap <silent><Leader>c :<C-u>setlocal cursorcolumn!<CR>
 
+" Toggle Colorcolumn
+function! ToggleColorcolumn()
+    if &colorcolumn !=? ''
+        setlocal colorcolumn=
+    else
+        setlocal colorcolumn=100
+    endif
+endfunction
+nnoremap <silent><Leader>1 :<C-u>call ToggleColorcolumn()<CR>
+
 
 " }}}
 " ==================================================================
