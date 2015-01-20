@@ -85,8 +85,9 @@ set wildmenu
 " 相対行番号を表示
 nnoremap <silent><F3> :<C-u>setlocal relativenumber!<CR>
 
-" カーソル位置をハイライト
-set cursorline
+" カレントバッファのカーソル位置をハイライト
+autocmd MyAutoCmd BufLeave * setlocal nocursorline
+autocmd MyAutoCmd BufEnter * setlocal cursorline
 
 " 閉括弧が入力された時、対応する括弧を強調する
 set showmatch
