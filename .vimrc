@@ -86,8 +86,8 @@ set wildmenu
 nnoremap <silent><F3> :<C-u>setlocal relativenumber!<CR>
 
 " カレントバッファのカーソル位置をハイライト
-autocmd MyAutoCmd BufLeave * setlocal nocursorline
-autocmd MyAutoCmd BufEnter * setlocal cursorline
+autocmd MyAutoCmd BufLeave,WinLeave * setlocal nocursorline
+autocmd MyAutoCmd BufEnter,WinEnter * setlocal cursorline
 
 " 閉括弧が入力された時、対応する括弧を強調する
 set showmatch
