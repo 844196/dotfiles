@@ -403,6 +403,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                 \ }
     NeoBundle 'osyo-manga/vim-sound'
     NeoBundle 'itchyny/vim-autoft'
+    NeoBundle 't9md/vim-choosewin'
 
     " カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
@@ -940,6 +941,30 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                     \   { 'filetype': 'sh', 'pattern': '\%^#!.*\%(\<sh\>\|\<bash\>\)\s*$' },
                     \   { 'filetype': 'markdown', 'pattern': '^## .*$' }
                     \ ]
+
+        call neobundle#untap()
+    endif
+
+    if neobundle#tap('vim-choosewin')
+        nmap - <Plug>(choosewin)
+
+        " tmuxライクなバッファオーバーレイ
+        let g:choosewin_overlay_enable = 1
+        " ステータスラインに選択文字を表示しない
+        let g:choosewin_statusline_replace = 0
+
+        " バッファを選択した時にカーソル下の文字を点滅させない
+        let g:choosewin_blink_on_land = 0
+
+        " オーバーレイ文字色
+        let g:choosewin_color_overlay = {
+              \ 'gui': ['DodgerBlue3', 'DodgerBlue3' ],
+              \ 'cterm': [ 4, 4 ]
+              \ }
+        let g:choosewin_color_overlay_current = {
+              \ 'gui': ['firebrick1', 'firebrick1' ],
+              \ 'cterm': [ 1, 1 ]
+              \ }
 
         call neobundle#untap()
     endif
