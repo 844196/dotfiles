@@ -126,8 +126,7 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 
 alias cls="clear"
-alias quicklook="qlmanage -p"
-alias l="qlmanage -p"
+alias -g l="qlmanage -p ${@} >/dev/null 2>&1"
 alias ls='ls -GFh'
 
 if [ -e /Applications/MacVim.app ]; then
