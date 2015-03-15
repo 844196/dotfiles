@@ -19,6 +19,7 @@ else
 fi
 
 # 補完
+fpath=(/usr/local/share/zsh/site-functions(N-/) $fpath)
 autoload -U compinit; compinit
 setopt -U auto_cd
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
