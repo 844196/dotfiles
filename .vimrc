@@ -405,6 +405,14 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     NeoBundle 'osyo-manga/vim-sound'
     NeoBundle 'itchyny/vim-autoft'
     NeoBundle 't9md/vim-choosewin'
+    " NeoBundle 'severin-lemaignan/vim-minimap'
+    " フォーク版
+    NeoBundleLazy 'peitalin/vim-minimap', {
+                \ 'autoload' : {
+                \   'mappings' : '<Leader>mm',
+                \   'commands' : 'Minimap'
+                \   }
+                \ }
 
     " カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
@@ -970,6 +978,12 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
               \ 'gui': ['firebrick1', 'firebrick1' ],
               \ 'cterm': [ 1, 1 ]
               \ }
+
+        call neobundle#untap()
+    endif
+
+    if neobundle#tap('vim-minimap')
+        let g:minimap_highlight = 'CursorLineNr'
 
         call neobundle#untap()
     endif
