@@ -373,7 +373,11 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     NeoBundle 'tpope/vim-fugitive'
     NeoBundle 'Yggdroot/indentLine'
     NeoBundle 'haya14busa/incsearch.vim'
-    NeoBundle 'thinca/vim-scouter'
+    NeoBundleLazy 'thinca/vim-scouter', {
+                \ 'autoload' : {
+                \   'commands' : 'Scouter'
+                \   }
+                \ }
     NeoBundle '844196/memo.vim', {
                 \ 'depends' : 'Shougo/unite.vim'
                 \ }
@@ -404,7 +408,11 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                 \ }
     NeoBundle 'osyo-manga/vim-sound'
     NeoBundle 'itchyny/vim-autoft'
-    NeoBundle 't9md/vim-choosewin'
+    NeoBundleLazy 't9md/vim-choosewin', {
+                \ 'autoload' : {
+                \   'mappings' : '-',
+                \   }
+                \ }
     " NeoBundle 'severin-lemaignan/vim-minimap'
     " フォーク版
     NeoBundleLazy 'peitalin/vim-minimap', {
