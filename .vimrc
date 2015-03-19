@@ -413,6 +413,12 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                 \   'commands' : 'Minimap'
                 \   }
                 \ }
+    NeoBundleLazy 'itchyny/thumbnail.vim', {
+                \ 'autoload' : {
+                \   'mappings' : '<Leader>t',
+                \   'commands' : 'Thumbnail'
+                \   }
+                \ }
 
     " カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
@@ -978,6 +984,12 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
               \ 'gui': ['firebrick1', 'firebrick1' ],
               \ 'cterm': [ 1, 1 ]
               \ }
+
+        call neobundle#untap()
+    endif
+
+    if neobundle#tap('thumbnail.vim')
+        nnoremap <Leader>t :<C-u>Thumbnail<CR>
 
         call neobundle#untap()
     endif
