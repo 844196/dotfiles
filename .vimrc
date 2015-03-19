@@ -435,6 +435,10 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                 \       'morhetz/gruvbox'
                 \       ]
                 \ }
+    NeoBundle 'reedes/vim-colors-pencil'
+    NeoBundle 'vim-scripts/neutron.vim'
+    NeoBundle 'vim-scripts/playroom'
+    NeoBundle 'endel/vim-github-colorscheme'
 
     " プラグイン読み込み終了
     call neobundle#end()
