@@ -413,6 +413,11 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                 \   'commands' : 'Minimap'
                 \   }
                 \ }
+    NeoBundleLazy 'junegunn/goyo.vim', {
+                \ 'autoload' : {
+                \   'commands' : 'Goyo'
+                \   }
+                \ }
     NeoBundleLazy 'itchyny/thumbnail.vim', {
                 \ 'autoload' : {
                 \   'mappings' : '<Leader>t',
