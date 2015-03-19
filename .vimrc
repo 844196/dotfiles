@@ -55,6 +55,7 @@ let g:isunix = has('unix')
 " なんか早くなるらしい
 set synmaxcol=300
 set ttyfast
+set lazyredraw
 
 " モードラインを有効にする
 set modeline
