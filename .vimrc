@@ -410,7 +410,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     NeoBundle 'itchyny/vim-autoft'
     NeoBundleLazy 't9md/vim-choosewin', {
                 \ 'autoload' : {
-                \   'mappings' : '-',
+                \   'mappings' : "-",
                 \   }
                 \ }
     " NeoBundle 'severin-lemaignan/vim-minimap'
