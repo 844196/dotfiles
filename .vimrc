@@ -514,6 +514,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                         \ }
         endif
     endfunction
+    autocmd MyAutoCmd VimEnter * call s:rich_unicode_symbols()
     autocmd MyAutoCmd ColorScheme * call s:rich_unicode_symbols()
     autocmd MyAutoCmd BufWritePost $MYVIMRC,~/.vimrc_local call s:rich_unicode_symbols()
 
@@ -522,6 +523,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
         let g:lightline = {}
         let g:lightline.component_function = {}
         let g:lightline = {
+            \ 'colorscheme' : 'wombat',
             \ 'component' : {
             \   'readonly' : '%{ &readonly ? g:rich_unicode_symbol.ReadOnly : "" }',
             \   'lineinfo' : '%{ winwidth(0) > 70 ? g:rich_unicode_symbol.LineColumn . " " . line(".") . ":" . col(".") : " " }',
