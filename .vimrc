@@ -406,7 +406,9 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     NeoBundle 'osyo-manga/unite-quickfix', {
                 \   'depends': 'Shougo/unite.vim'
                 \ }
-    NeoBundle 'osyo-manga/vim-sound'
+    if has("mac")
+        NeoBundle 'osyo-manga/vim-sound'
+    endif
     NeoBundle 'itchyny/vim-autoft'
     NeoBundleLazy 't9md/vim-choosewin', {
                 \ 'autoload' : {
