@@ -435,6 +435,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                 \   }
                 \ }
     NeoBundle 'kana/vim-submode'
+    NeoBundle 'kannokanno/previm'
 
     " カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
@@ -1027,6 +1028,12 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
         call submode#map('winsize', 'n', '', '<', '<C-w><')
         call submode#map('winsize', 'n', '', '+', '<C-w>-')
         call submode#map('winsize', 'n', '', '-', '<C-w>+')
+
+        call neobundle#untap()
+    endif
+
+    if neobundle#tap('previm')
+        let g:previm_enable_realtime = 0
 
         call neobundle#untap()
     endif

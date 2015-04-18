@@ -47,4 +47,13 @@ endif
 
 " Unicode Symbols
 let g:rich_symbols = '1'
+
+" Markdown Preview
+if neobundle#tap('previm')
+    let g:previm_open_cmd = "google-chrome-stable"
+    let g:previm_disable_default_css = 1
+    let g:previm_custom_css_path = "~/Dropbox/Font-Awesome/github.css"
+
+    call neobundle#untap()
+endif
 ```
