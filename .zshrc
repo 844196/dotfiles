@@ -118,6 +118,9 @@ setopt hist_no_store
 # 履歴の空白はつめる
 setopt hist_reduce_blanks
 
+# .lesshstを作成しない
+export LESSHISTFILE=-
+
 # リロード
 alias reload="source $ZDOTDIR/.zshrc"
 
