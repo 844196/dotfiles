@@ -15,6 +15,7 @@ fi
 
 [ -x /usr/bin/VBoxClient-all ] && /usr/bin/VBoxClient-all
 [ -s ~/.xmodmap ] && xmodmap ~/.Xmodmap
+[ -s ~/.xbindkeysrc ] && xbindkeys -f ~/.xbindkeysrc
 
 uim-xim &
 

@@ -1,0 +1,8 @@
+"~/bin/emu_Up.sh"
+    Alt+Mod2 + k
+"~/bin/emu_Down.sh"
+    Alt+Mod2 + j
+"~/bin/emu_Left.sh"
+    Alt+Mod2 + h
+"~/bin/emu_Right.sh"
+    Alt+Mod2 + l
