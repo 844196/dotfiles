@@ -9,21 +9,25 @@ urxvt*font: \
     xft:DejaVu Sans Mono:size=12:antialias=true:hinting=true,              \
     xft:Ubuntu Mono derivative Powerline Plus Nerd File Types Mono:size=12
 
-urxvt*background: #282828
-urxvt*foreground: #ebdbb2
-urxvt*color0:     #282828
-urxvt*color1:     #cc241d
-urxvt*color2:     #98971a
-urxvt*color3:     #d79921
-urxvt*color4:     #458588
-urxvt*color5:     #b16286
-urxvt*color6:     #689d6a
-urxvt*color7:     #a89984
-urxvt*color8:     #928374
-urxvt*color9:     #fb4934
-urxvt*color10:    #b8bb26
-urxvt*color11:    #fabd2f
-urxvt*color12:    #83a598
-urxvt*color13:    #d3869b
-urxvt*color14:    #8ec07c
-urxvt*color15:    #ebdbb2
+!urxvt*depth: 32
+
+urxvt*intensityStyles: false
+
+urxvt*background: [90]#002b36
+urxvt*foreground: #839496
+urxvt*color0: #073642
+urxvt*color1: #dc322f
+urxvt*color2: #859900
+urxvt*color3: #b58900
+urxvt*color4: #268bd2
+urxvt*color5: #d33682
+urxvt*color6: #2aa198
+urxvt*color7: #eee8d5
+urxvt*color8: #002b36
+urxvt*color9: #cb4b16
+urxvt*color10: #586e75
+urxvt*color11: #657b83
+urxvt*color12: #839496
+urxvt*color13: #6c71c4
+urxvt*color14: #93a1a1
+urxvt*color15: #fdf6e3
