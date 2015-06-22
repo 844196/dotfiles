@@ -45,7 +45,7 @@ autoload -Uz colors; colors
 TERM='xterm-256color'
 
 # プロンプト
-_updateGitInfo() {
+_updateInfo() {
     psvar=()
     if `git status >/dev/null 2>&1`; then
         _branchStatus=`git status | grep -v -e '^\s' -e '^$'`
@@ -76,12 +76,18 @@ _updateGitInfo() {
         psvar[1]=""
         psvar[2]=""
     fi
+
+    if pwd | grep -e "${HOME}" >/dev/null 2>&1; then
+        psvar[3]="`pwd | sed -e "s;${HOME};~;" -e "s;/; ⮁ ;g"`"
+    else
+        psvar[3]="`pwd | sed -e "s;/; ⮁ ;g" -e "s;^;/;"`"
+    fi
 }
-add-zsh-hook precmd _updateGitInfo
+add-zsh-hook precmd _updateInfo
 
 PROMPT="
-%B%F{cyan}%n@%m%f%b: %F{yellow}%~%f %F{green}%1v%f%F{red}%2v%f
-%B%(?.%F{blue}.%F{red})%(!.#.❯)%f%b "
+%K{blue} %F{white}%n@%m %F{blue}%K{10}⮀%f %F{14}%3v %k%F{10}⮀%f %F{green}%1v%f%F{red}%2v%f
+%(?.%F{blue}.%F{red})%(!.#.❯)%f "
 
 if [ $ismac = '0' ]; then
     SPROMPT="%B%F{red}(๑•﹏•)%f%b < %rのこと言ってるんですかね...? [y, n, a, e]:"
