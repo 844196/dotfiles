@@ -218,7 +218,8 @@ let g:markdown_fenced_languages = [
             \ 'css',
             \ 'html',
             \ 'sh',
-            \ 'vim'
+            \ 'vim',
+            \ 'ruby'
             \ ]
 
 "  tmpファイル
