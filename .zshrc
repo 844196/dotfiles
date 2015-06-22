@@ -42,6 +42,7 @@ autoload -Uz add-zsh-hook
 
 # 色
 autoload -Uz colors; colors
+TERM='xterm-256color'
 
 # プロンプト
 _updateGitInfo() {
