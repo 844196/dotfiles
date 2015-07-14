@@ -205,6 +205,10 @@ set ignorecase
 nnoremap n nzz
 nnoremap N Nzz
 
+" 検索結果をハイライト
+" KaoriYa版vimrcではデフォであったんだけどな
+set hlsearch
+
 
 " }}}
 " ==================================================================
