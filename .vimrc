@@ -445,6 +445,8 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                 \ }
     NeoBundle 'kana/vim-submode'
     NeoBundle 'kannokanno/previm'
+    NeoBundle 'tpope/vim-endwise'
+    NeoBundle 'tomtom/tcomment_vim'
 
     " カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
