@@ -226,6 +226,9 @@ let g:markdown_fenced_languages = [
             \ 'ruby'
             \ ]
 
+" 斜体表示を無効にする
+autocmd FileType markdown hi! def link markdownItalic Normal
+
 "  tmpファイル
 command! -nargs=1 -complete=filetype Tmp edit $HOME/tmp.<args>
 
