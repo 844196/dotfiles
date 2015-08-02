@@ -449,6 +449,8 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     NeoBundle 'tomtom/tcomment_vim'
     NeoBundle 'rhysd/try-colorscheme.vim'
     NeoBundle 'haya14busa/vim-undoreplay'
+    NeoBundle 'sunaku/vim-ruby-minitest'
+    NeoBundle 'vim-scripts/AnsiEsc.vim'
 
     " カラースキーム
     NeoBundle 'altercation/vim-colors-solarized'
