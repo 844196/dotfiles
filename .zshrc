@@ -1,4 +1,4 @@
-functions _zstart() {
+() {
     d="$(tput smso)  $(tput rmso)"
     clear
     echo "
@@ -9,7 +9,6 @@ functions _zstart() {
      $d  $d    $d  $d      $d$d    $d  $d  $d  $d      $d$d$d  $d$d    $d  $d
     "
 }
-_zstart
 
 # 環境依存
 if [ `uname` = 'Darwin' ]; then
