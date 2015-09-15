@@ -81,10 +81,11 @@ function _update_vcs_info_msg() {
 }
 
 function _update_pwd_pretty() {
-    if pwd | grep -e "${HOME}" >/dev/null 2>&1; then
-        psvar[3]="`pwd | sed -e "s;${HOME};~;" -e "s;/; ⮁ ;g"`"
+    local pwd="`pwd`"
+    if [[ $pwd =~ $HOME ]]; then
+        psvar[3]="${${pwd/$HOME/~}//\// ⮁ }"
     else
-        psvar[3]="`pwd | sed -e "s;/; ⮁ ;g" -e "s;^;/;"`"
+        psvar[3]="/${pwd//\// ⮁ }"
     fi
 }
 
