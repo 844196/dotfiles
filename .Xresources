@@ -5,10 +5,10 @@ urxvt*geometry: 80x50
 urxvt*scrollBar: false
 
 urxvt*font: \
-    xft:Ricty for Powerline:size=10:antialias=true:hinting=true,           \
-    xft:DejaVu Sans Mono:size=12:antialias=true:hinting=true,              \
-    xft:Ubuntu Mono Plus Nerd File Types Mono:size=10                      \
-    xft:DejaVu Sans:size=10
+    xft:Ricty for Powerline:size=10:antialias=true:hinting=true, \
+    xft:DejaVu Sans Mono,                                        \
+    xft:Ubuntu Mono Plus Nerd File Types Mono,                   \
+    xft:DejaVu Sans
 
 !urxvt*depth: 32
 
