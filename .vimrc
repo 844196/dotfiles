@@ -1025,7 +1025,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     endif
 
     if neobundle#tap('vim-minimap')
-        let g:minimap_highlight = 'CursorLineNr'
+        let g:minimap_highlight = 'StatusLineNC'
 
         call neobundle#untap()
     endif
