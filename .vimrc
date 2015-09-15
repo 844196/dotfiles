@@ -448,6 +448,8 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     NeoBundle 'sunaku/vim-ruby-minitest'
     NeoBundle 'vim-scripts/AnsiEsc.vim'
     NeoBundle 'vim-jp/vimdoc-ja'
+    NeoBundle 'scrooloose/nerdtree'
+    NeoBundle 'ryanoasis/vim-devicons'
 
 
     " カラースキーム
