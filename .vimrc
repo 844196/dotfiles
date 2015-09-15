@@ -829,8 +829,6 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
         " インデントの色を変更（ターミナル）
         let g:indentLine_color_term = 239
 
-        " インデントを1レベルから表示
-        let g:indentLine_showFirstIndentLevel = 1
 
         call neobundle#untap()
     endif
