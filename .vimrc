@@ -98,11 +98,7 @@ set showcmd
 
 " 不可視文字を表示
 set list
-if g:ismac
-    set listchars=tab:»-,trail:-,eol:¬,nbsp:%
-else
-    set listchars=trail:-
-endif
+set listchars=tab:»-,trail:-
 
 " <C-Tab>でタブ切り替え
 nnoremap <C-Tab> gt
