@@ -143,7 +143,6 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
-alias cls="clear"
 alias -g l="qlmanage -p ${@} >/dev/null 2>&1"
 alias ls='ls -GFh'
 
@@ -177,55 +176,12 @@ if which peco >/dev/null 2>&1; then
 fi
 
 # Git
-_git_alias() {
-    if `git status >/dev/null 2>&1`; then
-        command=${1}
-        shift
-        git ${command} "$@"
-        if [ "${command}" = 'status' ]; then :; else echo ''; git status; fi
-        return 0
-    else
-        echo "_git_alias: Not a git repository" 1>&2
-        return 1
-    fi
-}
-
-_git_alias_B() {
-    if `git status >/dev/null 2>&1`; then
-        if `which peco >/dev/null 2>&1`; then
-            alias -g B='`git branch | peco | head -n 1 | sed -e "s/^\*\s//g"`'
-        else
-            unalias \B >/dev/null 2>&1
-        fi
-    else
-        unalias \B >/dev/null 2>&1
-    fi
-}
-add-zsh-hook precmd _git_alias_B
-
-_git_alias_C() {
-    if `git status >/dev/null 2>&1`; then
-        if `which peco >/dev/null 2>&1`; then
-            alias -g C='`git log --oneline | peco | cut -d" " -f1`'
-        else
-            unalias \C >/dev/null 2>&1
-        fi
-    else
-        unalias \C >/dev/null 2>&1
-    fi
-}
-add-zsh-hook precmd _git_alias_C
-
-alias st='_git_alias status'
-alias ck='_git_alias checkout'
-alias br='_git_alias branch'
-alias co='_git_alias commit -v'
-alias mr='_git_alias merge'
-alias pu='_git_alias push'
-alias di='_git_alias diff'
-alias rb='_git_alias rebase'
-alias gg='_git_alias graph | head'
-alias lg='_git_alias logg'
+alias st='git status'
+alias ck='git checkout'
+alias br='git branch'
+alias co='git commit -v'
+alias di='git diff'
+alias gg='git graph | head'
 
 # .zshrc_localがあったらそれも読み込む
 if [ -f $ZDOTDIR/.zshrc_local ]; then
