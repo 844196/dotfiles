@@ -173,6 +173,7 @@ set shiftwidth=4
 " HTMLとCSS、rubyのときはインデントをスペース2つへ
 autocmd! MyAutoCmd FileType html setlocal tabstop=2 shiftwidth=2
 autocmd! MyAutoCmd FileType css setlocal tabstop=2 shiftwidth=2
+autocmd! MyAutoCmd FileType less setlocal tabstop=2 shiftwidth=2
 autocmd! MyAutoCmd FileType ruby setlocal tabstop=2 shiftwidth=2
 
 " 新しい行を作った時に高度な自動インデントを行う
