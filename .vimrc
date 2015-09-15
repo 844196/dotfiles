@@ -829,6 +829,8 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
         " インデントの色を変更（ターミナル）
         let g:indentLine_color_term = 239
 
+        " インデント表示文字列
+        let g:indentLine_char = '┆'
 
         call neobundle#untap()
     endif
