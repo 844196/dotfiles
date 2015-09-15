@@ -35,16 +35,14 @@ setopt print_eight_bit
 # もしかして機能
 setopt correct
 
-# プロンプト文字、関数の評価
-setopt prompt_subst
-autoload -Uz add-zsh-hook
-
 # 色
 autoload -Uz colors; colors
 TERM='xterm-256color'
 
 # プロンプト
+autoload -Uz add-zsh-hook
 autoload -Uz vcs_info
+setopt prompt_subst
 zstyle ":vcs_info:*" enable git
 zstyle ":vcs_info:*" max-exports 2
 zstyle ":vcs_info:git:*" check-for-changes true
