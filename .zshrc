@@ -44,36 +44,41 @@ autoload -Uz colors; colors
 TERM='xterm-256color'
 
 # プロンプト
+autoload -Uz vcs_info
+zstyle ":vcs_info:*" enable git
+zstyle ":vcs_info:*" max-exports 2
+zstyle ":vcs_info:git:*" check-for-changes true
+zstyle ":vcs_info:git:*" formats     "[⭠%b]%c%u" "%m"
+zstyle ":vcs_info:git:*" unstagedstr "[-]"
+zstyle ":vcs_info:git:*" stagedstr   "[+]"
+zstyle ":vcs_info:git+set-message:*" hooks git-untracked git-remote
+
+function +vi-git-untracked() {
+    [[ $1 = 0 ]] || return 0
+
+    git status --porcelain 2>/dev/null | grep '^??' >/dev/null 2>&1 && hook_com[unstaged]+='[N]' || :
+}
+
+function +vi-git-remote() {
+    [[ $1 = 1 ]] || return 0
+
+    local remote_branch="$(git rev-parse --abbrev-ref @{u} 2>/dev/null)"
+    [[ -n "${remote_branch}" ]] && hook_com[misc]+=" → [⭠${remote_branch}]" || :
+}
+
 _updateInfo() {
     psvar=()
-    if `git status >/dev/null 2>&1`; then
-        _branchStatus=`git status | grep -v -e '^\s' -e '^$'`
-        _currentBranch=`git rev-parse --abbrev-ref HEAD`
-        _tranckingBranch="`git rev-parse --abbrev-ref @{u} 2>/dev/null | xargs -IBRANCH echo " -> [⭠BRANCH]"`"
 
-        if `echo ${_branchStatus} | grep -sq "clean"`; then _symbol="✔ "; else _symbol="✘ "; fi
-        if `echo ${_branchStatus} | grep -sq "to\sbe"`; then _notCommit="[+]"; else _notCommit=""; fi
-        if `echo ${_branchStatus} | grep -sq "not\sstaged"`; then _notStage="[-]"; else _notStage=""; fi
-        if `echo ${_branchStatus} | grep -sq "Untracked"`; then _notTrack="[N]"; else _notTrack=""; fi
-
-        if [ "${_currentBranch}" = 'HEAD' ]; then
-            _branch="[➦ ${_currentBranch}(`git rev-parse --short HEAD`)]"
-        else
-            _branch="[⭠${_currentBranch}]"
-        fi
-
-        _info="${_symbol}${_branch}${_notTrack}${_notCommit}${_notStage}${_tranckingBranch}"
-
-        if `echo ${_branchStatus} | grep -sq "clean"`; then
-            psvar[1]="${_info}"
-            psvar[2]=""
-        else
+    vcs_info
+    local msg="${vcs_info_msg_0_}${vcs_info_msg_1_}"
+    if [[ -n "${msg}" ]]; then
+        if echo ${vcs_info_msg_0_} | grep '\[[N+-]\]' >/dev/null 2>&1; then
             psvar[1]=""
-            psvar[2]="${_info}"
+            psvar[2]="✘ ${vcs_info_msg_0_}${vcs_info_msg_1_}"
+        else
+            psvar[1]="✔ ${vcs_info_msg_0_}${vcs_info_msg_1_}"
+            psvar[2]=""
         fi
-    else
-        psvar[1]=""
-        psvar[2]=""
     fi
 
     if pwd | grep -e "${HOME}" >/dev/null 2>&1; then
