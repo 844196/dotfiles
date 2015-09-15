@@ -66,11 +66,11 @@ function +vi-git-remote() {
     [[ -n "${remote_branch}" ]] && hook_com[misc]+=" → [⭠${remote_branch}]" || :
 }
 
-_updateInfo() {
-    psvar=()
+function _init_psvar() { psvar=(); }
 
-    vcs_info
-    local msg="${vcs_info_msg_0_}${vcs_info_msg_1_}"
+function _update_vcs_info_msg() {
+    vcs_info; local msg="${vcs_info_msg_0_}${vcs_info_msg_1_}"
+
     if [[ -n "${msg}" ]]; then
         if echo ${vcs_info_msg_0_} | grep '\[[N+-]\]' >/dev/null 2>&1; then
             psvar[1]=""
@@ -80,14 +80,19 @@ _updateInfo() {
             psvar[2]=""
         fi
     fi
+}
 
+function _update_pwd_pretty() {
     if pwd | grep -e "${HOME}" >/dev/null 2>&1; then
         psvar[3]="`pwd | sed -e "s;${HOME};~;" -e "s;/; ⮁ ;g"`"
     else
         psvar[3]="`pwd | sed -e "s;/; ⮁ ;g" -e "s;^;/;"`"
     fi
 }
-add-zsh-hook precmd _updateInfo
+
+add-zsh-hook precmd _init_psvar
+add-zsh-hook precmd _update_vcs_info_msg
+add-zsh-hook precmd _update_pwd_pretty
 
 PROMPT="
 %K{blue} %F{white}%n@%m %F{blue}%K{10}⮀%f %F{14}%3v %k%F{10}⮀%f %F{green}%1v%f%F{red}%2v%f
