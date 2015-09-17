@@ -1063,6 +1063,18 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
         call neobundle#untap()
     endif
 
+    if neobundle#tap('nerdtree')
+        nnoremap <Leader>nt :<C-u>NERDTreeToggle<CR>
+
+        call neobundle#untap()
+    endif
+
+    if neobundle#tap('vim-devicons')
+        let g:WebDevIconsUnicodeGlyphDoubleWidth = 0
+
+        call neobundle#untap()
+    endif
+
 
 endif
 
