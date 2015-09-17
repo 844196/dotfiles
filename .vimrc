@@ -415,7 +415,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
         NeoBundle 'osyo-manga/vim-sound'
     endif
     NeoBundle 'itchyny/vim-autoft'
-    NeoBundleLazy 't9md/vim-choosewin', {
+    NeoBundle 't9md/vim-choosewin', {
                 \ 'autoload' : {
                 \   'mappings' : "-",
                 \   }
