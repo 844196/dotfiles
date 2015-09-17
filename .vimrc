@@ -788,6 +788,15 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                     \ 'Unite grep:' . memo#getpath() . ' -no-empty -winheight=10'
                     \ )<CR>
 
+        " テンプレート
+        let g:memo_template = [
+                    \   '<!-- vim:set filetype=markdown: -->',
+                    \   '<div class="article-header">',
+                    \   '  ' . '<h1>' . '%_TITLE_%' . '</h1>',
+                    \   '  ' . '<date>' . '%_TIME_%' . '</date>',
+                    \   '</div>'
+                    \ ]
+
         call neobundle#untap()
     endif
     " }}}
