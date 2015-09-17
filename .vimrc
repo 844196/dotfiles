@@ -776,7 +776,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     " memo.vim {{{
     if neobundle#tap('memo.vim')
         " メモディレクトリを宣言
-        let g:memopath = '~/Dropbox/memo/'
+        let g:memo_path = '~/Dropbox/memo/'
 
         " メモ一覧呼び出しリマップ
         nnoremap <silent><F2> :<C-u>Unite memo
