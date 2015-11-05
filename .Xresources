@@ -32,3 +32,12 @@ urxvt*color12: #839496
 urxvt*color13: #6c71c4
 urxvt*color14: #93a1a1
 urxvt*color15: #fdf6e3
+
+urxvt.iso14755: false
+urxvt.iso14755_52: false
+
+urxvt.perl-ext-common: font-size
+urxvt.keysym.C-Up:     perl:font-size:incglobal
+urxvt.keysym.C-Down:   perl:font-size:decglobal
+! urxvt.keysym.C-S-Up:   perl:font-size:incglobal
+! urxvt.keysym.C-S-Down: perl:font-size:decglobal
