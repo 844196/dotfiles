@@ -131,7 +131,7 @@ function! ToggleColorcolumn()
     if &colorcolumn !=? ''
         setlocal colorcolumn=
     else
-        setlocal colorcolumn=100
+        setlocal colorcolumn=120
     endif
 endfunction
 nnoremap <silent><Leader>1 :<C-u>call ToggleColorcolumn()<CR>
