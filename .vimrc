@@ -699,6 +699,10 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
             nmap <buffer>I G<Plug>(vimshell_insert_head)
             nmap <buffer>A G<Plug>(vimshell_append_end)
 
+            " 補完
+            nmap <buffer><C-n> <Plug>(vimshell_previous_prompt)
+            nmap <buffer><C-p> <Plug>(vimshell_next_prompt)
+
         endfunction
 
         " VimShellからGitを使いやすくする
