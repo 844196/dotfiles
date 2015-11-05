@@ -9,9 +9,9 @@ set lines=52
 if g:iswin
     set guifont=MS_Gothic:h11:cSHIFTJIS
 elseif g:ismac
-    set guifont=Ricty\ Regular\ for\ Powerline:h16
+    set guifont=Ricty\ Regular\ for\ Powerline:h10
 elseif g:isunix
-    set guifont=DejaVu\ Sans\ Mono\ 11
+    set guifont=DejaVu\ Sans\ Mono\ 09
 endif
 
 " gvimの時はフォントを綺麗にする
