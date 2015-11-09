@@ -454,6 +454,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     NeoBundle 'noprompt/vim-yardoc'
     NeoBundle 'rcmdnk/vim-markdown'
     NeoBundle 'joker1007/vim-markdown-quote-syntax'
+    NeoBundle 'cohama/agit.vim'
 
 
     " カラースキーム
