@@ -491,6 +491,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     NeoBundle 'vim-scripts/neutron.vim'
     NeoBundle 'vim-scripts/playroom'
     NeoBundle 'endel/vim-github-colorscheme'
+    NeoBundle 'rhysd/committia.vim'
 
     " プラグイン読み込み終了
     call neobundle#end()
