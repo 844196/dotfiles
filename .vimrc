@@ -456,6 +456,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     NeoBundle 'rcmdnk/vim-markdown'
     NeoBundle 'joker1007/vim-markdown-quote-syntax'
     NeoBundle 'cohama/agit.vim'
+    NeoBundle 'rhysd/committia.vim'
 
 
     " カラースキーム
@@ -491,7 +492,6 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     NeoBundle 'vim-scripts/neutron.vim'
     NeoBundle 'vim-scripts/playroom'
     NeoBundle 'endel/vim-github-colorscheme'
-    NeoBundle 'rhysd/committia.vim'
 
     " プラグイン読み込み終了
     call neobundle#end()
