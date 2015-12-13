@@ -1,1110 +1,712 @@
-" ==================================================================
-" encoding {{{
-
-" set encoding UTF-8
+" Init
+" ------------------------------------------------------------------------------
 set encoding=utf-8
 scriptencoding utf-8
 
-
-" }}}
-" ==================================================================
-" 基本設定 {{{
-
-" スワップ・バックアップ・アンドゥファイルを作成しない
-set noswapfile
-set nobackup
-set noundofile
-
-" augroup設定
-augroup MyAutoCmd
-    autocmd!
-augroup END
-
-" $MYVIMRC, $MYGVIMRC, viminfoを指定
-let $MYVIMRC = resolve(expand('~/.vimrc'))
-let $MYGVIMRC = resolve(expand('~/dotfiles/.gvimrc'))
-set viminfo+=n~/.vim/.viminfo
-
-" <space>evで.vimrcを、<space>egで.gvimrcを編集
-nnoremap <Space>ev :<C-u>edit $MYVIMRC<CR>
-nnoremap <Space>eg :<C-u>edit $MYGVIMRC<CR>
-
-" .vimrcを自動再読み込み
-autocmd! MyAutoCmd BufWritePost $MYVIMRC nested source $MYVIMRC
-
-" <C-h>でヘルプを引く
-nnoremap <C-h> :<C-u>help<Space>
-
-" qでヘルプを閉じる
-autocmd! MyAutoCmd FileType help nnoremap <silent><buffer>q :quit<CR>
-
-" Windows環境用変数宣言
-let g:iswin = has('win32') || has('win64') || has('win32unix')
-
-" Mac環境用変数宣言
-let g:ismac = has('mac')
-
-" unix環境用変数宣言
-let g:isunix = has('unix')
+if !1 | finish | endif
+if !&compatible | set nocompatible | endif
 
 
-" }}}
-" ==================================================================
-" 表示設定 {{{
 
-" なんか早くなるらしい
-set synmaxcol=300
-set ttyfast
-set lazyredraw
-
-" モードラインを有効にする
-set modeline
-
-" モードライン3行目までを検索
-set modelines=3
-
-" ステータスラインを常に表示
-set laststatus=2
-
-" コマンドラインを2行に設定
-set cmdheight=2
-
-" ターミナルの場合は256色指定
-if !has('gui_running')
-    set t_Co=256
-endif
-
-" スクロール時に5行を確保
-set scrolloff=10
-
-" 行番号を表示する
-set number
-
-" コマンド補完
-set wildmenu
-
-" 相対行番号を表示
-nnoremap <silent><F3> :<C-u>setlocal relativenumber!<CR>
-
-" カレントバッファのカーソル位置をハイライト
-autocmd! MyAutoCmd BufLeave,WinLeave * setlocal nocursorline
-autocmd! MyAutoCmd BufEnter,WinEnter * setlocal cursorline
-
-" 閉括弧が入力された時、対応する括弧を強調する
-set showmatch
-
-" 入力中のコマンドを下に表示
-set showcmd
-
-" 不可視文字を表示
-set list
-set listchars=tab:-,trail:-
-
-" <C-Tab>でタブ切り替え
-nnoremap <C-Tab> gt
-
-" stで新しいタブ
-nnoremap <Space>st :<C-u>tabnew<CR>
-
-" iTermでインサートモード時、カーソルを正しく変形させる
-if exists('$TMUX')
-        let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-        let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-    else
-        let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-        let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
-
-" 折り返した行がインデントに沿うようになる
-if has('patch-7.4.338')
-    set breakindent
-endif
-
-" 行が長くてもとりあえず表示してくれる
-set display=lastline
-
-" Toggle Cursorcolumn Hilight
-nnoremap <silent><Leader>c :<C-u>setlocal cursorcolumn!<CR>
-
-" Toggle Colorcolumn
-function! ToggleColorcolumn()
-    if &colorcolumn !=? ''
-        setlocal colorcolumn=
-    else
-        setlocal colorcolumn=120
-    endif
-endfunction
-nnoremap <silent><Leader>1 :<C-u>call ToggleColorcolumn()<CR>
-
-" Use vsplit mode
-" if has('vim_starting') && !has('gui_running') && has('vertsplit')
-"   function! g:EnableVsplitMode()
-"     " enable origin mode and left/right margins
-"     let &t_CS = 'y'
-"     let &t_ti = &t_ti . "\e[?6;69h"
-"     let &t_te = "\e[?6;69l" . &t_te
-"     let &t_CV = "\e[%i%p1%d;%p2%ds"
-"     call writefile([ "\e[?6h\e[?69h" ], '/dev/tty', 'a')
-"   endfunction
-"
-"   " old vim does not ignore CPR
-"   map <special> <Esc>[3;9R <Nop>
-"
-"   " new vim can't handle CPR with direct mapping
-"   " map <expr> ^[[3;3R g:EnableVsplitMode()
-"   set t_F9=^[[3;3R
-"   map <expr> <t_F9> g:EnableVsplitMode()
-"   let &t_RV .= "\e[?6;69h\e[1;3s\e[3;9H\e[6n\e[0;0s\e[?6;69l"
-" endif
+" Basic
+" ------------------------------------------------------------------------------
+set noswapfile                        " スワップファイルを作成しない
+set nobackup                          " バックアップを作成しない
+set noundofile                        " undoファイルを作成しない
+set backspace=indent,eol,start        " <BS>が削除する位置（インデント、行末、改行マタギ）
+set list                              " 特殊文字を表示
+set listchars=tab:>-,trail:-          " 特殊文字のキャラクタ
+set virtualedit=block                 " 自由な矩形選択
+set expandtab                         " <Tab>をスペースに展開
+set tabstop=4 shiftwidth=4            " <Tab>スペース展開文字幅
+set shiftround                        " インデントをshiftwidthに丸める
+set smarttab                          " 自動インデント
+set autoindent                        " 改行後の自動インデント
+set breakindent                       " 折り返した行がインデントに沿う
+set synmaxcol=300                     " 1行あたりのシンタックス有効文字数
+set number                            " 行番号
+set scrolloff=10                      " バッファスクロール時に上下10行を確保
+set showmatch                         " 対応するカッコをハイライト
+set matchtime=1                       " カッコ間移動時間
+set display=lastline                  " 行が長くても表示
+set splitright                        " 分割バッファを右に開く
+set hidden                            " ファイルを保存しなくても新しいバッファを開く
+set laststatus=2                      " ステータスラインを常に表示
+set ruler                             " ステータスラインに現在行情報を表示
+set showcmd                           " ステータスライン下に入力中コマンドを表示
+set cmdheight=2                       " コマンドラインの高さ
+set wildmenu                          " コマンドライン補完
+set wildignorecase                    " コマンドライン補完を大文字・小文字無視
+set incsearch                         " インクリメンタルサーチ
+set hlsearch                          " マッチ文字列をハイライト
+set nowrapscan                        " 最後まで検索したら、最初のマッチ文字列に移動しない
+set ignorecase                        " 検索文字列で大文字・小文字を区別しない
+set smartcase                         " 検索文字列で大文字が混在している場合は区別する
+set modeline                          " モードラインを有効
+set modelines=5                       " モードラインを上下5行まで検索
+set infercase                         " 補完時に大文字・小文字を区別しない
+set textwidth=0                       " 行あたりの最大文字数？を0に（formatoptions）
 
 
-" }}}
-" ==================================================================
-" インデント設定 {{{
 
-" タブの代わりに空白文字を指定する
-set expandtab
+" Remap
+" ------------------------------------------------------------------------------
+nnoremap <Space> :
+vnoremap <Space> :
 
-" Tabはスペース4つに変換
-" BackSpace押したらスペース4つ消せるよ
-set tabstop=4
-set shiftwidth=4
+" Yの挙動をC, Dと揃える
+nnoremap Y y$
 
-" HTMLとCSS、rubyのときはインデントをスペース2つへ
-autocmd! MyAutoCmd FileType html setlocal tabstop=2 shiftwidth=2
-autocmd! MyAutoCmd FileType css setlocal tabstop=2 shiftwidth=2
-autocmd! MyAutoCmd FileType less setlocal tabstop=2 shiftwidth=2
-autocmd! MyAutoCmd FileType scss setlocal tabstop=2 shiftwidth=2
-autocmd! MyAutoCmd FileType ruby setlocal tabstop=2 shiftwidth=2
+" 一文字削除は削除レジスタを使用
+nnoremap x "_x
+vnoremap x "_x
 
-" 新しい行を作った時に高度な自動インデントを行う
-set smarttab
+" comma
+inoremap , ,<Space>
 
-" 新しい行のインデントを現在行と同じにする
-set autoindent
+" かっこ
+inoremap '' ''<Left>
+inoremap "" ""<Left>
+inoremap () ()<Left>
+inoremap {} {}<Left>
+inoremap [] []<Left>
+inoremap <> <><Left>
 
-" }}}
-" ==================================================================
-" 検索設定 {{{
-
-" インクリメンタルサーチを行う
-set incsearch
-
-" 最後まで検索したら最初にワープしない
-set nowrapscan
-
-" 検索結果のハイライトをEsc連打でクリアする
-nnoremap <silent><ESC><ESC> :<C-u>nohlsearch<CR>
-
-" 大文字、小文字を区別しない
-set ignorecase
-
-" 検索語句を画面中央に
+" search
+nnoremap <silent><Esc><Esc> :<C-u>nohlsearch<CR>
 nnoremap n nzz
 nnoremap N Nzz
 
-" 検索結果をハイライト
-" KaoriYa版vimrcではデフォであったんだけどな
-set hlsearch
-
-
-" }}}
-" ==================================================================
-" ファイル設定 {{{
-
-" markdownファイルのシンタックス関連付け
-autocmd MyAutoCmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
-
-" fencedcode内でもシンタックスハイライト
-let g:markdown_fenced_languages = [
-            \ 'css',
-            \ 'html',
-            \ 'sh',
-            \ 'vim',
-            \ 'ruby'
-            \ ]
-
-" 斜体表示を無効にする
-autocmd FileType markdown hi! def link markdownItalic Normal
-
-"  tmpファイル
-command! -nargs=1 -complete=filetype Tmp edit $HOME/tmp.<args>
-
-
-" }}}
-" ==================================================================
-" 編集設定 {{{
-
-" 変更中のファイルでも、保存しないで他のファイルを表示する
-set hidden
-
-" 右に開く
-set splitright
-
-" ノーマルモードでEnterを押すと空行を挿入
-noremap <CR> o<ESC>
-noremap <S-CR> O<ESC>
-
-" <Space>でコマンドライン
-noremap <Space> :
-
-" カッコ系を入力したら自動で中にカーソルを移動させる
-inoremap {} {}<Left>
-inoremap [] []<Left>
-inoremap "" ""<Left>
-inoremap '' ''<Left>
-inoremap <> <><Left>
-inoremap () ()<Left>
-
-" insertモードを抜けるとIMEオフ
-if has('multi_byte_ime') || has('xim')
-    set iminsert=0
-    set imsearch=0
-    inoremap <silent><ESC> <ESC>
-endif
-
-" ち～ん（笑）って鳴らさない
-set visualbell
-set t_vb=
-
-" <Space>vsで縦分割、<Space>spで横分割
-nnoremap <silent><Space>vs :<C-u>vsplit<CR>
-nnoremap <silent><Space>sp :<C-u>sp<CR>
-
-" バッファを選択する際に、同時にリストを表示する
-" http://qiita.com/s_of_p/items/a80020cf32f3de5d044c
-nnoremap <Leader>B :<C-u>ls<CR>:b
-
-" JとgJを入れ替える
-nnoremap J gJ
-nnoremap gJ J
-
-" 方向キーでバッファの大きさを変える
-nnoremap <Right> <C-w>>
-nnoremap <Left> <C-w><
-nnoremap <Up> <C-w>+
-nnoremap <Down> <C-w>-
-
-" <BS>で行末やインサート開始前の文字列を消せられる
-set backspace=indent,eol,start
-
-" 挿入モード・コマンドラインモード時のカーソル移動
+" 挿入モード時のカーソル移動
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
+inoremap <C-k> <C-o>D
+
+" visual mode
+vnoremap v $h
+
+" コマンドモード時のカーソル移動
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
+cnoremap <C-n> <Down>
+cnoremap <C-p> <Up>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
+cnoremap <C-k> <C-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
 
-" 矩形選択で自由に選択する
-set virtualedit+=block
+" ノーマルモード時に<CR>で改行
+nnoremap <CR> o<esc>
 
-" クリップボード連携
-if has('mac')
-    set clipboard=unnamed
+" バッファ操作
+nnoremap <silent><Space>vs :<C-u>vsp<CR>
+nnoremap <silent><Space>sp :<C-u>sp<CR>
+nnoremap <silent><Space>vn :<C-u>vnew<CR>
+nnoremap <silent><Space>st :<C-u>tabnew<CR>
+nnoremap <silent><Left> <C-w><
+nnoremap <silent><Right> <C-w>>
+nnoremap <silent><Up> <C-w>+
+nnoremap <silent><Down> <C-w>-
+
+" toggle relative line number and column highlight
+nnoremap <silent><F3> :<C-u>setlocal relativenumber!<CR>
+nnoremap <silent><F1> :<C-u><C-\>e'setlocal colorcolumn='.(&colorcolumn ? '' : '120')<CR><CR>
+nnoremap <silent><leader>c :<C-u>setlocal cursorcolumn!<CR>
+
+" help
+nnoremap <C-h> :h<Space>
+
+" echo file path
+nnoremap <C-g> 1<C-g>
+
+" <C-w>oを上書き
+command! Big wincmd _ | wincmd |
+nnoremap <silent><C-w>o :<C-u>Big<CR>
+
+
+
+" File type
+" ------------------------------------------------------------------------------
+augroup my_filetype
+    autocmd!
+    autocmd FileType help nnoremap <silent><buffer>q :quit<CR>
+    autocmd FileType html,css,less,scss,ruby setlocal tabstop=2 shiftwidth=2
+    autocmd FileType html inoremap <buffer></ </<C-x><C-o>
+    autocmd FileType markdown hi! def link markdownItalic Normal
+    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn} setlocal filetype=markdown
+augroup END
+
+
+
+" Statusline
+" ------------------------------------------------------------------------------
+set statusline =\ %F\ \|\ %{&modified?'+\ \|':&modifiable?'':'-\ \|'}
+set statusline+=%=\|\ %{(&fenc!=''?&fenc:&enc).':'.&ff}\ \|\ %{&filetype!=''?&filetype:'no\ ft'}\ \|\ %l:%c\ 
+
+
+
+" Other
+" ------------------------------------------------------------------------------
+" Use vsplit mode (?)
+" http://qiita.com/kefir_/items/c725731d33de4d8fb096
+if has("vim_starting") && !has('gui_running') && has('vertsplit')
+    function! g:EnableVsplitMode()
+        " enable origin mode and left/right margins
+        let &t_CS = "y"
+        let &t_ti = &t_ti . "\e[?6;69h"
+        let &t_te = "\e[?6;69l\e[999H" . &t_te
+        let &t_CV = "\e[%i%p1%d;%p2%ds"
+        call writefile([ "\e[?6;69h" ], "/dev/tty", "a")
+    endfunction
+
+    " old vim does not ignore CPR
+    map <special> <Esc>[3;9R <Nop>
+
+    " new vim can't handle CPR with direct mapping
+    " map <expr> ^[[3;3R g:EnableVsplitMode()
+    set t_F9=[3;3R
+    map <expr> <t_F9> g:EnableVsplitMode()
+    let &t_RV .= "\e[?6;69h\e[1;3s\e[3;9H\e[6n\e[0;0s\e[?6;69l"
 endif
 
-" 全行ヤンク
-command! PBcopy %y
+" 管理者権限で書き込み
+if executable('sudo') && executable('tee')
+    cnoremap w!! %!sudo tee > /dev/null %
+endif
+
+" Vimスクリプトの行継続のインデント幅
+let g:vim_indent_cont = 4
+
+" 挿入モードのクソみたいな挙動を切る
+augroup no_comment
+    autocmd!
+    autocmd BufEnter * setlocal fo-=r
+    autocmd BufEnter * setlocal fo-=o
+    autocmd BufEnter * setlocal fo-=c
+    autocmd BufEnter * setlocal fo-=t
+    autocmd BufEnter * setlocal fo-=q
+augroup END
+
+" 全てのマッピングを表示
+command! -nargs=* -complete=mapping AllMaps map <args> | map! <args> | lamp <args>
+
+" 現在行ハイライトをカレントバッファのみに適用
+augroup highlight_cursorline_on_current_buffer
+    autocmd!
+    autocmd BufLeave,WinLeave * setlocal nocursorline
+    autocmd BufEnter,WinEnter * setlocal cursorline
+augroup END
+
+" reload .vimrc (and .vimrc_local if file readable)
+augroup load_vimrc
+    autocmd!
+    autocmd BufWritePost ~/.vimrc,~/.vim/.vimrc_local nested source ~/.vimrc
+augroup END
 
 
-" }}}
-" ==================================================================
-" プラグイン設定 {{{
 
-" NeoBundleがある時だけ以下を読み込み
-if glob('~/.vim/bundle/neobundle.vim') !=? ''
+" NeoBundle wrap functions
+" ------------------------------------------------------------------------------
+function! s:bundle_tap(bundle)
+    return exists('*neobundle#tap') && neobundle#tap(a:bundle)
+endfunction
 
-    " runtimepathを追加
+function! s:bundle_end()
+    try
+        call neobundle#untap()
+        call neobundle#end()
+        filetype plugin indent on
+        NeoBundleCheck
+        if !has('vim_starting')
+            call neobundle#call_hook('on_source')
+        endif
+    catch
+    endtry
+endfunction
+
+
+
+" Load plugins list
+" ------------------------------------------------------------------------------
+if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     if has('vim_starting')
-        set runtimepath+=~/.vim/bundle/neobundle.vim/
+        set rtp+=~/.vim/bundle/neobundle.vim/
     endif
-
-    " プラグイン読み込み開始
-    " この関数は自動的にfiletype offを行う
     call neobundle#begin(expand('~/.vim/bundle/'))
 
-    " NeoBundle自体
     NeoBundleFetch 'Shougo/neobundle.vim'
 
-    " プラグイン
-    NeoBundle 'itchyny/lightline.vim'
-    NeoBundleLazy 'Shougo/vimshell.vim', {
-                \ 'depends' : 'Shougo/vimproc',
-                \ 'autoload' : {
-                \   'commands' : [ 'VimShell', 'VimShellPop' ],
-                \   'mappings' : '<Plug>(vimshell_'
-                \   }
-                \ }
-    NeoBundle 'Shougo/vimproc', {
-                \ 'build' : {
-                \     'windows' : 'make -f make_mingw32.mak',
-                \     'cygwin' : 'make -f make_cygwin.mak',
-                \     'mac' : 'make -f make_mac.mak',
-                \     'unix' : 'make -f make_unix.mak'
-                \     }
-                \ }
-    NeoBundleLazy 'basyura/TweetVim', {
-                \ 'depends' : [
-                \     'tyru/open-browser.vim',
-                \     'basyura/twibill.vim',
-                \     'mattn/webapi-vim'
-                \     ],
-                \ 'autoload' : {
-                \   'commands' : [ 'TweetVimUserStream', 'TweetVimSay' ]
-                \   }
-                \ }
-    NeoBundleLazy 'thinca/vim-quickrun', {
-                \ 'autoload' : {
-                \   'mappings' : '<Leader>r',
-                \   'commands' : 'QuickRun'
-                \   }
-                \ }
-    NeoBundleLazy 'Shougo/unite.vim', {
-                \ 'autoload' : {
-                \   'commands' : 'Unite'
-                \   }
-                \ }
-    NeoBundleLazy 'Shougo/neocomplete.vim', {
-                \ 'autoload' : {
-                \   'insert' : '1'
-                \   }
-                \ }
-    NeoBundleLazy 'mattn/emmet-vim', {
-                \ 'autoload' : {
-                \   'filetypes' : [ 'html', 'markdown', 'css', 'scss', 'less' ],
-                \   }
-                \ }
-    NeoBundle 'tpope/vim-fugitive'
-    NeoBundle 'Yggdroot/indentLine'
-    NeoBundle 'haya14busa/incsearch.vim'
-    NeoBundleLazy 'thinca/vim-scouter', {
-                \ 'autoload' : {
-                \   'commands' : 'Scouter'
-                \   }
-                \ }
-    NeoBundle '844196/memo.vim', {
-                \ 'depends' : 'Shougo/unite.vim'
-                \ }
-    NeoBundle 'gist:844196/4c1dc9a89dd02ece4ebe', {
-                \ 'name' : 'Img_to_markdown.vim',
-                \ 'script_type' : 'plugin'
-                \ }
-    NeoBundle 'osyo-manga/vim-over'
-    NeoBundle 'osyo-manga/vim-anzu'
-    NeoBundle 'osyo-manga/vim-watchdogs', {
-                \   'depends': [
-                \       'osyo-manga/shabadou.vim',
-                \       'Shougo/vimproc',
-                \       'thinca/vim-quickrun',
-                \       'cohama/vim-hier',
-                \       'dannyob/quickfixstatus',
-                \   ]
-                \ }
-    NeoBundle 'KazuakiM/vim-qfsigns', {
-                \  'depends': 'osyo-manga/vim-watchdogs'
-                \ }
-    NeoBundle 'KazuakiM/vim-qfstatusline', {
-                \  'depends': 'osyo-manga/vim-watchdogs'
-                \ }
-    NeoBundle 'osyo-manga/unite-quickfix', {
-                \   'depends': 'Shougo/unite.vim'
-                \ }
-    " if has("mac")
-    "     NeoBundle 'osyo-manga/vim-sound'
-    " endif
-    " NeoBundle 'itchyny/vim-autoft'
-    " NeoBundle 't9md/vim-choosewin'
-    " NeoBundle 'severin-lemaignan/vim-minimap'
-    " フォーク版
-    " NeoBundleLazy 'peitalin/vim-minimap', {
-    "             \ 'autoload' : {
-    "             \   'mappings' : '<Leader>mm',
-    "             \   'commands' : 'Minimap'
-    "             \   }
-    "             \ }
-    NeoBundleLazy 'junegunn/goyo.vim', {
-                \ 'autoload' : {
-                \   'commands' : 'Goyo'
-                \   }
-                \ }
-    " NeoBundleLazy 'itchyny/thumbnail.vim', {
-    "             \ 'autoload' : {
-    "             \   'mappings' : '<Leader>t',
-    "             \   'commands' : 'Thumbnail'
-    "             \   }
-    "             \ }
-    NeoBundle 'kana/vim-submode'
-    NeoBundle 'kannokanno/previm'
-    NeoBundle 'tpope/vim-endwise'
-    NeoBundle 'tomtom/tcomment_vim'
-    NeoBundle 'rhysd/try-colorscheme.vim'
-    " NeoBundle 'haya14busa/vim-undoreplay'
-    " NeoBundle 'sunaku/vim-ruby-minitest'
-    " NeoBundle 'vim-scripts/AnsiEsc.vim'
-    NeoBundle '844196/vimsay'
-    NeoBundle 'vim-jp/vimdoc-ja'
-    NeoBundle 'scrooloose/nerdtree'
-    NeoBundle 'ryanoasis/vim-devicons'
-    NeoBundle 'noprompt/vim-yardoc'
-    NeoBundle 'rcmdnk/vim-markdown'
-    NeoBundle 'joker1007/vim-markdown-quote-syntax'
-    NeoBundle 'cohama/agit.vim'
-    NeoBundle 'rhysd/committia.vim'
-    NeoBundle 'lilydjwg/colorizer'
-    NeoBundle 'mhinz/vim-startify'
+    " base
+        NeoBundle     'Shougo/vimproc'
+        NeoBundle     'vim-jp/vimdoc-ja'
 
+    " looks
+        NeoBundle     'ryanoasis/vim-devicons'
+        NeoBundleLazy 'Yggdroot/indentLine'
+        NeoBundle     'itchyny/lightline.vim'
+        NeoBundle     'altercation/vim-colors-solarized'
 
-    " カラースキーム
-    NeoBundle 'altercation/vim-colors-solarized'
-    NeoBundle 'w0ng/vim-hybrid'
-    NeoBundle 'cocopon/lightline-hybrid.vim', {
-                \ 'depends' : [
-                \       'itchyny/lightline.vim',
-                \       'w0ng/vim-hybrid'
-                \       ]
-                \ }
-    NeoBundle 'ujihisa/unite-colorscheme', {
-                \ 'depends' : 'Shougo/unite.vim'
-                \ }
-    NeoBundle 'tomasr/molokai'
-    NeoBundle 'morhetz/gruvbox'
-    NeoBundle 'sjl/badwolf'
-    NeoBundle 'cocopon/colorswatch.vim'
-    NeoBundle '844196/lightline-badwolf.vim', {
-                \ 'depends' : [
-                \       'itchyny/lightline.vim',
-                \       'sjl/badwolf'
-                \       ]
-                \ }
-    NeoBundle 'chriskempson/base16-vim'
-    NeoBundle 'shinchu/lightline-gruvbox.vim', {
-                \   'depends': [
-                \       'itchyny/lightline.vim',
-                \       'morhetz/gruvbox'
-                \       ]
-                \ }
-    NeoBundle 'reedes/vim-colors-pencil'
-    NeoBundle 'vim-scripts/neutron.vim'
-    NeoBundle 'vim-scripts/playroom'
-    NeoBundle 'endel/vim-github-colorscheme'
-    NeoBundle 'gosukiwi/vim-atom-dark'
-    NeoBundle 'cocopon/iceberg.vim'
-    NeoBundle 'popkirby/lightline-iceberg'
-    " NeoBundle 'lightline-iceberg', {'base': '~/dev'}
+    " util
+        NeoBundle     'tomtom/tcomment_vim'
+        NeoBundle     'tpope/vim-endwise'
+        NeoBundleLazy 'haya14busa/incsearch.vim'
+        NeoBundleLazy 'osyo-manga/vim-over'
+        NeoBundle     'rhysd/clever-f.vim'
+        NeoBundleLazy 'Shougo/unite.vim'
+        NeoBundleLazy 'thinca/vim-scouter'
+        NeoBundleLazy 'mattn/benchvimrc-vim'
+        NeoBundleLazy 'scrooloose/nerdtree'
+        NeoBundleLazy 'thinca/vim-quickrun'
+        NeoBundleLazy 'haya14busa/vim-undoreplay'
 
-    " プラグイン読み込み終了
-    call neobundle#end()
+    " completation
+        NeoBundleLazy 'Shougo/neocomplete.vim'
+        NeoBundleLazy 'ujihisa/neco-look'
+        NeoBundleLazy 'Shougo/context_filetype.vim'
+        NeoBundleLazy 'Shougo/neco-syntax'
 
-    " よく分かんなかったです（無知）
-    filetype plugin indent on
+    " for git
+        NeoBundleLazy 'cohama/agit.vim'
+        NeoBundleLazy 'rhysd/committia.vim'
 
-    " 未導入プラグインチェック
-    NeoBundleCheck
+    " for html
+        NeoBundleLazy 'mattn/emmet-vim'
+        NeoBundleLazy 'lilydjwg/colorizer'
+
+    " for markdown
+        NeoBundleLazy 'junegunn/goyo.vim'
+        NeoBundleLazy 'kannokanno/previm'
+        NeoBundleLazy 'rcmdnk/vim-markdown'
+        NeoBundleLazy 'joker1007/vim-markdown-quote-syntax'
+
+    " for ruby
+        NeoBundleLazy 'noprompt/vim-yardoc'
+        NeoBundleLazy 'sunaku/vim-ruby-minitest'
+endif
 
 
 
-    " 各プラグイン用リッチシンボル設定
-    " lightline.vim {{{
-    if neobundle#tap('lightline.vim')
-        let g:lightline = {}
-        let g:lightline.component_function = {}
-        let g:lightline = {
-            \ 'colorscheme' : 'wombat',
-            \ 'component' : {
-            \   'readonly' : '%{ &readonly ? "\uE0A2" : "" }',
-            \   'lineinfo' : '%{ winwidth(0) > 70 ? "\uE0A1" . " " . line(".") . ":" . col(".") : " " }',
-            \   'fileformat' : '%{ winwidth(0) > 70 ? (WebDevIconsGetFileFormatSymbol() . " " . &fileformat) : "" }',
-            \   'fileencoding' : '%{ winwidth(0) > 70 ? strlen(&fenc)?&fenc:&enc : "" }',
-            \   'filetype' : '%{ winwidth(0) > 70 ? strlen(&filetype)?WebDevIconsGetFileTypeSymbol() ." " .&filetype:"no ft" : "" }'
-            \   },
-            \ 'component_function' : {
-            \   'fugitive' : 'LightlineFugitive',
-            \   'filename' : 'MyFilename',
-            \   'mode'     : 'Mymode',
-            \   'anzu'     : 'anzu#search_status'
-            \   },
-            \ 'component_expand' : {
-            \   'qfstatusline': 'qfstatusline#Update'
-            \   },
-            \ 'component_type' : {
-            \   'qfstatusline': 'error'
-            \   },
-            \ 'active' : {
-            \   'left' : [ ['mode', 'paste'], ['readonly', 'fugitive', 'filename', 'modified'] ],
-            \   'right': [ ['qfstatusline', 'anzu', 'lineinfo'], ['filetype'], ['fileformat', 'fileencoding'] ]
-            \   },
-            \ 'inactive' : {
-            \   'right' : [ ['lineinfo'], ['filetype'] ]
-            \   }
-            \ }
+" Plugins config
+" ------------------------------------------------------------------------------
+if s:bundle_tap('neobundle.vim')
+    nnoremap <silent><space>nl :<C-u>NeoBundleList<CR>
+endif
 
-            let g:lightline.separator = {
-                        \ 'left' : "\ue0b0",
-                        \ 'right': "\ue0b2"
-                        \ }
-            let g:lightline.subseparator = {
-                        \ 'left' : "\ue0b1",
-                        \ 'right': "\ue0b3"
-                        \ }
+if s:bundle_tap('vimproc')
+    " TODO: disabledが動いてない
+    call neobundle#config({
+        \   'build': {
+        \       'windows': 'tools\\update-dll-mingw',
+        \       'cygwin' : 'make -f make_cygwin.mak',
+        \       'mac'    : 'make',
+        \       'linux'  : 'make',
+        \       'unix'   : 'gmake'
+        \   }
+        \ })
+endif
 
+if s:bundle_tap('lightline.vim')
+    set noshowmode
+    let g:lightline = {}
 
-        " Gitブランチを表示
-        let g:lightline.component_function.fugitive = 'LightlineFugitive'
-        function! LightlineFugitive()
-            if exists('*fugitive#head')
-                let s:_ = fugitive#head()
-                return strlen(s:_) ? ("\uE0A0" .' ' . s:_) : ''
-            endif
-            return ''
-        endfunction
+    " component
+    let g:lightline.component = {
+        \   'filename': '%{strlen(expand("%:~")) ? expand("%:~") : "[No Name]"}'
+        \ }
 
-        " カレントバッファのタイトル
-        function! MyFilename()
-            let s:fname = expand('%:~')
-            return &ft ==# 'vimshell' ? vimshell#get_status_string() :
-            \ &ft ==# 'unite' ? unite#get_status_string() :
-            \ ('' !=? s:fname ? s:fname : '[No Name]')
-        endfunction
+    " display
+    let g:lightline.active = {
+        \   'left' : [['mode','paster'], ['readonly','filename','modified']],
+        \   'right': [['lineinfo'], ['filetype'], ['fileencoding','fileformat']]
+        \ }
+    let g:lightline.inactive = {
+        \   'right': [['lineinfo'], ['filetype']]
+        \ }
+endif
 
-        " lightline入れてるからモードを表示させない
-        set noshowmode
+if s:bundle_tap('neocomplete.vim')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'on_i': 1,
+        \   'disabled': !has('lua')
+        \ })
 
-        " UniteとかVimshellでもlightlineのステータスラインを表示
+    " ロード時から補完スタート
+    let g:neocomplete#enable_at_startup = 1
+
+    " <F4>で補完切り替え
+    nnoremap <F4> :<C-u>NeoCompleteToggle<CR>
+
+    let g:neocomplete#enable_ignore_case = 1
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#enable_enable_camel_case_completion = 1
+    if !exists('g:neocomplete#keyword_patterns')
+        let g:neocomplete#keyword_patterns = {}
+    endif
+    let g:neocomplete#keyword_patterns._ = '\h\w*'
+    let g:neocomplete#max_list = 20
+endif
+
+if s:bundle_tap('indentLine')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'on_cmd': 'IndentLinesToggle'
+        \ })
+
+    " <F5>でガイドの表示切り替え
+    nnoremap <silent><F5> :<C-u>IndentLinesToggle<CR>
+
+    " インデントの色を変更（ターミナル）
+    let g:indentLine_color_term = 239
+
+    " インデント表示文字列
+    let g:indentLine_char = '¦'
+endif
+
+if s:bundle_tap('vim-quickrun')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'autoload': {
+        \     'mappings': '<Leader>r',
+        \     'commands': 'QuickRun'
+        \     }
+        \ })
+
+    let g:quickrun_config = {}
+    let g:quickrun_config._ = {
+        \   "outputter/buffer/split": ":botright 8sp",
+        \   "outputter/buffer/close_on_empty": 1,
+        \   "runner": "vimproc",
+        \   "runner/vimproc/updatetime": 60
+        \ }
+    let g:quickrun_config.markdown ={
+        \   "outputter": "null",
+        \   "command"  : "open",
+        \   "cmdopt"   : "-a",
+        \   "args"     : 'Marked\ 2',
+        \   "exec"     : "%c %o %a %s"
+        \ }
+
+    " <C-c>でquickrun停止
+    nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+endif
+
+if s:bundle_tap('unite.vim')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'autoload': {'commands': 'Unite'}
+        \ })
+
+    " バッファ一覧をUniteに置き換え
+    nnoremap <Leader>b :<C-u>Unite<Space>buffer<CR>
+
+    " <Leader><Leader>でUnite file
+    nnoremap <Leader><Leader> :<C-u>Unite file<CR>
+
+    " インサートモードオン
+    let g:unite_enable_start_insert = 1
+
+    " <Esc><Esc>でUniteを閉じる
+    augroup unite_my_settings
+        autocmd!
+        autocmd FileType unite call s:unite_my_settings()
+    augroup END
+    function! s:unite_my_settings()
+        nmap <silent><buffer><Esc><Esc> <Plug>(unite_exit)
+        imap <silent><buffer><Esc><Esc> <Plug>(unite_exit)
+    endfunction
+
+    " disable overwrite unite statusline
+    if neobundle#is_installed('lightline.vim')
         let g:unite_force_overwrite_statusline=0
-        let g:vimshell_force_overwrite_statusline=0
-
-        " プラグイン別のモード表示
-        function! Mymode()
-            return &ft ==# 'unite' ? 'Unite' :
-            \ &ft ==# 'vimshell' ? 'VimShell' :
-            \ &ft ==# 'tweetvim' ? 'TweetVim' :
-            \ lightline#mode()
-        endfunction
-
-        " リロード
-        augroup LightLineColorscheme
-            autocmd!
-            autocmd ColorScheme * call s:lightline_update()
-        augroup END
-        function! s:lightline_update()
-            if !exists('g:loaded_lightline')
-                return
-            endif
-            try
-                if g:colors_name =~# 'wombat\|solarized\|landscape\|jellybeans\|Tomorrow\|badwolf\|gruvbox'
-                  let g:lightline.colorscheme =
-                        \ substitute(substitute(g:colors_name, '-', '_', 'g'), '256.*', '', '') .
-                        \ (g:colors_name ==# 'solarized' ? '_' . &background : '')
-                  call lightline#init()
-                  call lightline#colorscheme()
-                  call lightline#update()
-                endif
-                catch
-            endtry
-        endfunction
-
-        call neobundle#untap()
     endif
-    " }}}
-
-    " TweetVim {{{
-    if neobundle#tap('TweetVim')
-        let g:tweetvim_config_dir = expand($HOME.'/.vim/tweetvim')
-
-        " <Space>tsでツイートバッファを表示
-        nnoremap <Space>ts :<C-u>TweetVimSay<CR>
-
-        " <Space>thでタイムラインを表示
-        nnoremap <Space>th :<C-u>TweetVimUserStream<CR>
-
-        " 空文字セパレートを表示
-        let g:tweetvim_display_separator = 1
-        let g:tweetvim_empty_separator = 1
-
-        " スクリーンネームを表示
-        let g:tweetvim_display_username = 1
-
-        " アイコンを表示
-        if has('gui_running') || has('mac')
-            "  1.環境設定→詳細→`Core Textレンダラを使用する`をオフにしてMacVim.appを終了させる
-            "  2.MacVim.appを開きなおして、`Core Text〜`をオンにしてもっかい終了
-            "  3.最後に開き直すと表示される。
-            let g:tweetvim_display_icon = 1
-        endif
-
-        call neobundle#untap()
-    endif
-    " }}}
-
-    " VimSell {{{
-    if neobundle#tap('vimshell.vim')
-        let g:vimshell_vimshrc_path = '~/dotfiles/.vimshrc'
-
-        " <Leader>sでVimShellを開く
-        nnoremap <silent><Leader>s :<C-u>VimShell<CR>
-
-        " <C-g>でVimShell(Pop)を開く
-        nnoremap <silent><C-g> :<C-u>VimShellPop -toggle<CR>
-        inoremap <silent><C-g> <ESC>:<C-u>VimShellPop -toggle<CR>
-
-        " X | _ | X
-        let g:vimshell_prompt_expr = '"X | _ | X ".escape(getcwd(), "\\[]()?! ")." $ "'
-        let g:vimshell_prompt_pattern = '^X\ |\ _\ |\ X\ \(\f\|\\.\)\+ $ '
-        highlight vimshellPrompt ctermfg=yellow guifg=orange
-
-        " 右プロンプトにGitブランチを表示
-        let g:vimshell_right_prompt='Git_branch()'
-        function! Git_branch()
-            let s:branch = substitute(system('git rev-parse --abbrev-ref HEAD 2> /dev/null'), '\n', '', 'g')
-            if s:branch ==? ''
-                return ''
-            else
-                return '[' . "\uE0A0" . s:branch . ']'
-            endif
-        endfunction
-
-        autocmd! MyAutoCmd FileType vimshell call s:vimshell_my_settings()
-        function! s:vimshell_my_settings()
-            " 行番号を表示しない
-            setlocal nonumber
-
-            " <C-l>で画面クリア
-            imap <buffer><C-l> <Plug>(vimshell_clear)
-
-            " どの行にいても最終行のプロンプトへフォーカスを移す
-            nmap <buffer>I G<Plug>(vimshell_insert_head)
-            nmap <buffer>A G<Plug>(vimshell_append_end)
-
-            " 補完
-            nmap <buffer><C-n> <Plug>(vimshell_previous_prompt)
-            nmap <buffer><C-p> <Plug>(vimshell_next_prompt)
-
-        endfunction
-
-        " VimShellからGitを使いやすくする
-        if has('gui_macvim')
-            " $EDITORをMacVimに設定
-            " commit messageとかが出来るようになる
-            let g:vimshell_editor_command = '/Applications/MacVim.app/Contents/MacOS/Vim --servername=VIM --remote-tab-wait-silent'
-
-            " :bdしないとVimShellからの出てきたバッファの内容をVimShellへ反映できない
-            " :w -> :bd はめんどいので、:wqを:w | bdへ置き換える（gitcommitファイル限定）
-            autocmd! MyAutoCmd FileType gitcommit cnoreabbrev <buffer><expr> wq 'WQ'
-            autocmd! MyAutoCmd FileType gitcommit command! -nargs=? -complete=dir -bang -buffer WQ call s:replace_wq_to_wbd('<bang>')
-
-            function! s:replace_wq_to_wbd(bang)
-                if a:bang ==? ''
-                    write
-                    bd
-                else
-                    write!
-                    bd!
-                endif
-            endfunction
-
-        endif
-
-        call neobundle#untap()
-    endif
-    " }}}
-
-    " vim-quickrun {{{
-    if neobundle#tap('vim-quickrun')
-        let g:quickrun_config = {}
-        let g:quickrun_config = {
-                    \   "_" : {
-                    \       "outputter/buffer/split" : ":botright 8sp",
-                    \       "outputter/buffer/close_on_empty" : 1,
-                    \       "runner" : "vimproc",
-                    \       "runner/vimproc/updatetime" : 60
-                    \   },
-                    \   "markdown" : {
-                    \       "outputter" : "null",
-                    \       "command"   : "open",
-                    \       "cmdopt"    : "-a",
-                    \       "args"      : 'Marked\ 2',
-                    \       "exec"      : "%c %o %a %s",
-                    \   },
-                    \ }
-
-        " <C-c>でquickrun停止
-        nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
-
-        call neobundle#untap()
-    endif
-    " }}}
-
-    " Unite {{{
-    if neobundle#tap('unite.vim')
-        " バッファ一覧をUniteに置き換え
-        nnoremap <Leader>b :<C-u>Unite<Space>buffer<CR>
-
-        " <Leader><Leader>でUnite file
-        nnoremap <Leader><Leader> :<C-u>Unite file<CR>
-
-        " インサートモードオン
-        let g:unite_enable_start_insert = 1
-
-        " <Esc><Esc>でUniteを閉じる
-        autocmd! MyAutoCmd FileType unite call s:unite_my_settings()
-        function! s:unite_my_settings()
-            nmap <silent><buffer><Esc><Esc> <Plug>(unite_exit)
-            imap <silent><buffer><Esc><Esc> <Plug>(unite_exit)
-        endfunction
-
-        call neobundle#untap()
-    endif
-    " }}}
-
-    " memo.vim {{{
-    if neobundle#tap('memo.vim')
-        " メモディレクトリを宣言
-        let g:memo_path = '~/Dropbox/memo/'
-
-        " メモ一覧呼び出しリマップ
-        nnoremap <silent><F2> :<C-u>Unite memo
-                    \ -buffer-name=memo_list -winheight=10 -max-multi-lines=1
-                    \ <CR>
-
-        " メモGrep呼び出しリマップ
-        " nnoremap <silent><C-n> :<C-u>execute(
-        "             \ 'Unite grep:' . memo#getpath() . ' -no-empty -winheight=10'
-        "             \ )<CR>
-
-        " テンプレート
-        let g:memo_template = [
-                    \   '<!-- vim:set filetype=markdown: -->',
-                    \   '<div class="article-header">',
-                    \   '  ' . '<h1>' . '%_TITLE_%' . '</h1>',
-                    \   '  ' . '<date>' . '%_TIME_%' . '</date>',
-                    \   '</div>'
-                    \ ]
-
-        call neobundle#untap()
-    endif
-    " }}}
-
-    " Img_to_markdown.vim {{{
-    if neobundle#tap('Img_to_markdown.vim')
-        " <Space>imで置換
-        nmap <silent><Space>im <Plug>(img_to_markdown)
-
-        call neobundle#untap()
-    endif
-    " }}}
-
-    " neocomplete {{{
-    if neobundle#tap('neocomplete.vim')
-        " Vim起動時から補完スタート
-        let g:neocomplete#enable_at_startup = 1
-
-        " <F4>で補完切り替え
-        nnoremap <F4> :<C-u>NeoCompleteToggle<CR>
-
-        call neobundle#untap()
-    endif
-    " }}}
-
-    " emmet-vim {{{
-    if neobundle#tap('emmet-vim')
-        let g:user_emmet_settings = {
-                \ 'lang' : 'ja',
-                \   'html': {
-                \     'indentation': '  '
-                \   }
-                \ }
-
-        call neobundle#untap()
-    endif
-    " }}}
-
-    " indentLine
-    if neobundle#tap('indentLine')
-        " <F5>でガイドの表示切り替え
-        nnoremap <silent><F5> :<C-u>IndentLinesToggle<CR>
-
-        " インデントの色を変更（ターミナル）
-        let g:indentLine_color_term = 239
-
-        " インデント表示文字列
-        let g:indentLine_char = '¦'
-
-        call neobundle#untap()
-    endif
-
-    if neobundle#tap('incsearch.vim')
-        " リマップ
-        map / <Plug>(incsearch-forward)
-        map ? <Plug>(incsearch-backward)
-        map n <Plug>(incsearch-nohl-n)
-        map N <Plug>(incsearch-nohl-N)
-
-        call neobundle#untap()
-    endif
-
-    if neobundle#tap('ShowMotion')
-        " リマップ
-        nmap w <Plug>(show-motion-w)
-        nmap W <Plug>(show-motion-W)
-        nmap b <Plug>(show-motion-b)
-        nmap B <Plug>(show-motion-B)
-        nmap e <Plug>(show-motion-e)
-        nmap E <Plug>(show-motion-E)
-
-        call neobundle#untap()
-    endif
-
-    if neobundle#tap('vim-over')
-        " プロンプト
-        let g:over_command_line_prompt = '[over]:'
-        " 置換したらハイライトを消す
-        let g:over_enable_auto_nohlsearch = 1
-
-        " リマップ
-        map <silent><Space>s/ :OverCommandLine s/<CR>
-        map <silent><Space>%s/ :OverCommandLine %s/<CR>
-
-        call neobundle#untap()
-    endif
-
-    if neobundle#tap('vim-anzu')
-        " incsearchと共存させる
-        nmap n <Plug>(incsearch-nohl)<Plug>(anzu-n)
-        nmap N <Plug>(incsearch-nohl)<Plug>(anzu-N)
-
-        " <ESC><ESC>でステータスを消す
-        nmap <silent><Esc><Esc> :<C-u>nohlsearch<CR><Plug>(anzu-clear-search-status)
-
-        call neobundle#untap()
-    endif
-
-    if neobundle#tap('vim-watchdogs')
-        " quickfixの窓を表示しない
-        " 問題無かったらその旨表示する
-        call extend(g:quickrun_config, {
-                    \   "watchdogs_checker/_": {
-                    \       "outputter/quickfix/open_cmd": "",
-                    \       "hook/echo/enable": 1,
-                    \       "hook/echo/output_success": "[watchdogs] No Errors Found."
-                    \   }
-                    \ })
-
-        " 保存時にシンタックスチェック
-        let g:watchdogs_check_BufWritePost_enable = 1
-
-        " 一定周期でシンタックスチェック
-        let g:watchdogs_check_CursorHold_enable = 1
-
-        " vimは（あれば）vintでシンタックスチェック
-        call extend(g:quickrun_config, {
-                    \   "watchdogs_checker/vint": {
-                    \       "command": "vint",
-                    \       "exec": "%c %o %s:p "
-                    \   },
-                    \   "vim/watchdogs_checker": {
-                    \       "type": executable("vint") ? "watchdogs_checker/vint" : ""
-                    \   }
-                    \ })
-
-        " shとzshは（あれば）shellcheckでシンタックスチェック
-        call extend(g:quickrun_config, {
-                    \   "watchdogs_checker/shellcheck": {
-                    \       "command": "shellcheck",
-                    \       "cmdopt": "-f\ gcc",
-                    \       "exec": "%c %o %s:p ",
-                    \       "errorformat": "%f:%l:%c: %m"
-                    \   },
-                    \   "sh/watchdogs_checker": {
-                    \       "type": executable("shellcheck") ? "watchdogs_checker/shellcheck" : ""
-                    \   },
-                    \   "zsh/watchdogs_checker": {
-                    \       "type": executable("shellcheck") ? "watchdogs_checker/shellcheck" : ""
-                    \   }
-                    \ })
-
-        call neobundle#untap()
-    endif
-
-    if neobundle#tap('vim-qfsigns')
-        call extend(g:quickrun_config['watchdogs_checker/_'], {
-                    \ "hook/qfsigns_update/enable_exit": 1,
-                    \ "hook/qfsigns_update/priority_exit": 3
-                    \ })
-
-        call neobundle#untap()
-    endif
-
-    if neobundle#tap('vim-qfstatusline')
-        call extend(g:quickrun_config['watchdogs_checker/_'], {
-                    \ "hook/qfstatusline_update/enable_exit": 1,
-                    \ "hook/qfstatusline_update/priority_exit": 3
-                    \ })
-        let g:Qfstatusline#UpdateCmd = function('lightline#update')
-
-        " エラーメッセージを表示しない
-        let g:Qfstatusline#Text = 0
-
-        call neobundle#untap()
-    endif
-
-    if neobundle#tap('unite-quickfix')
-        " <Leader>qでquickfixを表示
-        nnoremap <silent><Leader>q :<C-u>Unite quickfix
-                    \ -no-empty -direction=botright -no-start-insert
-                    \ <CR>
-
-        call neobundle#untap()
-    endif
-
-    if neobundle#tap('vim-sound')
-        function! s:change_sound_name(basename)
-            return expand(s:se_path . a:basename . s:se_ext)
-        endfunction
-
-        function! PlaySE(name)
-            call sound#play_wav(s:change_sound_name(a:name))
-        endfunction
-
-        " ディレクトリがある時だけ効果音を設定
-        let s:se_path = '~/Dropbox/soundeffect/'
-        let s:se_ext = '.wav'
-        if isdirectory(expand(s:se_path))
-            augroup SoundEffect
-                autocmd!
-            augroup END
-
-            autocmd! SoundEffect BufReadPost  * call PlaySE("open")
-            autocmd! SoundEffect BufWritePost * call PlaySE("save")
-            autocmd! SoundEffect BufLeave     * call PlaySE("move")
-            autocmd! SoundEffect CompleteDone * call PlaySE("complete_done")
-        endif
-
-        call neobundle#untap()
-    endif
-
-    if neobundle#tap('vim-autoft')
-        let g:autoft_config = [
-                    \   { 'filetype': 'sh', 'pattern': '\%^#!.*\%(\<sh\>\|\<bash\>\)\s*$' },
-                    \   { 'filetype': 'markdown', 'pattern': '^## .*$' }
-                    \ ]
-
-        call neobundle#untap()
-    endif
-
-    if neobundle#tap('vim-choosewin')
-        " nmap - <Plug>(choosewin)
-
-        " tmuxライクなバッファオーバーレイ
-        let g:choosewin_overlay_enable = 1
-        " ステータスラインに選択文字を表示しない
-        let g:choosewin_statusline_replace = 0
-
-        " バッファを選択した時にカーソル下の文字を点滅させない
-        let g:choosewin_blink_on_land = 0
-
-        " オーバーレイ文字色
-        let g:choosewin_color_overlay = {
-              \ 'gui': ['DodgerBlue3', 'DodgerBlue3' ],
-              \ 'cterm': [ 4, 4 ]
-              \ }
-        let g:choosewin_color_overlay_current = {
-              \ 'gui': ['firebrick1', 'firebrick1' ],
-              \ 'cterm': [ 1, 1 ]
-              \ }
-
-        call neobundle#untap()
-    endif
-
-    if neobundle#tap('thumbnail.vim')
-        nnoremap <Leader>t :<C-u>Thumbnail<CR>
-
-        call neobundle#untap()
-    endif
-
-    if neobundle#tap('vim-minimap')
-        let g:minimap_highlight = 'StatusLineNC'
-
-        call neobundle#untap()
-    endif
-
-    if neobundle#tap('vim-submode')
-        call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
-        call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
-        call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
-        call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>+')
-        call submode#map('winsize', 'n', '', '>', '<C-w>>')
-        call submode#map('winsize', 'n', '', '<', '<C-w><')
-        call submode#map('winsize', 'n', '', '+', '<C-w>-')
-        call submode#map('winsize', 'n', '', '-', '<C-w>+')
-
-        call neobundle#untap()
-    endif
-
-    if neobundle#tap('previm')
-        let g:previm_enable_realtime = 0
-
-        call neobundle#untap()
-    endif
-
-    if neobundle#tap('nerdtree')
-        nnoremap <silent><Leader>nt :<C-u>NERDTreeToggle<CR>
-        nnoremap <C-n> :<C-u>NERDTree<Space>
-
-        let g:NERDTreeMinimalUI = 1
-        let g:NERDTreeMouseMode = 2
-        let g:NERDTreeChDirMode = 1
-
-        call neobundle#untap()
-    endif
-
-    if neobundle#tap('vim-devicons')
-        let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
-        let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+endif
+
+if s:bundle_tap('incsearch.vim')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'autoload' : {'mappings': '<Plug>(incsearch-'}
+        \ })
+
+    " リマップ
+    map / <Plug>(incsearch-forward)
+    map ? <Plug>(incsearch-backward)
+    map n <Plug>(incsearch-nohl-n)zz
+    map N <Plug>(incsearch-nohl-N)zz
+endif
+
+if s:bundle_tap('vim-over')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'autoload': {'commands': 'OverCommandLine'}
+        \ })
+
+    " プロンプト
+    let g:over_command_line_prompt = '[over]:'
+    " 置換したらハイライトを消す
+    let g:over_enable_auto_nohlsearch = 1
+
+    " リマップ
+    nnoremap <silent><Space>s/ :OverCommandLine s/<CR>
+    vnoremap <silent><Space>s/ :OverCommandLine s/<CR>
+    nnoremap <silent><Space>%s/ :OverCommandLine %s/<CR>
+endif
+
+if s:bundle_tap('previm')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'autoload': {'commands': 'PrevimOpen'}
+        \ })
+
+    let g:previm_show_header = 0
+endif
+
+if s:bundle_tap('nerdtree')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'on_cmd': 'NERDTree'
+        \ })
+
+    nnoremap <silent><Leader>nt :<C-u>NERDTreeToggle<CR>
+    nnoremap <C-n> :<C-u>NERDTree<Space>
+    let g:NERDTreeMinimalUI = 1
+    let g:NERDTreeMouseMode = 2
+    let g:NERDTreeChDirMode = 1
+endif
+
+if s:bundle_tap('vim-devicons')
+    let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
+    let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+    let g:webdevicons_enable_unite = 1
+
+    " nerdtree
+    if neobundle#is_installed('nerdtree')
         let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
         let g:NERDTreeDirArrowExpandable = "\uf105"
         let g:NERDTreeDirArrowCollapsible = "\uf107"
-
-        call neobundle#untap()
     endif
 
-    if neobundle#tap('vim-startify')
-        " autocmd! MyAutoCmd StdinReadPre * let s:std_in = 1
-        " autocmd! MyAutoCmd VimEnter *
-        "             \ if !argc() == 0
-        "             \ | Startify
-        "             \ | NERDTree
-        "             \ | wincmd w
-        "             \ | endif
+    " lightline icon
+    if neobundle#is_installed('lightline.vim')
+        call extend(g:lightline.component, {
+            \   'readonly': '%{&readonly ? "\ue0a2" : ""}',
+            \   'lineinfo': '%{"\ue0a1" . " " . line(".") . ":" . col(".")}',
+            \   'filetype': '%{strlen(&filetype) ? WebDevIconsGetFileTypeSymbol()." ".&filetype : "no ft"}',
+            \ })
+        let g:lightline.separator = {
+            \   'left' : "\ue0b0",
+            \   'right': "\ue0b2"
+            \ }
+        let g:lightline.subseparator = {
+            \   'left' : "\ue0b1",
+            \   'right': "\ue0b3"
+            \ }
+    endif
+endif
 
-        call neobundle#untap()
+if s:bundle_tap('emmet-vim')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'autoload' : {'filetypes': ['html', 'markdown', 'css', 'scss', 'less']}
+        \ })
+
+    let g:user_emmet_settings = {
+        \ 'lang' : 'ja',
+        \ 'html': {'indentation': '  '}
+        \ }
+endif
+
+if s:bundle_tap('colorizer')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'gui': 1,
+        \   'autoload' : {'filetypes': ['html', 'markdown', 'css', 'scss', 'less']}
+        \ })
+endif
+
+if s:bundle_tap('vim-scouter')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'autoload' : {'commands': 'Scouter'}
+        \ })
+endif
+
+if s:bundle_tap('goyo.vim')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'autoload': {'commands': 'Goyo'}
+        \ })
+
+    nnoremap <silent><leader>g :<C-u>Goyo<CR>
+endif
+
+if s:bundle_tap('vim-yardoc')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'autoload': {'filetypes': 'ruby'}
+        \ })
+endif
+
+if s:bundle_tap('vim-ruby-minitest')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'autoload': {'filetypes': 'ruby'}
+        \ })
+endif
+
+if s:bundle_tap('vim-markdown')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'autoload': {'filetypes': 'markdown'}
+        \ })
+
+    let g:vim_markdown_frontmatter = 1
+    let g:vim_markdown_folding_disabled = 1
+endif
+
+if s:bundle_tap('vim-markdown-quote-syntax')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'autoload': {'filetypes': 'markdown'}
+        \ })
+endif
+
+if s:bundle_tap('agit.vim')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'autoload': {'commands': 'Agit'}
+        \ })
+endif
+
+if s:bundle_tap('committia.vim')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'autoload': {'filetypes': 'gitcommit'}
+        \ })
+endif
+
+if s:bundle_tap('neco-look')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'on_source': 'neocomplete.vim'
+        \ })
+endif
+
+if s:bundle_tap('context_filetype.vim')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'on_source': 'neocomplete.vim'
+        \ })
+endif
+
+if s:bundle_tap('neco-syntax')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'on_source': 'neocomplete.vim'
+        \ })
+endif
+
+if s:bundle_tap('vim-colors-solarized')
+    if neobundle#is_installed('lightline.vim')
+        let s:mono0   = ['#002B36', '8' ]
+        let s:mono1   = ['#073642', '0' ]
+        let s:mono2   = ['#586E75', '10']
+        let s:mono3   = ['#657B83', '11']
+        let s:mono4   = ['#839496', '12']
+        let s:mono5   = ['#93A1A1', '14']
+        let s:white0  = ['#EEE8D5', '7' ]
+        let s:white1  = ['#FDF6E3', '15']
+        let s:red     = ['#DC322F', '1' ]
+        let s:green   = ['#859900', '2' ]
+        let s:blue    = ['#268BD2', '4' ]
+        let s:yellow  = ['#B58900', '3' ]
+        let s:orange  = ['#CB4B16', '9' ]
+        let s:magenta = ['#D33682', '5' ]
+        let s:cyan    = ['#2AA198', '6' ]
+        let s:purple  = ['#6C71C4', '13']
+
+        let s:p = {'normal': {}, 'insert': {}, 'visual': {}, 'replace': {}, 'inactive': {}, 'tabline': {}}
+
+        let s:p.normal.left     = [ [s:white1[0], s:blue[0], s:white1[1], s:blue[1]],
+                                \   [s:white0[0], s:mono2[0], s:white0[1], s:mono2[1]],
+                                \ ]
+
+        let s:p.insert.left     = [ [s:white0[0], s:yellow[0], s:white0[1], s:yellow[1]],
+                                \   [s:white0[0], s:mono2[0], s:white0[1], s:mono2[1]],
+                                \ ]
+
+        let s:p.visual.left     = [ [s:white1[0], s:magenta[0], s:white1[1], s:magenta[1]],
+                                \   [s:white0[0], s:mono2[0], s:white0[1], s:mono2[1]],
+                                \ ]
+
+        let s:p.replace.left    = [ [s:white1[0], s:orange[0], s:white1[1], s:orange[1]],
+                                \   [s:white0[0], s:mono2[0], s:white0[1], s:mono2[1]],
+                                \ ]
+
+        let s:p.normal.right    = [ [s:mono0[0], s:mono4[0], s:mono0[1], s:mono4[1]],
+                                \   [s:mono1[0], s:mono3[0], s:mono1[1], s:mono3[1]],
+                                \   [s:mono4[0], s:mono1[0], s:mono4[1], s:mono1[1]]
+                                \ ]
+
+        let s:p.inactive.middle = [ [s:mono4[0], s:mono1[0], s:mono4[1], s:mono1[1]],
+                                \   [s:mono4[0], s:mono1[0], s:mono4[1], s:mono1[1]],
+                                \   [s:mono4[0], s:mono1[0], s:mono4[1], s:mono1[1]],
+                                \ ]
+        let s:p.inactive.left   = s:p.inactive.middle
+        let s:p.inactive.right  = s:p.inactive.middle
+
+        let s:p.normal.middle   = [ [s:mono2[0], s:mono1[0], s:mono2[1], s:mono1[1]],
+                                \   [s:mono2[0], s:mono1[0], s:mono2[1], s:mono1[1]],
+                                \   [s:mono2[0], s:mono1[0], s:mono2[1], s:mono1[1]],
+                                \ ]
+        let s:p.inactive.left   = s:p.normal.middle
+        let s:p.inactive.right  = s:p.normal.middle
+
+        let s:p.tabline.middle  = [ [s:blue[0], s:mono1[0], s:blue[1], s:mono1[1]] ]
+        let s:p.tabline.tabsel  = [ [s:white0[0], s:yellow[0], s:white0[1], s:yellow[1]] ]
+        let s:p.tabline.left    = [ [s:mono5[0], s:mono2[0], s:mono5[1], s:mono2[1]] ]
+        let s:p.tabline.right   = [ [s:mono5[0], s:mono0[0], s:mono5[1], s:mono0[1]] ]
+
+        let lightline#colorscheme#modified_solarized#palette = s:p
+        let g:lightline.colorscheme = 'modified_solarized'
     endif
 
-
+    function! neobundle#hooks.on_source(bundle)
+        set bg=dark
+        colorscheme solarized
+    endfunction
 endif
 
-" }}}
-" ==================================================================
-" vimrc_local設定 {{{
+if s:bundle_tap('vim-undoreplay')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'on_cmd': 'UndoReplay'
+        \ })
+endif
 
-" vimrc_localがあったら読み込む
-if filereadable(expand($HOME.'/.vim/.vimrc_local'))
-    source $HOME/.vim/.vimrc_local
+if s:bundle_tap('vimdoc-ja')
+    set helplang=ja,en
+endif
 
-    " <Space>elで.vimrc_localを編集
-    nnoremap <Space>el :<C-u>edit $HOME/.vim/.vimrc_local<CR>
-
-    " .vimrc、.vimrc_localを編集したら自動再読み込み
-    autocmd! MyAutoCmd BufWritePost $MYVIMRC nested source $HOME/.vim/.vimrc_local
-    autocmd! MyAutoCmd BufWritePost $HOME/.vim/.vimrc_local nested source $HOME/.vim/.vimrc_local
+if s:bundle_tap('benchvimrc-vim')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'on_cmd': 'BenchVimrc'
+        \ })
 endif
 
 
-" }}}
-" ==================================================================
-" 最終処理 {{{
 
-" シンタックス有効
+" Finish
+" ------------------------------------------------------------------------------
+" load .vimrc_local if file readable
+if filereadable(expand('~/.vim/.vimrc_local'))
+    source ~/.vim/.vimrc_local
+endif
+
+" end neobundle block
+call s:bundle_end()
+
+" enable syntax
 syntax on
