@@ -30,7 +30,7 @@ nnoremap <Space>ev :<C-u>edit $MYVIMRC<CR>
 nnoremap <Space>eg :<C-u>edit $MYGVIMRC<CR>
 
 " .vimrcを自動再読み込み
-autocmd MyAutoCmd BufWritePost $MYVIMRC nested source $MYVIMRC
+autocmd! MyAutoCmd BufWritePost $MYVIMRC nested source $MYVIMRC
 
 " <C-h>でヘルプを引く
 nnoremap <C-h> :<C-u>help<Space>
@@ -87,8 +87,8 @@ set wildmenu
 nnoremap <silent><F3> :<C-u>setlocal relativenumber!<CR>
 
 " カレントバッファのカーソル位置をハイライト
-autocmd MyAutoCmd BufLeave,WinLeave * setlocal nocursorline
-autocmd MyAutoCmd BufEnter,WinEnter * setlocal cursorline
+autocmd! MyAutoCmd BufLeave,WinLeave * setlocal nocursorline
+autocmd! MyAutoCmd BufEnter,WinEnter * setlocal cursorline
 
 " 閉括弧が入力された時、対応する括弧を強調する
 set showmatch
@@ -98,7 +98,7 @@ set showcmd
 
 " 不可視文字を表示
 set list
-set listchars=tab:»-,trail:-
+set listchars=tab:-,trail:-
 
 " <C-Tab>でタブ切り替え
 nnoremap <C-Tab> gt
@@ -137,25 +137,25 @@ endfunction
 nnoremap <silent><Leader>1 :<C-u>call ToggleColorcolumn()<CR>
 
 " Use vsplit mode
-if has('vim_starting') && !has('gui_running') && has('vertsplit')
-  function! g:EnableVsplitMode()
-    " enable origin mode and left/right margins
-    let &t_CS = 'y'
-    let &t_ti = &t_ti . "\e[?6;69h"
-    let &t_te = "\e[?6;69l" . &t_te
-    let &t_CV = "\e[%i%p1%d;%p2%ds"
-    call writefile([ "\e[?6h\e[?69h" ], '/dev/tty', 'a')
-  endfunction
-
-  " old vim does not ignore CPR
-  map <special> <Esc>[3;9R <Nop>
-
-  " new vim can't handle CPR with direct mapping
-  " map <expr> ^[[3;3R g:EnableVsplitMode()
-  set t_F9=^[[3;3R
-  map <expr> <t_F9> g:EnableVsplitMode()
-  let &t_RV .= "\e[?6;69h\e[1;3s\e[3;9H\e[6n\e[0;0s\e[?6;69l"
-endif
+" if has('vim_starting') && !has('gui_running') && has('vertsplit')
+"   function! g:EnableVsplitMode()
+"     " enable origin mode and left/right margins
+"     let &t_CS = 'y'
+"     let &t_ti = &t_ti . "\e[?6;69h"
+"     let &t_te = "\e[?6;69l" . &t_te
+"     let &t_CV = "\e[%i%p1%d;%p2%ds"
+"     call writefile([ "\e[?6h\e[?69h" ], '/dev/tty', 'a')
+"   endfunction
+"
+"   " old vim does not ignore CPR
+"   map <special> <Esc>[3;9R <Nop>
+"
+"   " new vim can't handle CPR with direct mapping
+"   " map <expr> ^[[3;3R g:EnableVsplitMode()
+"   set t_F9=^[[3;3R
+"   map <expr> <t_F9> g:EnableVsplitMode()
+"   let &t_RV .= "\e[?6;69h\e[1;3s\e[3;9H\e[6n\e[0;0s\e[?6;69l"
+" endif
 
 
 " }}}
@@ -374,7 +374,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                 \ }
     NeoBundleLazy 'mattn/emmet-vim', {
                 \ 'autoload' : {
-                \   'filetypes' : [ 'html', 'markdown' ],
+                \   'filetypes' : [ 'html', 'markdown', 'css', 'scss', 'less' ],
                 \   }
                 \ }
     NeoBundle 'tpope/vim-fugitive'
@@ -412,42 +412,38 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     NeoBundle 'osyo-manga/unite-quickfix', {
                 \   'depends': 'Shougo/unite.vim'
                 \ }
-    if has("mac")
-        NeoBundle 'osyo-manga/vim-sound'
-    endif
-    NeoBundle 'itchyny/vim-autoft'
-    NeoBundle 't9md/vim-choosewin', {
-                \ 'autoload' : {
-                \   'mappings' : "-",
-                \   }
-                \ }
+    " if has("mac")
+    "     NeoBundle 'osyo-manga/vim-sound'
+    " endif
+    " NeoBundle 'itchyny/vim-autoft'
+    " NeoBundle 't9md/vim-choosewin'
     " NeoBundle 'severin-lemaignan/vim-minimap'
     " フォーク版
-    NeoBundleLazy 'peitalin/vim-minimap', {
-                \ 'autoload' : {
-                \   'mappings' : '<Leader>mm',
-                \   'commands' : 'Minimap'
-                \   }
-                \ }
+    " NeoBundleLazy 'peitalin/vim-minimap', {
+    "             \ 'autoload' : {
+    "             \   'mappings' : '<Leader>mm',
+    "             \   'commands' : 'Minimap'
+    "             \   }
+    "             \ }
     NeoBundleLazy 'junegunn/goyo.vim', {
                 \ 'autoload' : {
                 \   'commands' : 'Goyo'
                 \   }
                 \ }
-    NeoBundleLazy 'itchyny/thumbnail.vim', {
-                \ 'autoload' : {
-                \   'mappings' : '<Leader>t',
-                \   'commands' : 'Thumbnail'
-                \   }
-                \ }
+    " NeoBundleLazy 'itchyny/thumbnail.vim', {
+    "             \ 'autoload' : {
+    "             \   'mappings' : '<Leader>t',
+    "             \   'commands' : 'Thumbnail'
+    "             \   }
+    "             \ }
     NeoBundle 'kana/vim-submode'
     NeoBundle 'kannokanno/previm'
     NeoBundle 'tpope/vim-endwise'
     NeoBundle 'tomtom/tcomment_vim'
     NeoBundle 'rhysd/try-colorscheme.vim'
-    NeoBundle 'haya14busa/vim-undoreplay'
-    NeoBundle 'sunaku/vim-ruby-minitest'
-    NeoBundle 'vim-scripts/AnsiEsc.vim'
+    " NeoBundle 'haya14busa/vim-undoreplay'
+    " NeoBundle 'sunaku/vim-ruby-minitest'
+    " NeoBundle 'vim-scripts/AnsiEsc.vim'
     NeoBundle '844196/vimsay'
     NeoBundle 'vim-jp/vimdoc-ja'
     NeoBundle 'scrooloose/nerdtree'
@@ -457,6 +453,8 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     NeoBundle 'joker1007/vim-markdown-quote-syntax'
     NeoBundle 'cohama/agit.vim'
     NeoBundle 'rhysd/committia.vim'
+    NeoBundle 'lilydjwg/colorizer'
+    NeoBundle 'mhinz/vim-startify'
 
 
     " カラースキーム
@@ -492,6 +490,10 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     NeoBundle 'vim-scripts/neutron.vim'
     NeoBundle 'vim-scripts/playroom'
     NeoBundle 'endel/vim-github-colorscheme'
+    NeoBundle 'gosukiwi/vim-atom-dark'
+    NeoBundle 'cocopon/iceberg.vim'
+    NeoBundle 'popkirby/lightline-iceberg'
+    " NeoBundle 'lightline-iceberg', {'base': '~/dev'}
 
     " プラグイン読み込み終了
     call neobundle#end()
@@ -503,44 +505,8 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     NeoBundleCheck
 
 
-    " 各プラグイン用リッチシンボル設定
-    function! s:rich_unicode_symbols()
-        if exists('g:rich_symbols') && g:rich_symbols =~# '1\|true\|rich\|fancy'
-            let g:rich_unicode_symbol = {
-                        \ 'Branch'    : "\u2b60",
-                        \ 'LineColumn': "\u2b61",
-                        \ 'FileType'  : "\u2b62\u2b63",
-                        \ 'ReadOnly'  : "\u2b64"
-                        \ }
-            let g:lightline.separator = {
-                        \ 'left' : "\u2b80",
-                        \ 'right': "\u2b82"
-                        \ }
-            let g:lightline.subseparator = {
-                        \ 'left' : "\u2b81",
-                        \ 'right': "\u2b83"
-                        \ }
-        else
-            let g:rich_unicode_symbol = {
-                        \ 'Branch'    : '',
-                        \ 'LineColumn': '',
-                        \ 'FileType'  : '',
-                        \ 'ReadOnly'  : 'RO'
-                        \ }
-            let g:lightline.separator = {
-                        \ 'left' : '',
-                        \ 'right': ''
-                        \ }
-            let g:lightline.subseparator = {
-                        \ 'left' : '|',
-                        \ 'right': '|'
-                        \ }
-        endif
-    endfunction
-    autocmd MyAutoCmd VimEnter * call s:rich_unicode_symbols()
-    autocmd MyAutoCmd ColorScheme * call s:rich_unicode_symbols()
-    autocmd MyAutoCmd BufWritePost $MYVIMRC,~/.vimrc_local call s:rich_unicode_symbols()
 
+    " 各プラグイン用リッチシンボル設定
     " lightline.vim {{{
     if neobundle#tap('lightline.vim')
         let g:lightline = {}
@@ -548,11 +514,11 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
         let g:lightline = {
             \ 'colorscheme' : 'wombat',
             \ 'component' : {
-            \   'readonly' : '%{ &readonly ? g:rich_unicode_symbol.ReadOnly : "" }',
-            \   'lineinfo' : '%{ winwidth(0) > 70 ? g:rich_unicode_symbol.LineColumn . " " . line(".") . ":" . col(".") : " " }',
-            \   'fileformat' : '%{ winwidth(0) > 70 ? &fileformat : "" }',
+            \   'readonly' : '%{ &readonly ? "\uE0A2" : "" }',
+            \   'lineinfo' : '%{ winwidth(0) > 70 ? "\uE0A1" . " " . line(".") . ":" . col(".") : " " }',
+            \   'fileformat' : '%{ winwidth(0) > 70 ? (WebDevIconsGetFileFormatSymbol() . " " . &fileformat) : "" }',
             \   'fileencoding' : '%{ winwidth(0) > 70 ? strlen(&fenc)?&fenc:&enc : "" }',
-            \   'filetype' : '%{ winwidth(0) > 70 ? strlen(&filetype)?g:rich_unicode_symbol.FileType ." ".&filetype:"no ft" : "" }'
+            \   'filetype' : '%{ winwidth(0) > 70 ? strlen(&filetype)?WebDevIconsGetFileTypeSymbol() ." " .&filetype:"no ft" : "" }'
             \   },
             \ 'component_function' : {
             \   'fugitive' : 'LightlineFugitive',
@@ -575,12 +541,22 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
             \   }
             \ }
 
+            let g:lightline.separator = {
+                        \ 'left' : "\ue0b0",
+                        \ 'right': "\ue0b2"
+                        \ }
+            let g:lightline.subseparator = {
+                        \ 'left' : "\ue0b1",
+                        \ 'right': "\ue0b3"
+                        \ }
+
+
         " Gitブランチを表示
         let g:lightline.component_function.fugitive = 'LightlineFugitive'
         function! LightlineFugitive()
             if exists('*fugitive#head')
                 let s:_ = fugitive#head()
-                return strlen(s:_) ? g:rich_unicode_symbol.Branch .' '.s:_ : ''
+                return strlen(s:_) ? ("\uE0A0" .' ' . s:_) : ''
             endif
             return ''
         endfunction
@@ -686,7 +662,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
             if s:branch ==? ''
                 return ''
             else
-                return '[' . g:rich_unicode_symbol.Branch . s:branch . ']'
+                return '[' . "\uE0A0" . s:branch . ']'
             endif
         endfunction
 
@@ -716,8 +692,8 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
 
             " :bdしないとVimShellからの出てきたバッファの内容をVimShellへ反映できない
             " :w -> :bd はめんどいので、:wqを:w | bdへ置き換える（gitcommitファイル限定）
-            autocmd MyAutoCmd FileType gitcommit cnoreabbrev <buffer><expr> wq 'WQ'
-            autocmd MyAutoCmd FileType gitcommit command! -nargs=? -complete=dir -bang -buffer WQ call s:replace_wq_to_wbd('<bang>')
+            autocmd! MyAutoCmd FileType gitcommit cnoreabbrev <buffer><expr> wq 'WQ'
+            autocmd! MyAutoCmd FileType gitcommit command! -nargs=? -complete=dir -bang -buffer WQ call s:replace_wq_to_wbd('<bang>')
 
             function! s:replace_wq_to_wbd(bang)
                 if a:bang ==? ''
@@ -773,7 +749,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
         let g:unite_enable_start_insert = 1
 
         " <Esc><Esc>でUniteを閉じる
-        autocmd MyAutoCmd FileType unite call s:unite_my_settings()
+        autocmd! MyAutoCmd FileType unite call s:unite_my_settings()
         function! s:unite_my_settings()
             nmap <silent><buffer><Esc><Esc> <Plug>(unite_exit)
             imap <silent><buffer><Esc><Esc> <Plug>(unite_exit)
@@ -794,9 +770,9 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                     \ <CR>
 
         " メモGrep呼び出しリマップ
-        nnoremap <silent><C-n> :<C-u>execute(
-                    \ 'Unite grep:' . memo#getpath() . ' -no-empty -winheight=10'
-                    \ )<CR>
+        " nnoremap <silent><C-n> :<C-u>execute(
+        "             \ 'Unite grep:' . memo#getpath() . ' -no-empty -winheight=10'
+        "             \ )<CR>
 
         " テンプレート
         let g:memo_template = [
@@ -854,7 +830,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
         let g:indentLine_color_term = 239
 
         " インデント表示文字列
-        let g:indentLine_char = '┆'
+        let g:indentLine_char = '¦'
 
         call neobundle#untap()
     endif
@@ -1000,10 +976,10 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
                 autocmd!
             augroup END
 
-            autocmd SoundEffect BufReadPost  * call PlaySE("open")
-            autocmd SoundEffect BufWritePost * call PlaySE("save")
-            autocmd SoundEffect BufLeave     * call PlaySE("move")
-            autocmd SoundEffect CompleteDone * call PlaySE("complete_done")
+            autocmd! SoundEffect BufReadPost  * call PlaySE("open")
+            autocmd! SoundEffect BufWritePost * call PlaySE("save")
+            autocmd! SoundEffect BufLeave     * call PlaySE("move")
+            autocmd! SoundEffect CompleteDone * call PlaySE("complete_done")
         endif
 
         call neobundle#untap()
@@ -1019,7 +995,7 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     endif
 
     if neobundle#tap('vim-choosewin')
-        nmap - <Plug>(choosewin)
+        " nmap - <Plug>(choosewin)
 
         " tmuxライクなバッファオーバーレイ
         let g:choosewin_overlay_enable = 1
@@ -1074,13 +1050,34 @@ if glob('~/.vim/bundle/neobundle.vim') !=? ''
     endif
 
     if neobundle#tap('nerdtree')
-        nnoremap <Leader>nt :<C-u>NERDTreeToggle<CR>
+        nnoremap <silent><Leader>nt :<C-u>NERDTreeToggle<CR>
+        nnoremap <C-n> :<C-u>NERDTree<Space>
+
+        let g:NERDTreeMinimalUI = 1
+        let g:NERDTreeMouseMode = 2
+        let g:NERDTreeChDirMode = 1
 
         call neobundle#untap()
     endif
 
     if neobundle#tap('vim-devicons')
-        let g:WebDevIconsUnicodeGlyphDoubleWidth = 0
+        let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
+        let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+        let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
+        let g:NERDTreeDirArrowExpandable = "\uf105"
+        let g:NERDTreeDirArrowCollapsible = "\uf107"
+
+        call neobundle#untap()
+    endif
+
+    if neobundle#tap('vim-startify')
+        " autocmd! MyAutoCmd StdinReadPre * let s:std_in = 1
+        " autocmd! MyAutoCmd VimEnter *
+        "             \ if !argc() == 0
+        "             \ | Startify
+        "             \ | NERDTree
+        "             \ | wincmd w
+        "             \ | endif
 
         call neobundle#untap()
     endif
@@ -1100,8 +1097,8 @@ if filereadable(expand($HOME.'/.vim/.vimrc_local'))
     nnoremap <Space>el :<C-u>edit $HOME/.vim/.vimrc_local<CR>
 
     " .vimrc、.vimrc_localを編集したら自動再読み込み
-    autocmd MyAutoCmd BufWritePost $MYVIMRC nested source $HOME/.vim/.vimrc_local
-    autocmd MyAutoCmd BufWritePost $HOME/.vim/.vimrc_local nested source $HOME/.vim/.vimrc_local
+    autocmd! MyAutoCmd BufWritePost $MYVIMRC nested source $HOME/.vim/.vimrc_local
+    autocmd! MyAutoCmd BufWritePost $HOME/.vim/.vimrc_local nested source $HOME/.vim/.vimrc_local
 endif
 
 
@@ -1111,8 +1108,3 @@ endif
 
 " シンタックス有効
 syntax on
-
-
-" }}}
-" ==================================================================
-" vim: foldmethod=marker
