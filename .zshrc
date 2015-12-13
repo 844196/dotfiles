@@ -46,7 +46,7 @@ setopt prompt_subst
 zstyle ":vcs_info:*" enable git
 zstyle ":vcs_info:*" max-exports 2
 zstyle ":vcs_info:git:*" check-for-changes true
-zstyle ":vcs_info:git:*" formats     "[⭠%b]%c%u" "%m"
+zstyle ":vcs_info:git:*" formats     "[ %b]%c%u" "%m"
 zstyle ":vcs_info:git:*" unstagedstr "[-]"
 zstyle ":vcs_info:git:*" stagedstr   "[+]"
 zstyle ":vcs_info:git+set-message:*" hooks git-untracked git-remote
@@ -61,7 +61,7 @@ function +vi-git-remote() {
     [[ $1 = 1 ]] || return 0
 
     local remote_branch="$(git rev-parse --abbrev-ref @{u} 2>/dev/null)"
-    [[ -n "${remote_branch}" ]] && hook_com[misc]+=" → [⭠${remote_branch}]" || :
+    [[ -n "${remote_branch}" ]] && hook_com[misc]+=" →  [ ${remote_branch}]" || :
 }
 
 function _init_psvar() { psvar=(); }
@@ -83,7 +83,7 @@ function _update_vcs_info_msg() {
 function _update_pwd_pretty() {
     local pwd="`pwd`"
     if [[ $pwd =~ $HOME ]]; then
-        psvar[3]="${${pwd/$HOME/~}//\// ⮁ }"
+        psvar[3]="${${pwd/$HOME/ }//\// ⮁ }"
     else
         psvar[3]="/${pwd//\// ⮁ }"
     fi
@@ -95,7 +95,7 @@ add-zsh-hook precmd _update_pwd_pretty
 
 PROMPT="
 %K{blue} %F{white}%n@%m %F{blue}%K{10}⮀%f %F{14}%3v %k%F{10}⮀%f %F{green}%1v%f%F{red}%2v%f
-%(?.%F{blue}.%F{red})%(!.#.❯)%f "
+%(?.%F{blue}.%F{red}) %f "
 
 if [ $ismac = '0' ]; then
     SPROMPT="%B%F{red}(๑•﹏•)%f%b < %rのこと言ってるんですかね...? [y, n, a, e]:"
