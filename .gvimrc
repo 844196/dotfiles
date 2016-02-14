@@ -6,13 +6,7 @@ scriptencoding utf-8
 set lines=52
 
 " フォント
-if g:iswin
-    set guifont=MS_Gothic:h11:cSHIFTJIS
-elseif g:ismac
-    set guifont=Ricty\ Regular\ for\ Powerline:h10
-elseif g:isunix
-    set guifont=DejaVu\ Sans\ Mono\ 09
-endif
+set guifont=Ricty\ Nerd\ 10
 
 " gvimの時はフォントを綺麗にする
 set antialias
@@ -26,3 +20,7 @@ set clipboard+=unnamed
 
 " ち～ん（笑）って鳴らさない
 set visualbell t_vb=
+
+set bg=dark
+colorscheme hybrid
+set linespace=4

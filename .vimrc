@@ -34,6 +34,7 @@ set hidden                            " ファイルを保存しなくても新�
 set laststatus=2                      " ステータスラインを常に表示
 set ruler                             " ステータスラインに現在行情報を表示
 set showcmd                           " ステータスライン下に入力中コマンドを表示
+set noshowmode                        " モードを表示しない
 set cmdheight=2                       " コマンドラインの高さ
 set wildmenu                          " コマンドライン補完
 set wildignorecase                    " コマンドライン補完を大文字・小文字無視
@@ -60,9 +61,6 @@ nnoremap Y y$
 " 一文字削除は削除レジスタを使用
 nnoremap x "_x
 vnoremap x "_x
-
-" comma
-inoremap , ,<Space>
 
 " かっこ
 inoremap '' ''<Left>
@@ -108,6 +106,7 @@ nnoremap <silent><Left> <C-w><
 nnoremap <silent><Right> <C-w>>
 nnoremap <silent><Up> <C-w>+
 nnoremap <silent><Down> <C-w>-
+nnoremap <silent><Tab> <C-w>w
 
 " toggle relative line number and column highlight
 nnoremap <silent><F3> :<C-u>setlocal relativenumber!<CR>
@@ -131,7 +130,7 @@ nnoremap <silent><C-w>o :<C-u>Big<CR>
 augroup my_filetype
     autocmd!
     autocmd FileType help nnoremap <silent><buffer>q :quit<CR>
-    autocmd FileType html,css,less,scss,ruby setlocal tabstop=2 shiftwidth=2
+    autocmd FileType html,css,less,scss,ruby,yaml setlocal tabstop=2 shiftwidth=2
     autocmd FileType html inoremap <buffer></ </<C-x><C-o>
     autocmd FileType markdown hi! def link markdownItalic Normal
     autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn} setlocal filetype=markdown
@@ -243,28 +242,34 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
 
     " looks
         NeoBundle     'ryanoasis/vim-devicons'
-        NeoBundleLazy 'Yggdroot/indentLine'
-        NeoBundle     'itchyny/lightline.vim'
+        " NeoBundleLazy 'Yggdroot/indentLine'
         NeoBundle     'altercation/vim-colors-solarized'
+        NeoBundle     'atelierbram/vim-colors_duotones'
+        NeoBundle     'cocopon/iceberg.vim'
+        NeoBundle     'morhetz/gruvbox'
+        NeoBundle     'tomasr/molokai'
+        NeoBundle     'NLKNguyen/papercolor-theme'
+        NeoBundle     'nanotech/jellybeans.vim'
+        NeoBundle     'w0ng/vim-hybrid'
+        " NeoBundle     'severin-lemaignan/vim-minimap'
+        " NeoBundle     'koron/minimap-vim'
 
     " util
         NeoBundle     'tomtom/tcomment_vim'
         NeoBundle     'tpope/vim-endwise'
         NeoBundleLazy 'haya14busa/incsearch.vim'
         NeoBundleLazy 'osyo-manga/vim-over'
-        NeoBundle     'rhysd/clever-f.vim'
         NeoBundleLazy 'Shougo/unite.vim'
+        NeoBundleLazy 'ujihisa/unite-colorscheme'
         NeoBundleLazy 'thinca/vim-scouter'
         NeoBundleLazy 'mattn/benchvimrc-vim'
-        NeoBundleLazy 'scrooloose/nerdtree'
+        NeoBundle     'scrooloose/nerdtree'
         NeoBundleLazy 'thinca/vim-quickrun'
-        NeoBundleLazy 'haya14busa/vim-undoreplay'
+        NeoBundle     'tpope/vim-fugitive'
+        NeoBundle     'Shougo/vimshell.vim'
 
     " completation
-        NeoBundleLazy 'Shougo/neocomplete.vim'
-        NeoBundleLazy 'ujihisa/neco-look'
-        NeoBundleLazy 'Shougo/context_filetype.vim'
-        NeoBundleLazy 'Shougo/neco-syntax'
+        NeoBundle     'Shougo/neocomplete.vim'
 
     " for git
         NeoBundleLazy 'cohama/agit.vim'
@@ -283,6 +288,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     " for ruby
         NeoBundleLazy 'noprompt/vim-yardoc'
         NeoBundleLazy 'sunaku/vim-ruby-minitest'
+        NeoBundleLazy 'vim-ruby/vim-ruby'
 endif
 
 
@@ -306,29 +312,8 @@ if s:bundle_tap('vimproc')
         \ })
 endif
 
-if s:bundle_tap('lightline.vim')
-    set noshowmode
-    let g:lightline = {}
-
-    " component
-    let g:lightline.component = {
-        \   'filename': '%{strlen(expand("%:~")) ? expand("%:~") : "[No Name]"}'
-        \ }
-
-    " display
-    let g:lightline.active = {
-        \   'left' : [['mode','paster'], ['readonly','filename','modified']],
-        \   'right': [['lineinfo'], ['filetype'], ['fileencoding','fileformat']]
-        \ }
-    let g:lightline.inactive = {
-        \   'right': [['lineinfo'], ['filetype']]
-        \ }
-endif
-
 if s:bundle_tap('neocomplete.vim')
     call neobundle#config({
-        \   'lazy': 1,
-        \   'on_i': 1,
         \   'disabled': !has('lua')
         \ })
 
@@ -376,7 +361,7 @@ if s:bundle_tap('vim-quickrun')
     let g:quickrun_config = {}
     let g:quickrun_config._ = {
         \   "outputter/buffer/split": ":botright 8sp",
-        \   "outputter/buffer/close_on_empty": 1,
+        \   "outputter/buffer/close_on_empty": 0,
         \   "runner": "vimproc",
         \   "runner/vimproc/updatetime": 60
         \ }
@@ -387,6 +372,8 @@ if s:bundle_tap('vim-quickrun')
         \   "args"     : 'Marked\ 2',
         \   "exec"     : "%c %o %a %s"
         \ }
+    let g:quickrun_config['ruby.bundle'] = { 'command': 'ruby', 'cmdopt': 'bundle exec', 'exec': '%o %c %s' }
+    autocmd my_filetype FileType ruby.bundle setlocal tabstop=2 shiftwidth=2
 
     " <C-c>でquickrun停止
     nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
@@ -404,6 +391,9 @@ if s:bundle_tap('unite.vim')
     " <Leader><Leader>でUnite file
     nnoremap <Leader><Leader> :<C-u>Unite file<CR>
 
+    " <Leader>g is file_rec/git
+    nnoremap <Leader>g :<C-u>Unite file_rec/git -no-empty<CR>
+
     " インサートモードオン
     let g:unite_enable_start_insert = 1
 
@@ -415,6 +405,7 @@ if s:bundle_tap('unite.vim')
     function! s:unite_my_settings()
         nmap <silent><buffer><Esc><Esc> <Plug>(unite_exit)
         imap <silent><buffer><Esc><Esc> <Plug>(unite_exit)
+        imap <silent><buffer><C-e> <End>
     endfunction
 
     " disable overwrite unite statusline
@@ -463,11 +454,6 @@ if s:bundle_tap('previm')
 endif
 
 if s:bundle_tap('nerdtree')
-    call neobundle#config({
-        \   'lazy': 1,
-        \   'on_cmd': 'NERDTree'
-        \ })
-
     nnoremap <silent><Leader>nt :<C-u>NERDTreeToggle<CR>
     nnoremap <C-n> :<C-u>NERDTree<Space>
     let g:NERDTreeMinimalUI = 1
@@ -476,6 +462,9 @@ if s:bundle_tap('nerdtree')
 endif
 
 if s:bundle_tap('vim-devicons')
+    call neobundle#config({
+        \   'gui': 1,
+        \ })
     let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
     let g:WebDevIconsUnicodeDecorateFolderNodes = 1
     let g:webdevicons_enable_unite = 1
@@ -485,23 +474,6 @@ if s:bundle_tap('vim-devicons')
         let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
         let g:NERDTreeDirArrowExpandable = "\uf105"
         let g:NERDTreeDirArrowCollapsible = "\uf107"
-    endif
-
-    " lightline icon
-    if neobundle#is_installed('lightline.vim')
-        call extend(g:lightline.component, {
-            \   'readonly': '%{&readonly ? "\ue0a2" : ""}',
-            \   'lineinfo': '%{"\ue0a1" . " " . line(".") . ":" . col(".")}',
-            \   'filetype': '%{strlen(&filetype) ? WebDevIconsGetFileTypeSymbol()." ".&filetype : "no ft"}',
-            \ })
-        let g:lightline.separator = {
-            \   'left' : "\ue0b0",
-            \   'right': "\ue0b2"
-            \ }
-        let g:lightline.subseparator = {
-            \   'left' : "\ue0b1",
-            \   'right': "\ue0b3"
-            \ }
     endif
 endif
 
@@ -537,8 +509,6 @@ if s:bundle_tap('goyo.vim')
         \   'lazy': 1,
         \   'autoload': {'commands': 'Goyo'}
         \ })
-
-    nnoremap <silent><leader>g :<C-u>Goyo<CR>
 endif
 
 if s:bundle_tap('vim-yardoc')
@@ -549,6 +519,13 @@ if s:bundle_tap('vim-yardoc')
 endif
 
 if s:bundle_tap('vim-ruby-minitest')
+    call neobundle#config({
+        \   'lazy': 1,
+        \   'autoload': {'filetypes': 'ruby'}
+        \ })
+endif
+
+if s:bundle_tap('vim-ruby')
     call neobundle#config({
         \   'lazy': 1,
         \   'autoload': {'filetypes': 'ruby'}
@@ -586,105 +563,6 @@ if s:bundle_tap('committia.vim')
         \ })
 endif
 
-if s:bundle_tap('neco-look')
-    call neobundle#config({
-        \   'lazy': 1,
-        \   'on_source': 'neocomplete.vim'
-        \ })
-endif
-
-if s:bundle_tap('context_filetype.vim')
-    call neobundle#config({
-        \   'lazy': 1,
-        \   'on_source': 'neocomplete.vim'
-        \ })
-endif
-
-if s:bundle_tap('neco-syntax')
-    call neobundle#config({
-        \   'lazy': 1,
-        \   'on_source': 'neocomplete.vim'
-        \ })
-endif
-
-if s:bundle_tap('vim-colors-solarized')
-    if neobundle#is_installed('lightline.vim')
-        let s:mono0   = ['#002B36', '8' ]
-        let s:mono1   = ['#073642', '0' ]
-        let s:mono2   = ['#586E75', '10']
-        let s:mono3   = ['#657B83', '11']
-        let s:mono4   = ['#839496', '12']
-        let s:mono5   = ['#93A1A1', '14']
-        let s:white0  = ['#EEE8D5', '7' ]
-        let s:white1  = ['#FDF6E3', '15']
-        let s:red     = ['#DC322F', '1' ]
-        let s:green   = ['#859900', '2' ]
-        let s:blue    = ['#268BD2', '4' ]
-        let s:yellow  = ['#B58900', '3' ]
-        let s:orange  = ['#CB4B16', '9' ]
-        let s:magenta = ['#D33682', '5' ]
-        let s:cyan    = ['#2AA198', '6' ]
-        let s:purple  = ['#6C71C4', '13']
-
-        let s:p = {'normal': {}, 'insert': {}, 'visual': {}, 'replace': {}, 'inactive': {}, 'tabline': {}}
-
-        let s:p.normal.left     = [ [s:white1[0], s:blue[0], s:white1[1], s:blue[1]],
-                                \   [s:white0[0], s:mono2[0], s:white0[1], s:mono2[1]],
-                                \ ]
-
-        let s:p.insert.left     = [ [s:white0[0], s:yellow[0], s:white0[1], s:yellow[1]],
-                                \   [s:white0[0], s:mono2[0], s:white0[1], s:mono2[1]],
-                                \ ]
-
-        let s:p.visual.left     = [ [s:white1[0], s:magenta[0], s:white1[1], s:magenta[1]],
-                                \   [s:white0[0], s:mono2[0], s:white0[1], s:mono2[1]],
-                                \ ]
-
-        let s:p.replace.left    = [ [s:white1[0], s:orange[0], s:white1[1], s:orange[1]],
-                                \   [s:white0[0], s:mono2[0], s:white0[1], s:mono2[1]],
-                                \ ]
-
-        let s:p.normal.right    = [ [s:mono0[0], s:mono4[0], s:mono0[1], s:mono4[1]],
-                                \   [s:mono1[0], s:mono3[0], s:mono1[1], s:mono3[1]],
-                                \   [s:mono4[0], s:mono1[0], s:mono4[1], s:mono1[1]]
-                                \ ]
-
-        let s:p.inactive.middle = [ [s:mono4[0], s:mono1[0], s:mono4[1], s:mono1[1]],
-                                \   [s:mono4[0], s:mono1[0], s:mono4[1], s:mono1[1]],
-                                \   [s:mono4[0], s:mono1[0], s:mono4[1], s:mono1[1]],
-                                \ ]
-        let s:p.inactive.left   = s:p.inactive.middle
-        let s:p.inactive.right  = s:p.inactive.middle
-
-        let s:p.normal.middle   = [ [s:mono2[0], s:mono1[0], s:mono2[1], s:mono1[1]],
-                                \   [s:mono2[0], s:mono1[0], s:mono2[1], s:mono1[1]],
-                                \   [s:mono2[0], s:mono1[0], s:mono2[1], s:mono1[1]],
-                                \ ]
-        let s:p.inactive.left   = s:p.normal.middle
-        let s:p.inactive.right  = s:p.normal.middle
-
-        let s:p.tabline.middle  = [ [s:blue[0], s:mono1[0], s:blue[1], s:mono1[1]] ]
-        let s:p.tabline.tabsel  = [ [s:white0[0], s:yellow[0], s:white0[1], s:yellow[1]] ]
-        let s:p.tabline.left    = [ [s:mono5[0], s:mono2[0], s:mono5[1], s:mono2[1]] ]
-        let s:p.tabline.right   = [ [s:mono5[0], s:mono0[0], s:mono5[1], s:mono0[1]] ]
-
-        let lightline#colorscheme#modified_solarized#palette = s:p
-        let g:lightline.colorscheme = 'modified_solarized'
-    endif
-
-    function! neobundle#hooks.on_source(bundle)
-        set bg=dark
-        colorscheme solarized
-    endfunction
-endif
-
-if s:bundle_tap('vim-undoreplay')
-    call neobundle#config({
-        \   'lazy': 1,
-        \   'on_cmd': 'UndoReplay'
-        \ })
-endif
-
 if s:bundle_tap('vimdoc-ja')
     set helplang=ja,en
 endif
@@ -694,6 +572,52 @@ if s:bundle_tap('benchvimrc-vim')
         \   'lazy': 1,
         \   'on_cmd': 'BenchVimrc'
         \ })
+endif
+
+if s:bundle_tap('vim-fugitive')
+    call neobundle#config({
+        \   'augroup': 'fugitive'
+        \ })
+endif
+
+if s:bundle_tap('vimshell.vim')
+    " Prompt
+    let g:vimshell_prompt = '$ '
+    let g:vimshell_user_prompt = '
+        \ "\n".
+        \ fnamemodify(getcwd(), ":~")
+        \ '
+    let g:vimshell_right_prompt = 'Get_branch()'
+
+    function! Get_branch()
+        let s:is_git_dir = s:chomp(system('git status >/dev/null 2>&1; echo $?'))
+        if s:is_git_dir != '0' | return '' | endif
+
+        let s:local_branch = s:chomp('['.system('git rev-parse --abbrev-ref HEAD').']')
+        let s:remote_branch = s:chomp('['.system('git rev-parse --abbrev-ref "@{u}" 2>/dev/null').']')
+
+        return s:local_branch.' →  '.s:remote_branch
+    endfunction
+
+    function! s:chomp(str)
+        return substitute(a:str, '\n', '', 'g')
+    endfunction
+
+    " in VimShell
+    augroup vimshell_my_keymap
+        autocmd!
+        autocmd FileType vimshell call s:vimshell_my_setting()
+    augroup END
+    function! s:vimshell_my_setting()
+        setlocal nonumber
+        imap <silent><buffer><C-l> <Plug>(vimshell_clear)
+        imap <silent><buffer><C-r> <Plug>(vimshell_history_unite)
+        imap <silent><buffer><C-e> <End>
+        inoremap <silent><buffer><C-k> <C-o>D
+    endfunction
+
+    " call VimShell keybind
+    nnoremap <silent><leader>a :<C-u>VimShellCreate -split<CR>
 endif
 
 
