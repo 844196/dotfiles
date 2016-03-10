@@ -615,6 +615,29 @@ if s:bundle_tap('vimshell.vim')
     nnoremap <silent><leader>a :<C-u>VimShellCreate -split<CR>
 endif
 
+if s:bundle_tap('vim-hybrid')
+    set bg=dark
+
+    augroup my_color
+        autocmd!
+    augroup END
+
+    if !has('gui_running')
+        let g:hybrid_custom_term_colors = 1
+        autocmd my_color VimEnter * colorscheme hybrid
+    endif
+
+    autocmd my_color VimEnter,Colorscheme * hi! link TabLine StatusLineNC
+    autocmd my_color VimEnter,Colorscheme * hi! link TabLineFill StatusLineNC
+    autocmd my_color VimEnter,Colorscheme * hi! link TabLineSel StatusLine
+endif
+
+if s:bundle_tap('vim-fugitive') && neobundle#tap('nerdtree')
+    augroup fix_fugitive
+        autocmd!
+        autocmd BufEnter * call fugitive#detect(expand('%:p'))
+    augroup END
+endif
 
 
 " Finish
