@@ -242,23 +242,18 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
 
     " looks
         NeoBundle     'ryanoasis/vim-devicons'
-        " NeoBundleLazy 'Yggdroot/indentLine'
         NeoBundle     'altercation/vim-colors-solarized'
         NeoBundle     'atelierbram/vim-colors_duotones'
         NeoBundle     'cocopon/iceberg.vim'
         NeoBundle     'morhetz/gruvbox'
         NeoBundle     'tomasr/molokai'
         NeoBundle     'NLKNguyen/papercolor-theme'
-        NeoBundle     'nanotech/jellybeans.vim'
         NeoBundle     'w0ng/vim-hybrid'
-        " NeoBundle     'severin-lemaignan/vim-minimap'
-        " NeoBundle     'koron/minimap-vim'
 
     " util
         NeoBundle     'tomtom/tcomment_vim'
         NeoBundle     'tpope/vim-endwise'
         NeoBundleLazy 'haya14busa/incsearch.vim'
-        NeoBundleLazy 'osyo-manga/vim-over'
         NeoBundleLazy 'Shougo/unite.vim'
         NeoBundleLazy 'ujihisa/unite-colorscheme'
         NeoBundleLazy 'thinca/vim-scouter'
