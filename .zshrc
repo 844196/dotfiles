@@ -184,6 +184,10 @@ alias co='git commit -v'
 alias di='git diff'
 alias gg='git graph | head'
 
+if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
 # .zshrc_localがあったらそれも読み込む
 if [ -f $HOME/.zshrc_local ]; then
     source $HOME/.zshrc_local
