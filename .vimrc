@@ -457,19 +457,10 @@ if s:bundle_tap('nerdtree')
 endif
 
 if s:bundle_tap('vim-devicons')
-    call neobundle#config({
-        \   'gui': 1,
-        \ })
     let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
     let g:WebDevIconsUnicodeDecorateFolderNodes = 1
     let g:webdevicons_enable_unite = 1
-
-    " nerdtree
-    if neobundle#is_installed('nerdtree')
-        let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
-        let g:NERDTreeDirArrowExpandable = "\uf105"
-        let g:NERDTreeDirArrowCollapsible = "\uf107"
-    endif
+    let g:webdevicons_enable_nerdtree = 1
 endif
 
 if s:bundle_tap('emmet-vim')
