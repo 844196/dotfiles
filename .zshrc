@@ -104,7 +104,7 @@ else
 fi
 
 # 履歴ファイルの保存先
-export HISTFILE=$ZDOTDIR/.zsh_history
+export HISTFILE=$HOME/.zsh_history
 
 # メモリに保存される履歴
 export HISTSIZE=1000
@@ -137,7 +137,7 @@ setopt hist_reduce_blanks
 export LESSHISTFILE=-
 
 # リロード
-alias reload="source $ZDOTDIR/.zshrc"
+alias reload="source $HOME/.zshrc"
 
 # エイリアス
 alias ..="cd .."
@@ -185,8 +185,8 @@ alias di='git diff'
 alias gg='git graph | head'
 
 # .zshrc_localがあったらそれも読み込む
-if [ -f $ZDOTDIR/.zshrc_local ]; then
-    source $ZDOTDIR/.zshrc_local
+if [ -f $HOME/.zshrc_local ]; then
+    source $HOME/.zshrc_local
 fi
 
 # tmux自動起動
