@@ -161,8 +161,7 @@ function pcolor() {
 }
 
 functions _his() {
-    # which tac >/dev/null 2>&1 && tac='tac' || tac='tail -r'
-    BUFFER=$(fc -l -n 1 | tail -r | peco --query "$LBUFFER")
+    BUFFER=$(fc -l -n 1 | eval ${commands[tac]:-"tail -r"} | peco --query "$LBUFFER")
     CURSOR=$#BUFFER
     zle -R -c
 }
