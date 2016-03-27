@@ -199,3 +199,5 @@ if [ -z "${TMUX}" -a -z "${STY}" ]; then
         fi
     fi
 fi
+
+typeset -U path cdpath fpath manpath
