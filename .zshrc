@@ -10,13 +10,6 @@
     "
 }
 
-# 環境依存
-if [ `uname` = 'Darwin' ]; then
-    ismac='0'
-else
-    ismac='1'
-fi
-
 # 補完
 fpath=(/usr/local/share/zsh/site-functions(N-/) $fpath)
 autoload -U compinit; compinit
@@ -97,11 +90,14 @@ PROMPT="
 %F{6}%n@%m:%f %F{yellow}%~%f %F{green}%1v%f%F{red}%2v%f
 %(?.%F{blue}.%F{red})$%f "
 
-if [ $ismac = '0' ]; then
-    SPROMPT="%B%F{red}(๑•﹏•)%f%b < %rのこと言ってるんですかね...? [y, n, a, e]:"
-else
-    SPROMPT="%B%F{red}(X | _ | )%f%b < お前が%rと思うんならそうなんだろう. お前ん中ではな. [y, n, a, e]:"
-fi
+case `uname` in
+    'Darwin')
+        SPROMPT="%B%F{red}(๑•﹏•)%f%b < %rのこと言ってるんですかね...? [y, n, a, e]:"
+        ;;
+    *)
+        SPROMPT="%B%F{red}(X | _ | )%f%b < お前が%rと思うんならそうなんだろう. お前ん中ではな. [y, n, a, e]:"
+        ;;
+esac
 
 # 履歴ファイルの保存先
 export HISTFILE=$HOME/.zsh_history
