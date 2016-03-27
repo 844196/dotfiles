@@ -129,6 +129,9 @@ setopt hist_no_store
 # 履歴の空白はつめる
 setopt hist_reduce_blanks
 
+# 古いコマンドと同じやつは保存しない
+setopt hist_save_no_dups
+
 # .lesshstを作成しない
 export LESSHISTFILE=-
 
