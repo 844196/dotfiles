@@ -621,6 +621,8 @@ if s:bundle_tap('vim-hybrid')
     autocmd my_color VimEnter,Colorscheme * hi! link TabLine StatusLineNC
     autocmd my_color VimEnter,Colorscheme * hi! link TabLineFill StatusLineNC
     autocmd my_color VimEnter,Colorscheme * hi! link TabLineSel StatusLine
+    autocmd my_color VimEnter,Colorscheme * hi! link VertSplit ColorColumn
+    set fillchars+=vert:\ 
 endif
 
 if s:bundle_tap('vim-fugitive') && neobundle#tap('nerdtree')
