@@ -6,6 +6,11 @@ scriptencoding utf-8
 if !1 | finish | endif
 if !&compatible | set nocompatible | endif
 
+" viminfoの場所
+if isdirectory(expand('~/.vim'))
+    set viminfo+=n~/.vim/viminfo
+endif
+
 
 
 " Basic
