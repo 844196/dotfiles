@@ -162,17 +162,6 @@ function pcolor() {
     echo
 }
 
-functions _his() {
-    BUFFER=$(fc -l -n 1 | eval ${commands[tac]:-"tail -r"} | peco --query "$LBUFFER")
-    CURSOR=$#BUFFER
-    zle -R -c
-}
-if which peco >/dev/null 2>&1; then
-    zle -N _his
-    alias his='_his'
-    bindkey '^R' _his
-fi
-
 # Git
 alias st='git status'
 alias ck='git checkout'
@@ -185,6 +174,7 @@ alias gg='git graph | head'
 source_target=(
     /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     $HOME/.zshrc_local
+    $HOME/etc/peco-functions.zsh
 )
 
 for target in ${source_target[*]}; { [[ -f "$target" ]] && source "$target"; }
