@@ -36,5 +36,23 @@
         <autogen>--KeyToKey-- KeyCode::BRACKET_LEFT, VK_CONTROL, KeyCode::BRACKET_LEFT, VK_CONTROL, KeyCode::JIS_EISUU</autogen>
     </item>
 
+    <item>
+        <name>左コマンド2回連打を英数キー2回連打とする</name>
+        <identifier>private.double-cmd-l_to_double-eisuu</identifier>
+        <autogen>
+            __DoublePressModifier__
+            KeyCode::COMMAND_L,
+
+            @begin
+                KeyCode::COMMAND_L
+            @end
+
+            @begin
+                KeyCode::JIS_EISUU,
+                KeyCode::JIS_EISUU
+            @end
+        </autogen>
+    </item>
+
 
 </root>
