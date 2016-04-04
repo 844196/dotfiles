@@ -27,10 +27,6 @@ function Setup.symlink() {
     Setup.symlink .zshrc
 }
 
-: 'load ~/.zshenv after /etc/profile loaded' && {
-    sudo sh -c "echo '[[ -f ~/.zshenv ]] && source ~/.zshenv' >>/etc/profile"
-}
-
 : 'change login shell' && {
     sudo chsh -s $(which zsh) $USER
 }
