@@ -6,6 +6,6 @@ path=(/usr/local/bin(N-/) $path)
 fpath=(/usr/local/share/zsh/site-functions(N-/) $fpath)
 
 # rbenv
-eval "$(rbenv init -)"
+which rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
 
 typeset -U path fpath
