@@ -27,10 +27,6 @@ function Setup.symlink() {
     Setup.symlink .zshrc
 }
 
-: 'change login shell' && {
-    sudo chsh -s $(which zsh) $USER
-}
-
 : 'copy .tmux.conf' && {
     Setup.symlink .tmux.conf
 }
