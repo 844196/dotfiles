@@ -143,7 +143,14 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 
 alias -g l="qlmanage -p ${@} >/dev/null 2>&1"
-alias ls='ls -GFh'
+case `uname` in
+    'Darwin')
+        alias ls='ls -GFh'
+        ;;
+    *)
+        alias ls='ls -Fh --color'
+        ;;
+esac
 
 if [ -e /Applications/MacVim.app ]; then
     export EDITOR='/Applications/MacVim.app/Contents/MacOS/Vim'
