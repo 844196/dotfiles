@@ -25,6 +25,8 @@ function Setup.symlink() {
 
 : 'install neobundle & vim plugins' && [[ ! -e ~/.vim/bundle/neobundle.vim ]] && {
     mkdir -p ~/.vim/bundle
+    git clone https://github.com/Shougo/vimproc.vim ~/.vim/bundle/vimproc.vim
+    (cd ~/.vim/bundle/vimproc.vim && make)
     git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
     ~/.vim/bundle/neobundle.vim/bin/neoinstall
 }
