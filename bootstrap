@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 set -x
 
 dotdir_path="${HOME}/dotfiles"
@@ -7,7 +6,7 @@ dotdir_path="${HOME}/dotfiles"
 function Setup.symlink() {
     local target=$1
     local to=${2:-"${HOME}/${target}"}
-    [[ ! -e "${dotdir_path}/${target}" ]] && ln -sfn ${dotdir_path}/${target} ${to}
+    ln -sfn ${dotdir_path}/${target} ${to}
 }
 
 ################################################################################
