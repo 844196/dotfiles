@@ -242,7 +242,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     NeoBundleFetch 'Shougo/neobundle.vim'
 
     " base
-        NeoBundle     'Shougo/vimproc'
+        NeoBundle     'Shougo/vimproc.vim'
         NeoBundle     'vim-jp/vimdoc-ja'
 
     " looks
