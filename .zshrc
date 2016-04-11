@@ -180,6 +180,7 @@ alias gg='git graph | head'
 # source
 source_target=(
     /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     $HOME/.zshrc_local
     $HOME/etc/peco-functions.zsh
 )
