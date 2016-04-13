@@ -250,7 +250,9 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'vim-jp/vimdoc-ja'
 
     " looks
-        NeoBundle     'ryanoasis/vim-devicons'
+        if !filereadable('~/.vim/disable_devicon')
+            NeoBundle 'ryanoasis/vim-devicons'
+        endif
         NeoBundle     'altercation/vim-colors-solarized'
         NeoBundle     'atelierbram/vim-colors_duotones'
         NeoBundle     'cocopon/iceberg.vim'
