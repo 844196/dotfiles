@@ -19,8 +19,8 @@ function Setup.symlink() {
 : 'copy vimrc & gvimrc' && {
     mkdir -p ~/.vim
     rm -f ~/.vimrc ~/.gvimrc ~/.viminfo
-    Setup.symlink .vim/vimrc ~/.vim/vimrc
-    Setup.symlink .vim/gvimrc ~/.vim/gvimrc
+    Setup.symlink vim/vimrc ~/.vim/vimrc
+    Setup.symlink vim/gvimrc ~/.vim/gvimrc
 }
 
 : 'install neobundle & vim plugins' && [[ ! -e ~/.vim/bundle/neobundle.vim ]] && {
@@ -32,8 +32,8 @@ function Setup.symlink() {
 }
 
 : 'copy zshenv & zshrc' && {
-    Setup.symlink .zshenv
-    Setup.symlink .zshrc
+    Setup.symlink zsh/.zshenv ~/.zshenv
+    Setup.symlink zsh/.zshrc ~/.zshrc
 }
 
 : 'copy .tmux.conf' && {
