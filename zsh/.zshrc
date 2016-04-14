@@ -86,7 +86,7 @@ add-zsh-hook precmd _update_vcs_info_msg
 # add-zsh-hook precmd _update_pwd_pretty
 
 PROMPT="
-%F{6}%n@%m:%f %F{yellow}%~%f %F{green}%1v%f%F{red}%2v%f
+%F{`[[ $USER == 'vagrant' ]] && echo 13 || echo 6`}%n@%m:%f %F{yellow}%~%f %F{green}%1v%f%F{red}%2v%f
 %(?.%F{blue}.%F{red})$%f "
 
 case `uname` in
