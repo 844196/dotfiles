@@ -134,6 +134,9 @@ setopt hist_save_no_dups
 # .lesshstを作成しない
 export LESSHISTFILE=-
 
+# lessのエンコード
+export LESSCHARSET=utf-8
+
 # リロード
 alias reload="source $HOME/.zshrc"
 
