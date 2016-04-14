@@ -2,7 +2,6 @@
 
 Setup::Pacman.group 'package' <<end
   package.catalog_sync
-  package.upgrade
 end
 
 Setup::Pacman.group 'toolkit' <<end
