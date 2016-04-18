@@ -28,7 +28,6 @@ function Setup.symlink() {
     git clone https://github.com/Shougo/vimproc.vim ~/.vim/bundle/vimproc.vim
     (cd ~/.vim/bundle/vimproc.vim && make)
     git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-    ~/.vim/bundle/neobundle.vim/bin/neoinstall
 }
 
 : 'copy zshenv & zshrc' && {
