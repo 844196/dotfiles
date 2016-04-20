@@ -27,7 +27,9 @@ set tabstop=4 shiftwidth=4            " <Tab>スペース展開文字幅
 set shiftround                        " インデントをshiftwidthに丸める
 set smarttab                          " 自動インデント
 set autoindent                        " 改行後の自動インデント
-set breakindent                       " 折り返した行がインデントに沿う
+if (v:version == 704 && has('patch338')) || v:version >= 705
+    set breakindent                   " 折り返した行がインデントに沿う
+endif
 set synmaxcol=300                     " 1行あたりのシンタックス有効文字数
 set number                            " 行番号
 set scrolloff=10                      " バッファスクロール時に上下10行を確保
