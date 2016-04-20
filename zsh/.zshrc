@@ -186,6 +186,7 @@ source_target=(
     /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     $HOME/.zshrc_local
     $HOME/etc/peco-functions.zsh
+    $HOME/.zsh/site-functions/peco-functions.zsh
 )
 
 for target in ${source_target[*]}; { [[ -f "$target" ]] && source "$target"; }

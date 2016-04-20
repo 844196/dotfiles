@@ -30,9 +30,11 @@ function Setup.symlink() {
     git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 }
 
-: 'copy zshenv & zshrc' && {
+: 'copy zshenv & zshrc, peco-functions' && {
     Setup.symlink zsh/.zshenv ~/.zshenv
     Setup.symlink zsh/.zshrc ~/.zshrc
+    mkdir -p ~/.zsh/site-functions
+    Setup.symlink zsh/peco-functions.zsh ~/.zsh/site-functions/peco-functions.zsh
 }
 
 : 'copy .tmux.conf' && {
