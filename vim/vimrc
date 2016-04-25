@@ -480,12 +480,13 @@ endif
 if s:bundle_tap('emmet-vim')
     call neobundle#config({
         \   'lazy': 1,
-        \   'autoload' : {'filetypes': ['html', 'markdown', 'css', 'scss', 'less']}
+        \   'autoload' : {'filetypes': ['html', 'markdown', 'css', 'scss', 'less', 'php']}
         \ })
 
     let g:user_emmet_settings = {
         \ 'lang' : 'ja',
-        \ 'html': {'indentation': '  '}
+        \ 'html': {'indentation': '  '},
+        \ 'php': {'indentation': '	'}
         \ }
 endif
 
