@@ -638,6 +638,15 @@ if s:bundle_tap('vim-hybrid')
     autocmd my_color VimEnter,Colorscheme * hi! link TabLineSel StatusLine
     autocmd my_color VimEnter,Colorscheme * hi! link VertSplit ColorColumn
     set fillchars+=vert:\ 
+
+    augroup modify_agit_diff_color
+        autocmd!
+    augroup END
+
+    autocmd modify_agit_diff_color Filetype agit_diff hi! link agitDiffAdd Special
+    autocmd modify_agit_diff_color Filetype agit_diff hi! link agitStatAdded Special
+    autocmd modify_agit_diff_color Filetype agit_diff hi! link agitDiffRemove Constant
+    autocmd modify_agit_diff_color Filetype agit_diff hi! link agitStatRemoved Constant
 endif
 
 if s:bundle_tap('vim-fugitive') && neobundle#tap('nerdtree')
