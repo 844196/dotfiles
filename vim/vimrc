@@ -215,6 +215,12 @@ augroup load_vimrc
     autocmd BufWritePost ~/.vimrc,~/.vim/.vimrc_local nested source ~/.vimrc
 augroup END
 
+" カーソル行ハイライト時の特殊文字の色
+augroup special_key_highlight
+    autocmd!
+    autocmd VimEnter,WinEnter * match NonText '^\s\+'
+augroup END
+
 
 
 " NeoBundle wrap functions
