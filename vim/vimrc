@@ -134,6 +134,9 @@ nnoremap <silent><C-w>o :<C-u>Big<CR>
 nnoremap 0 ^
 nnoremap ^ 0
 
+" ビジュアルモードで選択中のテキストを検索
+vnoremap * "zy:let @/ = @z<CR>n
+
 
 
 " File type
