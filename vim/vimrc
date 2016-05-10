@@ -285,6 +285,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundleLazy 'thinca/vim-quickrun'
         NeoBundle     'tpope/vim-fugitive'
         NeoBundle     'Shougo/vimshell.vim'
+        NeoBundle     'editorconfig/editorconfig-vim'
 
     " completation
         NeoBundle     'Shougo/neocomplete.vim'
