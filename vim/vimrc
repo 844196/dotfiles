@@ -485,6 +485,8 @@ if s:bundle_tap('nerdtree')
     let g:NERDTreeMinimalUI = 1
     let g:NERDTreeMouseMode = 2
     let g:NERDTreeChDirMode = 1
+    set mouse=a
+    let g:NERDTreeMouseMode=3
 endif
 
 if s:bundle_tap('vim-devicons')
