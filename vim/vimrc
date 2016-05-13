@@ -408,7 +408,14 @@ if s:bundle_tap('unite.vim')
     nnoremap <Leader>b :<C-u>Unite<Space>buffer<CR>
 
     " <Leader><Leader>でUnite file
-    nnoremap <Leader><Leader> :<C-u>Unite file<CR>
+    function! DispatchUniteFileRecAsyncOrGit()
+        if isdirectory(getcwd()."/.git")
+            Unite file_rec/git
+        else
+            Unite file_rec/async
+        endif
+    endfunction
+    nnoremap <Leader><Leader> :<C-u>call DispatchUniteFileRecAsyncOrGit()<CR>
 
     " <Leader>g is file_rec/git
     nnoremap <Leader>g :<C-u>Unite file_rec/git -no-empty<CR>
