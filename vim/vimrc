@@ -417,8 +417,15 @@ if s:bundle_tap('unite.vim')
     endfunction
     nnoremap <Leader><Leader> :<C-u>call DispatchUniteFileRecAsyncOrGit()<CR>
 
-    " <Leader>g is file_rec/git
-    nnoremap <Leader>g :<C-u>Unite file_rec/git -no-empty<CR>
+    " <Leader>gでUnite grep
+    function! DispatchUniteGrepOrGit()
+        if isdirectory(getcwd()."/.git")
+            Unite grep/git:.
+        else
+            Unite grep:.
+        endif
+    endfunction
+    nnoremap <Leader>g :<C-u>call DispatchUniteGrepOrGit()<CR>
 
     " インサートモードオン
     let g:unite_enable_start_insert = 1
