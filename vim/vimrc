@@ -286,6 +286,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'tpope/vim-fugitive'
         NeoBundle     'Shougo/vimshell.vim'
         NeoBundle     'editorconfig/editorconfig-vim'
+        NeoBundle     'AndrewRadev/splitjoin.vim'
 
     " completation
         NeoBundle     'Shougo/neocomplete.vim'
@@ -308,6 +309,9 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundleLazy 'noprompt/vim-yardoc'
         NeoBundleLazy 'sunaku/vim-ruby-minitest'
         NeoBundleLazy 'vim-ruby/vim-ruby'
+
+    " for php
+        NeoBundle     'vim-scripts/smarty-syntax'
 endif
 
 
