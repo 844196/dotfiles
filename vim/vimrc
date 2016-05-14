@@ -287,6 +287,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'Shougo/vimshell.vim'
         NeoBundle     'editorconfig/editorconfig-vim'
         NeoBundle     'AndrewRadev/splitjoin.vim'
+        NeoBundle     'AndrewRadev/linediff.vim'
 
     " completation
         NeoBundle     'Shougo/neocomplete.vim'
