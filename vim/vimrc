@@ -411,7 +411,10 @@ if s:bundle_tap('unite.vim')
         \ })
 
     " バッファ一覧をUniteに置き換え
-    nnoremap <Leader>b :<C-u>Unite<Space>buffer<CR>
+    nnoremap <Leader>b :<C-u>Unite buffer<CR>
+
+    " タブ一覧をUniteに置き換え
+    nnoremap <Leader>t :<C-u>Unite tab<CR>
 
     " <Leader><Leader>でUnite file
     function! DispatchUniteFileRecAsyncOrGit()
