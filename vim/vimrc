@@ -419,7 +419,7 @@ if s:bundle_tap('unite.vim')
     " <Leader><Leader>でUnite file
     function! DispatchUniteFileRecAsyncOrGit()
         if isdirectory(getcwd()."/.git")
-            Unite file_rec/git
+            Unite file_rec/git:--cached
         else
             Unite file_rec/async
         endif
