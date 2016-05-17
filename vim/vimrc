@@ -694,6 +694,7 @@ endif
 if s:bundle_tap('vim-signify')
     nnoremap <silent><space>t :<C-u>SignifyToggle<CR>
     nnoremap <silent><space>h :<C-u>SignifyToggleHighlight<CR>
+    nnoremap <silent><space>r :<C-u>SignifyRefresh<CR>
     nmap <silent><space>j <Plug>(signify-next-hunk)
     nmap <silent><space>k <Plug>(signify-prev-hunk)
 endif
