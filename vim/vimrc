@@ -282,6 +282,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundleLazy 'thinca/vim-scouter'
         NeoBundleLazy 'mattn/benchvimrc-vim'
         NeoBundle     'scrooloose/nerdtree'
+        NeoBundle     'Xuyuanp/nerdtree-git-plugin'
         NeoBundleLazy 'thinca/vim-quickrun'
         NeoBundle     'tpope/vim-fugitive'
         NeoBundle     'Shougo/vimshell.vim'
@@ -507,6 +508,7 @@ endif
 if s:bundle_tap('vim-devicons')
     let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
     let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+    let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
     let g:webdevicons_enable_unite = 1
     let g:webdevicons_enable_nerdtree = 1
 endif
