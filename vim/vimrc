@@ -496,8 +496,7 @@ if s:bundle_tap('previm')
 endif
 
 if s:bundle_tap('nerdtree')
-    nnoremap <silent><Leader>nt :<C-u>NERDTreeToggle<CR>
-    nnoremap <C-n> :<C-u>NERDTree<Space>
+    nnoremap <C-n> :<C-u>NERDTreeToggle<CR>
     let g:NERDTreeMinimalUI = 1
     let g:NERDTreeMouseMode = 2
     let g:NERDTreeChDirMode = 1
