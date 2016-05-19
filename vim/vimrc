@@ -498,6 +498,7 @@ endif
 
 if s:bundle_tap('nerdtree')
     nnoremap <C-n> :<C-u>NERDTreeToggle<CR>
+    nnoremap <C-f> :<C-u>NERDTreeFind<CR>
     let g:NERDTreeMinimalUI = 1
     let g:NERDTreeMouseMode = 2
     let g:NERDTreeChDirMode = 1
