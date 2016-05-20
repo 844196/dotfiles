@@ -15,3 +15,7 @@
         alias gp='cd $(ghq list --full-path | peco)'
     fi
 }
+
+: 'ブランチ切り替え' && {
+    alias cb="git branch | peco | sed 's/^[\* ]\? //g' | xargs git checkout"
+}
