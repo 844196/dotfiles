@@ -40,3 +40,8 @@ function Setup.symlink() {
 : 'copy .tmux.conf' && {
     Setup.symlink .tmux.conf
 }
+
+: 'other conig file' && {
+    mkdir -p ~/.config/peco
+    Setup.symlink etc/peco.json ~/.config/peco/config.json
+}
