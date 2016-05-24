@@ -134,8 +134,11 @@ nnoremap <silent><C-w>o :<C-u>Big<CR>
 nnoremap 0 ^
 nnoremap ^ 0
 
+" *しても次の候補へ移動しないように
+nnoremap * *N
+
 " ビジュアルモードで選択中のテキストを検索
-vnoremap * "zy:let @/ = @z<CR>n
+vnoremap * "zy:let @/ = @z<CR>nN
 
 
 
