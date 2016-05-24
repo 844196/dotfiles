@@ -140,6 +140,9 @@ nnoremap * *N
 " ビジュアルモードで選択中のテキストを検索
 vnoremap * "zy:let @/ = @z<CR>nN
 
+" cしたときの元テキスト格納先レジスタを削除レジスタへ変更
+vnoremap c "_c
+
 
 
 " File type
