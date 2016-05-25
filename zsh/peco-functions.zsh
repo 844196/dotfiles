@@ -22,7 +22,7 @@
 
 : 'Unite file_rec/git gitぽいやつ' && {
     functions peco-file_rec-git() {
-        BUFFER="vim $(git ls-files | peco --query "$LBUFFER")"
+        BUFFER="vim -O $(git ls-files | peco | tr '\n' ' ')"
         CURSOR=$#BUFFER
         zle -R -c
     }
