@@ -19,3 +19,13 @@
 : 'ブランチ切り替え' && {
     alias cb="git branch | peco | sed 's/^[\* ]\? //g' | xargs git checkout"
 }
+
+: 'Unite file_rec/git gitぽいやつ' && {
+    functions peco-file_rec-git() {
+        BUFFER="vim $(git ls-files | peco --query "$LBUFFER")"
+        CURSOR=$#BUFFER
+        zle -R -c
+    }
+    zle -N peco-file_rec-git
+    bindkey '^\' peco-file_rec-git
+}
