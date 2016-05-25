@@ -179,6 +179,7 @@ alias br='git branch'
 alias co='git commit -v'
 alias di='git diff'
 alias gg='git graph | head'
+alias agit='vim -c Agit'
 
 # source
 source_target=(
