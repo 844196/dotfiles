@@ -457,6 +457,7 @@ if s:bundle_tap('unite.vim')
         nmap <silent><buffer><Esc><Esc> <Plug>(unite_exit)
         imap <silent><buffer><Esc><Esc> <Plug>(unite_exit)
         imap <silent><buffer><C-e> <End>
+        imap <silent><buffer><C-k> <C-o>"_D
     endfunction
 
     " disable overwrite unite statusline
