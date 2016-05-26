@@ -31,8 +31,8 @@ function Setup.symlink() {
 }
 
 : 'copy zshenv & zshrc, peco-functions' && {
-    Setup.symlink zsh/.zshenv ~/.zshenv
-    Setup.symlink zsh/.zshrc ~/.zshrc
+    Setup.symlink zsh/zshenv ~/.zshenv
+    Setup.symlink zsh/zshrc ~/.zshrc
     mkdir -p ~/.zsh/site-functions
     Setup.symlink zsh/peco-functions.zsh ~/.zsh/site-functions/peco-functions.zsh
 }
