@@ -428,9 +428,9 @@ if s:bundle_tap('unite.vim')
     " <Leader><Leader>でUnite file
     function! DispatchUniteFileRecAsyncOrGit()
         if isdirectory(getcwd()."/.git")
-            Unite file_rec/git:--cached -vertical -auto-preview
+            Unite file_rec/git:--cached
         else
-            Unite file_rec/async -vertical -auto-preview
+            Unite file_rec/async
         endif
     endfunction
     nnoremap <Leader><Leader> :<C-u>call DispatchUniteFileRecAsyncOrGit()<CR>
@@ -438,9 +438,9 @@ if s:bundle_tap('unite.vim')
     " <Leader>gでUnite grep
     function! DispatchUniteGrepOrGit()
         if isdirectory(getcwd()."/.git")
-            Unite grep/git:. -no-empty -vertical -auto-preview
+            Unite grep/git:. -no-empty
         else
-            Unite grep:. -no-empty -vertical -auto-preview
+            Unite grep:. -no-empty
         endif
     endfunction
     nnoremap <Leader>g :<C-u>call DispatchUniteGrepOrGit()<CR>
