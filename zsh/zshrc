@@ -178,7 +178,7 @@ alias ck='git checkout'
 alias br='git branch'
 alias co='git commit -v'
 alias di='git diff'
-alias gg='git graph | head'
+alias gg='git graph | head | cat -n -'
 alias agit='vim -c Agit'
 
 # source
