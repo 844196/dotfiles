@@ -70,12 +70,12 @@ nnoremap x "_x
 vnoremap x "_x
 
 " かっこ
-inoremap '' ''<Left>
-inoremap "" ""<Left>
-inoremap () ()<Left>
-inoremap {} {}<Left>
-inoremap [] []<Left>
-inoremap <> <><Left>
+inoremap '' ''<C-G>U<Left>
+inoremap "" ""<C-G>U<Left>
+inoremap () ()<C-G>U<Left>
+inoremap {} {}<C-G>U<Left>
+inoremap [] []<C-G>U<Left>
+inoremap <> <><C-G>U<Left>
 
 " search
 nnoremap <silent><Esc><Esc> :<C-u>nohlsearch<CR>
@@ -83,11 +83,11 @@ nnoremap n nzz
 nnoremap N Nzz
 
 " 挿入モード時のカーソル移動
-inoremap <C-b> <Left>
-inoremap <C-f> <Right>
-inoremap <C-a> <Home>
-inoremap <C-e> <End>
-inoremap <C-k> <C-o>D
+inoremap <C-b> <C-G>U<Left>
+inoremap <C-f> <C-G>U<Right>
+inoremap <C-a> <C-G>U<Home>
+inoremap <C-e> <C-G>U<End>
+inoremap <C-k> <C-G>U<C-o>D
 
 " visual mode
 vnoremap v $h
