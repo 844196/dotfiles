@@ -3,7 +3,7 @@
 	email = 844196@gmail.com
 [core]
 	editor = vim
-	excludesfile = ~/dotfiles/.gitignore_global
+	excludesfile = ~/dotfiles/git/gitignore_global
 	quotepath = false
 [init]
     templatedir = ~/dotfiles/git/template
