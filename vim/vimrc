@@ -54,6 +54,7 @@ set modeline                          " モードラインを有効
 set modelines=5                       " モードラインを上下5行まで検索
 set infercase                         " 補完時に大文字・小文字を区別しない
 set textwidth=0                       " 行あたりの最大文字数？を0に（formatoptions）
+set tags+=.git/tags                   " .gitにあるタグファイルも読む
 
 
 
@@ -142,6 +143,9 @@ vnoremap * "zy:let @/ = @z<CR>nN
 
 " cしたときの元テキスト格納先レジスタを削除レジスタへ変更
 vnoremap c "_c
+
+" 縦分割でタグジャンプ
+nnoremap <C-]> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
 
 
 
