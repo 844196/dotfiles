@@ -1,0 +1,6 @@
+#!/bin/bash
+
+which ctags >/dev/null 2>&1 || exit
+
+git_dir="$(git rev-parse --git-dir)"
+git ls-files | ctags -R -f "${git_dir}/tags"
