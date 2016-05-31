@@ -54,6 +54,7 @@ set modeline                          " モードラインを有効
 set modelines=5                       " モードラインを上下5行まで検索
 set infercase                         " 補完時に大文字・小文字を区別しない
 set textwidth=0                       " 行あたりの最大文字数？を0に（formatoptions）
+set tags+=.git/tags                   " .gitにあるタグファイルも読む
 
 
 
