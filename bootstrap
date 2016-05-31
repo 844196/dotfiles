@@ -44,4 +44,5 @@ function Setup.symlink() {
 : 'other conig file' && {
     mkdir -p ~/.config/peco
     Setup.symlink etc/peco.json ~/.config/peco/config.json
+    Setup.symlink etc/ctags ~/.ctags
 }

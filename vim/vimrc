@@ -143,6 +143,9 @@ vnoremap * "zy:let @/ = @z<CR>nN
 " cしたときの元テキスト格納先レジスタを削除レジスタへ変更
 vnoremap c "_c
 
+" 縦分割でタグジャンプ
+nnoremap <C-]> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
+
 
 
 " File type
