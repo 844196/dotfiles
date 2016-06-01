@@ -24,3 +24,5 @@
     resume = stash pop
 [color]
     ui = auto
+[rebase]
+    autoSquash = true
