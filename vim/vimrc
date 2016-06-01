@@ -154,6 +154,7 @@ nnoremap <C-]> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
 augroup my_filetype
     autocmd!
     autocmd FileType help nnoremap <silent><buffer>q :quit<CR>
+    autocmd FileType help wincmd L
     autocmd FileType html,css,less,scss,ruby,yaml setlocal tabstop=2 shiftwidth=2
     autocmd FileType php setlocal noexpandtab tabstop=4 shiftwidth=4
     autocmd FileType html inoremap <buffer></ </<C-x><C-o>
