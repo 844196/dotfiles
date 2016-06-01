@@ -181,6 +181,7 @@ alias di='git diff'
 alias gg='git graph | head -n 15 | cat -n -'
 alias ga='git graph | cat -n - | less -RS'
 alias agit='vim -c Agit'
+alias rb='git rebase -i $(git log --graph --pretty=format:"%h -%d %s (%cr) <%an>" --abbrev-commit --date=relative | peco | sed -e "s/\([a-zA-Z0-9]\{1,\}\).*/\1/" -e "s/^[^a-zA-Z0-9]\{1,\}//g" | xargs git name-rev --ref=$(git rev-parse --abbrev-ref HEAD) --name-only)'
 
 # source
 source_target=(
