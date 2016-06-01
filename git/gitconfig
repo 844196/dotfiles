@@ -26,3 +26,4 @@
     ui = auto
 [rebase]
     autoSquash = true
+    autoStash = true
