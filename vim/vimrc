@@ -300,6 +300,8 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'editorconfig/editorconfig-vim'
         NeoBundle     'AndrewRadev/splitjoin.vim'
         NeoBundle     'AndrewRadev/linediff.vim'
+        NeoBundle     'majutsushi/tagbar'
+        NeoBundle     'Shougo/unite-outline'
 
     " completation
         NeoBundle     'Shougo/neocomplete.vim'
@@ -721,6 +723,14 @@ if s:bundle_tap('neosnippet.vim')
     smap <C-k> <Plug>(neosnippet_expand_or_jump)
     xmap <C-k> <Plug>(neosnippet_expand_target)
     smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+endif
+
+if s:bundle_tap('unite-outline')
+    nnoremap <silent> U :<C-u>Unite outline -vertical -direction=belowright<CR>
+endif
+
+if s:bundle_tap('tagbar')
+    nnoremap <silent> T :<C-u>TagbarToggle<CR>
 endif
 
 
