@@ -21,6 +21,6 @@
     logg = log --stat --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
     sync = !git fetch && git merge
     suspend = !git add -A && git stash
-    resume = pop
+    resume = stash pop
 [color]
     ui = auto
