@@ -302,6 +302,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'AndrewRadev/linediff.vim'
         NeoBundle     'majutsushi/tagbar'
         NeoBundle     'Shougo/unite-outline'
+        NeoBundle     'kmnk/vim-unite-giti'
 
     " completation
         NeoBundle     'Shougo/neocomplete.vim'
@@ -731,6 +732,11 @@ endif
 
 if s:bundle_tap('tagbar')
     nnoremap <silent> T :<C-u>TagbarToggle<CR>
+endif
+
+if s:bundle_tap('vim-unite-giti')
+    nnoremap <silent> <leader>s :<C-u>Unite giti/status<CR>
+    nnoremap <silent> <leader>d :<C-u>Unite giti/log<CR>
 endif
 
 
