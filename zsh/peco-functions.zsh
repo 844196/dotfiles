@@ -16,10 +16,6 @@
     fi
 }
 
-: 'ブランチ切り替え' && {
-    alias cb="git branch | peco | sed 's/^[\* ]\? //g' | xargs git checkout"
-}
-
 : 'Unite file_rec/git gitぽいやつ' && {
     functions peco-file_rec-git() {
         BUFFER="vim -O $(git ls-files | peco | tr '\n' ' ')"
@@ -28,4 +24,20 @@
     }
     zle -N peco-file_rec-git
     bindkey '^\' peco-file_rec-git
+}
+
+: 'コミット選択' && {
+    alias -g C='`git graph -n 200 | fzf --reverse --ansi | sed -e "s/\([a-zA-Z0-9]\{1,\}\).*/\1/" -e "s/^[^a-zA-Z0-9]\{1,\}//g"`'
+}
+
+: 'ブランチ選択' && {
+    alias -g B='`git branch | fzf --reverse --ansi | sed -e "s/^[\* ]\? //g"`'
+}
+
+: 'ブランチ切り替え' && {
+    alias cb='git checkout B'
+}
+
+: 'rebase -i' && {
+    alias rb='git rebase -i C'
 }
