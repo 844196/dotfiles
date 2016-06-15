@@ -331,6 +331,10 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
 
     " for php
         NeoBundle     'vim-scripts/smarty-syntax'
+
+    " for js
+        NeoBundle     'jelera/vim-javascript-syntax'
+        NeoBundle     'othree/javascript-libraries-syntax.vim'
 endif
 
 
