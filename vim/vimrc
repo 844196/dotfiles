@@ -335,6 +335,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     " for js
         NeoBundle     'jelera/vim-javascript-syntax'
         NeoBundle     'othree/javascript-libraries-syntax.vim'
+        NeoBundle     'othree/yajs.vim'
 endif
 
 
