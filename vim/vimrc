@@ -155,7 +155,7 @@ augroup my_filetype
     autocmd!
     autocmd FileType help nnoremap <silent><buffer>q :quit<CR>
     autocmd FileType help wincmd L
-    autocmd FileType html,css,less,scss,ruby,yaml setlocal tabstop=2 shiftwidth=2
+    autocmd FileType html,css,less,scss,ruby,yaml,javascript setlocal tabstop=2 shiftwidth=2
     autocmd FileType php setlocal noexpandtab tabstop=2 shiftwidth=2
     autocmd FileType html inoremap <buffer></ </<C-x><C-o>
     autocmd FileType markdown hi! def link markdownItalic Normal
