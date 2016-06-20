@@ -112,8 +112,6 @@ nnoremap <silent><Space>vn :<C-u>vnew<CR>
 nnoremap <silent><Space>st :<C-u>tabnew<CR>
 nnoremap <silent><Left> <C-w><
 nnoremap <silent><Right> <C-w>>
-nnoremap <silent><Up> <C-w>+
-nnoremap <silent><Down> <C-w>-
 nnoremap <silent><Tab> <C-w>w
 
 " toggle relative line number and column highlight
@@ -146,6 +144,11 @@ vnoremap c "_c
 
 " 縦分割でタグジャンプ
 nnoremap <C-]> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
+
+" 行を移動
+map K <nop>
+vnoremap K "zx<UP>"zP`[V`]
+vnoremap J "zx"zp`[V`]
 
 
 
