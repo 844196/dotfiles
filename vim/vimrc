@@ -297,6 +297,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundleLazy 'mattn/benchvimrc-vim'
         NeoBundle     'scrooloose/nerdtree'
         NeoBundle     'Xuyuanp/nerdtree-git-plugin'
+        NeoBundle     'jistr/vim-nerdtree-tabs'
         NeoBundleLazy 'thinca/vim-quickrun'
         NeoBundle     'tpope/vim-fugitive'
         NeoBundle     'Shougo/vimshell.vim'
@@ -533,6 +534,10 @@ if s:bundle_tap('nerdtree')
     let g:NERDTreeChDirMode = 1
     set mouse=a
     let g:NERDTreeMouseMode=3
+    " デフォルトでツリーを表示させる
+    let g:nerdtree_tabs_open_on_console_startup=1
+    " 他のバッファをすべて閉じた時にNERDTreeが開いていたらNERDTreeも一緒に閉じる。
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 endif
 
 if s:bundle_tap('vim-devicons')
