@@ -27,3 +27,5 @@
 [rebase]
     autoSquash = true
     autoStash = true
+[status]
+    showUntrackedFiles = all
