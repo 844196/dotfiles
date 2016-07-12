@@ -5,8 +5,6 @@
 	editor = vim
 	excludesfile = ~/dotfiles/git/gitignore_global
 	quotepath = false
-[init]
-    templatedir = ~/dotfiles/git/template
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 

@@ -307,6 +307,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'majutsushi/tagbar'
         NeoBundle     'Shougo/unite-outline'
         NeoBundle     'kmnk/vim-unite-giti'
+        NeoBundle     'soramugi/auto-ctags.vim'
 
     " completation
         NeoBundle     'Shougo/neocomplete.vim'
@@ -748,6 +749,11 @@ endif
 if s:bundle_tap('vim-unite-giti')
     nnoremap <silent> <leader>s :<C-u>Unite giti/status<CR>
     nnoremap <silent> <leader>d :<C-u>Unite giti/log<CR>
+endif
+
+if s:bundle_tap('auto-ctags.vim')
+    let g:auto_ctags = 1
+    let g:auto_ctags_directory_list = ['.git']
 endif
 
 
