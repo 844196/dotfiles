@@ -238,6 +238,13 @@ augroup special_key_highlight
     autocmd VimEnter,WinEnter * match NonText '^\s\+'
 augroup END
 
+" 外部でファイルが変更された場合（かつ、編集していない場合）は自動でリロードする
+set autoread
+augroup checktime
+    autocmd!
+    autocmd WinEnter * checktime
+augroup END
+
 
 
 " NeoBundle wrap functions
