@@ -134,7 +134,7 @@ nnoremap 0 ^
 nnoremap ^ 0
 
 " *しても次の候補へ移動しないように
-nnoremap * :<C-u>set hlsearch<CR>
+nnoremap * "zyiw:let @/ = @z<CR>:<C-u>set hlsearch<CR>
 
 " ビジュアルモードで選択中のテキストを検索
 vnoremap * "zy:let @/ = @z<CR>:<C-u>set hlsearch<CR>
