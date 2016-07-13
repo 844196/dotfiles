@@ -322,7 +322,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'Shougo/neosnippet-snippets'
 
     " for git
-        NeoBundleLazy 'cohama/agit.vim'
+        NeoBundle     'cohama/agit.vim'
         NeoBundle     'rhysd/committia.vim'
         NeoBundle     'mhinz/vim-signify'
 
