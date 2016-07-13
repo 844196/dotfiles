@@ -21,6 +21,7 @@ function Setup.symlink() {
     rm -f ~/.vimrc ~/.gvimrc ~/.viminfo
     Setup.symlink vim/vimrc ~/.vim/vimrc
     Setup.symlink vim/gvimrc ~/.vim/gvimrc
+    Setup.symlink vim/snippets ~/.vim/snippets
 }
 
 : 'install neobundle & vim plugins' && [[ ! -e ~/.vim/bundle/neobundle.vim ]] && {
