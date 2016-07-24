@@ -294,6 +294,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'NLKNguyen/papercolor-theme'
         NeoBundle     'w0ng/vim-hybrid'
         NeoBundle     'itchyny/lightline.vim'
+        NeoBundle     'cocopon/lightline-hybrid.vim'
 
     " util
         NeoBundle     'tomtom/tcomment_vim'
@@ -737,50 +738,7 @@ if s:bundle_tap('lightline.vim')
         \ 'left': [['mode', 'paste'], ['readonly', 'branch', 'filename', 'modified']],
         \ 'right': [['lineinfo'], ['filetype'], ['fileformat', 'fileencoding']]
         \ }
-
-    let s:p = {'normal': {}, 'insert': {}, 'visual': {}, 'replace': {}, 'inactive': {}, 'tabline': {}}
-    let s:p.normal.left = [
-        \ [0, 0, 8, 2],
-        \ [0, 0, 7, 8],
-        \ [0, 0, 7, 0],
-        \ ]
-    let s:p.insert.left = [
-        \ [0, 0, 11, 3],
-        \ [0, 0, 7, 8],
-        \ ]
-    let s:p.visual.left = [
-        \ [0, 0, 8, 6],
-        \ [0, 0, 7, 8],
-        \ ]
-    let s:p.replace.left = [
-        \ [0, 0, 9, 1],
-        \ [0, 0, 7, 8],
-        \ ]
-    let s:p.normal.middle = [
-        \ [0, 0, 0, 0],
-        \ ]
-    let s:p.normal.right = [
-        \ [0, 0, 8, 7],
-        \ [0, 0, 7, 8],
-        \ [0, 0, 7, 0],
-        \ ]
-    let s:p.tabline.tabsel = [
-        \ [0, 0, 8, 7],
-        \ ]
-    let s:p.tabline.left = [
-        \ [0, 0, 8, 0],
-        \ ]
-    let s:p.tabline.right = [
-        \ [0, 0, 8, 0],
-        \ ]
-    let s:p.inactive.middle = [
-        \ [0, 0, 8, 0]
-        \ ]
-    let s:p.inactive.left = s:p.inactive.middle
-    let s:p.inactive.right = s:p.inactive.middle
-
-    let lightline#colorscheme#modified_hybrid#palette = s:p
-    let g:lightline.colorscheme = 'modified_hybrid'
+    let g:lightline.colorscheme = 'hybrid'
 endif
 
 if s:bundle_tap('vim-fugitive') && neobundle#tap('nerdtree')
