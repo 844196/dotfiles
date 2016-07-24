@@ -176,10 +176,11 @@ function pcolor() {
 alias st='git status'
 alias ck='git checkout'
 alias br='git branch'
-alias co='git commit -v'
+alias co='git commit'
 alias di='git diff'
-alias gg='git graph | head -n 15 | cat -n -'
-alias ga='git graph | cat -n - | less -RS'
+alias ad='git add'
+alias gg='git graph -n 15'
+alias ga='git graph | less -RS'
 alias agit='vim -c Agit'
 
 # source
