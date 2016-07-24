@@ -1,4 +1,7 @@
 `which peco >/dev/null 2>&1` || return
+`which fzf >/dev/null 2>&1` || return
+
+export FZF_DEFAULT_OPTS="--reverse --multi --select-1 --exit-0 --cycle --inline-info --ansi"
 
 : 'コマンド履歴を<C-r>で表示' && {
     functions peco-history() {
@@ -18,7 +21,7 @@
 
 : 'Unite file_rec/git gitぽいやつ' && {
     functions peco-file_rec-git() {
-        BUFFER="vim -O $(git ls-files | peco | tr '\n' ' ')"
+        BUFFER="vim -O $(git ls-files | fzf | tr '\n' ' ')"
         CURSOR=$#BUFFER
         zle -R -c
     }
@@ -40,4 +43,8 @@
 
 : 'rebase -i' && {
     alias rb='git rebase -i C'
+}
+
+: 'unstage file select' && {
+    alias -g F='$(git status --porcelain | fzf-tmux | awk "{print \$2}")'
 }
