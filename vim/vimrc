@@ -422,7 +422,7 @@ if s:bundle_tap('vim-quickrun')
 
     let g:quickrun_config = {}
     let g:quickrun_config._ = {
-        \   "outputter/buffer/split": ":botright 8sp",
+        \   "outputter/buffer/split": ':lefta vertical',
         \   "outputter/buffer/close_on_empty": 0,
         \   "runner": "vimproc",
         \   "runner/vimproc/updatetime": 60
