@@ -294,8 +294,8 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'tomasr/molokai'
         NeoBundle     'NLKNguyen/papercolor-theme'
         NeoBundle     'w0ng/vim-hybrid'
-        NeoBundle     'itchyny/lightline.vim'
-        NeoBundle     'cocopon/lightline-hybrid.vim'
+        " NeoBundle     'itchyny/lightline.vim'
+        " NeoBundle     'cocopon/lightline-hybrid.vim'
 
     " util
         NeoBundle     'tomtom/tcomment_vim'
