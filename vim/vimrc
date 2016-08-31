@@ -502,6 +502,23 @@ if s:bundle_tap('unite.vim')
     if neobundle#is_installed('lightline.vim')
         let g:unite_force_overwrite_statusline=0
     endif
+
+    " menu
+    let g:unite_source_menu_menus = {}
+    let g:unite_source_menu_menus.shortcut = {
+        \ 'description': 'shortcut'
+        \ }
+    let g:unite_source_menu_menus.shortcut.command_candidates = [
+        \ ['one more search-buffer', 'UniteResume search-buffer'],
+        \ ['quickrun rev snippet', 'tabnew | 0r ~/.vim/templates/rev.template | set ft=php.rev | QuickRun'],
+        \ ['delete all buffer', '%bd'],
+        \ ['make help', 'Unite make/help'],
+        \ ['diff test', '!make diff_test'],
+        \ ]
+    command! UniteShortcut
+        \ Unite
+        \ menu:shortcut
+    nnoremap S :<C-u>UniteShortcut<CR>
 endif
 
 if s:bundle_tap('incsearch.vim')
