@@ -476,9 +476,9 @@ if s:bundle_tap('unite.vim')
     " <Leader>gでUnite grep
     function! DispatchUniteGrepOrGit()
         if isdirectory(getcwd()."/.git")
-            Unite grep/git:. -no-empty
+            Unite grep/git:. -no-empty -buffer-name=search-buffer
         else
-            Unite grep:. -no-empty
+            Unite grep:. -no-empty -buffer-name=search-buffer
         endif
     endfunction
     nnoremap <Leader>g :<C-u>call DispatchUniteGrepOrGit()<CR>
