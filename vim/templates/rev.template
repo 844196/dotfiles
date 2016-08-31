@@ -1,0 +1,29 @@
+<?php
+
+//   _____                   _____         _                      _
+//  |  __ \                 / ____|       (_)                    | |
+//  | |__) | ___ __   __   | (___   _ __   _  _ __   _ __    ___ | |_
+//  |  _  / / _ \\ \ / /    \___ \ | '_ \ | || '_ \ | '_ \  / _ \| __|
+//  | | \ \|  __/ \ V /     ____) || | | || || |_) || |_) ||  __/| |_
+//  |_|  \_\\___|  \_/     |_____/ |_| |_||_|| .__/ | .__/  \___| \__|
+//                                           | |    | |
+//                                           |_|    |_|
+
+// Record System Usage, memory peak and start time
+$startMemoryUsage = memory_get_usage();
+$startTime = microtime(true);
+
+// Snippet Body
+
+// System Usage Result Print
+echo PHP_EOL . '========== System Usage Result ==========' . PHP_EOL;
+printf("Process Time:         %f [s]\n", (microtime(true) - $startTime));
+printf("Max Memory Usage:     %f [MB]\n", ((memory_get_peak_usage() - $startMemoryUsage) / (1024 * 1024)));
+printf("CPU Process Use Time: %d\n", call_user_func(function () {
+    $rusage = getrusage();
+    return $rusage['ru_utime.tv_sec'] * 1000000 + $rusage['ru_utime.tv_usec'];
+}));
+echo '=========================================' . PHP_EOL;
+
+// Good Bye
+exit;
