@@ -318,6 +318,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'Shougo/unite-outline'
         NeoBundle     'kmnk/vim-unite-giti'
         NeoBundle     'soramugi/auto-ctags.vim'
+        NeoBundle     'Shougo/neomru.vim'
 
     " completation
         NeoBundle     'Shougo/neocomplete.vim'
