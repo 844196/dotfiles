@@ -519,6 +519,33 @@ if s:bundle_tap('unite.vim')
         \ Unite
         \ menu:shortcut
     nnoremap S :<C-u>UniteShortcut<CR>
+
+    function! neobundle#hooks.on_source(bundle)
+        let s:make_help_source = {
+            \ 'name': 'make/help',
+            \ 'syntax': 'uniteSource__Make_Help',
+            \ 'hooks': {},
+            \ }
+        function! s:make_help_source.gather_candidates(args, context)
+            let s:candidate_map = map(systemlist('make help'), '{
+                \ "task": split(substitute(v:val, "\\e\\[[0-9;]\\+[mK]", "", "g"), "\\s\\{2,\\}")[0],
+                \ "description": split(substitute(v:val, "\\e\\[[0-9;]\\+[mK]", "", "g"), "\\s\\{2,\\}")[1],
+                \ }')
+            let s:padding = max(map(copy(s:candidate_map), 'strlen(v:val.task)'))
+            return map(copy(s:candidate_map), '{
+                \ "word": printf("%-" . s:padding . "S  --  %s", v:val.task, v:val.description),
+                \ "soruce": "make/help",
+                \ "kind": "command",
+                \ "action__command": (v:val.description =~ "[cC][lL][eE][aA][rR]" ? "!sudo make" : "!make") . " " . v:val.task,
+                \ }')
+        endfunction
+        function! s:make_help_source.hooks.on_syntax(args, context)
+            syntax match uniteSource__Make_Help_Task /[a-zA-Z_-]\+\ze\s*--/
+                \ contained containedin=uniteSource__Make_Help
+            highlight! default link uniteSource__Make_Help_Task ModeMsg
+        endfunction
+        call unite#define_source(s:make_help_source)
+    endfunction
 endif
 
 if s:bundle_tap('incsearch.vim')
