@@ -21,6 +21,7 @@
     suspend = !git add -A && git stash
     resume = stash pop
     unstage = reset
+    changelog = log --pretty=format:'* %s' --reverse master..HEAD
 [color]
     ui = auto
 [rebase]
