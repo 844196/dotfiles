@@ -464,6 +464,9 @@ if s:bundle_tap('unite.vim')
     " タブ一覧をUniteに置き換え
     nnoremap <Leader>t :<C-u>Unite tab<CR>
 
+    " /の代わり
+    nnoremap ?? :<C-u>Unite line<CR>
+
     " <Leader><Leader>でUnite file
     function! DispatchUniteFileRecAsyncOrGit()
         if isdirectory(getcwd()."/.git")
