@@ -22,6 +22,7 @@
     resume = stash pop
     unstage = reset
     changelog = log --pretty=format:'* %s' --reverse master..HEAD
+    today = !git log --author=`git config user.name` --since=midnight --branches --no-merges --oneline --reverse
 [color]
     ui = auto
 [rebase]

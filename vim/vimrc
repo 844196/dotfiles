@@ -514,6 +514,7 @@ if s:bundle_tap('unite.vim')
         \ ['delete all buffer', '%bd'],
         \ ['make help', 'Unite make/help'],
         \ ['diff test', '!make diff_test'],
+        \ ['run phpunit', '!phpunit %'],
         \ ]
     command! UniteShortcut
         \ Unite
