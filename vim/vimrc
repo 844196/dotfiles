@@ -513,12 +513,13 @@ if s:bundle_tap('unite.vim')
         \ 'description': 'shortcut'
         \ }
     let g:unite_source_menu_menus.shortcut.command_candidates = [
-        \ ['one more search-buffer', 'UniteResume search-buffer'],
-        \ ['quickrun rev snippet', 'tabnew | 0r ~/.vim/templates/rev.template | set ft=php.rev | QuickRun'],
-        \ ['delete all buffer', '%bd'],
-        \ ['make help', 'Unite make/help'],
-        \ ['diff test', '!make diff_test'],
-        \ ['run phpunit', '!phpunit %'],
+        \ ['Reopen search-buffer', 'UniteResume search-buffer'],
+        \ ['Create quickrun rev snippet buffer', 'tabnew | 0r ~/.vim/templates/rev.template | set ft=php.rev | QuickRun'],
+        \ ['Delete all buffer', '%bd'],
+        \ ['Show make task', 'Unite make/help'],
+        \ ['Run diff test', '!make diff_test'],
+        \ ['Run test', '!phpunit %'],
+        \ ['Open test file', "execute 'vsplit ' . substitute(substitute(expand('%'), '^src/', 'tests/', ''), '\.php$', 'Test\.php', '')"],
         \ ]
     command! UniteShortcut
         \ Unite
