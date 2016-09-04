@@ -294,7 +294,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'tomasr/molokai'
         NeoBundle     'NLKNguyen/papercolor-theme'
         NeoBundle     'w0ng/vim-hybrid'
-        " NeoBundle     'itchyny/lightline.vim'
+        NeoBundle     'itchyny/lightline.vim'
         " NeoBundle     'cocopon/lightline-hybrid.vim'
         NeoBundle     'vol2223/vim-colorblind-colorscheme'
 
@@ -329,7 +329,8 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     " for git
         NeoBundle     'cohama/agit.vim'
         NeoBundle     'rhysd/committia.vim'
-        NeoBundle     'mhinz/vim-signify'
+        " NeoBundle     'mhinz/vim-signify'
+        NeoBundle     'airblade/vim-gitgutter'
 
     " for html
         NeoBundleLazy 'mattn/emmet-vim'
@@ -788,13 +789,175 @@ endif
 if s:bundle_tap('lightline.vim')
     let g:lightline = {}
     let g:lightline.component = {
-        \ 'filename': '%F',
-        \ 'branch': '%{fugitive#head()}'
+        \ 'filename': '%f',
+        \ 'lineinfo': '%l:%c',
+        \ 'fullpath': '%F',
+        \ 'branch': '%{fugitive#head()}',
+        \ }
+    let g:lightline.component_function = {
+        \ 'countChangeLines': 'MyCountChangeLines',
         \ }
     let g:lightline.active = {
-        \ 'left': [['mode', 'paste'], ['readonly', 'branch', 'filename', 'modified']],
+        \ 'left': [['mode', 'paste'], ['branch', 'countChangeLines'], ['readonly', 'filename', 'modified']],
         \ 'right': [['lineinfo'], ['filetype'], ['fileformat', 'fileencoding']]
         \ }
+    let g:lightline.inactive = {
+        \ 'left': [['fullpath']],
+        \ 'right': [['branch', 'countChangeLines']],
+        \ }
+    let g:lightline.tabline = {
+        \ 'left': [['tabs']],
+        \ 'right': [],
+        \ }
+
+    function! MyCountChangeLines() abort
+        let s:sign = ['+', '~', '-']
+        let s:ret = map(copy(GitGutterGetHunkSummary()), 's:sign[v:key] . v:val')
+        return join(s:ret, ' ')
+    endfunction
+
+    let s:p = {
+        \ 'normal': {},
+        \ 'insert': {},
+        \ 'visual': {},
+        \ 'replace': {},
+        \ 'inactive': {},
+        \ 'tabline': {},
+        \ }
+
+    let s:black = {
+        \   'dark': {
+        \     'gui': '#282a2e',
+        \     'cli': 0
+        \   },
+        \   'light': {
+        \     'gui': '#373b41',
+        \     'cli': 8
+        \   }
+        \ }
+    let s:red = {
+        \   'dark': {
+        \     'gui': '#a54242',
+        \     'cli': 1
+        \   },
+        \   'light': {
+        \     'gui': '#cc6666',
+        \     'cli': 9
+        \   }
+        \ }
+    let s:green = {
+        \   'dark': {
+        \     'gui': '#8c9440',
+        \     'cli': 2
+        \   },
+        \   'light': {
+        \     'gui': '#b5bd68',
+        \     'cli': 10
+        \   }
+        \ }
+    let s:yellow = {
+        \   'dark': {
+        \     'gui': '#de935f',
+        \     'cli': 3
+        \   },
+        \   'light': {
+        \     'gui': '#f0c674',
+        \     'cli': 11
+        \   }
+        \ }
+    let s:blue = {
+        \   'dark': {
+        \     'gui': '#5f819d',
+        \     'cli': 4
+        \   },
+        \   'light': {
+        \     'gui': '#81a2be',
+        \     'cli': 12
+        \   }
+        \ }
+    let s:magenta = {
+        \   'dark': {
+        \     'gui': '#85678f',
+        \     'cli': 5
+        \   },
+        \   'light': {
+        \     'gui': '#b294bb',
+        \     'cli': 13
+        \   }
+        \ }
+    let s:cyan = {
+        \   'dark': {
+        \     'gui': '#5e8d87',
+        \     'cli': 6
+        \   },
+        \   'light': {
+        \     'gui': '#8abeb7',
+        \     'cli': 14
+        \   }
+        \ }
+    let s:white = {
+        \   'dark': {
+        \     'gui': '#707880',
+        \     'cli': 7
+        \   },
+        \   'light': {
+        \     'gui': '#c5c8c6',
+        \     'cli': 15
+        \   }
+        \ }
+
+    " [[guifg, guibg, ctermfg, ctermbg], ...]
+
+    " statusline base
+    let s:p.normal.middle = [
+        \ [s:white.dark.gui, s:black.dark.gui, s:white.dark.cli, s:black.dark.cli],
+        \ ]
+    let s:p.normal.right = [
+        \ [s:black.light.gui, s:white.dark.gui, s:black.light.cli, s:white.dark.cli],
+        \ [s:white.dark.gui, s:black.light.gui, s:white.dark.cli, s:black.light.cli],
+        \ [s:white.dark.gui, s:black.dark.gui, s:white.dark.cli, s:black.dark.cli],
+        \ ]
+
+    " normal
+    let s:p.normal.left = [
+        \ [s:black.light.gui, s:green.dark.gui, s:black.light.cli, s:green.dark.cli],
+        \ [s:white.dark.gui, s:black.light.gui, s:white.dark.cli, s:black.light.cli],
+        \ ]
+
+    " insert
+    let s:p.insert.left = [
+        \ [s:black.light.gui, s:yellow.dark.gui, s:black.light.cli, s:yellow.dark.cli],
+        \ ]
+
+    " visual
+    let s:p.visual.left = [
+        \ [s:black.light.gui, s:cyan.dark.gui, s:black.light.cli, s:cyan.dark.cli],
+        \ ]
+
+    " replace
+    let s:p.replace.left = [
+        \ [s:black.light.gui, s:magenta.dark.gui, s:black.light.cli, s:magenta.dark.cli],
+        \ ]
+
+    " inactive
+    let s:p.inactive.middle = [
+        \ [s:black.light.gui, s:black.dark.gui, s:black.light.cli, s:black.dark.cli],
+        \ ]
+    let s:p.inactive.left = s:p.inactive.middle
+    let s:p.inactive.right = s:p.inactive.middle
+
+    " tabline colorscheme
+    let s:p.tabline.tabsel = [
+        \ [s:white.light.gui, s:cyan.dark.gui, s:white.light.cli, s:cyan.dark.cli],
+        \ ]
+    let s:p.tabline.middle = [
+        \ [s:white.dark.gui, s:black.dark.gui, s:white.dark.cli, s:black.dark.cli],
+        \ ]
+    let s:p.tabline.left = s:p.tabline.middle
+    let s:p.tabline.right = s:p.tabline.middle
+
+    " subscribe
+    let lightline#colorscheme#hybrid#palette = s:p
     let g:lightline.colorscheme = 'hybrid'
 endif
 
@@ -811,6 +974,12 @@ if s:bundle_tap('vim-signify')
     nnoremap <silent><space>r :<C-u>SignifyRefresh<CR>
     nmap <silent><space>j <Plug>(signify-next-hunk)
     nmap <silent><space>k <Plug>(signify-prev-hunk)
+endif
+
+if s:bundle_tap('vim-gitgutter')
+    nnoremap <silent><space>h :<C-u>GitGutterLineHighlightsToggle<CR>
+    nnoremap <silent><space>j :<C-u>GitGutterNextHunk<CR>
+    nnoremap <silent><space>k :<C-u>GitGutterPrevHunk<CR>
 endif
 
 if s:bundle_tap('neosnippet.vim')
