@@ -948,7 +948,7 @@ if s:bundle_tap('lightline.vim')
 
     " tabline colorscheme
     let s:p.tabline.tabsel = [
-        \ [s:white.light.gui, s:cyan.dark.gui, s:white.light.cli, s:cyan.dark.cli],
+        \ [s:black.dark.gui, s:white.dark.gui, s:black.dark.cli, s:white.dark.cli],
         \ ]
     let s:p.tabline.middle = [
         \ [s:white.dark.gui, s:black.dark.gui, s:white.dark.cli, s:black.dark.cli],
