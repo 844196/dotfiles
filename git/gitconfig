@@ -22,7 +22,7 @@
     resume = stash pop
     unstage = reset
     changelog = log --pretty=format:'* %s' --reverse master..HEAD
-    today = !git log --author=`git config user.name` --since=midnight --branches --no-merges --oneline --reverse
+    today = !git log --author=`git config user.name` --since=midnight --branches --no-merges --oneline --reverse --pretty=format:'%h\t%s' | awk -F $'\t' '!colname[$2]++{print $1, $2}'
     count = diff master..HEAD --stat
 [color]
     ui = auto
