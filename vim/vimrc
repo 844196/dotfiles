@@ -246,6 +246,12 @@ augroup checktime
     autocmd WinEnter * checktime
 augroup END
 
+" 挿入モードを抜けた際、強制的にペーストモードを解除する
+augroup leave_paste_mode_auto
+    autocmd!
+    autocmd InsertLeave * set nopaste
+augroup END
+
 
 
 " NeoBundle wrap functions
@@ -521,6 +527,7 @@ if s:bundle_tap('unite.vim')
         \ ['Run diff test', '!make diff_test'],
         \ ['Run test', '!phpunit %'],
         \ ['Open test file', "execute 'vsplit ' . substitute(substitute(expand('%'), '^src/', 'tests/', ''), '\.php$', 'Test\.php', '')"],
+        \ ['Toggle paste mode', 'set paste!']
         \ ]
     command! UniteShortcut
         \ Unite
