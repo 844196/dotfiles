@@ -175,7 +175,7 @@ function pcolor() {
 # Git
 alias st='git status'
 alias ck='git checkout'
-alias br='git branch'
+alias br='git branch -vv'
 alias co='git commit'
 alias di='git diff'
 alias ad='git add'
