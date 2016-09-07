@@ -602,6 +602,8 @@ if s:bundle_tap('incsearch.vim')
     map ? <Plug>(incsearch-backward)
     map n <Plug>(incsearch-nohl-n)zz
     map N <Plug>(incsearch-nohl-N)zz
+
+    let g:incsearch#magic = '\v'
 endif
 
 if s:bundle_tap('vim-over')
