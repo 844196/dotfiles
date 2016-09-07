@@ -534,7 +534,8 @@ if s:bundle_tap('unite.vim')
         \ menu:shortcut
     nnoremap S :<C-u>UniteShortcut<CR>
 
-    inoremap <C-x><C-x> <ESC>:Unite php/namespace<CR>
+    inoremap <C-x><C-x> <ESC>:<C-u>Unite file_rec/git:src/:--cached -default-action=continuous_insert -direction=botright -prompt-direction=top<CR>
+
     function! neobundle#hooks.on_source(bundle)
         let s:make_help_source = {
             \ 'name': 'make/help',
@@ -561,21 +562,28 @@ if s:bundle_tap('unite.vim')
         endfunction
         call unite#define_source(s:make_help_source)
 
-        let s:php_namespace_source = {
-            \ 'name': 'php/namespace',
-            \ 'default_action': 'append',
+        let s:action = {
+            \ 'description': 'insert word, continuous insert mode',
             \ }
-        function! s:php_namespace_source.gather_candidates(args, context)
-            let s:command_result = systemlist(
-                \ "git ls-files | grep -e '^src/' | sed -e 's;^[^/]*/;;g' -e 's/\.php$//g' | grep -e '^[A-Z]' | sed -e 'y;/;\\\\;'"
+        function! s:action.func(candidate) abort
+            let s:namespace = substitute(
+                \ a:candidate.word, '^src/\(.*\)\.php', '\=tr(submatch(1), "/", "\\")', 'g'
                 \ )
-            return map(copy(s:command_result), '{
-                \ "word": v:val,
-                \ "source": "php/namespace",
-                \ "kind": "word",
-                \ }')
+            let s:old_register = {
+                \ 'type': getregtype('"'),
+                \ 'value': getreg('"'),
+                \ }
+            call setreg('"', s:namespace, 'v')
+            if (col('$') > 1 && col('.') != (col('$') - 1))
+                execute 'normal! ""gp'
+                startinsert
+            else
+                execute 'normal! ""p'
+                startinsert!
+            endif
+            call setreg('"', s:old_register.value, s:old_register.type)
         endfunction
-        call unite#define_source(s:php_namespace_source)
+        call unite#custom#action('source/file_rec/git/*', 'continuous_insert', s:action)
     endfunction
 endif
 
