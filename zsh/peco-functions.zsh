@@ -34,7 +34,7 @@ export FZF_DEFAULT_OPTS="--reverse --multi --select-1 --exit-0 --cycle --inline-
 }
 
 : 'ブランチ選択' && {
-    alias -g B='`git branch | fzf --reverse --ansi | sed -e "s/^[\* ]\? //g"`'
+    alias -g B='`git branch | fzf --reverse --ansi --exact | sed -e "s/^[\* ]\? //g"`'
 }
 
 : 'ブランチ切り替え' && {
