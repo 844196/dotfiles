@@ -339,7 +339,6 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'cohama/agit.vim'
         NeoBundle     'rhysd/committia.vim'
         " NeoBundle     'mhinz/vim-signify'
-        NeoBundle     'airblade/vim-gitgutter'
 
     " for html
         NeoBundleLazy 'mattn/emmet-vim'
@@ -835,27 +834,20 @@ if s:bundle_tap('lightline.vim')
         \ 'branch': '%{fugitive#head()}',
         \ }
     let g:lightline.component_function = {
-        \ 'countChangeLines': 'MyCountChangeLines',
         \ 'anzu': 'anzu#search_status',
         \ }
     let g:lightline.active = {
-        \ 'left': [['mode', 'paste'], ['branch', 'countChangeLines'], ['readonly', 'filename', 'modified']],
+        \ 'left': [['mode', 'paste'], ['branch'], ['readonly', 'filename', 'modified']],
         \ 'right': [['lineinfo', 'anzu'], ['filetype'], ['fileformat', 'fileencoding']]
         \ }
     let g:lightline.inactive = {
         \ 'left': [['fullpath']],
-        \ 'right': [['branch', 'countChangeLines']],
+        \ 'right': [['branch']],
         \ }
     let g:lightline.tabline = {
         \ 'left': [['tabs']],
         \ 'right': [],
         \ }
-
-    function! MyCountChangeLines() abort
-        let s:sign = ['+', '~', '-']
-        let s:ret = map(copy(GitGutterGetHunkSummary()), 's:sign[v:key] . v:val')
-        return join(s:ret, ' ')
-    endfunction
 endif
 
 if s:bundle_tap('vim-fugitive') && neobundle#tap('nerdtree')
