@@ -1,0 +1,41 @@
+#!/bin/bash
+
+TERMINAL_WIDTH=$(tput cols)
+
+[[ ${TERMINAL_WIDTH} -gt 70 ]] && {
+    clear
+    r=$(printf "\x1b[48;05;1m  \x1b[0m")
+    m=$(printf "\x1b[48;05;7m  \x1b[0m")
+    max="$(echo $(( ${TERMINAL_WIDTH} <= 140 ? (${TERMINAL_WIDTH} - 70) / 2 : 35 )))"
+    padding="$(for i in $(seq 0 ${max}); { printf ' '; })"
+echo "
+${padding}        $r
+${padding}              $r                  $m              $m
+${padding}  $r$r  $r  $r$r$r        $m$m  $m$m$m    $m$m  $m$m$m  $m  $m    $m$m
+${padding}$r  $r  $r    $r        $m$m      $m    $m  $m    $m    $m  $m  $m$m
+${padding}  $r$r  $r    $r          $m$m    $m    $m  $m    $m    $m  $m    $m$m
+${padding}    $r  $r    $r$r      $m$m      $m$m    $m$m    $m$m  $m$m$m  $m$m
+${padding}$r$r"
+}
+
+function section() {
+    text="${*}"
+    max="$(echo $(( ${TERMINAL_WIDTH} <= 140 ? (${TERMINAL_WIDTH} - 1) : 140 )))"
+    padding="$(for i in $(seq 1 $((${max} - ${#text}))); { printf ' '; })"
+    echo -en "\n$(printf "\x1b[48;05;0m\x1b[38;05;7m") ${text}${padding}$(printf "\x1b[0m")\n"
+}
+
+section 'Branch' && {
+    git branch -vv --color=always | sed 's/^/  /g'
+}
+
+section 'Status' && {
+    git status --untracked-files --porcelain \
+        | sed \
+            -e "s/^\(.  .*\)/  `printf "\x1b[38;05;2m"`\1`printf "\x1b[0m/g"`" \
+            -e "s/^\(.. .*\)/  `printf "\x1b[38;05;1m"`\1`printf "\x1b[0m/g"`"
+}
+
+section 'Diff' && {
+    git diff master --stat --color=always --stat-width=${TERMINAL_WIDTH} | sed 's/^/ /g'
+}
