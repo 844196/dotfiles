@@ -339,6 +339,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'cohama/agit.vim'
         NeoBundle     'rhysd/committia.vim'
         " NeoBundle     'mhinz/vim-signify'
+        NeoBundle     'airblade/vim-gitgutter'
 
     " for html
         NeoBundleLazy 'mattn/emmet-vim'
