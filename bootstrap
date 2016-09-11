@@ -47,4 +47,5 @@ function Setup.symlink() {
     mkdir -p ~/.config/peco
     Setup.symlink etc/peco.json ~/.config/peco/config.json
     Setup.symlink etc/ctags ~/.ctags
+    Setup.symlink bin
 }

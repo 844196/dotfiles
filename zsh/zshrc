@@ -173,7 +173,7 @@ function pcolor() {
 }
 
 # Git
-alias st='git status'
+alias st='git status-pretty'
 alias ck='git checkout'
 alias br='git branch -vv'
 alias co='git commit'
@@ -204,5 +204,8 @@ if [ -z "${TMUX}" -a -z "${STY}" ]; then
         fi
     fi
 fi
+
+# my bin
+path=($HOME/bin(N-/) $path)
 
 typeset -U path cdpath fpath manpath
