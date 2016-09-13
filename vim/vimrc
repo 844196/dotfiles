@@ -453,6 +453,12 @@ if s:bundle_tap('vim-quickrun')
         \ 'cmdopt' : 'console',
         \ 'exec'   : 'cat %s | grep -v "<?php" | grep -v "[\s\t]*//" | tr "\n" " " | %c %o'
         \ }
+    let g:quickrun_config.json = {
+        \ 'outputter/buffer/filetype': 'json',
+        \ 'command': 'jq',
+        \ 'cmdopt': '.',
+        \ 'exec': 'cat %s | sed "s/[\\]\"/\"/g" |  %c %o',
+        \ }
 
     " <C-c>でquickrun停止
     nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
