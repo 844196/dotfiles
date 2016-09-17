@@ -1,15 +1,3 @@
-() {
-    d="$(tput smso)  $(tput rmso)"
-    clear
-    echo "
-     $d  $d    $d      $d  $d      $d              $d                  $d
-   $d$d$d$d$d  $d    $d    $d          $d$d      $d    $d$d$d    $d$d  $d
-     $d  $d    $d    $d    $d$d    $d  $d  $d    $d        $d  $d$d    $d$d
-   $d$d$d$d$d      $d      $d  $d  $d  $d  $d  $d        $d      $d$d  $d  $d
-     $d  $d    $d  $d      $d$d    $d  $d  $d  $d      $d$d$d  $d$d    $d  $d
-    "
-}
-
 # 補完
 autoload -U compinit; compinit
 setopt -U auto_cd
@@ -194,18 +182,20 @@ source_target=(
 
 for target in ${source_target[*]}; { [[ -f "$target" ]] && source "$target"; }
 
-# tmux自動起動
-if [ -z "${TMUX}" -a -z "${STY}" ]; then
-    if type tmux >/dev/null 2>&1; then
-        if tmux has-session && tmux list-sessions | grep -q '.*]$'; then
-            tmux attach
-        else
-            tmux new-session
-        fi
-    fi
-fi
-
 # my bin
 path=($HOME/bin(N-/) $path)
 
 typeset -U path cdpath fpath manpath
+
+() {
+    d="$(tput smso)  $(tput rmso)"
+    clear
+    echo "
+     $d  $d    $d      $d  $d      $d              $d                  $d
+   $d$d$d$d$d  $d    $d    $d          $d$d      $d    $d$d$d    $d$d  $d
+     $d  $d    $d    $d    $d$d    $d  $d  $d    $d        $d  $d$d    $d$d
+   $d$d$d$d$d      $d      $d  $d  $d  $d  $d  $d        $d      $d$d  $d  $d
+     $d  $d    $d  $d      $d$d    $d  $d  $d  $d      $d$d$d  $d$d    $d  $d"
+}
+
+~/bin/tmux-wrapper
