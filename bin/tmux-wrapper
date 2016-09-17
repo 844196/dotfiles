@@ -1,0 +1,101 @@
+#!/bin/bash
+
+X=`tput cols`
+Y=`tput lines`
+
+function maxCharSize() {
+    cat - | sed "s,`printf '\x1b'`\[[0-9;]*[a-zA-Z],,g" | awk '{cl=length($0);if(ml<cl)ml=cl}END{print(ml)}'
+}
+
+function centering() {
+    content="$(cat -)"
+    max="$(echo "${content}" | maxCharSize)"
+    margin="$(
+        for i in $(seq 1 $(((X - max) / 2))); {
+            printf ' ';
+        }
+    )"
+    echo "${content}" | sed "s/^/${margin}/g"
+}
+
+function middling() {
+    content="$(cat -)"
+    lines="$(echo "${content}" | awk 'END{print NR}')"
+    margin="$(
+        for i in $(seq 1 $(((Y - lines) / 2))); {
+            printf " \n";
+        }
+    )"
+    echo "${margin}"
+    echo "${content}"
+}
+
+function logo() {
+    w=$(printf "\x1b[48;05;1m  \x1b[0m")
+    cat <<-EOF
+	$w$w$w      $w  $w      $w  $w      $w  $w
+	  $w        $w$w$w      $w  $w      $w  $w
+	  $w        $w$w$w      $w  $w        $w  
+	  $w        $w  $w      $w  $w      $w  $w
+	  $w        $w  $w      $w$w$w      $w  $w
+	EOF
+}
+
+function separator() {
+    width=$(($1 + 20))
+    printf "\x1b[48;05;1m%-${width}s\x1b[0m" ''
+}
+
+function candidates() {
+    tmux list-sessions
+}
+
+: 'guard' && {
+    { which tmux > /dev/null 2>&1 && [[ -z "${TMUX}" ]]; } || exit 1
+}
+
+: 'trap' && {
+    trap "clear; tput cnorm; exit;" EXIT
+    trap "clear; tput cnorm; exit 1;" SIGINT
+}
+
+: 'main' && {
+    clear
+
+    if tmux has-session > /dev/null 2>&1; then
+        cat \
+            <(logo | centering) \
+            <(echo) \
+            <(separator $(candidates | maxCharSize) | centering) \
+            <(echo) \
+            <(candidates | centering) \
+            | middling
+
+        p="$(
+            for i in $(seq 1 $(((X - $(candidates | maxCharSize)) / 2))); {
+                printf ' '
+            }
+        )"
+        printf "${p}>_ "; read answer
+
+        case ${answer} in
+            'new')
+                tmux new-session
+                ;;
+            *)
+                if tmux list-sessions | grep ${answer} > /dev/null 2>&1; then
+                    tmux attach -t ${answer}
+                else
+                    tmux attach # attach recently session
+                fi
+                ;;
+        esac
+    else
+        tput civis
+        cat <(logo | centering) | middling
+        sleep 1
+        tmux new-session
+    fi
+
+    clear
+}
