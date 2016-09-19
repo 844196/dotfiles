@@ -1,0 +1,23 @@
+#!/bin/bash
+
+h=$(printf "\x1b[48;05;223m   \x1b[0m") # 肌色
+b=$(printf "\x1b[48;05;232m   \x1b[0m") # 黒色
+s=$(printf "\x1b[48;05;172m   \x1b[0m") # 茶色1
+t=$(printf "\x1b[48;05;130m   \x1b[0m") # 茶色2
+
+cat <<EOF
+   $b$b$b      $b$b$b$b$b$b$b$b$b$b$b$b$b$b$b$b
+   $b$t$t$b$b$t$t$t$t$t$t$t$t$t$t$t$t$t$t$t$t$b$b
+      $b$s$s$s$s$t$t$t$t$t$t$t$t$t$t$t$s$s$s$s$t$t$b
+      $b$b$s$s$s$s$s$s$s$s$s$s$s$s$s$s$s$s$t$t$t$t$t$b
+   $b$t$t$t$s$b$b$s$s$s$b$b$b$b$b$s$t$t$t$t$t$t$t$t$b
+$b$t$t$t$t$b$h$b$t$t$b$h$h$h$h$b$t$t$b$t$t$t$t$t$t$t$b
+$b$t$b$t$t$b$h$h$b$t$b$h$h$h$h$h$b$t$b$t$b$t$t$t$b$t$b
+$b$t$b$t$b$h$b$h$b$b$h$h$h$h$b$h$h$b$b$t$t$b$t$b$t$t$t$b
+   $b$t$b$b$h$b$h$h$h$h$h$h$h$b$h$h$b$t$t$t$t$b$t$t$t$t$b
+   $b$t$b$h$h$b$h$h$h$h$h$h$h$b$h$h$b$t$t$t$b$t$b$t$t$t$t$b
+   $b$t$b$h$h$b$h$h$h$h$h$h$h$b$h$h$b$t$t$b$t$t$t$b$t$t$t$b
+$b$t$b$b$h$h$h$h$b$h$h$h$b$h$h$h$b$t$b$b$t$t$t$t$t$t$b$b$b
+$b$b$b$t$b$h$h$h$h$b$b$b$h$h$h$h$b$b$h$b$b$t$b$t$b$t$b
+         $b$b$b$b$b$b$b$b$b$b$b$b$b$b$b$b$b$b$b   $b$b$b$b
+EOF
