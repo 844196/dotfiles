@@ -211,6 +211,7 @@ for target in ${source_target[*]}; { [[ -f "$target" ]] && source "$target"; }
 
 # my bin
 path=($HOME/bin(N-/) $path)
+fpath=(`brew --prefix`/share/zsh/site-functions(N-/) $fpath)
 
 typeset -U path cdpath fpath manpath
 
