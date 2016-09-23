@@ -55,6 +55,7 @@ set modelines=5                       " モードラインを上下5行まで検
 set infercase                         " 補完時に大文字・小文字を区別しない
 set textwidth=0                       " 行あたりの最大文字数？を0に（formatoptions）
 set tags+=.git/tags                   " .gitにあるタグファイルも読む
+set ttimeoutlen=10                    " キーシーケンス終了の待ち時間を短く
 
 
 
