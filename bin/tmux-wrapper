@@ -51,7 +51,7 @@ function candidates() {
 }
 
 : 'guard' && {
-    { which tmux > /dev/null 2>&1 && [[ -z "${TMUX}" ]]; } || exit 1
+    { which tmux > /dev/null 2>&1 && [[ -z "${TMUX}" ]]; } || exit 0
 }
 
 : 'trap' && {
