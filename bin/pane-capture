@@ -1,0 +1,3 @@
+#!/bin/bash
+
+tmux capture-pane -S -100000; tmux new-window 'tmux show-buffer | vim + -c "set nonumber" -'
