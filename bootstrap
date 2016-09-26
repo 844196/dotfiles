@@ -32,6 +32,11 @@ function Setup.symlink() {
     git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 }
 
+: 'install zplug' && [[ ! -e ~/.zplug/init.zsh ]] && {
+    mkdir -p ~/.zplug
+    git clone https://github.com/zplug/zplug ~/.zplug
+}
+
 : 'copy zshenv & zshrc, peco-functions' && {
     Setup.symlink zsh/zshenv ~/.zshenv
     Setup.symlink zsh/zshrc ~/.zshrc

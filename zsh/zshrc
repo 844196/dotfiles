@@ -198,24 +198,26 @@ alias gg='git graph -n 15'
 alias ga='git graph | less -RS'
 alias agit='vim -c Agit'
 
-# source
-source_target=(
-    /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-    /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-    /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-    $HOME/.zshrc_local
-    $HOME/etc/peco-functions.zsh
-    $HOME/.zsh/site-functions/peco-functions.zsh
-)
+: 'zplug configure' && [[ -e ~/.zplug/init.zsh ]] && {
+    source ~/.zplug/init.zsh
 
-for target in ${source_target[*]}; { [[ -f "$target" ]] && source "$target"; }
+    zplug "zplug/zplug"
+    zplug "zsh-users/zsh-autosuggestions", nice:18
+    zplug "zsh-users/zsh-syntax-highlighting", nice:19
+    zplug "~/.zsh/site-functions/peco-functions.zsh", from:local
+    zplug "~/.zshrc_local", from:local
+
+    zplug load
+}
+
 
 # zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7"
 
-# my bin
-path=($HOME/bin(N-/) $path)
-fpath=(`brew --prefix`/share/zsh/site-functions(N-/) $fpath)
+: 'homebrew binary' && {
+    path=(`brew --prefix`/bin(N-/) $path)
+    fpath=(`brew --prefix`/share/zsh/site-functions(N-/) $fpath)
+}
 
 typeset -U path cdpath fpath manpath
 

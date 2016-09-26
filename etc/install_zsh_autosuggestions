@@ -1,7 +1,0 @@
-#!/bin/bash
-
-set -e
-set -x
-
-sudo mkdir -p /usr/local/share
-sudo git clone https://github.com/zsh-users/zsh-autosuggestions /usr/local/share/zsh-autosuggestions
