@@ -201,6 +201,7 @@ alias agit='vim -c Agit'
 # source
 source_target=(
     /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
     /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     $HOME/.zshrc_local
     $HOME/etc/peco-functions.zsh
@@ -208,6 +209,9 @@ source_target=(
 )
 
 for target in ${source_target[*]}; { [[ -f "$target" ]] && source "$target"; }
+
+# zsh-autosuggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7"
 
 # my bin
 path=($HOME/bin(N-/) $path)
