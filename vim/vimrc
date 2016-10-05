@@ -544,6 +544,7 @@ if s:bundle_tap('unite.vim')
         \ ['Toggle paste mode', 'set paste!'],
         \ ['Calendar', 'Calendar'],
         \ ['Clock', 'Calendar -view=clock'],
+        \ ['Toggle line number', 'setlocal number!'],
         \ ]
     command! UniteShortcut
         \ Unite
