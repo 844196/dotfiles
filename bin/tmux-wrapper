@@ -84,7 +84,7 @@ function candidates() {
                 ;;
             *)
                 if tmux list-sessions | grep ${answer} > /dev/null 2>&1; then
-                    tmux attach -d -t ${answer}
+                    tmux attach -t ${answer}
                 else
                     tmux attach # attach recently session
                 fi
