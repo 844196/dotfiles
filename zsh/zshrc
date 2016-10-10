@@ -214,7 +214,7 @@ alias agit='vim -c Agit'
 # zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7"
 
-: 'homebrew binary' && {
+: 'homebrew binary' && (( $+commands[brew] )) && {
     path=(`brew --prefix`/bin(N-/) $path)
     fpath=(`brew --prefix`/share/zsh/site-functions(N-/) $fpath)
 }
