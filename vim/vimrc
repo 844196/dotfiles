@@ -464,6 +464,12 @@ if s:bundle_tap('vim-quickrun')
         \ 'cmdopt': '.',
         \ 'exec': 'cat %s | sed "s/[\\]\"/\"/g" |  %c %o',
         \ }
+    let g:quickrun_config.slack = {
+        \ 'outputter/buffer/close_on_empty': 1,
+        \ 'command': 'slack',
+        \ 'cmdopt': 'post --pre',
+        \ 'exec': 'cat %s | %c %o',
+        \ }
 
     " <C-c>でquickrun停止
     nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
@@ -538,8 +544,8 @@ if s:bundle_tap('unite.vim')
         \ ['Create quickrun rev snippet buffer', 'tabnew | 0r ~/.vim/templates/rev.template | set ft=php.rev | QuickRun'],
         \ ['Delete all buffer', '%bd'],
         \ ['Show make task', 'Unite make/help'],
-        \ ['Run diff test', '!make diff_test'],
         \ ['Run test', '!phpunit %'],
+        \ ['Run diff test', '!make diff_test'],
         \ ['Open test file', "execute 'vsplit ' . substitute(substitute(expand('%'), '^src/', 'tests/', ''), '\.php$', 'Test\.php', '')"],
         \ ['Toggle paste mode', 'set paste!'],
         \ ['Calendar', 'Calendar'],
