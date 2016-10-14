@@ -188,7 +188,7 @@ function middling() {
 }
 
 # Git
-alias st='git status-pretty'
+alias st='git status'
 alias ck='git checkout'
 alias br='git branch -vv'
 alias co='git commit'
