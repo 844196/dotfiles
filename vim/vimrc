@@ -353,8 +353,8 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     " for markdown
         NeoBundleLazy 'junegunn/goyo.vim'
         NeoBundleLazy 'kannokanno/previm'
-        NeoBundle     'rcmdnk/vim-markdown'
-        NeoBundle     'joker1007/vim-markdown-quote-syntax'
+        " NeoBundle     'rcmdnk/vim-markdown'
+        " NeoBundle     'joker1007/vim-markdown-quote-syntax'
 
     " for ruby
         NeoBundleLazy 'noprompt/vim-yardoc'
@@ -455,7 +455,7 @@ if s:bundle_tap('vim-quickrun')
     autocmd my_filetype FileType ruby.bundle setlocal tabstop=2 shiftwidth=2
     let g:quickrun_config['php.rev'] = {
         \ 'command': './rev',
-        \ 'cmdopt' : 'console',
+        \ 'cmdopt' : 'console --no-startup-text',
         \ 'exec'   : 'cat %s | grep -v "<?php" | grep -v "[\s\t]*//" | tr "\n" " " | %c %o'
         \ }
     let g:quickrun_config.json = {
@@ -742,7 +742,7 @@ endif
 if s:bundle_tap('emmet-vim')
     call neobundle#config({
         \   'lazy': 1,
-        \   'autoload' : {'filetypes': ['html', 'markdown', 'css', 'scss', 'less', 'php']}
+        \   'autoload' : {'filetypes': ['html', 'css', 'scss', 'less', 'php']}
         \ })
 
     let g:user_emmet_settings = {
@@ -756,7 +756,7 @@ if s:bundle_tap('colorizer')
     call neobundle#config({
         \   'lazy': 1,
         \   'gui': 1,
-        \   'autoload' : {'filetypes': ['html', 'markdown', 'css', 'scss', 'less']}
+        \   'autoload' : {'filetypes': ['html', 'css', 'scss', 'less']}
         \ })
 endif
 
@@ -796,20 +796,11 @@ if s:bundle_tap('vim-ruby')
 endif
 
 if s:bundle_tap('vim-markdown')
-    call neobundle#config({
-        \   'lazy': 1,
-        \   'autoload': {'filetypes': 'markdown'}
-        \ })
-
     let g:vim_markdown_frontmatter = 1
     let g:vim_markdown_folding_disabled = 1
 endif
 
 if s:bundle_tap('vim-markdown-quote-syntax')
-    call neobundle#config({
-        \   'lazy': 1,
-        \   'autoload': {'filetypes': 'markdown'}
-        \ })
 endif
 
 if s:bundle_tap('agit.vim')
