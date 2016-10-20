@@ -467,7 +467,7 @@ if s:bundle_tap('vim-quickrun')
     let g:quickrun_config.slack = {
         \ 'outputter/buffer/close_on_empty': 1,
         \ 'command': 'slack',
-        \ 'cmdopt': 'post --pre',
+        \ 'cmdopt': 'post --pre --username=めもっち --icon-emoji=:yunocchi:',
         \ 'exec': 'cat %s | %c %o',
         \ }
 
