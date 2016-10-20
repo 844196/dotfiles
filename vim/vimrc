@@ -228,12 +228,6 @@ augroup highlight_cursorline_on_current_buffer
     autocmd BufEnter,WinEnter * setlocal cursorline
 augroup END
 
-" reload .vimrc (and .vimrc_local if file readable)
-augroup load_vimrc
-    autocmd!
-    autocmd BufWritePost ~/.vimrc,~/.vim/.vimrc_local nested source ~/.vimrc
-augroup END
-
 " カーソル行ハイライト時の特殊文字の色
 augroup special_key_highlight
     autocmd!
@@ -563,6 +557,7 @@ if s:bundle_tap('unite.vim')
 
     nnoremap <silent><F2> :<C-u>Unite memo/list
         \ -buffer-name=memo/list
+        \ -winheight=15
         \ <CR>
 
     function! neobundle#hooks.on_source(bundle)
@@ -611,7 +606,9 @@ if s:bundle_tap('unite.vim')
                 \ "path": v:val
                 \ }')
 
-            let s:padding = max(map(copy(s:files), 'strlen(substitute(substitute(v:val.title, "[ -~｡-ﾟ]", "s", "g"), "[^s]", "mm", "g"))'))
+            let s:padding = max(map(
+                \ copy(s:files), 'strlen(substitute(substitute(v:val.title, "[ -~｡-ﾟ]", "s", "g"), "[^s]", "mm", "g"))'
+                \ ))
 
             return map(copy(s:files), '{
                 \ "word": printf("%-" . s:padding . "S  --  %s", v:val.title, v:val.date),
@@ -648,8 +645,7 @@ if s:bundle_tap('unite.vim')
         endfunction
 
         call unite#define_source(s:memo_list_source)
-
-        let g:memo_path = '/memo'
+        call unite#custom_source('memo/list', 'sorters', 'sorter_reverse')
 
         " namespace
         let s:action = {
@@ -1049,8 +1045,8 @@ endif
 " Finish
 " ------------------------------------------------------------------------------
 " load .vimrc_local if file readable
-if filereadable(expand('~/.vim/.vimrc_local'))
-    source ~/.vim/.vimrc_local
+if filereadable(expand('~/.vim/vimrc_local'))
+    source ~/.vim/vimrc_local
 endif
 
 " end neobundle block
