@@ -557,14 +557,22 @@ if s:bundle_tap('unite.vim')
         \ menu:shortcut
     nnoremap S :<C-u>UniteShortcut<CR>
 
-    inoremap <C-x><C-x> <ESC>:<C-u>Unite file_rec/git:src/:--cached -default-action=continuous_insert -direction=botright -prompt-direction=top<CR>
+    inoremap <silent><C-x><C-x> <ESC>:<C-u>Unite file_rec/git:--cached::src/:tests/
+        \ -default-action=continuous_insert -direction=botright -prompt-direction=top
+        \ <CR>
+
+    nnoremap <silent><F2> :<C-u>Unite memo/list
+        \ -buffer-name=memo/list
+        \ <CR>
 
     function! neobundle#hooks.on_source(bundle)
+        " make/help
         let s:make_help_source = {
             \ 'name': 'make/help',
             \ 'syntax': 'uniteSource__Make_Help',
             \ 'hooks': {},
             \ }
+
         function! s:make_help_source.gather_candidates(args, context)
             let s:candidate_map = map(systemlist('make help'), '{
                 \ "task": split(substitute(v:val, "\\e\\[[0-9;]\\+[mK]", "", "g"), "\\s\\{2,\\}")[0],
@@ -578,13 +586,72 @@ if s:bundle_tap('unite.vim')
                 \ "action__command": (v:val.description =~ "[cC][lL][eE][aA][rR]" ? "!sudo make" : "!make") . " " . v:val.task,
                 \ }')
         endfunction
+
         function! s:make_help_source.hooks.on_syntax(args, context)
             syntax match uniteSource__Make_Help_Task /[a-zA-Z_-]\+\ze\s*--/
                 \ contained containedin=uniteSource__Make_Help
             highlight! default link uniteSource__Make_Help_Task ModeMsg
         endfunction
+
         call unite#define_source(s:make_help_source)
 
+        " memo/list
+        let s:memo_list_source = {
+            \ 'name': 'memo/list',
+            \ 'syntax': 'uniteSource__Memo_List',
+            \ 'default_action': {'common': 'create'},
+            \ 'action_table': {'create': {'description': 'create a new memo'}},
+            \ 'hooks': {},
+            \ }
+
+        function! s:memo_list_source.gather_candidates(args, context)
+            let s:files = map(split(glob(g:memo_path . '/' . '*.md'), '\n'), '{
+                \ "date": fnamemodify(v:val, ":t:r")[0:9],
+                \ "title": substitute(fnamemodify(v:val, ":t:r"), "^....-..-.._", "", ""),
+                \ "path": v:val
+                \ }')
+
+            let s:padding = max(map(copy(s:files), 'strlen(substitute(substitute(v:val.title, "[ -~｡-ﾟ]", "s", "g"), "[^s]", "mm", "g"))'))
+
+            return map(copy(s:files), '{
+                \ "word": printf("%-" . s:padding . "S  --  %s", v:val.title, v:val.date),
+                \ "source": "memo/list",
+                \ "kind": "file",
+                \ "action__path": v:val.path,
+                \ }')
+        endfunction
+
+        function! s:memo_list_source.change_candidates(args, context)
+            let s:title = substitute(a:context.input, ' ', '-', 'g')
+            let s:path = expand(printf('%s/%s_%s.md', g:memo_path, strftime('%Y-%m-%d'), s:title))
+            if s:title != '' && !filereadable(s:path)
+                return [{
+                    \ "abbr": '[new memo] ' . s:title,
+                    \ "word": s:title,
+                    \ "action__title": s:title,
+                    \ "action__path": s:path,
+                    \ "source": "memo/list",
+                    \ }]
+            else
+                return []
+            endif
+        endfunction
+
+        function! s:memo_list_source.action_table.create.func(candidates)
+            silent edit `=a:candidates.action__path`
+            call append(0, ['# '.a:candidates.action__title])
+        endfunction
+
+        function! s:memo_list_source.hooks.on_syntax(args, context)
+            syntax match uniteSource__Memo_List_Memo /--  ....-..-../ contained containedin=uniteSource__Memo_List
+            highlight! default uniteSource__Memo_List_Memo ctermfg=7
+        endfunction
+
+        call unite#define_source(s:memo_list_source)
+
+        let g:memo_path = '/memo'
+
+        " namespace
         let s:action = {
             \ 'description': 'insert word, continuous insert mode',
             \ }
