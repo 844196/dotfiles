@@ -544,6 +544,8 @@ if s:bundle_tap('unite.vim')
         \ ['Calendar', 'Calendar'],
         \ ['Clock', 'Calendar -view=clock'],
         \ ['Toggle line number', 'setlocal number!'],
+        \ ['Edit vimrc', 'edit $MYVIMRC'],
+        \ ['Edit vimrc_local', 'edit ~/.vim/vimrc_local'],
         \ ]
     command! UniteShortcut
         \ Unite
