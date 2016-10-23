@@ -74,7 +74,6 @@ vnoremap x "_x
 " かっこ
 inoremap '' ''<C-G>U<Left>
 inoremap "" ""<C-G>U<Left>
-inoremap `` ``<C-G>U<Left>
 inoremap () ()<C-G>U<Left>
 inoremap {} {}<C-G>U<Left>
 inoremap [] []<C-G>U<Left>
