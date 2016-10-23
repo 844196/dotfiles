@@ -712,6 +712,8 @@ if s:bundle_tap('previm')
         \   'autoload': {'commands': 'PrevimOpen'}
         \ })
 
+    let g:previm_disable_default_css = 0
+    let g:previm_custom_css_path = '~/dotfiles/etc/memo.css'
     let g:previm_show_header = 0
 endif
 
