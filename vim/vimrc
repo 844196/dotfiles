@@ -74,7 +74,6 @@ vnoremap x "_x
 " かっこ
 inoremap '' ''<C-G>U<Left>
 inoremap "" ""<C-G>U<Left>
-inoremap `` ``<C-G>U<Left>
 inoremap () ()<C-G>U<Left>
 inoremap {} {}<C-G>U<Left>
 inoremap [] []<C-G>U<Left>
@@ -547,6 +546,8 @@ if s:bundle_tap('unite.vim')
         \ ['Calendar', 'Calendar'],
         \ ['Clock', 'Calendar -view=clock'],
         \ ['Toggle line number', 'setlocal number!'],
+        \ ['Edit vimrc', 'edit $MYVIMRC'],
+        \ ['Edit vimrc_local', 'edit ~/.vim/vimrc_local'],
         \ ]
     command! UniteShortcut
         \ Unite
@@ -641,7 +642,10 @@ if s:bundle_tap('unite.vim')
 
         function! s:memo_list_source.action_table.create.func(candidates)
             silent edit `=a:candidates.action__path`
-            call append(0, ['# '.a:candidates.action__title])
+            call append(0, [
+                \ '# ' . a:candidates.action__title,
+                \ '<time>' . strftime('%Y-%m-%d %H:%M:%S') . '</time>',
+                \ ])
         endfunction
 
         function! s:memo_list_source.hooks.on_syntax(args, context)
@@ -716,6 +720,8 @@ if s:bundle_tap('previm')
         \   'autoload': {'commands': 'PrevimOpen'}
         \ })
 
+    let g:previm_disable_default_css = 0
+    let g:previm_custom_css_path = '~/dotfiles/etc/memo.css'
     let g:previm_show_header = 0
 endif
 
