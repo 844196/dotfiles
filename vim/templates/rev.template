@@ -2,6 +2,5 @@
 
 use Emonkak\Collection\Collection;
 use Mockery as M;
-use Rev\Util\Clock;
 
 exit;

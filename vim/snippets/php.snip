@@ -8,3 +8,13 @@ snippet     copyright
 	 * @author    `substitute(system('git config user.name'), "\n", '', 'g')` <`substitute(system('git config user.email'), "\n", '', 'g')`>
 	 * @copyright ${1:company}
 	 */
+
+snippet     test
+	/**
+	 * ${1:className}のテスト
+	 *
+	 * @covers ${2:namespace}
+	 */
+	class $1Test extends \PHPUnit_Framework_TestCase
+	{
+	}
