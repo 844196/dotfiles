@@ -306,6 +306,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'tomtom/tcomment_vim'
         NeoBundle     'tpope/vim-endwise'
         NeoBundleLazy 'haya14busa/incsearch.vim'
+        NeoBundle     'osyo-manga/vim-over'
         NeoBundleLazy 'Shougo/unite.vim'
         NeoBundleLazy 'ujihisa/unite-colorscheme'
         NeoBundleLazy 'thinca/vim-scouter'
@@ -362,6 +363,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'jelera/vim-javascript-syntax'
         NeoBundle     'othree/javascript-libraries-syntax.vim'
         NeoBundle     'othree/yajs.vim'
+        NeoBundle     'kchmck/vim-coffee-script'
 endif
 
 
@@ -552,6 +554,9 @@ if s:bundle_tap('unite.vim')
     nnoremap S :<C-u>UniteShortcut<CR>
 
     inoremap <silent><C-x><C-x> <ESC>:<C-u>Unite file_rec/git:--cached::src/:tests/
+        \ -default-action=continuous_insert -direction=botright -prompt-direction=top
+        \ <CR>
+    vnoremap <silent><C-x><C-x> "_x<ESC>:<C-u>Unite file_rec/git:--cached::src/:tests/
         \ -default-action=continuous_insert -direction=botright -prompt-direction=top
         \ <CR>
 
