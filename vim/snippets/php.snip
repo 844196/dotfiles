@@ -11,10 +11,8 @@ snippet     copyright
 
 snippet     test
 	/**
-	 * ${1:className}のテスト
-	 *
-	 * @covers ${2:namespace}
+	 * @covers ${1:namespace}
 	 */
-	class $1Test extends \PHPUnit_Framework_TestCase
+	class ${2:testTarget}Test extends \PHPUnit_Framework_TestCase
 	{
 	}
