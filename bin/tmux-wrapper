@@ -46,56 +46,57 @@ function separator() {
     printf "\x1b[48;05;1m%-${width}s\x1b[0m" ''
 }
 
+function onSession() {
+    [[ -n "${TMUX}" ]]
+}
+
+function existsSession() {
+    tmux has-session
+}
+
 function candidates() {
     tmux list-sessions
 }
 
-: 'guard' && {
-    { which tmux > /dev/null 2>&1 && [[ -z "${TMUX}" ]]; } || exit 0
+: 'trap' && {
+    trap "clear; tput cnorm; exit;" EXIT SIGINT
 }
 
-: 'trap' && {
-    trap "clear; tput cnorm; exit;" EXIT
-    trap "clear; tput cnorm; exit 1;" SIGINT
+: 'guard' && {
+    which tmux >/dev/null 2>&1 || exit 0
 }
 
 : 'main' && {
     clear
 
-    if tmux has-session > /dev/null 2>&1; then
-        cat \
-            <(logo | centering) \
-            <(echo) \
-            <(separator $(candidates | maxCharSize) | centering) \
-            <(echo) \
-            <(candidates | centering) \
-            | middling
+    cat \
+        <(logo | centering) \
+        <(echo) \
+        <(separator $(candidates | maxCharSize) | centering) \
+        <(echo) \
+        <(candidates | centering) \
+        | middling
 
-        p="$(
-            for i in $(seq 1 $(((X - $(candidates | maxCharSize)) / 2))); {
-                printf ' '
-            }
-        )"
-        printf "${p}>_ "; read answer
+    p="$(
+        for i in $(seq 1 $(((X - $(candidates | maxCharSize)) / 2))); {
+            printf ' '
+        }
+    )"
+    printf "${p}>_ "; read answer
 
-        case ${answer} in
-            'new')
-                tmux new-session
-                ;;
-            *)
-                if tmux list-sessions | grep ${answer} > /dev/null 2>&1; then
-                    tmux attach -t ${answer}
-                else
-                    tmux attach # attach recently session
-                fi
-                ;;
-        esac
-    else
-        tput civis
-        cat <(logo | centering) | middling
-        sleep 1
-        tmux new-session
-    fi
+    case ${answer} in
+        'new')
+            newSessionName=`tmux new-session -d -P -F '#S'`
+            tmux switch-client -t ${newSessionName} || tmux attach-session -t ${newSessionName}
+            ;;
+        *)
+            if tmux list-sessions | grep ${answer} >/dev/null 2>&1; then
+                tmux switch-client -t ${answer} || tmux attach-session -t ${answer}
+            else
+                tmux switch-client -l # attach recently session
+            fi
+            ;;
+    esac
 
     clear
 }
