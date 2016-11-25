@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+activePaneId=`tmux list-panes | grep 'active' | awk -F ':' '{print $1}'`
+
+tmux split-window -l 10 "cat ~/.tmux.snippets | peco | xargs -I {} bash -c 'echo \"{}\"' | xargs -I {} tmux send-key -t ${activePaneId} {}"
