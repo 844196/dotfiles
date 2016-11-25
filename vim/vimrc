@@ -56,6 +56,7 @@ set infercase                         " 補完時に大文字・小文字を区�
 set textwidth=0                       " 行あたりの最大文字数？を0に（formatoptions）
 set tags+=.git/tags                   " .gitにあるタグファイルも読む
 set ttimeoutlen=10                    " キーシーケンス終了の待ち時間を短く
+set nocursorline
 
 
 
@@ -219,13 +220,6 @@ augroup END
 
 " 全てのマッピングを表示
 command! -nargs=* -complete=mapping AllMaps map <args> | map! <args> | lamp <args>
-
-" 現在行ハイライトをカレントバッファのみに適用
-augroup highlight_cursorline_on_current_buffer
-    autocmd!
-    autocmd BufLeave,WinLeave * setlocal nocursorline
-    autocmd BufEnter,WinEnter * setlocal cursorline
-augroup END
 
 " カーソル行ハイライト時の特殊文字の色
 augroup special_key_highlight
