@@ -340,7 +340,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
 
     " for markdown
         NeoBundleLazy 'junegunn/goyo.vim'
-        NeoBundleLazy 'kannokanno/previm'
+        NeoBundleLazy '844196/previm', 'add-markup-plantuml'
         " NeoBundle     'rcmdnk/vim-markdown'
         " NeoBundle     'joker1007/vim-markdown-quote-syntax'
 
