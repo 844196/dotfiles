@@ -79,6 +79,7 @@ p {
 
 img {
   height: auto;
+  width: initial;
   max-width: 100%;
 }
 
