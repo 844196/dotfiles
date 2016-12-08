@@ -351,6 +351,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
 
     " for php
         NeoBundle     'vim-scripts/smarty-syntax'
+        NeoBundle     'flyinshadow/php_localvarcheck.vim'
 
     " for js
         NeoBundle     'jelera/vim-javascript-syntax'
@@ -1045,6 +1046,11 @@ if s:bundle_tap('vim-watchdogs')
     function! neobundle#hooks.on_source(bundle) abort
         call watchdogs#setup(g:quickrun_config)
     endfunction
+endif
+
+if s:bundle_tap('php_localvarcheck.vim')
+    let g:php_localvarcheck_enable = 1
+    let g:php_localvarcheck_global = 1
 endif
 
 
