@@ -344,6 +344,9 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         " NeoBundle     'rcmdnk/vim-markdown'
         " NeoBundle     'joker1007/vim-markdown-quote-syntax'
 
+    " for textile
+        NeoBundle     'timcharper/textile.vim'
+
     " for ruby
         NeoBundleLazy 'noprompt/vim-yardoc'
         NeoBundleLazy 'sunaku/vim-ruby-minitest'
