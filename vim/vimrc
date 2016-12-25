@@ -27,9 +27,6 @@ set tabstop=4 shiftwidth=4            " <Tab>スペース展開文字幅
 set shiftround                        " インデントをshiftwidthに丸める
 set smarttab                          " 自動インデント
 set autoindent                        " 改行後の自動インデント
-if (v:version == 704 && has('patch338')) || v:version >= 705
-    set breakindent                   " 折り返した行がインデントに沿う
-endif
 set synmaxcol=300                     " 1行あたりのシンタックス有効文字数
 set number                            " 行番号
 set scrolloff=10                      " バッファスクロール時に上下10行を確保
@@ -57,6 +54,17 @@ set textwidth=0                       " 行あたりの最大文字数？を0に
 set tags+=.git/tags                   " .gitにあるタグファイルも読む
 set ttimeoutlen=10                    " キーシーケンス終了の待ち時間を短く
 set nocursorline
+
+if (v:version == 704 && has('patch338')) || v:version >= 705
+    " 折り返した行がインデントに沿う
+    set breakindent
+endif
+if (v:version == 704 && has('patch1799')) || v:version >= 705
+    " enable true color
+    set termguicolors
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
 
 
 
@@ -281,19 +289,20 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         if !filereadable(expand('~/.vim/disable_devicon'))
             NeoBundle 'ryanoasis/vim-devicons'
         endif
-        NeoBundle     'altercation/vim-colors-solarized'
+        " NeoBundle     'lifepillar/vim-solarized8'
         NeoBundle     'atelierbram/vim-colors_duotones'
-        NeoBundle     'cocopon/iceberg.vim'
-        NeoBundle     'morhetz/gruvbox'
+        " NeoBundle     'cocopon/iceberg.vim'
+        " NeoBundle     'morhetz/gruvbox'
         NeoBundle     'tomasr/molokai'
         NeoBundle     'NLKNguyen/papercolor-theme'
-        NeoBundle     'w0ng/vim-hybrid'
+        NeoBundle     'kristijanhusak/vim-hybrid-material'
         NeoBundle     'itchyny/lightline.vim'
         NeoBundle     'vol2223/vim-colorblind-colorscheme'
         NeoBundle     't9md/vim-choosewin'
         NeoBundle     'itchyny/calendar.vim'
         NeoBundle     'osyo-manga/vim-anzu'
         NeoBundle     '844196/lightline-hybrid.vim'
+        " NeoBundle     'whatyouhide/vim-gotham'
 
     " util
         NeoBundle     'tomtom/tcomment_vim'
@@ -362,6 +371,9 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'othree/javascript-libraries-syntax.vim'
         NeoBundle     'othree/yajs.vim'
         NeoBundle     'kchmck/vim-coffee-script'
+
+    " for tmux
+        NeoBundle     'tmux-plugins/vim-tmux'
 endif
 
 
@@ -880,14 +892,14 @@ if s:bundle_tap('vimshell.vim')
     nnoremap <silent><leader>a :<C-u>VimShellCreate -split<CR>
 endif
 
-if s:bundle_tap('vim-hybrid')
+if s:bundle_tap('vim-hybrid-material')
     set fillchars+=vert:\ 
 
     augroup my_color
         autocmd!
     augroup END
 
-    if !has('gui_running')
+    if !has('gui_running') && !&termguicolors
         let g:hybrid_custom_term_colors = 1
     endif
 
@@ -895,36 +907,75 @@ if s:bundle_tap('vim-hybrid')
     autocmd my_color VimEnter,Colorscheme * hi! link TabLineFill StatusLineNC
     autocmd my_color VimEnter,Colorscheme * hi! link TabLineSel StatusLine
     autocmd my_color VimEnter,Colorscheme * hi! link VertSplit ColorColumn
+    autocmd my_color VimEnter,Colorscheme * hi! EndOfBuffer ctermfg=0 guifg=#1d1f21
 
     augroup modify_agit_diff_color
         autocmd!
     augroup END
 
-    autocmd modify_agit_diff_color Filetype agit_diff hi! link agitDiffAdd Special
-    autocmd modify_agit_diff_color Filetype agit_diff hi! link agitStatAdded Special
-    autocmd modify_agit_diff_color Filetype agit_diff hi! link agitDiffRemove Constant
-    autocmd modify_agit_diff_color Filetype agit_diff hi! link agitStatRemoved Constant
+    autocmd modify_agit_diff_color Filetype agit_diff hi! link agitDiffAdd ModeMsg
+    autocmd modify_agit_diff_color Filetype agit_diff hi! link agitStatAdded ModeMsg
+    autocmd modify_agit_diff_color Filetype agit_diff hi! link agitDiffRemove WarningMsg
+    autocmd modify_agit_diff_color Filetype agit_diff hi! link agitStatRemoved WarningMsg
+
+    augroup modify_git_gutter_color
+        autocmd!
+    augroup END
+
+    autocmd modify_git_gutter_color VimEnter,Colorscheme * hi! link GitGutterAdd ModeMsg
+    autocmd modify_git_gutter_color VimEnter,Colorscheme * hi! link GitGutterChange diffRemoved
+    autocmd modify_git_gutter_color VimEnter,Colorscheme * hi! link GitGutterDelete WarningMsg
+    autocmd modify_git_gutter_color VimEnter,Colorscheme * hi! link GitGutterChangeDelete WarningMsg
 
     function! neobundle#hooks.on_source(bundle) abort
         set bg=dark
-        colorscheme hybrid
+        colorscheme hybrid_reverse
+        let g:lightline.colorscheme = 'hybrid'
+    endfunction
+endif
+
+if s:bundle_tap('gruvbox')
+    set fillchars+=vert:\ 
+
+    let g:gruvbox_contrast_dark = 'hard'
+    let g:gruvbox_sign_column = 'bg0'
+    let g:gruvbox_vert_split = 'bg1'
+
+    function! neobundle#hooks.on_source(bundle) abort
+        set bg=dark
+        colorscheme gruvbox
+        let g:lightline.colorscheme = 'gruvbox'
+    endfunction
+endif
+
+if s:bundle_tap('vim-solarized8')
+    function! neobundle#hooks.on_source(bundle) abort
+        set bg=dark
+        colorscheme solarized8_dark_flat
+        let g:lightline.colorscheme = 'solarized'
+    endfunction
+endif
+
+if s:bundle_tap('vim-gotham')
+    function! neobundle#hooks.on_source(bundle) abort
+        set bg=dark
+        colorscheme gotham
+        let g:lightline.colorscheme = 'gotham'
     endfunction
 endif
 
 if s:bundle_tap('lightline.vim')
     let g:lightline = {}
-    let g:lightline.colorscheme = 'hybrid'
     let g:lightline.component = {
         \ 'filename': '%f',
         \ 'lineinfo': '%l:%c',
         \ 'fullpath': '%F',
-        \ 'branch': '%{fugitive#head()}',
         \ }
     let g:lightline.component_function = {
         \ 'anzu': 'anzu#search_status',
         \ }
     let g:lightline.active = {
-        \ 'left': [['mode', 'paste'], ['branch'], ['readonly', 'filename', 'modified']],
+        \ 'left': [['mode', 'paste'], ['readonly', 'filename', 'modified']],
         \ 'right': [['lineinfo', 'anzu'], ['filetype'], ['fileformat', 'fileencoding']]
         \ }
     let g:lightline.inactive = {
