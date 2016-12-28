@@ -477,9 +477,8 @@ if s:bundle_tap('vim-quickrun')
         \ 'exec': 'cat %s | %c %o',
         \ }
     let g:quickrun_config.sql = {
-        \ 'command': 'mysql',
-        \ 'cmdopt': '-u root',
-        \ 'exec': "cat %s | %c %o | column -ts 	",
+        \ 'command': 'mysql-wrapper',
+        \ 'exec': 'cat %s | %c',
         \ 'outputter/buffer/filetype': 'sqloutput',
         \ }
 
