@@ -347,6 +347,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     " for html
         NeoBundleLazy 'mattn/emmet-vim'
         NeoBundleLazy 'lilydjwg/colorizer'
+        NeoBundle     'othree/html5.vim'
 
     " for markdown
         NeoBundleLazy 'junegunn/goyo.vim'
@@ -371,6 +372,9 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'othree/javascript-libraries-syntax.vim'
         NeoBundle     'othree/yajs.vim'
         NeoBundle     'kchmck/vim-coffee-script'
+        NeoBundle     'posva/vim-vue'
+        NeoBundle     'digitaltoad/vim-pug'
+        NeoBundle     'wavded/vim-stylus'
 
     " for tmux
         NeoBundle     'tmux-plugins/vim-tmux'
@@ -763,12 +767,13 @@ endif
 if s:bundle_tap('emmet-vim')
     call neobundle#config({
         \   'lazy': 1,
-        \   'autoload' : {'filetypes': ['html', 'css', 'scss', 'less', 'php']}
+        \   'autoload' : {'filetypes': ['html', 'css', 'scss', 'less', 'php', 'vue']}
         \ })
 
     let g:user_emmet_settings = {
         \ 'lang' : 'ja',
         \ 'html': {'indentation': '  '},
+        \ 'vue': {'indentation': '  '},
         \ 'php': {'indentation': '	'}
         \ }
 endif
