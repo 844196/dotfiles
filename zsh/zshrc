@@ -201,15 +201,17 @@ alias agit='vim -c Agit'
 : 'zplug configure' && [[ -e ~/.zplug/init.zsh ]] && {
     source ~/.zplug/init.zsh
 
-    zplug "zplug/zplug"
-    zplug "zsh-users/zsh-autosuggestions", nice:18
-    zplug "zsh-users/zsh-syntax-highlighting", nice:19
-    zplug "~/.zsh/site-functions/peco-functions.zsh", from:local
-    zplug "~/.zshrc_local", from:local, if:'[[ -f ~/.zshrc_local ]]'
+    zplug "zplug/zplug", hook-build:'zplug --self-manage'
+    zplug "zsh-users/zsh-syntax-highlighting", if:"[[ ${ZSH_EVAL_CONTEXT} == 'file' ]]", defer:2
+    zplug "zsh-users/zsh-autosuggestions", on:"zsh-users/zsh-syntax-highlighting", defer:3
+    zplug "~/.zsh/site-functions", from:local
 
     zplug load
 }
 
+: 'local config load' && [[ -e ~/.zsh/zshrc_local ]] && {
+    source ~/.zsh/zshrc_local
+}
 
 # zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7"
