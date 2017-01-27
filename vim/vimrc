@@ -432,6 +432,11 @@ if s:bundle_tap('neocomplete.vim')
     endif
     let g:neocomplete#keyword_patterns._ = '\h\w*'
     let g:neocomplete#max_list = 20
+    let g:neocomplete#enable_fuzzy_completion = 0
+    let g:neocomplete#enable_auto_delimiter = 1
+    let g:neocomplete#delimiter_patterns = {
+        \ 'php': ['->', '::', '\']
+        \ }
 endif
 
 if s:bundle_tap('indentLine')
