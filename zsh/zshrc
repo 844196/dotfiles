@@ -187,6 +187,8 @@ function middling() {
     echo "${content}"
 }
 
+alias t='cd "$(mktemp -d)"'
+
 # Git
 alias st='git status'
 alias ck='git checkout'
