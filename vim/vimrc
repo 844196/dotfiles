@@ -492,6 +492,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'dannyob/quickfixstatus'
         NeoBundle     'KazuakiM/vim-qfsigns'
         NeoBundle     'osyo-manga/vim-hopping'
+        NeoBundle     'h1mesuke/vim-alignta'
 
     " completation
         NeoBundle     'Shougo/neocomplete.vim'
@@ -1289,6 +1290,10 @@ if s:bundle_tap('vim-hopping')
         \ "\<C-u>": "<Over>(scroll-u)",
         \ "\<C-d>": "<Over>(scroll-d)",
         \}
+endif
+
+if s:bundle_tap('vim-alignta')
+    vnoremap <silent><C-p> :'<,'>Alignta <<0 \ <CR>
 endif
 
 
