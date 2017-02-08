@@ -139,9 +139,7 @@ nnoremap <C-g> 1<C-g>
 command! Big wincmd _ | wincmd |
 nnoremap <silent><C-w>o :<C-u>Big<CR>
 
-" 0と^を入れ替え
-nnoremap 0 ^
-nnoremap ^ 0
+nnoremap ) ^
 
 " *しても次の候補へ移動しないように
 nnoremap * "zyiw:let @/ = @z<CR>:<C-u>set hlsearch<CR>
