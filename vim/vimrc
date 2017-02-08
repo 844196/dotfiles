@@ -719,7 +719,7 @@ if s:bundle_tap('unite.vim')
         \ }
     let g:unite_source_menu_menus.shortcut.command_candidates = [
         \ ['Reopen search-buffer', 'UniteResume search-buffer'],
-        \ ['Create quickrun rev snippet buffer', 'tabnew | 0r ~/.vim/templates/rev.template | set ft=php.rev | QuickRun'],
+        \ ['Create quickrun rev snippet buffer', 'enew | 0r ~/.vim/templates/rev.template | set ft=php.rev | QuickRun'],
         \ ['Delete all buffer', '%bd'],
         \ ['Show make task', 'Unite make/help'],
         \ ['Run test', '!phpunit %'],
