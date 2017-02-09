@@ -1,6 +1,4 @@
 <?php
 
-use Emonkak\Collection\Collection;
+use Emonkak\Collection\Collection as _;
 use Mockery as M;
-
-exit;
