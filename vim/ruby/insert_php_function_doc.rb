@@ -1,20 +1,43 @@
-lines = Vim::Buffer.current
-called_ln = lines.line_number
-function = Function.new
+main = Proc.new do |lines|
+  regex_body = /
+    ^(?<indent>\s*)
+    (?:abstract\s*)?
+    (?:public|private|protected)?\s*
+    (?:static\s*)?
+    function\s*
+    (?<name>[^(]+)\(
+  /x
+  regex_arg = /
+    (?:.*\(|,\s*)?
+    (?<type>[^\$\s]+)?\s*
+    (?<name>\$[^\),]+)
+  /x
 
-called_ln.upto(lines.count) do |ln|
-  line = lines[ln]
+  function = {:indent => '', :name => '', :args => []}
+  lines.each_with_object(function).with_index do |(line, obj), idx|
+    if idx.zero?
+      _, function[:indent], function[:name] = *line.match(regex_body)
+    end
 
-  if ln === called_ln && m = line.match(Function::REGEX_BODY)
-    function.name = m['function_name']
-    function.indent = m['indent']
+    line.scan(regex_arg) do |arg|
+      function[:args] << {:type => arg[0] || 'mixed', :name => arg[1]}
+    end
   end
 
-  lines[ln].scan(Function::REGEX_PARAM) do |arg|
-    function.params << Parameter.new(*arg)
-  end
+  type_padding = function[:args].map {|a| a[:type].length }.max
+  result = [
+    '/**',
+    " * #{function[:name]}",
+    ' *',
+      * function[:args].map {|a| " * @param #{a[:type].ljust(type_padding)} #{a[:name]}" },
+    ' * @return void',
+    ' */',
+  ]
 
-  break if /\)/ =~ line
+  Vim.evaluate("append(line('.') - 1, #{result.map {|l| function[:indent] + l }.inspect})")
 end
 
-Vim.command("call append(line('.') - 1, #{VimList.new(function.doc).to_vim_list})")
+Vim
+  .tap {|vim| vim.command('execute "normal! ^"') }
+  .evaluate('getline(search("function", "nW"), search(")", "nW"))')
+  .tap {|lines| main.call(lines) unless lines.length.zero? }
