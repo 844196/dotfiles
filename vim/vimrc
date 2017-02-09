@@ -494,8 +494,8 @@ if s:bundle_tap('vim-quickrun')
     autocmd my_filetype FileType ruby.bundle setlocal tabstop=2 shiftwidth=2
     let g:quickrun_config['php.rev'] = {
         \ 'command': './rev',
-        \ 'cmdopt' : 'console --no-startup-text',
-        \ 'exec'   : 'cat %s | grep -v "<?php" | grep -v "[\s\t]*//" | tr "\n" " " | %c %o'
+        \ 'cmdopt': 'exec',
+        \ 'exec'   : '%c %o %s',
         \ }
     let g:quickrun_config.json = {
         \ 'outputter/buffer/filetype': 'json',
