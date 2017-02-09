@@ -259,11 +259,6 @@ endif
 command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))|w
 
 if has('ruby')
-    " ruby拡張のベースクラス
-    for s:lib in split(glob('~/.vim/ruby/lib/*.rb'), '\n')
-        ruby load Vim::evaluate('s:lib')
-    endfor
-
     " 現在行以降にある関数の引数リストから関数phpdocを挿入
     function! InsertPHPFunctionDoc() abort
         ruby load Vim::evaluate('expand("~/.vim/ruby/insert_php_function_doc.rb")')

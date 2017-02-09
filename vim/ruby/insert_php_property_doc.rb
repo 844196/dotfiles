@@ -1,10 +1,11 @@
-indent, variable = Vim::Buffer.current.line.match(/\A(?<i>\s*)(?<v>.+)/).tap {|m| break [m['i'], m['v']]}
+_, indent, variable = *Vim::Buffer.current.line.match(/\A(?<i>\s*)(?<v>.+)/)
 
-doc = [
+result = [
   '/**',
   " * @var #{variable.tap {|v| break 'mixed' if v =~ /\A[a-z].+/ }}",
   ' */',
-].map {|l| indent + l }
+]
 
-Vim::Buffer.current.line = "#{indent}private $#{variable.sub(/\A./, &:downcase)};"
-Vim.command("call append(line('.') - 1, #{VimList.new(doc).to_vim_list})")
+Vim
+  .tap {|vim| vim.command("call append(line('.') - 1, #{result.map {|l| indent + l }.inspect})") }
+  .tap {|vim| vim::Buffer.current.line = "#{indent}private $#{variable.sub(/\A./, &:downcase)};" }
