@@ -1156,7 +1156,7 @@ if s:bundle_tap('vim-hopping')
 endif
 
 if s:bundle_tap('vim-alignta')
-    vnoremap <silent><C-p> :'<,'>Alignta <<0 \ <CR>
+    vnoremap <silent><C-p> :'<,'>Alignta <- $<CR>
 endif
 
 
