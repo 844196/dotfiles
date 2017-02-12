@@ -1,43 +1,49 @@
-main = Proc.new do |lines|
-  regex_body = /
-    ^(?<indent>\s*)
-    (?:abstract\s*)?
-    (?:public|private|protected)?\s*
-    (?:static\s*)?
-    function\s*
-    (?<name>[^(]+)\(
-  /x
-  regex_arg = /
-    (?:.*\(|,\s*)?
-    (?<type>[^\$\s]+)?\s*
-    (?<name>\$[^\),]+)
-  /x
+doc_generator = -> (lines) do
+  regex = {
+    :body => /\A(\s*).*function\s+([^(\s]+)/,
+    :arg => /(?:.*\(|,\s*)?([^\$\s,\.]+)?\s*(\.{3})?(\$[^\),\s]+)/
+  }
 
-  function = {:indent => '', :name => '', :args => []}
-  lines.each_with_object(function).with_index do |(line, obj), idx|
+  func = Hash.new {|h,k| h[k] = [] }
+  arg = -> (type, is_variable_length, name) do
+    if is_variable_length
+      t = type ? "#{type}[]" : 'array'
+    else
+      t = type || 'mixed'
+    end
+    {:type => t, :name => name}
+  end
+
+  lines.each_with_index do |line, idx|
     if idx.zero?
-      _, function[:indent], function[:name] = *line.match(regex_body)
+      _, func[:indent], func[:name] = *line.match(regex[:body])
     end
 
-    line.scan(regex_arg) do |arg|
-      function[:args] << {:type => arg[0] || 'mixed', :name => arg[1]}
+    line.scan(regex[:arg]) do |matched|
+      func[:args] << arg[*matched]
     end
   end
 
-  type_padding = function[:args].map {|a| a[:type].length }.max
+  type_padding = func[:args].map {|a| a[:type].length }.max
   result = [
     '/**',
-    " * #{function[:name]}",
+    " * #{func[:name]}",
     ' *',
-      * function[:args].map {|a| " * @param #{a[:type].ljust(type_padding)} #{a[:name]}" },
-    ' * @return void',
+      * func[:args].map {|a| " * @param #{a[:type].ljust(type_padding)} #{a[:name]}" },
     ' */',
   ]
 
-  Vim.evaluate("append(line('.') - 1, #{result.map {|l| function[:indent] + l }.inspect})")
+  result.map {|l| func[:indent] + l }
 end
 
-Vim
-  .tap {|vim| vim.command('execute "normal! ^"') }
-  .evaluate('getline(search("function", "nW"), search(")", "nW"))')
-  .tap {|lines| main.call(lines) unless lines.length.zero? }
+main = -> (vim) do
+  lines = vim
+    .tap {|v| v.command('execute "normal! ^"') }
+    .evaluate('getline(search("function", "cnW"), search(")", "cnW"))')
+
+  unless lines.length.zero?
+    vim.evaluate("append(line('.') - 1, #{doc_generator[lines].inspect})")
+  end
+end
+
+main[Vim] if $0 === 'vim-ruby'
