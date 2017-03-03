@@ -18,6 +18,7 @@ function Setup.symlink() {
 
 : 'copy vimrc & gvimrc' && {
     mkdir -p ~/.vim
+    mkdir -p ~/.vim/undo
     rm -f ~/.vimrc ~/.gvimrc ~/.viminfo
     Setup.symlink vim/vimrc ~/.vim/vimrc
     Setup.symlink vim/gvimrc ~/.vim/gvimrc
