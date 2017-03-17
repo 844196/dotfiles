@@ -1,3 +1,5 @@
+# vim:set ft=ruby:
+
 require 'json'
 require 'net/http'
 require 'ostruct'
@@ -52,16 +54,7 @@ require 'ostruct'
     def invoke(response)
       response.instance_eval do
         begin
-          parsed = JSON.parse(@body)
-          convert = -> item { OpenStruct.new(item) }
-          @body = case parsed
-          when Array
-            parsed.map(&convert)
-          when Hash
-            convert[parsed]
-          else
-            parsed
-          end
+          @body = JSON.parse(@body, :object_class => OpenStruct)
         rescue JSON::ParserError
         end
       end
