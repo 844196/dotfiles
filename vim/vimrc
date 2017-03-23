@@ -386,6 +386,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundleLazy '844196/previm', 'add-markup-plantuml'
         " NeoBundle     'rcmdnk/vim-markdown'
         " NeoBundle     'joker1007/vim-markdown-quote-syntax'
+        NeoBundle     'dhruvasagar/vim-table-mode'
 
     " for textile
         NeoBundle     'timcharper/textile.vim'
@@ -603,10 +604,7 @@ if s:bundle_tap('unite.vim')
         return s:result
     endfunction
 
-    let g:unite_source_menu_menus = {}
-    let g:unite_source_menu_menus.shortcut = {
-        \ 'description': 'shortcut'
-        \ }
+    let g:unite_source_menu_menus = {'shortcut': {}}
     let g:unite_source_menu_menus.shortcut.command_candidates = [
         \ ['Reopen search-buffer', 'UniteResume search-buffer'],
         \ ['Create quickrun rev snippet buffer', 'enew | 0r ~/.vim/templates/rev.template | set ft=php.rev | QuickRun'],
@@ -615,11 +613,13 @@ if s:bundle_tap('unite.vim')
         \ ['Run test', "execute '!phpunit ' . GetTestFilePath(expand('%'))"],
         \ ['Open test file', "execute 'vsplit ' . GetTestFilePath(expand('%'))"],
         \ ['Run diff test', '!make diff_test'],
-        \ ['Toggle paste mode', 'set paste!'],
+        \ ['Paste mode on', 'set paste!'],
         \ ['Edit vimrc', 'edit $MYVIMRC'],
         \ ['Edit vimrc_local', 'edit ~/.vim/vimrc_local'],
+        \ ['Formating markdown table', "'<,'>Alignta 0:0 |"],
+        \ ['Tablize', "'<,'>Tableize"],
         \ ]
-    nnoremap <silent>S :<C-u>Unite menu:shortcut<CR>
+    noremap <silent>S :<C-u>Unite menu:shortcut<CR>
 
     inoremap <silent><C-x><C-x> <ESC>:<C-u>Unite file_rec/git:--cached::src/:tests/
         \ -default-action=continuous_insert -direction=botright -prompt-direction=top
@@ -1184,6 +1184,10 @@ if s:bundle_tap('vim-mundo')
     let g:mundo_width = 80
     let g:mundo_height = 60
     nnoremap <silent><F5> :<C-u>MundoToggle<CR>
+endif
+
+if s:bundle_tap('vim-table-mode')
+    let g:table_mode_corner='|'
 endif
 
 
