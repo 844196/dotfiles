@@ -584,6 +584,19 @@ if s:bundle_tap('unite.vim')
     endif
 
     " menu
+    function! GetTestFilePath(origin) abort
+        if match(a:origin, '^tests/') >= 0
+            return a:origin
+        endif
+
+        let s:result = a:origin
+        for [s:match_pattern, s:replace_pattern] in [['^src/', 'tests/'], ['\.php$', 'Test.php']]
+            let s:result = substitute(s:result, s:match_pattern, s:replace_pattern, '')
+        endfor
+
+        return s:result
+    endfunction
+
     let g:unite_source_menu_menus = {}
     let g:unite_source_menu_menus.shortcut = {
         \ 'description': 'shortcut'
@@ -593,20 +606,14 @@ if s:bundle_tap('unite.vim')
         \ ['Create quickrun rev snippet buffer', 'enew | 0r ~/.vim/templates/rev.template | set ft=php.rev | QuickRun'],
         \ ['Delete all buffer', '%bd'],
         \ ['Show make task', 'Unite make/help'],
-        \ ['Run test', '!phpunit %'],
+        \ ['Run test', "execute '!phpunit ' . GetTestFilePath(expand('%'))"],
+        \ ['Open test file', "execute 'vsplit ' . GetTestFilePath(expand('%'))"],
         \ ['Run diff test', '!make diff_test'],
-        \ ['Open test file', "execute 'vsplit ' . substitute(substitute(expand('%'), '^src/', 'tests/', ''), '\.php$', 'Test\.php', '')"],
         \ ['Toggle paste mode', 'set paste!'],
-        \ ['Calendar', 'Calendar'],
-        \ ['Clock', 'Calendar -view=clock'],
-        \ ['Toggle line number', 'setlocal number!'],
         \ ['Edit vimrc', 'edit $MYVIMRC'],
         \ ['Edit vimrc_local', 'edit ~/.vim/vimrc_local'],
         \ ]
-    command! UniteShortcut
-        \ Unite
-        \ menu:shortcut
-    nnoremap S :<C-u>UniteShortcut<CR>
+    nnoremap <silent>S :<C-u>Unite menu:shortcut<CR>
 
     inoremap <silent><C-x><C-x> <ESC>:<C-u>Unite file_rec/git:--cached::src/:tests/
         \ -default-action=continuous_insert -direction=botright -prompt-direction=top
