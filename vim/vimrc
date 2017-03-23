@@ -410,6 +410,12 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
 
     " for tmux
         NeoBundle     'tmux-plugins/vim-tmux'
+
+    " for uml
+        NeoBundle     'aklt/plantuml-syntax'
+
+    " for API Blueprint
+        NeoBundle     'kylef/apiblueprint.vim'
 endif
 
 
