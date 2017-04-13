@@ -14,7 +14,7 @@ endif
 " *.unの場所
 if isdirectory(expand('~/.vim/undo'))
     set undofile
-    set undodir = ~/.vim/undo
+    set undodir=~/.vim/undo
 else
     set noundofile
 endif
