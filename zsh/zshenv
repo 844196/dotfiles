@@ -8,6 +8,10 @@ fpath=(/usr/local/share/zsh/site-functions(N-/) $fpath)
 # composer
 path=($HOME/.composer/vendor/bin(N-/) $path)
 
+# golang
+export GOPATH=~/.go
+path=($GOPATH/bin(N-/) $path)
+
 # rbenv
 path=($HOME/.rbenv/bin(N-/) $path)
 which rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
