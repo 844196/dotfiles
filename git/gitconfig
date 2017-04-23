@@ -38,3 +38,6 @@
     indentHeuristic = true
 [diff-so-fancy]
     markEmptyLines = false
+[ghq]
+    root = ~/.ghq
+    root = ~/.go/src
