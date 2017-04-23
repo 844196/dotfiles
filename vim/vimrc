@@ -807,6 +807,11 @@ if s:bundle_tap('nerdtree')
     let g:NERDTreeMouseMode=3
     " 他のバッファをすべて閉じた時にNERDTreeが開いていたらNERDTreeも一緒に閉じる。
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+    let g:NERDTreeIgnore = [
+        \ 'node_modules',
+        \ 'vendor',
+        \ ]
 endif
 
 if s:bundle_tap('vim-devicons')
