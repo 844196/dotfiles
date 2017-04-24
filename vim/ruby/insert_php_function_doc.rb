@@ -27,8 +27,6 @@ doc_generator = -> (lines) do
   type_padding = func[:args].map {|a| a[:type].length }.max
   result = [
     '/**',
-    " * #{func[:name]}",
-    ' *',
       * func[:args].map {|a| " * @param #{a[:type].ljust(type_padding)} #{a[:name]}" },
     ' */',
   ]
