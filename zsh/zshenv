@@ -1,5 +1,6 @@
 # my bin
 path=($HOME/bin(N-/) $path)
+path=($HOME/bin_local(N-/) $path)
 
 # homebrew
 path=(/usr/local/bin(N-/) $path)
