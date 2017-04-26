@@ -4,9 +4,13 @@ setopt -U auto_cd
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 setopt pushd_ignore_dups
 setopt auto_menu
-zstyle ':completion:*:default' menu select=1
+zstyle ':completion:*:default' menu select=2
 setopt list_packed
 bindkey "[Z" reverse-menu-complete
+setopt nolistbeep
+setopt list_types
+setopt list_rows_first
+setopt magic_equal_subst
 
 # 言語
 export LANG=ja_JP.UTF-8
