@@ -1200,6 +1200,11 @@ if s:bundle_tap('vim-table-mode')
     let g:table_mode_auto_align = 0
 endif
 
+if s:bundle_tap('vim-go')
+    let g:go_fmt_command = 'goimports'
+    let g:go_fmt_autosave = 1
+endif
+
 
 " Finish
 " ------------------------------------------------------------------------------
