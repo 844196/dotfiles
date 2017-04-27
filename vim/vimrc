@@ -397,7 +397,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundleLazy 'vim-ruby/vim-ruby'
 
     " for php
-        NeoBundle     'vim-scripts/smarty-syntax'
+        NeoBundle     '844196/smarty-syntax'
         NeoBundle     'flyinshadow/php_localvarcheck.vim'
 
     " for js
