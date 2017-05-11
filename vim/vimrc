@@ -383,7 +383,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
 
     " for markdown
         NeoBundleLazy 'junegunn/goyo.vim'
-        NeoBundleLazy '844196/previm', 'add-markup-plantuml'
+        NeoBundleLazy '844196/previm', 'modified-for-me'
         " NeoBundle     'rcmdnk/vim-markdown'
         " NeoBundle     'joker1007/vim-markdown-quote-syntax'
         NeoBundle     'dhruvasagar/vim-table-mode'
@@ -792,8 +792,7 @@ if s:bundle_tap('previm')
         \ })
 
     let g:previm_enable_realtime = 1
-    let g:previm_disable_default_css = 1
-    let g:previm_custom_css_path = '~/.ghq/github.com/sindresorhus/github-markdown-css/github-markdown.css'
+    let g:previm_disable_default_css = 0
     let g:previm_show_header = 0
 endif
 
