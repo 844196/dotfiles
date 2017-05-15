@@ -346,6 +346,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
         NeoBundle     'scrooloose/nerdtree'
         NeoBundle     'Xuyuanp/nerdtree-git-plugin'
         NeoBundle     'jistr/vim-nerdtree-tabs'
+        NeoBundle     'tiagofumo/vim-nerdtree-syntax-highlight'
         NeoBundleLazy 'thinca/vim-quickrun'
         NeoBundle     'tpope/vim-fugitive'
         NeoBundle     'Shougo/vimshell.vim'
@@ -811,6 +812,8 @@ if s:bundle_tap('nerdtree')
         \ 'node_modules',
         \ 'vendor',
         \ ]
+
+    let g:NERDTreeHighlightCursorline = 0
 endif
 
 if s:bundle_tap('vim-devicons')
@@ -823,6 +826,11 @@ if s:bundle_tap('vim-devicons')
     let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
     let g:webdevicons_enable_unite = 1
     let g:webdevicons_enable_nerdtree = 1
+    let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = "\uf0f6"
+
+    let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
+    let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = "\uf48a"
+    let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['markdown'] = "\uf48a"
 endif
 
 if s:bundle_tap('emmet-vim')
@@ -991,6 +999,15 @@ if s:bundle_tap('vim-hybrid-material')
     autocmd modify_git_gutter_color VimEnter,Colorscheme * hi! link GitGutterChange diffRemoved
     autocmd modify_git_gutter_color VimEnter,Colorscheme * hi! link GitGutterDelete WarningMsg
     autocmd modify_git_gutter_color VimEnter,Colorscheme * hi! link GitGutterChangeDelete WarningMsg
+
+    augroup modify_nerdtree_color
+        autocmd!
+    augroup END
+
+    autocmd modify_nerdtree_color VimEnter,Colorscheme * hi! NERDTreeDir ctermfg=0 guifg=#81a2be
+    autocmd modify_nerdtree_color VimEnter,Colorscheme * hi! NERDTreeDirSlash ctermfg=0 guifg=#81a2be
+    autocmd modify_nerdtree_color VimEnter,Colorscheme * hi! NERDTreeOpenable ctermfg=0 guifg=#1d1f21
+    autocmd modify_nerdtree_color VimEnter,Colorscheme * hi! NERDTreeClosable ctermfg=0 guifg=#1d1f21
 
     function! neobundle#hooks.on_source(bundle) abort
         set bg=dark
