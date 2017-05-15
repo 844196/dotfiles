@@ -229,6 +229,10 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7"
 
 typeset -U path cdpath fpath manpath
 
+if [[ -n "${commands[richgo]:-}" ]]; then
+    alias go=richgo
+fi
+
 clear
 
 if [[ -n "${commands[tmux]:-}" ]]; then
