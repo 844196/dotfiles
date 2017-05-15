@@ -29,11 +29,8 @@ function Setup.symlink() {
     Setup.symlink vim/ruby ~/.vim/ruby
 }
 
-: 'install neobundle & vim plugins' && [[ ! -e ~/.vim/bundle/neobundle.vim ]] && {
-    mkdir -p ~/.vim/bundle
-    git clone https://github.com/Shougo/vimproc.vim ~/.vim/bundle/vimproc.vim
-    (cd ~/.vim/bundle/vimproc.vim && make)
-    git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+: 'install dein.vim' && [[ ! -e ~/.vim/plugins/repo/github.com/Shougo/dein.vim ]] && {
+    git clone https://github.com/Shougo/dein.vim ~/.vim/plugins/repo/github.com/Shougo/dein.vim
 }
 
 : 'install zplug' && [[ ! -e ~/.zplug/init.zsh ]] && {
