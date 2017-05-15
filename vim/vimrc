@@ -816,6 +816,9 @@ endif
 if s:bundle_tap('vim-devicons')
     let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
     let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+    let g:DevIconsEnableFoldersOpenClose = 1
+    let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ' '
+    let g:DevIconsDefaultFolderOpenSymbol = ' '
     let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
     let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
     let g:webdevicons_enable_unite = 1
