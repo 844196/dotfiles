@@ -185,8 +185,8 @@ augroup END
 
 " Statusline
 " ------------------------------------------------------------------------------
-set statusline =\ %F\ \|\ %{&modified?'+\ \|':&modifiable?'':'-\ \|'}
-set statusline+=%=\|\ %{(&fenc!=''?&fenc:&enc).':'.&ff}\ \|\ %{&filetype!=''?&filetype:'no\ ft'}\ \|\ %l:%c\ 
+set statusline =\ %{&modified?'':&modifiable?'':''}\ ╎\ %F
+set statusline+=%=╎\ %{&filetype!=''?WebDevIconsGetFileTypeSymbol().'\ '.&filetype:'no\ ft'}\ ╎\ %{&ff}:%{&fenc!=''?&fenc:&enc}\ ╎\ %l:%c\ 
 
 
 
@@ -286,12 +286,12 @@ let s:dein_dir = s:plugins_dir . '/repo/github.com/Shougo/dein.vim'
 
 if (isdirectory(s:dein_dir))
     let &rtp .= ',' . s:dein_dir
-    if dein#load_state(s:plugins_dir)
+    " if dein#load_state(s:plugins_dir)
         call dein#begin(s:plugins_dir)
         call dein#load_toml('~/dotfiles/vim/plugins.toml')
         call dein#end()
-        call dein#save_state()
-    endif
+    "     call dein#save_state()
+    " endif
 
     if has('vim_starting') && dein#check_install()
         call dein#install()

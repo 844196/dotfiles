@@ -46,49 +46,13 @@ hook_add = '''
         autocmd Colorscheme hybrid_reverse hi! NERDTreeDirSlash ctermfg=0 guifg=#81a2be
         autocmd Colorscheme hybrid_reverse hi! NERDTreeOpenable ctermfg=0 guifg=#1d1f21
         autocmd Colorscheme hybrid_reverse hi! NERDTreeClosable ctermfg=0 guifg=#1d1f21
+        autocmd Colorscheme hybrid_reverse hi! StatusLine guifg=#a54242
+        autocmd Colorscheme hybrid_reverse hi! StatusLineNC guifg=#373b41 guibg=#1d1f21
     augroup END
 '''
 
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
-
-[[plugins]]
-repo = 'itchyny/lightline.vim'
-hook_add = '''
-    let g:lightline = {}
-    let g:lightline.component = {
-        \ 'filename': '%f',
-        \ 'lineinfo': '%l:%c',
-        \ 'fullpath': '%F',
-        \ }
-    let g:lightline.component_function = {
-        \ 'anzu': 'anzu#search_status',
-        \ }
-    let g:lightline.active = {
-        \ 'left': [['mode', 'paste'], ['readonly', 'filename', 'modified']],
-        \ 'right': [['lineinfo', 'anzu'], ['filetype'], ['fileformat', 'fileencoding']]
-        \ }
-    let g:lightline.inactive = {
-        \ 'left': [['fullpath']],
-        \ 'right': [['branch']],
-        \ }
-    let g:lightline.tabline = {
-        \ 'left': [['tabs']],
-        \ 'right': [],
-        \ }
-    let g:lightline.colorscheme = 'hybrid'
-
-    if dein#tap('vim-devicons')
-        let g:lightline.separator = {
-            \ 'left': "\ue0b0",
-            \ 'right': "\ue0b2",
-            \ }
-        let g:lightline.subseparator = {
-            \ 'left': "\ue0b1",
-            \ 'right': "\ue0b3",
-            \ }
-    endif
-'''
 
 [[plugins]]
 repo = '844196/lightline-hybrid.vim'
