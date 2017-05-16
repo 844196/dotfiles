@@ -23,11 +23,9 @@ hook_add = '''
         let g:hybrid_custom_term_colors = 1
     endif
 
-    set fillchars+=vert:\ 
+    set fillchars+=vert:│
     set bg=dark
 
-    augroup ModifyHybrid
-        autocmd!
         autocmd VimEnter * nested colorscheme hybrid_reverse
         autocmd Filetype agit_diff hi! link agitDiffAdd ModeMsg
         autocmd Filetype agit_diff hi! link agitStatAdded ModeMsg
@@ -36,7 +34,7 @@ hook_add = '''
         autocmd Colorscheme hybrid_reverse hi! link TabLine StatusLineNC
         autocmd Colorscheme hybrid_reverse hi! link TabLineFill StatusLineNC
         autocmd Colorscheme hybrid_reverse hi! link TabLineSel StatusLine
-        autocmd Colorscheme hybrid_reverse hi! link VertSplit ColorColumn
+        autocmd Colorscheme hybrid_reverse hi! VertSplit guifg=#282a2e
         autocmd Colorscheme hybrid_reverse hi! EndOfBuffer ctermfg=0 guifg=#1d1f21
         autocmd Colorscheme hybrid_reverse hi! link GitGutterAdd ModeMsg
         autocmd Colorscheme hybrid_reverse hi! link GitGutterChange diffRemoved
@@ -46,7 +44,7 @@ hook_add = '''
         autocmd Colorscheme hybrid_reverse hi! NERDTreeDirSlash ctermfg=0 guifg=#81a2be
         autocmd Colorscheme hybrid_reverse hi! NERDTreeOpenable ctermfg=0 guifg=#1d1f21
         autocmd Colorscheme hybrid_reverse hi! NERDTreeClosable ctermfg=0 guifg=#1d1f21
-        autocmd Colorscheme hybrid_reverse hi! StatusLine guifg=#a54242
+        autocmd Colorscheme hybrid_reverse hi! StatusLine guifg=#005f5f
         autocmd Colorscheme hybrid_reverse hi! StatusLineNC guifg=#373b41 guibg=#1d1f21
     augroup END
 '''
@@ -99,6 +97,13 @@ repo = 'jistr/vim-nerdtree-tabs'
 
 [[plugins]]
 repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
+hook_add = '''
+    let g:NERDTreeDisableExactMatchHighlight = 1
+    let g:NERDTreeDisablePatternMatchHighlight = 1
+    let g:NERDTreeHighlightFolders = 0
+    let g:NERDTreeHighlightFoldersFullName = 0
+    let g:NERDTreeLimitedSyntax = 1
+'''
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
@@ -281,6 +286,7 @@ hook_add = '''
 [[plugins]]
 repo = 'Shougo/unite.vim'
 hook_add = '''
+    let g:unite_force_overwrite_statusline = 0
     let g:unite_enable_start_insert = 1
     let g:unite_enable_ignore_case = 1
     let g:unite_enable_smart_case = 1
@@ -313,10 +319,6 @@ hook_add = '''
         autocmd Filetype unite imap <silent><buffer><C-e> <End>
         autocmd Filetype unite imap <silent><buffer><C-k> <C-o>"_D
     augroup END
-
-    if dein#tap('lightline.vim')
-        let g:unite_force_overwrite_statusline = 0
-    endif
 
     if dein#tap('vim-devicons')
         let g:webdevicons_enable_unite = 0
