@@ -185,8 +185,8 @@ augroup END
 
 " Statusline
 " ------------------------------------------------------------------------------
-set statusline =\ %{&modified?'':&modifiable?'':''}\ │\ %F
-set statusline+=%=│\ %{&filetype!=''?WebDevIconsGetFileTypeSymbol().'\ '.&filetype:'no\ ft'}\ │\ %{&ff}:%{&fenc!=''?&fenc:&enc}\ │\ %l:%c\ 
+set statusline =\ %{&modified?'':&modifiable?'':''}\ ╎\ %f
+set statusline+=%=%{&filetype!=''?WebDevIconsGetFileTypeSymbol().'\ '.&filetype:'no\ ft'}\ ╎\ %{&ff}:%{&fenc!=''?&fenc:&enc}\ ╎\ %l:%c\ 
 
 
 
