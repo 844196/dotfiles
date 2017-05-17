@@ -26,6 +26,7 @@ hook_add = '''
     set fillchars+=vert:│
     set bg=dark
 
+    augroup ModifyColor
         autocmd VimEnter * nested colorscheme hybrid_reverse
         autocmd Filetype agit_diff hi! link agitDiffAdd ModeMsg
         autocmd Filetype agit_diff hi! link agitStatAdded ModeMsg
@@ -44,8 +45,8 @@ hook_add = '''
         autocmd Colorscheme hybrid_reverse hi! NERDTreeDirSlash ctermfg=0 guifg=#81a2be
         autocmd Colorscheme hybrid_reverse hi! NERDTreeOpenable ctermfg=0 guifg=#1d1f21
         autocmd Colorscheme hybrid_reverse hi! NERDTreeClosable ctermfg=0 guifg=#1d1f21
-        autocmd Colorscheme hybrid_reverse hi! StatusLine guifg=#005f5f
-        autocmd Colorscheme hybrid_reverse hi! StatusLineNC guifg=#373b41 guibg=#1d1f21
+        autocmd Colorscheme hybrid_reverse hi! StatusLine guifg=#707880
+        autocmd Colorscheme hybrid_reverse hi! StatusLineNC guifg=#282a2d guibg=#373b41
     augroup END
 '''
 
@@ -492,3 +493,7 @@ hook_add = '''
 
     nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 '''
+
+[[plugins]]
+repo = 'lilydjwg/colorizer'
+if = 'v:false'
