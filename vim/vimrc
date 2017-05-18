@@ -185,8 +185,37 @@ augroup END
 
 " Statusline
 " ------------------------------------------------------------------------------
-set statusline =\ %{&modified?'':&modifiable?'':''}\ ╎\ %f
-set statusline+=%=%{&filetype!=''?WebDevIconsGetFileTypeSymbol().'\ '.&filetype:'no\ ft'}\ ╎\ %{&ff}:%{&fenc!=''?&fenc:&enc}\ ╎\ %l:%c\ 
+augroup CopyHighlight
+    autocmd!
+    autocmd Colorscheme * hi! link TabLineSelFilename Comment
+augroup END
+
+function! s:tabpageLabel(n) abort
+    let isActiveTab = a:n is tabpagenr()
+
+    let tabNo = (isActiveTab ? '%#TabLineSel#' : '%#TabLine#')
+        \ . ' ' . a:n . ' ' . '%#TabLineFill#'
+
+    let bufferList = tabpagebuflist(a:n)
+    let activeBuffer = bufferList[tabpagewinnr(a:n) - 1]
+    let activeFilename = pathshorten(bufname(activeBuffer))
+    if activeFilename is ''
+        let activeFilename = '[No Name]'
+    endif
+    if isActiveTab
+        let activeFilename = '%#TabLineSelFilename#' . activeFilename
+    endif
+
+    return '%' . a:n . 'T' . ' ' . tabNo . ' ' . activeFilename . '%T' . '%#TabLineFill#'
+endfunction
+
+function! MakeTabline() abort
+    return join(map(range(1, tabpagenr('$')), 's:tabpageLabel(v:val)'), '  ')
+endfunction
+
+set statusline=\ %{exists('*WebDevIconsGetFileTypeSymbol')?WebDevIconsGetFileTypeSymbol():''}\ %{bufname('')==''?'[No\ Name]':strchars(bufname(''))>winwidth(0)*0.6?pathshorten(bufname('')):bufname('')}
+set statusline+=%=%{&ff}:%{&fenc!=''?&fenc:&enc}\ ╎\ %l:%c\ 
+set tabline=%!MakeTabline()
 
 
 

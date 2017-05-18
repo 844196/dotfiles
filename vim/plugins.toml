@@ -32,9 +32,6 @@ hook_add = '''
         autocmd Filetype agit_diff hi! link agitStatAdded ModeMsg
         autocmd Filetype agit_diff hi! link agitDiffRemove WarningMsg
         autocmd Filetype agit_diff hi! link agitStatRemoved WarningMsg
-        autocmd Colorscheme hybrid_reverse hi! link TabLine StatusLineNC
-        autocmd Colorscheme hybrid_reverse hi! link TabLineFill StatusLineNC
-        autocmd Colorscheme hybrid_reverse hi! link TabLineSel StatusLine
         autocmd Colorscheme hybrid_reverse hi! VertSplit guifg=#282a2e
         autocmd Colorscheme hybrid_reverse hi! EndOfBuffer ctermfg=0 guifg=#1d1f21
         autocmd Colorscheme hybrid_reverse hi! link GitGutterAdd ModeMsg
@@ -47,6 +44,10 @@ hook_add = '''
         autocmd Colorscheme hybrid_reverse hi! NERDTreeClosable ctermfg=0 guifg=#1d1f21
         autocmd Colorscheme hybrid_reverse hi! StatusLine guifg=#707880
         autocmd Colorscheme hybrid_reverse hi! StatusLineNC guifg=#282a2d guibg=#373b41
+        autocmd Colorscheme hybrid_reverse hi! TabLine guifg=#373b41 guibg=#1d1f21
+        autocmd Colorscheme hybrid_reverse hi! TabLineFill guifg=#1d1f21 guibg=#373b41
+        autocmd Colorscheme hybrid_reverse hi! TabLineSel guibg=#707880 guifg=#1d1f21
+        autocmd Colorscheme hybrid_reverse hi! TabLineSelFilename guifg=#5f5f5f guibg=#1d1f21
     augroup END
 '''
 
@@ -92,19 +93,6 @@ hook_add = '''
 
 [[plugins]]
 repo = 'Xuyuanp/nerdtree-git-plugin'
-
-[[plugins]]
-repo = 'jistr/vim-nerdtree-tabs'
-
-[[plugins]]
-repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
-hook_add = '''
-    let g:NERDTreeDisableExactMatchHighlight = 1
-    let g:NERDTreeDisablePatternMatchHighlight = 1
-    let g:NERDTreeHighlightFolders = 0
-    let g:NERDTreeHighlightFoldersFullName = 0
-    let g:NERDTreeLimitedSyntax = 1
-'''
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
@@ -293,7 +281,6 @@ hook_add = '''
     let g:unite_enable_smart_case = 1
 
     nnoremap <Leader>b :<C-u>Unite buffer<CR>
-    nnoremap <Leader>t :<C-u>Unite tab<CR>
 
     function! DispatchUniteFileRecAsyncOrGit()
         if isdirectory(getcwd()."/.git")
