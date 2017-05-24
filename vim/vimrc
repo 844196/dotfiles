@@ -27,7 +27,7 @@ set noswapfile                        " スワップファイルを作成しな�
 set nobackup                          " バックアップを作成しない
 set backspace=indent,eol,start        " <BS>が削除する位置（インデント、行末、改行マタギ）
 set list                              " 特殊文字を表示
-set listchars=tab:\|\ ,trail:-          " 特殊文字のキャラクタ
+set listchars=tab:\│\ ,trail:-        " 特殊文字のキャラクタ
 set virtualedit=block                 " 自由な矩形選択
 set expandtab                         " <Tab>をスペースに展開
 set tabstop=4 shiftwidth=4            " <Tab>スペース展開文字幅
