@@ -337,6 +337,7 @@ hook_add = '''
         \ ['Paste mode on', 'set paste!'],
         \ ['Edit vimrc', 'edit $MYVIMRC'],
         \ ['Edit vimrc_local', 'edit ~/.vim/vimrc_local'],
+        \ ['Edit plugins.toml', 'edit ~/dotfiles/vim/plugins.toml'],
         \ ['Formating markdown table', "'<,'>Alignta 0:0 |"],
         \ ['Tablize', "'<,'>Tableize"],
         \ ]
