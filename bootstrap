@@ -29,8 +29,8 @@ function Setup.symlink() {
     Setup.symlink vim/ruby ~/.vim/ruby
 }
 
-: 'install dein.vim' && [[ ! -e ~/.vim/plugins/repo/github.com/Shougo/dein.vim ]] && {
-    git clone https://github.com/Shougo/dein.vim ~/.vim/plugins/repo/github.com/Shougo/dein.vim
+: 'install dein.vim' && [[ ! -e ~/.vim/plugins/repos/github.com/Shougo/dein.vim ]] && {
+    git clone https://github.com/Shougo/dein.vim ~/.vim/plugins/repos/github.com/Shougo/dein.vim
 }
 
 : 'install zplug' && [[ ! -e ~/.zplug/init.zsh ]] && {

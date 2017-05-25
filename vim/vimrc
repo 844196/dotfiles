@@ -311,7 +311,7 @@ endif
 
 " dein.vim
 let s:plugins_dir = expand('~/.vim/plugins/')
-let s:dein_dir = s:plugins_dir . '/repo/github.com/Shougo/dein.vim'
+let s:dein_dir = s:plugins_dir . '/repos/github.com/Shougo/dein.vim'
 
 if (isdirectory(s:dein_dir))
     let &rtp .= ',' . s:dein_dir
