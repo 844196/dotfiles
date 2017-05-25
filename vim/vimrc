@@ -214,7 +214,7 @@ function! MakeTabline() abort
 endfunction
 
 set statusline=\ %{exists('*WebDevIconsGetFileTypeSymbol')?WebDevIconsGetFileTypeSymbol():''}\ %{bufname('')==''?'[No\ Name]':strchars(bufname(''))>winwidth(0)*0.6?pathshorten(bufname('')):bufname('')}
-set statusline+=%=%{&ff}:%{&fenc!=''?&fenc:&enc}\ ╎\ %l:%c\ 
+set statusline+=%=%{fugitive#head('%')!=''?fugitive#head('%').'\ ╎\ ':''}%{&ff}:%{&fenc!=''?&fenc:&enc}\ ╎\ %l:%c\ 
 set tabline=%!MakeTabline()
 
 
