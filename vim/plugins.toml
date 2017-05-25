@@ -484,3 +484,10 @@ hook_add = '''
 [[plugins]]
 repo = 'lilydjwg/colorizer'
 if = 'v:false'
+
+[[plugins]]
+repo = '844196/vim-splash'
+rev = 'modified-for-me'
+hook_add = '''
+    let g:splash#path = expand('~/dotfiles/vim/splash')
+'''
