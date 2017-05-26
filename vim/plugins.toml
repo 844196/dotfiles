@@ -345,7 +345,7 @@ hook_add = '''
         \ ['Open test file', "execute 'vsplit ' . GetTestFilePath(expand('%'))"],
         \ ['Run diff test', '!make diff_test'],
         \ ['Paste mode on', 'set paste!'],
-        \ ['Edit vimrc', 'edit $MYVIMRC'],
+        \ ['Edit vimrc', 'edit ~/dotfiles/vim/vimrc'],
         \ ['Edit vimrc_local', 'edit ~/.vim/vimrc_local'],
         \ ['Edit plugins.toml', 'edit ~/dotfiles/vim/plugins.toml'],
         \ ['Formating markdown table', "'<,'>Alignta 0:0 |"],
