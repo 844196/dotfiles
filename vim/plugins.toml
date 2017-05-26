@@ -6,6 +6,16 @@ repo = 'cespare/vim-toml'
 
 [[plugins]]
 repo = 'osyo-manga/vim-precious'
+hook_add = '''
+    let g:precious_enable_switchers = {
+        \   '*': {
+        \       'setfiletype': 1,
+        \   },
+        \   'help': {
+        \       'setfiletype': 0,
+        \   },
+        \ }
+'''
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
