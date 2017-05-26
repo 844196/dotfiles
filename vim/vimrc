@@ -156,6 +156,7 @@ nnoremap * "zyiw:let @/ = @z<CR>:<C-u>set hlsearch<CR>
 vnoremap * "zy:let @/ = @z<CR>:<C-u>set hlsearch<CR>
 
 " cしたときの元テキスト格納先レジスタを削除レジスタへ変更
+nnoremap c "_c
 vnoremap c "_c
 
 " 縦分割でタグジャンプ
