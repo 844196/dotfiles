@@ -189,6 +189,7 @@ augroup END
 augroup CopyHighlight
     autocmd!
     autocmd Colorscheme * hi! link TabLineSelFilename Comment
+    autocmd Colorscheme * hi! link User1 ErrorMsg
 augroup END
 
 function! s:tabpageLabel(n) abort
@@ -214,8 +215,35 @@ function! MakeTabline() abort
     return join(map(range(1, tabpagenr('$')), 's:tabpageLabel(v:val)'), '  ')
 endfunction
 
-set statusline=\ %{exists('*WebDevIconsGetFileTypeSymbol')?WebDevIconsGetFileTypeSymbol():''}\ %{bufname('')==''?'[No\ Name]':strchars(bufname(''))>winwidth(0)*0.6?pathshorten(bufname('')):bufname('')}
-set statusline+=%=%{fugitive#head('%')!=''?fugitive#head('%').'\ ╎\ ':''}%{&ff}:%{&fenc!=''?&fenc:&enc}\ ╎\ %l:%c\ 
+function! MakeStatusLine() abort
+    let l = ''
+    let sp = ' ┊ '
+
+    " left
+    let ftSymbol = exists('*WebDevIconsGetFileTypeSymbol') ? WebDevIconsGetFileTypeSymbol() : ''
+    let bufName = bufname('')
+    if bufName == ''
+        let bufName = '[No Name]'
+    endif
+    let bufName = strchars(bufName) > winwidth(0) * 0.6 ? pathshorten(bufName) : bufName
+    let l .=
+        \ (&modified ? '%1*' : '')
+        \ . ' ' . ftSymbol . ' '
+        \ . bufName
+
+    " right
+    let cp = getcurpos()
+    let branch = fugitive#head('%')
+    let l .=
+        \ '%='
+        \ . (branch == '' ? '' : branch . sp)
+        \ . &ff . ':' . (&fenc == '' ? &enc : &fenc) . sp
+        \ . cp[1] . ':' . cp[2] . ' '
+
+    return l
+endfunction
+
+set statusline=%!MakeStatusLine()
 set tabline=%!MakeTabline()
 
 
