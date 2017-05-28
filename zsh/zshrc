@@ -141,13 +141,6 @@ case `uname` in
         ;;
 esac
 
-if [ -e /Applications/MacVim.app ]; then
-    export EDITOR='/Applications/MacVim.app/Contents/MacOS/Vim'
-    alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-    alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-    alias gvim='/Applications/MacVim.app/Contents/MacOS/mvim'
-fi
-
 function pcolor() {
     for ((f = 0; f < 255; f++)); do
         printf "\e[38;5;%dm %3d#\e[m" $f $f
