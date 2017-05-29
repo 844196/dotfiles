@@ -190,6 +190,7 @@ augroup CopyHighlight
     autocmd!
     autocmd Colorscheme * hi! link TabLineSelFilename Comment
     autocmd Colorscheme * hi! link User1 ErrorMsg
+    autocmd Colorscheme * hi! link User2 DiffChange
 augroup END
 
 function! s:tabpageLabel(n) abort
@@ -220,6 +221,13 @@ function! MakeStatusLine() abort
     let sp = ' ┊ '
 
     " left
+    let isUnstaged = v:false
+    for lc in gitgutter#hunk#summary(bufnr(''))
+        if lc > 0
+            let isUnstaged = v:true
+            break
+        endif
+    endfor
     let ftSymbol = exists('*WebDevIconsGetFileTypeSymbol') ? WebDevIconsGetFileTypeSymbol() : ''
     let bufName = bufname('')
     if bufName == ''
@@ -227,7 +235,8 @@ function! MakeStatusLine() abort
     endif
     let bufName = strchars(bufName) > winwidth(0) * 0.6 ? pathshorten(bufName) : bufName
     let l .=
-        \ (&modified ? '%1*' : '')
+        \ (isUnstaged ? '%2*' : '')
+        \ . (&modified ? '%1*' : '')
         \ . ' ' . ftSymbol . ' '
         \ . bufName
 
