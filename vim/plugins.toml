@@ -264,6 +264,7 @@ hook_add = '''
 [[plugins]]
 repo = 'osyo-manga/vim-anzu'
 on_map = '<Plug>(anzu'
+if = 'v:false'
 hook_add = '''
     nmap * "zyiw:let @/ = @z<CR>:<C-u>set hlsearch<CR><Plug>(anzu-update-search-status)
     vmap * "zy:let @/ = @z<CR>:<C-u>set hlsearch<CR><Plug>(anzu-update-search-status)
