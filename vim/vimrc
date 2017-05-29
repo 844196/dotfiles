@@ -233,7 +233,7 @@ function! MakeStatusLine() abort
 
     " right
     let cp = getcurpos()
-    let branch = fugitive#head('%')
+    let branch = exists('*fugitive#head') ? fugitive#head('%') : ''
     let l .=
         \ '%='
         \ . (branch == '' ? '' : branch . sp)
