@@ -336,7 +336,10 @@ hook_add = '''
 
         return s:result
     endfunction
-    let g:unite_source_menu_menus = {'shortcut': {}}
+    let g:unite_source_menu_menus = {
+        \ 'shortcut': {},
+        \ 'git': {},
+        \ }
     let g:unite_source_menu_menus.shortcut.command_candidates = [
         \ ['Reopen search-buffer', 'UniteResume search-buffer'],
         \ ['Create quickrun rev snippet buffer', 'enew | 0r ~/.vim/templates/rev.template | set ft=php.rev | QuickRun'],
@@ -352,7 +355,18 @@ hook_add = '''
         \ ['Formating markdown table', "'<,'>Alignta 0:0 |"],
         \ ['Tablize', "'<,'>Tableize"],
         \ ]
+    let g:unite_source_menu_menus.git.command_candidates = [
+        \ ['Stage hunk', 'GitGutterStageHunk'],
+        \ ['Unstage hunk', 'GitGutterUndoHunk'],
+        \ ['Diff', 'Gdiff'],
+        \ ['Blame', 'Gblame'],
+        \ ['Commit', 'Gcommit'],
+        \ ['Status', 'Gstatus'],
+        \ ]
     noremap <silent>S :<C-u>Unite menu:shortcut<CR>
+    noremap <silent><C-g><C-g> :<C-u>Unite menu:git
+        \ -direction=botright -prompt-direction=top
+        \ <CR>
 
     " make/help
     let s:make_help_source = {
