@@ -247,7 +247,7 @@ function! MakeStatusLine() abort
         \ '%='
         \ . (branch == '' ? '' : branch . sp)
         \ . &ff . ':' . (&fenc == '' ? &enc : &fenc) . sp
-        \ . cp[1] . ':' . cp[2] . ' '
+        \ . cp[1] . '/%L' . ':' . cp[2] . ' '
 
     return l
 endfunction
