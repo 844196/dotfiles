@@ -41,10 +41,10 @@ hook_add = '''
 
     augroup ModifyColor
         autocmd VimEnter * nested colorscheme hybrid_reverse
-        autocmd Filetype agit_diff hi! link agitDiffAdd ModeMsg
-        autocmd Filetype agit_diff hi! link agitStatAdded ModeMsg
-        autocmd Filetype agit_diff hi! link agitDiffRemove WarningMsg
-        autocmd Filetype agit_diff hi! link agitStatRemoved WarningMsg
+        autocmd Colorscheme hybrid_reverse hi! link agitDiffAdd ModeMsg
+        autocmd Colorscheme hybrid_reverse hi! link agitStatAdded ModeMsg
+        autocmd Colorscheme hybrid_reverse hi! link agitDiffRemove WarningMsg
+        autocmd Colorscheme hybrid_reverse hi! link agitStatRemoved WarningMsg
         autocmd Colorscheme hybrid_reverse hi! VertSplit guifg=#282a2e
         autocmd Colorscheme hybrid_reverse hi! EndOfBuffer ctermfg=0 guifg=#1d1f21
         autocmd Colorscheme hybrid_reverse hi! link GitGutterAdd ModeMsg
