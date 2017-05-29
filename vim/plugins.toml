@@ -62,6 +62,7 @@ hook_add = '''
         autocmd Colorscheme hybrid_reverse hi! TabLineSel guibg=#707880 guifg=#1d1f21
         autocmd Colorscheme hybrid_reverse hi! TabLineSelFilename guifg=#5f5f5f guibg=#1d1f21
         autocmd Colorscheme hybrid_reverse hi! User1 guifg=#1d1f21 guibg=#a54242
+        autocmd Colorscheme hybrid_reverse hi! User2 guifg=#1d1f21 guibg=#5F5F87
     augroup END
 '''
 
