@@ -72,8 +72,8 @@ add-zsh-hook precmd _init_psvar
 add-zsh-hook precmd _update_vcs_info_msg
 
 PROMPT="
-%F{cyan}%n@%m:%f %F{yellow}%~%f %F{green}%1v%f%F{red}%2v%f
-%(?.%F{blue}.%F{red})%%%f "
+%(?.%F{8}.%F{red})╭─── %f%F{4}  %~%f %F{green}%1v%f%F{red}%2v%f
+%(?.%F{8}.%F{red})╰─%f "
 
 case `uname` in
     'Darwin')
