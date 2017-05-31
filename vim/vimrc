@@ -229,16 +229,11 @@ function! MakeStatusLine() abort
         endif
     endfor
     let ftSymbol = exists('*WebDevIconsGetFileTypeSymbol') ? WebDevIconsGetFileTypeSymbol() : ''
-    let bufName = bufname('')
-    if bufName == ''
-        let bufName = '[No Name]'
-    endif
-    let bufName = strchars(bufName) > winwidth(0) * 0.6 ? pathshorten(bufName) : bufName
     let l .=
         \ (isUnstaged ? '%2*' : '')
         \ . (&modified ? '%1*' : '')
         \ . ' ' . ftSymbol . ' '
-        \ . bufName
+        \ . '%f' . '%<'
 
     " right
     let cp = getcurpos()
