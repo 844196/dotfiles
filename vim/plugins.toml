@@ -522,3 +522,20 @@ rev = 'modified-for-me'
 hook_add = '''
     let g:splash#path = expand('~/dotfiles/vim/splash')
 '''
+
+[[plugins]]
+repo = 'kana/vim-operator-user'
+
+[[plugins]]
+repo = 'thinca/vim-operator-sequence'
+
+[[plugins]]
+repo = 'osyo-manga/vim-operator-highlighter'
+hook_add = '''
+let g:operator#highlighter#config = {
+    \ 'clear_time': 120,
+    \ 'group': 'SpellLocal',
+    \ }
+noremap <Plug>(yank) y
+noremap <expr> y operator#sequence#map("\<Plug>(operator-highlighter-once)", "\<Plug>(yank)")
+'''
