@@ -1,0 +1,29 @@
+#!/bin/bash
+
+db=${1:-global}
+phpmig=./vendor/bin/phpmig
+
+function select_histories() {
+    $phpmig status -s $1 \
+        | grep '^\s*\(up\|down\)' \
+        | column -t \
+        | sed -e "s/^\s*\(up\)/\x1b[38;05;6m\1\x1b[0m/g" -e "s/^\s*\(down\)/\x1b[38;05;1m\1\x1b[0m/g" \
+        | fzf --tac --ansi --height 50%
+}
+
+while selected="$(select_histories $db)"; do
+    echo "$selected" | while read line; do
+        ver=$(echo $line | awk '{print $2}')
+        case $(echo $line | awk '{print $1}') in
+            'up')
+                op='down'
+                ;;
+            'down')
+                op='up'
+                ;;
+        esac
+
+        res="$($phpmig --ansi $op -s $db $ver)"
+        [[ $? -ne 0 ]] && echo "$res"
+    done
+done
