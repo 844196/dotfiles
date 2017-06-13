@@ -1,7 +1,7 @@
 `which peco >/dev/null 2>&1` || return
 `which fzf >/dev/null 2>&1` || return
 
-export FZF_DEFAULT_OPTS="--reverse --multi --exit-0 --cycle --inline-info --ansi"
+export FZF_DEFAULT_OPTS="--reverse --multi --exit-0 --cycle --inline-info --ansi --height 50%"
 
 : 'コマンド履歴を<C-r>で表示' && {
     functions peco-history() {
