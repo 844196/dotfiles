@@ -1,3 +1,6 @@
+stty stop undef
+stty start undef
+
 # 補完
 autoload -U compinit; compinit
 setopt -U auto_cd
