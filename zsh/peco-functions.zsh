@@ -4,13 +4,13 @@
 export FZF_DEFAULT_OPTS="--reverse --multi --exit-0 --cycle --inline-info --ansi --height 50%"
 
 : 'コマンド履歴を<C-r>で表示' && {
-    functions peco-history() {
-        BUFFER=$(fc -l -n 1 | eval ${commands[tac]:-"tail -r"} | peco --query "$LBUFFER")
+    functions fzf-history() {
+        BUFFER=$(fc -l -n 1 | fzf --tac --inline-info --height 50%)
         CURSOR=$#BUFFER
-        zle -R -c
+        zle reset-prompt
     }
-    zle -N peco-history
-    bindkey '^R' peco-history
+    zle -N fzf-history
+    bindkey '^R' fzf-history
 }
 
 : 'ghqで取ってきたリポジトリへcd' && {
@@ -23,7 +23,7 @@ export FZF_DEFAULT_OPTS="--reverse --multi --exit-0 --cycle --inline-info --ansi
     functions peco-file_rec-git() {
         BUFFER="vim -O $(git ls-files | fzf | tr '\n' ' ')"
         CURSOR=$#BUFFER
-        zle -R -c
+        zle reset-prompt
     }
     zle -N peco-file_rec-git
     bindkey '^\' peco-file_rec-git
@@ -46,5 +46,5 @@ export FZF_DEFAULT_OPTS="--reverse --multi --exit-0 --cycle --inline-info --ansi
 }
 
 : 'unstage file select' && {
-    alias -g F='$(git status --porcelain | fzf-tmux | awk "{print \$2}")'
+    alias -g F='$(git status --porcelain | fzf --preview "echo {} | cut -c4- | xargs git diff --color=always HEAD" | cut -c4-)'
 }
