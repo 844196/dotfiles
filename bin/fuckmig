@@ -1,21 +1,18 @@
 #!/bin/bash
 
-set=$1
 phpmig=./vendor/bin/phpmig
 
-function getSet() {
-    if [[ -n $set ]]; then
-        echo "-s $set"
-    else
-        echo ''
-    fi
-}
+if [[ -n $1 ]]; then
+    set="-s $1"
+else
+    set=''
+fi
 
 function selectMigrations() {
     up=$(printf "\x1b[38;05;2mup\x1b[0m")
     down=$(printf "\x1b[38;05;1mdown\x1b[0m")
 
-    $phpmig status $(getSet) \
+    $phpmig status $set \
         | grep '^ *\(up\|down\)' \
         | sed \
             -e "s/^ *up/  $up/g" \
@@ -35,7 +32,7 @@ while selected="$(selectMigrations)"; do
                 ;;
         esac
 
-        out="$($phpmig --ansi $(getSet) $op $ver)"
+        out="$($phpmig $op --ansi $set $ver)"
         [[ $? -ne 0 ]] && echo "$out"
     done
 done
