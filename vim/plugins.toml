@@ -298,15 +298,6 @@ hook_add = '''
 
     nnoremap <Leader>b :<C-u>Unite buffer<CR>
 
-    function! DispatchUniteFileRecAsyncOrGit()
-        if isdirectory(getcwd()."/.git")
-            Unite file_rec/git:--cached
-        else
-            Unite file_rec/async
-        endif
-    endfunction
-    nnoremap <Leader><Leader> :<C-u>call DispatchUniteFileRecAsyncOrGit()<CR>
-
     function! DispatchUniteGrepOrGit()
         if isdirectory(getcwd()."/.git")
             Unite grep/git:. -no-empty -buffer-name=search-buffer
@@ -548,3 +539,6 @@ merged = '0'
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 depends = 'fzf'
+hook_add = '''
+    nnoremap <silent><Leader><Leader> :<C-u>FZF<CR>
+'''
