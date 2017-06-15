@@ -296,17 +296,6 @@ hook_add = '''
     let g:unite_enable_ignore_case = 1
     let g:unite_enable_smart_case = 1
 
-    nnoremap <Leader>b :<C-u>Unite buffer<CR>
-
-    function! DispatchUniteGrepOrGit()
-        if isdirectory(getcwd()."/.git")
-            Unite grep/git:. -no-empty -buffer-name=search-buffer
-        else
-            Unite grep:. -no-empty -buffer-name=search-buffer
-        endif
-    endfunction
-    nnoremap <Leader>g :<C-u>call DispatchUniteGrepOrGit()<CR>
-
     augroup unite_my_settings
         autocmd!
         autocmd Filetype unite nmap <silent><buffer><Esc><Esc> <Plug>(unite_exit)
@@ -389,46 +378,12 @@ hook_add = '''
         highlight! default link uniteSource__Make_Help_Task ModeMsg
     endfunction
     call unite#define_source(s:make_help_source)
-
-    " namespace
-    inoremap <silent><C-x><C-x> <ESC>:<C-u>Unite file_rec/git:--cached::src/:tests/
-        \ -default-action=continuous_insert -direction=botright -prompt-direction=top
-        \ <CR>
-    let s:action = {
-        \ 'description': 'insert word, continuous insert mode',
-        \ }
-    function! s:action.func(candidate) abort
-        let s:namespace = substitute(
-            \ a:candidate.word, '^src/\(.*\)\.php', '\=tr(submatch(1), "/", "\\")', 'g'
-            \ )
-        let s:old_register = {
-            \ 'type': getregtype('"'),
-            \ 'value': getreg('"'),
-            \ }
-        call setreg('"', s:namespace, 'v')
-        if (col('$') > 1 && col('.') != (col('$') - 1))
-            execute 'normal! ""gp'
-            startinsert
-        else
-            execute 'normal! ""p'
-            startinsert!
-        endif
-        call setreg('"', s:old_register.value, s:old_register.type)
-    endfunction
-    call unite#custom#action('source/file_rec/git/*', 'continuous_insert', s:action)
 '''
 
 [[plugins]]
 repo = 'Shougo/unite-outline'
 hook_add = '''
     nnoremap <silent> U :<C-u>Unite outline -vertical -direction=belowright<CR>
-'''
-
-[[plugins]]
-repo = 'kmnk/vim-unite-giti'
-hook_add = '''
-    nnoremap <silent> <leader>s :<C-u>Unite giti/status<CR>
-    nnoremap <silent> <leader>d :<C-u>Unite giti/log<CR>
 '''
 
 [[plugins]]
@@ -540,5 +495,42 @@ merged = '0'
 repo = 'junegunn/fzf.vim'
 depends = 'fzf'
 hook_add = '''
+    let g:fzf_layout = {
+        \ 'down': '15'
+        \ }
+
+    function! GetClass(path) abort
+        " pclass: ~/bin/pclass
+        return substitute(system('pclass ' . expand(a:path)), "\n", '', 'g')
+    endfunction
+    function! SetClass(path) abort
+        let s:old_register = {
+            \ 'type': getregtype('"'),
+            \ 'value': getreg('"'),
+            \ }
+        call setreg('"', GetClass(a:path), 'v')
+        if (col('$') > 1 && col('.') != (col('$') - 1))
+            execute 'normal! ""gp'
+            startinsert
+        else
+            execute 'normal! ""p'
+            startinsert!
+        endif
+        call setreg('"', s:old_register.value, s:old_register.type)
+    endfunction
+    function! SetClasses(paths) abort
+        call append(line('.') - 1, map(a:paths, {_, p -> 'use ' . GetClass(p) . ';'}))
+    endfunction
+
+    " カレントディレクトリ以下のファイル全て
     nnoremap <silent><Leader><Leader> :<C-u>FZF<CR>
+    " Git管理下ファイル + untracked
+    nnoremap <silent><Leader>s :<C-u>GFiles?<CR>
+    " 開いてるタブ
+    nnoremap <silent><Leader>t :<C-u>Windows<CR>
+    " Ag
+    nnoremap <Leader>g :<C-u>Ag 
+    " PHPクラス名補完 (use一括挿入と挿入モード用useなしバージョン)
+    nnoremap <silent><C-x><C-x> :<C-u>call fzf#run(fzf#wrap('files', {'sink*': function('SetClasses')}))<CR>
+    inoremap <silent><C-x><C-x> <Esc>:<C-u>call fzf#run(fzf#wrap('files', {'sink': function('SetClass')}))<CR>
 '''

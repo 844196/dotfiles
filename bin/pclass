@@ -1,0 +1,12 @@
+#!/bin/bash
+
+path="$1"
+[[ -f "$path" ]] || {
+    echo "${0##**/}: cannot access $path" >&2
+    exit 1
+}
+
+namespace="$(grep '^namespace' -m 1 $path | sed -e 's/namespace \([^;]\{1,\}\);$/\1/g')"
+classname="$(grep '^\(abstract\)\{0,1\}\(class\|trait\|interface\) .\{1,\}$' -m 1 $path | sed -e 's/\(abstract\)\{0,1\}\(class\|trait\|interface\) \([^ ]\{1,\}\).*$/\3/g')"
+
+echo "${namespace}\\${classname}"
