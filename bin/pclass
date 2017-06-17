@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# namespace App\User\UserTrait;
+# => App\User\UserTrait
 getNamespace()
 {
     sed -e 's/^[[:blank:]]\{1,\}//g' -e 's/[[:blank:]]\{1,\}/ /g' "$1" \
@@ -7,6 +9,8 @@ getNamespace()
         | awk -F '[; ]' '{print $2}'
 }
 
+# class User implements UserInterface extends AbstractUser
+# => User
 getClass()
 {
     sed -e 's/^[[:blank:]]\{1,\}//g' -e 's/[[:blank:]]\{1,\}/ /g' "$1" \
