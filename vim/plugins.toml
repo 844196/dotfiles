@@ -528,6 +528,8 @@ hook_add = '''
     nnoremap <silent><Leader>s :<C-u>GFiles?<CR>
     " 開いてるタブ
     nnoremap <silent><Leader>t :<C-u>Windows<CR>
+    " 開いてるバッファ
+    nnoremap <silent><Leader>b :<C-u>Buffers<CR>
     " Ag
     nnoremap <Leader>g :<C-u>Ag 
     " PHPクラス名補完 (use一括挿入と挿入モード用useなしバージョン)
