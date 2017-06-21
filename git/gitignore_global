@@ -3,3 +3,4 @@
 shunit2-*
 tags
 .bundle
+.envrc
