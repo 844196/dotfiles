@@ -17,4 +17,4 @@ install ruby
 install zsh
 install nkf
 install peco
-install --vim-powerline ricty
+install ricty
