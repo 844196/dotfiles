@@ -536,3 +536,6 @@ hook_add = '''
     nnoremap <silent><C-x><C-x> :<C-u>call fzf#run(fzf#wrap('files', {'sink*': function('SetClasses')}))<CR>
     inoremap <silent><C-x><C-x> <Esc>:<C-u>call fzf#run(fzf#wrap('files', {'sink': function('SetClass')}))<CR>
 '''
+
+[[plugins]]
+repo = 'kchmck/vim-coffee-script'
