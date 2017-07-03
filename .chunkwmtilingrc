@@ -5,11 +5,11 @@ export CHUNKC_SOCKET=4131
 
 chunkc config global_desktop_mode           bsp
 
-chunkc config global_desktop_offset_top     32
+chunkc config global_desktop_offset_top     42
 chunkc config global_desktop_offset_bottom  20
-chunkc config global_desktop_offset_left    29
-chunkc config global_desktop_offset_right   29
-chunkc config global_desktop_offset_gap     29
+chunkc config global_desktop_offset_left    20
+chunkc config global_desktop_offset_right   20
+chunkc config global_desktop_offset_gap     15
 
 chunkc config desktop_padding_step_size     10.0
 chunkc config desktop_gap_step_size         5.0
