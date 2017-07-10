@@ -2,13 +2,13 @@
 # cmd + alt + ctrl - r : khd -e "reload"
 
 # focus window
-ralt - a : chunkc window --focus west
-ralt - s : chunkc window --focus south
-ralt - w : chunkc window --focus north
-ralt - d : chunkc window --focus east
+ralt - a : chunkc tiling::window --focus west
+ralt - s : chunkc tiling::window --focus south
+ralt - w : chunkc tiling::window --focus north
+ralt - d : chunkc tiling::window --focus east
 
 # equalize size of windows
-ralt - 0 : chunkc desktop --equalize
+ralt - 0 : chunkc tiling::desktop --equalize
 
 # swap window
 # shift + lalt - a : chunkc window --swap west
@@ -17,10 +17,10 @@ ralt - 0 : chunkc desktop --equalize
 # shift + lalt - d : chunkc window --swap east
 
 # # move window
-shift + ralt - a : chunkc window --warp west
-shift + ralt - s : chunkc window --warp south
-shift + ralt - w : chunkc window --warp north
-shift + ralt - d : chunkc window --warp east
+shift + ralt - a : chunkc tiling::window --warp west
+shift + ralt - s : chunkc tiling::window --warp south
+shift + ralt - w : chunkc tiling::window --warp north
+shift + ralt - d : chunkc tiling::window --warp east
 
 # # move floating windows / windows on a floating space
 # shift + alt - up     : chunkc window --warp-floating fullscreen
@@ -71,16 +71,16 @@ shift + ralt - d : chunkc window --warp east
 # ctrl + cmd - 3  : chunkc window --send-to-monitor 3; chunkc monitor -f 3
 
 # increase region size
-ralt - z : chunkc window --use-temporary-ratio 0.1 --adjust-window-edge west
-ralt - x : chunkc window --use-temporary-ratio 0.1 --adjust-window-edge south
-ralt - c : chunkc window --use-temporary-ratio 0.1 --adjust-window-edge north
-ralt - v : chunkc window --use-temporary-ratio 0.1 --adjust-window-edge east
+ralt - z : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge west
+ralt - x : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge south
+ralt - c : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge north
+ralt - v : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge east
 
 # decrease region size
-shift + ralt - z : chunkc window --use-temporary-ratio -0.1 --adjust-window-edge west
-shift + ralt - x : chunkc window --use-temporary-ratio -0.1 --adjust-window-edge south
-shift + ralt - c : chunkc window --use-temporary-ratio -0.1 --adjust-window-edge north
-shift + ralt - v : chunkc window --use-temporary-ratio -0.1 --adjust-window-edge east
+shift + ralt - z : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge west
+shift + ralt - x : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge south
+shift + ralt - c : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge north
+shift + ralt - v : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge east
 
 # # set insertion point
 # ctrl + alt - f : chunkc window --use-insertion-point focus
@@ -90,16 +90,16 @@ shift + ralt - v : chunkc window --use-temporary-ratio -0.1 --adjust-window-edge
 # ctrl + alt - l : chunkc window --use-insertion-point east
 
 # rotate tree
-ralt - r : chunkc desktop --rotate 90
+ralt - r : chunkc tiling::desktop --rotate 90
 
 # toggle window fullscreen
-ralt - f : chunkc window --toggle fullscreen
+ralt - f : chunkc tiling::window --toggle fullscreen
 
 # toggle window parent zoom
-ralt - t : chunkc window --toggle parent
+ralt - t : chunkc tiling::window --toggle parent
 
 # toggle window split type
-ralt - e : chunkc window --toggle split
+ralt - e : chunkc tiling::window --toggle split
 
 # # float next window to be tiled
 # shift + alt - t : chunkc config window_float_next 1
