@@ -69,6 +69,8 @@ function _update_vcs_info_msg() {
         psvar[1]="✔ ${vcs_info_msg_0_}"
         psvar[2]=""
     fi
+
+    psvar[3]="$(git config user.name) <$(git config user.email)>"
 }
 
 add-zsh-hook precmd _init_psvar
@@ -77,6 +79,8 @@ add-zsh-hook precmd _update_vcs_info_msg
 PROMPT="
 %(?.%F{8}.%F{red})╭─── %f%F{4}  %~%f %F{green}%1v%f%F{red}%2v%f
 %(?.%F{8}.%F{red})╰─%f "
+
+RPROMPT="%F{7}%3v%f"
 
 case `uname` in
     'Darwin')
