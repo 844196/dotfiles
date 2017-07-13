@@ -3,11 +3,13 @@ snippet     comment
 	 * ${1:comment}
 	 */
 
-snippet     copyright
+snippet     init
 	/**
 	 * @author    `substitute(system('git config user.name'), "\n", '', 'g')` <`substitute(system('git config user.email'), "\n", '', 'g')`>
 	 * @copyright ${1:company}
 	 */
+	
+	declare(strict_types=1);
 
 snippet     test
 	/**
