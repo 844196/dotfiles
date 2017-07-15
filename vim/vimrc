@@ -173,11 +173,7 @@ vnoremap J "zx"zp`[V`]
 " ------------------------------------------------------------------------------
 augroup my_filetype
     autocmd!
-    autocmd FileType help nnoremap <silent><buffer>q :quit<CR>
-    autocmd FileType help wincmd L
-    autocmd FileType html,css,less,scss,ruby,yaml,javascript,vue setlocal tabstop=2 shiftwidth=2
-    autocmd FileType php,php.rev setlocal noexpandtab tabstop=4 shiftwidth=4
-    autocmd FileType html inoremap <buffer></ </<C-x><C-o>
+    autocmd FileType html,css,less,scss,ruby,yaml,javascript,vue,json setlocal tabstop=2 shiftwidth=2
     autocmd FileType markdown hi! def link markdownItalic Normal
     autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn} setlocal filetype=markdown
 augroup END

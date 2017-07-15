@@ -5,6 +5,9 @@ endif
 setlocal iskeyword+=$
 setlocal iskeyword-=-
 
+setlocal noexpandtab
+setlocal tabstop=4 shiftwidth=4
+
 setlocal makeprg=phan
 setlocal errorformat=%f:%l\ %m
 
