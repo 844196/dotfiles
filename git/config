@@ -3,7 +3,6 @@
     email = 844196@gmail.com
 [core]
     editor = vim
-    excludesfile = ~/dotfiles/git/gitignore_global
     quotepath = false
 [difftool "sourcetree"]
     cmd = opendiff \"$LOCAL\" \"$REMOTE\"

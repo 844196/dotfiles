@@ -12,8 +12,8 @@ function Setup.symlink() {
 ################################################################################
 
 : 'copy git config file' && {
-    Setup.symlink git/gitconfig ~/.gitconfig
-    Setup.symlink git/gitignore_global ~/.gitignore_global
+    mkdir -p ~/.config
+    Setup.symlink git ~/.config/git
 }
 
 : 'copy vimrc & gvimrc' && {
