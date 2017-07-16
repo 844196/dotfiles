@@ -92,7 +92,7 @@ case `uname` in
 esac
 
 # 履歴ファイルの保存先
-export HISTFILE=$HOME/.zsh_history
+export HISTFILE=$ZDOTDIR/.zhistory
 
 # メモリに保存される履歴
 export HISTSIZE=1000
@@ -131,7 +131,7 @@ export LESSHISTFILE=-
 export LESSCHARSET=utf-8
 
 # リロード
-alias reload="source $HOME/.zshrc"
+alias reload="source $ZDOTDIR/.zshrc"
 
 # エイリアス
 alias ..="cd .."
@@ -198,8 +198,9 @@ alias gg='git graph -n 15'
 alias ga='git graph | less -RS'
 alias agit='vim -c Agit'
 
-: 'zplug configure' && [[ -e ~/.zplug/init.zsh ]] && {
-    source ~/.zplug/init.zsh
+export ZPLUG_HOME=~/.zsh/zplug
+: 'zplug configure' && [[ -e $ZPLUG_HOME/init.zsh ]] && {
+    source $ZPLUG_HOME/init.zsh
 
     zplug "zplug/zplug", hook-build:'zplug --self-manage'
     zplug "zsh-users/zsh-syntax-highlighting", if:"[[ ${ZSH_EVAL_CONTEXT} == 'file' ]]", defer:2

@@ -1,3 +1,5 @@
+export ZDOTDIR=~/.zsh
+
 # my bin
 path=($HOME/bin(N-/) $path)
 path=($HOME/bin_local(N-/) $path)
