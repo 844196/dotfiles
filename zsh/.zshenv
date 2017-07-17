@@ -1,7 +1,7 @@
 export ZDOTDIR=~/.zsh
 
 # my bin
-path=($HOME/bin(N-/) $path)
+path=($HOME/dotfiles/bin(N-/) $path)
 path=($HOME/bin_local(N-/) $path)
 
 # homebrew
