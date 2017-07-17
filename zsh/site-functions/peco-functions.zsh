@@ -1,4 +1,3 @@
-`which peco >/dev/null 2>&1` || return
 `which fzf >/dev/null 2>&1` || return
 
 export FZF_DEFAULT_OPTS="--reverse --multi --exit-0 --cycle --inline-info --ansi --height 50%"
@@ -15,18 +14,8 @@ export FZF_DEFAULT_OPTS="--reverse --multi --exit-0 --cycle --inline-info --ansi
 
 : 'ghqで取ってきたリポジトリへcd' && {
     if `which ghq >/dev/null 2>&1`; then
-        alias gp='cd $(ghq list --full-path | peco)'
+        alias gp='cd $(ghq list --full-path | fzf)'
     fi
-}
-
-: 'Unite file_rec/git gitぽいやつ' && {
-    functions peco-file_rec-git() {
-        BUFFER="vim -O $(git ls-files | fzf | tr '\n' ' ')"
-        CURSOR=$#BUFFER
-        zle reset-prompt
-    }
-    zle -N peco-file_rec-git
-    bindkey '^\' peco-file_rec-git
 }
 
 : 'コミット選択' && {

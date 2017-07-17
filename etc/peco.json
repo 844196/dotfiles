@@ -1,9 +1,0 @@
-{
-    "Prompt": ">_",
-    "Style": {
-        "Selected": ["on_red", "cyan"]
-    },
-    "Keymap": {
-        "Tab": "peco.ToggleSelectionAndSelectNext"
-    }
-}
