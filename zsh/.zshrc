@@ -233,7 +233,7 @@ clear
 if [[ -n "${commands[tmux]:-}" ]]; then
     if tmux has-session; then
         if [[ -z "${TMUX}" ]]; then
-            ~/bin/tmux-wrapper
+            ~/dotfiles/tmux/scripts/wrapper
         fi
     else
         if [[ -z "${TMUX}" ]]; then
