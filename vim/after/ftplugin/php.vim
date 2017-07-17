@@ -1,4 +1,4 @@
-if exists('b:did_ftplugin')
+if exists('b:did_after_ftplugin')
     finish
 endif
 
@@ -11,4 +11,4 @@ setlocal tabstop=4 shiftwidth=4
 setlocal makeprg=phan
 setlocal errorformat=%f:%l\ %m
 
-let b:did_ftplugin = 1
+let b:did_after_ftplugin = 1
