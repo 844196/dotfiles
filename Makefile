@@ -30,8 +30,8 @@ zsh:
 .PHONY: zsh
 
 vim:
-	$(MKDIR) ~/.vim/undo
 	$(call link,vim,~/.vim)
+	$(MKDIR) ~/.vim/undo
 .PHONY: vim
 
 tmux:
