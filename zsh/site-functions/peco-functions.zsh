@@ -1,7 +1,12 @@
 `which fzf >/dev/null 2>&1` || return
 
 export FZF_DEFAULT_OPTS="--reverse --multi --exit-0 --cycle --inline-info --ansi --height 50%"
-export FZF_DEFAULT_COMMAND="ag --skip-vcs-ignores --hidden --ignore-dir '.git/' -g ''"
+
+if [[ -n "${commands[ag]:-}" ]]; then
+    export FZF_DEFAULT_COMMAND="ag --skip-vcs-ignores --hidden --ignore-dir '.git/' -g ''"
+else
+    export FZF_DEFAULT_COMMAND="find . -type f -not -iwholename '*/.git/*' | sed 's;^./;;g' | sort"
+fi
 
 : 'コマンド履歴を<C-r>で表示' && {
     functions fzf-history() {
