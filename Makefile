@@ -53,3 +53,8 @@ zplug: zsh
 ctags:
 	$(call link,etc/ctags,~/.ctags)
 .PHONY: ctags
+
+chunkwm:
+	$(call link,chunkwm/chunkwmrc,~/.chunkwmrc)
+	$(call link,chunkwm/khdrc,~/.khdrc)
+.PHONY: chunkwm
