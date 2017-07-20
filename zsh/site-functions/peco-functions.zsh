@@ -1,6 +1,7 @@
 `which fzf >/dev/null 2>&1` || return
 
 export FZF_DEFAULT_OPTS="--reverse --multi --exit-0 --cycle --inline-info --ansi --height 50%"
+export FZF_DEFAULT_COMMAND="ag --skip-vcs-ignores --hidden --ignore-dir '.git/' -g ''"
 
 : 'コマンド履歴を<C-r>で表示' && {
     functions fzf-history() {
