@@ -10,16 +10,6 @@ define link
 	$(LN) $(realpath $1) $2
 endef
 
-install: \
-	git \
-	zsh \
-	vim \
-	tmux \
-	dein \
-	zplug \
-	ctags
-.PHONY: install
-
 git:
 	$(call link,git,~/.config/git)
 .PHONY: git
