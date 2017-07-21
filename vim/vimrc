@@ -35,7 +35,6 @@ set shiftround                        " インデントをshiftwidthに丸める
 set smarttab                          " 自動インデント
 set autoindent                        " 改行後の自動インデント
 set synmaxcol=300                     " 1行あたりのシンタックス有効文字数
-set number                            " 行番号
 set scrolloff=10                      " バッファスクロール時に上下10行を確保
 set showmatch                         " 対応するカッコをハイライト
 set matchtime=1                       " カッコ間移動時間
@@ -133,7 +132,7 @@ nnoremap <silent><Right> <C-w>>
 nnoremap <silent><Tab> <C-w>w
 
 " toggle relative line number and column highlight
-nnoremap <silent><F3> :<C-u>setlocal relativenumber!<CR>
+nnoremap <silent><F3> :<C-u>setlocal number!<CR>
 nnoremap <silent><F1> :<C-u><C-\>e'setlocal colorcolumn='.(&colorcolumn ? '' : '120')<CR><CR>
 nnoremap <silent><leader>c :<C-u>setlocal cursorcolumn!<CR>
 
