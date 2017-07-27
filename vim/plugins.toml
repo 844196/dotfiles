@@ -539,3 +539,6 @@ hook_add = '''
 
 [[plugins]]
 repo = 'kchmck/vim-coffee-script'
+
+[[plugins]]
+repo = 'wsdjeg/FlyGrep.vim'
