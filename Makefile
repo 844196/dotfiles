@@ -53,3 +53,4 @@ local:
 	$(MKDIR) ~/.local
 	touch ~/.local/vimrc
 	touch ~/.local/zshrc
+.PHONY: local
