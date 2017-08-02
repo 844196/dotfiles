@@ -360,8 +360,8 @@ endif
 " Finish
 " ------------------------------------------------------------------------------
 " load .vimrc_local if file readable
-if filereadable(expand('~/.vim/vimrc_local'))
-    source ~/.vim/vimrc_local
+if filereadable(expand('~/.local/vimrc'))
+    source ~/.local/vimrc
 endif
 
 " enable filetype any custom

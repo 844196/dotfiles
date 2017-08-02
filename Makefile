@@ -48,3 +48,8 @@ chunkwm:
 	$(call link,chunkwm/chunkwmrc,~/.chunkwmrc)
 	$(call link,chunkwm/khdrc,~/.khdrc)
 .PHONY: chunkwm
+
+local:
+	$(MKDIR) ~/.local
+	touch ~/.local/vimrc
+	touch ~/.local/zshrc

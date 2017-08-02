@@ -210,8 +210,8 @@ export ZPLUG_HOME=~/.zsh/zplug
     zplug load
 }
 
-: 'local config load' && [[ -e ~/.zsh/zshrc_local ]] && {
-    source ~/.zsh/zshrc_local
+: 'local config load' && [[ -e ~/.local/zshrc ]] && {
+    source ~/.local/zshrc
 }
 
 # zsh-autosuggestions

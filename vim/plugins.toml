@@ -327,7 +327,7 @@ hook_add = '''
         \ }
     let g:unite_source_menu_menus.shortcut.command_candidates = [
         \ ['Reopen search-buffer', 'UniteResume search-buffer'],
-        \ ['Create quickrun rev snippet buffer', 'enew | 0r ~/.vim/templates/rev.template | set ft=php.rev | QuickRun'],
+        \ ['Create quickrun project snippet buffer', 'enew | 0r ~/.vim/templates/project.template | set ft=php.project | QuickRun'],
         \ ['Delete all buffer', '%bd'],
         \ ['Show make task', 'Unite make/help'],
         \ ['Run test', "execute '!phpunit ' . GetTestFilePath(expand('%'))"],
@@ -335,7 +335,7 @@ hook_add = '''
         \ ['Run diff test', '!make diff_test'],
         \ ['Paste mode on', 'set paste!'],
         \ ['Edit vimrc', 'edit ~/dotfiles/vim/vimrc'],
-        \ ['Edit vimrc_local', 'edit ~/.vim/vimrc_local'],
+        \ ['Edit local vimrc', 'edit ~/.local/vimrc'],
         \ ['Edit plugins.toml', 'edit ~/dotfiles/vim/plugins.toml'],
         \ ['Formating markdown table', "'<,'>Alignta 0:0 |"],
         \ ['Tablize', "'<,'>Tableize"],
@@ -437,11 +437,6 @@ hook_add = '''
         \ 'command': 'bundle',
         \ 'cmdopt': 'exec ruby',
         \ 'exec': '%c %o %s'
-        \ }
-    let g:quickrun_config['php.rev'] = {
-        \ 'command': './rev',
-        \ 'cmdopt': 'exec',
-        \ 'exec': '%c %o %s',
         \ }
     let g:quickrun_config.json = {
         \ 'outputter/buffer/filetype': 'json',
