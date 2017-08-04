@@ -63,6 +63,10 @@ hook_add = '''
         autocmd Colorscheme hybrid_reverse hi! TabLineSelFilename guifg=#5f5f5f guibg=#1d1f21
         autocmd Colorscheme hybrid_reverse hi! User1 guifg=#1d1f21 guibg=#a54242
         autocmd Colorscheme hybrid_reverse hi! User2 guifg=#1d1f21 guibg=#5F5F87
+        autocmd Colorscheme hybrid_reverse hi! ALEError guifg=#c5c8c6 guibg=#a54242
+        autocmd Colorscheme hybrid_reverse hi! ALEErrorSign guifg=#a54242
+        autocmd Colorscheme hybrid_reverse hi! ALEWarning guifg=#c5c8c6 guibg=#de935f
+        autocmd Colorscheme hybrid_reverse hi! ALEWarningSign guifg=#de935f
     augroup END
 '''
 
@@ -188,14 +192,6 @@ repo = 'tpope/vim-endwise'
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
-
-[[plugins]]
-repo = 'flyinshadow/php_localvarcheck.vim'
-on_ft = 'php'
-hook_add = '''
-    let g:php_localvarcheck_enable = 1
-    let g:php_localvarcheck_global = 0
-'''
 
 [[plugins]]
 repo = 'simnalamburt/vim-mundo'
@@ -537,3 +533,12 @@ repo = 'kchmck/vim-coffee-script'
 
 [[plugins]]
 repo = 'wsdjeg/FlyGrep.vim'
+
+[[plugins]]
+repo = 'w0rp/ale'
+hook_add = '''
+    let g:ale_php_phpcs_standard = 'ruleset.xml'
+    let g:ale_php_phpmd_ruleset = 'phpmd.xml'
+    let g:ale_sign_error = "\uf057"
+    let g:ale_sign_warning = "\uf06a"
+'''
