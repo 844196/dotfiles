@@ -541,4 +541,5 @@ hook_add = '''
     let g:ale_php_phpmd_ruleset = 'phpmd.xml'
     let g:ale_sign_error = "\uf057"
     let g:ale_sign_warning = "\uf06a"
+    let g:ale_lint_delay = 750
 '''
