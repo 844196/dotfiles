@@ -133,15 +133,12 @@ nnoremap <silent><Right> <C-w>>
 nnoremap <silent><Tab> <C-w>w
 
 " toggle relative line number and column highlight
-nnoremap <silent><F3> :<C-u>setlocal number!<CR>
+nnoremap <silent><C-g> :<C-u>setlocal number!<CR>
 nnoremap <silent><F1> :<C-u><C-\>e'setlocal colorcolumn='.(&colorcolumn ? '' : '120')<CR><CR>
 nnoremap <silent><leader>c :<C-u>setlocal cursorcolumn!<CR>
 
 " help
 nnoremap <C-h> :h<Space>
-
-" echo file path
-nnoremap <C-g> 1<C-g>
 
 " <C-w>oを上書き
 command! Big wincmd _ | wincmd |
