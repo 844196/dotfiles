@@ -45,7 +45,7 @@ set laststatus=2                      " ステータスラインを常に表示
 set ruler                             " ステータスラインに現在行情報を表示
 set showcmd                           " ステータスライン下に入力中コマンドを表示
 set noshowmode                        " モードを表示しない
-set cmdheight=2                       " コマンドラインの高さ
+set cmdheight=1                       " コマンドラインの高さ
 set wildmenu                          " コマンドライン補完
 set wildignorecase                    " コマンドライン補完を大文字・小文字無視
 set incsearch                         " インクリメンタルサーチ
@@ -177,74 +177,6 @@ augroup my_filetype
     autocmd FileType markdown hi! def link markdownItalic Normal
     autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn} setlocal filetype=markdown
 augroup END
-
-
-
-" Statusline
-" ------------------------------------------------------------------------------
-augroup CopyHighlight
-    autocmd!
-    autocmd Colorscheme * hi! link TabLineSelFilename Comment
-    autocmd Colorscheme * hi! link User1 ErrorMsg
-    autocmd Colorscheme * hi! link User2 DiffChange
-augroup END
-
-function! s:tabpageLabel(n) abort
-    let isActiveTab = a:n is tabpagenr()
-
-    let tabNo = (isActiveTab ? '%#TabLineSel#' : '%#TabLine#')
-        \ . ' ' . a:n . ' ' . '%#TabLineFill#'
-
-    let bufferList = tabpagebuflist(a:n)
-    let activeBuffer = bufferList[tabpagewinnr(a:n) - 1]
-    let activeFilename = pathshorten(bufname(activeBuffer))
-    if activeFilename is ''
-        let activeFilename = '[No Name]'
-    endif
-    if isActiveTab
-        let activeFilename = '%#TabLineSelFilename#' . activeFilename
-    endif
-
-    return '%' . a:n . 'T' . ' ' . tabNo . ' ' . activeFilename . '%T' . '%#TabLineFill#'
-endfunction
-
-function! MakeTabline() abort
-    return join(map(range(1, tabpagenr('$')), 's:tabpageLabel(v:val)'), '  ')
-endfunction
-
-function! MakeStatusLine() abort
-    let l = ''
-    let sp = ' ┊ '
-
-    " left
-    let isUnstaged = v:false
-    for lc in gitgutter#hunk#summary(bufnr(''))
-        if lc > 0
-            let isUnstaged = v:true
-            break
-        endif
-    endfor
-    let ftSymbol = exists('*WebDevIconsGetFileTypeSymbol') ? WebDevIconsGetFileTypeSymbol() : ''
-    let l .=
-        \ (isUnstaged ? '%2*' : '')
-        \ . (&modified ? '%1*' : '')
-        \ . ' ' . ftSymbol . ' '
-        \ . '%f' . '%<'
-
-    " right
-    let cp = getcurpos()
-    let branch = exists('*fugitive#head') ? fugitive#head('%') : ''
-    let l .=
-        \ '%='
-        \ . (branch == '' ? '' : branch . sp)
-        \ . &ff . ':' . (&fenc == '' ? &enc : &fenc) . sp
-        \ . cp[1] . '/%L' . ':' . cp[2] . ' '
-
-    return l
-endfunction
-
-set statusline=%!MakeStatusLine()
-set tabline=%!MakeTabline()
 
 
 

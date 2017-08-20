@@ -55,12 +55,6 @@ hook_add = '''
         autocmd Colorscheme hybrid_reverse hi! NERDTreeDirSlash ctermfg=0 guifg=#81a2be
         autocmd Colorscheme hybrid_reverse hi! NERDTreeOpenable ctermfg=0 guifg=#1d1f21
         autocmd Colorscheme hybrid_reverse hi! NERDTreeClosable ctermfg=0 guifg=#1d1f21
-        autocmd Colorscheme hybrid_reverse hi! StatusLine guifg=#707880
-        autocmd Colorscheme hybrid_reverse hi! StatusLineNC guifg=#282a2d guibg=#373b41
-        autocmd Colorscheme hybrid_reverse hi! TabLine guifg=#373b41 guibg=#1d1f21
-        autocmd Colorscheme hybrid_reverse hi! TabLineFill guifg=#1d1f21 guibg=#373b41
-        autocmd Colorscheme hybrid_reverse hi! TabLineSel guibg=#707880 guifg=#1d1f21
-        autocmd Colorscheme hybrid_reverse hi! TabLineSelFilename guifg=#5f5f5f guibg=#1d1f21
         autocmd Colorscheme hybrid_reverse hi! User1 guifg=#1d1f21 guibg=#a54242
         autocmd Colorscheme hybrid_reverse hi! User2 guifg=#1d1f21 guibg=#5F5F87
         autocmd Colorscheme hybrid_reverse hi! ALEError guifg=#c5c8c6 guibg=#a54242
@@ -72,9 +66,6 @@ hook_add = '''
 
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
-
-[[plugins]]
-repo = '844196/lightline-hybrid.vim'
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
@@ -542,4 +533,104 @@ hook_add = '''
     let g:ale_sign_error = "\uf057"
     let g:ale_sign_warning = "\uf06a"
     let g:ale_lint_delay = 750
+'''
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+    augroup StatuslineWorkaround
+        autocmd Colorscheme hybrid_reverse hi! StatusLine guifg=#212325 guibg=#5f5f5f
+        autocmd Colorscheme hybrid_reverse hi! StatusLineNC guifg=#212325
+    augroup END
+
+    let s:p = {'normal': {}, 'insert': {}, 'visual': {}, 'replace': {}, 'inactive': {}, 'tabline': {}}
+    let s:p.normal.left = [['#5f5f5f', '#212325', 0, 0]]
+    let s:p.normal.middle = s:p.normal.left
+    let s:p.normal.right = s:p.normal.left
+    let s:p.inactive.left = [['#373b41', '#212325', 0, 0]]
+    let s:p.inactive.middle = s:p.inactive.left
+    let s:p.inactive.right = s:p.inactive.left
+    let s:p.tabline.tabsel = [['#5f5f5f', '#232528', 0, 0]]
+    let s:p.tabline.left = [['#373b41', '#1d1f21', 0, 0]]
+    let s:p.tabline.middle = [['#1d1f21', '#1d1f21', 0, 0]]
+    let s:p.tabline.right = s:p.tabline.middle
+    let g:lightline#colorscheme#simple#palette = s:p
+
+    function! StatuslineGitBranch() abort
+        let branch = fugitive#head('%')
+
+        return branch == '' ? '' : "\uf418 " . branch
+    endfunction
+
+    function! StatuslineChangedLineCount() abort
+        let diff = GitGutterGetHunkSummary()
+        if diff == [0, 0, 0]
+            return ''
+        endif
+
+        return "\uf440" . ' ' . '+' . diff[0] . ',~' . diff[1] . ',-' . diff[2]
+    endfunction
+
+    function! TablineWebdevicon(tabnum) abort
+        let bufferList = tabpagebuflist(a:tabnum)
+        let activeBuffer = bufferList[tabpagewinnr(a:tabnum) - 1]
+        let activeFilename = bufname(activeBuffer)
+
+        return WebDevIconsGetFileTypeSymbol(activeFilename)
+    endfunction
+
+    let g:lightline = {
+        \ 'active': {
+        \     'left': [[
+        \         'filename',
+        \         'modified',
+        \     ]],
+        \     'right': [[
+        \         'fileformat',
+        \         'fileencoding',
+        \         'filetype',
+        \         'statuslineGitBranch',
+        \         'statuslineChangedLineCount',
+        \     ]],
+        \ },
+        \ 'inactive': {
+        \     'left': [[
+        \         'filename',
+        \         'modified',
+        \     ]],
+        \     'right': [],
+        \ },
+        \ 'tab': {
+        \     'active': [
+        \         'tablineWebdevicon',
+        \         'filename',
+        \         'modified',
+        \     ],
+        \     'inactive': [
+        \         'tablineWebdevicon',
+        \         'filename',
+        \         'modified',
+        \     ],
+        \ },
+        \ 'component': {
+        \     'filename': '%f',
+        \ },
+        \ 'component_function': {
+        \     'statuslineGitBranch': 'StatuslineGitBranch',
+        \     'statuslineChangedLineCount': 'StatuslineChangedLineCount',
+        \     'webdevicon': 'WebDevIconsGetFileTypeSymbol',
+        \ },
+        \ 'tab_component_function': {
+        \     'tablineWebdevicon': 'TablineWebdevicon',
+        \ },
+        \ 'colorscheme': 'simple',
+        \ 'separator': {
+        \     'left': '',
+        \     'right': '',
+        \ },
+        \ 'subseparator': {
+        \     'left': '',
+        \     'right': '',
+        \ },
+        \ }
 '''
