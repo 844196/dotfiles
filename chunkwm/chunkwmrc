@@ -24,4 +24,5 @@ chunkc set window_float_topmost          0
 chunkc core::plugin_dir ~/.chunkwm_plugins
 chunkc core::load tiling.so
 chunkc tiling::rule --owner \"System Preferences\" --state tile
+chunkc tiling::rule --owner \"QuickTime Player\" --state float
 chunkc tiling::rule --owner Finder --name Copy --state float
