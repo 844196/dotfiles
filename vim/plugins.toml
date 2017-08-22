@@ -314,7 +314,7 @@ hook_add = '''
         \ }
     let g:unite_source_menu_menus.shortcut.command_candidates = [
         \ ['Reopen search-buffer', 'UniteResume search-buffer'],
-        \ ['Create quickrun project snippet buffer', 'enew | 0r ~/.vim/templates/project.template | set ft=php.project | QuickRun'],
+        \ ['Create quickrun php snippet buffer', 'enew | 0r ~/.vim/templates/project.template | set ft=php | QuickRun'],
         \ ['Delete all buffer', '%bd'],
         \ ['Show make task', 'Unite make/help'],
         \ ['Run test', "execute '!phpunit ' . GetTestFilePath(expand('%'))"],
