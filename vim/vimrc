@@ -276,6 +276,11 @@ if has('ruby')
         ruby load Vim::evaluate('expand("~/.vim/ruby/insert_php_property_doc.rb")')
     endfunction
     nnoremap <silent><space>pp :call InsertPHPPropertyDoc()<CR>
+
+    function! ToggleCase() abort
+        ruby load Vim::evaluate('expand("~/.vim/ruby/toggle_case.rb")')
+    endfunction
+    nnoremap <silent><C-j> :call ToggleCase()<CR>
 endif
 
 " dein.vim
