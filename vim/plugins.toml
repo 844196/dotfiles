@@ -46,21 +46,19 @@ hook_add = '''
         autocmd Colorscheme hybrid_reverse hi! link agitDiffRemove WarningMsg
         autocmd Colorscheme hybrid_reverse hi! link agitStatRemoved WarningMsg
         autocmd Colorscheme hybrid_reverse hi! VertSplit guifg=#282a2e
-        autocmd Colorscheme hybrid_reverse hi! EndOfBuffer ctermfg=0 guifg=#1d1f21
+        autocmd Colorscheme hybrid_reverse hi EndOfBuffer ctermfg=0 guifg=#1d1f21
         autocmd Colorscheme hybrid_reverse hi! link GitGutterAdd ModeMsg
         autocmd Colorscheme hybrid_reverse hi! link GitGutterChange diffRemoved
         autocmd Colorscheme hybrid_reverse hi! link GitGutterDelete WarningMsg
         autocmd Colorscheme hybrid_reverse hi! link GitGutterChangeDelete WarningMsg
-        autocmd Colorscheme hybrid_reverse hi! NERDTreeDir ctermfg=0 guifg=#81a2be
-        autocmd Colorscheme hybrid_reverse hi! NERDTreeDirSlash ctermfg=0 guifg=#81a2be
-        autocmd Colorscheme hybrid_reverse hi! NERDTreeOpenable ctermfg=0 guifg=#1d1f21
-        autocmd Colorscheme hybrid_reverse hi! NERDTreeClosable ctermfg=0 guifg=#1d1f21
-        autocmd Colorscheme hybrid_reverse hi! User1 guifg=#1d1f21 guibg=#a54242
-        autocmd Colorscheme hybrid_reverse hi! User2 guifg=#1d1f21 guibg=#5F5F87
-        autocmd Colorscheme hybrid_reverse hi! ALEError guifg=#c5c8c6 guibg=#a54242
-        autocmd Colorscheme hybrid_reverse hi! ALEErrorSign guifg=#a54242
-        autocmd Colorscheme hybrid_reverse hi! ALEWarning guifg=#c5c8c6 guibg=#de935f
-        autocmd Colorscheme hybrid_reverse hi! ALEWarningSign guifg=#de935f
+        autocmd Colorscheme hybrid_reverse hi NERDTreeDir ctermfg=0 guifg=#81a2be
+        autocmd Colorscheme hybrid_reverse hi NERDTreeDirSlash ctermfg=0 guifg=#81a2be
+        autocmd Colorscheme hybrid_reverse hi NERDTreeOpenable ctermfg=0 guifg=#1d1f21
+        autocmd Colorscheme hybrid_reverse hi NERDTreeClosable ctermfg=0 guifg=#1d1f21
+        autocmd Colorscheme hybrid_reverse hi ALEError guifg=#c5c8c6 guibg=#a54242
+        autocmd Colorscheme hybrid_reverse hi ALEErrorSign guifg=#a54242
+        autocmd Colorscheme hybrid_reverse hi ALEWarning guifg=#c5c8c6 guibg=#de935f
+        autocmd Colorscheme hybrid_reverse hi ALEWarningSign guifg=#de935f
     augroup END
 '''
 
@@ -528,8 +526,8 @@ hook_add = '''
 repo = 'itchyny/lightline.vim'
 hook_add = '''
     augroup StatuslineWorkaround
-        autocmd Colorscheme hybrid_reverse hi! StatusLine guifg=#212325 guibg=#5f5f5f
-        autocmd Colorscheme hybrid_reverse hi! StatusLineNC guifg=#212325
+        autocmd Colorscheme hybrid_reverse hi StatusLine guifg=#212325 guibg=#5f5f5f
+        autocmd Colorscheme hybrid_reverse hi StatusLineNC guifg=#212325
     augroup END
 
     let s:p = {'normal': {}, 'insert': {}, 'visual': {}, 'replace': {}, 'inactive': {}, 'tabline': {}}
