@@ -533,9 +533,13 @@ hook_add = '''
     augroup END
 
     let s:p = {'normal': {}, 'insert': {}, 'visual': {}, 'replace': {}, 'inactive': {}, 'tabline': {}}
-    let s:p.normal.left = [['#5f5f5f', '#212325', 0, 0]]
-    let s:p.normal.middle = s:p.normal.left
-    let s:p.normal.right = s:p.normal.left
+    let s:p.normal.left = [
+        \ ['#5f5f5f', '#212325', 0, 0],
+        \ ['#a54242', '#212325', 0, 0],
+        \ ['#8c9440', '#212325', 0, 0],
+        \ ]
+    let s:p.normal.middle = [['#5f5f5f', '#212325', 0, 0]]
+    let s:p.normal.right = s:p.normal.middle
     let s:p.inactive.left = [['#373b41', '#212325', 0, 0]]
     let s:p.inactive.middle = s:p.inactive.left
     let s:p.inactive.right = s:p.inactive.left
@@ -570,10 +574,11 @@ hook_add = '''
 
     let g:lightline = {
         \ 'active': {
-        \     'left': [[
-        \         'filename',
-        \         'modified',
-        \     ]],
+        \     'left': [
+        \         ['filename'],
+        \         ['isModified'],
+        \         ['isNotModified'],
+        \     ],
         \     'right': [[
         \         'fileformat',
         \         'fileencoding',
@@ -583,10 +588,10 @@ hook_add = '''
         \     ]],
         \ },
         \ 'inactive': {
-        \     'left': [[
-        \         'filename',
-        \         'modified',
-        \     ]],
+        \     'left': [
+        \         ['filename'],
+        \         ['isModified'],
+        \     ],
         \     'right': [],
         \ },
         \ 'tab': {
@@ -603,6 +608,8 @@ hook_add = '''
         \ },
         \ 'component': {
         \     'filename': '%f',
+        \     'isModified': '%{(&modifiable && &modified) ? "\uf444" : ""}',
+        \     'isNotModified': '%{(&modifiable && (&modified == v:false)) ? "\uf444" : ""}',
         \ },
         \ 'component_function': {
         \     'statuslineGitBranch': 'StatuslineGitBranch',
