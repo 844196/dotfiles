@@ -315,7 +315,7 @@ hook_add = '''
         \ ['Create quickrun php snippet buffer', 'enew | 0r ~/.vim/templates/php.template | set ft=php | QuickRun'],
         \ ['Delete all buffer', '%bd'],
         \ ['Show make task', 'Unite make/help'],
-        \ ['Run test', "execute '!phpunit ' . GetTestFilePath(expand('%'))"],
+        \ ['Run test', "execute 'QuickRun php.unit -srcfile ' . GetTestFilePath(expand('%'))"],
         \ ['Open test file', "execute 'vsplit ' . GetTestFilePath(expand('%'))"],
         \ ['Run diff test', '!make diff_test'],
         \ ['Paste mode on', 'set paste!'],
@@ -423,8 +423,15 @@ hook_add = '''
         \ 'exec': 'cat %s | %c',
         \ 'outputter/buffer/filetype': 'sqloutput',
         \ }
+    let g:quickrun_config['php.unit'] = {
+        \ 'command': 'phpunit',
+        \ 'cmdopt': '',
+        \ 'exec': '%c %s',
+        \ 'outputter/buffer/filetype': 'phpunit-result',
+        \ }
 
     nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+    nnoremap <silent><Leader>t :<C-u>execute 'QuickRun php.unit -srcfile ' . GetTestFilePath(expand('%'))<CR>
 '''
 
 [[plugins]]
@@ -495,8 +502,6 @@ hook_add = '''
     nnoremap <silent><Leader><Leader> :<C-u>FZF<CR>
     " Git管理下ファイル + untracked
     nnoremap <silent><Leader>s :<C-u>GFiles?<CR>
-    " 開いてるタブ
-    nnoremap <silent><Leader>t :<C-u>Windows<CR>
     " 開いてるバッファ
     nnoremap <silent><Leader>b :<C-u>Buffers<CR>
     " Ag

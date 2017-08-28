@@ -184,6 +184,7 @@ augroup my_filetype
     autocmd FileType html,css,less,scss,ruby,yaml,javascript,vue,json setlocal tabstop=2 shiftwidth=2
     autocmd FileType markdown hi! def link markdownItalic Normal
     autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn} setlocal filetype=markdown
+    autocmd BufNewFile,BufRead *Test.php setlocal filetype=php.unit
 augroup END
 
 
