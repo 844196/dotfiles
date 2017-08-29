@@ -3,5 +3,4 @@
 p (ARGV[0] || gets)
   .match(/#?(..?)(..?)(..?)/)
   .captures
-  .map {|x| (x + x)[0, 2] }
-  .map(&:hex)
+  .map {|x| (x + x)[0, 2].hex }
