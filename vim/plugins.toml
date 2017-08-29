@@ -546,9 +546,13 @@ hook_add = '''
         \ ]
     let s:p.normal.middle = [['#5f5f5f', '#212325', 0, 0]]
     let s:p.normal.right = s:p.normal.middle
-    let s:p.inactive.left = [['#373b41', '#212325', 0, 0]]
-    let s:p.inactive.middle = s:p.inactive.left
-    let s:p.inactive.right = s:p.inactive.left
+    let s:p.inactive.left = [
+        \ ['#373b41', '#212325', 0, 0],
+        \ ['#613132', '#212325', 0, 0],
+        \ ['#555A31', '#212325', 0, 0],
+        \ ]
+    let s:p.inactive.middle = [['#373b41', '#212325', 0, 0]]
+    let s:p.inactive.right = s:p.inactive.middle
     let s:p.tabline.tabsel = [['#5f5f5f', '#232528', 0, 0]]
     let s:p.tabline.left = [['#373b41', '#1d1f21', 0, 0]]
     let s:p.tabline.middle = [['#1d1f21', '#1d1f21', 0, 0]]
@@ -597,6 +601,7 @@ hook_add = '''
         \     'left': [
         \         ['filename'],
         \         ['isModified'],
+        \         ['isNotModified'],
         \     ],
         \     'right': [],
         \ },
