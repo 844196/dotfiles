@@ -147,10 +147,10 @@ nnoremap <silent><C-w>o :<C-u>Big<CR>
 nnoremap ) ^
 
 " *しても次の候補へ移動しないように
-nnoremap * zz"zyiw:let @/ = @z<CR>:<C-u>set hlsearch<CR>
+nnoremap * "zyiw:let @/ = @z<CR>:<C-u>set hlsearch<CR>
 
 " ビジュアルモードで選択中のテキストを検索
-vnoremap * zz"zy:let @/ = @z<CR>:<C-u>set hlsearch<CR>
+vnoremap * "zy:let @/ = @z<CR>:<C-u>set hlsearch<CR>
 
 " cしたときの元テキスト格納先レジスタを削除レジスタへ変更
 nnoremap c "_c
