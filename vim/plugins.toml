@@ -559,6 +559,24 @@ hook_add = '''
     let s:p.tabline.right = s:p.tabline.middle
     let g:lightline#colorscheme#simple#palette = s:p
 
+    function! StatuslineFilename() abort
+        let name = expand('%')
+
+        if name == ''
+            return '[No Name]'
+        endif
+
+        if expand('%:p') !~# getcwd()
+            let name = substitute(expand('%:p'), '^' . $HOME, '~', '')
+        endif
+
+        if strchars(name) >= winwidth(0)
+            let name = pathshorten(name)
+        endif
+
+        return name
+    endfunction
+
     function! StatuslineGitBranch() abort
         let branch = fugitive#head('%')
 
@@ -585,7 +603,7 @@ hook_add = '''
     let g:lightline = {
         \ 'active': {
         \     'left': [
-        \         ['filename'],
+        \         ['statuslineFilename'],
         \         ['isModified'],
         \         ['isNotModified'],
         \     ],
@@ -599,7 +617,7 @@ hook_add = '''
         \ },
         \ 'inactive': {
         \     'left': [
-        \         ['filename'],
+        \         ['statuslineFilename'],
         \         ['isModified'],
         \         ['isNotModified'],
         \     ],
@@ -618,11 +636,11 @@ hook_add = '''
         \     ],
         \ },
         \ 'component': {
-        \     'filename': '%f',
         \     'isModified': '%{(&modifiable && &modified) ? "\uf444" : ""}',
         \     'isNotModified': '%{(&modifiable && (&modified == v:false)) ? "\uf444" : ""}',
         \ },
         \ 'component_function': {
+        \     'statuslineFilename': 'StatuslineFilename',
         \     'statuslineGitBranch': 'StatuslineGitBranch',
         \     'statuslineChangedLineCount': 'StatuslineChangedLineCount',
         \     'webdevicon': 'WebDevIconsGetFileTypeSymbol',
