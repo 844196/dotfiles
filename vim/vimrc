@@ -62,17 +62,12 @@ set timeoutlen=1000
 set ttimeoutlen=0
 set nocursorline
 set isk+=-
+set breakindent
 
-if (v:version == 704 && has('patch338')) || v:version >= 705
-    " 折り返した行がインデントに沿う
-    set breakindent
-endif
-if (v:version == 704 && has('patch1799')) || v:version >= 705
-    " enable true color
-    set termguicolors
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
+" enable true color
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 
 
