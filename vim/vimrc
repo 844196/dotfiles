@@ -42,8 +42,6 @@ set display=lastline                  " 行が長くても表示
 set splitright                        " 分割バッファを右に開く
 set hidden                            " ファイルを保存しなくても新しいバッファを開く
 set laststatus=2                      " ステータスラインを常に表示
-set ruler                             " ステータスラインに現在行情報を表示
-set showcmd                           " ステータスライン下に入力中コマンドを表示
 set noshowmode                        " モードを表示しない
 set cmdheight=1                       " コマンドラインの高さ
 set wildmenu                          " コマンドライン補完
@@ -62,6 +60,7 @@ set timeoutlen=1000
 set ttimeoutlen=0
 set nocursorline
 set isk+=-
+set lazyredraw
 set breakindent
 
 " enable true color
