@@ -284,7 +284,10 @@ if has('ruby')
     nnoremap <silent><C-j> :call ToggleCase()<CR>
 endif
 
+
+
 " dein.vim
+" ------------------------------------------------------------------------------
 let s:plugins_dir = expand('~/.vim/plugins/')
 let s:dein_dir = s:plugins_dir . '/repos/github.com/Shougo/dein.vim'
 
