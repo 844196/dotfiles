@@ -60,7 +60,6 @@ set timeoutlen=1000
 set ttimeoutlen=0
 set nocursorline
 set isk+=-
-set lazyredraw
 set breakindent
 
 " enable true color
