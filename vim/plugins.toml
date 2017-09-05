@@ -592,6 +592,34 @@ hook_add = '''
         return "\uf440" . ' ' . '+' . diff[0] . ',~' . diff[1] . ',-' . diff[2]
     endfunction
 
+    function! TablineFilename(tabnum) abort
+        let bufferList = tabpagebuflist(a:tabnum)
+        let activeBuffer = bufferList[tabpagewinnr(a:tabnum) - 1]
+        let activeFilename = expand('#' . activeBuffer . ':t')
+
+        if activeFilename == ''
+            let activeFilename = '[No Name]'
+        endif
+
+        let s:MAX_DISPLAY_WIDTH = 26
+        let s:OVERFLOW_ELLIPSIS = '…'
+
+        if strdisplaywidth(activeFilename) <= s:MAX_DISPLAY_WIDTH
+            return printf('%-' . s:MAX_DISPLAY_WIDTH . 'S', activeFilename)
+        else
+            let s:c = 0
+            let s:s = ''
+            for s:char in split(activeFilename, '\zs')
+                if s:c + strdisplaywidth(s:char) < s:MAX_DISPLAY_WIDTH
+                    let s:c += strdisplaywidth(s:char)
+                    let s:s .= s:char
+                else
+                    return printf('%-' . s:MAX_DISPLAY_WIDTH . 'S', s:s . s:OVERFLOW_ELLIPSIS)
+                endif
+            endfor
+        endif
+    endfunction
+
     function! TablineWebdevicon(tabnum) abort
         let bufferList = tabpagebuflist(a:tabnum)
         let activeBuffer = bufferList[tabpagewinnr(a:tabnum) - 1]
@@ -626,12 +654,12 @@ hook_add = '''
         \ 'tab': {
         \     'active': [
         \         'tablineWebdevicon',
-        \         'filename',
+        \         'tablineFilename',
         \         'modified',
         \     ],
         \     'inactive': [
         \         'tablineWebdevicon',
-        \         'filename',
+        \         'tablineFilename',
         \         'modified',
         \     ],
         \ },
@@ -646,6 +674,7 @@ hook_add = '''
         \     'webdevicon': 'WebDevIconsGetFileTypeSymbol',
         \ },
         \ 'tab_component_function': {
+        \     'tablineFilename': 'TablineFilename',
         \     'tablineWebdevicon': 'TablineWebdevicon',
         \ },
         \ 'colorscheme': 'simple',
