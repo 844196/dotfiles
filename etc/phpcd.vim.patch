@@ -1,0 +1,13 @@
+diff --git a/autoload/phpcd.vim b/autoload/phpcd.vim
+index 2a5ce87..62ffdaf 100644
+--- a/autoload/phpcd.vim
++++ b/autoload/phpcd.vim
+@@ -58,6 +58,8 @@ function! phpcd#CompletePHP(findstart, base) " {{{
+ 			" TODO complete use
+ 		endif " }}}
+ 
++		let context = substitute(context, '\s\+->', '->', 'g')
++
+ 		if context =~ '\(->\|::\)$' " {{{
+ 			let classname = phpcd#GetClassName(line('.'), context, current_namespace, imports)
+ 

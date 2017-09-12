@@ -390,11 +390,9 @@ hook_add = '''
     let g:neocomplete#keyword_patterns = {}
     let g:neocomplete#keyword_patterns._ = '\h\w*'
     let g:neocomplete#max_list = 20
-    let g:neocomplete#enable_fuzzy_completion = 0
-    let g:neocomplete#enable_auto_delimiter = 1
-    let g:neocomplete#delimiter_patterns = {
-        \ 'php': ['->', '::', '\']
-        \ }
+    let g:neocomplete#enable_fuzzy_completion = 1
+    let g:neocomplete#force_omni_input_patterns = {}
+    let g:neocomplete#force_omni_input_patterns.php = '->\w*\|\w\+::\w*'
 '''
 
 [[plugins]]
@@ -687,4 +685,11 @@ hook_add = '''
         \     'right': '',
         \ },
         \ }
+'''
+
+[[plugins]]
+repo = 'lvht/phpcd.vim'
+build = 'composer install'
+hook_add = '''
+    let g:phpcd_disable_modifier = 0
 '''
