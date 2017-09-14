@@ -1,9 +1,9 @@
 diff --git a/autoload/phpcd.vim b/autoload/phpcd.vim
-index 2a5ce87..62ffdaf 100644
+index c25dcdb..2d0df28 100644
 --- a/autoload/phpcd.vim
 +++ b/autoload/phpcd.vim
 @@ -58,6 +58,8 @@ function! phpcd#CompletePHP(findstart, base) " {{{
- 			" TODO complete use
+ 			return rpc#request(g:phpcd_channel_id, 'classmap', a:base)
  		endif " }}}
  
 +		let context = substitute(context, '\s\+->', '->', 'g')
@@ -11,3 +11,51 @@ index 2a5ce87..62ffdaf 100644
  		if context =~ '\(->\|::\)$' " {{{
  			let classname = phpcd#GetClassName(line('.'), context, current_namespace, imports)
  
+@@ -920,6 +922,47 @@ function! phpcd#GetClassName(start_line, context, current_namespace, imports) "
+ 				break
+ 			endif " }}}
+ 
++			" chained method
++			if line =~? '^\s*' . object . '\s*=.*)\?$' " {{{
++				let s:initialNestLevel = match(line, '\S')
++				let s:stack = [substitute(line, '^\s*', '', 'g')]
++
++				let s:seek = a:start_line - i + 1
++				echom s:seek
++				while s:seek <= line('$')
++						let s:seekLine = getline(s:seek)
++						let s:seekNestLevel = match(s:seekLine, '\S')
++
++						if s:seekNestLevel > s:initialNestLevel
++								call add(s:stack, substitute(s:seekLine, '\s\+->', '->', 'g'))
++						endif
++
++						if s:seekNestLevel <= s:initialNestLevel
++								break
++						endif
++
++						let s:seek += 1
++				endwhile
++
++				" insert temporary line
++				silent! below 1sp
++
++				let s:insertTargetNum = a:start_line - 1
++				call append(s:insertTargetNum, join(s:stack, ''))
++
++				let classname = phpcd#GetCallChainReturnTypeAt(a:start_line)
++				let classname_parts = split(classname, '\\\+')
++				if len(classname_parts) > 0
++					let classname_candidate = classname_parts[-1]
++					let class_candidate_namespace = join(classname_parts[0:-2], '\')
++				endif
++
++				exe a:start_line . 'delete'
++				q
++
++				break
++			endif " }}}
++
+ 			" foreach with the variable in question
+ 			if line =~? 'foreach\s*(.\{-}\s\+'.object.'\s*)' " {{{
+ 				let sub_context = matchstr(line, 'foreach\s*(\s*\zs.\{-}\ze\s\+as')

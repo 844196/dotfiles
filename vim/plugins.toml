@@ -391,8 +391,8 @@ hook_add = '''
     let g:neocomplete#keyword_patterns._ = '\h\w*'
     let g:neocomplete#max_list = 20
     let g:neocomplete#enable_fuzzy_completion = 1
-    let g:neocomplete#force_omni_input_patterns = {}
-    let g:neocomplete#force_omni_input_patterns.php = '->\w*\|\w\+::\w*'
+    " let g:neocomplete#force_omni_input_patterns = {}
+    " let g:neocomplete#force_omni_input_patterns.php = '\h\w*\|[^- \t]->\w*'
 '''
 
 [[plugins]]
