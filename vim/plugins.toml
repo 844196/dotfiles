@@ -688,7 +688,7 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'lvht/phpcd.vim'
+repo = '844196/phpcd.vim'
 build = 'composer install'
 hook_add = '''
     let g:phpcd_disable_modifier = 0
