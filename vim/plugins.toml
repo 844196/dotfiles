@@ -575,21 +575,6 @@ hook_add = '''
         return name
     endfunction
 
-    function! StatuslineGitBranch() abort
-        let branch = fugitive#head('%')
-
-        return branch == '' ? '' : "\uf418 " . branch
-    endfunction
-
-    function! StatuslineChangedLineCount() abort
-        let diff = GitGutterGetHunkSummary()
-        if diff == [0, 0, 0]
-            return ''
-        endif
-
-        return "\uf440" . ' ' . '+' . diff[0] . ',~' . diff[1] . ',-' . diff[2]
-    endfunction
-
     function! TablineFilename(tabnum) abort
         let bufferList = tabpagebuflist(a:tabnum)
         let activeBuffer = bufferList[tabpagewinnr(a:tabnum) - 1]
@@ -637,8 +622,6 @@ hook_add = '''
         \         'fileformat',
         \         'fileencoding',
         \         'filetype',
-        \         'statuslineGitBranch',
-        \         'statuslineChangedLineCount',
         \     ]],
         \ },
         \ 'inactive': {
@@ -667,8 +650,6 @@ hook_add = '''
         \ },
         \ 'component_function': {
         \     'statuslineFilename': 'StatuslineFilename',
-        \     'statuslineGitBranch': 'StatuslineGitBranch',
-        \     'statuslineChangedLineCount': 'StatuslineChangedLineCount',
         \     'webdevicon': 'WebDevIconsGetFileTypeSymbol',
         \ },
         \ 'tab_component_function': {
