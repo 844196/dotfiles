@@ -277,6 +277,42 @@ if has('ruby')
     nnoremap <silent><C-j> :call ToggleCase()<CR>
 endif
 
+function! Pn() abort
+    let s:savePos = getcurpos()
+    try
+        0
+        let s:namespace = substitute(
+            \ getline(search("^namespace", "cnW")),
+            \ 'namespace \([^;]\+\);',
+            \ {match -> match[1]},
+            \ ''
+            \ )
+        let s:classname = getline(search('^\(\(abstract \)\?class\|trait\|interface\)', "cnW"))
+        let s:classname = substitute(s:classname, '^abstract\s\+', '', '')
+        let s:classname = substitute(
+            \ s:classname,
+            \ '^[^ ]\+ \([^ ]\+\)',
+            \ {match -> match[1]},
+            \ ''
+            \ )
+        let s:fullclass = s:namespace . '\' . s:classname
+
+        let s:dstPath = 'src/' . substitute(s:fullclass, '\\', '/', 'g') . '.php'
+        if input('Correct? ' . s:dstPath . ' [y/n]: ') == 'y'
+            call system('mkdir -p `dirname ' . s:dstPath . '`')
+
+            if expand('%') == ''
+                execute 'confirm w ' . s:dstPath
+            else
+                execute 'Rename ' . s:dstPath
+            endif
+        endif
+    finally
+        call setpos('.', s:savePos)
+    endtry
+endfunction
+nnoremap <C-p> :<C-u>call Pn()<CR>
+
 
 
 " dein.vim
