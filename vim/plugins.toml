@@ -498,7 +498,57 @@ hook_add = '''
         call setreg('"', s:old_register.value, s:old_register.type)
     endfunction
     function! SetClasses(paths) abort
-        call append(line('.') - 1, map(a:paths, {_, p -> 'use ' . GetClass(p) . ';'}))
+        if len(a:paths) == 0
+            return
+        endif
+
+        silent! below 1sp
+        0
+
+        let s:candidates = [
+            \ {
+            \   'pattern': '^use ',
+            \   'offset': -1,
+            \   'requiredMarginTop': v:false
+            \ },
+            \ {
+            \   'pattern': '^namespace [^;]\+;',
+            \   'offset': 0,
+            \   'requiredMarginTop': v:true
+            \ },
+            \ {
+            \   'pattern': '^declare(',
+            \   'offset': 0,
+            \   'requiredMarginTop': v:true
+            \ },
+            \ {
+            \   'pattern': '^<?php',
+            \   'offset': 0,
+            \   'requiredMarginTop': v:true
+            \ },
+            \ ]
+
+        let s:insertPos = v:null
+        for s:candidate in s:candidates
+            let s:lineNum = search(s:candidate.pattern, 'cnW')
+            if s:lineNum == 0
+                continue
+            endif
+            let s:insertPos = s:candidate
+            let s:insertPos['lineNum'] = s:lineNum
+            break
+        endfor
+
+        if s:insertPos.lineNum != 0
+            if s:insertPos.requiredMarginTop
+                call append(s:insertPos.lineNum, '')
+            endif
+            call append(s:insertPos.lineNum + s:insertPos.offset + 1, map(a:paths, {_, p -> 'use ' . GetClass(p) . ';'}))
+        endif
+
+        call Ps()
+
+        q
     endfunction
 
     " カレントディレクトリ以下のファイル全て
