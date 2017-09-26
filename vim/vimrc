@@ -277,7 +277,7 @@ if has('ruby')
     nnoremap <silent><C-j> :call ToggleCase()<CR>
 endif
 
-function! Pn() abort
+function! Pw() abort
     let s:savePos = getcurpos()
     try
         0
@@ -291,27 +291,62 @@ function! Pn() abort
         let s:classname = substitute(s:classname, '^abstract\s\+', '', '')
         let s:classname = substitute(
             \ s:classname,
-            \ '^[^ ]\+ \([^ ]\+\)',
+            \ '^[^ ]\+ \([^ ]\+\).*',
             \ {match -> match[1]},
             \ ''
             \ )
         let s:fullclass = s:namespace . '\' . s:classname
 
         let s:dstPath = 'src/' . substitute(s:fullclass, '\\', '/', 'g') . '.php'
-        if input('Correct? ' . s:dstPath . ' [y/n]: ') == 'y'
-            call system('mkdir -p `dirname ' . s:dstPath . '`')
+        let s:dstPath = input('Correct? ',s:dstPath)
+        call system('mkdir -p `dirname ' . s:dstPath . '`')
 
-            if expand('%') == ''
-                execute 'confirm w ' . s:dstPath
-            else
-                execute 'Rename ' . s:dstPath
-            endif
+        if expand('%') == ''
+            execute 'confirm w ' . s:dstPath
+        else
+            execute 'Rename ' . s:dstPath
         endif
     finally
         call setpos('.', s:savePos)
     endtry
 endfunction
-nnoremap <C-p> :<C-u>call Pn()<CR>
+nnoremap <silent><C-p><C-w> :<C-u>call Pw()<CR>
+
+function! Ps() abort
+    silent! below 1sp
+    0
+
+    let s:useKeywordPattern = '^use [^;]\+;'
+
+    let s:groupStartLineNum = search(s:useKeywordPattern, 'cnW')
+    if s:groupStartLineNum == 0
+        q
+        return
+    endif
+
+    let s:groupEndLineNum = 0
+    let s:seek = s:groupStartLineNum
+    while s:seek <= line('$')
+        if match(getline(s:seek), s:useKeywordPattern) == -1
+            let s:groupEndLineNum = s:seek - 1
+            break
+        endif
+
+        let s:seek += 1
+    endwhile
+
+    exec s:groupStartLineNum . ',' . s:groupEndLineNum . 'sort'
+
+    q
+endfunction
+nnoremap <silent><C-p><C-s> :<C-u>call Ps()<CR>
+
+function! Pp() abort
+    enew
+    0r ~/.vim/templates/php.template
+    set ft=php
+endfunction
+nnoremap <silent><C-p><C-p> :<C-u>call Pp()<CR>
 
 
 
