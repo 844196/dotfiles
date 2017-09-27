@@ -278,37 +278,26 @@ if has('ruby')
 endif
 
 function! Pw() abort
-    let s:savePos = getcurpos()
-    try
-        0
-        let s:namespace = substitute(
-            \ getline(search("^namespace", "cnW")),
-            \ 'namespace \([^;]\+\);',
-            \ {match -> match[1]},
-            \ ''
-            \ )
-        let s:classname = getline(search('^\(\(abstract \)\?class\|trait\|interface\)', "cnW"))
-        let s:classname = substitute(s:classname, '^abstract\s\+', '', '')
-        let s:classname = substitute(
-            \ s:classname,
-            \ '^[^ ]\+ \([^ ]\+\).*',
-            \ {match -> match[1]},
-            \ ''
-            \ )
-        let s:fullclass = s:namespace . '\' . s:classname
+    let s:curPos = getcurpos() | 0
 
-        let s:dstPath = 'src/' . substitute(s:fullclass, '\\', '/', 'g') . '.php'
-        let s:dstPath = input('Correct? ',s:dstPath)
-        call system('mkdir -p `dirname ' . s:dstPath . '`')
+    let s:searcher = {p -> substitute(getline(search(p, 'cnW')), p, {m -> m[1]}, '')}
+    let s:namespace = s:searcher('\v^namespace\s+([^;]+);$')
+    let s:classname = s:searcher('\v^%(abstract\s+)?%(class|trait|interface)\s+(\w+)*$')
 
-        if expand('%') == ''
-            execute 'confirm w ' . s:dstPath
-        else
-            execute 'Rename ' . s:dstPath
+    let s:dstPath = input(
+        \ 'Correct? ',
+        \ 'src/' . substitute(s:namespace . '/' . s:classname, '\\', '/', 'g') . '.php',
+        \ )
+
+    if s:dstPath != ''
+        let s:dstDir = fnamemodify(s:dstPath, ':p:h')
+        if isdirectory(s:dstDir) == v:false
+            call mkdir(s:dstDir, 'p')
         endif
-    finally
-        call setpos('.', s:savePos)
-    endtry
+        execute (expand('%') == '' ? 'confirm w ' : 'Rename ') . s:dstPath
+    endif
+
+    call setpos('.', s:curPos)
 endfunction
 nnoremap <silent><C-p><C-w> :<C-u>call Pw()<CR>
 
