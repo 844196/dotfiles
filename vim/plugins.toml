@@ -47,10 +47,15 @@ hook_add = '''
         autocmd Colorscheme hybrid_reverse hi! link agitStatRemoved WarningMsg
         autocmd Colorscheme hybrid_reverse hi! VertSplit guifg=#282a2e
         autocmd Colorscheme hybrid_reverse hi EndOfBuffer ctermfg=0 guifg=#1d1f21
-        autocmd Colorscheme hybrid_reverse hi! link GitGutterAdd ModeMsg
-        autocmd Colorscheme hybrid_reverse hi! link GitGutterChange diffRemoved
-        autocmd Colorscheme hybrid_reverse hi! link GitGutterDelete WarningMsg
-        autocmd Colorscheme hybrid_reverse hi! link GitGutterChangeDelete WarningMsg
+        autocmd Colorscheme hybrid_reverse hi GitGutterAdd guifg=#5e8d87
+        autocmd Colorscheme hybrid_reverse hi GitGutterChange guifg=#de935f
+        autocmd Colorscheme hybrid_reverse hi GitGutterChangeDelete guifg=#de935f
+        autocmd Colorscheme hybrid_reverse hi GitGutterDelete guifg=#a54242
+        autocmd Colorscheme hybrid_reverse hi DiffAdd guibg=#3e5654 guifg=#8abeb7
+        autocmd Colorscheme hybrid_reverse hi DiffChange guibg=#7e5940 guifg=#f0c674
+        autocmd Colorscheme hybrid_reverse hi DiffText guibg=#7e5940 guifg=#f0c674 cterm=undercurl
+        autocmd Colorscheme hybrid_reverse hi DiffDelete guibg=#613132 guifg=#cc6666
+        autocmd Colorscheme hybrid_reverse hi GitGutterChangeDeleteLine guibg=#7e5940 guifg=#f0c674
         autocmd Colorscheme hybrid_reverse hi NERDTreeDir ctermfg=0 guifg=#81a2be
         autocmd Colorscheme hybrid_reverse hi NERDTreeDirSlash ctermfg=0 guifg=#81a2be
         autocmd Colorscheme hybrid_reverse hi NERDTreeOpenable ctermfg=0 guifg=#1d1f21
