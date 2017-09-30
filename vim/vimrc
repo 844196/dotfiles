@@ -302,40 +302,30 @@ endfunction
 nnoremap <silent><C-p><C-w> :<C-u>call Pw()<CR>
 
 function! Ps() abort
-    silent! below 1sp
-    0
+    let s:curPos = getcurpos() | 0
 
-    let s:useKeywordPattern = '^use [^;]\+;'
+    let s:regexp = '\v^use [^;]+;$'
+    let s:start = search(s:regexp, 'cnW')
+    let s:end = s:start
 
-    let s:groupStartLineNum = search(s:useKeywordPattern, 'cnW')
-    if s:groupStartLineNum == 0
-        q
-        return
-    endif
-
-    let s:groupEndLineNum = 0
-    let s:seek = s:groupStartLineNum
-    while s:seek <= line('$')
-        if match(getline(s:seek), s:useKeywordPattern) == -1
-            let s:groupEndLineNum = s:seek - 1
+    let s:seeker = s:start
+    while s:seeker <= line('$') + 1
+        if match(getline(s:seeker), s:regexp) == -1
+            let s:end = s:seeker - 1
             break
         endif
-
-        let s:seek += 1
+        let s:seeker += 1
     endwhile
 
-    exec s:groupStartLineNum . ',' . s:groupEndLineNum . 'sort'
+    if s:start > 1 && s:end > s:start
+        execute s:start . ',' . s:end . 'sort'
+    endif
 
-    q
+    call setpos('.', s:curPos)
 endfunction
 nnoremap <silent><C-p><C-s> :<C-u>call Ps()<CR>
 
-function! Pp() abort
-    enew
-    0r ~/.vim/templates/php.template
-    set ft=php
-endfunction
-nnoremap <silent><C-p><C-p> :<C-u>call Pp()<CR>
+nnoremap <silent><C-p><C-p> :<C-u>enew \| 0r ~/.vim/templates/php.template \| set ft=php<CR>
 
 
 
