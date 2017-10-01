@@ -503,57 +503,7 @@ hook_add = '''
         call setreg('"', s:old_register.value, s:old_register.type)
     endfunction
     function! SetClasses(paths) abort
-        if len(a:paths) == 0
-            return
-        endif
-
-        silent! below 1sp
-        0
-
-        let s:candidates = [
-            \ {
-            \   'pattern': '^use ',
-            \   'offset': -1,
-            \   'requiredMarginTop': v:false
-            \ },
-            \ {
-            \   'pattern': '^namespace [^;]\+;',
-            \   'offset': 0,
-            \   'requiredMarginTop': v:true
-            \ },
-            \ {
-            \   'pattern': '^declare(',
-            \   'offset': 0,
-            \   'requiredMarginTop': v:true
-            \ },
-            \ {
-            \   'pattern': '^<?php',
-            \   'offset': 0,
-            \   'requiredMarginTop': v:true
-            \ },
-            \ ]
-
-        let s:insertPos = v:null
-        for s:candidate in s:candidates
-            let s:lineNum = search(s:candidate.pattern, 'cnW')
-            if s:lineNum == 0
-                continue
-            endif
-            let s:insertPos = s:candidate
-            let s:insertPos['lineNum'] = s:lineNum
-            break
-        endfor
-
-        if s:insertPos.lineNum != 0
-            if s:insertPos.requiredMarginTop
-                call append(s:insertPos.lineNum, '')
-            endif
-            call append(s:insertPos.lineNum + s:insertPos.offset + 1, map(a:paths, {_, p -> 'use ' . GetClass(p) . ';'}))
-        endif
-
-        call Ps()
-
-        q
+        call vimrc#php#buffer#addUses(map(a:paths, {_, p -> 'use ' . GetClass(p) . ';'}))
     endfunction
 
     " カレントディレクトリ以下のファイル全て
@@ -565,8 +515,8 @@ hook_add = '''
     " Ag
     nnoremap <Leader>g :<C-u>Ag 
     " PHPクラス名補完 (use一括挿入と挿入モード用useなしバージョン)
-    nnoremap <silent><C-x><C-x> :<C-u>call fzf#run(fzf#wrap('files', {'sink*': function('SetClasses')}))<CR>
-    inoremap <silent><C-x><C-x> <Esc>:<C-u>call fzf#run(fzf#wrap('files', {'sink': function('SetClass')}))<CR>
+    nnoremap <silent><C-x><C-x> :<C-u>call fzf#run(fzf#wrap('files', {'source': "ag -g '\.php$' \| ag -v 'Test\.php$'", 'sink*': function('SetClasses')}))<CR>
+    inoremap <silent><C-x><C-x> <Esc>:<C-u>call fzf#run(fzf#wrap('files', {'source': "ag -g '\.php$' \| ag -v 'Test\.php$'", 'sink': function('SetClass')}))<CR>
 
     " ghq list open by nerdtree
     command! GP call fzf#run(fzf#wrap({'source': 'ghq list --full-path', 'sink': 'e'}))

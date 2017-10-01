@@ -277,56 +277,19 @@ if has('ruby')
     nnoremap <silent><C-j> :call ToggleCase()<CR>
 endif
 
-function! Pw() abort
-    let s:curPos = getcurpos() | 0
-
-    let s:searcher = {p -> substitute(getline(search(p, 'cnW')), p, {m -> m[1]}, '')}
-    let s:namespace = s:searcher('\v^namespace\s+([^;]+);$')
-    let s:classname = s:searcher('\v^%(abstract\s+)?%(class|trait|interface)\s+(\w+)*$')
-
-    let s:dstPath = input(
-        \ 'Correct? ',
-        \ 'src/' . substitute(s:namespace . '/' . s:classname, '\\', '/', 'g') . '.php',
-        \ )
-
-    if s:dstPath != ''
-        let s:dstDir = fnamemodify(s:dstPath, ':p:h')
-        if isdirectory(s:dstDir) == v:false
-            call mkdir(s:dstDir, 'p')
-        endif
-        execute (expand('%') == '' ? 'confirm w ' : 'Rename ') . s:dstPath
-    endif
-
-    call setpos('.', s:curPos)
-endfunction
-nnoremap <silent><C-p><C-w> :<C-u>call Pw()<CR>
-
-function! Ps() abort
-    let s:curPos = getcurpos() | 0
-
-    let s:regexp = '\v^use [^;]+;$'
-    let s:start = search(s:regexp, 'cnW')
-    let s:end = s:start
-
-    let s:seeker = s:start
-    while s:seeker <= line('$') + 1
-        if match(getline(s:seeker), s:regexp) == -1
-            let s:end = s:seeker - 1
-            break
-        endif
-        let s:seeker += 1
-    endwhile
-
-    if s:start > 1 && s:end > s:start
-        execute s:start . ',' . s:end . 'sort'
-    endif
-
-    call setpos('.', s:curPos)
-endfunction
-nnoremap <silent><C-p><C-s> :<C-u>call Ps()<CR>
-
 nnoremap <silent><C-p><C-p> :<C-u>enew \| 0r ~/.vim/templates/php.template \| set ft=php<CR>
 
+
+
+" My autoload
+" ------------------------------------------------------------------------------
+let s:autoloadPath = expand('~/.vim/autoload')
+if isdirectory(s:autoloadPath)
+    let &rtp .= ',' . s:autoloadPath
+endif
+
+nnoremap <silent><C-p><C-s> :<C-u>call vimrc#php#buffer#sortUses()<CR>
+nnoremap <silent><C-p><C-w> :<C-u>call vimrc#php#buffer#write()<CR>
 
 
 " dein.vim
