@@ -19,7 +19,7 @@ function! vimrc#php#buffer#parseNamespace() abort
 endfunction
 
 function! vimrc#php#buffer#parseClassname() abort
-    return get(s:match('\v^%(abstract\s+)?%(class|trait|interface)\s+(\w+)*$'), 1, '')
+    return get(s:match('\v^%(abstract\s+)?%(class|trait|interface)\s+(\w+).*$'), 1, '')
 endfunction
 
 function! vimrc#php#buffer#parseFullclass() abort
