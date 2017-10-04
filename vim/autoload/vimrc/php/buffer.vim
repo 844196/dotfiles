@@ -72,7 +72,7 @@ function! vimrc#php#buffer#addUses(uses) abort
         return
     endif
 
-    silent! below 1sp | 0
+    let s:beforeWinId = win_getid() | silent! below 1sp | 0
     try
         let s:candidates = [
             \ {
@@ -116,6 +116,7 @@ function! vimrc#php#buffer#addUses(uses) abort
         call vimrc#php#buffer#sortUses()
     finally
         q
+        call win_gotoid(s:beforeWinId)
     endtry
 endfunction
 
