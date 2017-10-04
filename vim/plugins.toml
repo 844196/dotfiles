@@ -515,8 +515,8 @@ hook_add = '''
     " Ag
     nnoremap <Leader>g :<C-u>Ag 
     " PHPクラス名補完 (use一括挿入と挿入モード用useなしバージョン)
-    nnoremap <silent><C-x><C-x> :<C-u>call fzf#run(fzf#wrap('files', {'source': "ag -g '\.php$' \| ag -v 'Test\.php$'", 'sink*': function('SetClasses')}))<CR>
-    inoremap <silent><C-x><C-x> <Esc>:<C-u>call fzf#run(fzf#wrap('files', {'source': "ag -g '\.php$' \| ag -v 'Test\.php$'", 'sink': function('SetClass')}))<CR>
+    nnoremap <silent><C-x><C-x> :<C-u>call fzf#run(fzf#wrap('files', {'source': "ag -u -g '\.php$' \| ag -v 'Test\.php$'", 'sink*': function('SetClasses')}))<CR>
+    inoremap <silent><C-x><C-x> <Esc>:<C-u>call fzf#run(fzf#wrap('files', {'source': "ag -u -g '\.php$' \| ag -v 'Test\.php$'", 'sink': function('SetClass')}))<CR>
 
     " ghq list open by nerdtree
     command! GP call fzf#run(fzf#wrap({'source': 'ghq list --full-path', 'sink': 'e'}))
