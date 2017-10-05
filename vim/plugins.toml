@@ -252,7 +252,6 @@ hook_add = '''
     let g:incsearch#magic = '\v'
 
     map / <Plug>(incsearch-forward)
-    map ? <Plug>(incsearch-backward)
     map n <Plug>(incsearch-nohl-n)zz
     map N <Plug>(incsearch-nohl-N)zz
 '''
@@ -298,70 +297,6 @@ hook_add = '''
         autocmd Filetype unite imap <silent><buffer><C-e> <End>
         autocmd Filetype unite imap <silent><buffer><C-k> <C-o>"_D
     augroup END
-
-    if dein#tap('vim-devicons')
-        let g:webdevicons_enable_unite = 0
-    endif
-
-    " menu
-    function! GetTestFilePath(origin) abort
-        if match(a:origin, '^tests/') >= 0
-            return a:origin
-        endif
-
-        let s:result = a:origin
-        for [s:match_pattern, s:replace_pattern] in [['^src/', 'tests/'], ['\.php$', 'Test.php']]
-            let s:result = substitute(s:result, s:match_pattern, s:replace_pattern, '')
-        endfor
-
-        return s:result
-    endfunction
-    let g:unite_source_menu_menus = {
-        \ 'shortcut': {},
-        \ 'git': {},
-        \ }
-    let g:unite_source_menu_menus.shortcut.command_candidates = [
-        \ ['Reopen search-buffer', 'UniteResume search-buffer'],
-        \ ['Create quickrun php snippet buffer', 'enew | 0r ~/.vim/templates/php.template | set ft=php | QuickRun'],
-        \ ['Delete all buffer', '%bd'],
-        \ ['Show make task', 'Unite make/help'],
-        \ ['Run test', "execute 'QuickRun php.unit -srcfile ' . GetTestFilePath(expand('%'))"],
-        \ ['Open test file', "execute 'vsplit ' . GetTestFilePath(expand('%'))"],
-        \ ['Run diff test', '!make diff_test'],
-        \ ['Paste mode on', 'set paste!'],
-        \ ['Edit vimrc', 'edit ~/dotfiles/vim/vimrc'],
-        \ ['Edit local vimrc', 'edit ~/.local/vimrc'],
-        \ ['Edit plugins.toml', 'edit ~/dotfiles/vim/plugins.toml'],
-        \ ['Formating markdown table', "'<,'>Alignta 0:0 |"],
-        \ ['Tablize', "'<,'>Tableize"],
-        \ ]
-    noremap <silent>S :<C-u>Unite menu:shortcut<CR>
-
-    " make/help
-    let s:make_help_source = {
-        \ 'name': 'make/help',
-        \ 'syntax': 'uniteSource__Make_Help',
-        \ 'hooks': {},
-        \ }
-    function! s:make_help_source.gather_candidates(args, context)
-        let s:candidate_map = map(systemlist('make help'), '{
-            \ "task": split(substitute(v:val, "\\e\\[[0-9;]\\+[mK]", "", "g"), "\\s\\{2,\\}")[0],
-            \ "description": split(substitute(v:val, "\\e\\[[0-9;]\\+[mK]", "", "g"), "\\s\\{2,\\}")[1],
-            \ }')
-        let s:padding = max(map(copy(s:candidate_map), 'strlen(v:val.task)'))
-        return map(copy(s:candidate_map), '{
-            \ "word": printf("%-" . s:padding . "S  --  %s", v:val.task, v:val.description),
-            \ "soruce": "make/help",
-            \ "kind": "command",
-            \ "action__command": (v:val.description =~ "[cC][lL][eE][aA][rR]" ? "!sudo make" : "!make") . " " . v:val.task,
-            \ }')
-    endfunction
-    function! s:make_help_source.hooks.on_syntax(args, context)
-        syntax match uniteSource__Make_Help_Task /[a-zA-Z_-]\+\ze\s*--/
-            \ contained containedin=uniteSource__Make_Help
-        highlight! default link uniteSource__Make_Help_Task ModeMsg
-    endfunction
-    call unite#define_source(s:make_help_source)
 '''
 
 [[plugins]]
@@ -517,6 +452,34 @@ hook_add = '''
     " PHPクラス名補完 (use一括挿入と挿入モード用useなしバージョン)
     nnoremap <silent><C-x><C-x> :<C-u>call fzf#run(fzf#wrap('files', {'source': "ag -u -g '\.php$' \| ag -v 'Test\.php$'", 'sink*': function('SetClasses')}))<CR>
     inoremap <silent><C-x><C-x> <Esc>:<C-u>call fzf#run(fzf#wrap('files', {'source': "ag -u -g '\.php$' \| ag -v 'Test\.php$'", 'sink': function('SetClass')}))<CR>
+
+    function! GetTestFilePath(origin) abort
+        if match(a:origin, '^tests/') >= 0
+            return a:origin
+        endif
+
+        let s:result = a:origin
+        for [s:match_pattern, s:replace_pattern] in [['^src/', 'tests/'], ['\.php$', 'Test.php']]
+            let s:result = substitute(s:result, s:match_pattern, s:replace_pattern, '')
+        endfor
+
+        return s:result
+    endfunction
+    let g:fzf_menu_commands = {
+        \ 'Open test file': "execute 'vsplit ' . GetTestFilePath(expand('%'))",
+        \ 'Paste mode on': 'set paste!',
+        \ 'Edit vimrc': 'edit ~/dotfiles/vim/vimrc',
+        \ 'Edit local vimrc': 'edit ~/.local/vimrc',
+        \ 'Edit plugins.toml': 'edit ~/dotfiles/vim/plugins.toml',
+        \ }
+    function! Invoker(key) abort
+        call vimrc#vim#invokeCommand(g:fzf_menu_commands[a:key])
+    endfunction
+    nnoremap <silent>?? :<C-u>call fzf#run(fzf#wrap('', {
+        \ 'source': keys(g:fzf_menu_commands),
+        \ 'sink': function('Invoker'),
+        \ }))
+        \ <CR>
 
     " ghq list open by nerdtree
     command! GP call fzf#run(fzf#wrap({'source': 'ghq list --full-path', 'sink': 'e'}))
