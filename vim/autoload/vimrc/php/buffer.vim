@@ -34,10 +34,7 @@ function! vimrc#php#buffer#write() abort
         return
     endif
 
-    let s:dstDir = fnamemodify(s:dstPath, ':p:h')
-    if isdirectory(s:dstDir) == v:false
-        call mkdir(s:dstDir, 'p')
-    endif
+    call vimrc#vim#mkdirp(fnamemodify(s:dstPath, ':p:h'))
 
     execute expand('%') == ''
         \ ? 'confirm w ' . s:dstPath

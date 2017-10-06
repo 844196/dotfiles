@@ -15,5 +15,11 @@ function! vimrc#vim#invokeCommand(command) abort
     endtry
 endfunction
 
+function! vimrc#vim#mkdirp(path) abort
+    if isdirectory(a:path) == v:false
+        call mkdir(a:path, 'p')
+    endif
+endfunction
+
 let &cpo = s:saveCpo
 unlet s:saveCpo
