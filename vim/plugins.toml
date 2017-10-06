@@ -465,8 +465,20 @@ hook_add = '''
 
         return s:result
     endfunction
+    function! CreateOrOpenTestFile(src) abort
+        let s:test = a:src
+        for [s:match_pattern, s:replace_pattern] in [['^src/', 'tests/'], ['\.php$', 'Test.php']]
+            let s:test = substitute(s:test, s:match_pattern, s:replace_pattern, '')
+        endfor
+
+        if !filereadable(s:test)
+            call vimrc#vim#mkdirp(fnamemodify(s:test, ':p:h'))
+        endif
+
+        execute 'vsplit ' . s:test
+    endfunction
     let g:fzf_menu_commands = {
-        \ 'Open test file': "execute 'vsplit ' . GetTestFilePath(expand('%'))",
+        \ 'Open test file': 'call CreateOrOpenTestFile(expand("%"))',
         \ 'Paste mode on': 'set paste!',
         \ 'Edit vimrc': 'edit ~/dotfiles/vim/vimrc',
         \ 'Edit local vimrc': 'edit ~/.local/vimrc',
