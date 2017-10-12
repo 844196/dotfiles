@@ -1,8 +1,10 @@
+#!/usr/bin/env ruby
 # vim:set ft=ruby:
 
 require 'json'
 require 'net/http'
 require 'ostruct'
+require 'pp'
 
 -> {
   class Request
