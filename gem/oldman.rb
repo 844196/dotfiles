@@ -1,6 +1,3 @@
-#!/usr/bin/env ruby
-# vim:set ft=ruby:
-
 require 'json'
 require 'net/http'
 require 'ostruct'
@@ -152,28 +149,3 @@ require 'pp'
     end
   end
 }[]
-
-if $0 == __FILE__
-  require 'optparse'
-
-  OptionParser.new do |opt|
-    opt.version = '0.1.0'
-    opt.release = '2017-03-05'
-
-    opt.banner = "Usage: #{$0} [options] <source>..."
-
-    opt.on('-v', '--version', 'print version and exit') do
-      puts opt.ver
-      exit
-    end
-
-    opt.on('-h', '--help', 'print this help and exit') do
-      puts opt.help
-      exit
-    end
-
-    opt.parse!
-  end
-
-  ARGV.each {|source| load source }
-end
