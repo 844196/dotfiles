@@ -39,7 +39,14 @@ class ParsedMethod
     desc = magicMethod? ? [] : [" * #{description}"]
     typePadding = @params.map {|p| p.type.length }.max
     params = @params.map {|p| " * @param #{p.type.ljust(typePadding)} #{p.name}" }
-    returnType = (constructor? || @returnType == 'void') ? [] : [" * @return #{@returnType}"]
+
+    if constructor? || @returnType == 'void'
+      returnType = []
+    elsif @returnType =~ /\A\?/
+      returnType = [" * @return #{@returnType.gsub(/\A\?/, '')}|null"]
+    else
+      returnType = [" * @return #{@returnType}"]
+    end
 
     if (params.empty? && returnType.empty?)
       desc << ' *' if magicMethod?
