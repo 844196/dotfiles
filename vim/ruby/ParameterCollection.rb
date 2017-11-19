@@ -5,7 +5,7 @@ class ParameterCollection
 
   REGEX = /
     (?<nullable>\?)?
-    (?<type>[\w]+)?
+    (?<type>[\S]+)?
     \s*
     (?<dots>\.{3})?
     (?<name>\$\w+)
