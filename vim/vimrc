@@ -261,7 +261,20 @@ command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))|w
 if has('ruby')
     " 現在行以降にある関数の引数リストから関数phpdocを挿入
     function! InsertPHPFunctionDoc() abort
+        execute 'normal! ^'
+        let s:lines = getline(
+            \ search('function', 'cnW'),
+            \ search(')', 'cnW')
+            \ )
+        let s:params = {
+            \ 'lines': s:lines,
+            \ 'indent': "\t",
+            \ }
+
+        let s:result = []
         ruby load Vim::evaluate('expand("~/.vim/ruby/insert_php_function_doc.rb")')
+
+        call append(line('.') - 1, s:result)
     endfunction
     nnoremap <silent><space>pf :call InsertPHPFunctionDoc()<CR>
 
@@ -275,6 +288,24 @@ if has('ruby')
         ruby load Vim::evaluate('expand("~/.vim/ruby/toggle_case.rb")')
     endfunction
     nnoremap <silent><C-j> :call ToggleCase()<CR>
+
+    function! InsertPHPSetterBody() abort
+        execute 'normal! ^'
+        let s:lines = getline(
+            \ search('function', 'cnW'),
+            \ search(')', 'cnW')
+            \ )
+        let s:params = {
+            \ 'lines': s:lines,
+            \ 'indent': "\t\t",
+            \ }
+
+        let s:result = []
+        ruby load Vim::evaluate('expand("~/.vim/ruby/insert_php_setter_body.rb")')
+
+        call append(search('{', 'cnW'), s:result)
+    endfunction
+    nnoremap <silent><space>ps :call InsertPHPSetterBody()<CR>
 endif
 
 nnoremap <silent><C-p><C-p> :<C-u>enew \| 0r ~/.vim/templates/php.template \| set ft=php<CR>
