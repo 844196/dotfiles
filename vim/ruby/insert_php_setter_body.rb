@@ -10,4 +10,4 @@ main = -> (vim) do
   vim::command("let s:result = #{template.render(method).split("\n").inspect}")
 end
 
-main[Vim] if $0 === 'vim-ruby'
+main[Vim]

@@ -2,6 +2,7 @@ if exists('b:current_syntax')
     finish
 endif
 
+" kaban
 syntax match vimsplash_highlight_a 'a'
 syntax match vimsplash_highlight_b 'b'
 syntax match vimsplash_highlight_c 'c'
@@ -28,5 +29,17 @@ highlight vimsplash_highlight_j ctermbg=223 ctermfg=223 guifg=#ffdfb6 guibg=#ffd
 highlight vimsplash_highlight_k ctermbg=124 ctermfg=124 guifg=#8c4939 guibg=#8c4939
 highlight vimsplash_highlight_l ctermbg=160 ctermfg=160 guifg=#9b5445 guibg=#9b5445
 highlight vimsplash_highlight_m ctermbg=95 ctermfg=95 guifg=#645142 guibg=#645142
+
+" chara
+syntax match vimsplash_highlight_n 'n'
+syntax match vimsplash_highlight_o 'o'
+syntax match vimsplash_highlight_p 'p'
+syntax match vimsplash_highlight_q 'q'
+syntax match vimsplash_highlight_r 'r'
+highlight vimsplash_highlight_n guifg=#551d17 guibg=#551d17
+highlight vimsplash_highlight_o guifg=#361210 guibg=#361210
+highlight vimsplash_highlight_p guifg=#ffe4a7 guibg=#ffe4a7
+highlight vimsplash_highlight_q guifg=#39ff38 guibg=#39ff38
+highlight vimsplash_highlight_r guifg=#fe9ee9 guibg=#fe9ee9
 
 let b:current_syntax = 'vim-splash'

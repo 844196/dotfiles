@@ -6,6 +6,7 @@ repo = 'cespare/vim-toml'
 
 [[plugins]]
 repo = 'osyo-manga/vim-precious'
+if = 'v:false'
 hook_add = '''
     let g:precious_enable_switchers = {
         \   '*': {
@@ -21,6 +22,7 @@ hook_add = '''
 '''
 
 [[plugins]]
+if = 'v:false'
 repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
@@ -31,6 +33,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'kristijanhusak/vim-hybrid-material'
+if = 'v:false'
 hook_add = '''
     if !has('gui_running') && !&termguicolors
         let g:hybrid_custom_term_colors = 1
@@ -216,12 +219,14 @@ hook_post_update = '''
 
 [[plugins]]
 repo = 'Shougo/vimproc'
+if = 'v:false'
 hook_post_update = '''
     let g:dein#plugin.build = 'make'
 '''
 
 [[plugins]]
 repo = 'dhruvasagar/vim-table-mode'
+if = 'v:false'
 on_ft = 'markdown'
 hook_add = '''
     let g:table_mode_corner='|'
@@ -257,21 +262,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'osyo-manga/vim-anzu'
-on_map = '<Plug>(anzu'
-if = 'v:false'
-hook_add = '''
-    nmap * "zyiw:let @/ = @z<CR>:<C-u>set hlsearch<CR><Plug>(anzu-update-search-status)
-    vmap * "zy:let @/ = @z<CR>:<C-u>set hlsearch<CR><Plug>(anzu-update-search-status)
-    nmap <silent><Esc><Esc> <Plug>(anzu-clear-search-status):<C-u>nohlsearch<CR>
-
-    if dein#tap('incsearch.vim')
-        map n <Plug>(incsearch-nohl-n)<Plug>(anzu-update-search-status)zz
-        map N <Plug>(incsearch-nohl-N)<Plug>(anzu-update-search-status)zz
-    endif
-'''
-
-[[plugins]]
 repo = 'mattn/emmet-vim'
 on_ft = ['html', 'css', 'scss', 'less', 'vue']
 hook_add = '''
@@ -283,62 +273,16 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'Shougo/unite.vim'
-hook_add = '''
-    let g:unite_force_overwrite_statusline = 0
-    let g:unite_enable_start_insert = 1
-    let g:unite_enable_ignore_case = 1
-    let g:unite_enable_smart_case = 1
-
-    augroup unite_my_settings
-        autocmd!
-        autocmd Filetype unite nmap <silent><buffer><Esc><Esc> <Plug>(unite_exit)
-        autocmd Filetype unite imap <silent><buffer><Esc><Esc> <Plug>(unite_exit)
-        autocmd Filetype unite imap <silent><buffer><C-e> <End>
-        autocmd Filetype unite imap <silent><buffer><C-k> <C-o>"_D
-    augroup END
-'''
-
-[[plugins]]
-repo = 'Shougo/unite-outline'
-hook_add = '''
-    nnoremap <silent> U :<C-u>Unite outline -vertical -direction=belowright<CR>
-'''
-
-[[plugins]]
 repo = 'Shougo/neosnippet.vim'
 hook_add = '''
     imap <expr><C-k> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-G>U<C-o>D"
     smap <expr><C-k> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-G>U<C-o>D"
     xmap <expr><C-k> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-G>U<C-o>D"
-    let g:neosnippet#snippets_directory = '~/.vim/snippets/'
+    let g:neosnippet#snippets_directory = $XDG_CONFIG_HOME . '/nvim/snippets'
 '''
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo = 'soramugi/auto-ctags.vim'
-on_cmd = 'Ctags'
-hook_add = '''
-    let g:auto_ctags = 0
-    let g:auto_ctags_directory_list = ['.git']
-'''
-
-[[plugins]]
-repo = 'Shougo/neocomplete.vim'
-hook_add = '''
-    let g:neocomplete#enable_at_startup = 1
-    let g:neocomplete#enable_ignore_case = 1
-    let g:neocomplete#enable_smart_case = 1
-    let g:neocomplete#enable_enable_camel_case_completion = 1
-    let g:neocomplete#keyword_patterns = {}
-    let g:neocomplete#keyword_patterns._ = '\h\w*'
-    let g:neocomplete#max_list = 20
-    let g:neocomplete#enable_fuzzy_completion = 1
-    " let g:neocomplete#force_omni_input_patterns = {}
-    " let g:neocomplete#force_omni_input_patterns.php = '\h\w*\|[^- \t]->\w*'
-'''
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
@@ -347,8 +291,7 @@ hook_add = '''
     let g:quickrun_config._ = {
         \ 'outputter/buffer/split': ':lefta vertical',
         \ 'outputter/buffer/close_on_empty': 0,
-        \ 'runner': 'vimproc',
-        \ 'runner/vimproc/updatetime': 60,
+        \ 'tempfile': '%{expand("%:p:h") . "/" . NuuidNewUuid()}',
         \ }
     let g:quickrun_config['ruby.bundle'] = {
         \ 'command': 'bundle',
@@ -385,24 +328,14 @@ if = 'v:false'
 repo = '844196/vim-splash'
 rev = 'modified-for-me'
 hook_add = '''
-    let g:splash#path = expand('~/dotfiles/vim/splash')
+    let g:splash#path = expand('~/dotfiles/vim/splash/chara')
 '''
 
 [[plugins]]
-repo = 'kana/vim-operator-user'
-
-[[plugins]]
-repo = 'thinca/vim-operator-sequence'
-
-[[plugins]]
-repo = 'osyo-manga/vim-operator-highlighter'
+repo = 'machakann/vim-highlightedyank'
 hook_add = '''
-let g:operator#highlighter#config = {
-    \ 'clear_time': 120,
-    \ 'group': 'SpellLocal',
-    \ }
-noremap <Plug>(yank) y
-noremap <expr> y operator#sequence#map("\<Plug>(operator-highlighter-once)", "\<Plug>(yank)")
+    let g:highlightedyank_highlight_duration = 120
+    hi! link HighlightedyankRegion SpellLocal
 '''
 
 [[plugins]]
@@ -415,8 +348,13 @@ repo = 'junegunn/fzf.vim'
 depends = 'fzf'
 hook_add = '''
     let g:fzf_layout = {
-        \ 'down': '15'
+        \ 'down': '10'
         \ }
+    let $FZF_DEFAULT_OPTS .= ' --no-height'
+
+    autocmd! FileType fzf
+    autocmd  FileType fzf set laststatus=0 noshowmode noruler
+      \| autocmd BufLeave <buffer> set laststatus=2 noshowmode noruler
 
     function! GetClass(path) abort
         " pclass: ~/bin/pclass
@@ -501,16 +439,13 @@ hook_add = '''
 repo = 'kchmck/vim-coffee-script'
 
 [[plugins]]
-repo = 'wsdjeg/FlyGrep.vim'
-
-[[plugins]]
 repo = 'w0rp/ale'
 hook_add = '''
     let g:ale_php_phpcs_standard = 'ruleset.xml'
     let g:ale_php_phpmd_ruleset = 'phpmd.xml'
     let g:ale_sign_error = "\uf057"
     let g:ale_sign_warning = "\uf06a"
-    let g:ale_lint_delay = 750
+    let g:ale_lint_delay = 1000
 '''
 
 [[plugins]]
@@ -641,7 +576,7 @@ hook_add = '''
         \     'tablineFilename': 'TablineFilename',
         \     'tablineWebdevicon': 'TablineWebdevicon',
         \ },
-        \ 'colorscheme': 'simple',
+        \ 'colorscheme': 'iceberg',
         \ 'separator': {
         \     'left': '',
         \     'right': '',
@@ -654,8 +589,83 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = '844196/phpcd.vim'
-build = 'composer install'
+repo = 'roxma/nvim-completion-manager'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
 hook_add = '''
-    let g:phpcd_disable_modifier = 0
+    let g:deoplete#enable_smart_case = 0
+    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#auto_complete_delay = 0
+    let g:deoplete#auto_complete_start_length = 1
+    let g:deoplete#omni#input_patterns = {}
+    let g:deoplete#omni#input_patterns.php = '\w+|[^. \t]->\w*|\w+::\w*'
+    let g:deoplete#file#enable_buffer_path = 0
+'''
+
+[[plugins]]
+repo = 'kassio/neoterm'
+
+[[plugins]]
+repo = 'kburdett/vim-nuuid'
+
+[[plugins]]
+repo = 'cocopon/iceberg.vim'
+hook_add = '''
+    set fillchars+=vert:│
+    set bg=dark
+
+    function! ModifyIceberg() abort
+        hi LineNr guibg=#161821
+        hi GitGutterAdd guibg=#161821
+        hi GitGutterChange guibg=#161821
+        hi GitGutterChangeDelete guibg=#161821
+        hi GitGutterDelete guibg=#161821
+        hi VertSplit guifg=#272c42 guibg=#161821
+        hi EndOfBuffer guifg=#161821
+        hi StatusLine guifg=#181a27
+        hi StatusLineNC guifg=#181a27
+        hi NonText guifg=#3d425b
+        hi NERDTreeDir guifg=#84a0c6
+        hi NERDTreeDirSlash guifg=#84a0c6
+        hi NERDTreeOpenable guifg=#161821
+        hi NERDTreeClosable guifg=#161821
+    endfunction
+
+    augroup MyColor
+        autocmd VimEnter * nested colorscheme iceberg
+        autocmd colorscheme iceberg call ModifyIceberg()
+    augroup END
+
+    let g:fzf_colors = {
+        \ 'hl': ['fg', 'Error'],
+        \ 'hl+': ['fg', 'Error'],
+        \ 'bg+': ['bg', 'Normal'],
+        \ 'pointer': ['fg', 'Error'],
+        \ 'marker': ['fg', 'Error'],
+        \ 'info': ['fg', 'MoreMsg'],
+        \ 'spinner': ['fg', 'MoreMsg'],
+        \ 'prompt': ['fg', 'Operator'],
+        \ }
+
+    let s:p = {'normal': {}, 'inactive': {}, 'tabline': {}}
+    let s:p.normal.left = [
+        \ ['#818596', '#1e2132', 0, 0],
+        \ ['#e27878', '#1e2132', 0, 0],
+        \ ['#b4be82', '#1e2132', 0, 0],
+        \ ]
+    let s:p.normal.middle = [['#818596', '#1e2132', 0, 0]]
+    let s:p.normal.right = s:p.normal.middle
+    let s:p.inactive.left = [
+        \ ['#3e445e', '#181a27', 0, 0],
+        \ ['#53343b', '#181a27', 0, 0],
+        \ ['#45493e', '#181a27', 0, 0],
+        \ ]
+    let s:p.inactive.middle = [['#3e445e', '#181a27', 0, 0]]
+    let s:p.inactive.right = s:p.inactive.middle
+    let s:p.tabline.tabsel = [['#818596', '#1d1f2b', 0, 0]]
+    let s:p.tabline.left = [['#3e445e', '#161821', 0, 0]]
+    let s:p.tabline.middle = [['#161821', '#161821', 0, 0]]
+    let s:p.tabline.right = s:p.tabline.middle
+    let g:lightline#colorscheme#iceberg#palette = s:p
 '''

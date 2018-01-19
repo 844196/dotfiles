@@ -24,6 +24,11 @@ vim:
 	$(MKDIR) ~/.vim/undo
 .PHONY: vim
 
+nvim:
+	$(call link,vim,~/.config/nvim)
+	$(call link,vim/vimrc,~/.config/nvim/init.vim)
+.PHONY: nvim
+
 tmux:
 	$(call link,tmux/.tmux.conf,~/.tmux.conf)
 .PHONY: tmux

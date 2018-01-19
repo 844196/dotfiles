@@ -6,18 +6,12 @@ scriptencoding utf-8
 if !1 | finish | endif
 if !&compatible | set nocompatible | endif
 
-" viminfoの場所
-if isdirectory(expand('~/.vim'))
-    set viminfo+=n~/.vim/viminfo
-endif
+" viminfoを生成しない
+set viminfo=
 
 " *.unの場所
-if isdirectory(expand('~/.vim/undo'))
-    set undofile
-    set undodir=~/.vim/undo
-else
-    set noundofile
-endif
+set undofile
+set undodir=$XDG_DATA_HOME/nvim/undo
 
 
 
@@ -168,6 +162,12 @@ function! s:Repl()
 endfunction
 vmap <silent> <expr> p <sid>Repl()
 
+" terminal
+nnoremap <silent><C-t><C-t> :execute('terminal') \| startinsert<CR>
+nnoremap <silent><C-t>v :vsp \| execute('terminal') \| startinsert<CR>
+nnoremap <silent><C-t>" :sp \| execute('terminal') \| startinsert<CR>
+nnoremap <silent><C-t>n :tabnew \| execute('terminal') \| startinsert<CR>
+
 
 
 " File type
@@ -184,28 +184,6 @@ augroup END
 
 " Other
 " ------------------------------------------------------------------------------
-" Use vsplit mode (?)
-" http://qiita.com/kefir_/items/c725731d33de4d8fb096
-if has("vim_starting") && !has('gui_running') && has('vertsplit')
-    function! g:EnableVsplitMode()
-        " enable origin mode and left/right margins
-        let &t_CS = "y"
-        let &t_ti = &t_ti . "\e[?6;69h"
-        let &t_te = "\e[?6;69l\e[999H" . &t_te
-        let &t_CV = "\e[%i%p1%d;%p2%ds"
-        call writefile([ "\e[?6;69h" ], "/dev/tty", "a")
-    endfunction
-
-    " old vim does not ignore CPR
-    map <special> <Esc>[3;9R <Nop>
-
-    " new vim can't handle CPR with direct mapping
-    " map <expr> ^[[3;3R g:EnableVsplitMode()
-    set t_F9=[3;3R
-    map <expr> <t_F9> g:EnableVsplitMode()
-    let &t_RV .= "\e[?6;69h\e[1;3s\e[3;9H\e[6n\e[0;0s\e[?6;69l"
-endif
-
 " 管理者権限で書き込み
 if executable('sudo') && executable('tee')
     cnoremap w!! %!sudo tee > /dev/null %
@@ -215,14 +193,14 @@ endif
 let g:vim_indent_cont = 4
 
 " 挿入モードのクソみたいな挙動を切る
-augroup no_comment
-    autocmd!
-    autocmd BufEnter * setlocal fo-=r
-    autocmd BufEnter * setlocal fo-=o
-    autocmd BufEnter * setlocal fo-=c
-    autocmd BufEnter * setlocal fo-=t
-    autocmd BufEnter * setlocal fo-=q
-augroup END
+" augroup no_comment
+"     autocmd!
+"     autocmd BufEnter * setlocal fo-=r
+"     autocmd BufEnter * setlocal fo-=o
+"     autocmd BufEnter * setlocal fo-=c
+"     autocmd BufEnter * setlocal fo-=t
+"     autocmd BufEnter * setlocal fo-=q
+" augroup END
 
 " 全てのマッピングを表示
 command! -nargs=* -complete=mapping AllMaps map <args> | map! <args> | lamp <args>
@@ -234,11 +212,11 @@ augroup special_key_highlight
 augroup END
 
 " 外部でファイルが変更された場合（かつ、編集していない場合）は自動でリロードする
-set autoread
-augroup checktime
-    autocmd!
-    autocmd WinEnter * checktime
-augroup END
+" set autoread
+" augroup checktime
+"     autocmd!
+"     autocmd WinEnter * checktime
+" augroup END
 
 " 挿入モードを抜けた際、強制的にペーストモードを解除する
 augroup leave_paste_mode_auto
@@ -272,7 +250,7 @@ if has('ruby')
             \ }
 
         let s:result = []
-        ruby load Vim::evaluate('expand("~/.vim/ruby/insert_php_function_doc.rb")')
+        ruby load Vim::evaluate('expand("~/.config/nvim/ruby/insert_php_function_doc.rb")')
 
         call append(line('.') - 1, s:result)
     endfunction
@@ -280,12 +258,12 @@ if has('ruby')
 
     " 現在行にあるクラス名からプロパティphpdocを挿入
     function! InsertPHPPropertyDoc() abort
-        ruby load Vim::evaluate('expand("~/.vim/ruby/insert_php_property_doc.rb")')
+        ruby load Vim::evaluate('expand("~/.config/nvim/ruby/insert_php_property_doc.rb")')
     endfunction
     nnoremap <silent><space>pp :call InsertPHPPropertyDoc()<CR>
 
     function! ToggleCase() abort
-        ruby load Vim::evaluate('expand("~/.vim/ruby/toggle_case.rb")')
+        ruby load Vim::evaluate('expand("~/.config/nvim/ruby/toggle_case.rb")')
     endfunction
     nnoremap <silent><C-j> :call ToggleCase()<CR>
 
@@ -301,20 +279,20 @@ if has('ruby')
             \ }
 
         let s:result = []
-        ruby load Vim::evaluate('expand("~/.vim/ruby/insert_php_setter_body.rb")')
+        ruby load Vim::evaluate('expand("~/.config/nvim/ruby/insert_php_setter_body.rb")')
 
         call append(search('{', 'cnW'), s:result)
     endfunction
     nnoremap <silent><space>ps :call InsertPHPSetterBody()<CR>
 endif
 
-nnoremap <silent><C-p><C-p> :<C-u>enew \| 0r ~/.vim/templates/php.template \| set ft=php<CR>
+nnoremap <silent><C-p><C-p> :<C-u>enew \| 0r $XDG_CONFIG_HOME/nvim/templates/php.template \| set ft=php<CR>
 
 
 
 " My autoload
 " ------------------------------------------------------------------------------
-let s:autoloadPath = expand('~/.vim/autoload')
+let s:autoloadPath = expand('~/.config/nvim/autoload')
 if isdirectory(s:autoloadPath)
     let &rtp .= ',' . s:autoloadPath
 endif
@@ -325,11 +303,17 @@ nnoremap <silent><C-p><C-w> :<C-u>call vimrc#php#buffer#write()<CR>
 
 " dein.vim
 " ------------------------------------------------------------------------------
-let s:plugins_dir = expand('~/.vim/plugins/')
+let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
+let s:plugins_dir = s:cache_home . '/dein'
 let s:dein_dir = s:plugins_dir . '/repos/github.com/Shougo/dein.vim'
 
-if (isdirectory(s:dein_dir))
+if !isdirectory(s:dein_dir) && executable('git')
+    call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_dir))
+endif
+
+if isdirectory(s:dein_dir)
     let &rtp .= ',' . s:dein_dir
+
     if dein#load_state(s:plugins_dir)
         call dein#begin(s:plugins_dir)
         call dein#load_toml('~/dotfiles/vim/plugins.toml')

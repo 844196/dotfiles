@@ -2,13 +2,13 @@
     name = Masaya Takeda
     email = 844196@gmail.com
 [core]
-    editor = vim
+    editor = nvim
     quotepath = false
 [url "git@github.com:"]
     pushinsteadof = "https://github.com/"
     pushinsteadof = "git://github.com/"
 [alias]
-    graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --color=always
     logg = log --stat --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
     sync = !git fetch && git merge
     suspend = !git add -A && git stash

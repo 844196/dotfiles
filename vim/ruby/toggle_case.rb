@@ -24,4 +24,4 @@ main = -> (vim) do
   vim.command("execute 'normal! ciw#{prefix}#{replacement}'")
 end
 
-main[Vim] if $0 === 'vim-ruby'
+main[Vim]

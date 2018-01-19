@@ -215,7 +215,7 @@ export ZPLUG_HOME=~/.zsh/zplug
 }
 
 # zsh-autosuggestions
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 
 : 'homebrew binary' && (( $+commands[brew] )) && {
     path=(`brew --prefix`/bin(N-/) $path)
@@ -230,17 +230,17 @@ fi
 
 clear
 
-if [[ -n "${commands[tmux]:-}" ]]; then
-    if tmux has-session; then
-        if [[ -z "${TMUX}" ]]; then
-            ~/dotfiles/tmux/scripts/wrapper
-        fi
-    else
-        if [[ -z "${TMUX}" ]]; then
-            tmux new-session -s 'main'
-        fi
-    fi
-fi
+# if [[ -n "${commands[tmux]:-}" ]]; then
+#     if tmux has-session; then
+#         if [[ -z "${TMUX}" ]]; then
+#             ~/dotfiles/tmux/scripts/wrapper
+#         fi
+#     else
+#         if [[ -z "${TMUX}" ]]; then
+#             tmux new-session -s 'main'
+#         fi
+#     fi
+# fi
 
 export NVM_DIR="$HOME/.nvm"
 if [ -s "$NVM_DIR/nvm.sh" ]; then

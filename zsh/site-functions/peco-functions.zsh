@@ -1,6 +1,9 @@
 `which fzf >/dev/null 2>&1` || return
 
 export FZF_DEFAULT_OPTS="--reverse --multi --exit-0 --cycle --inline-info --ansi --height 50%"
+if [[ -n "$NVIM_LISTEN_ADDRESS" ]]; then
+    export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --no-height"
+fi
 
 if [[ -n "${commands[ag]:-}" ]]; then
     export FZF_DEFAULT_COMMAND="ag --skip-vcs-ignores --hidden --ignore-dir '.git/' -g ''"
@@ -10,7 +13,7 @@ fi
 
 : 'コマンド履歴を<C-r>で表示' && {
     functions fzf-history() {
-        BUFFER=$(fc -l -n 1 | fzf --tac --inline-info --height 50%)
+        BUFFER=$(fc -l -n 1 | fzf --tac --inline-info)
         CURSOR=$#BUFFER
         zle reset-prompt
     }
