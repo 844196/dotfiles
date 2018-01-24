@@ -121,6 +121,10 @@ hook_add = '''
     let g:gitgutter_sign_modified = '│'
     let g:gitgutter_sign_removed = '│'
     let g:gitgutter_sign_modified_removed = '│'
+
+    let g:gitgutter_async = 0
+    let g:gitgutter_eager = 0
+    let g:gitgutter_realtime = 0
 '''
 
 [[plugins]]
@@ -252,6 +256,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'haya14busa/incsearch.vim'
+if = 'v:false'
 on_map = '<Plug>(incsearch'
 hook_add = '''
     let g:incsearch#magic = '\v'
@@ -446,16 +451,18 @@ hook_add = '''
     let g:ale_sign_error = "\uf057"
     let g:ale_sign_warning = "\uf06a"
     let g:ale_lint_delay = 1000
+    let g:ale_completion_enabled = 0
+
+    let g:ale_lint_on_text_changed = 0
+    let g:ale_lint_on_enter = 1
+    let g:ale_lint_on_save = 1
+    let g:ale_lint_on_filetype_changed = 1
+    let g:ale_lint_on_insert_leave = 1
 '''
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 hook_add = '''
-    augroup StatuslineWorkaround
-        autocmd Colorscheme hybrid_reverse hi StatusLine guifg=#212325 guibg=#5f5f5f
-        autocmd Colorscheme hybrid_reverse hi StatusLineNC guifg=#212325
-    augroup END
-
     let s:p = {'normal': {}, 'insert': {}, 'visual': {}, 'replace': {}, 'inactive': {}, 'tabline': {}}
     let s:p.normal.left = [
         \ ['#5f5f5f', '#212325', 0, 0],
@@ -596,7 +603,7 @@ repo = 'Shougo/deoplete.nvim'
 hook_add = '''
     let g:deoplete#enable_smart_case = 0
     let g:deoplete#enable_at_startup = 1
-    let g:deoplete#auto_complete_delay = 0
+    let g:deoplete#auto_complete_delay = 250
     let g:deoplete#auto_complete_start_length = 1
     let g:deoplete#omni#input_patterns = {}
     let g:deoplete#omni#input_patterns.php = '\w+|[^. \t]->\w*|\w+::\w*'
@@ -623,9 +630,9 @@ hook_add = '''
         hi GitGutterDelete guibg=#161821
         hi VertSplit guifg=#272c42 guibg=#161821
         hi EndOfBuffer guifg=#161821
-        hi StatusLine guifg=#181a27
+        hi StatusLine guifg=#181a27 guibg=#3e445e
         hi StatusLineNC guifg=#181a27
-        hi NonText guifg=#3d425b
+        hi NonText guifg=#242940
         hi NERDTreeDir guifg=#84a0c6
         hi NERDTreeDirSlash guifg=#84a0c6
         hi NERDTreeOpenable guifg=#161821
@@ -669,3 +676,6 @@ hook_add = '''
     let s:p.tabline.right = s:p.tabline.middle
     let g:lightline#colorscheme#iceberg#palette = s:p
 '''
+
+[[plugins]]
+repo = 'cocopon/colorswatch.vim'
