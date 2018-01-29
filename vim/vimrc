@@ -168,10 +168,36 @@ endfunction
 vmap <silent> <expr> p <sid>Repl()
 
 " terminal
+augroup BufEnter_wrap
+    autocmd!
+    autocmd BufEnter term://* startinsert
+    autocmd BufLeave term://* stopinsert
+augroup END
+
 nnoremap <silent><C-t><C-t> :execute('terminal') \| startinsert<CR>
 nnoremap <silent><C-t>v :vsp \| execute('terminal') \| startinsert<CR>
 nnoremap <silent><C-t>" :sp \| execute('terminal') \| startinsert<CR>
-nnoremap <silent><C-t>n :tabnew \| execute('terminal') \| startinsert<CR>
+nnoremap <silent><C-t>c :tabnew \| execute('terminal') startinsert<CR>
+
+tnoremap <silent><C-t>v <C-\><C-n>:vsp \| execute('terminal') \| startinsert<CR>
+tnoremap <silent><C-t>" <C-\><C-n>:sp \| execute('terminal') \| startinsert<CR>
+tnoremap <silent><C-t>c <C-\><C-n>:tabnew \| execute('terminal') \| startinsert<CR>
+
+nnoremap <silent><C-t>h <C-\><C-n><C-w>h
+nnoremap <silent><C-t>j <C-\><C-n><C-w>j
+nnoremap <silent><C-t>k <C-\><C-n><C-w>k
+nnoremap <silent><C-t>l <C-\><C-n><C-w>l
+
+tnoremap <silent><C-t>h <C-\><C-n><C-w>h
+tnoremap <silent><C-t>j <C-\><C-n><C-w>j
+tnoremap <silent><C-t>k <C-\><C-n><C-w>k
+tnoremap <silent><C-t>l <C-\><C-n><C-w>l
+
+nnoremap <silent><C-t>n :tabnext<CR>
+nnoremap <silent><C-t>p :tabprevious<CR>
+
+tnoremap <silent><C-t>n <C-\><C-n>:tabnext<CR>
+tnoremap <silent><C-t>p <C-\><C-n>:tabprevious<CR>
 
 
 
