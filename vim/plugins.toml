@@ -205,7 +205,7 @@ on_cmd = 'Mundo'
 hook_add = '''
     let g:mundo_width = 80
     let g:mundo_height = 60
-    nnoremap <silent><F5> :<C-u>MundoToggle<CR>
+    nnoremap <silent>U :<C-u>MundoToggle<CR>
 '''
 
 [[plugins]]
