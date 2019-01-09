@@ -3,9 +3,7 @@ stty start undef
 
 # 補完
 autoload -U compinit; compinit
-setopt -U auto_cd
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-setopt pushd_ignore_dups
 setopt auto_menu
 zstyle ':completion:*:default' menu select=2
 setopt list_packed
@@ -14,6 +12,7 @@ setopt nolistbeep
 setopt list_types
 setopt list_rows_first
 setopt magic_equal_subst
+setopt no_flow_control
 
 # 言語
 export LANG=ja_JP.UTF-8
@@ -138,7 +137,6 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
-alias -g l="qlmanage -p ${@} >/dev/null 2>&1"
 case `uname` in
     'Darwin')
         alias ls='ls -GFh'
@@ -156,13 +154,10 @@ alias ck='git checkout'
 alias br='git branch -vv'
 alias co='git commit'
 alias di='git diff'
-alias ad='git add'
 alias gg='git graph -n 15'
-alias ga='git graph | less -RS'
-alias agit='vim -c Agit'
 
 export ZPLUG_HOME=~/.zsh/zplug
-: 'zplug configure' && [[ -e $ZPLUG_HOME/init.zsh ]] && {
+if [[ -e $ZPLUG_HOME/init.zsh ]]; then
     source $ZPLUG_HOME/init.zsh
 
     zplug "zplug/zplug", hook-build:'zplug --self-manage'
@@ -171,41 +166,11 @@ export ZPLUG_HOME=~/.zsh/zplug
     zplug "~/.zsh/site-functions", from:local
 
     zplug load
-}
+fi
 
-: 'local config load' && [[ -e ~/.local/zshrc ]] && {
+if [[ -e ~/.local/zshrc ]]; then
     source ~/.local/zshrc
-}
+fi
 
 # zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
-
-: 'homebrew binary' && (( $+commands[brew] )) && {
-    path=(`brew --prefix`/bin(N-/) $path)
-    fpath=(`brew --prefix`/share/zsh/site-functions(N-/) $fpath)
-}
-
-typeset -U path cdpath fpath manpath
-
-if [[ -n "${commands[richgo]:-}" ]]; then
-    alias go=richgo
-fi
-
-clear
-
-# if [[ -n "${commands[tmux]:-}" ]]; then
-#     if tmux has-session; then
-#         if [[ -z "${TMUX}" ]]; then
-#             ~/dotfiles/tmux/scripts/wrapper
-#         fi
-#     else
-#         if [[ -z "${TMUX}" ]]; then
-#             tmux new-session -s 'main'
-#         fi
-#     fi
-# fi
-
-export NVM_DIR="$HOME/.nvm"
-if [ -s "$NVM_DIR/nvm.sh" ]; then
-    \. "$NVM_DIR/nvm.sh"  # This loads nvm
-fi
