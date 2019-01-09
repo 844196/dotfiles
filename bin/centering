@@ -1,0 +1,14 @@
+#!/bin/bash
+
+function maxCharSize() {
+    cat - | sed "s,`printf '\x1b'`\[[0-9;]*[a-zA-Z],,g" | awk '{cl=length($0);if(ml<cl)ml=cl}END{print(ml)}'
+}
+
+content="$(cat -)"
+max="$(echo "${content}" | maxCharSize)"
+margin="$(
+    for i in $(seq 1 $(((`tput cols` - max) / 2))); {
+        printf ' ';
+    }
+)"
+echo "${content}" | sed "s/^/${margin}/g"

@@ -148,43 +148,6 @@ case `uname` in
         ;;
 esac
 
-function pcolor() {
-    for ((f = 0; f < 255; f++)); do
-        printf "\e[38;5;%dm %3d#\e[m" $f $f
-        if [[ $f%8 -eq 7 ]] then
-            printf "\n"
-        fi
-    done
-    echo
-}
-
-function maxCharSize() {
-    cat - | sed "s,`printf '\x1b'`\[[0-9;]*[a-zA-Z],,g" | awk '{cl=length($0);if(ml<cl)ml=cl}END{print(ml)}'
-}
-
-function centering() {
-    content="$(cat -)"
-    max="$(echo "${content}" | maxCharSize)"
-    margin="$(
-        for i in $(seq 1 $(((`tput cols` - max) / 2))); {
-            printf ' ';
-        }
-    )"
-    echo "${content}" | sed "s/^/${margin}/g"
-}
-
-function middling() {
-    content="$(cat -)"
-    lines="$(echo "${content}" | awk 'END{print NR}')"
-    margin="$(
-        for i in $(seq 1 $(((`tput lines` - lines) / 2))); {
-            printf " \n";
-        }
-    )"
-    echo "${margin}"
-    echo "${content}"
-}
-
 alias t='cd "$(mktemp -d)"'
 
 # Git

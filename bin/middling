@@ -1,0 +1,11 @@
+#!/bin/bash
+
+content="$(cat -)"
+lines="$(echo "${content}" | awk 'END{print NR}')"
+margin="$(
+    for i in $(seq 1 $(((`tput lines` - lines) / 2))); {
+        printf " \n";
+    }
+)"
+echo "${margin}"
+echo "${content}"
