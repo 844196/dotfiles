@@ -36,7 +36,7 @@ zstyle ":vcs_info:git:*" check-for-changes true
 zstyle ":vcs_info:git:*" formats     "[%b]%c%u%m"
 zstyle ":vcs_info:git:*" unstagedstr "[-]"
 zstyle ":vcs_info:git:*" stagedstr   "[+]"
-zstyle ":vcs_info:git+set-message:*" hooks git-untracked git-remote
+zstyle ":vcs_info:git+set-message:*" hooks git-remote
 
 function +vi-git-untracked() {
     if git status --porcelain 2>/dev/null | grep '^??' >/dev/null 2>&1; then

@@ -1,5 +1,5 @@
 if [[ ! -e $ZPLUG_HOME/init.zsh ]]; then
-  exit 0
+  return
 fi
 
 source $ZPLUG_HOME/init.zsh
