@@ -12,7 +12,7 @@ done
 git clone https://github.com/844196/dotfiles ~/.dotfiles
 
 my_ln() {
-  if [ -f $2 ]; then
+  if [ -e $2 ]; then
     echo "${2} is already exists. skipping..." >&2
     return
   fi
