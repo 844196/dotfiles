@@ -11,8 +11,16 @@ done
 
 git clone https://github.com/844196/dotfiles ~/.dotfiles
 
-mkdir -p ~/.config
-ln -sfn ~/.dotfiles/git ~/.config/git
+my_ln() {
+  if [ -f $2 ]; then
+    echo "${2} is already exists. skipping..." >&2
+    return
+  fi
+  ln -sfn $1 $2
+}
 
-ln -sfn ~/.dotfiles/zsh ~/.zsh
-ln -sfn ~/.dotfiles/zsh/.zshenv ~/.zshenv
+mkdir -p ~/.config
+my_ln ~/.dotfiles/git ~/.config/git
+
+my_ln ~/.dotfiles/zsh ~/.zsh
+my_ln ~/.dotfiles/zsh/.zshenv ~/.zshenv
