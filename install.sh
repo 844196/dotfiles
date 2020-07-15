@@ -9,7 +9,7 @@ for cmd in zsh fzf; do
   which $cmd >/dev/null 2>&1 || echo "${cmd} is not installed" >&2
 done
 
-git clone https://github.com/844196/dotfiles ~/.dotfiles
+[ -e ~/.dotfiles ] || git clone https://github.com/844196/dotfiles ~/.dotfiles
 
 my_ln() {
   if [ -e $2 ]; then
