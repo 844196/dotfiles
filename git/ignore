@@ -1,8 +1,2 @@
 *~
 .DS_Store
-shunit2-*
-tags
-.bundle
-.envrc
-,*
-.phpcd

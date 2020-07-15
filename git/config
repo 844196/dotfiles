@@ -2,21 +2,11 @@
     name = Masaya Takeda
     email = 844196@gmail.com
 [core]
-    editor = nvim
+	editor = code --wait
     quotepath = false
-[url "git@github.com:"]
-    pushinsteadof = "https://github.com/"
-    pushinsteadof = "git://github.com/"
+	autoCRLF = false
 [alias]
     graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --color=always
-    logg = log --stat --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-    sync = !git fetch && git merge
-    suspend = !git add -A && git stash
-    resume = stash pop
-    unstage = reset
-    changelog = log --pretty=format:'* %s' --reverse master..HEAD
-    today = !git log --author=`git config user.name` --since=midnight --branches --no-merges --oneline --reverse --pretty=format:'%h\t%s' | awk -F $'\t' '!colname[$2]++{print $1, $2}'
-    count = diff master..HEAD --stat
 [color]
     ui = auto
 [rebase]
@@ -28,8 +18,7 @@
     verbose = true
 [diff]
     indentHeuristic = true
-[diff-so-fancy]
-    markEmptyLines = false
 [ghq]
     root = ~/.ghq
-    root = ~/.go/src
+[credential]
+	helper = osxkeychain
