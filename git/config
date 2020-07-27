@@ -23,3 +23,4 @@
     root = ~/.ghq
 [credential]
 	helper = osxkeychain
+	helper = cache --timeout 86400
