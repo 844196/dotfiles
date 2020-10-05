@@ -19,8 +19,8 @@ my_ln() {
   ln -sfn $1 $2
 }
 
-mkdir -p ~/.config
-my_ln ~/.dotfiles/git ~/.config/git
+cp -f ~/.dotfiles/git/ignore ~/.gitignore
+cp -f ~/.dotfiles/git/config ~/.gitconfig
 
 my_ln ~/.dotfiles/zsh ~/.zsh
 my_ln ~/.dotfiles/zsh/.zshenv ~/.zshenv
