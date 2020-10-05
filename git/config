@@ -1,26 +1,27 @@
 [user]
-    name = Masaya Takeda
-    email = 844196@gmail.com
+  name = Masaya Takeda
+  email = 844196@gmail.com
 [core]
-	editor = code --wait
-    quotepath = false
-	autoCRLF = false
-    ignorecase = false
+  editor = code --wait
+  quotepath = false
+  autoCRLF = false
+  ignorecase = false
 [alias]
-    graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --color=always
+  graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --color=always
 [color]
-    ui = auto
+  ui = auto
 [rebase]
-    autoSquash = true
-    autoStash = true
+  autoSquash = true
+  autoStash = true
 [status]
-    showUntrackedFiles = all
+  showUntrackedFiles = all
 [commit]
-    verbose = true
+  verbose = true
 [diff]
-    indentHeuristic = true
+  indentHeuristic = true
 [ghq]
-    root = ~/.ghq
+  root = ~/.ghq
 [credential]
-	helper = osxkeychain
-	helper = cache --timeout 86400
+  helper = osxkeychain
+	helper = /mnt/c/Program\\ Files/Git/mingw32/libexec/git-core/git-credential-manager-core.exe
+  helper = cache --timeout 86400
