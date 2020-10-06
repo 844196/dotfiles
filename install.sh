@@ -11,16 +11,9 @@ done
 
 [ -e ~/.dotfiles ] || git clone https://github.com/844196/dotfiles ~/.dotfiles
 
-my_ln() {
-  if [ -e $2 ]; then
-    echo "${2} is already exists. skipping..." >&2
-    return
-  fi
-  ln -sfn $1 $2
-}
-
 cp -f ~/.dotfiles/git/ignore ~/.gitignore
 cp -f ~/.dotfiles/git/config ~/.gitconfig
+sudo cp -f ~/.dotfiles/git/git-credential-manager /usr/local/bin/git-credential-manager
 
-my_ln ~/.dotfiles/zsh ~/.zsh
-my_ln ~/.dotfiles/zsh/.zshenv ~/.zshenv
+ln -sfn ~/.dotfiles/zsh ~/.zsh
+ln -sfn ~/.dotfiles/zsh/.zshenv ~/.zshenv

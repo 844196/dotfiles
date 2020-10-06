@@ -23,6 +23,4 @@
 [ghq]
   root = ~/.ghq
 [credential]
-  helper = osxkeychain
-  helper = /mnt/c/Program\\ Files/Git/mingw64/libexec/git-core/git-credential-manager-core.exe
-  helper = cache --timeout 86400
+  helper = manager
