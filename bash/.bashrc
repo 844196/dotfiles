@@ -10,10 +10,6 @@ PS1='
 \[\e[34m\]\u@\h:\w\[\e[m\]
 `((${?:-0}==0))&&echo "\[\e[1;30m\]"||echo "\[\e[31m\]"`\$\[\e[m\] '
 
-if [[ -x ~/bin/fzf ]]; then
-  alias fzf=~/bin/fzf
-fi
-
 if type fzf >/dev/null 2>&1; then
   export FZF_DEFAULT_OPTS="--reverse --multi --exit-0 --cycle --inline-info --ansi --height 30%"
 
