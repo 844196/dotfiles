@@ -3,6 +3,8 @@ if [[ -t 0 ]]; then
   stty start undef
 fi
 
+export HISTCONTROL=ignoredups:erasedups
+
 export LESSHISTFILE=-
 export LESSCHARSET=utf-8
 
