@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if ! which git >/dev/null 2>&1; then
-  echo "${cmd} is not installed" >&2
+  echo 'Git is not installed' >&2
   exit 1
 fi
 
