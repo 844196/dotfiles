@@ -29,6 +29,10 @@ setopt hist_reduce_blanks
 export LESSHISTFILE=-
 export LESSCHARSET=utf-8
 
+# for vscode
+# see: https://superuser.com/questions/1391414/why-am-i-having-a-sign-between-the-lines-in-integrated-terminal-in-vs-code
+unsetopt PROMPT_SP
+
 PROMPT="
 %{$fg[blue]%}%n@%m:%~%{$reset_color%}
 %{%(?.$fg_bold[black].$fg[red])%}%#%{$reset_color%} "
