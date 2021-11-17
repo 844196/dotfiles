@@ -1,0 +1,41 @@
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$memory_usage\
+$env_var\
+$cmd_duration\
+$line_break\
+$character"""
+
+[fill]
+symbol = " "
+
+[character]
+success_symbol = "[❯](bold black)"
+error_symbol = "[❯](bold red)"
+
+[username]
+style_user = "blue"
+format = "[$user]($style)"
+show_always = true
+
+[hostname]
+style = "blue"
+format = "[@$hostname]($style) in "
+ssh_only = false
+
+[directory]
+truncation_length = 0
+truncate_to_repo = false
+read_only = ' [READ_ONLY]'
+
+[git_branch]
+always_show_remote = true
+symbol = " "
+style = "green"
+format = "on [$symbol$branch]($style) "
