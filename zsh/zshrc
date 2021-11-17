@@ -1,0 +1,82 @@
+if [ -t 0 ]; then
+    stty stop undef
+    stty start undef
+fi
+
+autoload -U compinit; compinit
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+setopt auto_menu
+zstyle ':completion:*:default' menu select=2
+setopt list_packed
+bindkey "[Z" reverse-menu-complete
+setopt nolistbeep
+setopt list_types
+setopt list_rows_first
+setopt magic_equal_subst
+setopt no_flow_control
+
+export LANG=ja_JP.UTF-8
+setopt print_eight_bit
+
+autoload -Uz colors; colors
+
+export HISTSIZE=1000
+export SAVEHIST=100000
+setopt share_history
+setopt hist_no_store
+setopt hist_reduce_blanks
+
+export LESSHISTFILE=-
+export LESSCHARSET=utf-8
+
+PROMPT="
+%{$fg[blue]%}%n@%m:%~%{$reset_color%}
+%{%(?.$fg_bold[black].$fg[red])%}%#%{$reset_color%} "
+
+if [ `uname` = Darwin ]; then
+  alias ls='ls -GFh'
+else
+  alias ls='ls -Fh --color'
+fi
+
+if [ -n "${commands[fzf]}" ]; then
+  export FZF_DEFAULT_OPTS="--reverse --multi --exit-0 --cycle --inline-info --ansi --height 30%"
+
+  _fzf_history() {
+    BUFFER=$(fc -l -n 1 | fzf --tac)
+    CURSOR=$#BUFFER
+    zle reset-prompt
+  }
+  zle -N _fzf_history
+  bindkey '^R' _fzf_history
+
+  alias -g B='`git branch | fzf --reverse --exact | sed -e "s/^[\* ]\{0,1\} //g"`'
+  alias -g F='$(git status --porcelain | fzf --preview "echo {} | cut -c4- | xargs git diff --color=always HEAD" | cut -c4-)'
+  alias -g C='`git graph -n 200 | fzf --reverse | sed -e "s/\([a-zA-Z0-9]\{1,\}\).*/\1/" -e "s/^[^a-zA-Z0-9]\{1,\}//g"`'
+fi
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias t='cd "$(mktemp -d)"'
+alias st='git status'
+alias ck='git checkout'
+alias br='git branch -vv'
+alias co='git commit'
+alias di='git diff'
+alias gg='git graph -n 15'
+
+# plugins
+if [ -e ~/.zsh-plugins/zsh-autosuggestions ]; then
+  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=black,bold"
+  source ~/.zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+if [ -e ~/.zsh-plugins/zsh-syntax-highlighting ]; then
+  source ~/.zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+# starship
+if [ -n "${commands[starship]}" ]; then
+  eval "$(starship init zsh)"
+fi
