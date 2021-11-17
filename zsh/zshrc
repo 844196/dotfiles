@@ -20,6 +20,7 @@ setopt print_eight_bit
 
 autoload -Uz colors; colors
 
+export HISTFILE=~/.zsh_history
 export HISTSIZE=1000
 export SAVEHIST=100000
 setopt share_history
