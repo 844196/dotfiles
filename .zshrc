@@ -15,7 +15,6 @@ setopt list_rows_first
 setopt magic_equal_subst
 setopt no_flow_control
 
-export LANG=ja_JP.UTF-8
 setopt print_eight_bit
 
 autoload -Uz colors; colors
