@@ -12,8 +12,7 @@ $cmd_duration\
 $line_break\
 $character"""
 
-[fill]
-symbol = " "
+right_format = "${custom.git_user}"
 
 [character]
 success_symbol = "[❯](bold black)"
@@ -39,3 +38,9 @@ always_show_remote = true
 symbol = " "
 style = "green"
 format = "on [$symbol$branch]($style) "
+
+[custom.git_user]
+when = "git rev-parse 2>/dev/null"
+command = 'echo "`git config user.name` <`git config user.email`>"'
+style = "bold black"
+format = "[$output]($style)"
