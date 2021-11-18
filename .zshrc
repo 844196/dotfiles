@@ -31,6 +31,26 @@ setopt hist_ignore_all_dups
 # see: https://superuser.com/questions/1391414/why-am-i-having-a-sign-between-the-lines-in-integrated-terminal-in-vs-code
 unsetopt PROMPT_SP
 
+# for wsl
+# see: https://github.com/microsoft/WSL/issues/5065#issuecomment-835469034
+precmd() {
+  if [ ! -e "/run/WSL" ]; then
+    return
+  fi
+
+  if [[ -z "$WSL_INTEROP" || -e "$WSL_INTEROP" ]]; then
+    return
+  fi
+
+  local pid
+  for pid in `pstree --numeric-sort --show-pids --show-parents $$ | grep -o -E '[0-9]+'`; do
+    if [ -e "/run/WSL/${pid}_interop" ]; then
+      export WSL_INTEROP="/run/WSL/${pid}_interop"
+      return
+    fi
+  done
+}
+
 PROMPT="
 %{$fg[blue]%}%n@%m:%~%{$reset_color%}
 %{%(?.$fg_bold[black].$fg[red])%}%#%{$reset_color%} "
