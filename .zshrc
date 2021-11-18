@@ -27,9 +27,6 @@ setopt share_history
 setopt hist_no_store
 setopt hist_reduce_blanks
 
-export LESSHISTFILE=-
-export LESSCHARSET=utf-8
-
 # for vscode
 # see: https://superuser.com/questions/1391414/why-am-i-having-a-sign-between-the-lines-in-integrated-terminal-in-vs-code
 unsetopt PROMPT_SP
@@ -45,8 +42,6 @@ else
 fi
 
 if [ -n "${commands[fzf]}" ]; then
-  export FZF_DEFAULT_OPTS="--reverse --multi --exit-0 --cycle --inline-info --ansi --height 30%"
-
   # see: https://github.com/junegunn/fzf/wiki/Color-schemes#ayu-mirage
   export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
     --color=fg:#cbccc6,bg:#1f2430,hl:#707a8c

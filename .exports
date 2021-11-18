@@ -1,0 +1,6 @@
+export PATH="$PATH:$HOME/.local/bin"
+
+export LESSHISTFILE=-
+export LESSCHARSET=utf-8
+
+export FZF_DEFAULT_OPTS="--reverse --multi --exit-0 --cycle --inline-info --ansi --height 30%"

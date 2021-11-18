@@ -7,6 +7,8 @@ fi
 
 [ -e ~/.dotfiles ] || git clone --depth 1 https://github.com/844196/dotfiles ~/.dotfiles
 
+cp -f ~/.dotfiles/.exports ~/.exports
+
 cp -f ~/.dotfiles/.bashrc ~/.bashrc
 cp -f ~/.dotfiles/.inputrc ~/.inputrc
 

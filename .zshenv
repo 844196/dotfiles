@@ -1,3 +1,3 @@
-path=($HOME/.local/bin(N-/) $path)
+source ~/.exports
 
 typeset -U path fpath

@@ -3,12 +3,9 @@ if [ -t 0 ]; then
   stty start undef
 fi
 
-export PATH="$PATH:$HOME/.local/bin"
+source ~/.exports
 
 export HISTCONTROL=ignoredups:erasedups
-
-export LESSHISTFILE=-
-export LESSCHARSET=utf-8
 
 PS1='
 \[\e[34m\]\u@\h:\w\[\e[m\]
