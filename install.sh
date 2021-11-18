@@ -28,5 +28,5 @@ mkdir -p ~/.zsh-plugins
 [ -e ~/.zsh-plugins/zsh-autosuggestions ] || git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions ~/.zsh-plugins/zsh-autosuggestions
 
 sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --bin-dir ~/bin --yes
-mkdir -p .config
+mkdir -p ~/.config
 cp -f ~/.dotfiles/starship/starship.toml ~/.config/starship.toml
