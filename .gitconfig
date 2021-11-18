@@ -1,6 +1,5 @@
 [user]
-  name = Masaya Takeda
-  email = 844196@gmail.com
+  useConfigOnly = true
 [core]
   editor = code --wait
   quotepath = false
