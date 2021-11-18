@@ -1,8 +1,3 @@
-if [ -t 0 ]; then
-    stty stop undef
-    stty start undef
-fi
-
 autoload -U compinit; compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 setopt auto_menu
