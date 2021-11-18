@@ -3,6 +3,8 @@ if [ -t 0 ]; then
   stty start undef
 fi
 
+export PATH="$PATH:$HOME/bin"
+
 export HISTCONTROL=ignoredups:erasedups
 
 export LESSHISTFILE=-
