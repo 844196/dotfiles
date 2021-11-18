@@ -29,4 +29,4 @@ mkdir -p ~/.zsh-plugins
 
 sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --bin-dir ~/bin --yes
 mkdir -p ~/.config
-cp -f ~/.dotfiles/starship/starship.toml ~/.config/starship.toml
+cp -f ~/.dotfiles/starship.toml ~/.config/starship.toml
