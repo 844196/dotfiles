@@ -46,8 +46,9 @@ fi
 
 if [ -n "${commands[fzf]}" ]; then
   export FZF_DEFAULT_OPTS="--reverse --multi --exit-0 --cycle --inline-info --ansi --height 30%"
+
   # see: https://github.com/junegunn/fzf/wiki/Color-schemes#ayu-mirage
-  export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS='
+  export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
     --color=fg:#cbccc6,bg:#1f2430,hl:#707a8c
     --color=fg+:#707a8c,bg+:#191e2a,hl+:#ffcc66
     --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6
