@@ -29,6 +29,6 @@ mkdir -p ~/.zsh-plugins
 [ -e ~/.zsh-plugins/zsh-syntax-highlighting ] || git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh-plugins/zsh-syntax-highlighting
 [ -e ~/.zsh-plugins/zsh-autosuggestions ] || git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions ~/.zsh-plugins/zsh-autosuggestions
 
-sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --bin-dir ~/.local/bin --yes
+[ -e ~/.local/bin/starship ] || sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --bin-dir ~/.local/bin --yes
 mkdir -p ~/.config
 cp -f ~/.dotfiles/starship.toml ~/.config/starship.toml
