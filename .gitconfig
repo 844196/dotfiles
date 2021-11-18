@@ -23,4 +23,4 @@
 [ghq]
   root = ~/.ghq
 [credential]
-  helper = "!f() { ~/bin/git-credential-manager $*; }; f"
+  helper = "!f() { ~/.local/bin/git-credential-manager $*; }; f"
