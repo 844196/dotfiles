@@ -1,3 +1,5 @@
+[ -z "$USER" ] && export USER=`whoami`
+
 export PATH="$PATH:$HOME/.local/bin"
 
 export LESSHISTFILE=-
