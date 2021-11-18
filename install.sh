@@ -8,6 +8,7 @@ fi
 [ -e ~/.dotfiles ] || git clone --depth 1 https://github.com/844196/dotfiles ~/.dotfiles
 
 cp -f ~/.dotfiles/.bashrc ~/.bashrc
+cp -f ~/.dotfiles/.inputrc ~/.inputrc
 
 cp -f ~/.dotfiles/.zshenv ~/.zshenv
 cp -f ~/.dotfiles/.zshrc ~/.zshrc
