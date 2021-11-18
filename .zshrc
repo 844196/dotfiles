@@ -25,6 +25,7 @@ export SAVEHIST=100000
 setopt share_history
 setopt hist_no_store
 setopt hist_reduce_blanks
+setopt hist_ignore_all_dups
 
 # for vscode
 # see: https://superuser.com/questions/1391414/why-am-i-having-a-sign-between-the-lines-in-integrated-terminal-in-vs-code
