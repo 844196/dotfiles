@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -e
-
-activePaneId=`tmux list-panes -F '#{pane_active},#{pane_index}' | grep '^1' | cut -d, -f2-`
-tmux split-window -l 10 "cat ~/.tmux.snippets | fzf --height 100% | xargs -I {} tmux send-key -t ${activePaneId} {}"

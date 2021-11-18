@@ -1,6 +1,0 @@
-#!/bin/bash
-
-BUFFER_CONTENT=/tmp/tmux-buffer
-cat > ${BUFFER_CONTENT}
-
-tmux split-window "cat ${BUFFER_CONTENT} | jq . -C | less -R"

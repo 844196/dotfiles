@@ -1,5 +1,0 @@
-#!/usr/bin/env ruby
-
-p (ARGV[0] || gets)
-  .scan(/\h\h/)
-  .map {|x| (x + x)[0, 2].hex }

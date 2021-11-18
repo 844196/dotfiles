@@ -1,1 +1,0 @@
-/home/m-takeda/dotfiles/vim/vimrc

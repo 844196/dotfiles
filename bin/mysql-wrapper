@@ -1,9 +1,0 @@
-#!/bin/bash
-
-result="$(cat - | mysql -u root 2>&1)"
-
-if [[ $? -eq 0 ]]; then
-    echo "${result}" | column -ts $'\t'
-else
-    echo "${result}"
-fi

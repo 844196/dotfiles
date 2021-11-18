@@ -7,16 +7,16 @@ fi
 
 [ -e ~/.dotfiles ] || git clone --depth 1 https://github.com/844196/dotfiles ~/.dotfiles
 
-cp -f ~/.dotfiles/bash/.bashrc ~/.bashrc
+cp -f ~/.dotfiles/.bashrc ~/.bashrc
 
-cp -f ~/.dotfiles/zsh/zshenv ~/.zshenv
-cp -f ~/.dotfiles/zsh/zshrc ~/.zshrc
+cp -f ~/.dotfiles/.zshenv ~/.zshenv
+cp -f ~/.dotfiles/.zshrc ~/.zshrc
 
-cp -f ~/.dotfiles/git/config ~/.gitconfig
-cp -f ~/.dotfiles/git/ignore ~/.gitignore
+cp -f ~/.dotfiles/.gitconfig ~/.gitconfig
+cp -f ~/.dotfiles/.gitignore ~/.gitignore
 
 mkdir -p ~/bin
-cp -f ~/.dotfiles/git/git-credential-manager ~/bin/git-credential-manager
+cp -f ~/.dotfiles/bin/git-credential-manager ~/bin/git-credential-manager
 
 [ -e ~/.fzf ] || git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --bin

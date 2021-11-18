@@ -1,6 +1,2 @@
-zsh/.zcompdump
-zsh/.zhistory
-zsh/zplug/
-vim/viminfo
-vim/undo/
-vim/plugins/
+*~
+.DS_Store
