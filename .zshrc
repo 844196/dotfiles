@@ -83,6 +83,16 @@ if [ -n "${commands[fzf]}" ]; then
   alias -g C='`git graph -n 200 | fzf --reverse | sed -e "s/\([a-zA-Z0-9]\{1,\}\).*/\1/" -e "s/^[^a-zA-Z0-9]\{1,\}//g"`'
 fi
 
+if [[ -n "${commands[fzf]}" && -n "${commands[ghq]}" ]]; then
+  gp() {
+    repo="`ghq list | fzf`"
+    if [ -z "$repo" ]; then
+      return 1
+    fi
+    cd "`ghq list --full-path --exact $repo`"
+  }
+fi
+
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
