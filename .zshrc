@@ -12,6 +12,7 @@ bindkey "[Z" reverse-menu-complete
 setopt nolistbeep
 setopt list_types
 setopt list_rows_first
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 setopt magic_equal_subst
 setopt no_flow_control
 
