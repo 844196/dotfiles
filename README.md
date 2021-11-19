@@ -22,7 +22,7 @@ $ docker run --rm -it -v `pwd`:/home/alice/.dotfiles dotfiles:latest
 
 ## 📄 License
 
-See [`LICENSE.md`](/LICENSE.nd).
+See [`LICENSE.md`](/LICENSE.md).
 
 ### dotfiles logo ([jglovier/dotfiles-logo](https://github.com/jglovier/dotfiles-logo))
 
