@@ -22,6 +22,7 @@
 [diff]
   indentHeuristic = true
 [ghq]
+  user = "844196"
   root = ~/.ghq
 [credential]
   helper = "!f() { ~/.local/bin/git-credential-manager $*; }; f"
