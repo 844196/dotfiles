@@ -117,7 +117,7 @@ fi
 
 if [[ -n "${commands[fzf]}" && -n "${commands[ghq]}" ]]; then
   gp() {
-    repo="`ghq list | fzf`"
+    repo="`ghq list | fzf --no-multi`"
     if [ -z "$repo" ]; then
       return 1
     fi
