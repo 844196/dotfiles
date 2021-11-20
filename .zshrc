@@ -82,7 +82,7 @@ if [ -n "${commands[fzf]}" ]; then
     zle reset-prompt
   }
   zle -N fzf-git-branches
-  bindkey '^x^x' fzf-git-branches
+  bindkey '^x^b' fzf-git-branches
 
   fzf-git-changed-files() {
     local selected="$(git status --porcelain | fzf --height 90% --preview-window right:80% --preview '
