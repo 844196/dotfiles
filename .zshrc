@@ -3,7 +3,7 @@ select-word-style default
 zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
 
-autoload -U compinit; compinit
+autoload -Uz compinit; compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 setopt auto_menu
 zstyle ':completion:*:default' menu select=2
@@ -19,6 +19,21 @@ setopt no_flow_control
 setopt print_eight_bit
 
 autoload -Uz colors; colors
+
+accept-line-with-expand-alias() {
+  zle _expand_alias
+  zle accept-line
+}
+zle -N accept-line-with-expand-alias
+bindkey -M emacs '^M' accept-line-with-expand-alias
+bindkey '^J' accept-line-with-expand-alias
+
+space-with-expand-alias() {
+  zle _expand_alias
+  zle self-insert
+}
+zle -N space-with-expand-alias
+bindkey -M emacs ' ' space-with-expand-alias
 
 export HISTFILE=~/.zsh_history
 export HISTSIZE=1000
