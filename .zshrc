@@ -63,13 +63,13 @@ if [ -n "${commands[exa]}" ]; then
 fi
 
 if [ -n "${commands[fzf]}" ]; then
-  _fzf_history() {
+  fzf-histories() {
     BUFFER=$(fc -l -n 1 | fzf --tac)
     CURSOR=$#BUFFER
     zle reset-prompt
   }
-  zle -N _fzf_history
-  bindkey '^R' _fzf_history
+  zle -N fzf-histories
+  bindkey '^R' fzf-histories
 
   alias -g B='`git branch | fzf --reverse --exact | sed -e "s/^[\* ]\{0,1\} //g"`'
   alias -g F='$(git status --porcelain | fzf --preview "echo {} | cut -c4- | xargs git diff --color=always HEAD" | cut -c4-)'
@@ -102,6 +102,7 @@ if [ -e ~/.zsh-plugins/zsh-autosuggestions ]; then
   ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=black,bold"
   source ~/.zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
+
 
 if [ -e ~/.zsh-plugins/zsh-syntax-highlighting ]; then
   source ~/.zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
