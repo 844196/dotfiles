@@ -71,9 +71,50 @@ if [ -n "${commands[fzf]}" ]; then
   zle -N fzf-histories
   bindkey '^R' fzf-histories
 
-  alias -g B='`git branch | fzf --reverse --exact | sed -e "s/^[\* ]\{0,1\} //g"`'
-  alias -g F='$(git status --porcelain | fzf --preview "echo {} | cut -c4- | xargs git diff --color=always HEAD" | cut -c4-)'
-  alias -g C='`git graph -n 200 | fzf --reverse | sed -e "s/\([a-zA-Z0-9]\{1,\}\).*/\1/" -e "s/^[^a-zA-Z0-9]\{1,\}//g"`'
+  fzf-git-branches() {
+    local selected="$(git branch --color=always -vvv --sort=-authordate | fzf --no-multi --exact --preview-window down:90% --preview '
+      () {
+        local branch=$(echo $1 | grep -o -E "^[ *] \S+" | cut -c3-)
+        git log -50 --oneline --no-decorate --color=always $branch
+      } {}
+    ' | grep -o -E '^[ *] \S+' | cut -c3-)"
+
+    BUFFER="${BUFFER}${selected}"
+    CURSOR=${#BUFFER}
+    zle reset-prompt
+  }
+  zle -N fzf-git-branches
+  bindkey '^x^x' fzf-git-branches
+
+  fzf-git-changed-files() {
+    local selected="$(git status --porcelain | fzf --height 90% --preview-window right:80% --preview '
+      () {
+        local marker="${1[0,2]}"
+        local filename="${1[4,-1]}"
+
+        if [ "$marker" = "??" ]; then
+          local SHOWCMD=
+
+          local bat=${commands[bat]:-${commands[batcat]}}
+          if [ -n "$bat" ]; then
+            SHOWCMD="batcat --color=always --line-range=:500 --style=plain"
+          else
+            SHOWCMD=cat
+          fi
+
+          eval $SHOWCMD "$filename"
+        else
+          git diff --color=always HEAD "$filename"
+        fi
+      } {}
+    ' | cut -c4- | tr '\n' ' ')"
+
+    BUFFER="${BUFFER}${selected}"
+    CURSOR=${#BUFFER}
+    zle reset-prompt
+  }
+  zle -N fzf-git-changed-files
+  bindkey '^x^f' fzf-git-changed-files
 fi
 
 if [[ -n "${commands[fzf]}" && -n "${commands[ghq]}" ]]; then
