@@ -1,24 +1,35 @@
-autoload -Uz select-word-style
-select-word-style default
+autoload -Uz select-word-style; select-word-style default
+autoload -Uz compinit; compinit
+autoload -Uz colors; colors
+
 zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
 
-autoload -Uz compinit; compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-setopt auto_menu
 zstyle ':completion:*:default' menu select=2
-setopt list_packed
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 bindkey "[Z" reverse-menu-complete
+setopt auto_menu
+setopt list_packed
 setopt nolistbeep
 setopt list_types
 setopt list_rows_first
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 setopt magic_equal_subst
+
 setopt no_flow_control
-
 setopt print_eight_bit
+if [ "$TERM_PROGRAM" = "vscode" ]; then
+  # see: https://superuser.com/questions/1391414/why-am-i-having-a-sign-between-the-lines-in-integrated-terminal-in-vs-code
+  unsetopt PROMPT_SP
+fi
 
-autoload -Uz colors; colors
+export HISTFILE=~/.zsh_history
+export HISTSIZE=1000
+export SAVEHIST=100000
+setopt share_history
+setopt hist_no_store
+setopt hist_reduce_blanks
+setopt hist_ignore_all_dups
 
 accept-line-with-expand-alias() {
   zle _expand_alias
@@ -34,19 +45,6 @@ space-with-expand-alias() {
 }
 zle -N space-with-expand-alias
 bindkey -M emacs ' ' space-with-expand-alias
-
-export HISTFILE=~/.zsh_history
-export HISTSIZE=1000
-export SAVEHIST=100000
-setopt share_history
-setopt hist_no_store
-setopt hist_reduce_blanks
-setopt hist_ignore_all_dups
-
-if [ "$TERM_PROGRAM" = "vscode" ]; then
-  # see: https://superuser.com/questions/1391414/why-am-i-having-a-sign-between-the-lines-in-integrated-terminal-in-vs-code
-  unsetopt PROMPT_SP
-fi
 
 PROMPT="
 %{$fg[blue]%}%n@%m:%~%{$reset_color%}
