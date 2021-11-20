@@ -139,6 +139,7 @@ alias gg='git graph -n 15'
 # plugins
 if [ -e ~/.zsh-plugins/zsh-autosuggestions ]; then
   ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=black,bold"
+  ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(accept-line-with-expand-alias)
   source ~/.zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
