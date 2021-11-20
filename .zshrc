@@ -5,7 +5,7 @@ autoload -Uz colors; colors
 zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
 
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z} r:|[-_.]=**' '+m:{A-Z}={a-z} r:|[-_.]=**'
 zstyle ':completion:*:default' menu select=2
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 bindkey "[Z" reverse-menu-complete
