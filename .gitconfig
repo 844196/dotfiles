@@ -1,7 +1,6 @@
 [user]
   useConfigOnly = true
 [core]
-  editor = code --wait
   quotepath = false
   autoCRLF = false
   ignorecase = false
