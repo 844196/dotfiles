@@ -58,6 +58,10 @@ else
   alias ls='ls -Fh --color'
 fi
 
+if [ -n "${commands[exa]}" ]; then
+  alias ls="exa -gF --icons --git"
+fi
+
 if [ -n "${commands[fzf]}" ]; then
   _fzf_history() {
     BUFFER=$(fc -l -n 1 | fzf --tac)
