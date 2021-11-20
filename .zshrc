@@ -70,12 +70,12 @@ if [ -n "${commands[fzf]}" ]; then
   bindkey '^R' fzf-histories
 
   fzf-git-branches() {
-    local selected="$(git branch --color=always -vvv --sort=-authordate | fzf --no-multi --exact --preview-window down:90% --preview '
+    local selected="$(git branch --color=always -vvv --sort=-authordate | fzf --exact --preview-window down:70% --preview '
       () {
         local branch=$(echo $1 | grep -o -E "^[ *] \S+" | cut -c3-)
         git log -50 --oneline --no-decorate --color=always $branch
       } {}
-    ' | grep -o -E '^[ *] \S+' | cut -c3-)"
+    ' | grep -o -E '^[ *] \S+' | cut -c3- | tr '\n' ' ')"
 
     BUFFER="${BUFFER}${selected}"
     CURSOR=${#BUFFER}
