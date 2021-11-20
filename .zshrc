@@ -28,9 +28,10 @@ setopt hist_no_store
 setopt hist_reduce_blanks
 setopt hist_ignore_all_dups
 
-# for vscode
-# see: https://superuser.com/questions/1391414/why-am-i-having-a-sign-between-the-lines-in-integrated-terminal-in-vs-code
-unsetopt PROMPT_SP
+if [ "$TERM_PROGRAM" = "vscode" ]; then
+  # see: https://superuser.com/questions/1391414/why-am-i-having-a-sign-between-the-lines-in-integrated-terminal-in-vs-code
+  unsetopt PROMPT_SP
+fi
 
 PROMPT="
 %{$fg[blue]%}%n@%m:%~%{$reset_color%}
