@@ -27,7 +27,7 @@ if [ "$TERM_PROGRAM" = "vscode" ]; then
   unsetopt PROMPT_SP
 fi
 
-export HISTFILE=~/.zsh_history
+export HISTFILE=$ZDOTDIR/.zsh_history
 export HISTSIZE=1000
 export SAVEHIST=100000
 setopt share_history
@@ -155,14 +155,14 @@ alias di='git diff'
 alias gg='git graph -n 15'
 
 # plugins
-if [ -e ~/.zsh-plugins/zsh-autosuggestions ]; then
+if [ -e $ZDOTDIR/plugins/zsh-autosuggestions ]; then
   ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=black,bold"
   ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(accept-line-with-expand-alias)
-  source ~/.zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+  source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
-if [ -e ~/.zsh-plugins/zsh-syntax-highlighting ]; then
-  source ~/.zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -e $ZDOTDIR/plugins/zsh-syntax-highlighting ]; then
+  source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 # starship

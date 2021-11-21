@@ -13,7 +13,7 @@ cp -f ~/.dotfiles/.bashrc ~/.bashrc
 cp -f ~/.dotfiles/.inputrc ~/.inputrc
 
 cp -f ~/.dotfiles/.zshenv ~/.zshenv
-cp -f ~/.dotfiles/.zshrc ~/.zshrc
+cp -f ~/.dotfiles/.zsh/.zshrc ~/.zsh/.zshrc
 
 cp -f ~/.dotfiles/.gitconfig ~/.gitconfig
 cp -f ~/.dotfiles/.gitignore ~/.gitignore
@@ -27,9 +27,9 @@ cp -f ~/.dotfiles/.local/bin/git-credential-manager ~/.local/bin/git-credential-
 ~/.fzf/install --bin
 ln -sf ~/.fzf/bin/fzf ~/.local/bin/fzf
 
-mkdir -p ~/.zsh-plugins
-[ -e ~/.zsh-plugins/zsh-syntax-highlighting ] || git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh-plugins/zsh-syntax-highlighting
-[ -e ~/.zsh-plugins/zsh-autosuggestions ] || git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions ~/.zsh-plugins/zsh-autosuggestions
+mkdir -p ~/.zsh/plugins
+[ -e ~/.zsh/plugins/zsh-syntax-highlighting ] || git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/plugins/zsh-syntax-highlighting
+[ -e ~/.zsh/plugins/zsh-autosuggestions ] || git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/plugins/zsh-autosuggestions
 
 [ -e ~/.local/bin/starship ] || sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --bin-dir ~/.local/bin --yes
 mkdir -p ~/.config
