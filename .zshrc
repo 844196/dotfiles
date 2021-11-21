@@ -161,7 +161,6 @@ if [ -e ~/.zsh-plugins/zsh-autosuggestions ]; then
   source ~/.zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
-
 if [ -e ~/.zsh-plugins/zsh-syntax-highlighting ]; then
   source ~/.zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
