@@ -1,0 +1,60 @@
+set encoding=utf-8
+scriptencoding utf-8
+
+if !&compatible | set nocompatible | endif
+
+set viminfo=
+set noundofile
+set noswapfile
+set nobackup
+let g:netrw_dirhistmax = 0
+
+set backspace=indent,eol,start
+set list
+set listchars=tab:\│\ ,trail:-
+set smarttab
+set autoindent
+set wildmenu
+set wildignorecase
+set incsearch
+set hlsearch
+set nowrapscan
+set ignorecase
+set smartcase
+set infercase
+
+inoremap <C-b> <C-G>U<Left>
+inoremap <C-f> <C-G>U<Right>
+inoremap <C-a> <C-G>U<Home>
+inoremap <C-e> <C-G>U<End>
+inoremap <C-k> <C-G>U<C-o>D
+nnoremap <CR> o<esc>
+
+nnoremap Y y$
+vnoremap v $h
+nnoremap x "_x
+vnoremap x "_x
+nnoremap c "_c
+vnoremap c "_c
+
+nnoremap <silent><Esc><Esc> :<C-u>nohlsearch<CR>
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * "zyiw:let @/ = @z<CR>:<C-u>set hlsearch<CR>
+vnoremap * "zy:let @/ = @z<CR>:<C-u>set hlsearch<CR>
+
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-n> <Down>
+cnoremap <C-p> <Up>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-k> <C-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
+
+augroup leave_paste_mode_auto
+    autocmd!
+    autocmd InsertLeave * set nopaste
+augroup END
+
+filetype plugin indent on
+syntax on

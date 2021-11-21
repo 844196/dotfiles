@@ -18,6 +18,8 @@ cp -f ~/.dotfiles/.zshrc ~/.zshrc
 cp -f ~/.dotfiles/.gitconfig ~/.gitconfig
 cp -f ~/.dotfiles/.gitignore ~/.gitignore
 
+cp -f ~/.dotfiles/.vimrc ~/.vimrc
+
 mkdir -p ~/.local/bin
 cp -f ~/.dotfiles/.local/bin/git-credential-manager ~/.local/bin/git-credential-manager
 
