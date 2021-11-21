@@ -88,7 +88,7 @@ if [ -n "${commands[fzf]}" ]; then
   bindkey '^R' fzf-histories
 
   fzf-git-branches() {
-    local selected="$(git branch --color=always -vvv --sort=-authordate | fzf --exact --preview-window down:70% --preview '
+    local selected="$(git branch --color=always -vvv --sort=-authordate | SHELL=${commands[zsh]} fzf --exact --preview-window down:70% --preview '
       () {
         local branch=$(echo $1 | grep -o -E "^[ *] \S+" | cut -c3-)
         git log -50 --oneline --no-decorate --color=always $branch
@@ -103,7 +103,7 @@ if [ -n "${commands[fzf]}" ]; then
   bindkey '^x^b' fzf-git-branches
 
   fzf-git-changed-files() {
-    local selected="$(git status --porcelain | fzf --height 90% --preview-window right:80% --preview '
+    local selected="$(git status --porcelain | SHELL=${commands[zsh]} fzf --height 90% --preview-window right:80% --preview '
       () {
         local marker="${1[0,2]}"
         local filename="${1[4,-1]}"
