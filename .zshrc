@@ -18,6 +18,7 @@ setopt magic_equal_subst
 
 setopt no_flow_control
 setopt print_eight_bit
+setopt transient_rprompt
 if [ "$TERM_PROGRAM" = "vscode" ]; then
   # see: https://superuser.com/questions/1391414/why-am-i-having-a-sign-between-the-lines-in-integrated-terminal-in-vs-code
   unsetopt PROMPT_SP
