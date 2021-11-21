@@ -15,8 +15,9 @@ cp -f ~/.dotfiles/.inputrc ~/.inputrc
 cp -f ~/.dotfiles/.zshenv ~/.zshenv
 cp -f ~/.dotfiles/.zsh/.zshrc ~/.zsh/.zshrc
 
+mkdir -p ~/.config/git
 cp -f ~/.dotfiles/.gitconfig ~/.gitconfig
-cp -f ~/.dotfiles/.gitignore ~/.gitignore
+cp -f ~/.dotfiles/.config/git/ignore ~/.config/git/ignore
 
 cp -f ~/.dotfiles/.vimrc ~/.vimrc
 
