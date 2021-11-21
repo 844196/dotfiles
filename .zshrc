@@ -16,6 +16,9 @@ setopt list_types
 setopt list_rows_first
 setopt magic_equal_subst
 
+setopt auto_pushd
+setopt pushd_ignore_dups
+
 setopt no_flow_control
 setopt print_eight_bit
 setopt transient_rprompt
@@ -46,6 +49,20 @@ space-with-expand-alias() {
 }
 zle -N space-with-expand-alias
 bindkey -M emacs ' ' space-with-expand-alias
+
+cd-up() {
+  pushd .. >/dev/null
+  zle reset-prompt
+}
+zle -N cd-up
+bindkey '^[[1;2A' cd-up
+
+cd-undo() {
+  popd >/dev/null 2>&1
+  zle reset-prompt
+}
+zle -N cd-undo
+bindkey '^[[1;2B' cd-undo
 
 PROMPT="
 %{$fg[blue]%}%n@%m:%~%{$reset_color%}
