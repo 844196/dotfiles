@@ -1,0 +1,8 @@
+#!/bin/bash
+
+VERSION=0.28.0
+
+ARCH={{ .chezmoi.arch }}
+OS={{ .chezmoi.os }}
+
+curl -fsSL "https://github.com/junegunn/fzf/releases/download/${VERSION}/fzf-${VERSION}-${OS}_${ARCH}.tar.gz" | tar xz -C ~/.local/bin

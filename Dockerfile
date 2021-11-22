@@ -22,4 +22,6 @@ SHELL
 USER ${username}
 WORKDIR /home/${username}
 
+RUN install -o ${username} -g ${username} -D -d /home/${username}/.local/share/chezmoi
+
 ENTRYPOINT ["/bin/bash", "-l"]

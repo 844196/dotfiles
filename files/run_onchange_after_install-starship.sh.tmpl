@@ -1,0 +1,17 @@
+#!/bin/bash
+
+VERSION=v1.0.0
+
+{{ if eq .chezmoi.arch "amd64" }}
+ARCH=x86_64
+{{ else }}
+ARCH=aarch64
+{{ end }}
+
+{{ if eq .chezmoi.os "darwin" }}
+PLATFORM=apple-darwin
+{{ else }}
+PLATFORM=unknown-linux-musl
+{{ end }}
+
+curl -fsSL "https://github.com/starship/starship/releases/download/${VERSION}/starship-${ARCH}-${PLATFORM}.tar.gz" | tar xz -C ~/.local/bin

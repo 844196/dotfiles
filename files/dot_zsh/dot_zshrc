@@ -78,6 +78,10 @@ if [ -n "${commands[exa]}" ]; then
   alias ls="exa -gF --icons --git"
 fi
 
+if [ -n "${commands[chezmoi]}" ]; then
+  alias c="chezmoi"
+fi
+
 if [ -n "${commands[fzf]}" ]; then
   fzf-histories() {
     BUFFER=$(fc -l -n 1 | fzf --tac)

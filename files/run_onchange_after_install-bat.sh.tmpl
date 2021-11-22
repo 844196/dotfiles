@@ -1,0 +1,21 @@
+#!/bin/bash
+
+VERSION=v0.18.3
+
+{{ if eq .chezmoi.arch "amd64" }}
+ARCH=x86_64
+{{ else }}
+ARCH=aarch64
+{{ end }}
+
+{{ if eq .chezmoi.os "darwin" }}
+PLATFORM=apple-darwin
+{{ else }}
+PLATFORM=unknown-linux-musl
+{{ end }}
+
+BASENAME="bat-${VERSION}-${ARCH}-${PLATFORM}"
+
+cd `mktemp -d`
+curl -fsSL "https://github.com/sharkdp/bat/releases/download/${VERSION}/${BASENAME}.tar.gz" | tar xz
+cp -f "${BASENAME}/bat" ~/.local/bin

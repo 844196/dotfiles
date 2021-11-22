@@ -1,0 +1,12 @@
+#!/bin/bash
+
+VERSION=v1.2.1
+
+ARCH={{ .chezmoi.arch }}
+OS={{ .chezmoi.os }}
+BASENAME="ghq_${OS}_${ARCH}"
+
+cd `mktemp -d`
+curl -fsSL -O "https://github.com/x-motemen/ghq/releases/download/${VERSION}/${BASENAME}.zip"
+~/.local/bin/arc unarchive "${BASENAME}.zip"
+cp -f "${BASENAME}/ghq" ~/.local/bin

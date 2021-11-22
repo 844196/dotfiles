@@ -1,6 +1,14 @@
 {
   "files.associations": {
-    ".exports": "shellscript",
-    ".config/git/ignore": "Ignore",
+    "**/files/dot_exports": "shellscript",
+    "**/files/dot_bashrc": "shellscript",
+    "**/files/dot_zshenv": "shellscript",
+    "**/files/dot_vimrc": "vimrc",
+    "**/files/dot_zsh/dot_zshrc": "shellscript",
+    "**/files/dot_config/git/ignore": "ignore",
+    "*.sh.tmpl": "shellscript",
   },
+  "cSpell.words": [
+    "chezmoi",
+  ],
 }
