@@ -5,6 +5,7 @@ set -e
 if [ "$(command -v chezmoi)" ]; then
   chezmoi=chezmoi
 else
+  mkdir -p ~/.local/bin
   if [ "$(command -v curl)" ]; then
     sh -c "$(curl -fsSL https://git.io/chezmoi)" -- -b ~/.local/bin
   elif [ "$(command -v wget)" ]; then
