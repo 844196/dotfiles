@@ -5,4 +5,11 @@ VERSION=0.28.0
 ARCH={{ .chezmoi.arch }}
 OS={{ .chezmoi.os }}
 
+{{ if eq .chezmoi.os "darwin" }}
+cd `mktemp -d`
+curl -fsSL -O "https://github.com/junegunn/fzf/releases/download/${VERSION}/fzf-${VERSION}-${OS}_${ARCH}.zip"
+~/.local/bin/arc unarchive "fzf-${VERSION}-${OS}_${ARCH}.zip"
+cp -f ./fzf ~/.local/bin
+{{ else }}
 curl -fsSL "https://github.com/junegunn/fzf/releases/download/${VERSION}/fzf-${VERSION}-${OS}_${ARCH}.tar.gz" | tar xz -C ~/.local/bin
+{{ end }}
