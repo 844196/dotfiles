@@ -10,7 +10,7 @@
 ## 📦 Install
 
 ```console
-$ sh -c "$(curl -fsLS git.io/chezmoi)" -- -b ~/.local/bin init --apply 844196
+sh -c "$(curl -fsLS git.io/chezmoi)" -- -b ~/.local/bin init --apply 844196
 ```
 
 ## 👷 Debug
