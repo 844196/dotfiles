@@ -10,6 +10,6 @@ OS=mac
 OS=linux
 {{ end }}
 
-install -D -d ~/.local/bin
+mkdir -p ~/.local/bin
 curl -fsSL -o ~/.local/bin/arc "https://github.com/mholt/archiver/releases/download/v${VERSION}/arc_${VERSION}_${OS}_${ARCH}"
 chmod +x ~/.local/bin/arc
