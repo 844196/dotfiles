@@ -9,7 +9,7 @@
 
 ## 📦 Install
 
-```console
+```bash
 sh -c "$(curl -fsLS git.io/chezmoi)" -- -b ~/.local/bin init --apply 844196
 ```
 
