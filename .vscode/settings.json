@@ -8,6 +8,7 @@
     "**/files/dot_config/git/config": "properties",
     "**/files/dot_config/git/ignore": "ignore",
     "*.sh.tmpl": "shellscript",
+    "*.yaml.tmpl": "yaml",
   },
   "cSpell.words": [
     "chezmoi",
