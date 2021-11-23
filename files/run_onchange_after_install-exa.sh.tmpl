@@ -21,4 +21,4 @@ BASENAME="exa-${OS}-${ARCH}-${MUSL}${VERSION}"
 cd `mktemp -d`
 curl -fsSL -O "https://github.com/ogham/exa/releases/download/${VERSION}/${BASENAME}.zip"
 ~/.local/bin/arc unarchive "${BASENAME}.zip"
-find . -executable -name exa | xargs -I{} cp {} ~/.local/bin/exa
+find . -type f -name exa | xargs -I{} cp {} ~/.local/bin/exa
