@@ -159,6 +159,11 @@ alias di='git diff'
 alias gg='git graph -n 15'
 
 # plugins
+if [ -e $ZDOTDIR/plugins/fzf-tab ]; then
+  zstyle ':fzf-tab:*' fzf-flags '--height=30%'
+  source $ZDOTDIR/plugins/fzf-tab/fzf-tab.zsh
+fi
+
 if [ -e $ZDOTDIR/plugins/zsh-autosuggestions ]; then
   ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=black,bold"
   ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(accept-line-with-expand-alias)
