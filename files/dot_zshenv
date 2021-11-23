@@ -1,5 +1,5 @@
 source ~/.exports
 
-export ZDOTDIR=~/.zsh
+export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 
 typeset -U path fpath
