@@ -39,5 +39,3 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
   --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff
   --color=gutter:#1f2430,border:#171b24
 '
-
-export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
