@@ -117,7 +117,7 @@ if [ -n "${commands[fzf]}" ]; then
 
           local bat=${commands[bat]:-${commands[batcat]}}
           if [ -n "$bat" ]; then
-            SHOWCMD="batcat --color=always --line-range=:500 --style=plain"
+            SHOWCMD="${bat} --color=always --line-range=:500 --style=plain"
           else
             SHOWCMD=cat
           fi
