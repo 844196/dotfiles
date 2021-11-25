@@ -4,6 +4,8 @@ if [ -t 0 ]; then
 fi
 
 source ~/.exports
+source $XDG_CONFIG_HOME/dircolors
+source $XDG_CONFIG_HOME/fzf
 
 export HISTCONTROL=ignoredups:erasedups
 
