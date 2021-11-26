@@ -38,6 +38,19 @@ setopt hist_no_store
 setopt hist_reduce_blanks
 setopt hist_ignore_all_dups
 
+zshaddhistory() {
+  local line=${1%%$'\n'}
+  local cmd=${line%% *}
+
+  [[ ${#line} -ge 5
+    && $cmd != (cd|gp|pwd)
+    && $cmd != (ls|exa)
+    && $cmd != (less|bat)
+    && $line != *--(help|version)
+    && $line != (git status|git graph)
+  ]]
+}
+
 accept-line-with-expand-alias() {
   zle _expand_alias
   zle accept-line
