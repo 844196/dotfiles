@@ -30,7 +30,7 @@ ssh_only = false
 
 [directory]
 truncation_length = 0
-truncate_to_repo = false
+truncate_to_repo = true
 read_only = ' [READ_ONLY]'
 
 [git_branch]
