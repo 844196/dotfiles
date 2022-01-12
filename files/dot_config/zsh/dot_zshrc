@@ -98,6 +98,10 @@ if [ -n "${commands[chezmoi]}" ]; then
   alias c="chezmoi"
 fi
 
+if [ -n "${commands[multipass]}" ]; then
+  alias m="multipass"
+fi
+
 if [ -n "${commands[fzf]}" ]; then
   fzf-histories() {
     BUFFER=$(fc -l -n 1 | fzf --tac)
