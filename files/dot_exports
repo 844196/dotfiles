@@ -1,4 +1,4 @@
-[ -z "$USER" ] && export USER=`whoami`
+[ -z "$USER" ] && export USER=`id -un`
 
 export PATH="$PATH:$HOME/.local/bin"
 
