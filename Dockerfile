@@ -1,27 +1,25 @@
 # syntax=docker/dockerfile:1.3-labs
+
 FROM debian:buster
 
-ARG username=john
-
-RUN <<SHELL
-  groupadd --gid 1000 ${username}
-  useradd --uid 1000 --gid ${username} --shell /bin/bash --create-home ${username}
-SHELL
-
-RUN <<SHELL
+RUN --mount=type=cache,target=/var/lib/apt/lists --mount=type=cache,target=/var/cache/apt/archives <<SHELL
   apt-get update
-  apt-get install -y sudo curl git
-  apt-get clean
+  apt-get install --yes --no-install-recommends sudo=* gosu=* curl=* ca-certificates=* git=1:2.*
 SHELL
 
 RUN <<SHELL
-  echo "${username} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/${username}
-  chmod 0440 /etc/sudoers.d/${username}
+  useradd --shell /bin/bash --create-home testuser
+  echo "testuser ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/testuser
+  chmod 0440 /etc/sudoers.d/testuser
 SHELL
 
-USER ${username}
-WORKDIR /home/${username}
+COPY --chmod=755 <<'EOF' /usr/local/bin/docker-entrypoint.sh
+#!/bin/bash
+usermod --non-unique --uid ${HOST_UID:-9001} testuser
+groupmod --gid ${HOST_GID:-9001} testuser
+exec /usr/sbin/gosu testuser "$@"
+EOF
 
-RUN install -o ${username} -g ${username} -D -d /home/${username}/.local/share/chezmoi
+WORKDIR /home/testuser
 
-ENTRYPOINT ["/bin/bash", "-l"]
+ENTRYPOINT ["docker-entrypoint.sh"]

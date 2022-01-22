@@ -1,0 +1,10 @@
+services:
+  workspace:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - HOST_UID=${HOST_UID:?}
+      - HOST_GID=${HOST_GID:?}
+    volumes:
+      - .:/home/testuser/.dotfiles:cached

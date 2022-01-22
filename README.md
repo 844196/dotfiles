@@ -15,9 +15,11 @@ sh -c "$(curl -fsLS git.io/chezmoi)" -- -b ~/.local/bin init --apply 844196
 
 ## 👷 Debug
 
-```console
-$ docker build -t dotfiles:latest --build-arg username=alice .
-$ docker run --rm -it -v `pwd`:/home/alice/.dotfiles dotfiles:latest
+```bash
+echo "HOST_UID=$(id -u)" >> .env
+echo "HOST_GID=$(id -g)" >> .env
+docker compose build
+docker compose run workspace /bin/bash -c .dotfiles/install.sh
 ```
 
 ## 📄 License
