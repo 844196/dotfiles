@@ -3,7 +3,8 @@ if [ -t 0 ]; then
   stty start undef
 fi
 
-source ~/.exports
+source ~/.config/exports
+
 source $XDG_CONFIG_HOME/dircolors
 source $XDG_CONFIG_HOME/fzf
 
