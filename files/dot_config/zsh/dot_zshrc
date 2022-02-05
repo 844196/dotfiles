@@ -33,7 +33,7 @@ if [ "$TERM_PROGRAM" = "vscode" ]; then
   unsetopt PROMPT_SP
 fi
 
-export HISTFILE=$ZDOTDIR/.zsh_history
+HISTFILE=$XDG_STATE_HOME/zsh/history
 export HISTSIZE=1000
 export SAVEHIST=100000
 setopt share_history

@@ -9,6 +9,7 @@ source $XDG_CONFIG_HOME/dircolors
 source $XDG_CONFIG_HOME/fzf
 source $XDG_CONFIG_HOME/aliases
 
+export HISTFILE=$XDG_STATE_HOME/bash/history
 export HISTCONTROL=ignoredups:erasedups
 
 PS1='
