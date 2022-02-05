@@ -1,6 +1,8 @@
 source $XDG_CONFIG_HOME/dircolors
 source $XDG_CONFIG_HOME/fzf
 
+fpath=($XDG_DATA_HOME/zsh/site-functions(N-/) $fpath)
+
 autoload -Uz select-word-style; select-word-style default
 autoload -Uz compinit; compinit
 autoload -Uz colors; colors
@@ -115,7 +117,6 @@ alias gg='git graph -n 15'
 
 if [ -e $XDG_DATA_HOME/zsh/plugins/anyframe ]; then
   fpath=($XDG_DATA_HOME/zsh/plugins/anyframe(N-/) $fpath)
-  fpath=($XDG_CONFIG_HOME/anyframe(N-/) $fpath)
 
   autoload -Uz anyframe-init
   anyframe-init
