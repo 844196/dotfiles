@@ -8,6 +8,8 @@ export XDG_STATE_HOME=$HOME/.local/state
 export LESSHISTFILE=-
 export LESSCHARSET=utf-8
 
+export INPUTRC=$XDG_CONFIG_HOME/readline/inputrc
+
 if [ -z "$USER" ]; then
   export USER=`id -un`
 fi
