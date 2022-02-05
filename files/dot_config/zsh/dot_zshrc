@@ -1,5 +1,6 @@
 source $XDG_CONFIG_HOME/dircolors
 source $XDG_CONFIG_HOME/fzf
+source $XDG_CONFIG_HOME/aliases
 
 fpath=($XDG_DATA_HOME/zsh/site-functions(N-/) $fpath)
 
@@ -86,46 +87,14 @@ PROMPT="
 %{$fg[blue]%}%n@%m:%~%{$reset_color%}
 %{%(?.$fg_bold[black].$fg[red])%}%#%{$reset_color%} "
 
-if [ `uname` = Darwin ]; then
-  alias ls='ls -GFh'
-else
-  alias ls='ls -Fh --color'
-fi
-
-if [ -n "${commands[exa]}" ]; then
-  alias ls="exa -gF --icons --git"
-fi
-
-if [ -n "${commands[chezmoi]}" ]; then
-  alias c="chezmoi"
-fi
-
-if [ -n "${commands[multipass]}" ]; then
-  alias m="multipass"
-fi
-
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias t='cd "$(mktemp -d)"'
-alias st='git status'
-alias ck='git checkout'
-alias br='git branch -vv'
-alias co='git commit'
-alias di='git diff'
-alias gg='git graph -n 15'
-
 if [ -e $XDG_DATA_HOME/zsh/plugins/anyframe ]; then
   fpath=($XDG_DATA_HOME/zsh/plugins/anyframe(N-/) $fpath)
-
   autoload -Uz anyframe-init
   anyframe-init
 
   bindkey '^r' anyframe-widget-put-history-alt
   bindkey '^x^b' anyframe-widget-insert-git-branch-alt
   bindkey '^x^f' anyframe-widget-insert-git-file
-
-  alias gp=anyframe-widget-cd-ghq-repository
 fi
 
 if [ -e $XDG_DATA_HOME/zsh/plugins/zsh-autosuggestions ]; then
