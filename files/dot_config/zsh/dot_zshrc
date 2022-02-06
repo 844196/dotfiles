@@ -5,7 +5,6 @@ source $XDG_CONFIG_HOME/aliases
 fpath=($XDG_DATA_HOME/zsh/site-functions(N-/) $fpath)
 
 autoload -Uz select-word-style; select-word-style default
-autoload -Uz compinit; compinit -d $XDG_CACHE_HOME/zsh/zcompdump
 autoload -Uz colors; colors
 
 zstyle ':zle:*' word-chars " /=;@:{},|"
@@ -106,6 +105,10 @@ fi
 if [ -e $XDG_DATA_HOME/zsh/plugins/zsh-syntax-highlighting ]; then
   source $XDG_DATA_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+
+typeset -U path fpath
+
+autoload -Uz compinit && compinit -d $XDG_CACHE_HOME/zsh/compdump
 
 if [ -n "${commands[starship]}" ]; then
   eval "$(starship init zsh)"
