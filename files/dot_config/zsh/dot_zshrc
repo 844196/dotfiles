@@ -2,7 +2,7 @@ source $XDG_CONFIG_HOME/dircolors
 source $XDG_CONFIG_HOME/fzf
 source $XDG_CONFIG_HOME/aliases
 
-fpath=($XDG_DATA_HOME/zsh/site-functions(N-/) $fpath)
+fpath=($XDG_DATA_HOME/zsh/functions(N-/) $fpath)
 
 autoload -Uz select-word-style; select-word-style default
 autoload -Uz colors; colors
