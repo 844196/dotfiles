@@ -17,11 +17,11 @@ alias d='docker'
 alias curl='curl -fsSL'
 
 if which exa >/dev/null 2>&1; then
-  alias ls='exa -gF --icons --git'
+  alias ls='exa -gF --icons --git -la'
 else
   if [ `uname` = Darwin ]; then
-    alias ls='ls -GFh'
+    alias ls='ls -GFh -la'
   else
-    alias ls='ls -Fh --color'
+    alias ls='ls -Fh --color -la'
   fi
 fi
