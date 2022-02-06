@@ -106,6 +106,10 @@ if [ -e $XDG_DATA_HOME/zsh/plugins/zsh-syntax-highlighting ]; then
   source $XDG_DATA_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
+if [ -e $XDG_DATA_HOME/zsh/plugins/zsh-completions ]; then
+  fpath=($XDG_DATA_HOME/zsh/plugins/zsh-completions/src(N-/) $fpath)
+fi
+
 typeset -U path fpath
 
 autoload -Uz compinit && compinit -d $XDG_CACHE_HOME/zsh/compdump

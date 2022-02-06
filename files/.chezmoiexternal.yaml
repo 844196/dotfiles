@@ -12,6 +12,13 @@
   stripComponents: 1
   refreshPeriod: 168h
 
+.local/share/zsh/plugins/zsh-completions:
+  type: archive
+  url: https://github.com/zsh-users/zsh-completions/archive/master.tar.gz
+  exact: true
+  stripComponents: 1
+  refreshPeriod: 168h
+
 .local/share/zsh/plugins/anyframe:
   type: archive
   url: https://github.com/mollifier/anyframe/archive/master.tar.gz
