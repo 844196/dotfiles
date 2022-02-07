@@ -3,11 +3,8 @@ $username\
 $hostname\
 $directory\
 $git_branch\
-$git_commit\
 $git_state\
 $git_status\
-$memory_usage\
-$env_var\
 $cmd_duration\
 $line_break\
 $character"""
@@ -15,36 +12,38 @@ $character"""
 right_format = "${custom.git_user}"
 
 [character]
-success_symbol = "[❯](bold black)"
-error_symbol = "[❯](bold red)"
+success_symbol = "[➜](bold fg:#454b68)"
+error_symbol = "[➜](bold red)"
 
 [username]
-style_user = "blue"
-format = "[$user]($style)"
+format = "[$user](fg:#748caf)"
 show_always = true
 
 [hostname]
-style = "blue"
-format = "[@$hostname]($style) in "
+format = "[@$hostname](fg:#748caf) [in](fg:#6b7089) "
 ssh_only = false
 
 [directory]
 truncation_length = 0
 truncate_to_repo = true
-read_only = ' [READ_ONLY]'
+format = "[ $path](fg:#84a0c6)[$read_only]($read_only_style) "
+read_only = " [READ_ONLY]"
 
 [git_branch]
 always_show_remote = true
-symbol = " "
-style = "green"
-format = "on [$symbol$branch]($style) "
+format = "[on](fg:#6b7089) [ $branch](purple) "
+
+[git_status]
+style = "purple"
+
+[cmd_duration]
+format = "[took](fg:#6b7089) [$duration]($style)"
 
 [custom.git_user]
 shell = ["bash", "--noprofile", "--norc", "-e"]
 when = ":"
 command = '''
 user="$(git config --local user.name 2>/dev/null)"
-echo "${user} <$(git config --local user.email)>"
+echo " ${user}"
 '''
-style = "bold black"
-format = "[$output]($style)"
+format = "[$output](fg:#3d435c)"
