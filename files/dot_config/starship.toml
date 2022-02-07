@@ -40,7 +40,11 @@ style = "green"
 format = "on [$symbol$branch]($style) "
 
 [custom.git_user]
-when = 'git rev-parse 2>/dev/null && [ -n "`git config --local user.name`" ] && [ -n "`git config --local user.email`" ]'
-command = 'echo "`git config --local user.name` <`git config --local user.email`>"'
+shell = ["bash", "--noprofile", "--norc", "-e"]
+when = ":"
+command = '''
+user="$(git config --local user.name 2>/dev/null)"
+echo "${user} <$(git config --local user.email)>"
+'''
 style = "bold black"
 format = "[$output]($style)"
