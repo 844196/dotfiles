@@ -1,0 +1,9 @@
+local dir file
+for dir in ${^fpath}/dot-widgets(N-/); do
+  fpath=($dir $fpath)
+
+  for file in $dir/*(N-.); do
+    autoload -Uz -- "${file:t}"
+    zle -N -- "${file:t}"
+  done
+done

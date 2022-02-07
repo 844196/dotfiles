@@ -1,0 +1,2 @@
+popd >/dev/null 2>&1
+zle reset-prompt

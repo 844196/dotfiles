@@ -1,0 +1,2 @@
+zle _expand_alias
+zle accept-line
