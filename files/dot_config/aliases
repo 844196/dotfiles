@@ -15,6 +15,7 @@ alias c='chezmoi'
 alias m='multipass'
 alias d='docker'
 alias curl='curl -fsSL'
+alias grep='grep -E'
 
 if which exa >/dev/null 2>&1; then
   alias ls='exa -gF --icons --git -la'
