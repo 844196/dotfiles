@@ -12,7 +12,7 @@ $cmd_duration\
 $line_break\
 $character"""
 
-right_format = "${custom.git_user}${custom.git_check_user}"
+right_format = "${custom.git_user}"
 
 [character]
 success_symbol = "[❯](bold black)"
@@ -44,8 +44,3 @@ when = 'git rev-parse 2>/dev/null && [ -n "`git config --local user.name`" ] && 
 command = 'echo "`git config --local user.name` <`git config --local user.email`>"'
 style = "bold black"
 format = "[$output]($style)"
-
-[custom.git_check_user]
-when = 'git rev-parse 2>/dev/null && ([ -z "`git config --local user.name`" ] || [ -z "`git config --local user.email`" ])'
-style = "red"
-format = "[user.\\(name|email\\) is not set locally]($style)"
