@@ -14,10 +14,8 @@ zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z} r:|[-_.]=**' '+m:{A-Z}={a-
 zstyle ':completion:*:default' menu select=2
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 bindkey '^[[Z' reverse-menu-complete
-setopt auto_menu
 setopt list_packed
 setopt nolistbeep
-setopt list_types
 setopt list_rows_first
 setopt magic_equal_subst
 
@@ -33,8 +31,8 @@ if [ "$TERM_PROGRAM" = "vscode" ]; then
 fi
 
 HISTFILE=$XDG_STATE_HOME/zsh/history
-export HISTSIZE=1000
-export SAVEHIST=100000
+HISTSIZE=1000
+SAVEHIST=100000
 setopt share_history
 setopt hist_no_store
 setopt hist_reduce_blanks
