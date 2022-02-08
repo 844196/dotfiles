@@ -1,0 +1,27 @@
+export ZDOTDIR=~/.config/zsh
+
+# disable system-zshrc
+# SEE: http://fardinshikhiyev.github.io/Speed-up-your-oh-my-zsh/
+export skip_global_compinit=1
+
+if [ -z "$USER" ]; then
+  export USER=`id -un`
+fi
+
+export path=(~/.local/bin(N-/) $path)
+export fpath=(~/.local/share/zsh/functions(N-/) $fpath)
+
+export XDG_CONFIG_HOME=~/.config
+export XDG_CACHE_HOME=~/.cache
+export XDG_DATA_HOME=~/.local/share
+export XDG_STATE_HOME=~/.local/state
+
+export INPUTRC=~/.config/readline/inputrc
+
+export STARSHIP_CONFIG=~/.config/starship/config.toml
+
+if [ -e ~/.config/zsh/.zshenv.local ]; then
+  source ~/.config/zsh/.zshenv.local
+fi
+
+typeset -U path fpath

@@ -1,0 +1,2 @@
+export LESSHISTFILE=-
+export LESSCHARSET=utf-8
