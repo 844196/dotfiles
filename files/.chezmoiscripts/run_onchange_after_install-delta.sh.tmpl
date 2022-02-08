@@ -1,0 +1,17 @@
+#!/bin/bash
+
+VERSION=0.11.3
+
+{{ if eq .chezmoi.os "darwin" }}
+PLATFORM=apple-darwin
+{{ else }}
+PLATFORM=unknown-linux-musl
+{{ end }}
+
+BASENAME="delta-${VERSION}-x86_64-${PLATFORM}"
+
+echo "https://github.com/dandavison/delta/releases/download/${VERSION}/${BASENAME}.tar.gz"
+
+cd `mktemp -d`
+curl -fsSL "https://github.com/dandavison/delta/releases/download/${VERSION}/${BASENAME}.tar.gz" | tar xz
+cp -f "${BASENAME}/delta" ~/.local/bin

@@ -4,6 +4,11 @@
   quotepath = false
   autoCRLF = false
   ignorecase = false
+  pager = delta
+[interactive]
+  diffFilter = delta
+[merge]
+  conflictstyle = diff3
 [alias]
   graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --color=always
 [color]
@@ -19,8 +24,29 @@
   verbose = true
 [diff]
   indentHeuristic = true
+  colorMoved = default
 [ghq]
   user = "844196"
   root = ~/.ghq
 [credential]
   helper = "!f() { ~/.local/bin/git-credential-manager $*; }; f"
+[delta]
+  navigate = true
+  line-numbers = true
+  features = iceberg
+[delta "iceberg"]
+  syntax-theme = iceberg
+  file-style = bold "#6b7089"
+  file-decoration-style = "#34394E" ul
+  hunk-header-style = omit
+  line-numbers-left-style = "#34394E"
+  line-numbers-right-style = line-numbers-left-style
+  line-numbers-zero-style = "#454b68"
+  line-numbers-plus-style = line-numbers-zero-style
+  line-numbers-minus-style = line-numbers-zero-style
+  plus-style = syntax "#353933"
+  plus-emph-style = syntax "#445861"
+  plus-non-emph-style = syntax "#2D3841"
+  minus-style = syntax "#3E2B32"
+  minus-emph-style = syntax "#445861"
+  minus-non-emph-style = syntax "#2D3841"
