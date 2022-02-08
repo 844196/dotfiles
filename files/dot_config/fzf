@@ -12,7 +12,7 @@ export FZF_DEFAULT_OPTS="
   --border
 "
 
-# see: https://github.com/junegunn/fzf/wiki/Color-schemes#ayu-mirage
+# see: https://gist.github.com/sheepla/d1ff1ef11cc21dcc7434a25a012a970f
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
   --color=bg:#161821
   --color=bg+:#1e2132
