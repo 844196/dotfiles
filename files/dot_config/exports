@@ -10,6 +10,8 @@ export LESSCHARSET=utf-8
 
 export INPUTRC=$XDG_CONFIG_HOME/readline/inputrc
 
+export STARSHIP_CONFIG=$XDG_CONFIG_HOME/starship/config.toml
+
 if [ -z "$USER" ]; then
   export USER=`id -un`
 fi
