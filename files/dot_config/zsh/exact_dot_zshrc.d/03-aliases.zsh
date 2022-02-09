@@ -14,6 +14,7 @@ alias gg='git graph -n 15'
 alias c='chezmoi'
 alias m='multipass'
 alias d='docker'
+alias o='ouch'
 alias curl='curl -fsSL'
 alias grep='grep -E'
 
