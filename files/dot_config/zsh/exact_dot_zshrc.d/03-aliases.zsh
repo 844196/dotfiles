@@ -17,8 +17,8 @@ alias d='docker'
 alias curl='curl -fsSL'
 alias grep='grep -E'
 
-if which exa >/dev/null 2>&1; then
-  alias ls='exa -gF --icons --git -la'
+if [ -n "${commands[exa]}" ]; then
+  alias ls='exa -gF --icons --git --color=always -la'
 else
   if [ `uname` = Darwin ]; then
     alias ls='ls -GFh -la'
