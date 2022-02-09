@@ -1,3 +1,3 @@
 #!/bin/bash
 
-bat cache --build || true
+~/.local/bin/bat cache --build >/dev/null
