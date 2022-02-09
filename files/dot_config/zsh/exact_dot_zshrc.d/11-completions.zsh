@@ -9,8 +9,4 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/compcache
 
-if [ -e $XDG_DATA_HOME/zsh/plugins/zsh-completions ]; then
-  fpath=($XDG_DATA_HOME/zsh/plugins/zsh-completions/src(N-/) $fpath)
-fi
-
 autoload -Uz compinit && compinit -d $XDG_CACHE_HOME/zsh/compdump

@@ -9,7 +9,11 @@ if [ -z "$USER" ]; then
 fi
 
 export path=(~/.local/bin(N-/) $path)
-export fpath=(~/.local/share/zsh/functions(N-/) $fpath)
+export fpath=(
+  ~/.local/share/zsh/functions(N-/)
+  ~/.local/share/zsh/plugins/zsh-completions/src(N-/)
+  $fpath
+)
 
 export XDG_CONFIG_HOME=~/.config
 export XDG_CACHE_HOME=~/.cache
