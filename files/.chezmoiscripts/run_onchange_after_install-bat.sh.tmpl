@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=v0.18.3
+VERSION=v{{ .versions.bat }}
 
 {{ if eq .chezmoi.arch "amd64" }}
 ARCH=x86_64

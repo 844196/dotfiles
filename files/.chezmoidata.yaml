@@ -1,0 +1,8 @@
+versions:
+  arc: '3.5.0'
+  bat: '0.18.3'
+  delta: '0.11.3'
+  exa: '0.10.1'
+  fzf: '0.28.0'
+  ghq: '1.2.1'
+  starship: '1.2.1'
