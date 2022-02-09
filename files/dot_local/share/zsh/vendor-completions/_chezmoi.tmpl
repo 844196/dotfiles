@@ -1,3 +1,1 @@
-{{- if (lookPath "chezmoi") -}}
-{{- output "chezmoi" "completion" "zsh" -}}
-{{- end -}}
+{{- output .chezmoi.executable "completion" "zsh" -}}
