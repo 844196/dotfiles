@@ -1,17 +1,14 @@
 #!/bin/bash
 
-VERSION={{ .versions.delta }}
+set -e
 
-{{ if eq .chezmoi.os "darwin" }}
-PLATFORM=apple-darwin
-{{ else }}
-PLATFORM=unknown-linux-musl
-{{ end }}
+VERSION="{{ .versions.delta }}"
+BASENAME="delta-${VERSION}-x86_64-{{ .vendor }}-{{ .chezmoi.os }}{{ .musl.append }}"
+FILENAME="${BASENAME}.tar.gz"
+URL="https://github.com/dandavison/delta/releases/download/${VERSION}/${FILENAME}"
+BIN_PATH="${BASENAME}/delta"
 
-BASENAME="delta-${VERSION}-x86_64-${PLATFORM}"
+{{ template "install-tool.sh.tmpl" . }}
 
-echo "https://github.com/dandavison/delta/releases/download/${VERSION}/${BASENAME}.tar.gz"
-
-cd `mktemp -d`
-curl -fsSL "https://github.com/dandavison/delta/releases/download/${VERSION}/${BASENAME}.tar.gz" | tar xz
-cp -f "${BASENAME}/delta" ~/.local/bin
+curl -fsSL -o _delta "https://raw.githubusercontent.com/dandavison/delta/${VERSION}/etc/completion/completion.zsh"
+cp -f _delta ~/.local/share/zsh/vendor-completions

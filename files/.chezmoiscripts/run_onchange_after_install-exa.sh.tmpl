@@ -1,24 +1,14 @@
 #!/bin/bash
 
-VERSION=v{{ .versions.exa }}
+set -e
 
-{{ if eq .chezmoi.arch "amd64" }}
-ARCH=x86_64
-{{ else }}
-ARCH=armv7
-{{ end }}
+VERSION="v{{ .versions.exa }}"
+OS="{{ if eq .chezmoi.os "darwin" }}macos{{ else }}linux{{ end }}"
+BASENAME="exa-${OS}-x86_64-{{ .musl.prepend }}${VERSION}"
+FILENAME="${BASENAME}.zip"
+URL="https://github.com/ogham/exa/releases/download/${VERSION}/${FILENAME}"
+BIN_PATH="bin/exa"
+COMP_PATH="completions/exa.zsh"
+COMP_DST_NAME="_exa"
 
-{{ if eq .chezmoi.os "darwin" }}
-OS=macos
-MUSL=
-{{ else }}
-OS=linux
-MUSL=musl-
-{{ end }}
-
-BASENAME="exa-${OS}-${ARCH}-${MUSL}${VERSION}"
-
-cd `mktemp -d`
-curl -fsSL -O "https://github.com/ogham/exa/releases/download/${VERSION}/${BASENAME}.zip"
-~/.local/bin/arc unarchive "${BASENAME}.zip"
-find . -type f -name exa | xargs -I{} cp {} ~/.local/bin/exa
+{{ template "install-tool.sh.tmpl" . }}

@@ -1,0 +1,8 @@
+cd "$(mktemp -d)"
+curl -fsSL -O $URL
+~/.local/bin/ouch decompress $FILENAME >/dev/null
+chmod +x $BIN_PATH
+cp -f $BIN_PATH ~/.local/bin/${BIN_DST_NAME:-''}
+if [ -n ${COMP_PATH:-''} ]; then
+  cp -f $COMP_PATH ~/.local/share/zsh/vendor-completions/${COMP_DST_NAME:-''}
+fi

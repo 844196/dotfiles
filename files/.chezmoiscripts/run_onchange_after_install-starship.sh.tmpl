@@ -1,17 +1,9 @@
 #!/bin/bash
 
-VERSION=v{{ .versions.starship }}
+VERSION="v{{ .versions.starship }}"
+BASENAME="starship-x86_64-{{ .vendor }}-{{ .chezmoi.os }}{{ .musl.append }}"
+FILENAME="${BASENAME}.tar.gz"
+URL="https://github.com/starship/starship/releases/download/${VERSION}/${FILENAME}"
+BIN_PATH="starship"
 
-{{ if eq .chezmoi.arch "amd64" }}
-ARCH=x86_64
-{{ else }}
-ARCH=aarch64
-{{ end }}
-
-{{ if eq .chezmoi.os "darwin" }}
-PLATFORM=apple-darwin
-{{ else }}
-PLATFORM=unknown-linux-musl
-{{ end }}
-
-curl -fsSL "https://github.com/starship/starship/releases/download/${VERSION}/starship-${ARCH}-${PLATFORM}.tar.gz" | tar xz -C ~/.local/bin
+{{ template "install-tool.sh.tmpl" . }}

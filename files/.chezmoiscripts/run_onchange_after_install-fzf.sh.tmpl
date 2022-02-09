@@ -1,15 +1,14 @@
 #!/bin/bash
 
-VERSION={{ .versions.fzf }}
+set -e
 
-ARCH={{ .chezmoi.arch }}
-OS={{ .chezmoi.os }}
+VERSION="{{ .versions.fzf }}"
+BASENAME="fzf-${VERSION}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}"
+FILENAME="${BASENAME}.{{ if eq .chezmoi.os "linux" }}tar.gz{{ else }}zip{{ end }}"
+URL="https://github.com/junegunn/fzf/releases/download/${VERSION}/${FILENAME}"
+BIN_PATH="fzf"
 
-{{ if eq .chezmoi.os "darwin" }}
-cd `mktemp -d`
-curl -fsSL -O "https://github.com/junegunn/fzf/releases/download/${VERSION}/fzf-${VERSION}-${OS}_${ARCH}.zip"
-~/.local/bin/arc unarchive "fzf-${VERSION}-${OS}_${ARCH}.zip"
-cp -f ./fzf ~/.local/bin
-{{ else }}
-curl -fsSL "https://github.com/junegunn/fzf/releases/download/${VERSION}/fzf-${VERSION}-${OS}_${ARCH}.tar.gz" | tar xz -C ~/.local/bin
-{{ end }}
+{{ template "install-tool.sh.tmpl" . }}
+
+curl -fsSL -o _fzf "https://raw.githubusercontent.com/junegunn/fzf/${VERSION}/shell/completion.zsh"
+cp -f _fzf ~/.local/share/zsh/vendor-completions

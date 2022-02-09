@@ -1,12 +1,12 @@
 #!/bin/bash
 
-VERSION=v{{ .versions.ghq }}
+set -e
 
-ARCH={{ .chezmoi.arch }}
-OS={{ .chezmoi.os }}
-BASENAME="ghq_${OS}_${ARCH}"
+VERSION="v{{ .versions.ghq }}"
+BASENAME="ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}"
+FILENAME="${BASENAME}.zip"
+URL="https://github.com/x-motemen/ghq/releases/download/${VERSION}/${FILENAME}"
+BIN_PATH="${BASENAME}/ghq"
+COMP_PATH="${BASENAME}/misc/zsh/_ghq"
 
-cd `mktemp -d`
-curl -fsSL -O "https://github.com/x-motemen/ghq/releases/download/${VERSION}/${BASENAME}.zip"
-~/.local/bin/arc unarchive "${BASENAME}.zip"
-cp -f "${BASENAME}/ghq" ~/.local/bin
+{{ template "install-tool.sh.tmpl" . }}
