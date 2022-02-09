@@ -11,6 +11,7 @@ fi
 export path=(~/.local/bin(N-/) $path)
 export fpath=(
   ~/.local/share/zsh/functions(N-/)
+  ~/.local/share/zsh/vendor-completions(N-/)
   ~/.local/share/zsh/plugins/zsh-completions/src(N-/)
   $fpath
 )
