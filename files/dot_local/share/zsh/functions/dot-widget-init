@@ -1,9 +1,11 @@
-local dir file
-for dir in ${^fpath}/dot-widgets(N-/); do
-  fpath=($dir $fpath)
+local __DIR__ __FILE__
+for __DIR__ in ${^fpath}/dot-widgets(N-/); do
+  fpath=($__DIR__ $fpath)
 
-  for file in $dir/*(N-.); do
-    autoload -Uz -- "${file:t}"
-    zle -N -- "${file:t}"
+  for __FILE__ in $__DIR__/.*(N-.); do
+    autoload -Uz -- "${__FILE__:t}"
+    zle -N -- "${__FILE__:t}"
   done
 done
+
+unset __DIR__ __FILE__
