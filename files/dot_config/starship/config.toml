@@ -45,7 +45,7 @@ deleted    = " "
 ahead = " ${count}"
 behind = " ${count}"
 diverged = " ${ahead_count}  ${behind_count}"
-format = "[$ahead_behind]($style) [\\[$all_status\\]]($style)"
+format = "([$ahead_behind]($style) )([\\[$all_status\\]]($style) )"
 
 [cmd_duration]
 format = "[took](fg:#6b7089) [$duration]($style)"
