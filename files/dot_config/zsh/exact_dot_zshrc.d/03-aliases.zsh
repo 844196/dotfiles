@@ -2,7 +2,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias t='cd "$(mktemp -d)"'
-alias gp='.cd-ghq-repository'
+alias gp='dot-cd-ghq-repository'
 
 alias st='git status'
 alias ck='git checkout'
