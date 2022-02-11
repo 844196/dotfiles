@@ -1,4 +1,4 @@
-local file
-for file in $ZDOTDIR/.zshrc.d/*(N-.); do
-  source $file
+for __FILE__ in $ZDOTDIR/.zshrc.d/*(N-.); do
+  source $__FILE__
 done
+unset __FILE__
