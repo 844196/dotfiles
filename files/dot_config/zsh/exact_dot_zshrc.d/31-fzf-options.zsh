@@ -5,8 +5,7 @@ export FZF_DEFAULT_OPTS="
   --cycle
   --no-info
   --ansi
-  --height 50%
-  --prompt='❯ '
+  --prompt=' '
   --pointer='❯'
   --marker='❯'
   --border
@@ -22,10 +21,10 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
   --color=hl+:#84a0c6
   --color=spinner:#84a0c6
   --color=header:#6b7089
-  --color=border:#0f1117
+  --color=border:#34394E
   --color=gutter:#161821
   --color=info:#b4be82
   --color=pointer:#84a0c6
   --color=marker:#84a0c6
-  --color=prompt:#84a0c6
+  --color=prompt:#454b68
 '
