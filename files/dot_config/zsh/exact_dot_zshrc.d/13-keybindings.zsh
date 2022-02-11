@@ -9,3 +9,4 @@ bindkey '^R' .put-history
 bindkey '^X^B' .insert-git-branch
 bindkey '^X^F' .insert-git-file
 bindkey '^X^G' .cd-ghq-repository
+bindkey '^X^M' .zoxide

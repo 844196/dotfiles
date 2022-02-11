@@ -1,0 +1,18 @@
+local sedCmd='s/\(^\s*[^\d]\{1,\}\)\s/\x1b[38;2;69;75;104m\1 \x1b[38;2;52;57;78m│ \x1b[0m/'
+local bind="ctrl-x:execute-silent(echo {} | sed 's/^[^│]*│ //' | xargs -I PATH zoxide remove PATH)+reload(zoxide query -l -s | sed '$sedCmd')"
+local preview="echo {} | sed 's/^[^│]*│ //' | xargs -I PATH exa -gF --icons --git -la PATH"
+
+local selected="$(
+  zoxide query --list --score \
+    | sed $sedCmd \
+    | fzf \
+      --no-exit-0 \
+      --no-multi \
+      --header 'Press CTRL-X to remove entry' \
+      --preview $preview \
+      --bind $bind
+)"
+
+cd "${selected#*│ }"
+
+zle reset-prompt
