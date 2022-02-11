@@ -11,8 +11,6 @@ export FZF_DEFAULT_OPTS="
   --marker='❯'
   --query \"'\"
   --border=horizontal
-  --preview-window 'bottom,80%,border-top'
-  --bind '?:change-preview-window(hidden|right,75%,border-left|bottom,80%,border-top)'
 "
 
 # see: https://gist.github.com/sheepla/d1ff1ef11cc21dcc7434a25a012a970f

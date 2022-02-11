@@ -5,7 +5,7 @@ local preview="echo {} | sed 's/^[^│]*│ //' | xargs -I PATH exa -gF --icons 
 local selected="$(
   zoxide query --list --score \
     | sed $sedCmd \
-    | fzf \
+    | dot-fzf \
       --no-exit-0 \
       --no-multi \
       --header 'Press CTRL-X to remove entry' \

@@ -1,0 +1,26 @@
+local togglePositionKey='ctrl-/'
+local right='right,75%,border-left'
+local bottom='bottom,75%,border-top'
+local hidden='hidden'
+
+local previewWindow='bottom:0%,border-none'
+local togglePosition="${togglePositionKey}:change-preview-window(${right}|${bottom}|${hidden})"
+
+if ((LINES >= 48)); then
+  if ((COLUMNS >= 240)); then
+    previewWindow=$right
+    togglePosition="${togglePositionKey}:change-preview-window(${bottom}|${hidden}|)"
+  else
+    previewWindow=$bottom
+    togglePosition="${togglePositionKey}:change-preview-window(${right}|${hidden}|)"
+  fi
+elif ((COLUMNS >= 240)); then
+  previewWindow=$right
+  togglePosition="${togglePositionKey}:change-preview-window(${bottom}|${hidden}|)"
+fi
+
+cat - | SHELL="${SHELL:-commands[fzf]}" fzf \
+  --no-exit-0 \
+  --preview-window "$previewWindow" \
+  --bind "$togglePosition" \
+  "$@"

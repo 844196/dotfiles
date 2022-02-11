@@ -1,6 +1,6 @@
 local selected="$(
   git branch --color=always -vvv --sort=authordate \
-    | fzf --no-exit-0 \
+    | dot-fzf --no-exit-0 \
     | grep -o -E '^[ *] \S+' | cut -c3- | tr '\n' ' '
 )"
 
