@@ -1,7 +1,0 @@
-git branch --color=always -vvv --sort=-authordate \
-  | anyframe-selector-auto \
-  | grep -o -E '^[ *] \S+' | cut -c3- | tr '\n' ' ' \
-  | anyframe-action-insert
-
-# for starship
-zle reset-prompt

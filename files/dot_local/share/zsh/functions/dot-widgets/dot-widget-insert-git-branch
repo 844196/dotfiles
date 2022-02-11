@@ -1,0 +1,10 @@
+local selected="$(
+  git branch --color=always -vvv --sort=authordate \
+    | fzf --no-exit-0 \
+    | grep -o -E '^[ *] \S+' | cut -c3- | tr '\n' ' '
+)"
+
+LBUFFER+="$selected"
+CURSOR=$#LBUFFER
+
+zle reset-prompt

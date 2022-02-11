@@ -1,0 +1,17 @@
+local selected="$(
+  git status --porcelain --branch \
+    | sed \
+      -e 's/^??/\x1b[38;2;107;112;137m??\x1b[0m/' \
+      -e 's/^A/\x1b[38;2;180;190;130mA\x1b[0m/' \
+      -e 's/^M/\x1b[38;2;137;184;194mM\x1b[0m/' \
+      -e 's/^\([^\s]\{1,\}\)M/\1\x1b[38;2;137;184;194mM\x1b[0m/' \
+      -e 's/^D/\x1b[38;2;226;120;120mD\x1b[0m/' \
+      -e 's/^\([^\s]\{1,\}\)D/\1\x1b[38;2;226;120;120mD\x1b[0m/' \
+    | fzf --header-lines=1 --no-exit-0 \
+    | cut -c4- | tr '\n' ' '
+)"
+
+LBUFFER+="$selected"
+CURSOR=${#LBUFFER}
+
+zle reset-prompt
