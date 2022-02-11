@@ -9,10 +9,16 @@ local selected="$(
       --no-exit-0 \
       --no-multi \
       --header 'Press CTRL-X to remove entry' \
+      --delimiter='│ ' \
+      --nth='2..' \
       --preview $preview \
       --bind $bind
 )"
 
-cd "${selected#*│ }"
+if [[ -n "$selected" ]]; then
+  zle push-line
+  BUFFER="cd -- ${(q)selected#*│ }"
+  zle accept-line
+fi
 
 zle reset-prompt

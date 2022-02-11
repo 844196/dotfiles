@@ -13,6 +13,8 @@ if [ -z "$selected" ]; then
   return 1
 fi
 
-cd "$(ghq list --full-path --exact $selected)"
+zle push-line
+BUFFER="cd -- $(ghq list --full-path --exact $selected)"
+zle accept-line
 
 zle reset-prompt

@@ -8,10 +8,14 @@ local selected="$(
       -e 's/^D/\x1b[38;2;226;120;120mD\x1b[0m/' \
       -e 's/^\([^\s]\{1,\}\)D/\1\x1b[38;2;226;120;120mD\x1b[0m/' \
     | fzf --header-lines=1 --no-exit-0 \
-    | cut -c4- | tr '\n' ' '
+    | cut -c4-
 )"
 
-LBUFFER+="$selected"
-CURSOR=${#LBUFFER}
+if [[ -n "$selected" ]]; then
+  () {
+    LBUFFER+="$*"
+    CURSOR=${#LBUFFER}
+  } "${(fq)selected}"
+fi
 
 zle reset-prompt

@@ -1,6 +1,6 @@
 tput cub 9999
 
-local selected="$(
+local selected=($(
   fc -r -l -i 1 \
     | sed 's/\(^.*:..\)\s/\x1b[38;2;69;75;104m\1 \x1b[38;2;52;57;78m│\x1b[0m/' \
     | awk -F'│' '!_[$2]++' \
@@ -12,11 +12,11 @@ local selected="$(
       --nth='2..' \
       --height=30% \
       --border=none
-)"
+))
 
-# zle vi-fetch-history -n $num
-
-BUFFER="$(echo ${selected#*│ })"
-CURSOR=$#BUFFER
+local num
+if [[ -n "${num:=${selected[1]}}" ]]; then
+  zle vi-fetch-history -n $num
+fi
 
 zle reset-prompt
