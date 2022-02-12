@@ -9,4 +9,4 @@ bindkey '^R' dot-put-history
 bindkey '^X^B' dot-insert-git-branch
 bindkey '^X^F' dot-insert-git-file
 bindkey '^X^G' dot-cd-ghq-repository
-bindkey '^X^M' dot-zoxide
+bindkey '^X^J' dot-zoxide
