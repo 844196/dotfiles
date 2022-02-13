@@ -1,2 +1,0 @@
-pushd .. >/dev/null
-zle reset-prompt
