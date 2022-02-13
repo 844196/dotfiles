@@ -1,14 +1,10 @@
 {
   "files.associations": {
-    "**/files/dot_exports": "shellscript",
-    "**/files/dot_bashrc": "shellscript",
-    "**/files/dot_zshenv": "shellscript",
     "**/files/dot_vimrc": "vimrc",
-    "**/files/dot_config/dircolors": "shellscript",
-    "**/files/dot_config/fzf": "shellscript",
-    "**/files/dot_config/zsh/dot_zshrc": "shellscript",
+    "**/files/dot_config/zsh/**": "shellscript",
     "**/files/dot_config/git/config": "properties",
     "**/files/dot_config/git/ignore": "ignore",
+    "**/files/dot_local/share/zsh/**": "shellscript",
     "*.sh.tmpl": "shellscript",
     "*.yaml.tmpl": "yaml",
   },
