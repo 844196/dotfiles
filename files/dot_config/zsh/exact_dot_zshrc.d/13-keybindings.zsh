@@ -8,5 +8,5 @@ bindkey '^[[1;2B' dot-popd-and-reset-prompt
 bindkey '^R' dot-put-history
 bindkey '^X^B' dot-insert-git-branch
 bindkey '^X^F' dot-insert-git-file
-bindkey '^X^G' dot-cd-ghq-repository
-bindkey '^X^J' dot-zoxide
+bindkey '^X^G' dot-cd-ghq
+bindkey '^X^J' dot-cd-zoxide
