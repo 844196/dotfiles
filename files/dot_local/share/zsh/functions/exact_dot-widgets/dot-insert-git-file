@@ -1,21 +1,32 @@
-local selected="$(
-  git status --porcelain --branch \
-    | sed \
-      -e 's/^??/\x1b[38;2;107;112;137m??\x1b[0m/' \
-      -e 's/^A/\x1b[38;2;180;190;130mA\x1b[0m/' \
-      -e 's/^M/\x1b[38;2;137;184;194mM\x1b[0m/' \
-      -e 's/^\([^\s]\{1,\}\)M/\1\x1b[38;2;137;184;194mM\x1b[0m/' \
-      -e 's/^D/\x1b[38;2;226;120;120mD\x1b[0m/' \
-      -e 's/^\([^\s]\{1,\}\)D/\1\x1b[38;2;226;120;120mD\x1b[0m/' \
-    | dot-fzf --header-lines=1 --no-exit-0 \
-    | cut -c4-
-)"
+readonly local decorate='
+  1   s/^## //
+  2,$ s/([[:cntrl:]]\[m[[:space:]]{1,2})([[:print:]])/\1\x1b\[38;2;52;57;78m│\x1b\[0m \2/
+  2,$ s/^/  /
+'
 
-if [[ -n "$selected" ]]; then
-  () {
-    LBUFFER+="$*"
-    CURSOR=${#LBUFFER}
-  } "${(fq)selected}"
-fi
+readonly local previewDiff='
+  # 1: Status symbol
+  # 2: Path to file
+  readonly local __LINE__=(${${${(s: │ :)"$(echo {})"}/* -> /}[@]})
+  readonly local __PREVIEW_COLUMNS__=${FZF_PREVIEW_COLUMNS:-$COLUMNS}
 
-zle reset-prompt
+  if [[ ${__LINE__[1]} == *\?\? ]]; then
+    git diff --color=always --no-index -- /dev/null ${__LINE__[2]} | delta --width $__PREVIEW_COLUMNS__
+  else
+    git diff --color=always -- ${__LINE__[2]} | delta --width $__PREVIEW_COLUMNS__
+  fi
+'
+
+git -c color.status=always -c status.relativePaths=true status --short --untracked-file --branch \
+  | sed -E $decorate \
+  | dot-fzf \
+    --multi \
+    --no-exit-0 \
+    --header-lines=1 \
+    --delimiter '│ ' \
+    --nth '2..' \
+    --preview $previewDiff \
+  | sed \
+    -e 's/^.*│ //' \
+    -e 's/^.* -> //' \
+  | dot-insert

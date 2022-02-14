@@ -1,20 +1,6 @@
-local selected="$(
-  ghq list \
-    | dot-fzf \
-      --no-exit-0 \
-      --no-multi \
-      --preview 'bat --color=always --style=plain --line-range=:${LINES:-50} --language=markdown $(ghq list --full-path --exact {})/README.md'
-)"
-
-if [ -z "$selected" ]; then
-  if zle; then
-    zle reset-prompt
-  fi
-  return 1
-fi
-
-zle push-line
-BUFFER="cd -- $(ghq list --full-path --exact $selected)"
-zle accept-line
-
-zle reset-prompt
+ghq list \
+  | dot-fzf \
+    --no-exit-0 \
+    --no-multi \
+  | xargs -I PATH ghq list --full-path --exact PATH \
+  | dot-cd

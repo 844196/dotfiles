@@ -1,7 +1,7 @@
-local togglePositionKey='ctrl-/'
-local right='right,75%,border-left'
-local bottom='bottom,75%,border-top'
-local hidden='hidden'
+readonly local togglePositionKey='ctrl-/'
+readonly local right='right,75%,border-left'
+readonly local bottom='bottom,75%,border-top'
+readonly local hidden='hidden'
 
 local previewWindow='bottom:0%,border-none'
 local togglePosition="${togglePositionKey}:change-preview-window(${right}|${bottom}|${hidden})"
@@ -19,7 +19,7 @@ elif ((COLUMNS >= 240)); then
   togglePosition="${togglePositionKey}:change-preview-window(${bottom}|${hidden}|)"
 fi
 
-cat - | SHELL="${SHELL:-commands[fzf]}" fzf \
+cat - | SHELL="${SHELL:-$commands[zsh]}" fzf \
   --no-exit-0 \
   --preview-window "$previewWindow" \
   --bind "$togglePosition" \

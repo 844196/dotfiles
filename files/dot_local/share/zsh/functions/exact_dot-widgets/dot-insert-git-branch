@@ -1,10 +1,18 @@
-local selected="$(
-  git branch --color=always -vvv --sort=authordate \
-    | dot-fzf --no-exit-0 \
-    | grep -o -E '^[ *] \S+' | cut -c3- | tr '\n' ' '
-)"
+readonly local __DECORATE__='
+  s/^(.)/@@\1 \x1b\[38;2;52;57;78m│\x1b\[0m/
+  /: gone]/s/^@@/\x1b\[38;2;160;147;199m\x1b\[0m /
+  s/^@@\*/  \x1b\[32m*\x1b\[0m/
+  s/^@@/  /
+  s/^/ /
+'
 
-LBUFFER+="$selected"
-CURSOR=$#LBUFFER
-
-zle reset-prompt
+git branch --color=always --sort=authordate -vvv \
+  | sed -E $__DECORATE__ \
+  | dot-fzf \
+    --multi \
+    --no-exit-0 \
+    --delimiter '│ ' \
+    --nth '2..' \
+  | sed 's/^.*│ //' \
+  | cut -d ' ' -f 1,1 \
+  | dot-insert

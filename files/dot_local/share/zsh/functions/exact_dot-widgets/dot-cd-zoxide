@@ -1,24 +1,32 @@
-local sedCmd='s/\(^\s*[^\d]\{1,\}\)\s/\x1b[38;2;69;75;104m\1 \x1b[38;2;52;57;78m│ \x1b[0m/'
-local bind="ctrl-x:execute-silent(echo {} | sed 's/^[^│]*│ //' | xargs -I PATH zoxide remove PATH)+reload(zoxide query -l -s | sed '$sedCmd')"
-local preview="echo {} | sed 's/^[^│]*│ //' | xargs -I PATH exa -gF --icons --git -la PATH"
+readonly local __DECORATE__='
+  s/(^\s*[^\d]+)\s/\x1b[38;2;69;75;104m\1 \x1b[38;2;52;57;78m│ \x1b[0m/
+'
 
-local selected="$(
-  zoxide query --list --score \
-    | sed $sedCmd \
-    | dot-fzf \
-      --no-exit-0 \
-      --no-multi \
-      --header 'Press CTRL-X to remove entry' \
-      --delimiter='│ ' \
-      --nth='2..' \
-      --preview $preview \
-      --bind $bind
-)"
+readonly local __EXTRACT_PATH__='
+  s/^[^│]*│ //
+'
 
-if [[ -n "$selected" ]]; then
-  zle push-line
-  BUFFER="cd -- ${(q)selected#*│ }"
-  zle accept-line
-fi
+readonly local __PREVIEW__="
+  echo {} | sed -E ${(qq)__EXTRACT_PATH__} | xargs -I PATH exa -gF --icons --git -la PATH
+"
 
-zle reset-prompt
+readonly local __BIND__="
+  ctrl-x:execute-silent(
+    echo {} | sed -E ${(qq)__EXTRACT_PATH__} | xargs -I PATH zoxide remove PATH
+  )+reload(
+    zoxide query -l -s | sed -E ${(qq)__DECORATE__}
+  )
+"
+
+zoxide query -l -s \
+  | sed -E $__DECORATE__ \
+  | dot-fzf \
+    --no-exit-0 \
+    --no-multi \
+    --header 'Press CTRL-X to remove entry' \
+    --delimiter '│ ' \
+    --nth '2..' \
+    --preview $__PREVIEW__ \
+    --bind ${${__BIND__//$'\n'/}//  /} \
+  | sed -E $__EXTRACT_PATH__ \
+  | dot-cd
