@@ -7,7 +7,7 @@ local selected=($(
     | dot-fzf \
       --no-exit-0 \
       --no-multi \
-      --query=${BUFFER:-\'} \
+      --query="'${BUFFER}" \
       --delimiter='│ ' \
       --nth='2..' \
       --height=30% \
