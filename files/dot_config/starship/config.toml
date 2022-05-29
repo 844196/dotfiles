@@ -52,7 +52,7 @@ format = "[took](fg:#6b7089) [$duration]($style)"
 
 [custom.git_user]
 shell = ["bash", "--noprofile", "--norc", "-e"]
-when = ":"
+when = true
 command = '''
 user="$(git config --local user.name 2>/dev/null)"
 echo " ${user}"
