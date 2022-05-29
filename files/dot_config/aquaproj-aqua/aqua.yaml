@@ -10,5 +10,5 @@ packages:
 - name: ogham/exa@v0.10.1
 - name: junegunn/fzf@0.29.0
 - name: x-motemen/ghq@v1.3.0
-- name: starship/starship@v1.2.1
+- name: starship/starship@v1.7.1
 - name: ajeetdsouza/zoxide@v0.8.1
