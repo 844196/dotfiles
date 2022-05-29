@@ -11,4 +11,4 @@ packages:
 - name: junegunn/fzf@0.29.0
 - name: x-motemen/ghq@v1.3.0
 - name: starship/starship@v1.2.1
-- name: ajeetdsouza/zoxide@v0.8.0
+- name: ajeetdsouza/zoxide@v0.8.1
