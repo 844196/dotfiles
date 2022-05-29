@@ -1,9 +1,0 @@
-#!/bin/bash
-
-VERSION="v{{ .versions.starship }}"
-BASENAME="starship-x86_64-{{ .vendor }}-{{ .chezmoi.os }}{{ .musl.append }}"
-FILENAME="${BASENAME}.tar.gz"
-URL="https://github.com/starship/starship/releases/download/${VERSION}/${FILENAME}"
-BIN_PATH="starship"
-
-{{ template "install-tool.sh.tmpl" . }}

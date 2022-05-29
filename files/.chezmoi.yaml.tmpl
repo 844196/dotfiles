@@ -1,7 +1,1 @@
 sourceDir: {{ .chezmoi.sourceDir | quote }}
-
-data:
-  vendor: {{ if eq .chezmoi.os "darwin" }}"apple"{{ else }}"unknown"{{ end }}
-  musl:
-    append: {{ if eq .chezmoi.os "linux" }}"-musl"{{ else }}""{{ end }}
-    prepend: {{ if eq .chezmoi.os "linux" }}"musl-"{{ else }}""{{ end }}

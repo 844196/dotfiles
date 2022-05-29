@@ -8,7 +8,11 @@ if [ -z "$USER" ]; then
   export USER=`id -un`
 fi
 
-export path=(~/.local/bin(N-/) $path)
+export path=(
+  ~/.local/bin(N-/)
+  ~/.local/share/aquaproj-aqua/bin(N-/)
+  $path
+)
 export fpath=(
   ~/.local/share/zsh/functions(N-/)
   ~/.local/share/zsh/vendor-completions(N-/)
