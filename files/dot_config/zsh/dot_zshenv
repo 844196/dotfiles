@@ -29,6 +29,8 @@ export INPUTRC=~/.config/readline/inputrc
 
 export STARSHIP_CONFIG=~/.config/starship/config.toml
 
+export AQUA_GLOBAL_CONFIG=~/.config/aquaproj-aqua/aqua.yaml
+
 if [ -e ~/.config/zsh/.zshenv.local ]; then
   source ~/.config/zsh/.zshenv.local
 fi
