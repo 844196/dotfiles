@@ -5,7 +5,7 @@ registries:
 - type: standard
   ref: v2.17.1 # renovate: depName=aquaproj/aqua-registry
 packages:
-- name: sharkdp/bat@v0.18.3
+- name: sharkdp/bat@v0.21.0
 - name: dandavison/delta@0.11.3
 - name: ogham/exa@v0.10.1
 - name: junegunn/fzf@0.29.0
