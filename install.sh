@@ -7,9 +7,9 @@ if [ "$(command -v chezmoi)" ]; then
 else
   mkdir -p ~/.local/bin
   if [ "$(command -v curl)" ]; then
-    sh -c "$(curl -fsSL https://git.io/chezmoi)" -- -b ~/.local/bin
+    sh -c "$(curl -fsSL https://chezmoi.io/get)" -- -b ~/.local/bin
   elif [ "$(command -v wget)" ]; then
-    sh -c "$(wget -qO- https://git.io/chezmoi)" -- -b ~/.local/bin
+    sh -c "$(wget -qO- https://chezmoi.io/get)" -- -b ~/.local/bin
   else
     echo "To install chezmoi, you must have curl or wget installed." >&2
     exit 1
