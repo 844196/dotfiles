@@ -1,0 +1,66 @@
+% git, git-checkout, ck
+@ git
+
+# Checkout local branch
+git checkout <local_branch_name>
+
+# Create a new local branch
+git checkout -b <new_local_branch_name>
+
+# Checkout remote branch
+git checkout -b <remote_branch_name> origin/<remote_branch_name>
+
+
+% git, git-branch, br
+@ git
+
+# Delete local branches
+git branch -D <local_branch_name>
+
+
+% git, git-add
+@ git
+
+# Stage files
+git add <changed_files>
+
+
+% git, git-commit, co
+@ git
+
+# Create a new commit which "fixes up" `<fixup_target>`
+git commit --fixup=<fixup_target>
+
+
+% git, git-rebase, rb
+@ git
+
+# Rebase (interactive)
+git rebase -i <commit_hash>
+
+
+% git
+
+$ remote_branch_name: git branch -r | grep -v 'origin/HEAD' | sed 's;^\s*origin/;;g'
+
+$ local_branch_name: git branch --color=always --sort=authordate -vvv | cut -c3- \
+  --- \
+  --multi \
+  --map "cut -d' ' -f1 | tr '\n' ' '"
+
+$ changed_files: git -c color.status=always -c status.relativePaths=true status --short --untracked-file --branch \
+  | sed -e '1 s/^## //' \
+  --- \
+  --multi \
+  --header-lines 1 \
+  --map "awk '{print $NF}' | tr '\n' ' '"
+
+$ fixup_target: git log --color=always --graph --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" \
+  --- \
+  --map "grep -o '[a-f0-9]\{7\}'" \
+  --preview "echo {} | grep -o '[a-f0-9]\{7\}' | xargs git show --color"
+
+$ commit_hash: git log --color=always --graph --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" \
+  --- \
+  --map "grep -o '[a-f0-9]\{7\}'" \
+  --preview "echo {} | grep -o '[a-f0-9]\{7\}' | xargs -I_ git log --color=always --reverse --format='%C(auto)%h %s' _..HEAD"
