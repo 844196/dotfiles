@@ -1,4 +1,4 @@
 {
-  "extends": ["github>aquaproj/aqua-renovate-config#1.0.0"],
+  "extends": ["github>aquaproj/aqua-renovate-config#1.1.0"],
   "commitMessagePrefix": ":arrow_up: "
 }
