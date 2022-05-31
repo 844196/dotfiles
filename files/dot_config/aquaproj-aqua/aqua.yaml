@@ -12,3 +12,4 @@ packages:
 - name: x-motemen/ghq@v1.3.0
 - name: starship/starship@v1.7.1
 - name: ajeetdsouza/zoxide@v0.8.1
+- name: denisidoro/navi@v2.20.1
