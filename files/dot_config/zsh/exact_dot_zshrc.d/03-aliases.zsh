@@ -12,9 +12,7 @@ alias gg='git graph -n 15'
 
 alias c='chezmoi'
 alias m='multipass'
-alias o='ouch'
 alias curl='curl -fsSL'
-alias grep='grep -E'
 
 if [ -n "${commands[exa]}" ]; then
   alias ls='exa -gF --icons --git --color=always -la'
