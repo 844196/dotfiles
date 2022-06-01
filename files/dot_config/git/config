@@ -5,6 +5,8 @@
   autoCRLF = false
   ignorecase = false
   pager = delta
+[pager]
+  log = emojiless
 [interactive]
   diffFilter = delta
 [merge]
