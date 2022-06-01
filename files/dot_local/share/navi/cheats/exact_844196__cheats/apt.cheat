@@ -1,0 +1,28 @@
+% apt
+
+# Update packages list
+sudo apt update
+
+# Upgrade packages
+sudo apt upgrade
+
+# Search package
+apt search <query> | less
+
+# List installed packages
+apt list --installed
+
+# Install package
+sudo apt install <package_name>
+
+# Remove package
+sudo apt remove <package_name>
+
+# Prune packages
+sudo apt autoremove
+
+# Remove packages cache
+sudo apt clean
+
+# Show package info
+apt show <package_name>
