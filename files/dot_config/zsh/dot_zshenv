@@ -25,6 +25,8 @@ export XDG_CACHE_HOME=~/.cache
 export XDG_DATA_HOME=~/.local/share
 export XDG_STATE_HOME=~/.local/state
 
+export CURL_HOME=~/.config/curl
+
 export INPUTRC=~/.config/readline/inputrc
 
 export STARSHIP_CONFIG=~/.config/starship/config.toml
