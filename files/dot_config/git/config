@@ -24,6 +24,8 @@
   showUntrackedFiles = all
 [commit]
   verbose = true
+[fetch]
+  prune = true
 [diff]
   indentHeuristic = true
   colorMoved = default
