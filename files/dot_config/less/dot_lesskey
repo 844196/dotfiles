@@ -1,0 +1,15 @@
+#command
+h left-scroll
+l right-scroll
+
+#env
+LESS = --no-init --RAW-CONTROL-CHARS --ignore-case --LONG-PROMPT --hilite-search --tabs=4 --chop-long-lines --HILITE-UNREAD
+LESSHISTFILE = ~/.local/state/less/.lesshst
+LESSCHARSET = utf-8
+LESS_TERMCAP_mb = [01;32m
+LESS_TERMCAP_md = [01;32m
+LESS_TERMCAP_me = [0m
+LESS_TERMCAP_se = [0m
+LESS_TERMCAP_so = [01;47;34m
+LESS_TERMCAP_ue = [0m
+LESS_TERMCAP_us = [01;36m
