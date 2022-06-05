@@ -1,0 +1,7 @@
+% stat
+
+# Show file permission as octal and human-readable (GNU)
+stat -c '%a/%A' <file>
+
+# Show file permission as octal and human-readable (BSD)
+stat -c '%OLp/%Sp' <file>
