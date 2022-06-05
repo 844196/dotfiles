@@ -6,6 +6,11 @@ readonly local __DECORATE__='
   s/^/ /
 '
 
+readonly local __PREVIEW__='
+  # pagerが利用できないため、手動でemojifyをパイプでつなげる
+  git --no-pager graph $(echo {} | sed "s/^.*│ //" | cut -d " " -f 1,1) | emojify
+'
+
 git branch --color=always --sort=authordate -vvv \
   | sed -E $__DECORATE__ \
   | dot-fzf \
@@ -13,6 +18,7 @@ git branch --color=always --sort=authordate -vvv \
     --no-exit-0 \
     --delimiter '│ ' \
     --nth '2..' \
+    --preview $__PREVIEW__ \
   | sed 's/^.*│ //' \
   | cut -d ' ' -f 1,1 \
   | dot-insert
