@@ -39,7 +39,34 @@ git commit --fixup=<fixup_target>
 git rebase -i <commit_hash>
 
 
+% git, git-update-index
+@ git
+
+# Skip tracking local only
+git update-index --skip-worktree <file>
+
+# Disable "Skip tracking local only"
+git update-index --no-skip-worktree <file>
+
+
+% git, git-diff
+@ git
+
+# Make patch
+git diff path/to/file > path/to/patch
+
+
+% git, git-apply
+@ git
+
+# Apply patch
+git apply path/to/patch
+
+
 % git
+
+# Ignore local only (untracked files)
+echo path/to/file >> .git/info/exclude
 
 $ remote_branch_name: git branch -r | grep -v 'origin/HEAD' | sed 's;^\s*origin/;;g'
 
