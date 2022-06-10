@@ -1,4 +1,5 @@
 format = """
+${custom.vscode_integration}\
 $username\
 $hostname\
 $directory\
@@ -49,6 +50,15 @@ format = "([$ahead_behind]($style) )([\\[$all_status\\]]($style) )"
 
 [cmd_duration]
 format = "[took](fg:#6b7089) [$duration]($style)"
+
+# https://code.visualstudio.com/docs/editor/integrated-terminal#_complex-bash-promptcommand
+[custom.vscode_integration]
+shell = ["bash", "--noprofile", "--norc", "-e"]
+when = true
+command = '''
+printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"
+'''
+format = "$output"
 
 [custom.git_user]
 shell = ["bash", "--noprofile", "--norc", "-e"]
