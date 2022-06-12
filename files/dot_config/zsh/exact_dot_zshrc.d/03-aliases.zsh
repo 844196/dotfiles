@@ -13,12 +13,11 @@ alias gg='git graph -n 15'
 alias c='chezmoi'
 alias m='multipass'
 
-if [ -n "${commands[exa]}" ]; then
-  alias ls='exa -gF --icons --git --color=always -la'
-else
-  if [ `uname` = Darwin ]; then
-    alias ls='ls -GFh -la'
-  else
-    alias ls='ls -Fh --color -la'
-  fi
-fi
+alias ls='exa -gF --icons --git --color=always -la'
+alias grep='rg'
+alias find='fd'
+alias top='btm'
+alias htop='btm'
+alias df='duf'
+alias du='duf'
+alias ping='gping'
