@@ -1,3 +1,5 @@
+autoload -Uz dot-widget-init && dot-widget-init
+
 for __FILE__ in $ZDOTDIR/.zshrc.d/*(N-.); do
   source $__FILE__
 done

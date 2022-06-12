@@ -1,5 +1,3 @@
-autoload -Uz dot-widget-init && dot-widget-init
-
 bindkey '^[[Z' reverse-menu-complete
 
 expand-alias-and-accept-line() {
