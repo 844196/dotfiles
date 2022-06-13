@@ -29,3 +29,5 @@ packages:
 - name: ClementTsang/bottom@0.6.8
 - name: orf/gping@gping-v1.3.1
 - name: sharkdp/hyperfine@v1.14.0
+- name: sharkdp/vivid@v0.8.0
+  registry: local

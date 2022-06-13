@@ -7,3 +7,28 @@ packages:
     files:
       - name: emojify
         src: "emojify-{{.Version}}/emojify"
+  - type: github_release
+    repo_owner: sharkdp
+    repo_name: vivid
+    description: LS_COLORS manager with multiple themes
+    asset: "vivid-{{.Version}}-{{.Arch}}-{{.OS}}.{{.Format}}"
+    format: tar.gz
+    format_overrides:
+      - goos: windows
+        format: zip
+    rosetta2: true
+    replacements:
+      amd64: x86_64
+      arm64: aarch64
+      darwin: apple-darwin
+      linux: unknown-linux-musl
+      windows: pc-windows-msvc
+      386: i686
+    overrides:
+      - goos: linux
+        goarch: arm64
+        replacements:
+          linux: unknown-linux-gnu
+    files:
+      - name: vivid
+        src: "vivid-{{.Version}}-{{.Arch}}-{{.OS}}/vivid"
