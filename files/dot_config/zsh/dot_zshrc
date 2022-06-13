@@ -1,6 +1,13 @@
+autoload -Uz dot-evalcache
 autoload -Uz dot-widget-init && dot-widget-init
 
 for __FILE__ in $ZDOTDIR/.zshrc.d/*(N-.); do
   source $__FILE__
 done
 unset __FILE__
+
+dot-evalcache -c vivid ~/.local/libexec/vivid-dircolors-compat generate iceberg-dark
+dot-evalcache navi widget zsh
+dot-evalcache zoxide init zsh --no-cmd
+dot-evalcache direnv hook zsh
+dot-evalcache starship init zsh --print-full-init
