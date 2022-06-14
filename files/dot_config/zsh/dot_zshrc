@@ -1,6 +1,16 @@
 autoload -Uz dot-evalcache
 autoload -Uz dot-widget-init && dot-widget-init
 
+source "${ZINIT[HOME]}/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+zinit wait lucid light-mode for \
+  atinit"zicompinit; zicdreplay" atload"source ~/.config/zsh-syntax-highlighting/config.zsh" \
+    zsh-users/zsh-syntax-highlighting \
+  atload"! source ~/.config/zsh-autosuggestions/config.zsh; _zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions
+
 for __FILE__ in $ZDOTDIR/.zshrc.d/*(N-.); do
   source $__FILE__
 done
