@@ -1,18 +1,7 @@
 bindkey '^[[Z' reverse-menu-complete
 
-expand-alias-and-accept-line() {
-  zle _expand_alias
-  zle accept-line
-}
-zle -N expand-alias-and-accept-line
-bindkey '^M' expand-alias-and-accept-line
-
-expand-alias-and-self-insert() {
-  zle _expand_alias
-  zle self-insert
-}
-zle -N expand-alias-and-self-insert
-bindkey ' ' expand-alias-and-self-insert
+bindkey '^M' dot-expand-alias-and-accept-line
+bindkey ' ' dot-expand-alias-and-self-insert
 
 bindkey '^R' dot-put-history
 bindkey '^X^B' dot-insert-git-branch
