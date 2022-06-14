@@ -33,7 +33,7 @@
   user = "844196"
   root = ~/.ghq
 [credential]
-  helper = "!f() { ~/.local/bin/git-credential-manager $*; }; f"
+  helper = "!f() { ~/.local/libexec/git-credential-manager $*; }; f"
 [delta]
   navigate = true
   line-numbers = true
