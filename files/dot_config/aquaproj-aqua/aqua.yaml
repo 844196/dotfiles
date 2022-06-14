@@ -31,3 +31,4 @@ packages:
 - name: sharkdp/hyperfine@v1.14.0
 - name: sharkdp/vivid@v0.8.0
   registry: local
+- name: hadolint/hadolint@v2.10.0
