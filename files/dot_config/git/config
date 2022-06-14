@@ -6,7 +6,7 @@
   ignorecase = false
   pager = delta
 [pager]
-  log = emojiless
+  log = ~/.local/libexec/emojiless
 [interactive]
   diffFilter = delta
 [merge]
