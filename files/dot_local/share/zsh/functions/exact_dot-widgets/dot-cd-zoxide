@@ -1,3 +1,6 @@
+readonly local ZOXIDE="$(aqua which zoxide)"
+readonly local EXA="$(aqua which exa)"
+
 readonly local __DECORATE__='
   s/(^\s*[0-9]+)\s/\x1b[38;2;69;75;104m\1 \x1b[38;2;52;57;78m│ \x1b[0m/
 '
@@ -7,18 +10,18 @@ readonly local __EXTRACT_PATH__='
 '
 
 readonly local __PREVIEW__="
-  echo {} | sed -E ${(qq)__EXTRACT_PATH__} | xargs -I PATH exa -gF --icons --git -la PATH
+  echo {} | sed -E ${(qq)__EXTRACT_PATH__} | xargs -I PATH $EXA -gF --icons --git -la PATH
 "
 
 readonly local __BIND__="
   ctrl-x:execute-silent(
-    echo {} | sed -E ${(qq)__EXTRACT_PATH__} | xargs -I PATH zoxide remove PATH
+    echo {} | sed -E ${(qq)__EXTRACT_PATH__} | xargs -I PATH $ZOXIDE remove PATH
   )+reload(
-    zoxide query -l -s | sed -E ${(qq)__DECORATE__}
+    $ZOXIDE query -l -s | sed -E ${(qq)__DECORATE__}
   )
 "
 
-zoxide query -l -s \
+$ZOXIDE query -l -s \
   | sed -E $__DECORATE__ \
   | dot-fzf \
     --no-exit-0 \
