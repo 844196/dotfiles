@@ -1,6 +1,14 @@
+readonly local GHQ="$(aqua which ghq)"
+readonly local EMOJIFY="$(aqua which emojify)"
+
+readonly local __PREVIEW__="
+$GHQ list --full-path --exact {} | xargs -I REPO git -C REPO graph -n $LINES | $EMOJIFY
+"
+
 ghq list \
   | dot-fzf \
     --no-exit-0 \
     --no-multi \
+    --preview $__PREVIEW__ \
   | xargs -I PATH ghq list --full-path --exact PATH \
   | dot-cd
