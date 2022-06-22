@@ -32,3 +32,4 @@ packages:
 - name: sharkdp/vivid@v0.8.0
   registry: local
 - name: hadolint/hadolint@v2.10.0
+- name: bootandy/dust@v0.8.1-alpha.2
