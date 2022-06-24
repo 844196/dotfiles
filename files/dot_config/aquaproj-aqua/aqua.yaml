@@ -23,7 +23,7 @@ packages:
 - name: direnv/direnv@v2.32.1
 - name: BurntSushi/ripgrep@13.0.0
 - name: stedolan/jq@jq-1.6
-- name: mikefarah/yq@v4.25.2
+- name: mikefarah/yq@v4.25.3
 - name: sharkdp/fd@v8.4.0
 - name: muesli/duf@v0.8.1
 - name: ClementTsang/bottom@0.6.8
