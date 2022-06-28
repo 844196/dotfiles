@@ -35,3 +35,7 @@ packages:
 - name: bootandy/dust@v0.8.1-alpha.2
 - name: jiro4989/ojosama@v0.7.0
   registry: local
+- name: hashicorp/terraform@v1.2.3
+- name: o2sh/onefetch@v2.12.0
+- name: dalance/procs@v0.12.3
+- name: chmln/sd@v0.7.6
