@@ -39,3 +39,4 @@ packages:
 - name: o2sh/onefetch@v2.12.0
 - name: dalance/procs@v0.12.3
 - name: chmln/sd@v0.7.6
+- name: vmware-tanzu/carvel-ytt@v0.41.1
