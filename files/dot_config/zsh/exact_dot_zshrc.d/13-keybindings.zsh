@@ -1,3 +1,5 @@
+bindkey '^N' history-search-forward
+bindkey '^P' history-search-backward
 bindkey '^[[Z' reverse-menu-complete
 
 bindkey '^M' dot-expand-alias-and-accept-line
