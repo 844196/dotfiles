@@ -4,9 +4,3 @@ setopt transient_rprompt
 if [ "$TERM_PROGRAM" = "vscode" ]; then
   unsetopt PROMPT_SP
 fi
-
-autoload -Uz colors && colors
-
-PROMPT="
-%{$fg[blue]%}%n@%m:%~%{$reset_color%}
-%{%(?.$fg_bold[black].$fg[red])%}%#%{$reset_color%} "

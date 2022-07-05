@@ -1,6 +1,4 @@
 alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
 alias t='cd "$(mktemp -d)"'
 
 alias st='git status'

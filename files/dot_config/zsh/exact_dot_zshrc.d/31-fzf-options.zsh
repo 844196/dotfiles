@@ -9,7 +9,6 @@ export FZF_DEFAULT_OPTS="
   --prompt=' '
   --pointer='❯'
   --marker='❯'
-  --query \"'\"
   --border=horizontal
 "
 
