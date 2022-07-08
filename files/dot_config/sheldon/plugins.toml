@@ -14,3 +14,7 @@ apply = ["defer", "load-config"]
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"
 apply = ["defer", "load-config"]
+
+[plugins.zsh-autopair]
+github = "hlissner/zsh-autopair"
+apply = ["defer"]
