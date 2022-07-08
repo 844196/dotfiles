@@ -38,6 +38,7 @@
   navigate = true
   line-numbers = true
   features = iceberg
+  true-color = always
 [delta "iceberg"]
   syntax-theme = iceberg
   file-style = bold "#6b7089"
