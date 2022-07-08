@@ -1,5 +1,4 @@
 local EVALCACHE_DIR=~/.cache/zsh/evalcache
-mkdir -p $EVALCACHE_DIR
 
 local key=$1
 if [ -z "${commands[$key]}" ]; then

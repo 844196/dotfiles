@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rm -rf ~/.cache/zsh/evalcache/
+rm -rf ~/.cache/zsh/evalcache/*
