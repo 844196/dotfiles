@@ -41,8 +41,6 @@ export CURL_HOME=~/.config/curl
 
 export LESSKEY=~/.config/less/.less
 
-export INPUTRC=~/.config/readline/inputrc
-
 export STARSHIP_CONFIG=~/.config/starship/config.toml
 
 export AQUA_GLOBAL_CONFIG=~/.config/aquaproj-aqua/aqua.yaml
