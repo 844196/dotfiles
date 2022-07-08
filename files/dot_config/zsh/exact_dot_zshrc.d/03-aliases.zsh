@@ -5,7 +5,7 @@ alias st='git status'
 alias ck='git checkout'
 alias br='git branch -vv'
 alias co='git commit'
-alias di='git diff'
+alias di='git -c delta.side-by-side=true diff'
 alias gg='git graph -n 15'
 
 alias c='chezmoi'
