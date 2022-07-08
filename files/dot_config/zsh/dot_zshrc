@@ -72,7 +72,7 @@ zsh-defer dot-evalcache direnv hook zsh
 
 zsh-defer dot-widget-init
 zsh-defer -c 'export LS_COLORS="$(vivid generate iceberg-dark)"'
-zsh-defer zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zsh-defer -c 'zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}'
 zsh-defer source ~/.config/fzf/config.sh
 
 zsh-defer compinit -C -d ~/.cache/zsh/compdump
