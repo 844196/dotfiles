@@ -47,11 +47,8 @@ export STARSHIP_CONFIG=~/.config/starship/config.toml
 
 export AQUA_GLOBAL_CONFIG=~/.config/aquaproj-aqua/aqua.yaml
 
-typeset -Ag ZINIT
-ZINIT[HOME]=~/.local/share/zsh/zinit
-ZINIT[PLUGINS_DIR]=~/.local/share/zsh/plugins
-ZINIT[ZCOMPDUMP_PATH]=~/.cache/zsh/compdump
-ZINIT[COMPINIT_OPTS]=-C
+export SHELDON_CONFIG_DIR=~/.config/sheldon
+export SHELDON_DATA_DIR=~/.local/share/sheldon
 
 if [ -e ~/.config/zsh/.zshenv.local ]; then
   source ~/.config/zsh/.zshenv.local

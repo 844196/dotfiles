@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -e
-
-cat <<EOF
-LS_COLORS="$(vivid $@)"
-export LS_COLORS
-EOF

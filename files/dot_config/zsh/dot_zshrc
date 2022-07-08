@@ -1,23 +1,19 @@
+autoload -Uz compinit
 autoload -Uz dot-evalcache
-autoload -Uz dot-widget-init && dot-widget-init
-
-source "${ZINIT[HOME]}/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-
-zinit wait lucid light-mode for \
-  atinit"zicompinit; zicdreplay" atload"source ~/.config/zsh-syntax-highlighting/config.zsh" \
-    zsh-users/zsh-syntax-highlighting \
-  atload"! source ~/.config/zsh-autosuggestions/config.zsh; _zsh_autosuggest_start" \
-    zsh-users/zsh-autosuggestions
+autoload -Uz dot-widget-init
 
 for __FILE__ in $ZDOTDIR/.zshrc.d/*(N-.); do
   source $__FILE__
 done
 unset __FILE__
 
-dot-evalcache -c vivid ~/.local/libexec/vivid-dircolors-compat generate iceberg-dark
-dot-evalcache navi widget zsh
-dot-evalcache zoxide init zsh --no-cmd
-dot-evalcache direnv hook zsh
+dot-evalcache sheldon source
 dot-evalcache starship init zsh --print-full-init
+
+zsh-defer dot-evalcache navi widget zsh
+zsh-defer dot-evalcache zoxide init zsh --no-cmd
+zsh-defer dot-evalcache direnv hook zsh
+
+zsh-defer -c 'export LS_COLORS="$(vivid generate iceberg-dark)"'
+zsh-defer compinit -C -d ~/.cache/zsh/compdump
+zsh-defer dot-widget-init

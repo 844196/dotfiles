@@ -1,16 +1,7 @@
 local EVALCACHE_DIR=~/.cache/zsh/evalcache
 mkdir -p $EVALCACHE_DIR
 
-local -A opthash
-zparseopts -D -A opthash -- c: -command:=c
-
-local key
-if [[ -n "${opthash[(i)-c]}" ]]; then
-  key=${opthash[-c]}
-else
-  key=$1
-fi
-
+local key=$1
 if [ -z "${commands[$key]}" ]; then
   return
 fi
