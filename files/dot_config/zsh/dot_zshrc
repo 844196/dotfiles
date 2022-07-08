@@ -15,5 +15,7 @@ zsh-defer dot-evalcache zoxide init zsh --no-cmd
 zsh-defer dot-evalcache direnv hook zsh
 
 zsh-defer -c 'export LS_COLORS="$(vivid generate iceberg-dark)"'
+zsh-defer -c 'zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}'
+
 zsh-defer compinit -C -d ~/.cache/zsh/compdump
 zsh-defer dot-widget-init
