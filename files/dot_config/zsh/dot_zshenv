@@ -1,5 +1,9 @@
 export ZDOTDIR=~/.config/zsh
 
+export HISTFILE=~/.local/state/zsh/history
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+
 # disable system-zshrc
 # SEE: http://fardinshikhiyev.github.io/Speed-up-your-oh-my-zsh/
 export skip_global_compinit=1

@@ -1,2 +1,0 @@
-setopt no_flow_control
-setopt print_eight_bit
