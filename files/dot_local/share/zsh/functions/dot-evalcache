@@ -1,11 +1,6 @@
 local EVALCACHE_DIR=~/.cache/zsh/evalcache
 
-local key=$1
-if [ -z "${commands[$key]}" ]; then
-  return
-fi
-
-local cache=$EVALCACHE_DIR/${key}.zsh
+local cache=$EVALCACHE_DIR/${1}.zsh
 if [ -f $cache ]; then
   source $cache
   return
