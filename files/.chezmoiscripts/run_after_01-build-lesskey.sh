@@ -1,3 +1,5 @@
 #!/bin/bash
 
-lesskey -o ~/.config/less/.less ~/.config/less/.lesskey || true
+if type lesskey >/dev/null 2>&1; then
+  lesskey -o ~/.config/less/.less ~/.config/less/.lesskey
+fi

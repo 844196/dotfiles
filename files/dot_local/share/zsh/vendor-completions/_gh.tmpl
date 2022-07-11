@@ -1,0 +1,2 @@
+{{- $gh := output (expandenv "$HOME/.local/bin/aqua") "-c" (joinPath .chezmoi.sourceDir "dot_config" "aquaproj-aqua" "aqua.yaml") "which" "gh" | trim -}}
+{{- output $gh "completion" "-s" "zsh" -}}
