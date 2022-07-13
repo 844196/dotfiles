@@ -26,3 +26,6 @@ sudo apt clean
 
 # Show package info
 apt show <package_name>
+
+# Show package changelog
+apt changelog <package_name>
