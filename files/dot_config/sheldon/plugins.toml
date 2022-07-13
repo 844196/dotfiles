@@ -7,6 +7,13 @@ load-config = { value = "zsh-defer source ~/.config/{{ name }}/config.zsh", each
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
 
+[plugins.compinit]
+inline = "zsh-defer compinit -C -d ~/.cache/zsh/compdump"
+
+[plugins.fzf-tab]
+github = "Aloxaf/fzf-tab"
+apply = ["defer"]
+
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
 apply = ["defer", "load-config"]
