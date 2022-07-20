@@ -42,3 +42,4 @@ packages:
 - name: vmware-tanzu/carvel-ytt@v0.41.1
 - name: rossmacarthur/sheldon@0.6.6
   registry: local
+- name: wagoodman/dive@v0.10.0
