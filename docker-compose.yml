@@ -1,5 +1,5 @@
 services:
-  workspace:
+  sandbox:
     build:
       context: .
       dockerfile: Dockerfile
@@ -8,3 +8,4 @@ services:
       - HOST_GID=${HOST_GID:?}
     volumes:
       - .:/home/testuser/.dotfiles:cached
+    tty: true

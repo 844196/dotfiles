@@ -19,7 +19,7 @@ sh -c "$(curl -fsLS chezmoi.io/get)" -- -b ~/.local/bin init --apply 844196
 echo "HOST_UID=$(id -u)" >> .env
 echo "HOST_GID=$(id -g)" >> .env
 docker compose build
-docker compose run workspace /bin/bash -c .dotfiles/install.sh
+docker compose run --rm -i sandbox
 ```
 
 ## 📄 License
