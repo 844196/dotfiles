@@ -13,13 +13,24 @@
 sh -c "$(curl -fsLS chezmoi.io/get)" -- -b ~/.local/bin init --apply 844196
 ```
 
+```bash
+git clone https://github.com/844196/dotfiles.git ~/.dotfiles
+~/.dotfiles/install.sh
+```
+
 ## 👷 Debug
 
 ```bash
+# in host
 echo "HOST_UID=$(id -u)" >> .env
 echo "HOST_GID=$(id -g)" >> .env
 docker compose build
 docker compose run --rm -i sandbox
+```
+
+```bash
+# in container
+.dotfiles/install.sh
 ```
 
 ## 📄 License
