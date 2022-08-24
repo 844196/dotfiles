@@ -42,3 +42,4 @@ packages:
 - name: rossmacarthur/sheldon@0.6.6
   registry: local
 - name: wagoodman/dive@v0.10.0
+- name: aws/aws-cli@2.7.22
