@@ -7,6 +7,11 @@ autoload -Uz dot-widget-init
 setopt no_flow_control
 setopt print_eight_bit
 
+function __send_osc7() {
+  printf "\033]7;file://%s%s\033\\" "${HOST}" "${PWD}"
+}
+precmd_functions+=(__send_osc7)
+
 # prompt
 setopt transient_rprompt
 
