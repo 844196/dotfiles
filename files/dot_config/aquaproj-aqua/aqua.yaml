@@ -32,7 +32,7 @@ packages:
 - name: sharkdp/vivid@v0.8.0
   registry: local
 - name: hadolint/hadolint@v2.10.0
-- name: bootandy/dust@v0.8.1
+- name: bootandy/dust@v0.8.2
 - name: jiro4989/ojosama@v0.11.0
 - name: hashicorp/terraform@v1.2.7
 - name: o2sh/onefetch@v2.12.0
