@@ -1,11 +1,9 @@
-<p align="center">
+<h1 align="center">
   <img
     src="https://raw.githubusercontent.com/jglovier/dotfiles-logo/main/dotfiles-logo.png"
     width="320px"
   />
-</p>
-
----
+</h1>
 
 ## :package: Install
 
