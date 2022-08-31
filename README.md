@@ -18,6 +18,12 @@ git clone https://github.com/844196/dotfiles.git ~/.dotfiles
 ~/.dotfiles/install.sh
 ```
 
+## :framed_picture: Wallpaper
+
+```bash
+convert -size 3840x2160 xc:'#161821' wallpaper.png
+```
+
 ## :construction_worker: Debug
 
 ```bash
