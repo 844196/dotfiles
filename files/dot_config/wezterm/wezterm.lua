@@ -125,10 +125,22 @@ return {
     { key = "n", mods = "LEADER", action = wezterm.action { ActivateTabRelative = 1 } },
     { key = "p", mods = "LEADER", action = wezterm.action { ActivateTabRelative = -1 } },
     { key = "[", mods = "LEADER", action = "ActivateCopyMode" },
-    { key = "<", mods = "LEADER|SHIFT", action = wezterm.action.ActivateKeyTable { name = "resize_pane", one_shot = false } },
-    { key = ">", mods = "LEADER|SHIFT", action = wezterm.action.ActivateKeyTable { name = "resize_pane", one_shot = false } },
-    { key = "+", mods = "LEADER|SHIFT", action = wezterm.action.ActivateKeyTable { name = "resize_pane", one_shot = false } },
-    { key = "-", mods = "LEADER", action = wezterm.action.ActivateKeyTable { name = "resize_pane", one_shot = false } },
+    { key = "<", mods = "LEADER|SHIFT", action = wezterm.action.Multiple {
+      wezterm.action.ActivateKeyTable { name = "resize_pane", one_shot = false },
+      wezterm.action.AdjustPaneSize { "Left", 1 },
+    } },
+    { key = ">", mods = "LEADER|SHIFT", action = wezterm.action.Multiple {
+      wezterm.action.ActivateKeyTable { name = "resize_pane", one_shot = false },
+      wezterm.action.AdjustPaneSize { "Right", 1 },
+    } },
+    { key = "+", mods = "LEADER|SHIFT", action = wezterm.action.Multiple {
+      wezterm.action.ActivateKeyTable { name = "resize_pane", one_shot = false },
+      wezterm.action.AdjustPaneSize { "Up", 1 },
+    } },
+    { key = "-", mods = "LEADER", action = wezterm.action.Multiple {
+      wezterm.action.ActivateKeyTable { name = "resize_pane", one_shot = false },
+      wezterm.action.AdjustPaneSize { "Down", 1 },
+    } },
   },
   key_tables = {
     resize_pane = {
