@@ -1,4 +1,6 @@
 <div align="center">
+  <p>&nbsp;</p>
+
   <img
     src="https://raw.githubusercontent.com/jglovier/dotfiles-logo/main/dotfiles-logo-icon.png"
     height="150px"
