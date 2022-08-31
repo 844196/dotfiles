@@ -7,7 +7,7 @@
 
 ---
 
-## 📦 Install
+## :package: Install
 
 ```bash
 sh -c "$(curl -fsLS chezmoi.io/get)" -- -b ~/.local/bin init --apply 844196
@@ -18,7 +18,7 @@ git clone https://github.com/844196/dotfiles.git ~/.dotfiles
 ~/.dotfiles/install.sh
 ```
 
-## 👷 Debug
+## :construction_worker: Debug
 
 ```bash
 # in host
@@ -33,6 +33,6 @@ docker compose run --rm -i sandbox
 .dotfiles/install.sh
 ```
 
-## 📄 License
+## :page_facing_up: License
 
 See [`LICENSE.md`](/LICENSE.md). [Logo](https://github.com/jglovier/dotfiles-logo) by [Joel Glovier](https://github.com/jglovier).
