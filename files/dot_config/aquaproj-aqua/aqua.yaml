@@ -3,43 +3,43 @@
 # aqua - Declarative CLI Version Manager
 # https://aquaproj.github.io/
 registries:
-- type: standard
-  ref: v3.49.0 # renovate: depName=aquaproj/aqua-registry
-- name: local
-  type: local
-  path: registry.yaml
+  - type: standard
+    ref: v3.49.0 # renovate: depName=aquaproj/aqua-registry
+  - name: local
+    type: local
+    path: registry.yaml
 packages:
-- name: sharkdp/bat@v0.21.0
-- name: dandavison/delta@0.14.0
-- name: ogham/exa@v0.10.1
-- name: junegunn/fzf@0.33.0
-- name: x-motemen/ghq@v1.3.0
-- name: starship/starship@v1.10.2
-- name: ajeetdsouza/zoxide@v0.8.3
-- name: denisidoro/navi@v2.20.1
-- name: mrowa44/emojify@2.2.0
-  registry: local
-- name: cli/cli@v2.14.7
-- name: direnv/direnv@v2.32.1
-- name: BurntSushi/ripgrep@13.0.0
-- name: stedolan/jq@jq-1.6
-- name: mikefarah/yq@v4.27.3
-- name: sharkdp/fd@v8.4.0
-- name: muesli/duf@v0.8.1
-- name: ClementTsang/bottom@0.6.8
-- name: orf/gping@gping-v1.3.2
-- name: sharkdp/hyperfine@v1.14.0
-- name: sharkdp/vivid@v0.8.0
-  registry: local
-- name: hadolint/hadolint@v2.10.0
-- name: bootandy/dust@v0.8.3
-- name: jiro4989/ojosama@v0.11.0
-- name: hashicorp/terraform@v1.2.8
-- name: o2sh/onefetch@v2.12.0
-- name: dalance/procs@v0.13.0
-- name: chmln/sd@v0.7.6
-- name: vmware-tanzu/carvel-ytt@v0.42.0
-- name: rossmacarthur/sheldon@0.6.6
-  registry: local
-- name: wagoodman/dive@v0.10.0
-- name: aws/aws-cli@2.7.22
+  - name: sharkdp/bat@v0.21.0
+  - name: dandavison/delta@0.14.0
+  - name: ogham/exa@v0.10.1
+  - name: junegunn/fzf@0.33.0
+  - name: x-motemen/ghq@v1.3.0
+  - name: starship/starship@v1.10.2
+  - name: ajeetdsouza/zoxide@v0.8.3
+  - name: denisidoro/navi@v2.20.1
+  - name: mrowa44/emojify@2.2.0
+    registry: local
+  - name: cli/cli@v2.14.7
+  - name: direnv/direnv@v2.32.1
+  - name: BurntSushi/ripgrep@13.0.0
+  - name: stedolan/jq@jq-1.6
+  - name: mikefarah/yq@v4.27.3
+  - name: sharkdp/fd@v8.4.0
+  - name: muesli/duf@v0.8.1
+  - name: ClementTsang/bottom@0.6.8
+  - name: orf/gping@gping-v1.3.2
+  - name: sharkdp/hyperfine@v1.14.0
+  - name: sharkdp/vivid@v0.8.0
+    registry: local
+  - name: hadolint/hadolint@v2.10.0
+  - name: bootandy/dust@v0.8.3
+  - name: jiro4989/ojosama@v0.11.0
+  - name: hashicorp/terraform@v1.2.8
+  - name: o2sh/onefetch@v2.12.0
+  - name: dalance/procs@v0.13.0
+  - name: chmln/sd@v0.7.6
+  - name: vmware-tanzu/carvel-ytt@v0.42.0
+  - name: rossmacarthur/sheldon@0.6.6
+    registry: local
+  - name: wagoodman/dive@v0.10.0
+  - name: aws/aws-cli@2.7.22
