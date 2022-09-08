@@ -141,6 +141,9 @@ return {
       wezterm.action.ActivateKeyTable { name = "resize_pane", one_shot = false },
       wezterm.action.AdjustPaneSize { "Down", 1 },
     } },
+    { key = "q", mods = "LEADER", action = wezterm.action.PaneSelect {
+      alphabet = "1234567890"
+    } },
   },
   key_tables = {
     resize_pane = {
