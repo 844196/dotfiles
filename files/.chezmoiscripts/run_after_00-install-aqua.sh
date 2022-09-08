@@ -18,4 +18,4 @@ else
   fi
 fi
 
-exec "$aqua" -c {{ .chezmoi.sourceDir }}/dot_config/aquaproj-aqua/aqua.yaml i
+exec "$aqua" -c ~/.config/aquaproj-aqua/aqua.yaml i
