@@ -9,58 +9,55 @@ for idx, dom in ipairs(wsl_domains) do
   dom.default_cwd = "~"
 end
 
-local my_iceberg = wezterm.color.get_builtin_schemes()["iceberg-dark"]
-my_iceberg.split = "#0f1117"
-my_iceberg.tab_bar = {
-  background = "#161821",
-
-  active_tab = {
-    bg_color = "#161821",
-    fg_color = "rgba(107, 112, 137, 0.69)",
-    intensity = "Half",
-    underline = "None",
-    italic = false,
-    strikethrough = false,
-  },
-
-  inactive_tab = {
-    bg_color = "#161821",
-    fg_color = "#3d435c",
-    intensity = "Half",
-    underline = "None",
-    italic = false,
-    strikethrough = false,
-  },
-
-  inactive_tab_hover = {
-    bg_color = "#161821",
-    fg_color = "rgba(107, 112, 137, 0.69)",
-    intensity = "Half",
-    underline = "None",
-    italic = true,
-    strikethrough = false,
-  },
-
-  new_tab = {
-    bg_color = "#161821",
-    fg_color = "#161821",
-    italic = false
-  },
-
-  new_tab_hover = {
-    bg_color = "#161821",
-    fg_color = "#161821",
-    italic = false
-  },
-}
-
 return {
   wsl_domains = wsl_domains,
 
-  color_schemes = {
-    ["My Iceberg"] = my_iceberg,
+  color_scheme = "iceberg-dark",
+  colors = {
+    split = "#0f1117",
+    tab_bar = {
+      background = "#161821",
+
+      active_tab = {
+        bg_color = "#161821",
+        fg_color = "rgba(107, 112, 137, 0.69)",
+        intensity = "Half",
+        underline = "None",
+        italic = false,
+        strikethrough = false,
+      },
+
+      inactive_tab = {
+        bg_color = "#161821",
+        fg_color = "#3d435c",
+        intensity = "Half",
+        underline = "None",
+        italic = false,
+        strikethrough = false,
+      },
+
+      inactive_tab_hover = {
+        bg_color = "#161821",
+        fg_color = "rgba(107, 112, 137, 0.69)",
+        intensity = "Half",
+        underline = "None",
+        italic = true,
+        strikethrough = false,
+      },
+
+      new_tab = {
+        bg_color = "#161821",
+        fg_color = "#161821",
+        italic = false
+      },
+
+      new_tab_hover = {
+        bg_color = "#161821",
+        fg_color = "#161821",
+        italic = false
+      },
+    },
   },
-  color_scheme = "My Iceberg",
 
   font = wezterm.font("UDEV Gothic 35NFLG", { weight = 600 }),
   font_size = 8,
