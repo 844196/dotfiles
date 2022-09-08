@@ -122,6 +122,7 @@ return {
     { key = "n", mods = "LEADER", action = wezterm.action { ActivateTabRelative = 1 } },
     { key = "p", mods = "LEADER", action = wezterm.action { ActivateTabRelative = -1 } },
     { key = "[", mods = "LEADER", action = "ActivateCopyMode" },
+    { key = "]", mods = "LEADER", action = wezterm.action.Paste },
     { key = "<", mods = "LEADER|SHIFT", action = wezterm.action.Multiple {
       wezterm.action.ActivateKeyTable { name = "resize_pane", one_shot = false },
       wezterm.action.AdjustPaneSize { "Left", 1 },
