@@ -158,6 +158,7 @@ return {
         mods = "NONE",
         action = wezterm.action.Multiple {
           { CopyTo = "ClipboardAndPrimarySelection" },
+          wezterm.action.ClearSelection,
           { CopyMode = "Close" },
         },
       },
