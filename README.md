@@ -26,6 +26,12 @@ git clone https://github.com/844196/dotfiles.git ~/.dotfiles
 ~/.dotfiles/install.sh
 ```
 
+### :link: WezTerm shortcut (for Windows)
+
+```
+"C:\Program Files\WezTerm\wezterm-gui.exe" --config-file \\wsl.localhost\Ubuntu\home\{{ USERNAME_GOES_HERE }}\.config\wezterm\wezterm.lua --config "default_domain='WSL:Ubuntu'"
+```
+
 ## :framed_picture: Wallpaper
 
 ![desktop](https://user-images.githubusercontent.com/4990822/187770964-2f1a4501-46ad-41e0-9a5c-e5497594cebc.png)
