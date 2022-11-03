@@ -2,7 +2,7 @@ shell = "zsh"
 
 [templates]
 defer = '{% for file in files %}zsh-defer source "{{ file }}"{% endfor %}'
-load-config = '{% for file in files %}zsh-defer source ~/.config/{{ file }}/config.zsh{% endfor %}'
+load-config = 'zsh-defer source ~/.config/{{ name }}/config.zsh'
 
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
