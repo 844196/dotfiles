@@ -42,6 +42,4 @@ packages:
   - name: rossmacarthur/sheldon@0.7.1
     registry: local
   - name: wagoodman/dive@v0.10.0
-  {{- if eq .chezmoi.os "linux" }}
   - name: aws/aws-cli@2.7.22
-  {{- end }}
