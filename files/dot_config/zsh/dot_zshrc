@@ -71,8 +71,10 @@ dot-evalcache starship init zsh --print-full-init
 zsh-defer dot-evalcache navi widget zsh
 zsh-defer dot-evalcache zoxide init zsh --no-cmd
 zsh-defer dot-evalcache direnv hook zsh
+zsh-defer -c '
+  dot-evalcache ~/.local/libexec/vivid-compat iceberg-dark
+  zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}
+'
 
 zsh-defer dot-widget-init
-zsh-defer -c 'export LS_COLORS="$(vivid generate iceberg-dark)"'
-zsh-defer -c 'zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}'
 zsh-defer source ~/.config/fzf/config.sh

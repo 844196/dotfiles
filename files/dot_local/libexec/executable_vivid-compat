@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cat <<EOF
+LS_COLORS='$(vivid generate $1)';
+export LS_COLORS
+EOF
