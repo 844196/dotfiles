@@ -24,6 +24,7 @@ fi
 
 export path=(
   ~/.local/bin(N-/)
+  ~/.local/bin_aqua(N-/)
   ~/.local/share/aquaproj-aqua/bin(N-/)
   /usr/local/opt/coreutils/libexec/gnubin(N-/)
   /usr/local/opt/grep/libexec/gnubin(N-/)
