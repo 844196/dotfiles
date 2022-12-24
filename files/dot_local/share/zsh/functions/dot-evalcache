@@ -1,6 +1,6 @@
 local EVALCACHE_DIR=~/.cache/zsh/evalcache
 
-local cache=$EVALCACHE_DIR/${1}.zsh
+local cache=$EVALCACHE_DIR/${1:t}.zsh
 if [ -f $cache ]; then
   source $cache
   return
