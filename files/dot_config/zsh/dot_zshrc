@@ -48,6 +48,7 @@ zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z} r:|[-_.]=**' '+m:{A-Z}={a-
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.cache/zsh/compcache
 zstyle ':dot:compinit:' dump-path ~/.cache/zsh/compdump
+zstyle ':dot:compinit:' compile-dump yes
 
 # histories
 setopt extendedhistory
