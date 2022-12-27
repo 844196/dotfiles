@@ -13,8 +13,11 @@ local dump_ttl
 zstyle -s ':dot:compinit:' dump-ttl dump_ttl
 : ${dump_ttl:=86400}
 
+local -a options
+zstyle -a ':dot:compinit:' options options
+
 if [[ -n ${dump_path}(#qN.ms+${dump_ttl}) ]]; then
-	compinit -d $dump_path
+	compinit ${options[@]} -d $dump_path
 else
 	compinit -C -d $dump_path
 fi
