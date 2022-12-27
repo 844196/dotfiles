@@ -2,6 +2,7 @@ autoload -Uz compinit
 
 local dump_path
 zstyle -s ':dot:compinit:' dump-path dump_path
+: ${dump_path:=${ZDOTDIR:-$HOME}/.zcompdump}
 
 # idea: https://gist.github.com/ctechols/ca1035271ad134841284
 if [[ -n ${dump_path}(#qN.mh+24) ]]; then
