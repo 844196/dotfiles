@@ -1,5 +1,5 @@
-autoload -Uz compinit
 autoload -Uz select-word-style
+autoload -Uz dot-compinit
 autoload -Uz dot-send-osc7
 autoload -Uz dot-evalcache
 autoload -Uz dot-widget-init
@@ -50,6 +50,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # Must be after execution 
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z} r:|[-_.]=**' '+m:{A-Z}={a-z} r:|[-_.]=**'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.cache/zsh/compcache
+zstyle ':dot:compinit:' dump-path ~/.cache/zsh/compdump
 
 # histories
 setopt extendedhistory

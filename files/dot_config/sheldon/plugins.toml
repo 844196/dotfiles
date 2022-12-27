@@ -9,7 +9,7 @@ github = "romkatv/zsh-defer"
 rev = "57a6650"
 
 [plugins.compinit]
-inline = "zsh-defer compinit -C -d ~/.cache/zsh/compdump"
+inline = "zsh-defer dot-compinit"
 
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
