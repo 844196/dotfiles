@@ -10,6 +10,10 @@ zsh-defer -c '{% for file in files %}source "{{ file }}"; {% endfor %}source ~/.
 github = "romkatv/zsh-defer"
 rev = "57a6650"
 
+[plugins.undollar]
+github = 'zpm-zsh/undollar'
+rev = '5113cd0'
+
 # Must be after execution of fpath load and only need to call once
 [plugins.compinit]
 inline = "zsh-defer dot-compinit"
