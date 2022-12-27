@@ -11,9 +11,6 @@ setopt no_flow_control
 setopt print_eight_bit
 precmd_functions+=(dot-send-osc7)
 
-# prompt
-setopt transient_rprompt
-
 # colors
 dot-evalcache ~/.local/libexec/vivid-compat iceberg-dark
 
@@ -61,6 +58,7 @@ setopt hist_reduce_blanks
 setopt hist_find_no_dups
 
 # keybindings
+dot-widget-init
 bindkey '^N' history-search-forward
 bindkey '^P' history-search-backward
 bindkey '^[[Z' reverse-menu-complete
@@ -72,12 +70,15 @@ bindkey '^X^F' dot-insert-git-file
 bindkey '^X^G' dot-cd-ghq
 bindkey '^X^J' dot-cd-zoxide
 
+# plugins
 dot-evalcache sheldon source
-dot-evalcache starship init zsh --print-full-init
 
+# setup cli tools
+zsh-defer source ~/.config/fzf/config.sh
 zsh-defer dot-evalcache navi widget zsh
 zsh-defer dot-evalcache zoxide init zsh --no-cmd
 zsh-defer dot-evalcache direnv hook zsh
 
-zsh-defer dot-widget-init
-zsh-defer source ~/.config/fzf/config.sh
+# prompt
+setopt transient_rprompt
+dot-evalcache starship init zsh --print-full-init # Must be execution at end of zshrc
