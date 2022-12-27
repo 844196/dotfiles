@@ -6,22 +6,22 @@ load-config = 'zsh-defer source ~/.config/{{ name }}/config.zsh'
 
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
-rev = "57a6650ff262f577278275ddf11139673e01e471"
+rev = "57a6650"
 
 [plugins.compinit]
 inline = "zsh-defer compinit -C -d ~/.cache/zsh/compdump"
 
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
-rev = "a411ef3e0992d4839f0732ebeb9823024afaaaa8"
+rev = "a411ef3"
 apply = ["defer", "load-config"]
 
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"
-rev = "b2c910a85ed84cb7e5108e7cb3406a2e825a858f"
+rev = "b2c910a"
 apply = ["defer", "load-config"]
 
 [plugins.zsh-autopair]
 github = "hlissner/zsh-autopair"
-rev = "396c38a7468458ba29011f2ad4112e4fd35f78e6"
+rev = "396c38a"
 apply = ["defer"]
