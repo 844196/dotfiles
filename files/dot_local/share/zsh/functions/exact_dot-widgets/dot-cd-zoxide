@@ -26,6 +26,7 @@ $ZOXIDE query -l -s \
   | dot-fzf \
     --no-exit-0 \
     --no-multi \
+    --scheme=path \
     --header 'Press CTRL-X to remove entry' \
     --delimiter '│ ' \
     --nth '2..' \

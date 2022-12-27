@@ -8,6 +8,7 @@ local selected=($(
       --no-sort \
       --no-exit-0 \
       --no-multi \
+      --scheme=history \
       --query="'${BUFFER}" \
       --delimiter='│ ' \
       --nth='2..' \

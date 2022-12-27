@@ -22,6 +22,7 @@ git -c color.status=always -c status.relativePaths=true status --short --untrack
   | dot-fzf \
     --multi \
     --no-exit-0 \
+    --scheme=path \
     --header-lines=1 \
     --delimiter '│ ' \
     --nth '2..' \

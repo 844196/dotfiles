@@ -9,6 +9,7 @@ ghq list \
   | dot-fzf \
     --no-exit-0 \
     --no-multi \
+    --scheme=path \
     --preview $__PREVIEW__ \
   | xargs -I PATH ghq list --full-path --exact PATH \
   | dot-cd
