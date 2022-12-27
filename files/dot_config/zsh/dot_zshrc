@@ -1,5 +1,3 @@
-# vim: filetype=zsh
-
 autoload -Uz select-word-style
 autoload -Uz dot-compinit
 autoload -Uz dot-send-osc7
