@@ -31,6 +31,9 @@ alias htop='btm'
 alias df='duf'
 alias du='dust'
 alias ping='gping'
+alias d='docker'
+alias dc='docker compose'
+alias nr='npm run'
 
 # word-chars
 select-word-style default
