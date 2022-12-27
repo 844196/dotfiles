@@ -6,6 +6,10 @@ defer-with-config = '''
 zsh-defer -c '{% for file in files %}source "{{ file }}"; {% endfor %}source ~/.config/{{ name }}/config.zsh'
 '''
 
+[plugins.zsh-completions]
+github = 'zsh-users/zsh-completions'
+rev = 'b46602d'
+
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
 rev = "57a6650"
