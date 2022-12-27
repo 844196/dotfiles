@@ -1,3 +1,5 @@
+# vim: filetype=zsh
+
 export ZDOTDIR=~/.config/zsh
 
 export HISTFILE=~/.local/state/zsh/history
