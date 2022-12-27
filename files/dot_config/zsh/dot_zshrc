@@ -2,7 +2,7 @@ autoload -Uz select-word-style
 autoload -Uz dot-compinit
 autoload -Uz dot-send-osc7
 autoload -Uz dot-evalcache
-autoload -Uz dot-widget-init
+autoload -Uz dot-widgetinit
 
 # core
 setopt no_flow_control
@@ -56,7 +56,7 @@ setopt hist_reduce_blanks
 setopt hist_find_no_dups
 
 # keybindings
-dot-widget-init
+dot-widgetinit
 bindkey '^N' history-search-forward
 bindkey '^P' history-search-backward
 bindkey '^[[Z' reverse-menu-complete
