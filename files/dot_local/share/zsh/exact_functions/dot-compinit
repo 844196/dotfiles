@@ -2,6 +2,9 @@
 
 autoload -Uz compinit
 
+setopt local_options
+setopt extendedglob
+
 local dump_path
 zstyle -s ':dot:compinit:' dump-path dump_path
 : ${dump_path:=${ZDOTDIR:-$HOME}/.zcompdump}
