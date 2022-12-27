@@ -2,7 +2,9 @@ shell = "zsh"
 
 [templates]
 defer = '{% for file in files %}zsh-defer source "{{ file }}"{% endfor %}'
-load-config = 'zsh-defer source ~/.config/{{ name }}/config.zsh'
+defer-with-config = '''
+zsh-defer -c '{% for file in files %}source "{{ file }}"; {% endfor %}source ~/.config/{{ name }}/config.zsh'
+'''
 
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
@@ -23,7 +25,7 @@ apply = ["defer"]
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"
 rev = "b2c910a"
-apply = ["defer", "load-config"]
+apply = ["defer-with-config"]
 
 # see: https://github.com/zsh-users/zsh-autosuggestions#disabling-automatic-widget-re-binding
 [plugins.zsh-autosuggestions-pre]
@@ -34,4 +36,4 @@ inline = 'export ZSH_AUTOSUGGEST_MANUAL_REBIND=1'
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
 rev = "a411ef3"
-apply = ["defer", "load-config"]
+apply = ["defer-with-config"]
