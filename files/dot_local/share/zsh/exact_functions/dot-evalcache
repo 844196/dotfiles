@@ -1,6 +1,12 @@
+set -e
+
 local EVALCACHE_DIR
 zstyle -s ':dot:evalcache:*' cache-dir EVALCACHE_DIR
 : ${EVALCACHE_DIR:?Need 'zstyle ':dot:evalcache:*' cache-dir path/to/cache-dir'}
+
+if [[ ! -d $EVALCACHE_DIR ]]; then
+  mkdir -p $EVALCACHE_DIR
+fi
 
 local cache=$EVALCACHE_DIR/${1:t}.zsh
 if [[ ! -e $cache ]]; then
