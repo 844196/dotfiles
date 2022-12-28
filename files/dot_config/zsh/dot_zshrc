@@ -8,6 +8,7 @@ autoload -Uz dot-widgetinit
 setopt no_flow_control
 setopt print_eight_bit
 precmd_functions+=(dot-send-osc7)
+zstyle ':dot:evalcache:*' cache-dir ~/.cache/zsh/evalcache
 
 # colors
 dot-evalcache ~/.local/libexec/vivid-compat iceberg-dark
