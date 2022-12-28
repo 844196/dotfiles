@@ -1,5 +1,3 @@
-set -e
-
 local EVALCACHE_DIR
 zstyle -s ':dot:evalcache:*' cache-dir EVALCACHE_DIR
 : ${EVALCACHE_DIR:?Need 'zstyle ':dot:evalcache:*' cache-dir path/to/cache-dir'}
