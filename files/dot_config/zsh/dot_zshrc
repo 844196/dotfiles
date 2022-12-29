@@ -46,7 +46,7 @@ zstyle ':zle:*' word-style unspecified
 # completions
 setopt nolistbeep
 setopt magic_equal_subst
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # Must be after execution of vivid-compat (= LS_COLORS loaded)
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # Must be after execution of vivid-compat (i.e. LS_COLORS loaded)
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z} r:|[-_.]=**' '+m:{A-Z}={a-z} r:|[-_.]=**'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.cache/zsh/compcache
