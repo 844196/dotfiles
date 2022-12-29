@@ -18,14 +18,14 @@ dot-evalcache ~/.local/libexec/vivid-compat iceberg-dark
 # aliases
 alias ..='cd ..'
 alias t='cd "$(mktemp -d)"'
-alias st='git status'
+alias st=' git status'
 alias ck='git checkout'
-alias br='git branch -vv'
+alias br=' git branch -vv'
 alias co='git commit'
-alias di='git -c delta.side-by-side=true diff'
-alias gg='git graph -n 15'
+alias di=' git -c delta.side-by-side=true diff'
+alias gg=' git graph -n 15'
 alias c='chezmoi'
-alias ls='exa -gF --icons --git --color=always -la'
+alias ls=' exa -gF --icons --git --color=always -la'
 alias grep='rg'
 alias find='fd'
 alias df='duf'
@@ -54,11 +54,12 @@ zstyle ':dot:compinit:*' compile-dump yes
 HISTFILE=~/.local/state/zsh/history
 HISTSIZE=1000000
 SAVEHIST=1000000
-HISTORY_IGNORE='(:(| *)|true|false|pwd|which *|type *|exit|man *|zman|exa(| *)|less *|bat *|git status(| *)|git *diff(| *)|git graph(| *)|*--help|*--version)'
+HISTORY_IGNORE='(:(| *)|true|false|pwd|which *|type *|exit|man *|zman|less *|bat *|*--help|*--version)'
 zshaddhistory_functions+=(dot-historyignore)
 setopt EXTENDED_HISTORY
 setopt SHARE_HISTORY
 setopt HIST_REDUCE_BLANKS
+setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 
 # keybindings
