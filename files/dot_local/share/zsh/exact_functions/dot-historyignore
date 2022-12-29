@@ -1,0 +1,4 @@
+# SEE: https://zsh.sourceforge.io/Doc/Release/Parameters.html#index-HISTORY_005fIGNORE
+
+emulate -L zsh
+[[ ${1%%$'\n'} != ${~HISTORY_IGNORE} ]]
