@@ -55,6 +55,9 @@ zstyle ':dot:compinit:*' dump-ttl $((60 * 60 * 24 * 7))
 zstyle ':dot:compinit:*' compile-dump yes
 
 # histories
+HISTFILE=~/.local/state/zsh/history
+HISTSIZE=1000000
+SAVEHIST=1000000
 setopt extendedhistory
 setopt share_history
 setopt hist_reduce_blanks

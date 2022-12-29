@@ -1,9 +1,5 @@
 export ZDOTDIR=~/.config/zsh
 
-export HISTFILE=~/.local/state/zsh/history
-export HISTSIZE=1000000
-export SAVEHIST=1000000
-
 # Disable execution compinit in ubuntu distributed global zshrc (/etc/zsh/zshrc)
 # SEE: https://www.zsh.org/mla/users/2021/msg00879.html
 export skip_global_compinit=1
