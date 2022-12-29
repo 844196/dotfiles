@@ -7,8 +7,8 @@ autoload -Uz \
   dot-evalcache
 
 # core
-setopt no_flow_control
-setopt print_eight_bit
+unsetopt FLOW_CONTROL
+setopt PRINT_EIGHT_BIT
 precmd_functions+=(dot-send-osc7)
 zstyle ':dot:evalcache:*' cache-dir ~/.cache/zsh/evalcache
 
@@ -44,8 +44,8 @@ zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
 
 # completions
-setopt nolistbeep
-setopt magic_equal_subst
+unsetopt LIST_BEEP
+setopt MAGIC_EQUAL_SUBST
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # Must be after execution of vivid-compat (i.e. LS_COLORS loaded)
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z} r:|[-_.]=**' '+m:{A-Z}={a-z} r:|[-_.]=**'
 zstyle ':completion:*' use-cache on
@@ -58,10 +58,10 @@ zstyle ':dot:compinit:*' compile-dump yes
 HISTFILE=~/.local/state/zsh/history
 HISTSIZE=1000000
 SAVEHIST=1000000
-setopt extendedhistory
-setopt share_history
-setopt hist_reduce_blanks
-setopt hist_find_no_dups
+setopt EXTENDED_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_REDUCE_BLANKS
+setopt HIST_FIND_NO_DUPS
 
 # keybindings
 dot-widgetinit
@@ -88,5 +88,5 @@ zsh-defer dot-evalcache zoxide init zsh --no-cmd
 zsh-defer dot-evalcache direnv hook zsh
 
 # prompt
-setopt transient_rprompt
+setopt TRANSIENT_RPROMPT
 dot-evalcache starship init zsh --print-full-init # Must be execution at end of zshrc
