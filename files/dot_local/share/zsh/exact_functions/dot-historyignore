@@ -1,4 +1,8 @@
 # SEE: https://zsh.sourceforge.io/Doc/Release/Parameters.html#index-HISTORY_005fIGNORE
 
 emulate -L zsh
+
+setopt LOCAL_OPTIONS
+setopt EXTENDED_GLOB
+
 [[ ${1%%$'\n'} != ${~HISTORY_IGNORE} ]]
