@@ -1,10 +1,9 @@
-autoload -Uz \
-  select-word-style \
-  smart-insert-last-word \
-  dot-compinit \
-  dot-widgetinit \
-  dot-send-osc7 \
-  dot-evalcache
+autoload -Uz select-word-style
+autoload -Uz smart-insert-last-word
+autoload -Uz dot-compinit
+autoload -Uz dot-widgetinit
+autoload -Uz dot-send-osc7
+autoload -Uz dot-evalcache
 
 # core
 unsetopt FLOW_CONTROL
