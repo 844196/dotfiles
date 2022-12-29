@@ -54,7 +54,7 @@ zstyle ':dot:compinit:*' compile-dump yes
 HISTFILE=~/.local/state/zsh/history
 HISTSIZE=1000000
 SAVEHIST=1000000
-HISTORY_IGNORE='(:(| *)|true|false|pwd|which *|type *|exit|man *|zman|less *|bat *|*--help|*--version)'
+HISTORY_IGNORE='(pwd|which *|type *|exit|man *|zman|less *|bat *|*--help|*--version)'
 zshaddhistory_functions+=(dot-historyignore)
 setopt EXTENDED_HISTORY
 setopt SHARE_HISTORY
