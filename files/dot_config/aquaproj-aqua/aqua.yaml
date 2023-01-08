@@ -15,7 +15,7 @@ packages:
   - name: junegunn/fzf@0.35.1
   - name: x-motemen/ghq@v1.3.0
   - name: starship/starship@v1.12.0
-  - name: ajeetdsouza/zoxide@v0.8.3
+  - name: ajeetdsouza/zoxide@v0.9.0
   - name: denisidoro/navi@v2.20.1
   - name: mrowa44/emojify@2.2.0
     registry: local
