@@ -5,11 +5,16 @@ autoload -Uz dot-widgetinit
 autoload -Uz dot-historyignore
 autoload -Uz dot-send-osc7
 autoload -Uz dot-evalcache
+autoload -Uz dot-toggle-delta-features
+
+# hooks
+precmd_functions+=(dot-send-osc7)
+preexec_functions+=(dot-toggle-delta-features)
+zshaddhistory_functions+=(dot-historyignore)
 
 # core
 unsetopt FLOW_CONTROL
 setopt PRINT_EIGHT_BIT
-precmd_functions+=(dot-send-osc7)
 zstyle ':dot:evalcache:*' cache-dir ~/.cache/zsh/evalcache
 
 # colors
@@ -22,7 +27,7 @@ alias st=' git status'
 alias ck='git checkout'
 alias br='git branch -vv'
 alias co='git commit'
-alias di=' git -c delta.side-by-side=true diff'
+alias di=' git diff'
 alias gg=' git graph -n 15'
 alias c='chezmoi'
 alias ls=' exa -gF --icons --git --color=always -la'
@@ -55,7 +60,6 @@ HISTFILE=~/.local/state/zsh/history
 HISTSIZE=1000000
 SAVEHIST=1000000
 HISTORY_IGNORE='(pwd|which *|type *|exit|man *|zman|less *|bat *|*--help|*--version)'
-zshaddhistory_functions+=(dot-historyignore)
 setopt EXTENDED_HISTORY
 setopt SHARE_HISTORY
 setopt HIST_REDUCE_BLANKS

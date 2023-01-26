@@ -1,0 +1,8 @@
+# idea: https://github.com/dandavison/delta/issues/359#issuecomment-751447333
+
+# TODO Using zstyle
+if (( COLUMNS >= 240 )); then
+  export DELTA_FEATURES=+side-by-side
+else
+  export DELTA_FEATURES=+
+fi

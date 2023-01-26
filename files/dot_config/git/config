@@ -36,22 +36,25 @@
   helper = "!f() { ~/.local/libexec/git-credential-manager $*; }; f"
 [delta]
   navigate = true
-  line-numbers = true
-  features = iceberg
   true-color = always
+  features = iceberg line-numbers
 [delta "iceberg"]
   syntax-theme = iceberg
   file-style = bold "#6b7089"
   file-decoration-style = "#34394E" ul
   hunk-header-style = omit
-  line-numbers-left-style = "#34394E"
-  line-numbers-right-style = line-numbers-left-style
-  line-numbers-zero-style = "#454b68"
-  line-numbers-plus-style = line-numbers-zero-style
-  line-numbers-minus-style = line-numbers-zero-style
   plus-style = syntax "#353933"
   plus-emph-style = syntax "#445861"
   plus-non-emph-style = syntax "#2D3841"
   minus-style = syntax "#3E2B32"
   minus-emph-style = syntax "#445861"
   minus-non-emph-style = syntax "#2D3841"
+[delta "line-numbers"]
+  line-numbers = true
+  line-numbers-left-style = "#34394E"
+  line-numbers-right-style = line-numbers-left-style
+  line-numbers-zero-style = "#454b68"
+  line-numbers-plus-style = line-numbers-zero-style
+  line-numbers-minus-style = line-numbers-zero-style
+[delta "side-by-side"]
+  side-by-side = true
