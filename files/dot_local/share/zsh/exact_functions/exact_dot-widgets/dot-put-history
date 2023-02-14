@@ -1,3 +1,6 @@
+setopt LOCAL_OPTIONS
+setopt EXTENDED_GLOB
+
 tput cub 9999
 
 local selected=($(
@@ -9,10 +12,11 @@ local selected=($(
       --no-exit-0 \
       --no-multi \
       --scheme=history \
-      --query="'${BUFFER}" \
+      --query="^${${LBUFFER##[[:space:]]##}:q}" \
       --delimiter='│ ' \
       --nth='2..' \
       --height=30% \
+      --bind 'space:put(\ )' \
       --border=none
 ))
 
