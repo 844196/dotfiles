@@ -1,4 +1,5 @@
 autoload -Uz select-word-style
+autoload -Uz history-search-end
 autoload -Uz smart-insert-last-word
 autoload -Uz dot-compinit
 autoload -Uz dot-widgetinit
@@ -68,10 +69,12 @@ setopt HIST_FIND_NO_DUPS
 
 # keybindings
 dot-widgetinit
+zle -N history-beginning-search-forward-end history-search-end
+zle -N history-beginning-search-backward-end history-search-end
 zle -N insert-last-word smart-insert-last-word
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
-bindkey '^N' history-search-forward
-bindkey '^P' history-search-backward
+bindkey '^N' history-beginning-search-forward-end
+bindkey '^P' history-beginning-search-backward-end
 bindkey '^[[Z' reverse-menu-complete
 bindkey '^M' dot-expand-alias-and-accept-line
 bindkey ' ' dot-expand-alias-and-self-insert
