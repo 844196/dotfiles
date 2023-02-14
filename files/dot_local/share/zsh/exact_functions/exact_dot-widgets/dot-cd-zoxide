@@ -2,7 +2,7 @@ readonly local ZOXIDE="$(aqua which zoxide)"
 readonly local EXA="$(aqua which exa)"
 
 readonly local __DECORATE__='
-  s/(^\s*[0-9]+)\s/\x1b[38;2;69;75;104m\1 \x1b[38;2;52;57;78m│ \x1b[0m/
+  s/(^\s*[0-9]+\.[0-9])\s/\x1b[38;2;69;75;104m\1 \x1b[38;2;52;57;78m│ \x1b[0m/
 '
 
 readonly local __EXTRACT_PATH__='
