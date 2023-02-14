@@ -51,10 +51,8 @@ format = "([$ahead_behind]($style) )([$all_status]($style) )"
 format = "[took](fg:#6b7089) [$duration]($style)"
 
 [custom.git_user]
-shell = ["bash", "--noprofile", "--norc", "-e"]
-when = true
-command = '''
-user="$(git config --local user.name 2>/dev/null)"
-echo " ${user}"
-'''
-format = "[$output](fg:#3d435c)"
+shell = ["git", "config", "--local"]
+detect_folders = [".git"]
+command = "user.name"
+use_stdin = false
+format = "[ $output](fg:#3d435c)"
