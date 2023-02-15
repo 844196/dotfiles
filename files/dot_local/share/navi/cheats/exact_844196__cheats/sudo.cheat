@@ -1,0 +1,6 @@
+% sudo, visudo
+
+# Edit sudoers
+sudo EDITOR=vi visudo --file=<sudoers>
+
+$ sudoers: cat <(echo /etc/sudoers) <(fd . --type file /etc/sudoers.d)
