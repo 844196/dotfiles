@@ -1,0 +1,9 @@
+% docker
+
+# Remove project-related volumes
+docker volume rm <volumes>
+
+$ volumes: docker volume ls --quiet --filter="name=$(basename $PWD)" \
+  --- \
+  --multi \
+  --expand
