@@ -1,0 +1,8 @@
+if [[ $OSTYPE == darwin* ]]; then
+  pbpaste
+elif [[ "$(</proc/sys/kernel/osrelease)" == *microsoft* ]]; then
+  # SEE: https://www.techtronic.us/pbcopy-pbpaste-for-wsl/
+  powershell.exe Get-Clipboard | sed 's/\r$//' | sed -z '$ s/\n$//'
+else
+  # TODO
+fi

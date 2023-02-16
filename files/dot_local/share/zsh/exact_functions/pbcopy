@@ -1,0 +1,8 @@
+if [[ $OSTYPE == darwin* ]]; then
+  tee <&0 | pbcopy
+elif [[ "$(</proc/sys/kernel/osrelease)" == *microsoft* ]]; then
+  # SEE: https://www.techtronic.us/pbcopy-pbpaste-for-wsl/
+  tee <&0 | clip.exe
+else
+  # TODO
+fi

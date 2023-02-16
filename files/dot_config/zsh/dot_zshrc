@@ -7,6 +7,7 @@ autoload -Uz dot-historyignore
 autoload -Uz dot-send-osc7
 autoload -Uz dot-evalcache
 autoload -Uz dot-toggle-delta-features
+autoload -Uz pbcopy pbpaste
 
 # hooks
 precmd_functions+=(dot-send-osc7)
@@ -39,6 +40,7 @@ alias du='dust'
 alias d='docker'
 alias dc='docker compose'
 alias nr='npm run'
+alias -g C='| pbcopy'
 
 # word-chars
 select-word-style default
