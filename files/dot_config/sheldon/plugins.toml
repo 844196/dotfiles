@@ -1,18 +1,8 @@
 shell = "zsh"
 
-[templates]
-defer = '{% for file in files %}zsh-defer source "{{ file }}"{% endfor %}'
-defer-with-config = '''
-zsh-defer -c '{% for file in files %}source "{{ file }}"; {% endfor %}source ~/.config/{{ name }}/config.zsh'
-'''
-
 [plugins.zsh-completions]
 github = 'zsh-users/zsh-completions'
 rev = 'b46602d'
-
-[plugins.zsh-defer]
-github = "romkatv/zsh-defer"
-rev = "57a6650"
 
 [plugins.undollar]
 github = 'zpm-zsh/undollar'
@@ -36,13 +26,15 @@ compinit $(compute-compinit-options --ttl $((60 * 60 * 24 * 7)) $compdump) -d $c
 [plugins.zsh-autopair]
 github = "hlissner/zsh-autopair"
 rev = "396c38a"
-apply = ["defer"]
 
 # Must be loaded after loading all other plugins (except zsh-autosuggestions) and compinit
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"
 rev = "b2c910a"
-apply = ["defer-with-config"]
+
+[plugins.zsh-syntax-highlighting-config]
+local = '~/.config/zsh-syntax-highlighting'
+use = ['config.zsh']
 
 # see: https://github.com/zsh-users/zsh-autosuggestions#disabling-automatic-widget-re-binding
 [plugins.zsh-autosuggestions-pre]
@@ -53,4 +45,7 @@ inline = 'export ZSH_AUTOSUGGEST_MANUAL_REBIND=1'
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
 rev = "a411ef3"
-apply = ["defer-with-config"]
+
+[plugins.zsh-autosuggestions-config]
+local = '~/.config/zsh-autosuggestions'
+use = ['config.zsh']
