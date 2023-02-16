@@ -90,10 +90,10 @@ bindkey '^X^J' dot-cd-zoxide
 dot-evalcache sheldon source
 
 # setup cli tools
-zsh-defer source ~/.config/fzf/config.sh
-zsh-defer dot-evalcache navi widget zsh
-zsh-defer dot-evalcache zoxide init zsh --no-cmd
-zsh-defer dot-evalcache direnv hook zsh
+source ~/.config/fzf/config.sh
+dot-evalcache navi widget zsh
+dot-evalcache zoxide init zsh --no-cmd
+dot-evalcache direnv hook zsh
 
 # prompt
 setopt TRANSIENT_RPROMPT
