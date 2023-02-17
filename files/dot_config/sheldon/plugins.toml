@@ -1,4 +1,7 @@
-shell = "zsh"
+shell = 'zsh'
+
+[templates]
+load-config = 'source $ZDOTDIR/{{ name }}.config.zsh'
 
 [plugins.zsh-completions]
 github = 'zsh-users/zsh-completions'
@@ -24,26 +27,20 @@ compinit $(compute-compinit-options --ttl $((60 * 60 * 24 * 7)) $compdump) -d $c
 # Must be after execution compinit
 # see: https://github.com/hlissner/zsh-autopair#zplug
 [plugins.zsh-autopair]
-github = "hlissner/zsh-autopair"
-rev = "396c38a"
+github = 'hlissner/zsh-autopair'
+rev = '396c38a'
 
 # Must be loaded after loading all other plugins (except zsh-autosuggestions) and compinit
 [plugins.zsh-syntax-highlighting]
-github = "zsh-users/zsh-syntax-highlighting"
-rev = "b2c910a"
-
-[plugins.zsh-syntax-highlighting-config]
-inline = 'source-config zsh-syntax-highlighting'
+github = 'zsh-users/zsh-syntax-highlighting'
+rev = 'b2c910a'
+apply = ['source', 'load-config']
 
 # see: https://github.com/zsh-users/zsh-autosuggestions#disabling-automatic-widget-re-binding
 [plugins.zsh-autosuggestions-pre]
-inline = 'export ZSH_AUTOSUGGEST_MANUAL_REBIND=1'
+inline = 'ZSH_AUTOSUGGEST_MANUAL_REBIND=1'
 
-# Must be initialized after zsh-syntax-highlighting
-# see: https://github.com/zsh-users/zsh-autosuggestions/blob/a411ef3e0992d4839f0732ebeb9823024afaaaa8/src/start.zsh#L8-L13
 [plugins.zsh-autosuggestions]
-github = "zsh-users/zsh-autosuggestions"
-rev = "a411ef3"
-
-[plugins.zsh-autosuggestions-config]
-inline = 'source-config zsh-autosuggestions'
+github = 'zsh-users/zsh-autosuggestions'
+rev = 'a411ef3'
+apply = ['source', 'load-config']

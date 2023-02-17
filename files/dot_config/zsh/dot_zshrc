@@ -7,7 +7,6 @@ autoload -Uz dot-send-osc7
 autoload -Uz dot-evalcache
 autoload -Uz dot-toggle-delta-features
 autoload -Uz pbcopy pbpaste
-autoload -Uz source-config
 
 # hooks
 precmd_functions+=(dot-send-osc7)
@@ -86,7 +85,7 @@ bindkey '^X^G' dot-cd-ghq
 bindkey '^X^J' dot-cd-zoxide
 
 # setup cli tools
-source-config fzf
+source $ZDOTDIR/fzf.config.zsh
 dot-evalcache navi widget zsh
 dot-evalcache zoxide init zsh --no-cmd
 dot-evalcache direnv hook zsh
