@@ -24,6 +24,14 @@ compinit $(compute-compinit-options --ttl $((60 * 60 * 24 * 7)) $compdump) -d $c
 [[ ! -e ${compdump}.zwc || ${compdump}.zwc -ot $compdump ]] && zcompile $compdump
 '''
 
+# Avoid `cut` call
+# see: https://github.com/hlissner/zsh-autopair/blob/396c38a7468458ba29011f2ad4112e4fd35f78e6/autopair.zsh#L5-L6
+[plugins.zsh-autopair-pre]
+inline = '''
+AUTOPAIR_SPC_WIDGET=dot-expand-alias-and-self-insert
+AUTOPAIR_BKSPC_WIDGET=backward-delete-char
+'''
+
 # Must be after execution compinit
 # see: https://github.com/hlissner/zsh-autopair#zplug
 [plugins.zsh-autopair]
