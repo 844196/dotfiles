@@ -65,12 +65,14 @@ setopt HIST_REDUCE_BLANKS
 setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 
-# keybindings
+# zle
 dot-widgetinit
 zle -N history-beginning-search-forward-end history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N insert-last-word smart-insert-last-word
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
+
+# keybindings
 bindkey '^N' history-beginning-search-forward-end
 bindkey '^P' history-beginning-search-backward-end
 bindkey '^[[Z' reverse-menu-complete
@@ -82,14 +84,14 @@ bindkey '^X^F' dot-insert-git-file
 bindkey '^X^G' dot-cd-ghq
 bindkey '^X^J' dot-cd-zoxide
 
-# plugins
-dot-evalcache sheldon source
-
 # setup cli tools
 source ~/.config/fzf/config.sh
 dot-evalcache navi widget zsh
 dot-evalcache zoxide init zsh --no-cmd
 dot-evalcache direnv hook zsh
+
+# plugins
+dot-evalcache sheldon source
 
 # prompt
 setopt TRANSIENT_RPROMPT
