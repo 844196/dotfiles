@@ -1,3 +1,4 @@
+autoload -Uz add-zsh-hook
 autoload -Uz select-word-style
 autoload -Uz history-search-end
 autoload -Uz smart-insert-last-word
@@ -9,9 +10,9 @@ autoload -Uz dot-toggle-delta-features
 autoload -Uz pbcopy pbpaste
 
 # hooks
-precmd_functions+=(dot-send-osc7)
-preexec_functions+=(dot-toggle-delta-features)
-zshaddhistory_functions+=(dot-historyignore)
+add-zsh-hook precmd dot-send-osc7
+add-zsh-hook preexec dot-toggle-delta-features
+add-zsh-hook zshaddhistory dot-historyignore
 
 # core
 unsetopt FLOW_CONTROL
