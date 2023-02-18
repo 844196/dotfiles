@@ -31,20 +31,20 @@ read_only = " [READ_ONLY]"
 
 [git_branch]
 always_show_remote = true
-format = "[on](fg:#6b7089) [שׂ $branch](purple) "
+format = "[on](fg:#6b7089) [ $branch](purple) "
 
 [git_status]
 style = "purple"
-conflicted = " "
-untracked  = " "
-stashed    = " "
-modified   = " "
-staged     = " "
+conflicted = "~"
+untracked  = "?"
+stashed    = "*"
+modified   = "!"
+staged     = "+"
 renamed    = " "
 deleted    = " "
-ahead = " ${count}"
-behind = " ${count}"
-diverged = " ${ahead_count}  ${behind_count}"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇡${ahead_count} ⇣${behind_count}"
 format = "([$ahead_behind]($style) )([$all_status]($style) )"
 
 [cmd_duration]
