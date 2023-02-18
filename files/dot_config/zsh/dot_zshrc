@@ -49,7 +49,11 @@ zstyle ':zle:*' word-style unspecified
 # completions
 unsetopt LIST_BEEP
 setopt MAGIC_EQUAL_SUBST
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # Must be after execution of vivid-compat (i.e. LS_COLORS loaded)
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' list-packed yes
+zstyle ':completion:*' list-separator '│'
+zstyle ':completion:*' list-colors 'no=0;38;5;8:ma=0;38;5;0;48;5;8:fi=0;38;5;7:di=0;38;5;4:ex=0;38;5;1'
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z} r:|[-_.]=**' '+m:{A-Z}={a-z} r:|[-_.]=**'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.cache/zsh/compcache
