@@ -12,7 +12,7 @@ local selected=($(
       --no-exit-0 \
       --no-multi \
       --scheme=history \
-      --query="^${${LBUFFER##[[:space:]]##}:q}" \
+      --query="${${LBUFFER##[[:space:]]##}:q}" \
       --delimiter='│ ' \
       --nth='2..' \
       --height=30% \
