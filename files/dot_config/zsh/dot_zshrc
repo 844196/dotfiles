@@ -60,7 +60,7 @@ zstyle ':completion:*' cache-path ~/.cache/zsh/compcache
 HISTFILE=~/.local/state/zsh/history
 HISTSIZE=1000000
 SAVEHIST=1000000
-HISTORY_IGNORE='(pwd|which *|type *|exit|man *|zman|less *|bat *|*--help|*--version)'
+HISTORY_IGNORE='(:|true|false|pwd|which *|type *|where *|exit|(|z)man(| *)|less *|bat *|neofetch(| *)|*--help|*--version)'
 setopt EXTENDED_HISTORY
 setopt SHARE_HISTORY
 setopt HIST_REDUCE_BLANKS
