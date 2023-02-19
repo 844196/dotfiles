@@ -8,6 +8,7 @@ autoload -Uz dot-send-osc7
 autoload -Uz dot-evalcache
 autoload -Uz dot-toggle-delta-features
 autoload -Uz pbcopy pbpaste
+autoload -Uz promptinit
 
 # hooks
 add-zsh-hook precmd dot-send-osc7
@@ -99,5 +100,5 @@ dot-evalcache direnv hook zsh
 dot-evalcache sheldon source
 
 # prompt
-setopt TRANSIENT_RPROMPT
-dot-evalcache starship init zsh --print-full-init # Must be execution at end of zshrc
+promptinit
+prompt zen
