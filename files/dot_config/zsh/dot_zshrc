@@ -81,6 +81,7 @@ bindkey '^P' history-beginning-search-backward-end
 bindkey '^[[Z' reverse-menu-complete
 bindkey '^M' accept-line-with-expand-alias
 bindkey ' ' self-insert-with-expand-alias
+bindkey '^[e' emacs-forward-word
 bindkey '^R' dot-put-history
 bindkey '^X^B' dot-insert-git-branch
 bindkey '^X^F' dot-insert-git-file
