@@ -21,48 +21,45 @@ prompt_zen_async_jobs() {
   async_flush_jobs prompt_zen_async_jobs
 
   if [[ -n ./(../)#.git(#qN) ]]; then
-    async_job prompt_zen_async_jobs prompt_zen_async_job+vcs-info $PWD
-    async_job prompt_zen_async_jobs prompt_zen_async_job+git-status $PWD
-    async_job prompt_zen_async_jobs prompt_zen_async_job+git-author $PWD
+    async_job prompt_zen_async_jobs prompt_zen_async_job+vcs-info 2 $PWD
+    async_job prompt_zen_async_jobs prompt_zen_async_job+git-status 3 $PWD
+    async_job prompt_zen_async_jobs prompt_zen_async_job+git-author 4 $PWD
   fi
 }
 
 prompt_zen_async_job+vcs-info() {
-  cd -q $1
+  cd -q $2
   LANG=C vcs_info
+  echo $1
   print $vcs_info_msg_0_
 }
 
 prompt_zen_async_job+git-status() {
+  echo $1
   # see https://git-scm.com/docs/git-status#_background_refresh
-  git -C $1 --no-optional-locks status --porcelain -unormal
+  git -C $2 --no-optional-locks status --porcelain -unormal
 }
 
 prompt_zen_async_job+git-author() {
-  git -C $1 config --local user.name
+  echo $1
+  git -C $2 config --local user.name
 }
 
 prompt_zen_async_jobs_callback() {
-  local job=$1 code=$2 output=$3
-
+  local job=$1 code=$2 output=("${(@f)3}")
   case $job in
+    prompt_zen_async_job+*)
+      psvar[${output[1]}]=${(j:\n:)output[2,-1]}
+      ;;
     \[async])
-      if (( code == 2 )) || (( code == 3 )) || (( code == 130 )); then
+      if [[ $code = (2|3|130) ]]; then
         async_stop_worker prompt_zen_async
         prompt_zen_async_init
         prompt_zen_async_jobs
       fi
       ;;
-    prompt_zen_async_job+vcs-info)
-      psvar[2]=$output
-      ;;
-    prompt_zen_async_job+git-status)
-      psvar[3]=$output
-      ;;
-    prompt_zen_async_job+git-author)
-      psvar[4]=$output
-      ;;
   esac
+
   zle reset-prompt
 }
 
