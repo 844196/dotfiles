@@ -40,11 +40,6 @@ alias dc='docker compose'
 alias nr='npm run'
 alias -g C='| pbcopy'
 
-# word-chars
-select-word-style default
-zstyle ':zle:*' word-chars " /=;@:{},|"
-zstyle ':zle:*' word-style unspecified
-
 # completions
 unsetopt LIST_BEEP
 setopt MAGIC_EQUAL_SUBST
@@ -69,12 +64,15 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 
 # zle
+select-word-style default
 dot-widgetinit
 zle -N accept-line-with-expand-alias
 zle -N self-insert-with-expand-alias
 zle -N history-beginning-search-forward-end history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N insert-last-word smart-insert-last-word
+zstyle ':zle:*' word-style unspecified
+zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
 
 # keybindings
