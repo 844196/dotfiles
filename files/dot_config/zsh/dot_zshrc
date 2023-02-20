@@ -3,26 +3,26 @@ autoload -Uz select-word-style
 autoload -Uz history-search-end
 autoload -Uz smart-insert-last-word
 autoload -Uz dot-widgetinit
-autoload -Uz dot-historyignore
-autoload -Uz dot-send-osc7
-autoload -Uz dot-evalcache
-autoload -Uz dot-toggle-delta-features
+autoload -Uz historyignore
+autoload -Uz send-osc7
+autoload -Uz evalcache
+autoload -Uz toggle-delta-features
 autoload -Uz pbcopy pbpaste
 autoload -Uz promptinit
 autoload -Uz accept-line-with-expand-alias self-insert-with-expand-alias
 
 # hooks
-add-zsh-hook precmd dot-send-osc7
-add-zsh-hook preexec dot-toggle-delta-features
-add-zsh-hook zshaddhistory dot-historyignore
+add-zsh-hook precmd send-osc7
+add-zsh-hook preexec toggle-delta-features
+add-zsh-hook zshaddhistory historyignore
 
 # core
 unsetopt FLOW_CONTROL
 setopt PRINT_EIGHT_BIT
-zstyle ':dot:evalcache:*' cache-dir ~/.cache/zsh/evalcache
+zstyle ':evalcache:*' cache-dir ~/.cache/zsh/evalcache
 
 # colors
-dot-evalcache ~/.local/libexec/vivid-compat iceberg-dark
+evalcache ~/.local/libexec/vivid-compat iceberg-dark
 
 # aliases
 alias ..='cd ..'
@@ -89,12 +89,12 @@ bindkey '^X^J' dot-cd-zoxide
 
 # setup cli tools
 source $ZDOTDIR/fzf.config.zsh
-dot-evalcache navi widget zsh
-dot-evalcache zoxide init zsh --no-cmd
-dot-evalcache direnv hook zsh
+evalcache navi widget zsh
+evalcache zoxide init zsh --no-cmd
+evalcache direnv hook zsh
 
 # plugins
-dot-evalcache sheldon source
+evalcache sheldon source
 
 # prompt
 promptinit

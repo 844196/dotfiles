@@ -1,6 +1,6 @@
 local EVALCACHE_DIR
-zstyle -s ':dot:evalcache:*' cache-dir EVALCACHE_DIR
-: ${EVALCACHE_DIR:?Need 'zstyle ':dot:evalcache:*' cache-dir path/to/cache-dir'}
+zstyle -s ':evalcache:*' cache-dir EVALCACHE_DIR
+: ${EVALCACHE_DIR:?Need 'zstyle ':evalcache:*' cache-dir path/to/cache-dir'}
 
 if [[ ! -d $EVALCACHE_DIR ]]; then
   mkdir -p $EVALCACHE_DIR

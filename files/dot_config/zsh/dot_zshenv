@@ -29,7 +29,9 @@ export path=(
 )
 export fpath=(
   ~/.local/share/zsh/functions(N-/)
+  ~/.local/share/zsh/functions/Completion(N-/)
   ~/.local/share/zsh/functions/Prompts(N-/)
+  ~/.local/share/zsh/functions/Misc(N-/)
   ~/.local/share/zsh/functions/Zle(N-/)
   ~/.local/share/zsh/vendor-completions(N-/)
   $fpath
