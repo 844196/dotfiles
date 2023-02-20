@@ -38,7 +38,6 @@ alias ls=' exa -gF --icons --git --color=always -la'
 alias d='docker'
 alias dc='docker compose'
 alias nr='npm run'
-alias -g C='| pbcopy'
 
 # completions
 unsetopt LIST_BEEP
