@@ -93,9 +93,9 @@ prompt_zen_setup() {
   prompt_zen_async_init
 
   PS1='
-%F{4}%n@%m%f %F{8}in%f %F{12} %(1V.%1v.%~)%f %(2V.%F{8}on%f %F{5} %2v%(3V.%F{9}*%f.)%f.)
+%F{4}%n@%m%f %F{8}in%f %F{12} %(1V.%1v.%~)%f %(2V.%F{8}on%f %F{5} %2v%(3V.%F{15}*%f.)%f.)
 %(?.%F{8}.%F{9})%(!.#.)%f '
-  RPS1='%(4V.%F{8} %4v%f.)'
+  RPS1=$'%(4V.%{\e[38;2;52;57;78m%} %4v%f.)'
 
   prompt_opts=(cr sp percent)
 }
