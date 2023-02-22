@@ -15,13 +15,6 @@ rev = '5113cd0'
 github = 'mattmc3/zman'
 rev = '40483a4'
 
-[plugins.zsh-async]
-github = 'mafredri/zsh-async'
-rev = 'ee1d11b'
-
-[plugins.zsh-async-post]
-inline = 'async_init'
-
 # Must be after execution of fpath load and only need to call once
 [plugins.compinit]
 inline = '''

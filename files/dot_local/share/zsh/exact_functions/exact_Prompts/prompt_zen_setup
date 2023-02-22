@@ -4,78 +4,7 @@ prompt_zen_help() {
   cat <<'EOF'
 Usage:
   prompt zen
-
-Note:
-  Requires zsh-async (https://github.com/mafredri/zsh-async)
 EOF
-}
-
-prompt_zen_async_init() {
-  async_start_worker prompt_zen_async_jobs
-  async_register_callback prompt_zen_async_jobs prompt_zen_async_jobs_callback
-}
-
-prompt_zen_async_jobs() {
-  setopt LOCAL_OPTIONS EXTENDED_GLOB
-
-  async_flush_jobs prompt_zen_async_jobs
-
-  if [[ -n ./(../)#.git(#qN) ]]; then
-    async_job prompt_zen_async_jobs prompt_zen_async_job+vcs-info 2 $PWD
-    async_job prompt_zen_async_jobs prompt_zen_async_job+git-status 3 $PWD
-    async_job prompt_zen_async_jobs prompt_zen_async_job+git-author 4 $PWD
-  fi
-}
-
-prompt_zen_async_job+vcs-info() {
-  cd -q $2
-  LANG=C vcs_info
-  echo $1
-  print $vcs_info_msg_0_
-}
-
-prompt_zen_async_job+git-status() {
-  echo $1
-  # see https://git-scm.com/docs/git-status#_background_refresh
-  git -C $2 --no-optional-locks status --porcelain -unormal
-}
-
-prompt_zen_async_job+git-author() {
-  echo $1
-  git -C $2 config --local user.name
-}
-
-prompt_zen_async_jobs_callback() {
-  local job=$1 code=$2 output=("${(@f)3}")
-  case $job in
-    prompt_zen_async_job+*)
-      psvar[${output[1]}]=${(j:\n:)output[2,-1]}
-      ;;
-    \[async])
-      if [[ $code = (2|3|130) ]]; then
-        async_stop_worker prompt_zen_async
-        prompt_zen_async_init
-        prompt_zen_async_jobs
-      fi
-      ;;
-  esac
-
-  zle reset-prompt
-}
-
-prompt_zen_precmd() {
-  psvar=()
-
-  local rest=$PWD
-  while [[ $rest != / ]]; do
-    if [[ -e $rest/.git ]]; then
-      psvar[1]=${rest:t}${PWD##$rest}
-      break
-    fi
-    rest=${rest:h}
-  done
-
-  prompt_zen_async_jobs
 }
 
 prompt_zen_setup() {
@@ -84,10 +13,11 @@ prompt_zen_setup() {
   zstyle ':vcs_info:*' enable git
   zstyle ':vcs_info:git:*' use-simple yes
   zstyle ':vcs_info:git:*' max-exports 1
-  zstyle ':vcs_info:git:*' formats '%b'
+  zstyle ':vcs_info:git:*' formats '%b:%u:%m'
+  zstyle ':vcs_info:git+set-message:*' hooks prompt_zen_git-status prompt_zen_git-author
 
   add-zsh-hook precmd prompt_zen_precmd
-  prompt_zen_async_init
+  zle -N prompt_zen_async_precmd_callback
 
   PS1='
 %F{4}%n@%m%f %F{8}in%f %F{12} %(1V.%1v.%~)%f %(2V.%F{8}on%f %F{5} %2v%(3V.%F{15}*%f.)%f.)
@@ -95,6 +25,68 @@ prompt_zen_setup() {
   RPS1=$'%(4V.%{\e[38;2;52;57;78m%} %4v%f.)'
 
   prompt_opts=(cr sp percent)
+}
+
+prompt_zen_precmd() {
+  emulate -L zsh
+  setopt EXTENDED_GLOB
+
+  {
+    psvar=()
+
+    local fd
+    exec {fd}< <(prompt_zen_async_precmd)
+    zle -Fw $fd prompt_zen_async_precmd_callback
+
+    local match=((../)#.git(#qN))
+    if (( $+match[1] )); then
+      local root=${match[1]:A:h}
+      psvar[1]=${root:t}${PWD#$root}
+    fi
+  } always {
+    # Ensure next hook will run
+    # see: https://zsh.sourceforge.io/Doc/Release/Functions.html#index-hook-functions
+    :
+  }
+}
+
+prompt_zen_async_precmd() {
+  LANG=C vcs_info
+  print $vcs_info_msg_0_
+}
+
+prompt_zen_async_precmd_callback() {
+  local fd=$1
+  {
+    zle -F $fd
+
+    local REPLY
+    read -ru $fd
+    [[ -z $REPLY ]] &&
+      return
+
+    local segments=("${(@s[:])REPLY}")
+    psvar[2]=$segments[1]
+    psvar[3]=$segments[2]
+    psvar[4]=$segments[3]
+
+    zle && [[ $CONTEXT == start ]] &&
+      zle .reset-prompt
+  } always {
+    exec {fd}<&-
+  }
+}
+
++vi-prompt_zen_git-status() {
+  # Avoid index update (i.e. .git/index.lock remain)
+  # see: https://git-scm.com/docs/git-status#_background_refresh
+  if [[ -n "$(git --no-optional-locks status --porcelain -unormal 2>/dev/null)" ]]; then
+    hook_com[unstaged]='*'
+  fi
+}
+
++vi-prompt_zen_git-author() {
+  hook_com[misc]="$(git config --local user.name 2>/dev/null)"
 }
 
 prompt_zen_setup "$@"
