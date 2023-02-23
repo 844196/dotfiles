@@ -20,6 +20,7 @@ add-zsh-hook zshaddhistory historyignore
 
 # core
 unsetopt FLOW_CONTROL
+unsetopt BEEP
 setopt PRINT_EIGHT_BIT
 zstyle ':evalcache:*' cache-dir ~/.cache/zsh/evalcache
 
@@ -42,7 +43,6 @@ alias dc='docker compose'
 alias nr='npm run'
 
 # completions
-unsetopt LIST_BEEP
 setopt MAGIC_EQUAL_SUBST
 zstyle ':completion' dump-file ~/.cache/zsh/compdump-$ZSH_VERSION
 zstyle ':completion' dump-ttl $((60 * 60 * 18))
