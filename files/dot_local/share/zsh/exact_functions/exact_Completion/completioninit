@@ -1,0 +1,19 @@
+# vim: set ft=zsh:
+
+autoload -Uz compinit
+
+local COMPDUMP TTL
+zstyle -s ':completion' dump-file COMPDUMP
+zstyle -s ':completion' dump-ttl TTL
+
+: ${COMPDUMP:=${ZDOTDIR:-$HOME}/.zcompdump}
+: ${TTL:=86400}
+
+local exists=($COMPDUMP(N.ms-$TTL))
+if (( $#exists )); then
+  compinit -C -d $COMPDUMP
+else
+  compinit -d $COMPDUMP
+  touch $COMPDUMP
+  zcompile -R $COMPDUMP
+fi

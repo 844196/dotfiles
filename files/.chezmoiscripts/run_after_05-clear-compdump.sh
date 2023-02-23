@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rm -rf ~/.cache/zsh/compdump{,.zwc}
+rm -rf ~/.cache/zsh/compdump*

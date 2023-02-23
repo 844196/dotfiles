@@ -19,14 +19,8 @@ rev = '5113cd0'
 github = 'mattmc3/zman'
 rev = '40483a4'
 
-# Must be after execution of fpath load and only need to call once
-[plugins.compinit]
-inline = '''
-autoload -Uz compinit compute-compinit-options
-local compdump=~/.cache/zsh/compdump
-compinit $(compute-compinit-options --ttl $((60 * 60 * 24 * 7)) $compdump) -d $compdump
-[[ ! -e ${compdump}.zwc || ${compdump}.zwc -ot $compdump ]] && zcompile $compdump
-'''
+[plugins.completioninit]
+inline = 'autoload -Uz completioninit && completioninit'
 
 # Must be loaded after loading all other plugins (except zsh-autosuggestions, see below)
 [plugins.zsh-syntax-highlighting]

@@ -44,6 +44,8 @@ alias nr='npm run'
 # completions
 unsetopt LIST_BEEP
 setopt MAGIC_EQUAL_SUBST
+zstyle ':completion' dump-file ~/.cache/zsh/compdump-$ZSH_VERSION
+zstyle ':completion' dump-ttl $((60 * 60 * 18))
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*' list-packed yes
