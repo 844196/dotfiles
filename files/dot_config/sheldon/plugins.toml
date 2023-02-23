@@ -1,8 +1,5 @@
 shell = 'zsh'
 
-[templates]
-load-config = 'source $ZDOTDIR/{{ name }}.config.zsh'
-
 [plugins.anyframe]
 github = 'mollifier/anyframe'
 rev = '5986753'
@@ -26,7 +23,6 @@ inline = 'autoload -Uz completioninit && completioninit'
 [plugins.zsh-syntax-highlighting]
 github = 'zsh-users/zsh-syntax-highlighting'
 rev = 'b2c910a'
-apply = ['source', 'load-config']
 
 # see: https://github.com/zsh-users/zsh-autosuggestions#disabling-automatic-widget-re-binding
 [plugins.zsh-autosuggestions-pre]
@@ -35,4 +31,3 @@ inline = 'ZSH_AUTOSUGGEST_MANUAL_REBIND=1'
 [plugins.zsh-autosuggestions]
 github = 'zsh-users/zsh-autosuggestions'
 rev = 'a411ef3'
-apply = ['source', 'load-config']

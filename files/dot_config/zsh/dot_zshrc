@@ -24,9 +24,6 @@ unsetopt BEEP
 setopt PRINT_EIGHT_BIT
 zstyle ':evalcache:*' cache-dir ~/.cache/zsh/evalcache
 
-# colors
-evalcache ~/.local/libexec/vivid-compat iceberg-dark
-
 # aliases
 alias ..='cd ..'
 alias t='cd "$(mktemp -d)"'
@@ -50,8 +47,6 @@ zstyle ':completion' dump-ttl $((60 * 60 * 18))
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*' list-packed yes
-zstyle ':completion:*' list-separator '│'
-zstyle ':completion:*' list-colors 'no=0;38;5;8:ma=0;38;5;0;48;5;8:fi=0;38;5;7:di=0;38;5;4:ex=0;38;5;1'
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z} r:|[-_.]=**' '+m:{A-Z}={a-z} r:|[-_.]=**'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.cache/zsh/compcache
@@ -93,13 +88,22 @@ bindkey '^X^G' anyframe-widget-cd-ghq
 bindkey '^X^J' anyframe-widget-cd-zoxide
 
 # setup cli tools
-source $ZDOTDIR/fzf.config.zsh
+FZF_DEFAULT_OPTS="--reverse --cycle --ansi --ellipsis '…' --no-info --no-scrollbar --no-hscroll --no-sort"
 evalcache navi widget zsh
 evalcache zoxide init zsh --no-cmd
 evalcache direnv hook zsh
 
 # plugins
 evalcache sheldon source
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
+  accept-line-with-expand-alias
+
+  # see: https://github.com/zsh-users/zsh-autosuggestions/issues/619
+  history-beginning-search-backward-end
+  history-beginning-search-forward-end
+)
 
 # prompt
 promptinit

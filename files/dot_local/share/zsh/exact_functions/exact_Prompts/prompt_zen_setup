@@ -8,7 +8,10 @@ EOF
 }
 
 prompt_zen_setup() {
-  autoload -Uz vcs_info add-zsh-hook
+  emulate -L zsh
+  setopt EXTENDED_GLOB
+
+  autoload -Uz vcs_info add-zsh-hook evalcache
 
   zstyle ':vcs_info:*' enable git
   zstyle ':vcs_info:git:*' use-simple yes
@@ -23,6 +26,53 @@ prompt_zen_setup() {
 %F{4}%n@%m%f %F{8}in%f %F{12} %(1V.%1v.%~)%f %(2V.%F{8}on%f %F{5} %2v%(3V.%F{15}*%f.)%f.)
 %(?.%F{8}.%F{9})%(!.#.)%f '
   RPS1=$'%(4V.%{\e[38;2;52;57;78m%} %4v%f.)'
+
+  evalcache ~/.local/libexec/vivid-compat iceberg-dark
+
+  zstyle ':completion:*' list-separator '│'
+  zstyle ':completion:*' list-colors ${(s.:.)${LS_COLORS/no=([^:])#/}} 'no=0;38;5;8' 'ma=0;38;5;0;48;5;8'
+
+  # see: https://gist.github.com/sheepla/d1ff1ef11cc21dcc7434a25a012a970f
+  FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
+    --prompt ' '
+    --pointer '❯'
+    --marker '❯'
+    --color bg:-1
+    --color bg+:#1e2132
+    --color fg:#c6c8d1
+    --color fg+:#c6c8d1
+    --color hl:#6b7089
+    --color hl+:#84a0c6
+    --color spinner:#84a0c6
+    --color header:#6b7089
+    --color border:#34394E
+    --color preview-label:#34394E
+    --color gutter:-1
+    --color info:#b4be82
+    --color pointer:#84a0c6
+    --color marker:#84a0c6
+    --color prompt:8
+  "
+
+  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=black,bold"
+
+  # see: https://github.com/sheepla/dotfiles/blob/fd01d60b3b35fff10f5643ac7db9fca81ea32bb5/.zshrc#L282-L315
+  typeset -Ag ZSH_HIGHLIGHT_STYLES
+  ZSH_HIGHLIGHT_STYLES[command]='fg=white,bold'
+  ZSH_HIGHLIGHT_STYLES[arg0]='fg=white,bold,underline'
+  ZSH_HIGHLIGHT_STYLES[path]='fg=white,underline'
+  ZSH_HIGHLIGHT_STYLES[alias]='fg=white,bold,underline'
+  ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=yellow,bold'
+  ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=red'
+  ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=green'
+  ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=green'
+  ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=cyan,underline'
+  ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]='fg=cyan,bold,underline'
+  ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=blue,underline'
+  ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=blue,bold,underline'
+  ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]='fg=white,bold'
+  ZSH_HIGHLIGHT_STYLES[process-substitution-delimiter]='fg=white,bold'
+  ZSH_HIGHLIGHT_STYLES[back-quoted-argument-delimiter]='fg=white,bold'
 
   prompt_opts=(cr sp percent)
 }
