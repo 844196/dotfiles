@@ -43,6 +43,7 @@ alias dc='docker compose'
 alias nr='npm run'
 
 # completions
+setopt EXTENDED_GLOB
 setopt MAGIC_EQUAL_SUBST
 zstyle ':completion' dump-file ~/.cache/zsh/compdump-$ZSH_VERSION
 zstyle ':completion' dump-ttl $((60 * 60 * 18))
