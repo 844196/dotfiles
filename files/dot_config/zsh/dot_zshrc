@@ -22,7 +22,7 @@ add-zsh-hook zshaddhistory historyignore
 unsetopt FLOW_CONTROL
 unsetopt BEEP
 setopt PRINT_EIGHT_BIT
-zstyle ':evalcache:*' cache-dir ~/.cache/zsh/evalcache
+zstyle ':evalcache' cache-dir ~/.cache/zsh/evalcache
 
 # aliases
 alias ..='cd ..'
