@@ -1,12 +1,14 @@
+# vim: set ft=zsh:
+
 autoload -Uz add-zsh-hook
 autoload -Uz select-word-style
 autoload -Uz history-search-end
 autoload -Uz smart-insert-last-word
-autoload -Uz dot-widgetinit
 autoload -Uz historyignore
 autoload -Uz send-osc7
 autoload -Uz evalcache
 autoload -Uz toggle-delta-features
+autoload -Uz compute-fzf-preview-options
 autoload -Uz pbcopy pbpaste
 autoload -Uz promptinit
 autoload -Uz accept-line-with-expand-alias self-insert-with-expand-alias
@@ -64,7 +66,6 @@ setopt HIST_FIND_NO_DUPS
 
 # zle
 select-word-style default
-dot-widgetinit
 zle -N accept-line-with-expand-alias
 zle -N self-insert-with-expand-alias
 zle -N history-beginning-search-forward-end history-search-end
@@ -73,6 +74,7 @@ zle -N insert-last-word smart-insert-last-word
 zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
+zstyle -e ':anyframe:selector:fzf:*' command 'reply=(fzf --no-exit-0 --no-border --height 70% $(compute-fzf-preview-options))'
 
 # keybindings
 bindkey '^N' history-beginning-search-forward-end
@@ -81,11 +83,11 @@ bindkey '^[[Z' reverse-menu-complete
 bindkey '^M' accept-line-with-expand-alias
 bindkey ' ' self-insert-with-expand-alias
 bindkey '^[e' emacs-forward-word
-bindkey '^R' dot-put-history
-bindkey '^X^B' dot-insert-git-branch
-bindkey '^X^F' dot-insert-git-file
-bindkey '^X^G' dot-cd-ghq
-bindkey '^X^J' dot-cd-zoxide
+bindkey '^R' anyframe-widget-put-history
+bindkey '^X^B' anyframe-widget-insert-git-branch
+bindkey '^X^F' anyframe-widget-insert-git-file
+bindkey '^X^G' anyframe-widget-cd-ghq
+bindkey '^X^J' anyframe-widget-cd-zoxide
 
 # setup cli tools
 source $ZDOTDIR/fzf.config.zsh

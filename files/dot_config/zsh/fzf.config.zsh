@@ -1,15 +1,15 @@
 export FZF_DEFAULT_OPTS="
   --reverse
-  --multi
-  --exit-0
   --cycle
   --no-info
   --ansi
-  --height 90%
   --prompt=' '
   --pointer='❯'
   --marker='❯'
-  --border=horizontal
+  --ellipsis '…'
+  --no-scrollbar
+  --no-hscroll
+  --no-sort
 "
 
 # see: https://gist.github.com/sheepla/d1ff1ef11cc21dcc7434a25a012a970f
@@ -23,9 +23,10 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
   --color=spinner:#84a0c6
   --color=header:#6b7089
   --color=border:#34394E
+  --color=preview-label:#34394E
   --color=gutter:-1
   --color=info:#b4be82
   --color=pointer:#84a0c6
   --color=marker:#84a0c6
-  --color=prompt:#454b68
+  --color=prompt:8
 '

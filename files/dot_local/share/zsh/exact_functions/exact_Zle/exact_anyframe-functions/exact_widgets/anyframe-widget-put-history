@@ -1,0 +1,23 @@
+# vim: set ft=zsh:
+
+emulate -L zsh
+setopt EXTENDED_GLOB
+
+tput cub 9999
+
+local query=${${${LBUFFER##[[:space:]]##}%%[[:space:]]##}// /\\ }
+local hid=${${="$(
+  anyframe-source-history \
+    | anyframe-selector-fzf "${query:+'}$query" \
+      --height 30% \
+      --no-multi \
+      --delimiter '│ ' \
+      --nth 2.. \
+      --scheme history
+)"}[1]}
+
+if (( hid )); then
+  zle vi-fetch-history -n $hid
+fi
+
+zle .reset-prompt

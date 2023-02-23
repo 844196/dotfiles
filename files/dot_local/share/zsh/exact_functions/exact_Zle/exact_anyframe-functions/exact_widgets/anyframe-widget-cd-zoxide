@@ -1,0 +1,17 @@
+# vim: set ft=zsh:
+
+tput cub 9999
+
+anyframe-source-zoxide \
+  | SHELL==$ZSH_NAME anyframe-selector-fzf '' \
+    --no-multi \
+    --delimiter '│ ' \
+    --nth 2.. \
+    --scheme path \
+    --header 'Press CTRL-X to remove entry' \
+    --preview 'exa -gF --icons --git -la {2..}' \
+    --bind 'ctrl-x:execute-silent(zoxide remove {2..})+reload(autoload -Uz anyframe-source-zoxide && anyframe-source-zoxide)' \
+  | sed -E 's/^[^│]*│ //' \
+  | anyframe-action-execute cd --
+
+zle .reset-prompt

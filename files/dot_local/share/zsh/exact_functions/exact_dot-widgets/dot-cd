@@ -1,9 +1,0 @@
-readonly local __STDIN__="$(cat)"
-
-if [[ -n "$__STDIN__" ]]; then
-  zle push-line
-  BUFFER="cd -- ${${(fq)__STDIN__}[@]}"
-  zle accept-line
-fi
-
-zle reset-prompt

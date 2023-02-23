@@ -3,6 +3,10 @@ shell = 'zsh'
 [templates]
 load-config = 'source $ZDOTDIR/{{ name }}.config.zsh'
 
+[plugins.anyframe]
+github = 'mollifier/anyframe'
+rev = '5986753'
+
 [plugins.zsh-completions]
 github = 'zsh-users/zsh-completions'
 rev = 'b46602d'
