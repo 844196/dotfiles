@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [[ $OSTYPE == darwin* ]]; then
   tee <&0 | pbcopy
 elif [[ "$(</proc/sys/kernel/osrelease)" == *microsoft* ]]; then
@@ -5,4 +7,5 @@ elif [[ "$(</proc/sys/kernel/osrelease)" == *microsoft* ]]; then
   tee <&0 | clip.exe
 else
   # TODO
+  :
 fi

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [[ $OSTYPE == darwin* ]]; then
   pbpaste
 elif [[ "$(</proc/sys/kernel/osrelease)" == *microsoft* ]]; then
@@ -5,4 +7,5 @@ elif [[ "$(</proc/sys/kernel/osrelease)" == *microsoft* ]]; then
   powershell.exe Get-Clipboard | sed 's/\r$//' | sed -z '$ s/\n$//'
 else
   # TODO
+  :
 fi

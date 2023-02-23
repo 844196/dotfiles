@@ -9,7 +9,6 @@ autoload -Uz send-osc7
 autoload -Uz evalcache
 autoload -Uz toggle-delta-features
 autoload -Uz compute-fzf-preview-options
-autoload -Uz pbcopy pbpaste
 autoload -Uz promptinit
 autoload -Uz accept-line-with-expand-alias self-insert-with-expand-alias
 
