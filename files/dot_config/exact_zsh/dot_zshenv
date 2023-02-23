@@ -1,59 +1,36 @@
 # vim: set ft=zsh:
 
-export ZDOTDIR=~/.config/zsh
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_STATE_HOME=$HOME/.local/state
 
-# Disable execution compinit in ubuntu distributed global zshrc (/etc/zsh/zshrc)
-# SEE: https://www.zsh.org/mla/users/2021/msg00879.html
-export skip_global_compinit=1
+ZDOTDIR=$XDG_CONFIG_HOME/zsh
 
-# ignore /etc/zprofile, /etc/zshrc, /etc/zlogin, and /etc/zlogout
-# ref. http://zsh.sourceforge.net/Doc/Release/Files.html
-# ref. http://zsh.sourceforge.net/Doc/Release/Options.html#index-GLOBALRCS
-unsetopt GLOBAL_RCS
-
-# system-wide environment settings for zsh(1)
-if [ -x /usr/libexec/path_helper ]; then
-  eval `/usr/libexec/path_helper -s`
-fi
-
-if [ -z "$USER" ]; then
-  export USER=`id -un`
-fi
-
-export path=(
+typeset -U {,F,MAN}PATH {,f,man}path
+path=(
   ~/.local/bin(N-/)
-  ~/.local/bin_aqua(N-/)
-  ~/.local/share/aquaproj-aqua/bin(N-/)
-  /usr/local/opt/coreutils/libexec/gnubin(N-/)
-  /usr/local/opt/grep/libexec/gnubin(N-/)
-  /usr/local/opt/gsed/libexec/gnubin(N-/)
+  $XDG_DATA_HOME/aquaproj-aqua/bin(N-/)
   $path
 )
-export fpath=(
-  ~/.local/share/zsh/functions/*(N-/)
-  ~/.local/share/zsh/functions/Zle/anyframe-functions/*(N-/)
-  ~/.local/share/zsh/vendor-completions(N-/)
+fpath=(
+  $XDG_DATA_HOME/zsh/functions/*(N-/)
+  $XDG_DATA_HOME/zsh/functions/Zle/anyframe-functions/*(N-/)
+  $XDG_DATA_HOME/zsh/vendor-completions(N-/)
   $fpath
 )
 
-export XDG_CONFIG_HOME=~/.config
-export XDG_CACHE_HOME=~/.cache
-export XDG_DATA_HOME=~/.local/share
-export XDG_STATE_HOME=~/.local/state
+export CURL_HOME=$XDG_CONFIG_HOME/curl
+export LESSKEY=$XDG_CONFIG_HOME/less/.less
+export AQUA_GLOBAL_CONFIG=$XDG_CONFIG_HOME/aquaproj-aqua/aqua.yaml
+export SHELDON_CONFIG_DIR=$XDG_CONFIG_HOME/sheldon
+export SHELDON_DATA_DIR=$XDG_DATA_HOME/sheldon
+export FZF_DEFAULT_OPTS="--reverse --cycle --ansi --ellipsis '…' --no-info --no-scrollbar --no-hscroll --no-sort"
 
-export CURL_HOME=~/.config/curl
+# Disable execution compinit in ubuntu distributed global zshrc (/etc/zsh/zshrc)
+# SEE: https://www.zsh.org/mla/users/2021/msg00879.html
+skip_global_compinit=1
 
-export LESSKEY=~/.config/less/.less
-
-export STARSHIP_CONFIG=~/.config/starship/config.toml
-
-export AQUA_GLOBAL_CONFIG=~/.config/aquaproj-aqua/aqua.yaml
-
-export SHELDON_CONFIG_DIR=~/.config/sheldon
-export SHELDON_DATA_DIR=~/.local/share/sheldon
-
-if [ -e ~/.config/zsh/.zshenv.local ]; then
-  source ~/.config/zsh/.zshenv.local
+if [[ -e $ZDOTDIR/.zshenv.local ]]; then
+  source $ZDOTDIR/.zshenv.local
 fi
-
-typeset -U PATH path FPATH fpath MANPATH manpath

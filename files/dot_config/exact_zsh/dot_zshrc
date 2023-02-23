@@ -9,8 +9,8 @@ autoload -Uz send-osc7
 autoload -Uz evalcache
 autoload -Uz toggle-delta-features
 autoload -Uz compute-fzf-preview-options
-autoload -Uz promptinit
-autoload -Uz accept-line-with-expand-alias self-insert-with-expand-alias
+autoload -Uz accept-line-with-expand-alias
+autoload -Uz self-insert-with-expand-alias
 
 # hooks
 add-zsh-hook precmd send-osc7
@@ -21,7 +21,7 @@ add-zsh-hook zshaddhistory historyignore
 unsetopt FLOW_CONTROL
 unsetopt BEEP
 setopt PRINT_EIGHT_BIT
-zstyle ':evalcache' cache-dir ~/.cache/zsh/evalcache
+zstyle ':evalcache' cache-dir $XDG_CACHE_HOME/zsh/evalcache
 
 # aliases
 alias ..='cd ..'
@@ -41,17 +41,17 @@ alias nr='npm run'
 # completions
 setopt EXTENDED_GLOB
 setopt MAGIC_EQUAL_SUBST
-zstyle ':completion' dump-file ~/.cache/zsh/compdump-$ZSH_VERSION
+zstyle ':completion' dump-file $XDG_CACHE_HOME/zsh/compdump-$ZSH_VERSION
 zstyle ':completion' dump-ttl $((60 * 60 * 18))
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*' list-packed yes
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z} r:|[-_.]=**' '+m:{A-Z}={a-z} r:|[-_.]=**'
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.cache/zsh/compcache
+zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/compcache
 
 # histories
-HISTFILE=~/.local/state/zsh/history
+HISTFILE=$XDG_STATE_HOME/zsh/history
 HISTSIZE=1000000
 SAVEHIST=1000000
 HISTORY_IGNORE='(:|true|false|pwd|which *|type *|where *|exit|(|z)man(| *)|less *|bat *|neofetch(| *)|*--help|*--version)'
@@ -87,7 +87,6 @@ bindkey '^X^G' anyframe-widget-cd-ghq
 bindkey '^X^J' anyframe-widget-cd-zoxide
 
 # setup cli tools
-FZF_DEFAULT_OPTS="--reverse --cycle --ansi --ellipsis '…' --no-info --no-scrollbar --no-hscroll --no-sort"
 evalcache navi widget zsh
 evalcache zoxide init zsh --no-cmd
 evalcache direnv hook zsh
@@ -96,14 +95,7 @@ evalcache direnv hook zsh
 evalcache sheldon source
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
-  accept-line-with-expand-alias
-
-  # see: https://github.com/zsh-users/zsh-autosuggestions/issues/619
-  history-beginning-search-backward-end
-  history-beginning-search-forward-end
-)
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(accept-line-with-expand-alias history-beginning-search-backward-end history-beginning-search-forward-end)
 
 # prompt
-promptinit
 prompt zen
