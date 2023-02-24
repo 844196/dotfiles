@@ -15,6 +15,8 @@ prompt_zen_setup() {
 
   zstyle ':vcs_info:*' enable git
   zstyle ':vcs_info:git:*' use-simple yes
+  zstyle ':vcs_info:git:*' check-for-changes no
+  zstyle ':vcs_info:git:*' check-for-staged-changes yes
   zstyle ':vcs_info:git:*' max-exports 1
   zstyle ':vcs_info:git:*' formats '%b:%u%c:%m'
   zstyle ':vcs_info:git+set-message:*' hooks \
@@ -133,11 +135,12 @@ prompt_zen_async_precmd_callback() {
 }
 
 +vi-prompt_zen_git-status() {
+  [[ -n $hook_com[staged] ]] &&
+    return
+
   # Avoid index update (i.e. .git/index.lock remain)
   # see: https://git-scm.com/docs/git-status#_background_refresh
-  if [[ -n "$(git --no-optional-locks status --porcelain -unormal 2>/dev/null)" ]]; then
-    hook_com[unstaged]='*'
-  fi
+  hook_com[unstaged]=${$(git --no-optional-locks status --porcelain -unormal 2>/dev/null):+U}
 }
 
 +vi-prompt_zen_git-remote() {
