@@ -1,0 +1,9 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- $config := fromJson .chezmoi.stdin -}}
+
+{{- /* SEE: https://qiita.com/vitway/items/bbed028d9e469e9991c3 */ -}}
+{{- $config = setValueAtPath "detachKeys" "ctrl-\\" $config -}}
+
+{{- if not (empty $config) -}}
+{{- toPrettyJson $config -}}
+{{- end -}}
