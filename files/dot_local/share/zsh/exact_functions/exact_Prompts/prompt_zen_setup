@@ -148,7 +148,7 @@ prompt_zen_async_precmd_callback() {
 }
 
 +vi-prompt_zen_git-author() {
-  hook_com[misc]=":$(git config --local user.name 2>/dev/null)"
+  hook_com[misc]+=":$(git config --local user.name 2>/dev/null)"
 }
 
 prompt_zen_setup "$@"
