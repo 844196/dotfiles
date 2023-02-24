@@ -16,16 +16,20 @@ prompt_zen_setup() {
   zstyle ':vcs_info:*' enable git
   zstyle ':vcs_info:git:*' use-simple yes
   zstyle ':vcs_info:git:*' max-exports 1
-  zstyle ':vcs_info:git:*' formats '%b:%u:%m'
-  zstyle ':vcs_info:git+set-message:*' hooks prompt_zen_git-status prompt_zen_git-author
+  zstyle ':vcs_info:git:*' formats '%b:%u%c:%m'
+  zstyle ':vcs_info:git+set-message:*' hooks \
+    prompt_zen_git-status \
+    prompt_zen_git-remote \
+    prompt_zen_git-author
 
   add-zsh-hook precmd prompt_zen_precmd
   zle -N prompt_zen_async_precmd_callback
 
+  prompt_opts=(cr sp percent)
   PS1='
-%F{4}%n@%m%f %F{8}in%f %F{12} %(1V.%1v.%~)%f %(2V.%F{8}on%f %F{5} %2v%(3V.%F{15}*%f.)%f.)
+%F{4}%n@%m%f %F{8}in%f %F{12} %(1V.%1v.%~)%f %(2V.%F{8}on%f %F{5} %2v%(3V.%F{15}*%f . )%(4V.%F{5}⇡%4v%f .)%(5V.%F{5}⇣%5v%f.)%f.)
 %(?.%F{8}.%F{9})%(!.#.)%f '
-  RPS1=$'%(4V.%{\e[38;2;52;57;78m%} %4v%f.)'
+  RPS1=$'%(6V.%{\e[38;2;52;57;78m%} %6v%f.)'
 
   evalcache ~/.local/libexec/vivid-compat iceberg-dark
 
@@ -37,6 +41,7 @@ prompt_zen_setup() {
     --prompt ' '
     --pointer '❯'
     --marker '❯'
+    --ellipsis '…'
     --color bg:-1
     --color bg+:#1e2132
     --color fg:#c6c8d1
@@ -73,8 +78,6 @@ prompt_zen_setup() {
   ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]='fg=white,bold'
   ZSH_HIGHLIGHT_STYLES[process-substitution-delimiter]='fg=white,bold'
   ZSH_HIGHLIGHT_STYLES[back-quoted-argument-delimiter]='fg=white,bold'
-
-  prompt_opts=(cr sp percent)
 }
 
 prompt_zen_precmd() {
@@ -119,6 +122,8 @@ prompt_zen_async_precmd_callback() {
     psvar[2]=$segments[1]
     psvar[3]=$segments[2]
     psvar[4]=$segments[3]
+    psvar[5]=$segments[4]
+    psvar[6]=$segments[5]
 
     zle && [[ $CONTEXT == start ]] &&
       zle .reset-prompt
@@ -135,8 +140,12 @@ prompt_zen_async_precmd_callback() {
   fi
 }
 
++vi-prompt_zen_git-remote() {
+  hook_com[misc]=${${(s: :j[:])$(git rev-list --left-right --count HEAD...${hook_com[branch]}@{upstream} 2>/dev/null)}//0/}
+}
+
 +vi-prompt_zen_git-author() {
-  hook_com[misc]="$(git config --local user.name 2>/dev/null)"
+  hook_com[misc]=":$(git config --local user.name 2>/dev/null)"
 }
 
 prompt_zen_setup "$@"

@@ -23,7 +23,7 @@ fpath=(
 export CURL_HOME=$XDG_CONFIG_HOME/curl
 export LESSKEY=$XDG_CONFIG_HOME/less/.less
 export AQUA_GLOBAL_CONFIG=$XDG_CONFIG_HOME/aquaproj-aqua/aqua.yaml
-export FZF_DEFAULT_OPTS="--reverse --cycle --ansi --ellipsis '…' --no-info --no-scrollbar --no-hscroll --no-sort"
+export FZF_DEFAULT_OPTS="--reverse --cycle --ansi --no-info --no-scrollbar --no-hscroll --no-sort"
 
 # Disable execution compinit in ubuntu distributed global zshrc (/etc/zsh/zshrc)
 # SEE: https://www.zsh.org/mla/users/2021/msg00879.html
