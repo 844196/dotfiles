@@ -24,7 +24,7 @@ packages:
   - name: BurntSushi/ripgrep@13.0.0
   - name: stedolan/jq@jq-1.6
   - name: mikefarah/yq@v4.31.1
-  - name: sharkdp/fd@v8.6.0
+  - name: sharkdp/fd@v8.7.0
   - name: muesli/duf@v0.8.1
   - name: ClementTsang/bottom@0.6.8
   - name: orf/gping@gping-v1.6.3
