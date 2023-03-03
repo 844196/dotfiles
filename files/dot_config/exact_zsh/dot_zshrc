@@ -14,6 +14,7 @@ autoload -Uz self-insert-with-expand-alias
 
 # hooks
 add-zsh-hook precmd send-osc7
+add-zsh-hook precmd toggle-delta-features
 add-zsh-hook preexec toggle-delta-features
 add-zsh-hook zshaddhistory historyignore
 
