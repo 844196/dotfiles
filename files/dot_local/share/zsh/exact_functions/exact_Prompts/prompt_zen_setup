@@ -55,7 +55,7 @@ prompt_zen_setup() {
     --color border:#34394E
     --color preview-label:#34394E
     --color gutter:-1
-    --color info:#b4be82
+    --color info:#34394E
     --color pointer:#84a0c6
     --color marker:#84a0c6
     --color prompt:8
