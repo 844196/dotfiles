@@ -100,3 +100,4 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(accept-line-with-expand-alias history-beginning-
 
 # prompt
 prompt zen
+setopt TRANSIENT_RPROMPT
