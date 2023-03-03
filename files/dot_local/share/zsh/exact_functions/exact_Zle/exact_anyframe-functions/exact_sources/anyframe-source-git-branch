@@ -1,9 +1,3 @@
 # vim: set ft=zsh:
 
-git branch --color=always --sort=authordate -vvv | emojify | sed -E '
-  s/^(.)/@@\1 \x1b\[38;2;52;57;78m│\x1b\[0m/
-  /: gone]/s/^@@/\x1b\[38;2;160;147;199m\x1b\[0m /
-  s/^@@\*/  \x1b\[32m*\x1b\[0m/
-  s/^@@/  /
-  s/^/ /
-'
+~/.local/libexec/anyframe-source-git/cli.ts branch

@@ -5,11 +5,8 @@ tput cub 9999
 anyframe-source-git-branch \
   | SHELL==$ZSH_NAME anyframe-selector-fzf '' \
     --multi \
-    --delimiter '│ ' \
-    --nth 2.. \
-    --scheme path \
-    --preview 'git --no-pager graph -n $(( FZF_PREVIEW_LINES / 2 )) $(cut -d " " -f 1,1 <<< {2..}) | emojify' \
-  | sed 's/^.*│ //' \
+    --delimiter ' ' \
+    --preview 'git --no-pager graph -n $(( FZF_PREVIEW_LINES / 2 )) {1} | emojify' \
   | cut -d ' ' -f 1,1 \
   | anyframe-action-insert
 

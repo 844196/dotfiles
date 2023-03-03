@@ -1,7 +1,3 @@
 # vim: set ft=zsh:
 
-git -c color.status=always -c status.relativePaths=true status --short --untracked-file --branch | sed -E '
-  1   s/^## //
-  2,$ s/([[:cntrl:]]\[m[[:space:]]{1,2})([[:print:]])/\1\x1b\[38;2;52;57;78m│\x1b\[0m \2/
-  2,$ s/^/  /
-'
+~/.local/libexec/anyframe-source-git/cli.ts status

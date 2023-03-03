@@ -9,7 +9,7 @@ local query=${${${LBUFFER##[[:space:]]##}%%[[:space:]]##}// /\\ }
 local hid=${${="$(
   anyframe-source-history \
     | anyframe-selector-fzf "${query:+'}$query" \
-      --height 30% \
+      --height 9 \
       --no-multi \
       --delimiter '│ ' \
       --nth 2.. \

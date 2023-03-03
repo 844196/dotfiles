@@ -5,21 +5,23 @@ tput cub 9999
 anyframe-source-git-file \
   | SHELL==$ZSH_NAME anyframe-selector-fzf '' \
     --multi \
-    --header-lines 1 \
-    --delimiter '│ ' \
+    --delimiter ' │ ' \
     --nth 2.. \
     --scheme path \
     --preview '() {
-      local __LINE__=("${(@s: │ :)${1/* -> /}}")
+      local __LINE__=("${(@s: │ :)1}")
       local symbol=${__LINE__[1]} filename=${__LINE__[2]}
 
-      if [[ $symbol == *\?\? ]]; then
-        git diff --color=always --no-index -- /dev/null $filename | delta --width $FZF_PREVIEW_COLUMNS
-      else
-        git diff --color=always -- $filename | delta --width $FZF_PREVIEW_COLUMNS
-      fi
+      case $symbol in
+        \?\?|R\ )
+          COLORTERM=truecolor bat --terminal-width=$FZF_PREVIEW_COLUMNS --color=always --line-range=:500 $filename
+          ;;
+        *)
+          git diff -- $filename | delta --width $FZF_PREVIEW_COLUMNS
+          ;;
+      esac
     } {}' \
-  | sed -e 's/^.*│ //' -e 's/^.* -> //' \
+  | sed -e 's/^.*│ //' \
   | anyframe-action-insert
 
 zle .reset-prompt
