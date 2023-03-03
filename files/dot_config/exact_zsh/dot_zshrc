@@ -8,7 +8,7 @@ autoload -Uz historyignore
 autoload -Uz send-osc7
 autoload -Uz evalcache
 autoload -Uz toggle-delta-features
-autoload -Uz compute-fzf-preview-options
+autoload -Uz compute-anyframe-fzf-options
 autoload -Uz accept-line-with-expand-alias
 autoload -Uz self-insert-with-expand-alias
 
@@ -72,7 +72,7 @@ zle -N insert-last-word smart-insert-last-word
 zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
-zstyle -e ':anyframe:selector:fzf:*' command 'reply=(fzf --no-exit-0 --no-border --height 70% $(compute-fzf-preview-options))'
+zstyle -e ':anyframe:selector:fzf:*' command 'reply=(fzf --no-exit-0 --no-border $(compute-anyframe-fzf-options))'
 
 # keybindings
 bindkey '^N' history-beginning-search-forward-end
