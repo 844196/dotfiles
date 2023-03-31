@@ -13,6 +13,7 @@
   conflictstyle = diff3
 [alias]
   graph = log --graph --pretty=format:'%C(blue)%h%C(reset) - %C(green)(%ar)%C(reset)%C(yellow)%d%C(reset)%n  %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --abbrev-commit --date=relative --color=always
+  users = user --config ~/.config/git/profiles
 [color]
   ui = auto
 [push]
