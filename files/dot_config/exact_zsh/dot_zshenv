@@ -23,6 +23,7 @@ fpath=(
 export CURL_HOME=$XDG_CONFIG_HOME/curl
 export LESSKEY=$XDG_CONFIG_HOME/less/.less
 export AQUA_GLOBAL_CONFIG=$XDG_CONFIG_HOME/aquaproj-aqua/aqua.yaml
+export AQUA_POLICY_CONFIG=$XDG_CONFIG_HOME/aquaproj-aqua/policy.yaml
 export FZF_DEFAULT_OPTS="--reverse --cycle --ansi --no-info --no-scrollbar --no-hscroll --no-sort --no-mouse"
 
 # Disable execution compinit in ubuntu distributed global zshrc (/etc/zsh/zshrc)

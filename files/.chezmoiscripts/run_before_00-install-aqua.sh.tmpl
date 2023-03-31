@@ -18,4 +18,5 @@ else
   fi
 fi
 
+export AQUA_POLICY_CONFIG={{ .chezmoi.sourceDir }}/dot_config/aquaproj-aqua/policy.yaml
 exec "$aqua" -c {{ .chezmoi.sourceDir }}/dot_config/aquaproj-aqua/aqua.yaml i
