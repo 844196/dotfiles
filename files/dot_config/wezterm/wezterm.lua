@@ -171,6 +171,7 @@ return {
       { key = "l", mods = "NONE", action = wezterm.action.CopyMode "MoveRight" },
       { key = "w", mods = "NONE", action = wezterm.action.CopyMode "MoveForwardWord" },
       { key = "b", mods = "NONE", action = wezterm.action.CopyMode "MoveBackwardWord" },
+      { key = "e", mods = "NONE", action = wezterm.action.CopyMode "MoveForwardWordEnd" },
       { key = "Space", mods = "NONE", action = wezterm.action.CopyMode { SetSelectionMode = "Cell" } },
       { key = "v", mods = "NONE", action = wezterm.action.CopyMode { SetSelectionMode = "Cell" } },
       { key = "v", mods = "CTRL", action = wezterm.action.CopyMode { SetSelectionMode = "Block" } },
