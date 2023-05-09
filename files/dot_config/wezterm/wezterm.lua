@@ -1,4 +1,5 @@
 local wezterm = require "wezterm"
+local act = wezterm.action
 
 function basename(s)
   return string.gsub(s, '(.*[/\\])(.*)', '%2')
@@ -122,7 +123,7 @@ return {
     { key = "n", mods = "LEADER", action = wezterm.action { ActivateTabRelative = 1 } },
     { key = "p", mods = "LEADER", action = wezterm.action { ActivateTabRelative = -1 } },
     { key = "[", mods = "LEADER", action = "ActivateCopyMode" },
-    { key = "]", mods = "LEADER", action = wezterm.action.Paste },
+    { key = "]", mods = "LEADER", action = act.PasteFrom 'Clipboard' },
     { key = "<", mods = "LEADER|SHIFT", action = wezterm.action.Multiple {
       wezterm.action.ActivateKeyTable { name = "resize_pane", one_shot = false },
       wezterm.action.AdjustPaneSize { "Left", 1 },
