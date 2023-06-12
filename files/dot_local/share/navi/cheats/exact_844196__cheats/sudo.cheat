@@ -1,6 +1,7 @@
 % sudo, visudo
 
 # Edit sudoers
+; EDITOR を明示的に指定しないと nano で起動してきて編集しづらい
 sudo EDITOR=vi visudo --file=<sudoers>
 
-$ sudoers: cat <(echo /etc/sudoers) <(fd . --type file /etc/sudoers.d)
+$ sudoers: cat <(echo /etc/sudoers) <(find /etc/sudoers.d -type f -not -name README)
