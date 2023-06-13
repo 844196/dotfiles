@@ -1,7 +1,7 @@
 # vim: set ft=zsh:
 
 if [[ "$BUFFER" == "b" ]]; then
-  BUFFER="git checkout -b $(git rev-parse --abbrev-ref HEAD)/$(git config --local user.name)/"
+  BUFFER="git checkout -b $(git config --local user.name)/$(git rev-parse --abbrev-ref HEAD)/"
   CURSOR=${#BUFFER}
 else
   zle _expand_alias
