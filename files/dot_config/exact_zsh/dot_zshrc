@@ -55,7 +55,7 @@ zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/compcache
 HISTFILE=$XDG_STATE_HOME/zsh/history
 HISTSIZE=1000000
 SAVEHIST=1000000
-HISTORY_IGNORE='(:|true|false|pwd|which *|type *|where *|exit|(|z)man(| *)|less *|bat *|neofetch(| *)|*--help|*--version)'
+HISTORY_IGNORE='(:|true|false|pwd|which *|type *|where *|exit|(|z)man(| *)|neofetch(| *)|*--help|*--version)'
 setopt EXTENDED_HISTORY
 setopt SHARE_HISTORY
 setopt HIST_REDUCE_BLANKS
