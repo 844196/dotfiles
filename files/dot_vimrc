@@ -1,3 +1,5 @@
+" vim: set ft=vim:
+
 set encoding=utf-8
 scriptencoding utf-8
 
@@ -30,7 +32,6 @@ inoremap <C-e> <C-G>U<End>
 inoremap <C-k> <C-G>U<C-o>D
 nnoremap <CR> o<esc>
 
-nnoremap Y y$
 vnoremap v $h
 nnoremap x "_x
 vnoremap x "_x
