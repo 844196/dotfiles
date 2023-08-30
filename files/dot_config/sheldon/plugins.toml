@@ -27,10 +27,10 @@ inline = 'autoload -Uz promptinit && promptinit'
 github = 'zsh-users/zsh-syntax-highlighting'
 rev = 'b2c910a'
 
-# see: https://github.com/zsh-users/zsh-autosuggestions#disabling-automatic-widget-re-binding
-[plugins.zsh-autosuggestions-pre]
-inline = 'ZSH_AUTOSUGGEST_MANUAL_REBIND=1'
-
 [plugins.zsh-autosuggestions]
 github = 'zsh-users/zsh-autosuggestions'
 rev = 'a411ef3'
+
+# see: https://github.com/zsh-users/zsh-autosuggestions#disabling-automatic-widget-re-binding
+[plugins.zsh-autosuggestions.hooks]
+pre = 'ZSH_AUTOSUGGEST_MANUAL_REBIND=1'
