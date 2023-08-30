@@ -1,9 +1,16 @@
 # vim: set ft=zsh:
 
-if [[ "$BUFFER" == "b" ]]; then
-  BUFFER="git checkout -b $(git config --local user.name)/$(git rev-parse --abbrev-ref HEAD)/"
-  CURSOR=${#BUFFER}
-else
-  zle _expand_alias
-  zle .self-insert
-fi
+case $BUFFER in
+  b)
+    BUFFER="git checkout -b $(git config --local user.name)/$(git rev-parse --abbrev-ref HEAD)/"
+    CURSOR=${#BUFFER}
+    ;;
+  bm)
+    BUFFER="git branch -m $(git rev-parse --abbrev-ref HEAD)"
+    CURSOR=${#BUFFER}
+    ;;
+  *)
+    zle _expand_alias
+    zle .self-insert
+    ;;
+esac
