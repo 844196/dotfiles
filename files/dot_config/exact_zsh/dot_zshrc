@@ -76,7 +76,9 @@ zstyle -e ':anyframe:selector:fzf:*' command 'reply=(fzf --no-exit-0 --no-border
 
 # keybindings
 bindkey '^N' history-beginning-search-forward-end
+bindkey '^[[B' history-beginning-search-forward-end
 bindkey '^P' history-beginning-search-backward-end
+bindkey '^[[A' history-beginning-search-backward-end
 bindkey '^[[Z' reverse-menu-complete
 bindkey '^M' accept-line-with-expand-alias
 bindkey ' ' myspace
