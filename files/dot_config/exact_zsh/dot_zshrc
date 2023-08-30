@@ -85,7 +85,7 @@ bindkey '^R' anyframe-widget-put-history
 bindkey '^X^B' anyframe-widget-insert-git-branch
 bindkey '^X^F' anyframe-widget-insert-git-file
 bindkey '^X^G' anyframe-widget-cd-ghq
-bindkey '^X^J' anyframe-widget-cd-zoxide
+bindkey '^J' anyframe-widget-cd-zoxide
 
 # setup cli tools
 evalcache navi widget zsh
