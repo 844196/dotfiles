@@ -2,7 +2,7 @@
 
 case $BUFFER in
   b)
-    BUFFER="git checkout -b $(git rev-parse --abbrev-ref HEAD)/$(git config --local user.name)/"
+    BUFFER="git checkout -b $(git config --local user.name)/$(git rev-parse --abbrev-ref HEAD)/"
     CURSOR=${#BUFFER}
     ;;
   bm)
