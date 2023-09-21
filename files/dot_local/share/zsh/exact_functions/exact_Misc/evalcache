@@ -1,12 +1,8 @@
-local EVALCACHE_DIR
-zstyle -s ':evalcache' cache-dir EVALCACHE_DIR
-: ${EVALCACHE_DIR:?Need 'zstyle ':evalcache' cache-dir path/to/cache-dir'}
-
-if [[ ! -d $EVALCACHE_DIR ]]; then
-  mkdir -p $EVALCACHE_DIR
+if [[ ! -d ${ZEVALCACHEDIR:?} ]]; then
+  mkdir -p $ZEVALCACHEDIR
 fi
 
-local cache=$EVALCACHE_DIR/${1:t}.zsh
+local cache=$ZEVALCACHEDIR/${1:t}.zsh
 if [[ ! -e $cache ]]; then
   "$@" > $cache
   zcompile $cache
