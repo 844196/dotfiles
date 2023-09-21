@@ -96,9 +96,6 @@ evalcache direnv hook zsh
 
 # plugins
 evalcache sheldon source
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(accept-line-with-expand-alias history-beginning-search-backward-end history-beginning-search-forward-end)
 
 # prompt
 prompt zen

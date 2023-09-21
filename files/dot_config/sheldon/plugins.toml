@@ -34,3 +34,8 @@ rev = 'a411ef3'
 # see: https://github.com/zsh-users/zsh-autosuggestions#disabling-automatic-widget-re-binding
 [plugins.zsh-autosuggestions.hooks]
 pre = 'ZSH_AUTOSUGGEST_MANUAL_REBIND=1'
+post = '''
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(accept-line-with-expand-alias history-beginning-search-backward-end history-beginning-search-forward-end)
+'''
