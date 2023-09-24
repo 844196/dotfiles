@@ -92,6 +92,7 @@ bindkey '^J' anyframe-widget-cd-zoxide
 evalcache navi widget zsh
 evalcache zoxide init zsh --no-cmd
 evalcache direnv hook zsh
+evalcache rtx activate zsh
 
 # plugins
 evalcache sheldon source
