@@ -1,0 +1,9 @@
+#!/bin/bash
+
+lang=${1:-`gibo list | fzf`}
+
+if [[ ${#lang} -eq 0 ]]; then
+  exit 1
+fi
+
+gibo dump $lang

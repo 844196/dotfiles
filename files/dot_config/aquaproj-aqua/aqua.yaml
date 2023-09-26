@@ -33,3 +33,4 @@ packages:
   - name: denoland/deno@v1.34.1
   - name: gesquive/git-user@v2.0.6
   - name: jdxcode/rtx@v2023.9.1
+  - name: simonwhitaker/gibo@v3.0.7
