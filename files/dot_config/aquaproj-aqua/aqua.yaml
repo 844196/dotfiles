@@ -34,3 +34,4 @@ packages:
   - name: gesquive/git-user@v2.0.6
   - name: jdxcode/rtx@v2023.9.1
   - name: simonwhitaker/gibo@v3.0.7
+  - name: go-task/task@v3.31.0

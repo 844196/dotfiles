@@ -1,0 +1,4 @@
+.local/share/zsh/vendor-completions/_task:
+  type: file
+  url: https://raw.githubusercontent.com/go-task/task/v3.31.0/completion/zsh/_task
+  refreshPeriod: 168h
