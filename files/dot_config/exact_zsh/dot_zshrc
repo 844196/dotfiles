@@ -12,18 +12,15 @@ autoload -Uz compute-anyframe-fzf-options
 autoload -Uz accept-line-with-expand-alias
 autoload -Uz myspace
 
-# hooks
 add-zsh-hook precmd send-osc7
 add-zsh-hook precmd toggle-delta-features
 add-zsh-hook preexec toggle-delta-features
 add-zsh-hook zshaddhistory historyignore
 
-# core
 unsetopt FLOW_CONTROL
 unsetopt BEEP
 setopt PRINT_EIGHT_BIT
 
-# aliases
 alias ..='cd ..'
 alias t='cd "$(mktemp -d)"'
 alias st=' git status'
@@ -38,7 +35,6 @@ alias d='docker'
 alias dc='docker compose'
 alias nr='npm run'
 
-# completions
 setopt EXTENDED_GLOB
 setopt MAGIC_EQUAL_SUBST
 zstyle ':completion' dump-file $XDG_CACHE_HOME/zsh/compdump-$ZSH_VERSION
@@ -50,7 +46,6 @@ zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z} r:|[-_.]=**' '+m:{A-Z}={a-
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/compcache
 
-# histories
 HISTFILE=$XDG_STATE_HOME/zsh/history
 HISTSIZE=1000000
 SAVEHIST=1000000
@@ -61,7 +56,6 @@ setopt HIST_REDUCE_BLANKS
 setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 
-# zle
 select-word-style default
 zle -N accept-line-with-expand-alias
 zle -N myspace
@@ -73,7 +67,6 @@ zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
 zstyle -e ':anyframe:selector:fzf:*' command 'reply=(fzf --no-exit-0 --no-border $(compute-anyframe-fzf-options))'
 
-# keybindings
 bindkey '^N' history-beginning-search-forward-end
 bindkey '^[[B' history-beginning-search-forward-end
 bindkey '^P' history-beginning-search-backward-end
@@ -88,16 +81,12 @@ bindkey '^X^F' anyframe-widget-insert-git-file
 bindkey '^X^G' anyframe-widget-cd-ghq
 bindkey '^J' anyframe-widget-cd-zoxide
 
-# setup cli tools
 evalcache navi widget zsh
 evalcache zoxide init zsh --no-cmd
 evalcache direnv hook zsh
 evalcache rtx activate zsh
-
-# plugins
 evalcache sheldon source
 
-# prompt
 prompt zen
 setopt TRANSIENT_RPROMPT
 
