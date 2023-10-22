@@ -100,3 +100,7 @@ evalcache sheldon source
 # prompt
 prompt zen
 setopt TRANSIENT_RPROMPT
+
+if [[ -e $ZDOTDIR/.zshrc.local ]]; then
+  source $ZDOTDIR/.zshrc.local
+fi
