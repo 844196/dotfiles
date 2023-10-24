@@ -17,7 +17,7 @@
 [color]
   ui = auto
 [push]
-  default = current
+  default = nothing
 [rebase]
   autoSquash = true
   autoStash = true
