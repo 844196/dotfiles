@@ -6,7 +6,7 @@ anyframe-source-ghq \
   | SHELL==$ZSH_NAME anyframe-selector-fzf '' \
     --no-multi \
     --scheme path \
-    --preview 'ghq list --full-path --exact {} | xargs -I REPO eza -goF --icons --time-style="+%Y-%m-%d %H:%M:%S" -la REPO' \
+    --preview 'ghq list --full-path --exact {} | xargs -I REPO eza --no-permissions --no-filesize --no-user --no-time --icons --color=always -la REPO' \
   | xargs -I REPO ghq list --full-path --exact REPO \
   | anyframe-action-execute cd --
 
