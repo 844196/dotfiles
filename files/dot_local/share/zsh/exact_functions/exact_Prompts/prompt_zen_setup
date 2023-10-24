@@ -44,6 +44,7 @@ prompt_zen_setup() {
     --pointer '❯'
     --marker '❯'
     --ellipsis '…'
+    --scrollbar '▌▐'
     --color bg:-1
     --color bg+:#1e2132
     --color fg:#c6c8d1
