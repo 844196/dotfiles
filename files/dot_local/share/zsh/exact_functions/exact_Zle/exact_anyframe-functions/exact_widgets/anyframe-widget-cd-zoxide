@@ -9,7 +9,7 @@ anyframe-source-zoxide \
     --nth 2.. \
     --scheme path \
     --header 'Press CTRL-X to remove entry' \
-    --preview 'exa -gF --icons --git -la {2..}' \
+    --preview 'eza -goF --icons --time-style="+%Y-%m-%d %H:%M:%S" --color=always -la {2..}' \
     --bind 'ctrl-x:execute-silent(zoxide remove {2..})+reload(autoload -Uz anyframe-source-zoxide && anyframe-source-zoxide)' \
   | sed -E 's/^[^│]*│ //' \
   | anyframe-action-execute cd --
