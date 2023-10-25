@@ -32,6 +32,6 @@ export FZF_DEFAULT_OPTS="--reverse --cycle --ansi --no-info --no-hscroll --no-so
 # SEE: https://www.zsh.org/mla/users/2021/msg00879.html
 skip_global_compinit=1
 
-if [[ -e $ZDOTDIR/.zshenv.local ]]; then
+if [[ -f $ZDOTDIR/.zshenv.local ]]; then
   source $ZDOTDIR/.zshenv.local
 fi
