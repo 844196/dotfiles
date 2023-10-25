@@ -81,6 +81,8 @@ bindkey '^X^B' anyframe-widget-insert-git-branch
 bindkey '^X^F' anyframe-widget-insert-git-file
 bindkey '^X^G' anyframe-widget-cd-ghq
 bindkey '^J' anyframe-widget-cd-zoxide
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;5C' forward-word
 
 evalcache navi widget zsh
 evalcache zoxide init zsh --no-cmd
