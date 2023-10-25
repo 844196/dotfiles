@@ -19,9 +19,6 @@ rev = '40483a4'
 [plugins.completioninit]
 inline = 'autoload -Uz completioninit && completioninit'
 
-[plugins.promptinit]
-inline = 'autoload -Uz promptinit && promptinit'
-
 # Must be loaded after loading all other plugins (except zsh-autosuggestions, see below)
 [plugins.zsh-syntax-highlighting]
 github = 'zsh-users/zsh-syntax-highlighting'

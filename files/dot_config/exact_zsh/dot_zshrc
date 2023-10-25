@@ -11,6 +11,7 @@ autoload -Uz toggle-delta-features
 autoload -Uz compute-anyframe-fzf-options
 autoload -Uz accept-line-with-expand-alias
 autoload -Uz myspace
+autoload -Uz promptinit
 
 add-zsh-hook precmd send-osc7
 add-zsh-hook precmd toggle-delta-features
@@ -87,6 +88,7 @@ evalcache direnv hook zsh
 evalcache rtx activate zsh
 evalcache sheldon source
 
+promptinit
 prompt zen
 setopt TRANSIENT_RPROMPT
 
