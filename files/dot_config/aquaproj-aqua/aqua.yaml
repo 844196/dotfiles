@@ -1,4 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/main/json-schema/aqua-yaml.json
+# cspell: disable
 ---
 # aqua - Declarative CLI Version Manager
 # https://aquaproj.github.io/
@@ -35,3 +36,4 @@ packages:
   - name: jdxcode/rtx@v2023.9.1
   - name: simonwhitaker/gibo@v3.0.7
   - name: go-task/task@v3.31.0
+  - name: bensadeh/tailspin@2.2.0
