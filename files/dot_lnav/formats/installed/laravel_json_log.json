@@ -1,0 +1,77 @@
+{
+  "$schema": "https://lnav.org/schemas/format-v1.schema.json",
+  "laravel_json_log": {
+    "title": "Laravel JSON Log",
+    "json": true,
+    "hide-extra": true,
+    "level-field": "level_name",
+    "level": {
+      "debug": "DEBUG",
+      "info": "INFO",
+      "warning": "WARNING",
+      "error": "ERROR"
+    },
+    "timestamp-field": "datetime",
+    "timestamp-format": ["%Y-%m-%dT%H:%M:%S.%f%z"],
+    "ordered-by-time": false,
+    "body-field": "message",
+    "opid-field": "extra/uid",
+    "multiline": false,
+    "line-format": [
+      {
+        "field": "__timestamp__",
+        "timestamp-format": "%Y-%m-%d %H:%M:%S"
+      },
+      " ",
+      {
+        "field": "channel",
+        "auto-width": true
+      },
+      " ",
+      {
+        "field": "extra/uid",
+        "auto-width": true
+      },
+      " ",
+      {
+        "field": "__level__",
+        "auto-width": true
+      },
+      " ",
+      {
+        "field": "message"
+      },
+      " ",
+      {
+        "field": "context"
+      },
+      " ",
+      {
+        "field": "extra"
+      }
+    ],
+    "value": {
+      "context": {
+        "kind": "json"
+      },
+      "level": {
+        "kind": "integer",
+        "hidden": true
+      },
+      "channel": {
+        "description": "i.e. environment name",
+        "kind": "string",
+        "hidden": true
+      },
+      "extra": {
+        "kind": "json",
+        "hidden": true
+      },
+      "extra/uid": {
+        "description": "Required `Monolog\\Processor\\UidProcessor`",
+        "kind": "string",
+        "identifier": true
+      }
+    }
+  }
+}

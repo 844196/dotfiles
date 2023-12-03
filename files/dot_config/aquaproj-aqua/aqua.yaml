@@ -37,3 +37,5 @@ packages:
   - name: simonwhitaker/gibo@v3.0.7
   - name: go-task/task@v3.31.0
   - name: bensadeh/tailspin@2.2.0
+  - name: tstack/lnav@v0.11.2
+    registry: local
