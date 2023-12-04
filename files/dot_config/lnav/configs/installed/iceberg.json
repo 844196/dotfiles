@@ -1,0 +1,97 @@
+{
+  "$schema": "https://lnav.org/schemas/config-v1.schema.json",
+  "ui": {
+    "theme": "iceberg",
+    "theme-defs": {
+      "iceberg": {
+        "vars": {
+          "black": "#1e2132",
+          "red": "#e27878",
+          "green": "#b4be82",
+          "yellow": "#e2a478",
+          "blue": "#84a0c6",
+          "magenta": "#a093c7",
+          "cyan": "#89b8c2",
+          "white": "#c6c8d1"
+        },
+        "styles": {
+          "identifier": {
+            "color": "semantic()"
+          },
+          "breadcrumb": {
+            "color": "#3e445e"
+          },
+          "scrollbar": {
+            "color": "#3e445e"
+          }
+        },
+        "status-styles": {
+          "text": {
+            "color": "#3e445e",
+            "background-color": "#0f1117"
+          },
+          "info": {
+            "color": "#3e445e",
+            "background-color": ""
+          },
+          "warn": {
+            "color": "$red"
+          },
+          "alert": {
+            "color": "$red"
+          },
+          "active": {
+            "color": "$green"
+          },
+          "inactive-alert": {
+            "color": "$red"
+          },
+          "inactive": {
+            "color": "#3e445e",
+            "background-color": ""
+          },
+          "title": {
+            "color": "#17171b",
+            "background-color": "#84a0c6"
+          },
+          "disabled-title": {
+            "color": "#3e445e",
+            "background-color": "#0f1117"
+          },
+          "subtitle": {
+            "color": "",
+            "background-color": ""
+          },
+          "hotkey": {
+            "color": "",
+            "background-color": ""
+          },
+          "title-hotkey": {
+            "color": "",
+            "background-color": ""
+          }
+        },
+        "log-level-styles": {
+          "debug": {
+            "color": "#6b7089"
+          },
+          "info": {
+            "color": "#c6c8d1"
+          },
+          "warning": {
+            "color": "#e2a478"
+          },
+          "error": {
+            "color": "#e27878"
+          },
+          "critical": {
+            "color": "#e27878"
+          },
+          "fatal": {
+            "color": "#e27878"
+          }
+        }
+      }
+    }
+  }
+}
