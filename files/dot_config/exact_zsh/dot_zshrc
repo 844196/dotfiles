@@ -25,7 +25,7 @@ unsetopt BEEP
 setopt PRINT_EIGHT_BIT
 
 alias ..='cd ..'
-alias t='cd "$(mktemp -d)"'
+alias tmp='cd "$(mktemp -d)"'
 alias st=' git status'
 alias ck='git checkout'
 alias br='git branch -vv'
@@ -37,6 +37,7 @@ alias ls=' eza -goFh --icons --time-style="+%Y-%m-%d %H:%M:%S"'
 alias d='docker'
 alias dc='docker compose'
 alias nr='npm run'
+alias t='task'
 
 setopt EXTENDED_GLOB
 setopt MAGIC_EQUAL_SUBST
