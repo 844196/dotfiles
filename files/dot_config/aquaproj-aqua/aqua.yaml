@@ -39,3 +39,5 @@ packages:
   - name: bensadeh/tailspin@2.2.0
   - name: tstack/lnav@v0.11.2
     registry: local
+  - name: BurntSushi/xsv@0.13.0
+  - name: wfxr/csview@v1.2.2
