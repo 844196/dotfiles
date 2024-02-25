@@ -33,7 +33,7 @@ packages:
   - name: aws/aws-cli@2.7.22
   - name: denoland/deno@v1.34.1
   - name: gesquive/git-user@v2.0.6
-  - name: jdxcode/rtx@v2023.9.1
+  - name: jdxcode/rtx@v2023.12.40
   - name: simonwhitaker/gibo@v3.0.7
   - name: go-task/task@v3.31.0
   - name: bensadeh/tailspin@2.2.0
