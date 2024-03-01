@@ -2,20 +2,18 @@
 
 set -e
 
-aqua="$HOME/.local/share/aquaproj-aqua/bin/aqua"
-if [[ -x "${aqua}" ]]; then
-  :
+AQUA_VERSION=v2.23.0
+AQUA_ROOT_DIR=$HOME/.local/share/aquaproj-aqua
+
+URL=https://raw.githubusercontent.com/aquaproj/aqua-installer/v2.3.0/aqua-installer
+if [ "$(command -v curl)" ]; then
+  bash -c "$(curl -fsSL $URL)" -- -v $AQUA_VERSION
+elif [ "$(command -v wget)" ]; then
+  bash -c "$(wget -qO- $URL)" -- -v $AQUA_VERSION
 else
-  URL=https://raw.githubusercontent.com/aquaproj/aqua-installer/v2.2.0/aqua-installer
-  if [ "$(command -v curl)" ]; then
-    bash -c "$(curl -fsSL $URL)" -- -v 'v2.21.0'
-  elif [ "$(command -v wget)" ]; then
-    bash -c "$(wget -qO- $URL)" -- -v 'v2.21.0'
-  else
-    echo "You must have curl or wget installed." >&2
-    exit 1
-  fi
+  echo "You must have curl or wget installed." >&2
+  exit 1
 fi
 
-export AQUA_POLICY_CONFIG={{ .chezmoi.sourceDir }}/dot_config/aquaproj-aqua/policy.yaml
-exec "$aqua" -c {{ .chezmoi.sourceDir }}/dot_config/aquaproj-aqua/aqua.yaml i
+AQUA_POLICY_CONFIG={{ .chezmoi.sourceDir }}/dot_config/aquaproj-aqua/policy.yaml
+exec ${AQUA_ROOT_DIR}/bin/aqua -c {{ .chezmoi.sourceDir }}/dot_config/aquaproj-aqua/aqua.yaml i
