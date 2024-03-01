@@ -29,7 +29,7 @@ packages:
   - name: rossmacarthur/sheldon@0.7.3
   - name: wagoodman/dive@v0.10.0
   - name: aws/aws-cli@2.7.22
-  - name: denoland/deno@v1.34.1
+  - name: denoland/deno@v1.41.1
   - name: gesquive/git-user@v2.0.6
   - name: jdx/mise@v2024.2.19
   - name: simonwhitaker/gibo@v3.0.7
