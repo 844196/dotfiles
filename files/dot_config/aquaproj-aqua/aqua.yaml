@@ -32,7 +32,7 @@ packages:
   - name: denoland/deno@v1.41.1
   - name: gesquive/git-user@v2.0.6
   - name: jdx/mise@v2024.2.19
-  - name: simonwhitaker/gibo@v3.0.7
+  - name: simonwhitaker/gibo@v3.0.11
   - name: go-task/task@v3.31.0
   - name: bensadeh/tailspin@2.2.0
   - name: tstack/lnav@v0.11.2
