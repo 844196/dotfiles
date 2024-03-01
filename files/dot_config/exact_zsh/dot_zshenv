@@ -12,7 +12,7 @@ typeset -U {,F,MAN}PATH {,f,man}path
 path=(
   ~/.local/bin(N-/)
   $XDG_DATA_HOME/aquaproj-aqua/bin(N-/)
-  $XDG_DATA_HOME/rtx/shims(N-/)
+  $XDG_DATA_HOME/mise/shims(N-/)
   $path
 )
 fpath=(

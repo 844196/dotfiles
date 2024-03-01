@@ -92,7 +92,7 @@ bindkey '^[[1;5C' forward-word
 evalcache navi widget zsh
 evalcache zoxide init zsh --no-cmd
 evalcache direnv hook zsh
-evalcache rtx activate zsh
+evalcache mise activate zsh
 evalcache sheldon source
 
 promptinit
