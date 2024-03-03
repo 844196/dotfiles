@@ -16,13 +16,23 @@ rev = '5113cd0'
 github = 'mattmc3/zman'
 rev = '40483a4'
 
+[plugins.zeno]
+github = 'yuki-yano/zeno.zsh'
+rev = '322b49e'
+
+[plugins.zeno.hooks]
+post = '''
+export ZENO_DISABLE_BUILTIN_COMPLETION=1
+bindkey '^I' zeno-completion
+'''
+
 [plugins.completioninit]
-inline = 'autoload -Uz completioninit && completioninit'
+inline = 'completioninit'
 
 # Must be loaded after loading all other plugins (except zsh-autosuggestions, see below)
-[plugins.zsh-syntax-highlighting]
-github = 'zsh-users/zsh-syntax-highlighting'
-rev = 'b2c910a'
+[plugins.fast-syntax-highlighting]
+github = 'zdharma-continuum/fast-syntax-highlighting'
+rev = 'cf318e0'
 
 [plugins.zsh-autosuggestions]
 github = 'zsh-users/zsh-autosuggestions'
@@ -34,5 +44,11 @@ pre = 'ZSH_AUTOSUGGEST_MANUAL_REBIND=1'
 post = '''
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(accept-line-with-expand-alias history-beginning-search-backward-end history-beginning-search-forward-end)
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
+  accept-line-with-expand-alias
+  history-beginning-search-backward-end
+  history-beginning-search-forward-end
+  up-line-or-beginning-search
+  down-line-or-beginning-search
+)
 '''

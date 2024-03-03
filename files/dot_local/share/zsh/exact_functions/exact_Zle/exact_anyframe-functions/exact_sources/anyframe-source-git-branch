@@ -1,31 +1,3 @@
 # vim: set ft=zsh:
 
-git branch --format='{"isHead":%(if)%(HEAD)%(then)true%(else)false%(end),"name":"%(refname:short)","sha":"%(objectname:short)","subject":"%(subject)","upstream":"%(upstream:track)"}' \
-  | sed '
-      s/$/,/
-      $ s/,$//
-      1i [
-      $a ]
-    ' \
-  | jq -r '
-      def sgr(params; str):
-        "\u001b[" + params + str + "\u001b[0m";
-
-      map(. + {isTopic: .name | contains("/"), isGone: .upstream | contains("gone")})
-        | sort_by(.isHead == false, .isGone, .isTopic, .name)
-        | map([
-            if .isHead then
-              sgr("1;32m"; .name)
-            elif .isGone then
-              sgr("9;31m"; .name)
-            else
-              .name
-            end,
-            sgr("1;30m"; .sha),
-            sgr("1;30m"; .subject + " " + .upstream)
-          ])
-        | .[]
-        | @tsv
-    ' \
-  | column -ts $'\t' -o ' ' \
-  | emojify
+git branch-pretty

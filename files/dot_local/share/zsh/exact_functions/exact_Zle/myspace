@@ -7,8 +7,12 @@ case $BUFFER in
     BUFFER="${reply} && git commit --allow-empty -m ':new: Create topic branch (${now})'"
     CURSOR=${#reply}
     ;;
-  bm)
+  git\ branch\ -m)
     BUFFER="git branch -m $(git rev-parse --abbrev-ref HEAD)"
+    CURSOR=${#BUFFER}
+    ;;
+  git\ push\ -f)
+    BUFFER="git push --force-with-lease --force-if-includes "
     CURSOR=${#BUFFER}
     ;;
   *)

@@ -1,0 +1,38 @@
+#!/usr/bin/env -S deno run -A --ext ts
+// vim: set ft=typescript:
+
+import $ from "https://deno.land/x/dax@0.28.0/mod.ts";
+import { colors } from "https://deno.land/x/cliffy@v1.0.0-rc.3/ansi/colors.ts";
+
+function colorizeSymbol(x: string) {
+  switch (x) {
+    case " ":
+      return " ";
+    case "?":
+      return colors.green(x);
+    case "M":
+      return colors.cyan(x);
+    case "R":
+      return colors.magenta(x);
+    case "D":
+      return colors.red(x);
+    default:
+      return colors.yellow(x);
+  }
+}
+
+const statuses = [];
+for (const l of await $`git status --porcelain -uall`.lines()) {
+  const [index, workingDir, path] = l
+    .replace(/^(.)(.) /, "$1\0$2\0")
+    .split("\0");
+
+  statuses.push([
+    colorizeSymbol(index),
+    colorizeSymbol(workingDir),
+    colors.rgb24(" │ ", 0x34394e),
+    path,
+  ].join(""));
+}
+
+console.log(statuses.join("\n"));

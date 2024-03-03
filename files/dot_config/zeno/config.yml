@@ -1,0 +1,55 @@
+# cspell: disable
+---
+completions:
+  - name: Checkout branch name
+    patterns:
+      - "^git checkout $"
+    sourceCommand: "git branch-pretty"
+    options:
+      --select-1: true
+      --no-multi: true
+      # --preview: "zeno-preview git-branch {1}"
+    callback: "awk '{print $1}'"
+
+  - name: Delete branch names
+    patterns:
+      - "^git branch -[dD] $"
+    sourceCommand: "git branch-pretty"
+    options:
+      --select-1: true
+      --multi: true
+      # --preview: "zeno-preview git-branch {1}"
+    callback: "awk '{print $1}'"
+
+  - name: Stage file names
+    patterns:
+      - "^git add $"
+      - "^git reset $"
+    sourceCommand: "git status-pretty"
+    options:
+      --select-1: true
+      --multi: true
+      --delimiter: "│"
+      --nth: "2.."
+      --scheme: path
+      --preview-window: "+2"
+      --preview: 'zeno-preview git-status "{}"'
+    callback: "sed 's/^.....//g'"
+
+  - name: Interactive rebase target
+    patterns:
+      - "^git rebase -(i|-interactive) $"
+    sourceCommand: 'git log -n 50 --color=always --graph --format="%C(blue)%h%C(reset) %C(white)%s%C(reset) - %C(green)(%ar)%C(reset)%C(yellow)%d%C(reset)" | emojify'
+    options:
+      --no-multi: true
+      --preview: >-
+        echo {} | grep -o '[a-f0-9]\{7\}' | xargs -I_ git log --color=never --reverse --format='pick %h %s' _..HEAD | emojify | bat --style plain -l git-rebase-todo --color=always
+    callback: "grep -o '[a-f0-9]\\{7\\}'"
+
+  - name: Fixup target
+    patterns:
+      - "^git commit --fixup(=| )$"
+    sourceCommand: 'git log -n 50 --color=always --graph --format="%C(blue)%h%C(reset) %C(white)%s%C(reset) - %C(green)(%ar)%C(reset)%C(yellow)%d%C(reset)" | emojify'
+    options:
+      --no-multi: true
+    callback: "grep -o '[a-f0-9]\\{7\\}'"

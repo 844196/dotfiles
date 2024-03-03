@@ -6,6 +6,7 @@ autoload -Uz history-search-end
 autoload -Uz smart-insert-last-word
 autoload -Uz historyignore
 autoload -Uz send-osc7
+autoload -Uz completioninit
 autoload -Uz evalcache
 autoload -Uz toggle-delta-features
 autoload -Uz compute-anyframe-fzf-options
@@ -23,30 +24,16 @@ add-zsh-hook zshaddhistory historyignore
 unsetopt FLOW_CONTROL
 unsetopt BEEP
 setopt PRINT_EIGHT_BIT
-
-alias ..='cd ..'
-alias tmp='cd "$(mktemp -d)"'
-alias st=' git status'
-alias ck='git checkout'
-alias br='git branch -vv'
-alias co='git commit'
-alias di=' git diff'
-alias gg=' git graph -n 15'
-alias c='chezmoi'
-alias ls=' eza -goFh --icons --time-style="+%Y-%m-%d %H:%M:%S" -la'
-alias d='docker'
-alias dc='docker compose'
-alias nr='npm run'
-alias t='task'
-
 setopt EXTENDED_GLOB
 setopt MAGIC_EQUAL_SUBST
+setopt INTERACTIVE_COMMENTS
+
 zstyle ':completion' dump-file $XDG_CACHE_HOME/zsh/compdump-$ZSH_VERSION
 zstyle ':completion' dump-ttl $((60 * 60 * 18))
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*' list-packed yes
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z} r:|[-_.]=**' '+m:{A-Z}={a-z} r:|[-_.]=**'
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z} r:|[-_.]=**' '+m:{A-Z}={a-z} r:|[-_.]=**' # TODO ドットファイルを補完
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/compcache
 
@@ -75,19 +62,32 @@ zstyle -e ':anyframe:selector:fzf:*' command 'reply=(fzf --no-exit-0 --no-border
 
 bindkey '^N' history-beginning-search-forward-end
 bindkey '^P' history-beginning-search-backward-end
-bindkey '^[[A' up-line-or-beginning-search
-bindkey '^[[B' down-line-or-beginning-search
-bindkey '^[[Z' reverse-menu-complete
+bindkey '^[OA' up-line-or-beginning-search # Up arrow
+bindkey '^[OB' down-line-or-beginning-search # Down arrow
+bindkey '^[[Z' reverse-menu-complete # Shift+Tab
 bindkey '^M' accept-line-with-expand-alias
 bindkey ' ' myspace
-bindkey '^[e' emacs-forward-word
 bindkey '^R' anyframe-widget-put-history
 bindkey '^X^B' anyframe-widget-insert-git-branch
 bindkey '^X^F' anyframe-widget-insert-git-file
 bindkey '^X^G' anyframe-widget-cd-ghq
 bindkey '^J' anyframe-widget-cd-zoxide
-bindkey '^[[1;5D' backward-word
-bindkey '^[[1;5C' forward-word
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias t='cd "$(mktemp -d)"'
+alias st=' git status'
+alias ck='git checkout'
+alias br='git branch'
+alias co='git commit'
+alias di=' git diff'
+alias gg=' git graph -n 10'
+alias wip='git add -A && git commit -m ":construction: WIP ($(TZ=Asia/Tokyo date +%Y-%m-%dT%H:%M:%S+09:00))"'
+alias c='chezmoi'
+alias ls=' eza -goFh --icons --time-style="+%Y-%m-%d %H:%M:%S" -la'
+alias d='docker'
+alias dc='docker compose'
+alias nr='npm run'
 
 evalcache navi widget zsh
 evalcache zoxide init zsh --no-cmd
