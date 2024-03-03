@@ -27,6 +27,10 @@ for (const l of await $`git status --porcelain -uall`.lines()) {
     .replace(/^(.)(.) /, "$1\0$2\0")
     .split("\0");
 
+  if (path === undefined) {
+    continue;
+  }
+
   statuses.push([
     colorizeSymbol(index),
     colorizeSymbol(workingDir),

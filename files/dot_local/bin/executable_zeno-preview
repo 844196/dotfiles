@@ -11,6 +11,10 @@ await new Command()
   .command("git-status")
   .arguments("<line:string>")
   .action(async (_, line) => {
+    if (line.length === 0) {
+      return;
+    }
+
     const [symbol, path] = line.split(" │ ");
     const [filename, newFileName] = path.split(" -> ");
 
