@@ -4,6 +4,7 @@ completions:
   - name: Checkout branch name
     patterns:
       - "^git checkout $"
+      - "^git rebase $"
     sourceCommand: "git branch-pretty"
     options:
       --select-1: true
