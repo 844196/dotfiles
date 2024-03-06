@@ -1,0 +1,16 @@
+# vim: set ft=zsh:
+
+tput cub 9999
+
+zoxide query --list \
+  | anyframe-selector-fzf '' \
+    --no-multi \
+    --scheme path \
+    --header 'Ctrl-J: Switch Zoxide/GHQ' \
+    --prompt 'Zoxide  ' \
+    --bind 'ctrl-j:transform:[[ ! $FZF_PROMPT =~ Zoxide ]] &&
+      echo "change-prompt(Zoxide  )+reload(zoxide query --list)" ||
+      echo "change-prompt(GHQ  )+reload(ghq list -p)"' \
+  | anyframe-action-execute cd --
+
+zle .reset-prompt
