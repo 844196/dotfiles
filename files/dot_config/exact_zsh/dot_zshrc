@@ -75,7 +75,7 @@ bindkey '^X^F' anyframe-widget-insert-git-file
 alias ..='cd ..'
 alias ...='cd ../..'
 alias t='cd "$(mktemp -d)"'
-alias st=' git status'
+alias st=' git status-pretty'
 alias ck='git checkout'
 alias br='git branch'
 alias co='git commit'
