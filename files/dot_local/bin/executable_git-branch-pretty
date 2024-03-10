@@ -4,6 +4,7 @@
 import $ from "https://deno.land/x/dax@0.28.0/mod.ts";
 import { Table } from "https://deno.land/x/cliffy@v1.0.0-rc.3/table/mod.ts";
 import { colors } from "https://deno.land/x/cliffy@v1.0.0-rc.3/ansi/colors.ts";
+import { parseFlags } from "https://deno.land/x/cliffy@v1.0.0-rc.3/flags/mod.ts";
 import { emojify } from "https://deno.land/x/github_emoji@v0.1.1/mod.ts";
 
 type Row = [
@@ -30,13 +31,35 @@ const branches =
       }))
     );
 
-const rows = branches
-  .sort((left, right) => {
-    if (left.isHead && right.isHead === false) return -1;
-    if (left.isHead === false && right.isHead) return 1;
+const { flags } = parseFlags(Deno.args, {
+  flags: [
+    {
+      name: "head-ignore",
+    },
+    {
+      name: "gone-first",
+    },
+  ],
+});
 
-    if (left.isGone && right.isGone === false) return 1;
-    if (left.isGone === false && right.isGone) return -1;
+const rows = branches
+  .filter(({ isHead }) => {
+    if (isHead === false) {
+      return true;
+    }
+    return flags["headIgnore"] === true ? false : true;
+  })
+  .sort((left, right) => {
+    if (left.isHead && right.isHead === false) return 1;
+    if (left.isHead === false && right.isHead) return -1;
+
+    if (flags["goneFirst"] === true) {
+      if (left.isGone && right.isGone === false) return -1;
+      if (left.isGone === false && right.isGone) return 1;
+    } else {
+      if (left.isGone && right.isGone === false) return 1;
+      if (left.isGone === false && right.isGone) return -1;
+    }
 
     if (left.isTopic && right.isTopic === false) return 1;
     if (left.isTopic === false && right.isTopic) return -1;
@@ -60,5 +83,9 @@ const rows = branches
 
     return [name, colors.rgb24("│", 0x34394e), sha, desc];
   });
+
+if (rows.length === 0) {
+  Deno.exit(0);
+}
 
 Table.from(rows).render();

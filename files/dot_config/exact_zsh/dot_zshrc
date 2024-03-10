@@ -11,21 +11,22 @@ autoload -Uz evalcache
 autoload -Uz toggle-delta-features
 autoload -Uz compute-anyframe-fzf-options
 autoload -Uz accept-line-with-expand-alias
-autoload -Uz myspace
+autoload -Uz self-insert-with-expand-alias
+autoload -Uz fzf-completion-or-expand-or-complete
 autoload -Uz promptinit
 autoload -Uz up-line-or-beginning-search
 autoload -Uz down-line-or-beginning-search
+autoload -Uz better-edit-command-line
 
 add-zsh-hook precmd send-osc7
 add-zsh-hook precmd toggle-delta-features
 add-zsh-hook preexec toggle-delta-features
 add-zsh-hook zshaddhistory historyignore
 
-unsetopt FLOW_CONTROL
+unsetopt FLOW_CONTROL # Disable Ctrl+S and Ctrl+Q
 unsetopt BEEP
 setopt PRINT_EIGHT_BIT
 setopt EXTENDED_GLOB
-setopt MAGIC_EQUAL_SUBST
 setopt INTERACTIVE_COMMENTS
 
 zstyle ':completion' dump-file $XDG_CACHE_HOME/zsh/compdump-$ZSH_VERSION
@@ -33,9 +34,11 @@ zstyle ':completion' dump-ttl $((60 * 60 * 18))
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*' list-packed yes
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z} r:|[-_.]=**' '+m:{A-Z}={a-z} r:|[-_.]=**' # TODO ドットファイルを補完
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' # Ignore case
+zstyle ':completion:*' ignore-parents parent pwd
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/compcache
+setopt MAGIC_EQUAL_SUBST
 
 HISTFILE=$XDG_STATE_HOME/zsh/history
 HISTSIZE=1000000
@@ -49,12 +52,14 @@ setopt HIST_FIND_NO_DUPS
 
 select-word-style default
 zle -N accept-line-with-expand-alias
-zle -N myspace
+zle -N self-insert-with-expand-alias
+zle -N fzf-completion-or-expand-or-complete
 zle -N history-beginning-search-forward-end history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 zle -N insert-last-word smart-insert-last-word
+zle -N better-edit-command-line
 zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
@@ -66,11 +71,16 @@ bindkey '^[OA' up-line-or-beginning-search # Up arrow
 bindkey '^[OB' down-line-or-beginning-search # Down arrow
 bindkey '^[[Z' reverse-menu-complete # Shift+Tab
 bindkey '^M' accept-line-with-expand-alias
-bindkey ' ' myspace
+bindkey ' ' self-insert-with-expand-alias
+bindkey '^I' fzf-completion-or-expand-or-complete
 bindkey '^R' anyframe-widget-put-history
 bindkey '^J' anyframe-widget-jump
-bindkey '^X^B' anyframe-widget-insert-git-branch
-bindkey '^X^F' anyframe-widget-insert-git-file
+bindkey '^X^B' anyframe-widget-insert-git-branch-name
+bindkey '^X^F' anyframe-widget-insert-git-status-file
+bindkey '^X^X' anyframe-widget-insert-git-commit-hash
+bindkey '^X^G' anyframe-widget-insert-gitmoji
+bindkey -r '^O' # Default `accept-line-and-down-history` is not useful for me
+bindkey '^O^O' better-edit-command-line
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -81,12 +91,12 @@ alias br='git branch'
 alias co='git commit'
 alias di=' git diff'
 alias gg=' git graph -n 10'
-alias wip='git add -A && git commit -m ":construction: WIP ($(TZ=Asia/Tokyo date +%Y-%m-%dT%H:%M:%S+09:00))"'
 alias c='chezmoi'
-alias ls=' eza -goFh --icons --time-style="+%Y-%m-%d %H:%M:%S" -la'
 alias d='docker'
 alias dc='docker compose'
 alias nr='npm run'
+alias ls=' eza --octal-permissions --classify --group --icons --time-style="+%Y-%m-%d %H:%M:%S" --sort=type -la'
+alias rm='rm -I --preserve-root -r' # '-I' and '--preserve-root' are only available for GNU rm
 
 evalcache navi widget zsh
 evalcache zoxide init zsh --no-cmd

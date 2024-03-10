@@ -39,4 +39,8 @@ for (const l of await $`git status --porcelain -uall`.lines()) {
   ].join(""));
 }
 
+if (statuses.length === 0) {
+  Deno.exit(0);
+}
+
 console.log(statuses.join("\n"));

@@ -2,9 +2,10 @@
 
 tput cub 9999
 
-anyframe-source-git-file \
+git status-pretty \
   | SHELL==$ZSH_NAME anyframe-selector-fzf '' \
     --multi \
+    --select-1 \
     --delimiter '│' \
     --nth 2.. \
     --scheme path \

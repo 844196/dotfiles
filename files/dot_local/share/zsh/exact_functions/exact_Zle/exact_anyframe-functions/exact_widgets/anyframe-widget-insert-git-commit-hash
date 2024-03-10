@@ -1,0 +1,12 @@
+# vim: set ft=zsh:
+
+tput cub 9999
+
+git graph -n 50 | emojify \
+  | SHELL==$ZSH_NAME anyframe-selector-fzf '' \
+    --no-multi \
+    "$@" \
+  | grep -o '[a-f0-9]\{7\}' \
+  | anyframe-action-insert
+
+zle .reset-prompt

@@ -3,20 +3,29 @@
 case $BUFFER in
   b)
     local reply="git checkout -b $(git config --local user.name)/$(git rev-parse --abbrev-ref HEAD)/"
-    local now="$(TZ=Asia/Tokyo date '+%Y-%m-%dT%H:%M:%S+09:00')"
-    BUFFER="${reply} && git commit --allow-empty -m ':new: Create topic branch (${now})'"
+    BUFFER="${reply} && git commit --allow-empty -m ':new: Create topic branch'"
     CURSOR=${#reply}
     ;;
-  git\ branch\ -m)
+
+  bm|'git branch -m')
     BUFFER="git branch -m $(git rev-parse --abbrev-ref HEAD)"
     CURSOR=${#BUFFER}
     ;;
-  git\ push\ -f)
+
+  'git branch -d')
+    BUFFER="git branch -D "
+    CURSOR=${#BUFFER}
+    ;;
+
+  git\ push\ (-f|--force))
     BUFFER="git push --force-with-lease --force-if-includes "
     CURSOR=${#BUFFER}
     ;;
+
   *)
     zle _expand_alias
     zle .self-insert
     ;;
 esac
+
+zle .reset-prompt

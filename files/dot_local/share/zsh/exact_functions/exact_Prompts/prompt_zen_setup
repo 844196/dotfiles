@@ -49,8 +49,8 @@ prompt_zen_setup() {
     --color bg+:#1e2132
     --color fg:#c6c8d1
     --color fg+:#c6c8d1
-    --color hl:#6b7089
-    --color hl+:#84a0c6
+    --color hl:blue
+    --color hl+:blue
     --color spinner:#84a0c6
     --color header:#6b7089
     --color border:#34394E

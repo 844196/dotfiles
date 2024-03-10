@@ -16,18 +16,15 @@ rev = '5113cd0'
 github = 'mattmc3/zman'
 rev = '40483a4'
 
-[plugins.zeno]
-github = 'yuki-yano/zeno.zsh'
-rev = '322b49e'
-
-[plugins.zeno.hooks]
-post = '''
-export ZENO_DISABLE_BUILTIN_COMPLETION=1
-bindkey '^I' zeno-completion
-'''
-
 [plugins.completioninit]
-inline = 'completioninit'
+inline = '''
+completioninit
+
+# 'rm *' の挙動を変化させずに、補完候補を探索するときだけドットファイルを含めるようにする
+# https://www.reddit.com/r/zsh/comments/i3o2cq/show_hidden_files_but_hide_and_from_completion/
+# HACK: Undocumentedかつ compinit 実行後に設定しないと効果がない
+_comp_options+=(globdots)
+'''
 
 # Must be loaded after loading all other plugins (except zsh-autosuggestions, see below)
 [plugins.fast-syntax-highlighting]

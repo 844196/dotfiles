@@ -2,3 +2,8 @@
   type: file
   url: https://raw.githubusercontent.com/go-task/task/v3.31.0/completion/zsh/_task
   refreshPeriod: 168h
+
+.cache/gitmoji/gitmojis.json:
+  type: file
+  url: https://raw.githubusercontent.com/carloscuesta/gitmoji/master/packages/gitmojis/src/gitmojis.json
+  refreshPeriod: 168h

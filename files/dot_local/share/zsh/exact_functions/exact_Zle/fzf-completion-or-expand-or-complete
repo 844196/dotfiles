@@ -1,0 +1,39 @@
+# vim: set ft=zsh:
+
+case $BUFFER in
+  'git checkout '|'git rebase ')
+    anyframe-widget-insert-git-branch-name
+    ;;
+
+  git\ branch\ -[dD]\ )
+    anyframe-widget-insert-git-branch-name --head-ignore --gone-first
+    ;;
+
+  'git add '|'git reseet ')
+    anyframe-widget-insert-git-status-file
+    ;;
+
+  git\ rebase\ (-i|--interactive)\ )
+    anyframe-widget-insert-git-commit-hash --preview "
+      echo {} | grep -o '[a-f0-9]\{7\}' | xargs -I_ git log --color=never --reverse --format='pick %h %s' _..HEAD | emojify | bat --style plain -l git-rebase-todo --color=always
+    "
+    ;;
+
+  git\ commit\ --fixup(=|\ ))
+    anyframe-widget-insert-git-commit-hash
+    ;;
+
+  git\ commit\ (-m\ |--message(=|\ )))
+    local old_buffer=$BUFFER
+
+    anyframe-widget-insert-gitmoji --wrap --height 25%
+
+    if [[ "$old_buffer" != "$BUFFER" ]]; then
+      CURSOR=$(( ${#BUFFER} - 1 ))
+    fi
+    ;;
+
+  *)
+    zle expand-or-complete
+    ;;
+esac
