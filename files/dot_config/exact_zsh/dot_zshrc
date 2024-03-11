@@ -96,7 +96,7 @@ alias d='docker'
 alias dc='docker compose'
 alias nr='npm run'
 alias ls=' eza --octal-permissions --classify --group --icons --time-style="+%Y-%m-%d %H:%M:%S" --sort=type -la'
-alias rm='rm -I --preserve-root -r' # '-I' and '--preserve-root' are only available for GNU rm
+alias rm='rm -I --preserve-root -r' # '--preserve-root' is only available for GNU rm
 
 evalcache navi widget zsh
 evalcache zoxide init zsh --no-cmd
