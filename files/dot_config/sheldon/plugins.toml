@@ -48,4 +48,20 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
   up-line-or-beginning-search
   down-line-or-beginning-search
 )
+
+function magic-space() {
+  zle self-insert-with-expand-alias
+  zle autosuggest-fetch
+}
+
+function magic-tab() {
+  zle fzf-completion-or-expand-or-complete
+  zle autosuggest-fetch
+}
+
+zle -N magic-space
+zle -N magic-tab
+
+bindkey ' ' magic-space
+bindkey '^I' magic-tab
 '''
