@@ -7,16 +7,3 @@ packages:
     files:
       - name: emojify
         src: "emojify-{{.Version}}/emojify"
-  - type: github_release
-    repo_owner: tstack
-    repo_name: lnav
-    asset: lnav-{{trimV .Version}}-{{.Arch}}-{{.OS}}.{{.Format}}
-    format: zip
-    description: Log file navigator
-    replacements:
-      amd64: x86_64
-      linux: linux-musl
-      darwin: macos
-    files:
-      - name: lnav
-        src: lnav-{{trimV .Version}}/lnav
