@@ -9,7 +9,7 @@ registries:
     path: registry.yaml
 packages:
   - name: sharkdp/bat@v0.23.0
-  - name: dandavison/delta@0.15.1
+  - name: dandavison/delta@0.17.0
   - name: eza-community/eza@v0.15.0
   - name: junegunn/fzf@0.46.1
   - name: x-motemen/ghq@v1.4.2
