@@ -8,6 +8,7 @@
     "level": {
       "debug": "DEBUG",
       "info": "INFO",
+      "notice": "NOTICE",
       "warning": "WARNING",
       "error": "ERROR"
     },
