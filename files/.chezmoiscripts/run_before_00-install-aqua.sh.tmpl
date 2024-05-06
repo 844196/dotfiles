@@ -15,4 +15,4 @@ else
   exit 1
 fi
 
-AQUA_POLICY_CONFIG={{ .chezmoi.sourceDir }}/dot_config/aquaproj-aqua/policy.yaml exec ${AQUA_ROOT_DIR}/bin/aqua -c {{ .chezmoi.sourceDir }}/dot_config/aquaproj-aqua/aqua.yaml i
+AQUA_POLICY_CONFIG={{ .chezmoi.sourceDir }}/dot_config/aquaproj-aqua/policy.yaml exec ${AQUA_ROOT_DIR}/bin/aqua --config {{ .chezmoi.sourceDir }}/dot_config/aquaproj-aqua/aqua.yaml i --only-link
