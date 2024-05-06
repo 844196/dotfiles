@@ -39,4 +39,4 @@ packages:
   - name: BurntSushi/xsv@0.13.0
   - name: wfxr/csview@v1.2.2
   - name: itchyny/gojo@v0.3.2
-  - name: ynqa/jnv@v0.2.1
+  - name: ynqa/jnv@v0.2.2
