@@ -11,8 +11,8 @@ ZEVALCACHEDIR=$XDG_CACHE_HOME/zsh/evalcache
 typeset -U {,F,MAN}PATH {,f,man}path
 path=(
   $XDG_DATA_HOME/mise/shims(N-/)
-  $XDG_DATA_HOME/aquaproj-aqua/bin(N-/)
   ~/.local/bin(N-/)
+  $XDG_DATA_HOME/aquaproj-aqua/bin(N-/)
   $path
 )
 fpath=(
