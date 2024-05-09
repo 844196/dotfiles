@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if [[ "${1:-}" == "docker-cli-plugin-metadata" ]]; then
+  gojo \
+    SchemaVersion="0.1.0" \
+    Vendor="Masaya Takeda <844196@gmail.com>" \
+    Version="0.0.0" \
+    ShortDescription="My sub-commands" \
+    URL="https://github.com/844196/dotfiles"
+  exit 0
+fi
+
+cat \
+    <(echo -e "ID\tNAME\tSERVICE\tCREATED\tSTATUS\tPORTS") \
+    <(docker compose ps --format "{{.ID}}\t{{.Name}}\t{{.Service}}\t{{.RunningFor}}\t{{.Status}}\t{{.Ports}}") \
+  | csview -t -H -s none
