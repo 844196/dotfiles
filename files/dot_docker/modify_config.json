@@ -4,4 +4,4 @@
 {{- /* SEE: https://qiita.com/vitway/items/bbed028d9e469e9991c3 */ -}}
 {{- $config = setValueAtPath "detachKeys" "ctrl-\\" $config -}}
 
-{{- toPrettyJson $config -}}
+{{- toPrettyJson $config }}

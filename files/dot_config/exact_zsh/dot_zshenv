@@ -8,13 +8,17 @@ export XDG_STATE_HOME=$HOME/.local/state
 ZDOTDIR=$XDG_CONFIG_HOME/zsh
 ZEVALCACHEDIR=$XDG_CACHE_HOME/zsh/evalcache
 
+export AQUA_ROOT_DIR=$XDG_DATA_HOME/aquaproj-aqua
+export AQUA_GLOBAL_CONFIG=$XDG_CONFIG_HOME/aquaproj-aqua/aqua.yaml
+export AQUA_POLICY_CONFIG=$XDG_CONFIG_HOME/aquaproj-aqua/policy.yaml
+
 typeset -U {,F,MAN}PATH {,f,man}path
 path=(
   # aqua-proxy を迂回して高速実行したいバイナリを配置するディレクトリ
-  $XDG_DATA_HOME/aquaproj-aqua/bin-copied(N-/)
+  $AQUA_ROOT_DIR/bin-copied(N-/)
 
   # aqua で管理されるディレクトリ
-  $XDG_DATA_HOME/aquaproj-aqua/bin(N-/)
+  $AQUA_ROOT_DIR/bin(N-/)
 
   # DIY
   ~/.local/bin(N-/)
@@ -33,8 +37,9 @@ fpath=(
 
 export CURL_HOME=$XDG_CONFIG_HOME/curl
 export LESSKEY=$XDG_CONFIG_HOME/less/.less
-export AQUA_GLOBAL_CONFIG=$XDG_CONFIG_HOME/aquaproj-aqua/aqua.yaml
-export AQUA_POLICY_CONFIG=$XDG_CONFIG_HOME/aquaproj-aqua/policy.yaml
+
+export AWS_ECR_CACHE_DIR=$XDG_CACHE_HOME/ecr
+
 export FZF_DEFAULT_OPTS="--reverse --cycle --ansi --no-info --no-hscroll --no-sort --no-mouse"
 export DENO_NO_UPDATE_CHECK=1
 

@@ -51,3 +51,4 @@ packages:
   - name: wfxr/csview@v1.2.2
   - name: itchyny/gojo@v0.3.2
   - name: ynqa/jnv@v0.2.2
+  - name: awslabs/amazon-ecr-credential-helper@v0.7.1
