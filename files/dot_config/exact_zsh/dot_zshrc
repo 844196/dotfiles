@@ -97,6 +97,8 @@ alias dr='docker run --rm -it'
 alias dc='docker compose'
 alias nr='npm run'
 alias ls=' eza --octal-permissions --classify --group --icons --time-style=long-iso --sort=type -la'
+alias cp='cp -i'
+alias mv='mv -i'
 alias rm='rm -I --preserve-root -r' # '--preserve-root' is only available for GNU rm
 
 evalcache navi widget zsh
