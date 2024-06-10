@@ -2,6 +2,7 @@
 // vim: set ft=typescript:
 
 import $ from "https://deno.land/x/dax@0.28.0/mod.ts";
+import { relative } from "https://deno.land/std@0.224.0/path/mod.ts";
 import { colors } from "https://deno.land/x/cliffy@v1.0.0-rc.3/ansi/colors.ts";
 
 function colorizeSymbol(x: string) {
@@ -21,6 +22,9 @@ function colorizeSymbol(x: string) {
   }
 }
 
+const cwd = Deno.cwd();
+const repoRoot = await $`git rev-parse --show-toplevel`.text();
+
 const statuses = [];
 for (const l of await $`git status --porcelain -uall`.lines()) {
   const [index, workingDir, path] = l
@@ -35,7 +39,7 @@ for (const l of await $`git status --porcelain -uall`.lines()) {
     colorizeSymbol(index),
     colorizeSymbol(workingDir),
     colors.rgb24(" │ ", 0x34394e),
-    path,
+    relative(cwd, `${repoRoot}/${path}`),
   ].join(""));
 }
 
