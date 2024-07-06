@@ -1,16 +1,23 @@
 # vim: set ft=zsh:
 
 case $BUFFER in
-  'git checkout '|'git rebase ')
+  'git checkout ')
+    # TODO 複数選択させない
     anyframe-widget-insert-git-branch-name
     ;;
 
   git\ branch\ -[dD]\ )
-    anyframe-widget-insert-git-branch-name --head-ignore --gone-first
+    FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=pointer:red,marker:red" anyframe-widget-insert-git-branch-name --head-ignore --gone-first
     ;;
 
   'git add '|'git reseet ')
     anyframe-widget-insert-git-status-file
+    ;;
+
+  'git rebase ')
+    # TODO 複数選択させない
+    # TODO リモートを切り替えて表示できるように
+    FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=pointer:magenta,marker:magenta" anyframe-widget-insert-git-branch-name
     ;;
 
   git\ rebase\ (-i|--interactive)\ )

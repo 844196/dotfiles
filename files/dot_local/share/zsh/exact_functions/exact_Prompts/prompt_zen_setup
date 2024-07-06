@@ -39,12 +39,8 @@ prompt_zen_setup() {
   zstyle ':completion:*' list-colors ${(s.:.)${LS_COLORS/no=([^:])#/}} 'no=0;38;5;8' 'ma=0;38;5;0;48;5;8'
 
   # see: https://gist.github.com/sheepla/d1ff1ef11cc21dcc7434a25a012a970f
-  FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
+  export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
     --prompt ' '
-    --pointer '❯'
-    --marker '❯'
-    --ellipsis '…'
-    --scrollbar '▌▐'
     --color bg:-1
     --color bg+:#1e2132
     --color fg:#c6c8d1

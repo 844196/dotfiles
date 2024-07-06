@@ -63,7 +63,7 @@ zle -N better-edit-command-line
 zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
-zstyle -e ':anyframe:selector:fzf:*' command 'reply=(fzf --no-exit-0 --no-border $(compute-anyframe-fzf-options))'
+zstyle -e ':anyframe:selector:fzf:*' command 'reply=(fzf --no-exit-0 $(compute-anyframe-fzf-options))'
 
 bindkey '^N' history-beginning-search-forward-end
 bindkey '^P' history-beginning-search-backward-end
