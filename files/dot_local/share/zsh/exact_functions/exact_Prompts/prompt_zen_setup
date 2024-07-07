@@ -33,6 +33,10 @@ prompt_zen_setup() {
 %(?.%F{8}.%F{9})%(!.#.)%f '
   RPS1=$'%(6V.%{\e[38;2;52;57;78m%} %6v%f.)'
 
+  # https://news.ycombinator.com/item?id=26757438
+  # https://www.reddit.com/r/zsh/comments/c160o2/comment/erbdiqj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+  zle_highlight+=(paste:none)
+
   evalcache ~/.local/libexec/vivid-compat iceberg-dark
 
   zstyle ':completion:*' list-separator '│'
