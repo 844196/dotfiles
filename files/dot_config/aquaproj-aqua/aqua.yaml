@@ -54,3 +54,4 @@ packages:
   - name: awslabs/amazon-ecr-credential-helper@v0.7.1
   - name: terrastruct/d2@v0.6.5
     tags: [need-copy]
+  - name: dylanaraps/neofetch@7.1.0
