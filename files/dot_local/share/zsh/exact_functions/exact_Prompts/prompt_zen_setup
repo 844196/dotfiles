@@ -129,13 +129,7 @@ prompt_zen_async_precmd_callback() {
 }
 
 +vi-prompt_zen_git-remote() {
-  local upstream=$(git rev-parse --abbrev-ref --symbolic-full-name @{upstream} 2>/dev/null)
-  if [[ "$upstream" == "@{upstream}" ]]; then
-    hook_com[misc]+=':'
-    return
-  fi
-
-  hook_com[misc]=${${(s: :j[:])$(git rev-list --left-right --count HEAD...${upstream} 2>/dev/null)}//0/}
+  hook_com[misc]=${${(s: :j[:])$(git rev-list --left-right --count HEAD...${hook_com[branch]}@{upstream} 2>/dev/null || echo)}//0/}
 }
 
 +vi-prompt_zen_git-author() {
