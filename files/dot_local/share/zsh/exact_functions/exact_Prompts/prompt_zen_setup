@@ -129,7 +129,7 @@ prompt_zen_async_precmd_callback() {
 }
 
 +vi-prompt_zen_git-remote() {
-  hook_com[misc]=${${(s: :j[:])$(git rev-list --left-right --count HEAD...${hook_com[branch]}@{upstream} 2>/dev/null || echo)}//0/}
+  hook_com[misc]=${${(s: :j[:])$(git rev-list --left-right --count HEAD...${hook_com[branch]}@{upstream} 2>/dev/null || echo '0 0')}//0/}
 }
 
 +vi-prompt_zen_git-author() {
