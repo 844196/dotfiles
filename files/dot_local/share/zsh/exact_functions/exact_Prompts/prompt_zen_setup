@@ -18,7 +18,7 @@ prompt_zen_setup() {
   zstyle ':vcs_info:git:*' check-for-changes no
   zstyle ':vcs_info:git:*' check-for-staged-changes yes
   zstyle ':vcs_info:git:*' max-exports 1
-  zstyle ':vcs_info:git:*' formats '%b:%u%c:%m'
+  zstyle ':vcs_info:git:*' formats '%b:%u%c:%m' # %b:CurrentBranch, %u:Unstaged, %c:Staged, %m:Misc
   zstyle ':vcs_info:git+set-message:*' hooks \
     prompt_zen_git-status \
     prompt_zen_git-remote \
@@ -112,6 +112,16 @@ prompt_zen_async_precmd_callback() {
     psvar[5]=$segments[4]
     psvar[6]=$segments[5]
 
+    cat <<EOF>> ~/output.yaml
+-
+  all: $REPLY
+  branch: $segments[1]
+  staged: $segments[2]
+  remote_ahead: $segments[3]
+  remote_behind: $segments[4]
+  user: $segments[5]
+EOF
+
     zle && [[ $CONTEXT == start ]] &&
       zle .reset-prompt
   } always {
@@ -129,7 +139,13 @@ prompt_zen_async_precmd_callback() {
 }
 
 +vi-prompt_zen_git-remote() {
-  hook_com[misc]=${${(s: :j[:])$(git rev-list --left-right --count HEAD...${hook_com[branch]}@{upstream} 2>/dev/null)}//0/}
+  local upstream=$(git rev-parse --abbrev-ref --symbolic-full-name @{upstream} 2>/dev/null)
+  if [[ "$upstream" == "@{upstream}" ]]; then
+    hook_com[misc]+=':'
+    return
+  fi
+
+  hook_com[misc]=${${(s: :j[:])$(git rev-list --left-right --count HEAD...${upstream} 2>/dev/null)}//0/}
 }
 
 +vi-prompt_zen_git-author() {
