@@ -112,16 +112,6 @@ prompt_zen_async_precmd_callback() {
     psvar[5]=$segments[4]
     psvar[6]=$segments[5]
 
-    cat <<EOF>> ~/output.yaml
--
-  all: $REPLY
-  branch: $segments[1]
-  staged: $segments[2]
-  remote_ahead: $segments[3]
-  remote_behind: $segments[4]
-  user: $segments[5]
-EOF
-
     zle && [[ $CONTEXT == start ]] &&
       zle .reset-prompt
   } always {
