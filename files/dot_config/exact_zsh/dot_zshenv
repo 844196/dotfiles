@@ -9,16 +9,15 @@ ZDOTDIR=$XDG_CONFIG_HOME/zsh
 ZEVALCACHEDIR=$XDG_CACHE_HOME/zsh/evalcache
 
 export AQUA_ROOT_DIR=$XDG_DATA_HOME/aquaproj-aqua
-export AQUA_GLOBAL_CONFIG=$XDG_CONFIG_HOME/aquaproj-aqua/aqua.yaml
-export AQUA_POLICY_CONFIG=$XDG_CONFIG_HOME/aquaproj-aqua/policy.yaml
+export GLOBAL_AQUA_ROOT_DIR=$XDG_DATA_HOME/aquaproj-aqua-global
 
 typeset -U {,F,MAN}PATH {,f,man}path
 path=(
-  # aqua-proxy を迂回して高速実行したいバイナリを配置するディレクトリ
-  $AQUA_ROOT_DIR/bin-copied(N-/)
-
   # aqua で管理されるディレクトリ
   $AQUA_ROOT_DIR/bin(N-/)
+
+  # aqua で管理されるディレクトリ (Dotfiles)
+  $GLOBAL_AQUA_ROOT_DIR/bin-copied(N-/)
 
   # DIY
   ~/.local/bin(N-/)

@@ -1,9 +1,0 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/main/json-schema/registry.json
-packages:
-  - type: github_archive
-    repo_owner: mrowa44
-    repo_name: emojify
-    description: Emoji on the command line
-    files:
-      - name: emojify
-        src: "emojify-{{.Version}}/emojify"

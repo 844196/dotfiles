@@ -1,5 +1,5 @@
 #!/bin/bash
 
-bat="$(~/.local/share/aquaproj-aqua/bin/aqua -c ~/.config/aquaproj-aqua/aqua.yaml which bat)"
+set -euo pipefail
 
-exec "$bat" cache --build >/dev/null
+~/.local/share/aquaproj-aqua-global/bin-copied/bat cache --build >/dev/null
