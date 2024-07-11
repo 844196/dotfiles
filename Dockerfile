@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
 ARG HOST_UID=1000
 ARG HOST_GID=1000
