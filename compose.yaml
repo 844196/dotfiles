@@ -1,0 +1,11 @@
+services:
+  sandbox:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER_UID: ${HOST_UID:?}
+        USER_GID: ${HOST_GID:?}
+    volumes:
+      - .:/home/nonroot/.dotfiles:cached
+    tty: true

@@ -1,28 +1,42 @@
-# syntax=docker/dockerfile:1.3-labs
-
 FROM debian:bullseye
 
-RUN --mount=type=cache,target=/var/lib/apt/lists --mount=type=cache,target=/var/cache/apt/archives <<SHELL
-  apt-get update
-  apt-get install --yes --no-install-recommends sudo=* gosu=* curl=* ca-certificates=* git=1:2.* zsh=* less=*
-SHELL
+ARG HOST_UID=1000
+ARG HOST_GID=1000
 
-RUN <<SHELL
-  useradd --shell /bin/zsh --create-home testuser
-  echo "testuser ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/testuser
-  chmod 0440 /etc/sudoers.d/testuser
-SHELL
+RUN \
+  useradd --shell /bin/bash --create-home --user-group nonroot && \
+  usermod --non-unique --uid ${HOST_UID} nonroot && \
+  groupmod --non-unique --gid ${HOST_GID} nonroot
 
-COPY --chmod=755 <<'EOF' /usr/local/bin/docker-entrypoint.sh
-#!/bin/bash
-usermod --non-unique --uid ${HOST_UID:-9001} testuser
-groupmod --gid ${HOST_GID:-9001} testuser
-exec /usr/sbin/gosu testuser "$@"
+RUN \
+  apt-get update && \
+  apt-get install -y --no-install-recommends \
+    sudo=* \
+    gosu=* \
+    curl=* \
+    ca-certificates=* \
+    git=1:2.* \
+    zsh=* \
+    less=* \
+    locales=* && \
+  rm -rf /var/lib/apt/lists/*
+
+COPY <<EOF /etc/locale.gen
+en_US.UTF-8 UTF-8
+ja_JP.UTF-8 UTF-8
 EOF
 
-WORKDIR /home/testuser
+RUN locale-gen
+ENV LANG en_US.UTF-8
 
-RUN rm /home/testuser/.profile /home/testuser/.bashrc /home/testuser/.bash_logout
+RUN \
+  echo "nonroot ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/nonroot && \
+  chmod 0440 /etc/sudoers.d/nonroot
 
-ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["/bin/zsh"]
+RUN install -o nonroot -g nonroot -d /home/nonroot/.dotfiles
+
+USER nonroot
+
+WORKDIR /home/nonroot/.dotfiles
+
+CMD ["/bin/bash"]

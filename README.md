@@ -46,13 +46,14 @@ convert -size 3840x2160 xc:'#161821' wallpaper.png
 # in host
 echo "HOST_UID=$(id -u)" >> .env
 echo "HOST_GID=$(id -g)" >> .env
+
 docker compose build
-docker compose run --rm -i sandbox
+docker compose run --rm sandbox
 ```
 
 ```bash
 # in container
-.dotfiles/install.sh
+./install.sh
 ```
 
 ## :page_facing_up: License
