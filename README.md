@@ -18,18 +18,8 @@
 ## :package: Install
 
 ```bash
-sh -c "$(curl -fsLS chezmoi.io/get)" -- -b ~/.local/bin init --apply 844196
-```
-
-```bash
 git clone https://github.com/844196/dotfiles.git ~/.dotfiles
 ~/.dotfiles/install.sh
-```
-
-### :link: WezTerm shortcut (for Windows)
-
-```
-"C:\Program Files\WezTerm\wezterm-gui.exe" --config-file \\wsl.localhost\Ubuntu\home\{{ USERNAME_GOES_HERE }}\.config\wezterm\wezterm.lua --config "default_domain='WSL:Ubuntu'"
 ```
 
 ## :framed_picture: Wallpaper
