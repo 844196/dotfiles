@@ -10,7 +10,7 @@ git status-pretty \
     --nth 2.. \
     --scheme path \
     --preview-window +2 \
-    --preview 'zeno-preview git-status {}' \
+    --preview 'fzf-preview-helper git-status {}' \
   | sed 's/^.....//g' \
   | anyframe-action-insert
 
