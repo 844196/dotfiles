@@ -41,4 +41,4 @@ packages:
   - name: jdx/mise@v2024.2.19
 
   # TODO miseで管理する
-  - name: denoland/deno@v1.41.1
+  - name: denoland/deno@v1.45.1
