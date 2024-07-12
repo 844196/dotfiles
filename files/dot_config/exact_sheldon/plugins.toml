@@ -8,10 +8,6 @@ rev = '5986753'
 github = 'zsh-users/zsh-completions'
 rev = 'b46602d'
 
-[plugins.undollar]
-github = 'zpm-zsh/undollar'
-rev = '5113cd0'
-
 [plugins.zman]
 github = 'mattmc3/zman'
 rev = '40483a4'
