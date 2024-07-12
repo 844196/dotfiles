@@ -14,3 +14,10 @@
   url: https://raw.githubusercontent.com/aquaproj/aqua-installer/v3.0.1/aqua-installer
   checksum.sha256: fb4b3b7d026e5aba1fc478c268e8fbd653e01404c8a8c6284fdba88ae62eda6a
   refreshPeriod: 168h
+
+.local/bin/mise:
+  type: file
+  executable: true
+  url: https://github.com/jdx/mise/releases/download/v2024.7.1/mise-v2024.7.1-linux-x64-musl
+  checksum.sha256: 6c370b8535be0e8453a2ecc0652358e4728cf0c6f9c620d466edbf5ae9df4c58
+  refreshPeriod: 168h

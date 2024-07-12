@@ -36,9 +36,3 @@ packages:
   - name: go-task/task@v3.31.0
   - name: wfxr/csview@v1.2.2
   - name: dylanaraps/neofetch@7.1.0
-
-  # TODO chezmoiexternalで管理する
-  - name: jdx/mise@v2024.2.19
-
-  # TODO miseで管理する
-  - name: denoland/deno@v1.41.1
