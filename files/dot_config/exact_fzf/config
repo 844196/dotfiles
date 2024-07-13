@@ -2,8 +2,9 @@
 --cycle
 --ansi
 --no-border
+--no-separator
 --info inline-right
 --no-hscroll
 --no-sort
 --no-mouse
---ellipsis '…'
+--ellipsis ''

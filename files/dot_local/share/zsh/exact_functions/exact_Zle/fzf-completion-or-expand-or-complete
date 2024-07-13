@@ -2,12 +2,11 @@
 
 case $BUFFER in
   'git checkout ')
-    # TODO 複数選択させない
-    anyframe-widget-insert-git-branch-name
+    FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --no-multi --select-1 --exit-0" anyframe-widget-insert-git-branch-name --head-ignore
     ;;
 
   git\ branch\ -[dD]\ )
-    FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=pointer:red,marker:red" anyframe-widget-insert-git-branch-name --head-ignore --gone-first
+    FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --multi --select-1 --exit-0 --color=marker:red" anyframe-widget-insert-git-branch-name --head-ignore --gone-first
     ;;
 
   'git add '|'git reseet ')
@@ -15,9 +14,8 @@ case $BUFFER in
     ;;
 
   'git rebase ')
-    # TODO 複数選択させない
     # TODO リモートを切り替えて表示できるように
-    FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=pointer:magenta,marker:magenta" anyframe-widget-insert-git-branch-name
+    FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --no-multi --select-1 --exit-0" anyframe-widget-insert-git-branch-name --head-ignore
     ;;
 
   git\ rebase\ (-i|--interactive)\ )
