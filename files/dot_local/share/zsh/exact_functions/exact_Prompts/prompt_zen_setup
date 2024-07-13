@@ -29,9 +29,9 @@ prompt_zen_setup() {
 
   prompt_opts=(cr sp percent)
   PS1='
-%F{4}%n@%m%f %F{8}in%f %F{12}󰉋 %(1V.%1v.%~)%f %(2V.%F{8}on%f %F{5} %2v%(3V.%F{15}*%f . )%(4V.%F{5}⇡%4v%f .)%(5V.%F{5}⇣%5v%f.)%f.)
+%(7V.%F{4}%n@%m%f %F{8}in%f .)%F{12}%(1V.%1v.%~)%f %(2V.%F{8}on%f %F{5}%2v%(3V.%F{15}*%f . )%(4V.%F{5}⇡%4v%f .)%(5V.%F{5}⇣%5v%f.)%f.)
 %(?.%F{8}.%F{9})%(!.#.)%f '
-  RPS1=$'%(6V.%F{8} %6v%f.)'
+  RPS1=$'%(6V.%F{8}%6v%f.)'
 
   # https://news.ycombinator.com/item?id=26757438
   # https://www.reddit.com/r/zsh/comments/c160o2/comment/erbdiqj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
@@ -73,6 +73,8 @@ prompt_zen_precmd() {
 
   {
     psvar=()
+
+    psvar[7]=$REMOTE_CONTAINERS
 
     local fd
     exec {fd}< <(prompt_zen_async_precmd)
