@@ -1,0 +1,8 @@
+# vim: set ft=zsh:
+
+# 5.9 からは必要なくなる
+# https://github.com/zsh-users/zsh/commit/bd328a2a9c230a8232bdfbaa934874b61fa749d5
+
+autoload -Uz edit-command-line
+
+TMPSUFFIX=.zsh edit-command-line

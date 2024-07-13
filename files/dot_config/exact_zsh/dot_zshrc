@@ -16,7 +16,7 @@ autoload -Uz fzf-completion-or-expand-or-complete
 autoload -Uz promptinit
 autoload -Uz up-line-or-beginning-search
 autoload -Uz down-line-or-beginning-search
-autoload -Uz better-edit-command-line
+autoload -Uz edit-command-line-shim
 
 add-zsh-hook precmd send-osc7
 add-zsh-hook precmd toggle-delta-features
@@ -59,7 +59,7 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 zle -N insert-last-word smart-insert-last-word
-zle -N better-edit-command-line
+zle -N edit-command-line edit-command-line-shim
 zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
@@ -79,8 +79,7 @@ bindkey '^X^B' anyframe-widget-insert-git-branch-name
 bindkey '^X^F' anyframe-widget-insert-git-status-file
 bindkey '^X^X' anyframe-widget-insert-git-commit-hash
 bindkey '^X^G' anyframe-widget-insert-gitmoji
-bindkey -r '^O' # Default `accept-line-and-down-history` is not useful for me
-bindkey '^O^O' better-edit-command-line
+bindkey '^X^E' edit-command-line
 
 alias ..='cd ..'
 alias ...='cd ../..'
