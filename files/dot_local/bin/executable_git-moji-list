@@ -35,5 +35,5 @@ const plainBorder = Object.entries(defaultBorder)
   );
 
 Table.from(rows)
-  .border(true).chars({ ...plainBorder, middle: colors.rgb24("│", 0x34394e) })
+  .border(true).chars({ ...plainBorder, middle: colors.brightBlack.dim("│") })
   .render();

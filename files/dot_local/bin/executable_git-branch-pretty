@@ -81,7 +81,7 @@ const rows = branches
       `${emojify(branch.subject)} ${branch.upstream}`,
     );
 
-    return [name, colors.rgb24("│", 0x34394e), sha, desc];
+    return [name, colors.brightBlack.dim("│"), sha, desc];
   });
 
 if (rows.length === 0) {

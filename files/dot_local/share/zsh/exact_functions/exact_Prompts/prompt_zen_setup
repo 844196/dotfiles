@@ -31,7 +31,7 @@ prompt_zen_setup() {
   PS1='
 %F{4}%n@%m%f %F{8}in%f %F{12}󰉋 %(1V.%1v.%~)%f %(2V.%F{8}on%f %F{5} %2v%(3V.%F{15}*%f . )%(4V.%F{5}⇡%4v%f .)%(5V.%F{5}⇣%5v%f.)%f.)
 %(?.%F{8}.%F{9})%(!.#.)%f '
-  RPS1=$'%(6V.%{\e[38;2;52;57;78m%} %6v%f.)'
+  RPS1=$'%(6V.%F{8} %6v%f.)'
 
   # https://news.ycombinator.com/item?id=26757438
   # https://www.reddit.com/r/zsh/comments/c160o2/comment/erbdiqj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
@@ -45,21 +45,19 @@ prompt_zen_setup() {
   # see: https://gist.github.com/sheepla/d1ff1ef11cc21dcc7434a25a012a970f
   export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
     --prompt ' '
-    --color bg:-1
-    --color bg+:#1e2132
-    --color fg:#c6c8d1
-    --color fg+:#c6c8d1
-    --color hl:blue
-    --color hl+:blue
-    --color spinner:#84a0c6
-    --color header:#6b7089
-    --color border:#34394E
-    --color preview-label:#34394E
     --color gutter:-1
-    --color info:#34394E
-    --color pointer:#84a0c6
-    --color marker:#84a0c6
     --color prompt:8
+    --color info:8
+    --color header:8
+    --color border:0
+    --color pointer:8
+    --color marker:3
+    --color fg:-1
+    --color bg:-1
+    --color fg+:-1
+    --color bg+:0
+    --color hl:1
+    --color hl+:1
   "
 
   export BAT_THEME="iceberg"
