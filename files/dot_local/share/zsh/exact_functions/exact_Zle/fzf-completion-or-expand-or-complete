@@ -9,7 +9,7 @@ case $BUFFER in
     FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --multi --select-1 --exit-0 --color=marker:red" anyframe-widget-insert-git-branch-name --head-ignore --gone-first
     ;;
 
-  'git add '|'git reseet ')
+  'git add '|'git reset ')
     anyframe-widget-insert-git-status-file
     ;;
 
