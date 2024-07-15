@@ -1,7 +1,7 @@
 # vim: set ft=zsh:
 
-case $WIDGET in
-  insert-a-with-expand-alias)
+case $KEYS in
+  a)
     case $BUFFER in
       'git add -')
         BUFFER="git add -A"
@@ -14,7 +14,7 @@ case $WIDGET in
     esac
     ;;
 
-  insert-space-with-expand-alias|magic-space)
+  ' ')
     case $BUFFER in
       ck)
         BUFFER="git checkout "
