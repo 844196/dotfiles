@@ -46,7 +46,7 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
 )
 
 function magic-space() {
-  zle self-insert-with-expand-alias
+  zle insert-space-with-expand-alias
   zle autosuggest-fetch
 }
 

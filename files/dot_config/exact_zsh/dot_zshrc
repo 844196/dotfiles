@@ -23,6 +23,7 @@ add-zsh-hook precmd toggle-delta-features
 add-zsh-hook preexec toggle-delta-features
 add-zsh-hook zshaddhistory historyignore
 
+disable r # It's so dangerous!
 unsetopt FLOW_CONTROL # Disable Ctrl+S and Ctrl+Q
 unsetopt BEEP
 setopt PRINT_EIGHT_BIT
@@ -52,7 +53,8 @@ setopt HIST_FIND_NO_DUPS
 
 select-word-style default
 zle -N accept-line-with-expand-alias
-zle -N self-insert-with-expand-alias
+zle -N insert-a-with-expand-alias self-insert-with-expand-alias
+zle -N insert-space-with-expand-alias self-insert-with-expand-alias
 zle -N fzf-completion-or-expand-or-complete
 zle -N history-beginning-search-forward-end history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -71,7 +73,8 @@ bindkey '^[OA' up-line-or-beginning-search # Up arrow
 bindkey '^[OB' down-line-or-beginning-search # Down arrow
 bindkey '^[[Z' reverse-menu-complete # Shift+Tab
 bindkey '^M' accept-line-with-expand-alias
-bindkey ' ' self-insert-with-expand-alias
+bindkey 'a' insert-a-with-expand-alias
+bindkey ' ' insert-space-with-expand-alias
 bindkey '^I' fzf-completion-or-expand-or-complete
 bindkey '^R' anyframe-widget-put-history
 bindkey '^J' anyframe-widget-jump
@@ -85,16 +88,8 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias t='cd "$(mktemp -d)"'
 alias st=' git status-pretty'
-alias ck='git checkout'
-alias br='git branch'
-alias co='git commit'
 alias di=' git diff'
 alias gg=' git graph -n 10'
-alias c='chezmoi'
-alias d='docker'
-alias dr='docker run --rm -it'
-alias dc='docker compose'
-alias nr='npm run'
 alias ls=' eza --octal-permissions --classify --group --icons --time-style=long-iso --sort=type -la'
 alias cp='cp -i'
 alias mv='mv -i'
