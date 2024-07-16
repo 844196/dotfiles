@@ -30,7 +30,10 @@ path=(
 fpath=(
   $XDG_DATA_HOME/zsh/functions/*(N-/)
   $XDG_DATA_HOME/zsh/functions/Zle/anyframe-functions/*(N-/)
+  $XDG_DATA_HOME/zsh/plugins/anyframe(N-/)
+  $XDG_DATA_HOME/zsh/plugins/zman/functions(N-/)
   $XDG_DATA_HOME/zsh/vendor-completions(N-/)
+  $XDG_DATA_HOME/zsh/plugins/zsh-completions/src(N-/)
   $fpath
 )
 
