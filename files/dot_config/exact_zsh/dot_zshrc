@@ -86,7 +86,7 @@ bindkey '^X^E' edit-command-line
 
 alias ..='cd ..'
 alias ...='cd ../..'
-alias ls=' eza --time-style=long-iso -s=type -ogf -la'
+alias ls=' eza --time-style=long-iso -s=type -logF -a'
 alias tree=' eza -T -I=.git --git-ignore -s=type -a'
 alias cp='cp -i'
 alias mv='mv -i'
