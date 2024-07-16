@@ -36,6 +36,8 @@ fpath=(
 
 export CURL_HOME=$XDG_CONFIG_HOME/curl
 
+export WGETRC=$XDG_CONFIG_HOME/wget/wgetrc
+
 export LESSKEY=$XDG_CONFIG_HOME/less/.less
 
 export AWS_ECR_CACHE_DIR=$XDG_CACHE_HOME/ecr
