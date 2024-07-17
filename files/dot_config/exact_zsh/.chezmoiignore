@@ -1,2 +1,3 @@
+*.zwc
 .zshenv.local
 .zshrc.local
