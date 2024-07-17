@@ -56,8 +56,7 @@ setopt HIST_FIND_NO_DUPS
 select-word-style default
 anyframe-init
 zle -N accept-line-with-expand-alias
-zle -N insert-a-with-expand-alias self-insert-with-expand-alias
-zle -N insert-space-with-expand-alias self-insert-with-expand-alias
+zle -N self-insert-with-expand-alias
 zle -N fzf-completion-or-expand-or-complete
 zle -N history-beginning-search-forward-end history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -114,7 +113,7 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
 
 # Wrap autosuggest-fetch
 function magic-space() {
-  zle insert-space-with-expand-alias
+  zle self-insert-with-expand-alias
   zle autosuggest-fetch
 }
 function magic-tab() {
@@ -130,7 +129,7 @@ bindkey '^[OA' up-line-or-beginning-search # Up arrow
 bindkey '^[OB' down-line-or-beginning-search # Down arrow
 bindkey '^[[Z' reverse-menu-complete # Shift+Tab
 bindkey '^M' accept-line-with-expand-alias
-bindkey 'a' insert-a-with-expand-alias
+bindkey 'a' self-insert-with-expand-alias
 bindkey ' ' magic-space
 bindkey '^I' magic-tab
 bindkey '^R' anyframe-widget-put-history
