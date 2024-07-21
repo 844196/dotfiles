@@ -19,6 +19,7 @@ autoload -Uz down-line-or-beginning-search
 autoload -Uz edit-command-line-shim
 autoload -Uz zman
 autoload -Uz anyframe-init
+autoload -Uz zsh-defer
 
 add-zsh-hook precmd send-osc7
 add-zsh-hook precmd toggle-delta-features
@@ -95,11 +96,13 @@ completioninit
 _comp_options+=(globdots)
 
 # Must be loaded after loading all other plugins (except zsh-autosuggestions, see below)
-source $XDG_DATA_HOME/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+zsh-defer -a +pr source $XDG_DATA_HOME/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
+# Autosuggestions must be initialized after syntax highlighting
+# see: https://github.com/romkatv/zsh-bench#deferred-initialization
 # see: https://github.com/zsh-users/zsh-autosuggestions#disabling-automatic-widget-re-binding
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-source $XDG_DATA_HOME/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+zsh-defer -a +ms source $XDG_DATA_HOME/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)

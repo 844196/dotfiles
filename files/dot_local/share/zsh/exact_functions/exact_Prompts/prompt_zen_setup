@@ -69,7 +69,7 @@ prompt_zen_setup() {
   local current_fsh_theme
   zstyle -g current_fsh_theme ':plugin:fast-syntax-highlighting' theme
   if [[ "$current_fsh_theme" != "zen" ]]; then
-    fast-theme ~/.config/fsh/zen.ini 2>&1 >/dev/null
+    zsh-defer fast-theme ~/.config/fsh/zen.ini 2>&1 >/dev/null
   fi
 }
 
