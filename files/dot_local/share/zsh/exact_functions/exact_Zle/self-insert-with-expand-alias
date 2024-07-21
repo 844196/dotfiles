@@ -127,4 +127,4 @@ case $KEYS in
     ;;
 esac
 
-zle .reset-prompt
+zle autosuggest-fetch
