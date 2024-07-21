@@ -10,5 +10,5 @@ local files=(
 local f
 for f in $files; do
   echo "Compiling $f"
-  zcompile $f
+  zcompile -R -- "$f".zwc "$f"
 done
