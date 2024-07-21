@@ -114,6 +114,11 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
   down-line-or-beginning-search
 )
 
+# ?(...) - https://zsh.sourceforge.io/Doc/Release/Expansion.html#ksh_002dlike-Glob-Operators
+# #cN, - https://zsh.sourceforge.io/Doc/Release/Expansion.html#Globbing-Flags
+ZSH_AUTOSUGGEST_HISTORY_IGNORE='( eza *|cd *|\\(cp|mv|rm) *|git (add|branch|checkout) *|?(#c50,))'
+ZSH_AUTOSUGGEST_COMPLETION_IGNORE='( eza *|cd *|\\(cp|mv|rm) *|git (add|branch|checkout) *)'
+
 bindkey '^N' history-beginning-search-forward-end
 bindkey '^P' history-beginning-search-backward-end
 bindkey '^[OA' up-line-or-beginning-search # Up arrow
