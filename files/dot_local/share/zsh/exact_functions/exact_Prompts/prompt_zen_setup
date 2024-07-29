@@ -13,6 +13,8 @@ prompt_zen_setup() {
 
   autoload -Uz vcs_info add-zsh-hook evalcache
 
+  add-zsh-hook preexec prompt_zen_preexec
+
   zstyle ':vcs_info:*' enable git
   zstyle ':vcs_info:git:*' use-simple yes
   zstyle ':vcs_info:git:*' check-for-changes no
@@ -28,10 +30,10 @@ prompt_zen_setup() {
   zle -N prompt_zen_async_precmd_callback
 
   prompt_opts=(cr sp percent)
-  PS1='
-%(7V.%F{4}%n@%m%f %F{8}in%f .)%F{12}%(1V.%1v.%~)%f %(2V.%F{8}on%f %F{5}%2v%(3V.%F{15}*%f . )%(4V.%F{5}⇡%4v%f .)%(5V.%F{5}⇣%5v%f.)%f.)
-%(?.%F{8}.%F{9})%(!.#.)%f '
-  RPS1=$'%(6V.%F{8}%6v%f.)'
+  PS1=$'%(9V.%{\e]133;D;%?\a%}.)
+%{\e]133;A\a%}%{\e]132;P;k=i\a%}%(7V.%F{4}%n@%m%f %F{8}in%f .)%F{12}%(1V.%1v.%~)%f %(2V.%F{8}on%f %F{5}%2v%(3V.%F{15}*%f . )%(4V.%F{5}⇡%4v%f .)%(5V.%F{5}⇣%5v%f.)%f.)
+%(?.%F{8}.%F{9})%(!.#.)%f %{\e]133;B\a%}'
+  RPS1=$'%(6V.%{\e]133;P;k=r\a%}%F{8}%6v%f%{\e]133;B\a%}.)'
 
   # https://news.ycombinator.com/item?id=26757438
   # https://www.reddit.com/r/zsh/comments/c160o2/comment/erbdiqj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
@@ -125,6 +127,11 @@ prompt_zen_async_precmd_callback() {
   } always {
     exec {fd}<&-
   }
+}
+
+prompt_zen_preexec() {
+  printf "\e]133;C;\a"
+  psvar[9]=1
 }
 
 +vi-prompt_zen_git-status() {
