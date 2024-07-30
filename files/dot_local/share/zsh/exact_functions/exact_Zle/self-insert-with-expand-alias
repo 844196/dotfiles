@@ -1,7 +1,7 @@
 # vim: set ft=zsh:
 
 emulate -L zsh
-setopt EXTENDED_GLOB
+setopt EXTENDED_GLOB KSH_GLOB
 
 case $KEYS in
   a)
@@ -19,8 +19,21 @@ case $KEYS in
 
   d)
     case $BUFFER in
-      git\ *\ (origin|upstream)\ (#i)(hea))
+      git\ *@(\ |...)(#i)(hea))
         BUFFER="${BUFFER[0,-4]}HEAD"
+        CURSOR=${#BUFFER}
+        ;;
+
+      *)
+        zle .self-insert
+        ;;
+    esac
+    ;;
+
+  '^')
+    case $BUFFER in
+      *@(HEAD|@)*(\\^))
+        BUFFER="${BUFFER}\^"
         CURSOR=${#BUFFER}
         ;;
 

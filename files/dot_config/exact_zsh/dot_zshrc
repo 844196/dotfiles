@@ -96,6 +96,7 @@ bindkey '^[[Z' reverse-menu-complete # Shift+Tab
 bindkey '^M' accept-line-with-expand-alias
 bindkey 'a' self-insert-with-expand-alias
 bindkey 'd' self-insert-with-expand-alias
+bindkey '\^' self-insert-with-expand-alias
 bindkey ' ' self-insert-with-expand-alias
 bindkey '^I' fzf-completion-or-expand-or-complete
 bindkey '^R' anyframe-widget-put-history
