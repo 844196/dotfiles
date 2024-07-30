@@ -88,6 +88,23 @@ alias di=' git diff'
 alias gg=' git graph -n 10'
 alias ch='chezmoi'
 
+bindkey '^N' history-beginning-search-forward-end
+bindkey '^P' history-beginning-search-backward-end
+bindkey '^[OA' up-line-or-beginning-search # Up arrow
+bindkey '^[OB' down-line-or-beginning-search # Down arrow
+bindkey '^[[Z' reverse-menu-complete # Shift+Tab
+bindkey '^M' accept-line-with-expand-alias
+bindkey 'a' self-insert-with-expand-alias
+bindkey ' ' self-insert-with-expand-alias
+bindkey '^I' fzf-completion-or-expand-or-complete
+bindkey '^R' anyframe-widget-put-history
+bindkey '^J' anyframe-widget-jump
+bindkey '^X^B' anyframe-widget-insert-git-branch-name
+bindkey '^X^F' anyframe-widget-insert-git-status-file
+bindkey '^X^X' anyframe-widget-insert-git-commit-hash
+bindkey '^X^G' anyframe-widget-insert-gitmoji
+bindkey '^X^E' edit-command-line
+
 evalcache navi widget zsh
 evalcache zoxide init zsh --no-cmd
 evalcache direnv hook zsh
@@ -117,23 +134,6 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
 # #cN, - https://zsh.sourceforge.io/Doc/Release/Expansion.html#Globbing-Flags
 ZSH_AUTOSUGGEST_HISTORY_IGNORE='( eza *|cd *|\\(cp|mv|rm) *|git (add|branch|checkout) *|?(#c50,))'
 ZSH_AUTOSUGGEST_COMPLETION_IGNORE='( eza *|cd *|\\(cp|mv|rm) *|git (add|branch|checkout) *)'
-
-bindkey '^N' history-beginning-search-forward-end
-bindkey '^P' history-beginning-search-backward-end
-bindkey '^[OA' up-line-or-beginning-search # Up arrow
-bindkey '^[OB' down-line-or-beginning-search # Down arrow
-bindkey '^[[Z' reverse-menu-complete # Shift+Tab
-bindkey '^M' accept-line-with-expand-alias
-bindkey 'a' self-insert-with-expand-alias
-bindkey ' ' self-insert-with-expand-alias
-bindkey '^I' fzf-completion-or-expand-or-complete
-bindkey '^R' anyframe-widget-put-history
-bindkey '^J' anyframe-widget-jump
-bindkey '^X^B' anyframe-widget-insert-git-branch-name
-bindkey '^X^F' anyframe-widget-insert-git-status-file
-bindkey '^X^X' anyframe-widget-insert-git-commit-hash
-bindkey '^X^G' anyframe-widget-insert-gitmoji
-bindkey '^X^E' edit-command-line
 
 promptinit
 prompt zen
