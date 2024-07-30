@@ -1,10 +1,26 @@
 # vim: set ft=zsh:
 
+emulate -L zsh
+setopt EXTENDED_GLOB
+
 case $KEYS in
   a)
     case $BUFFER in
       'git add -')
         BUFFER="git add -A"
+        CURSOR=${#BUFFER}
+        ;;
+
+      *)
+        zle .self-insert
+        ;;
+    esac
+    ;;
+
+  d)
+    case $BUFFER in
+      git\ *\ (origin|upstream)\ (#i)(hea))
+        BUFFER="${BUFFER[0,-4]}HEAD"
         CURSOR=${#BUFFER}
         ;;
 
