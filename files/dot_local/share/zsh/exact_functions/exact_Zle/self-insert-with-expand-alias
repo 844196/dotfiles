@@ -131,6 +131,11 @@ case $KEYS in
         zle fzf-completion-or-expand-or-complete
         ;;
 
+      'git push -u')
+        BUFFER="git push -u origin HEAD"
+        CURSOR=${#BUFFER}
+        ;;
+
       'git push -f')
         BUFFER="git push --force-with-lease --force-if-includes "
         CURSOR=${#BUFFER}
@@ -158,6 +163,41 @@ case $KEYS in
 
       nr)
         BUFFER="npm run "
+        CURSOR=${#BUFFER}
+        ;;
+
+      gpc|'gh pr create')
+        local base="$(git base-branch 2>/dev/null)"
+        local head="$(git current-branch)"
+
+        local gh_params=(--web)
+
+        if [[ -n "${base}" ]]; then
+          gh_params+=(--base ${base})
+        fi
+
+        gh_params+=(--head ${head})
+
+        local graph_params=(-n 25)
+        if [[ -n "${base}" ]]; then
+          graph_params=("${base}...${head}")
+        fi
+
+        tput cub 9999
+        local sha="$(
+          anyframe-source-git-graph "${=graph_params}" \
+            | SHELL==$ZSH_NAME anyframe-selector-fzf '' --no-multi --select-1 --exit-0 --height=9 \
+            | grep -o '[a-f0-9]\{7\}'
+        )"
+        zle .reset-prompt
+
+        if [[ -n "$sha" ]]; then
+          gh_params+=(--title ${(qqq)"$(git log -1 --pretty=format:%s ${sha})"})
+        fi
+
+        gh_params+=(--assignee @me)
+
+        BUFFER="gh pr create ${gh_params} "
         CURSOR=${#BUFFER}
         ;;
 
