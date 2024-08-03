@@ -161,6 +161,11 @@ case $KEYS in
         CURSOR=${#BUFFER}
         ;;
 
+      pa)
+        BUFFER="php artisan "
+        CURSOR=${#BUFFER}
+        ;;
+
       *)
         zle _expand_alias
         zle .self-insert
