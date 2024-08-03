@@ -26,6 +26,9 @@ case $BUFFER in
 
   git\ commit\ --fixup(=|\ ))
     anyframe-widget-insert-git-commit-hash
+
+    BUFFER="${BUFFER}${1}"
+    CURSOR=${#BUFFER}
     ;;
 
   git\ commit\ (-m\ |--message(=|\ )))
