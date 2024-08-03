@@ -6,6 +6,8 @@ services:
       args:
         USER_UID: ${HOST_UID:?}
         USER_GID: ${HOST_GID:?}
+    environment:
+      - TERM
     volumes:
-      - .:/home/nonroot/.dotfiles:cached
+      - .:/home/nonroot/.dotfiles
     tty: true

@@ -1,6 +1,3 @@
-#!/usr/bin/env -S deno run -A --ext ts
-// vim: set ft=typescript:
-
 import $ from "https://deno.land/x/dax@0.28.0/mod.ts";
 import { Table } from "https://deno.land/x/cliffy@v1.0.0-rc.3/table/mod.ts";
 import { colors } from "https://deno.land/x/cliffy@v1.0.0-rc.3/ansi/colors.ts";

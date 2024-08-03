@@ -18,7 +18,8 @@ RUN \
     git=1:2.* \
     zsh=* \
     less=* \
-    locales=* && \
+    locales=* \
+    unzip=* && \
   rm -rf /var/lib/apt/lists/*
 
 COPY <<EOF /etc/locale.gen

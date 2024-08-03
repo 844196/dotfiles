@@ -6,7 +6,7 @@ zparseopts -D -A opthash -- -wrap
 tput cub 9999
 
 local moji=$(
-  git moji-list \
+  ~/.local/libexec/git-moji \
     | SHELL==$ZSH_NAME anyframe-selector-fzf '' \
       --no-multi \
       --delimiter '│' \
