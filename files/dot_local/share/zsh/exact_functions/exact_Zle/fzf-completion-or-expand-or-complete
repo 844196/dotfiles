@@ -1,12 +1,27 @@
 # vim: set ft=zsh:
 
+emulate -L zsh
+setopt EXTENDED_GLOB KSH_GLOB
+
 case $BUFFER in
   'git checkout ')
     FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --no-multi --select-1 --exit-0" anyframe-widget-insert-git-branch-name --head-ignore
     ;;
 
+  'git checkout -b ')
+    local base="$(git current-branch)"
+    local reply="git checkout -b $(git config --local user.name)/${base}/"
+    BUFFER="${reply} && git base-branch ${base}"
+    CURSOR=${#reply}
+    ;;
+
   git\ branch\ -[dD]\ )
     FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --multi --select-1 --exit-0 --color=marker:red" anyframe-widget-insert-git-branch-name --head-ignore --gone-first
+    ;;
+
+  'git branch -m ')
+    BUFFER="${BUFFER}$(git current-branch)"
+    CURSOR=${#BUFFER}
     ;;
 
   'git add '|'git reset ')
@@ -14,20 +29,59 @@ case $BUFFER in
     ;;
 
   'git rebase ')
-    # TODO リモートを切り替えて表示できるように
-    FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --no-multi --select-1 --exit-0" anyframe-widget-insert-git-branch-name --head-ignore
+    local base="$(git base-branch)"
+    if [[ -n "$base" ]]; then
+      BUFFER="${BUFFER}origin/${base} "
+      CURSOR=${#BUFFER}
+    else
+      FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --no-multi --select-1 --exit-0" anyframe-widget-insert-git-branch-name --head-ignore
+    fi
     ;;
 
-  git\ rebase\ (-i|--interactive)\ )
-    anyframe-widget-insert-git-commit-hash --preview "
-      echo {} | grep -o '[a-f0-9]\{7\}' | xargs -I_ git log --color=never --reverse --format='pick %h %s' _..HEAD | emojify | bat --style plain -l git-rebase-todo --color=always
-    "
+  git\ rebase\ (-i|--interactive)\ *)
+    local base="$(git base-commit 2>/dev/null)"
+
+    local graph_params=(-n 25)
+    if [[ -n "${base}" ]]; then
+      graph_params=(-n 25)
+    fi
+
+    tput cub 9999
+    local sha="$(
+      anyframe-source-git-graph "${=graph_params}" \
+        | SHELL==$ZSH_NAME anyframe-selector-fzf "${base}" --no-multi --exit-0 --height 25% \
+            --preview "
+              echo {} | grep -o '[a-f0-9]\{7\}' | xargs -I_ git log --color=never --reverse --format='pick %h %s' _..HEAD | emojify | bat --style plain -l git-rebase-todo --color=always
+            " \
+        | grep -o '[a-f0-9]\{7\}'
+    )"
+    zle .reset-prompt
+
+    BUFFER="${BUFFER}${sha}${sha:+ }"
+    CURSOR=${#BUFFER}
     ;;
 
   git\ commit\ --fixup(=|\ ))
-    anyframe-widget-insert-git-commit-hash
+    local base="$(git base-branch 2>/dev/null)"
 
-    BUFFER="${BUFFER}${1}"
+    local graph_params=(-n 25)
+    if [[ -n "${base}" ]]; then
+      graph_params=("${base}...${head}")
+    fi
+
+    tput cub 9999
+    local sha="$(
+      anyframe-source-git-graph "${=graph_params}" \
+        | SHELL==$ZSH_NAME anyframe-selector-fzf '' --no-multi --select-1 --exit-0 --height=9 \
+        | grep -o '[a-f0-9]\{7\}'
+    )"
+    zle .reset-prompt
+
+    BUFFER="${BUFFER}${sha}${sha:+ }"
+    if [[ -n "$sha" && -n "$base" ]]; then
+      BUFFER+="&& git -c core.editor=true rebase -i $(git base-commit 2>/dev/null)"
+    fi
+
     CURSOR=${#BUFFER}
     ;;
 
@@ -39,6 +93,33 @@ case $BUFFER in
     if [[ "$old_buffer" != "$BUFFER" ]]; then
       CURSOR=$(( ${#BUFFER} - 1 ))
     fi
+    ;;
+
+  gh\ pr\ create\ *\ (-t|--title)\ )
+    local reply=''
+
+    local base="$(git base-branch 2>/dev/null)"
+    local head="$(git current-branch)"
+
+    local graph_params=(-n 25)
+    if [[ -n "${base}" ]]; then
+      graph_params=("${base}...${head}")
+    fi
+
+    tput cub 9999
+    local sha="$(
+      anyframe-source-git-graph "${=graph_params}" \
+        | SHELL==$ZSH_NAME anyframe-selector-fzf '' --no-multi --select-1 --exit-0 --height=9 \
+        | grep -o '[a-f0-9]\{7\}'
+    )"
+    zle .reset-prompt
+
+    if [[ -n "$sha" ]]; then
+      reply=${(qqq)"$(git log -1 --pretty=format:%s ${sha})"}
+    fi
+
+    BUFFER="${BUFFER}${reply}${reply:+ }"
+    CURSOR=${#BUFFER}
     ;;
 
   *)

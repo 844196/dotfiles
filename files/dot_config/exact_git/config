@@ -15,16 +15,19 @@
   # https://hackerslab.aktsk.jp/git-base-branch
   current-branch = symbolic-ref --short HEAD
   base-branch = !git config "branch.$(git current-branch).base"
-  base-commit = !git merge-base origin/$(git base-branch) HEAD
+  base-commit-long = !git merge-base origin/$(git base-branch) HEAD
+  base-commit = !git rev-parse --short $(git base-commit-long)
   graph = log --graph --pretty=format:'%C(blue)%h%C(reset) - %C(green)(%ar)%C(reset)%C(yellow)%d%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --abbrev-commit --date=relative --color=always
   users = user --config ~/.config/git/profiles
 [color]
   ui = auto
 [push]
   default = nothing
-[rebase]
-  autoSquash = true
+[pull]
   autoStash = true
+[rebase]
+  autoStash = true
+  autoSquash = true
 [status]
   showUntrackedFiles = all
 [commit]
@@ -34,6 +37,8 @@
 [diff]
   indentHeuristic = true
   colorMoved = default
+[advice]
+  statusHints = false
 [ghq]
   user = "844196"
   root = ~/.ghq

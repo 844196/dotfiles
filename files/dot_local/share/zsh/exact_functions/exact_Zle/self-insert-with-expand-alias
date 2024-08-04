@@ -24,6 +24,11 @@ case $KEYS in
         CURSOR=${#BUFFER}
         ;;
 
+      'git branch -')
+        BUFFER="git branch -D"
+        CURSOR=${#BUFFER}
+        ;;
+
       *)
         zle .self-insert
         ;;
@@ -45,6 +50,26 @@ case $KEYS in
 
   ' ')
     case $BUFFER in
+      '')
+        tput cub 9999
+        exec < /dev/tty
+        local res=("${(@ps:\t:)$(~/.local/libexec/which-key)}")
+
+        BUFFER="${res[1]}"
+        CURSOR=${#BUFFER}
+
+        if [[ "${res[2]}" == "ACCEPT" ]]; then
+          zle .reset-prompt
+          zle accept-line-with-expand-alias
+        fi
+
+        if [[ "${res[2]}" == "COMPLETE" ]]; then
+          zle fzf-completion-or-expand-or-complete
+        fi
+
+        zle .reset-prompt
+        ;;
+
       ck)
         BUFFER="git checkout "
         CURSOR=${#BUFFER}
@@ -54,21 +79,18 @@ case $KEYS in
         zle fzf-completion-or-expand-or-complete
         ;;
 
-      cb|'git checkout -b')
-        local base="$(git current-branch)"
-        local reply="git checkout -b $(git config --local user.name)/${base}/"
-        BUFFER="${reply} && git base-branch ${base}"
-        CURSOR=${#reply}
+      'git checkout -b')
+        zle .self-insert
+        zle fzf-completion-or-expand-or-complete
         ;;
 
-      bm|'git branch -m')
-        BUFFER="git branch -m $(git rev-parse --abbrev-ref HEAD)"
+      'git branch -m')
+        BUFFER="git branch -m $(git current-branch)"
         CURSOR=${#BUFFER}
         ;;
 
-      bd|'git branch -d')
-        BUFFER="git branch -D "
-        CURSOR=${#BUFFER}
+      git\ branch\ -[dD])
+        zle .self-insert
         zle fzf-completion-or-expand-or-complete
         ;;
 
@@ -81,28 +103,21 @@ case $KEYS in
         zle fzf-completion-or-expand-or-complete
         ;;
 
-      cm)
+      'git commit -m')
         BUFFER="git commit -m "
         CURSOR=${#BUFFER}
         zle fzf-completion-or-expand-or-complete
         ;;
 
-      'git commit -m')
-        zle .self-insert
+      'git commit -f')
+        BUFFER="git commit --fixup "
+        CURSOR=${#BUFFER}
         zle fzf-completion-or-expand-or-complete
         ;;
 
-      cf|'git commit --fixup')
-        BUFFER="git commit --fixup "
+      'git commit -a')
+        BUFFER="git commit --amend --no-edit "
         CURSOR=${#BUFFER}
-
-        local after=''
-        local base="$(git base-commit 2>/dev/null)"
-        if [[ -n "$base" ]]; then
-          after=" && git -c core.editor=true rebase -i --autosquash ${base}"
-        fi
-
-        zle fzf-completion-or-expand-or-complete "$after"
         ;;
 
       r)
@@ -111,33 +126,26 @@ case $KEYS in
         ;;
 
       'git rebase ')
-        local base="$(git base-branch)"
-        if [[ -n "$base" ]]; then
-          BUFFER="git rebase origin/${base}"
-          CURSOR=${#BUFFER}
-        else
-          zle fzf-completion-or-expand-or-complete
-        fi
-        ;;
-
-      'ri')
-        BUFFER="git rebase -i "
-        CURSOR=${#BUFFER}
         zle fzf-completion-or-expand-or-complete
         ;;
 
-      'git rebase -i')
+      git\ rebase\ (-i|--interactive))
         zle .self-insert
         zle fzf-completion-or-expand-or-complete
         ;;
 
-      'git push -u')
-        BUFFER="git push -u origin HEAD"
+      'git push ')
+        BUFFER="git push origin HEAD "
         CURSOR=${#BUFFER}
         ;;
 
-      'git push -f')
-        BUFFER="git push --force-with-lease --force-if-includes "
+      'git push -u')
+        BUFFER="git push -u origin HEAD "
+        CURSOR=${#BUFFER}
+        ;;
+
+      git\ push\ (-f|--force))
+        BUFFER="git push --force-with-lease --force-if-includes origin HEAD "
         CURSOR=${#BUFFER}
         ;;
 
@@ -166,44 +174,24 @@ case $KEYS in
         CURSOR=${#BUFFER}
         ;;
 
-      gpc|'gh pr create')
+      pc|'gh pr create')
+        local gh_params=(-w)
+
         local base="$(git base-branch 2>/dev/null)"
-        local head="$(git current-branch)"
-
-        local gh_params=(--web)
-
         if [[ -n "${base}" ]]; then
-          gh_params+=(--base ${base})
+          gh_params+=(-B ${base})
         fi
 
-        gh_params+=(--head ${head})
-
-        local graph_params=(-n 25)
-        if [[ -n "${base}" ]]; then
-          graph_params=("${base}...${head}")
-        fi
-
-        tput cub 9999
-        local sha="$(
-          anyframe-source-git-graph "${=graph_params}" \
-            | SHELL==$ZSH_NAME anyframe-selector-fzf '' --no-multi --select-1 --exit-0 --height=9 \
-            | grep -o '[a-f0-9]\{7\}'
-        )"
-        zle .reset-prompt
-
-        if [[ -n "$sha" ]]; then
-          gh_params+=(--title ${(qqq)"$(git log -1 --pretty=format:%s ${sha})"})
-        fi
-
-        gh_params+=(--assignee @me)
+        gh_params+=(-H $(git current-branch))
+        gh_params+=(-a @me)
 
         BUFFER="gh pr create ${gh_params} "
         CURSOR=${#BUFFER}
         ;;
 
-      pa)
-        BUFFER="php artisan "
-        CURSOR=${#BUFFER}
+      gh\ pr\ create\ *\ (-t|--title))
+        zle .self-insert
+        zle fzf-completion-or-expand-or-complete
         ;;
 
       *)

@@ -12,6 +12,7 @@ files=(
   {{ .chezmoi.sourceDir }}/dot_local/libexec/git-status-pretty.ts  ~/.local/libexec/git-status-pretty
   {{ .chezmoi.sourceDir }}/dot_local/libexec/git-moji.ts           ~/.local/libexec/git-moji
   {{ .chezmoi.sourceDir }}/dot_local/libexec/fzf-preview-helper.ts ~/.local/libexec/fzf-preview-helper
+  {{ .chezmoi.sourceDir }}/dot_local/libexec/which-key.ts          ~/.local/libexec/which-key
 )
 
 for ((i = 0; i < ${#files[@]}; i += 2)); do
