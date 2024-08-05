@@ -1,0 +1,79 @@
+{
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "$ref": "#/definitions/Bindings"
+      },
+      {
+        "$ref": "#/definitions/Command"
+      }
+    ]
+  },
+  "minItems": 1,
+  "definitions": {
+    "Command": {
+      "type": "object",
+      "required": ["key", "name", "type", "command"],
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "enum": ["command"]
+        },
+        "command": {
+          "type": "string",
+          "minLength": 1
+        },
+        "eval": {
+          "type": "boolean"
+        },
+        "trigger": {
+          "type": "string",
+          "enum": ["ACCEPT", "COMPLETE"]
+        }
+      }
+    },
+    "Bindings": {
+      "type": "object",
+      "required": ["key", "name", "type", "bindings"],
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "enum": ["bindings"]
+        },
+        "bindings": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/Bindings"
+              },
+              {
+                "$ref": "#/definitions/Command"
+              }
+            ]
+          },
+          "minItems": 1
+        }
+      }
+    }
+  }
+}

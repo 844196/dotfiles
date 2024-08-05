@@ -1,0 +1,25 @@
+# vim: set ft=zsh:
+
+emulate -L zsh
+setopt EXTENDED_GLOB KSH_GLOB
+
+case $KEYS in
+  '^')
+    case $BUFFER in
+      *@(HEAD|@)*(\\^))
+        BUFFER="${BUFFER}\^"
+        CURSOR=${#BUFFER}
+        ;;
+
+      *)
+        zle .self-insert
+        ;;
+    esac
+    ;;
+
+  *)
+    zle .self-insert
+    ;;
+esac
+
+zle autosuggest-fetch

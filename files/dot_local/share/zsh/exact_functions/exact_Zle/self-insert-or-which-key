@@ -1,0 +1,33 @@
+# vim: set ft=zsh:
+
+case $BUFFER in
+  '')
+    tput cub 9999
+    local res=("${(@ps:\t:)$(~/.local/libexec/which-key <$TTY)}")
+
+    if [[ "${res[2]}" == "1" ]]; then
+      BUFFER="${(e)res[1]}"
+    else
+      BUFFER="${res[1]}"
+    fi
+    CURSOR=${#BUFFER}
+
+    if [[ "${res[3]}" == "ACCEPT" ]]; then
+      zle .reset-prompt
+      zle accept-line-with-expand-alias
+    fi
+
+    if [[ "${res[3]}" == "COMPLETE" ]]; then
+      zle fzf-completion-or-expand-or-complete
+    fi
+
+    zle .reset-prompt
+    ;;
+
+  *)
+    zle _expand_alias
+    zle .self-insert
+    ;;
+esac
+
+zle autosuggest-fetch

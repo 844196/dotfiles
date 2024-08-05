@@ -1,0 +1,12 @@
+# vim: set ft=zsh:
+
+zoxide query --list \
+  | anyframe-selector-fzf '' \
+    --no-multi \
+    --scheme path \
+    --header 'Tab: Switch Zoxide/GHQ' \
+    --prompt 'Zoxide  ' \
+    --bind 'tab:transform:[[ ! $FZF_PROMPT =~ Zoxide ]] &&
+      echo "change-prompt(Zoxide  )+reload(zoxide query --list)" ||
+      echo "change-prompt(GHQ  )+reload(ghq list -p)"' \
+    "$@"

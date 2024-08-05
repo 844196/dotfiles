@@ -1,0 +1,204 @@
+# yaml-language-server: $schema=./schema.json
+---
+- key: SPC
+  name: Insert space
+  type: command
+  command: ' '
+- key: j
+  name: Jump
+  type: command
+  command: ' cd -- ${(q)$(anyframe-widget-z-ghq --height 20%):-.}'
+  trigger: ACCEPT
+- key: g
+  name: Git
+  type: bindings
+  bindings:
+    - key: b
+      name: Branch
+      type: bindings
+      bindings:
+        - key: SPC
+          name: git branch
+          type: command
+          command: ' git branch -vvv'
+          trigger: ACCEPT
+        - key: c
+          name: git checkout
+          type: command
+          command: 'git checkout '
+          trigger: COMPLETE
+        - key: "n"
+          name: git checkout -b
+          type: command
+          command: 'git checkout -b '
+          trigger: COMPLETE
+        - key: r
+          name: git branch -m
+          type: command
+          command: 'git branch -m '
+          trigger: COMPLETE
+        - key: d
+          name: git branch -D
+          type: command
+          command: 'git branch -D '
+          trigger: COMPLETE
+    - key: a
+      name: Add
+      type: bindings
+      bindings:
+        - key: SPC
+          name: git add
+          type: command
+          command: 'git add '
+          trigger: COMPLETE
+        - key: a
+          name: git add -A
+          type: command
+          command: 'git add -A'
+    - key: c
+      name: Commit
+      type: bindings
+      bindings:
+        - key: SPC
+          name: 'git commit '
+          type: command
+          command: 'git commit '
+        - key: m
+          name: git commit -m
+          type: command
+          command: 'git commit -m '
+          trigger: COMPLETE
+        - key: a
+          name: git commit --amend --no-edit
+          type: command
+          command: 'git commit --amend --no-edit'
+        - key: f
+          name: git commit --fixup
+          type: command
+          command: 'git commit --fixup '
+          trigger: COMPLETE
+    - key: r
+      name: Rebase
+      type: bindings
+      bindings:
+        - key: SPC
+          name: 'git rebase '
+          type: command
+          command: 'git rebase '
+          trigger: COMPLETE
+        - key: i
+          name: git rebase -i
+          type: command
+          command: 'git rebase -i '
+          trigger: COMPLETE
+    - key: p
+      name: Push/Pull
+      type: bindings
+      bindings:
+        - key: SPC
+          name: git push
+          type: command
+          command: 'git push origin HEAD'
+        - key: u
+          name: git push -u
+          type: command
+          command: 'git push -u origin HEAD'
+        - key: f
+          name: git push -f
+          type: command
+          command: 'git push --force-with-lease --force-if-includes origin HEAD'
+        - key: l
+          name: git pull
+          type: command
+          command: 'git pull'
+    - key: h
+      name: GitHub
+      type: bindings
+      bindings:
+        - key: i
+          name: Issue
+          type: bindings
+          bindings:
+            - key: l
+              name: gh issue list
+              type: command
+              command: ' GH_REPO=$GH_ISSUE_REPO gh issue list -w'
+              eval: true
+              trigger: ACCEPT
+            - key: c
+              name: gh issue create
+              type: command
+              command: ' GH_REPO=$GH_ISSUE_REPO gh issue create -w' # NOTE: -a @me をつけるとテンプレート一覧にからスタートしない
+              eval: true
+              trigger: ACCEPT
+        - key: p
+          name: Pull request
+          type: bindings
+          bindings:
+            - key: l
+              name: gh pr list
+              type: command
+              command: ' gh pr list -w'
+              trigger: ACCEPT
+            - key: v
+              name: gh pr view
+              type: command
+              command: ' gh pr view -w'
+              trigger: ACCEPT
+            - key: c
+              name: gh pr create
+              type: command
+              command: 'gh pr create -w${"$(git base-branch)":+ -B $(git base-branch) } -H $(git current-branch) -a @me -t '
+              eval: true
+              trigger: COMPLETE
+    - key: s
+      name: Status
+      type: command
+      command: ' git status'
+      trigger: ACCEPT
+    - key: d
+      name: Diff
+      type: command
+      command: ' git diff'
+      trigger: ACCEPT
+    - key: g
+      name: git graph -n 10
+      type: command
+      command: ' git graph -n 10'
+      trigger: ACCEPT
+- key: d
+  name: Docker
+  type: bindings
+  bindings:
+    - key: SPC
+      name: 'docker '
+      type: command
+      command: 'docker '
+    - key: r
+      name: docker run
+      type: command
+      command: 'docker run --rm -it '
+    - key: c
+      name: Compose
+      type: bindings
+      bindings:
+        - key: SPC
+          name: 'docker compose '
+          type: command
+          command: 'docker compose '
+        - key: r
+          name: docker compose run
+          type: command
+          command: 'docker compose run --rm '
+- key: n
+  name: npm
+  type: bindings
+  bindings:
+    - key: SPC
+      name: npm
+      type: command
+      command: 'npm '
+    - key: r
+      name: npm run
+      type: command
+      command: 'npm run '

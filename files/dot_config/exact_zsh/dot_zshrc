@@ -11,7 +11,8 @@ autoload -Uz evalcache
 autoload -Uz toggle-delta-features
 autoload -Uz compute-anyframe-fzf-options
 autoload -Uz accept-line-with-expand-alias
-autoload -Uz self-insert-with-expand-alias
+autoload -Uz self-insert-or-which-key
+autoload -Uz self-insert-with-tweak
 autoload -Uz fzf-completion-or-expand-or-complete
 autoload -Uz promptinit
 autoload -Uz up-line-or-beginning-search
@@ -60,7 +61,8 @@ setopt HIST_FIND_NO_DUPS
 select-word-style default
 anyframe-init
 zle -N accept-line-with-expand-alias
-zle -N self-insert-with-expand-alias
+zle -N self-insert-with-tweak
+zle -N self-insert-or-which-key
 zle -N fzf-completion-or-expand-or-complete
 zle -N history-beginning-search-forward-end history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -81,11 +83,6 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -I --preserve-root -r' # '--preserve-root' is only available for GNU rm
 alias tmp='cd "$(mktemp -d)"'
-alias b='git branch'
-alias c='git commit'
-alias st=' git status'
-alias di=' git diff'
-alias gg=' git graph -n 10'
 alias ch='chezmoi'
 
 bindkey '^N' history-beginning-search-forward-end
@@ -94,13 +91,10 @@ bindkey '^[OA' up-line-or-beginning-search # Up arrow
 bindkey '^[OB' down-line-or-beginning-search # Down arrow
 bindkey '^[[Z' reverse-menu-complete # Shift+Tab
 bindkey '^M' accept-line-with-expand-alias
-bindkey 'a' self-insert-with-expand-alias
-bindkey 'd' self-insert-with-expand-alias
-bindkey '\^' self-insert-with-expand-alias
-bindkey ' ' self-insert-with-expand-alias
+bindkey '\^' self-insert-with-tweak
+bindkey ' ' self-insert-or-which-key
 bindkey '^I' fzf-completion-or-expand-or-complete
 bindkey '^R' anyframe-widget-put-history
-bindkey '^J' anyframe-widget-jump
 bindkey '^X^B' anyframe-widget-insert-git-branch-name
 bindkey '^X^F' anyframe-widget-insert-git-status-file
 bindkey '^X^X' anyframe-widget-insert-git-commit-hash

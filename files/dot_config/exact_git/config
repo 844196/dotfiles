@@ -6,6 +6,7 @@
   ignorecase = false
   pager = delta
 [pager]
+  branch = emojify
   log = ~/.local/libexec/emojiless
 [interactive]
   diffFilter = delta
