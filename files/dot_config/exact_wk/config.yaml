@@ -3,11 +3,11 @@
 - key: SPC
   name: Insert space
   type: command
-  command: ' '
+  buffer: ' '
 - key: j
   name: Jump
   type: command
-  command: ' cd -- ${(q)$(anyframe-widget-z-ghq --height 20%):-.}'
+  buffer: ' cd -- ${(q)$(anyframe-widget-z-ghq --height 20%):-.}'
   trigger: ACCEPT
 - key: g
   name: Git
@@ -20,27 +20,27 @@
         - key: SPC
           name: git branch
           type: command
-          command: ' git branch -vvv'
+          buffer: ' git branch -vvv'
           trigger: ACCEPT
         - key: c
           name: git checkout
           type: command
-          command: 'git checkout '
+          buffer: 'git checkout '
           trigger: COMPLETE
-        - key: "n"
+        - key: "C"
           name: git checkout -b
           type: command
-          command: 'git checkout -b '
+          buffer: 'git checkout -b '
           trigger: COMPLETE
         - key: r
           name: git branch -m
           type: command
-          command: 'git branch -m '
+          buffer: 'git branch -m '
           trigger: COMPLETE
         - key: d
           name: git branch -D
           type: command
-          command: 'git branch -D '
+          buffer: 'git branch -D '
           trigger: COMPLETE
     - key: a
       name: Add
@@ -49,12 +49,12 @@
         - key: SPC
           name: git add
           type: command
-          command: 'git add '
+          buffer: 'git add '
           trigger: COMPLETE
         - key: a
           name: git add -A
           type: command
-          command: 'git add -A'
+          buffer: 'git add -A'
     - key: c
       name: Commit
       type: bindings
@@ -62,20 +62,20 @@
         - key: SPC
           name: 'git commit '
           type: command
-          command: 'git commit '
+          buffer: 'git commit '
         - key: m
           name: git commit -m
           type: command
-          command: 'git commit -m '
+          buffer: 'git commit -m '
           trigger: COMPLETE
         - key: a
           name: git commit --amend --no-edit
           type: command
-          command: 'git commit --amend --no-edit'
+          buffer: 'git commit --amend --no-edit'
         - key: f
           name: git commit --fixup
           type: command
-          command: 'git commit --fixup '
+          buffer: 'git commit --fixup '
           trigger: COMPLETE
     - key: r
       name: Rebase
@@ -84,12 +84,12 @@
         - key: SPC
           name: 'git rebase '
           type: command
-          command: 'git rebase '
+          buffer: 'git rebase '
           trigger: COMPLETE
         - key: i
           name: git rebase -i
           type: command
-          command: 'git rebase -i '
+          buffer: 'git rebase -i '
           trigger: COMPLETE
     - key: p
       name: Push/Pull
@@ -98,19 +98,19 @@
         - key: SPC
           name: git push
           type: command
-          command: 'git push origin HEAD'
+          buffer: 'git push origin HEAD'
         - key: u
           name: git push -u
           type: command
-          command: 'git push -u origin HEAD'
+          buffer: 'git push -u origin HEAD'
         - key: f
           name: git push -f
           type: command
-          command: 'git push --force-with-lease --force-if-includes origin HEAD'
+          buffer: 'git push --force-with-lease --force-if-includes origin HEAD'
         - key: l
           name: git pull
           type: command
-          command: 'git pull'
+          buffer: 'git pull'
     - key: h
       name: GitHub
       type: bindings
@@ -122,13 +122,13 @@
             - key: l
               name: gh issue list
               type: command
-              command: ' GH_REPO=$GH_ISSUE_REPO gh issue list -w'
+              buffer: '${GH_ISSUE_REPO:+ GH_REPO=}$GH_ISSUE_REPO gh issue list -w'
               eval: true
               trigger: ACCEPT
             - key: c
               name: gh issue create
               type: command
-              command: ' GH_REPO=$GH_ISSUE_REPO gh issue create -w' # NOTE: -a @me をつけるとテンプレート一覧にからスタートしない
+              buffer: '${GH_ISSUE_REPO:+ GH_REPO=}$GH_ISSUE_REPO gh issue create -w' # NOTE: -a @me をつけるとテンプレート一覧にからスタートしない
               eval: true
               trigger: ACCEPT
         - key: p
@@ -138,33 +138,33 @@
             - key: l
               name: gh pr list
               type: command
-              command: ' gh pr list -w'
+              buffer: ' gh pr list -w'
               trigger: ACCEPT
             - key: v
               name: gh pr view
               type: command
-              command: ' gh pr view -w'
+              buffer: ' gh pr view -w'
               trigger: ACCEPT
             - key: c
               name: gh pr create
               type: command
-              command: 'gh pr create -w${"$(git base-branch)":+ -B $(git base-branch) } -H $(git current-branch) -a @me -t '
+              buffer: 'gh pr create -w${$(git base-branch):+${$(git base-branch)/#/ -B }} -H $(git current-branch) -a @me -t '
               eval: true
               trigger: COMPLETE
     - key: s
       name: Status
       type: command
-      command: ' git status'
+      buffer: ' git status'
       trigger: ACCEPT
     - key: d
       name: Diff
       type: command
-      command: ' git diff'
+      buffer: ' git diff'
       trigger: ACCEPT
     - key: g
       name: git graph -n 10
       type: command
-      command: ' git graph -n 10'
+      buffer: ' git graph -n 10'
       trigger: ACCEPT
 - key: d
   name: Docker
@@ -173,11 +173,11 @@
     - key: SPC
       name: 'docker '
       type: command
-      command: 'docker '
+      buffer: 'docker '
     - key: r
       name: docker run
       type: command
-      command: 'docker run --rm -it '
+      buffer: 'docker run --rm -it '
     - key: c
       name: Compose
       type: bindings
@@ -185,11 +185,11 @@
         - key: SPC
           name: 'docker compose '
           type: command
-          command: 'docker compose '
+          buffer: 'docker compose '
         - key: r
           name: docker compose run
           type: command
-          command: 'docker compose run --rm '
+          buffer: 'docker compose run --rm '
 - key: n
   name: npm
   type: bindings
@@ -197,8 +197,8 @@
     - key: SPC
       name: npm
       type: command
-      command: 'npm '
+      buffer: 'npm '
     - key: r
       name: npm run
       type: command
-      command: 'npm run '
+      buffer: 'npm run '

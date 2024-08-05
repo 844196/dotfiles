@@ -11,7 +11,7 @@ autoload -Uz evalcache
 autoload -Uz toggle-delta-features
 autoload -Uz compute-anyframe-fzf-options
 autoload -Uz accept-line-with-expand-alias
-autoload -Uz self-insert-or-which-key
+autoload -Uz self-insert-or-wk
 autoload -Uz self-insert-with-tweak
 autoload -Uz fzf-completion-or-expand-or-complete
 autoload -Uz promptinit
@@ -62,7 +62,7 @@ select-word-style default
 anyframe-init
 zle -N accept-line-with-expand-alias
 zle -N self-insert-with-tweak
-zle -N self-insert-or-which-key
+zle -N self-insert-or-wk
 zle -N fzf-completion-or-expand-or-complete
 zle -N history-beginning-search-forward-end history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -92,7 +92,7 @@ bindkey '^[OB' down-line-or-beginning-search # Down arrow
 bindkey '^[[Z' reverse-menu-complete # Shift+Tab
 bindkey '^M' accept-line-with-expand-alias
 bindkey '\^' self-insert-with-tweak
-bindkey ' ' self-insert-or-which-key
+bindkey ' ' self-insert-or-wk
 bindkey '^I' fzf-completion-or-expand-or-complete
 bindkey '^R' anyframe-widget-put-history
 bindkey '^X^B' anyframe-widget-insert-git-branch-name

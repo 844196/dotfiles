@@ -14,7 +14,7 @@
   "definitions": {
     "Command": {
       "type": "object",
-      "required": ["key", "name", "type", "command"],
+      "required": ["key", "name", "type", "buffer"],
       "additionalProperties": false,
       "properties": {
         "key": {
@@ -29,7 +29,7 @@
           "type": "string",
           "enum": ["command"]
         },
-        "command": {
+        "buffer": {
           "type": "string",
           "minLength": 1
         },
