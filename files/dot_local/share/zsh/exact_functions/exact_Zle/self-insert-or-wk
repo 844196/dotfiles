@@ -5,39 +5,40 @@ case $BUFFER in
     tput cub 9999
 
     local res=''
-    res=$(~/.local/libexec/wk <$TTY)
+    res=$(~/.local/libexec/wk 2>&1)
     local wk_exit=$?
 
-    if [[ "$wk_exit" != "0" ]]; then
-      zle .reset-prompt
+    # tput cub 9999 で wk 実行時点でのカーソル位置を無理やり本来あるべき位置から変えているため
+    # 終了コードに関係なくプロンプトを再描画する
+    zle .reset-prompt
 
-      case $wk_exit in
-        1)
-          # NOOP (Abort)
-          ;;
-        *)
-          zle -M "wk: $res"
-          ;;
-      esac
-
-      return $wk_exit
-    fi
+    case $wk_exit in
+      0)
+        # NOOP
+        ;;
+      1)
+        return 1
+        ;;
+      *)
+        zle -M "wk: $res"
+        return $wk_exit
+        ;;
+    esac
 
     res=("${(@ps:\t:)res}")
 
-    if [[ "${res[2]}" == "1" ]]; then
+    if [[ "${res[(rb:2:)eval:*]}" == 'eval:true' ]]; then
       BUFFER=${(e)res[1]}
     else
       BUFFER=${res[1]}
     fi
     CURSOR=${#BUFFER}
 
-    case "${res[3]}" in
-      "ACCEPT")
-        zle .reset-prompt
+    case "${res[(rb:2:)trigger:*]}" in
+      trigger:ACCEPT)
         zle accept-line-with-expand-alias
         ;;
-      "COMPLETE")
+      trigger:COMPLETE)
         zle fzf-completion-or-expand-or-complete
         ;;
     esac

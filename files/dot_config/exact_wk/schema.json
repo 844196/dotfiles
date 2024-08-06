@@ -15,13 +15,16 @@
     "Command": {
       "type": "object",
       "required": ["key", "name", "type", "buffer"],
-      "additionalProperties": false,
       "properties": {
         "key": {
           "type": "string",
           "minLength": 1
         },
         "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "icon": {
           "type": "string",
           "minLength": 1
         },
@@ -33,13 +36,25 @@
           "type": "string",
           "minLength": 1
         },
-        "eval": {
-          "type": "boolean"
-        },
-        "trigger": {
-          "type": "string",
-          "enum": ["ACCEPT", "COMPLETE"]
+        "delimiter": {
+          "type": "string"
         }
+      },
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "integer"
+          },
+          {
+            "type": "number"
+          }
+        ]
       }
     },
     "Bindings": {
@@ -52,6 +67,10 @@
           "minLength": 1
         },
         "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "icon": {
           "type": "string",
           "minLength": 1
         },

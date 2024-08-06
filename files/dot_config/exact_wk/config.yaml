@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=./schema.json
 ---
-- key: SPC
+- key: space
   name: Insert space
   type: command
   buffer: ' '
@@ -17,7 +17,7 @@
       name: Branch
       type: bindings
       bindings:
-        - key: SPC
+        - key: space
           name: git branch
           type: command
           buffer: ' git branch -vvv'
@@ -46,7 +46,7 @@
       name: Add
       type: bindings
       bindings:
-        - key: SPC
+        - key: space
           name: git add
           type: command
           buffer: 'git add '
@@ -59,7 +59,7 @@
       name: Commit
       type: bindings
       bindings:
-        - key: SPC
+        - key: space
           name: 'git commit '
           type: command
           buffer: 'git commit '
@@ -81,7 +81,7 @@
       name: Rebase
       type: bindings
       bindings:
-        - key: SPC
+        - key: space
           name: 'git rebase '
           type: command
           buffer: 'git rebase '
@@ -95,7 +95,7 @@
       name: Push/Pull
       type: bindings
       bindings:
-        - key: SPC
+        - key: space
           name: git push
           type: command
           buffer: 'git push origin HEAD'
@@ -170,7 +170,7 @@
   name: Docker
   type: bindings
   bindings:
-    - key: SPC
+    - key: space
       name: 'docker '
       type: command
       buffer: 'docker '
@@ -182,7 +182,7 @@
       name: Compose
       type: bindings
       bindings:
-        - key: SPC
+        - key: space
           name: 'docker compose '
           type: command
           buffer: 'docker compose '
@@ -194,7 +194,7 @@
   name: npm
   type: bindings
   bindings:
-    - key: SPC
+    - key: space
       name: npm
       type: command
       buffer: 'npm '
