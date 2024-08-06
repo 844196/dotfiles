@@ -26,6 +26,7 @@
   default = nothing
 [pull]
   autoStash = true
+  ff = only
 [rebase]
   autoStash = true
   autoSquash = true
