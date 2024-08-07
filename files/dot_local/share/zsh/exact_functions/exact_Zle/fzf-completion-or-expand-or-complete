@@ -4,31 +4,31 @@ emulate -L zsh
 setopt EXTENDED_GLOB KSH_GLOB
 
 case $BUFFER in
-  'git checkout ')
+  ?(*\ )git\ checkout\ )
     FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --no-multi --select-1 --exit-0" anyframe-widget-insert-git-branch-name --head-ignore
     ;;
 
-  'git checkout -b ')
+  ?(*\ )git\ checkout\ -b\ )
     local base="$(git current-branch)"
     local reply="git checkout -b $(git config --local user.name)/${base}/"
     BUFFER="${reply} && git base-branch ${base}"
     CURSOR=${#reply}
     ;;
 
-  git\ branch\ -[dD]\ )
+  ?(*\ )git\ branch\ -[dD]\ )
     FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --multi --select-1 --exit-0 --color=marker:red" anyframe-widget-insert-git-branch-name --head-ignore --gone-first
     ;;
 
-  'git branch -m ')
+  ?(*\ )git\ branch\ -m\ )
     BUFFER="${BUFFER}$(git current-branch)"
     CURSOR=${#BUFFER}
     ;;
 
-  'git add '|'git reset ')
+  ?(*\ )git\ (add|reset)\ )
     anyframe-widget-insert-git-status-file
     ;;
 
-  'git rebase ')
+  ?(*\ )git\ rebase\ )
     local base="$(git base-branch)"
     if [[ -n "$base" ]]; then
       BUFFER="${BUFFER}origin/${base} "
@@ -38,7 +38,7 @@ case $BUFFER in
     fi
     ;;
 
-  git\ rebase\ (-i|--interactive)\ *)
+  ?(*\ )git\ rebase\ (-i|--interactive)\ *)
     local base="$(git base-commit 2>/dev/null)"
 
     local graph_params=(-n 25)
@@ -61,7 +61,7 @@ case $BUFFER in
     CURSOR=${#BUFFER}
     ;;
 
-  git\ commit\ --fixup(=|\ ))
+  ?(*\ )git\ commit\ --fixup(=|\ ))
     local base="$(git base-branch 2>/dev/null)"
 
     local graph_params=(-n 25)
@@ -85,7 +85,7 @@ case $BUFFER in
     CURSOR=${#BUFFER}
     ;;
 
-  git\ commit\ (-m\ |--message(=|\ )))
+  ?(*\ )git\ commit\ (-m\ |--message(=|\ )))
     local old_buffer=$BUFFER
 
     anyframe-widget-insert-gitmoji --wrap --height 25%
@@ -95,7 +95,7 @@ case $BUFFER in
     fi
     ;;
 
-  gh\ pr\ create\ *\ (-t|--title)\ )
+  ?(*\ )gh\ pr\ create\ ?(*\ )(-t|--title)\ )
     local reply=''
 
     local base="$(git base-branch 2>/dev/null)"

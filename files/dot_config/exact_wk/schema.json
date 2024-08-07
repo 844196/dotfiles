@@ -14,13 +14,13 @@
   "definitions": {
     "Command": {
       "type": "object",
-      "required": ["key", "name", "type", "buffer"],
+      "required": ["key", "desc", "type", "buffer"],
       "properties": {
         "key": {
           "type": "string",
           "minLength": 1
         },
-        "name": {
+        "desc": {
           "type": "string",
           "minLength": 1
         },
@@ -59,14 +59,14 @@
     },
     "Bindings": {
       "type": "object",
-      "required": ["key", "name", "type", "bindings"],
+      "required": ["key", "desc", "type", "bindings"],
       "additionalProperties": false,
       "properties": {
         "key": {
           "type": "string",
           "minLength": 1
         },
-        "name": {
+        "desc": {
           "type": "string",
           "minLength": 1
         },

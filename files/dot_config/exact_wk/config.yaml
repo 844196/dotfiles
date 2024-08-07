@@ -1,0 +1,19 @@
+---
+colors:
+  prompt: 8
+  inputKeys:
+    color: 8
+    attrs: [dim]
+  breadcrumb:
+    color: 8
+    attrs: [dim]
+  lastInputKey:
+    color: 6
+    attrs: [underline]
+  bindingKey: 5
+  separator:
+    color: 5
+    attrs: [dim]
+  group: 8
+  bindingIcon: 8
+  bindingDescription: 8

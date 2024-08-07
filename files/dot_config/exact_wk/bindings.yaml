@@ -1,209 +1,237 @@
 # yaml-language-server: $schema=./schema.json
 ---
 - key: space
-  name: Insert space
+  desc: Insert space
   type: command
   buffer: ' '
 - key: j
-  name: Jump
+  desc: Jump
   type: command
   buffer: ' cd -- ${(q)$(anyframe-widget-z-ghq --height 20%):-.}'
   trigger: ACCEPT
 - key: g
-  name: Git
+  desc: Git
   type: bindings
   bindings:
-    - key: b
-      name: Branch
+    - key: C
+      desc: Checkout
       type: bindings
       bindings:
         - key: space
-          name: git branch
-          type: command
-          buffer: ' git branch -vvv'
-          trigger: ACCEPT
-        - key: c
-          name: git checkout
+          desc: git checkout
           type: command
           buffer: 'git checkout '
           trigger: COMPLETE
-        - key: "C"
-          name: git checkout -b
+        - key: b
+          desc: git checkout -b
           type: command
           buffer: 'git checkout -b '
           trigger: COMPLETE
+        - key: .
+          desc: git checkout .
+          type: command
+          buffer: 'git checkout .'
+    - key: b
+      desc: Branch
+      type: bindings
+      bindings:
+        - key: space
+          desc: git branch
+          type: command
+          buffer: ' git branch -vvv'
+          trigger: ACCEPT
         - key: r
-          name: git branch -m
+          desc: git branch -m
           type: command
           buffer: 'git branch -m '
           trigger: COMPLETE
         - key: m
-          name: git branch -m
+          desc: git branch -m
           type: command
           buffer: 'git branch -m '
           trigger: COMPLETE
         - key: d
-          name: git branch -D
+          desc: git branch -D
           type: command
           buffer: 'git branch -D '
           trigger: COMPLETE
     - key: a
-      name: Add
+      desc: Add
       type: bindings
       bindings:
         - key: space
-          name: git add
+          desc: git add
           type: command
           buffer: 'git add '
           trigger: COMPLETE
         - key: a
-          name: git add -A
+          desc: git add -A
           type: command
           buffer: 'git add -A'
     - key: c
-      name: Commit
+      desc: Commit
       type: bindings
       bindings:
         - key: space
-          name: 'git commit '
+          desc: 'git commit '
           type: command
           buffer: 'git commit '
         - key: m
-          name: git commit -m
+          desc: git commit -m
           type: command
           buffer: 'git commit -m '
           trigger: COMPLETE
         - key: a
-          name: git commit --amend --no-edit
+          desc: git commit --amend --no-edit
           type: command
           buffer: 'git commit --amend --no-edit'
         - key: f
-          name: git commit --fixup
+          desc: git commit --fixup
           type: command
           buffer: 'git commit --fixup '
           trigger: COMPLETE
     - key: r
-      name: Rebase
+      desc: Rebase
       type: bindings
       bindings:
         - key: space
-          name: 'git rebase '
+          desc: 'git rebase '
           type: command
           buffer: 'git rebase '
           trigger: COMPLETE
         - key: i
-          name: git rebase -i
+          desc: git rebase -i
           type: command
           buffer: 'git rebase -i '
           trigger: COMPLETE
     - key: p
-      name: Push/Pull
+      desc: Push/Pull
       type: bindings
       bindings:
         - key: space
-          name: git push
+          desc: git push
           type: command
           buffer: 'git push origin HEAD'
+          trigger: ACCEPT
         - key: u
-          name: git push -u
+          desc: git push -u
           type: command
           buffer: 'git push -u origin HEAD'
+          trigger: ACCEPT
         - key: f
-          name: git push -f
+          desc: git push -f
           type: command
           buffer: 'git push --force-with-lease --force-if-includes origin HEAD'
         - key: l
-          name: git pull
+          desc: git pull
           type: command
           buffer: 'git pull'
+          trigger: ACCEPT
+    - key: R
+      desc: Reset
+      type: bindings
+      bindings:
+        - key: space
+          desc: git reset
+          type: command
+          buffer: 'git reset '
+        - key: h
+          desc: git reset HEAD~
+          type: command
+          buffer: 'git reset HEAD~'
+        - key: H
+          desc: git reset --hard
+          type: command
+          buffer: 'git reset --hard $(git rev-parse --abbrev-ref HEAD@{u} 2>/dev/null)'
+          eval: true
     - key: h
-      name: GitHub
+      desc: GitHub
       type: bindings
       bindings:
         - key: i
-          name: Issue
+          desc: Issue
           type: bindings
           bindings:
             - key: l
-              name: gh issue list
+              desc: gh issue list
               type: command
               buffer: '${GH_ISSUE_REPO:+ GH_REPO=}$GH_ISSUE_REPO gh issue list -w'
               eval: true
               trigger: ACCEPT
             - key: c
-              name: gh issue create
+              desc: gh issue create
               type: command
               buffer: '${GH_ISSUE_REPO:+ GH_REPO=}$GH_ISSUE_REPO gh issue create -w' # NOTE: -a @me をつけるとテンプレート一覧にからスタートしない
               eval: true
               trigger: ACCEPT
         - key: p
-          name: Pull request
+          desc: Pull request
           type: bindings
           bindings:
             - key: l
-              name: gh pr list
+              desc: gh pr list
               type: command
               buffer: ' gh pr list -w'
               trigger: ACCEPT
             - key: v
-              name: gh pr view
+              desc: gh pr view
               type: command
               buffer: ' gh pr view -w'
               trigger: ACCEPT
             - key: c
-              name: gh pr create
+              desc: gh pr create
               type: command
-              buffer: 'gh pr create -w${$(git base-branch):+${$(git base-branch)/#/ -B }} -H $(git current-branch) -a @me -t '
+              buffer: 'git push -u origin HEAD && gh pr create -w${$(git base-branch):+${$(git base-branch)/#/ -B }} -H $(git current-branch) -a @me -t '
               eval: true
               trigger: COMPLETE
     - key: s
-      name: Status
+      desc: Status
       type: command
       buffer: ' git status'
       trigger: ACCEPT
     - key: d
-      name: Diff
+      desc: Diff
       type: command
       buffer: ' git diff'
       trigger: ACCEPT
     - key: g
-      name: git graph -n 10
+      desc: git graph -n 10
       type: command
       buffer: ' git graph -n 10'
       trigger: ACCEPT
 - key: d
-  name: Docker
+  desc: Docker
   type: bindings
   bindings:
     - key: space
-      name: 'docker '
+      desc: 'docker '
       type: command
       buffer: 'docker '
     - key: r
-      name: docker run
+      desc: docker run
       type: command
       buffer: 'docker run --rm -it '
     - key: c
-      name: Compose
+      desc: Compose
       type: bindings
       bindings:
         - key: space
-          name: 'docker compose '
+          desc: 'docker compose '
           type: command
           buffer: 'docker compose '
         - key: r
-          name: docker compose run
+          desc: docker compose run
           type: command
           buffer: 'docker compose run --rm '
 - key: n
-  name: npm
+  desc: npm
   type: bindings
   bindings:
     - key: space
-      name: npm
+      desc: npm
       type: command
       buffer: 'npm '
     - key: r
-      name: npm run
+      desc: npm run
       type: command
       buffer: 'npm run '
