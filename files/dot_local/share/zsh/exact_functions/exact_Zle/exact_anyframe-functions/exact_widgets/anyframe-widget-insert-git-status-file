@@ -14,4 +14,4 @@ tput cub 9999
   | sed 's/^.....//g' \
   | anyframe-action-insert
 
-zle .reset-prompt
+zle redisplay

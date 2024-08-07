@@ -324,7 +324,7 @@ for await (const key of keypress()) {
       .cursorSave
       .cursorNextLine;
     for (const line of renderTable(navigation.at(-1)!).toString().split("\n")) {
-      n.eraseLine.text(line).cursorNextLine;
+      n.eraseLine.text(line).cursorNextLine();
     }
     n.cursorRestore.cursorShow();
 
@@ -439,7 +439,7 @@ for await (const key of keypress()) {
       .cursorSave
       .cursorNextLine;
     for (const line of renderTable(match.bindings).toString().split("\n")) {
-      n.eraseLine.text(line).cursorNextLine;
+      n.eraseLine.text(line).cursorNextLine();
     }
     n.cursorRestore.cursorShow();
 

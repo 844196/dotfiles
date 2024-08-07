@@ -13,4 +13,4 @@ zoxide query --list \
       echo "change-prompt(GHQ  )+reload(ghq list -p)"' \
   | anyframe-action-execute cd --
 
-zle .reset-prompt
+zle redisplay

@@ -16,7 +16,7 @@ local moji=$(
 )
 
 if [[ -z "$moji" ]]; then
-  zle .reset-prompt
+  zle redisplay
   return
 fi
 
@@ -26,4 +26,4 @@ if [[ -n "${opthash[(i)--wrap]}" ]]; then
 fi
 
 echo $reply | anyframe-action-insert
-zle .reset-prompt
+zle redisplay

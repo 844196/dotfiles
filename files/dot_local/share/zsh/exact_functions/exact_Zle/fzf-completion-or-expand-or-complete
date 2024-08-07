@@ -55,7 +55,7 @@ case $BUFFER in
             " \
         | grep -o '[a-f0-9]\{7\}'
     )"
-    zle .reset-prompt
+    zle redisplay
 
     BUFFER="${BUFFER}${sha}${sha:+ }"
     CURSOR=${#BUFFER}
@@ -75,7 +75,7 @@ case $BUFFER in
         | SHELL==$ZSH_NAME anyframe-selector-fzf '' --no-multi --select-1 --exit-0 --height=9 \
         | grep -o '[a-f0-9]\{7\}'
     )"
-    zle .reset-prompt
+    zle redisplay
 
     BUFFER="${BUFFER}${sha}${sha:+ }"
     if [[ -n "$sha" && -n "$base" ]]; then
@@ -112,7 +112,7 @@ case $BUFFER in
         | SHELL==$ZSH_NAME anyframe-selector-fzf '' --no-multi --select-1 --exit-0 --height=9 \
         | grep -o '[a-f0-9]\{7\}'
     )"
-    zle .reset-prompt
+    zle redisplay
 
     if [[ -n "$sha" ]]; then
       reply=${(qqq)"$(git log -1 --pretty=format:%s ${sha})"}
@@ -126,5 +126,3 @@ case $BUFFER in
     zle expand-or-complete
     ;;
 esac
-
-zle autosuggest-fetch

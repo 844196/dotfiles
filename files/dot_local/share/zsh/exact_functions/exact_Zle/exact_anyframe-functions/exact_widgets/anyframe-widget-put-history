@@ -20,4 +20,4 @@ if (( hid )); then
   zle vi-fetch-history -n $hid
 fi
 
-zle .reset-prompt
+zle redisplay

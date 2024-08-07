@@ -12,13 +12,13 @@ case $KEYS in
         ;;
 
       *)
-        zle .self-insert
+        zle self-insert
         ;;
     esac
     ;;
 
   *)
-    zle .self-insert
+    zle self-insert
     ;;
 esac
 

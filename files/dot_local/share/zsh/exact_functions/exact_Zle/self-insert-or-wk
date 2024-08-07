@@ -10,7 +10,7 @@ case $BUFFER in
 
     # tput cub 9999 で wk 実行時点でのカーソル位置を無理やり本来あるべき位置から変えているため
     # 終了コードに関係なくプロンプトを再描画する
-    zle .reset-prompt
+    zle redisplay
 
     case $wk_exit in
       0)
@@ -43,13 +43,11 @@ case $BUFFER in
         ;;
     esac
 
-    zle .reset-prompt
+    zle redisplay
     ;;
 
   *)
     zle _expand_alias
-    zle .self-insert
+    zle self-insert
     ;;
 esac
-
-zle autosuggest-fetch

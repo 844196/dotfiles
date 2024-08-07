@@ -1,4 +1,4 @@
 # vim: set ft=zsh:
 
 zle _expand_alias
-zle .accept-line
+zle accept-line

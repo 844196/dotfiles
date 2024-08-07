@@ -129,7 +129,7 @@ prompt_zen_async_precmd_callback() {
     psvar[6]=$segments[5]
 
     zle && [[ $CONTEXT == start ]] &&
-      zle .reset-prompt
+      zle reset-prompt
   } always {
     exec {fd}<&-
   }

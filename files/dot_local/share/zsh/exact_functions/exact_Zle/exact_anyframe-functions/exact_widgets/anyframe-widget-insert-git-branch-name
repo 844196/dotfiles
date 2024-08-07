@@ -8,4 +8,4 @@ tput cub 9999
   | cut -d ' ' -f 1,1 \
   | anyframe-action-insert
 
-zle .reset-prompt
+zle redisplay
