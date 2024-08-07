@@ -37,6 +37,11 @@
           type: command
           buffer: 'git branch -m '
           trigger: COMPLETE
+        - key: m
+          name: git branch -m
+          type: command
+          buffer: 'git branch -m '
+          trigger: COMPLETE
         - key: d
           name: git branch -D
           type: command
