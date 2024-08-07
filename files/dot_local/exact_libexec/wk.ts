@@ -83,7 +83,7 @@ async function* keypress(): AsyncGenerator<KeyCode, void> {
 }
 
 const bindings = parseYaml(
-  Deno.readTextFileSync(`${Deno.env.get("XDG_CONFIG_HOME") ?? "~/.config"}/wk/config.yaml`),
+  Deno.readTextFileSync(`${Deno.env.get("XDG_CONFIG_HOME") ?? "~/.config"}/wk/bindings.yaml`),
 ) as Binding[];
 
 const initCursorPos = myTty.getCursorPosition();
