@@ -2,22 +2,21 @@
 
 case $BUFFER in
   '')
-    tput cub 9999
+    echo -n $'\x1b[?25l\x1b[0`' >$TTY # Avoid cursor flickering
 
     local res=''
-    res=$(~/.local/libexec/wk 2>&1)
+    res=$(wk --no-validation 2>&1)
     local wk_exit=$?
 
-    # tput cub 9999 で wk 実行時点でのカーソル位置を無理やり本来あるべき位置から変えているため
-    # 終了コードに関係なくプロンプトを再描画する
     zle redisplay
 
     case $wk_exit in
       0)
         # NOOP
         ;;
-      1)
-        return 1
+      1|2)
+        # Abort, Timeout
+        return
         ;;
       *)
         zle -M "wk: $res"

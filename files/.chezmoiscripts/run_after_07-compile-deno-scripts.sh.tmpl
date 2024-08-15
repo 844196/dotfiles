@@ -11,8 +11,8 @@ files=(
   {{ .chezmoi.sourceDir }}/dot_local/exact_libexec/git-branch-pretty.ts  ~/.local/libexec/git-branch-pretty
   {{ .chezmoi.sourceDir }}/dot_local/exact_libexec/git-status-pretty.ts  ~/.local/libexec/git-status-pretty
   {{ .chezmoi.sourceDir }}/dot_local/exact_libexec/git-moji.ts           ~/.local/libexec/git-moji
+  {{ .chezmoi.sourceDir }}/dot_local/exact_libexec/git-add-A.ts          ~/.local/libexec/git-add-A
   {{ .chezmoi.sourceDir }}/dot_local/exact_libexec/fzf-preview-helper.ts ~/.local/libexec/fzf-preview-helper
-  {{ .chezmoi.sourceDir }}/dot_local/exact_libexec/wk.ts                 ~/.local/libexec/wk
 )
 
 for ((i = 0; i < ${#files[@]}; i += 2)); do

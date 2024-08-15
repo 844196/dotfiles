@@ -1,3 +1,5 @@
+[init]
+  defaultBranch = main
 [user]
   useConfigOnly = true
 [core]
@@ -20,6 +22,7 @@
   base-commit = !git rev-parse --short $(git base-commit-long)
   graph = log --graph --pretty=format:'%C(blue)%h%C(reset) - %C(green)(%ar)%C(reset)%C(yellow)%d%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --abbrev-commit --date=relative --color=always
   users = user --config ~/.config/git/profiles
+  add-A = ! ~/.local/libexec/git-add-A
 [color]
   ui = auto
 [push]

@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=./schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/844196/wk/v0.0.3/schemas/bindings.json
 ---
 - key: space
   desc: Insert space
@@ -59,15 +59,16 @@
       desc: Add
       type: bindings
       bindings:
-        - key: space
+        - key: f
           desc: git add
           type: command
           buffer: 'git add '
           trigger: COMPLETE
         - key: a
-          desc: git add -A
+          desc: git add-A
           type: command
-          buffer: 'git add -A'
+          buffer: 'git add-A'
+          trigger: ACCEPT
     - key: c
       desc: Commit
       type: bindings
@@ -112,12 +113,10 @@
           desc: git push
           type: command
           buffer: 'git push origin HEAD'
-          trigger: ACCEPT
         - key: u
           desc: git push -u
           type: command
           buffer: 'git push -u origin HEAD'
-          trigger: ACCEPT
         - key: f
           desc: git push -f
           type: command
@@ -235,3 +234,41 @@
       desc: npm run
       type: command
       buffer: 'npm run '
+- key: y
+  desc: Yank
+  type: bindings
+  bindings:
+    - key: .
+      desc: Copy $PWD
+      type: command
+      buffer: ' echo -ne "\e]52;c;$(base64 <(pwd | tee >$TTY | tr -d $''\n''))\a"'
+      trigger: ACCEPT
+    - key: f
+      desc: Copy relative path of selected file
+      type: command
+      buffer: ' echo -ne "\e]52;c;$(base64 <(fzf --height 25% <$TTY | tee >$TTY | tr -d $''\n''))\a"'
+      trigger: ACCEPT
+    - key: b
+      desc: Copy current branch
+      type: command
+      buffer: ' echo -ne "\e]52;c;$(base64 <(git current-branch | tee >$TTY | tr -d $''\n''))\a"'
+      trigger: ACCEPT
+    - key: c
+      desc: Copy last commit...
+      type: bindings
+      bindings:
+        - key: m
+          desc: Message
+          type: command
+          buffer: ' echo -ne "\e]52;c;$(base64 <(git --no-pager log -1 --pretty=format:%s%n HEAD | tee >$TTY | tr -d $''\n''))\a"'
+          trigger: ACCEPT
+        - key: h
+          desc: Hash (Short)
+          type: command
+          buffer: ' echo -ne "\e]52;c;$(base64 <(git rev-parse --short HEAD | tee >$TTY | tr -d $''\n''))\a"'
+          trigger: ACCEPT
+        - key: H
+          desc: Hash (Full)
+          type: command
+          buffer: ' echo -ne "\e]52;c;$(base64 <(git rev-parse HEAD | tee >$TTY | tr -d $''\n''))\a"'
+          trigger: ACCEPT
