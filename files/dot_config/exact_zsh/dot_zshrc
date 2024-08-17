@@ -2,25 +2,13 @@
 
 autoload -Uz add-zsh-hook
 autoload -Uz select-word-style
-autoload -Uz history-search-end
 autoload -Uz smart-insert-last-word
-autoload -Uz historyignore
-autoload -Uz send-osc7
-autoload -Uz completioninit
-autoload -Uz evalcache
-autoload -Uz toggle-delta-features
-autoload -Uz compute-anyframe-fzf-options
-autoload -Uz accept-line-with-expand-alias
-autoload -Uz self-insert-or-wk
-autoload -Uz self-insert-with-tweak
-autoload -Uz fzf-completion-or-expand-or-complete
+autoload -Uz {up,down}-line-or-beginning-search
 autoload -Uz promptinit
-autoload -Uz up-line-or-beginning-search
-autoload -Uz down-line-or-beginning-search
-autoload -Uz edit-command-line-shim
 autoload -Uz zman
 autoload -Uz anyframe-init
 autoload -Uz zsh-defer
+autoload -Uz $XDG_DATA_HOME/zsh/functions/**/*(N.:t)
 
 add-zsh-hook precmd send-osc7
 add-zsh-hook precmd toggle-delta-features
@@ -64,8 +52,6 @@ zle -N accept-line-with-expand-alias
 zle -N self-insert-with-tweak
 zle -N self-insert-or-wk
 zle -N fzf-completion-or-expand-or-complete
-zle -N history-beginning-search-forward-end history-search-end
-zle -N history-beginning-search-backward-end history-search-end
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 zle -N insert-last-word smart-insert-last-word
@@ -85,8 +71,6 @@ alias rm='rm -I --preserve-root -r' # '--preserve-root' is only available for GN
 alias tmp='cd "$(mktemp -d)"'
 alias ch='chezmoi'
 
-bindkey '^N' history-beginning-search-forward-end
-bindkey '^P' history-beginning-search-backward-end
 bindkey '^[OA' up-line-or-beginning-search # Up arrow
 bindkey '^[OB' down-line-or-beginning-search # Down arrow
 bindkey '^[[Z' reverse-menu-complete # Shift+Tab
@@ -118,16 +102,7 @@ zsh-defer -a +ms source $XDG_DATA_HOME/zsh/plugins/zsh-autosuggestions/zsh-autos
 
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
-  accept-line-with-expand-alias
-  history-beginning-search-backward-end
-  history-beginning-search-forward-end
-  up-line-or-beginning-search
-  down-line-or-beginning-search
-)
-
-# ?(...) - https://zsh.sourceforge.io/Doc/Release/Expansion.html#ksh_002dlike-Glob-Operators
-# #cN, - https://zsh.sourceforge.io/Doc/Release/Expansion.html#Globbing-Flags
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(accept-line-with-expand-alias up-line-or-beginning-search down-line-or-beginning-search)
 ZSH_AUTOSUGGEST_HISTORY_IGNORE='( eza *|cd *|\\(cp|mv|rm) *|git (add|branch|checkout) *|gh pr create *|?(#c50,))'
 
 promptinit
