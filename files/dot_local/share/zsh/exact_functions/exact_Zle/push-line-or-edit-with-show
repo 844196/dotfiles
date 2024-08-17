@@ -1,0 +1,8 @@
+# vim: set ft=zsh:
+
+# https://kei-q.hatenadiary.org/entry/20110308/1299594629
+
+if (( ${#BUFFER} > 0 )); then
+  zle -M "stack: $BUFFER"
+  zle push-line-or-edit
+fi

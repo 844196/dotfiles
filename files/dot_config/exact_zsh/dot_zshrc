@@ -56,6 +56,7 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 zle -N insert-last-word smart-insert-last-word
 zle -N edit-command-line edit-command-line-shim
+zle -N push-line-or-edit-with-show
 zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
@@ -79,6 +80,8 @@ bindkey '\^' self-insert-with-tweak
 bindkey ' ' self-insert-or-wk
 bindkey '^I' fzf-completion-or-expand-or-complete
 bindkey '^R' anyframe-widget-put-history
+bindkey '^[q' push-line-or-edit-with-show
+bindkey '^Q' push-line-or-edit-with-show # `NO_FLOW_CONTROL` required
 bindkey '^X^B' anyframe-widget-insert-git-branch-name
 bindkey '^X^F' anyframe-widget-insert-git-status-file
 bindkey '^X^X' anyframe-widget-insert-git-commit-hash
