@@ -41,8 +41,6 @@ case $BUFFER in
         zle fzf-completion-or-expand-or-complete
         ;;
     esac
-
-    zle redisplay
     ;;
 
   *)

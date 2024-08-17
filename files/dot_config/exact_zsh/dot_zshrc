@@ -50,7 +50,7 @@ select-word-style default
 anyframe-init
 zle -N accept-line-with-expand-alias
 zle -N self-insert-with-tweak
-zle -N self-insert-or-wk
+zle -N self-insert-or-trigger-wk
 zle -N fzf-completion-or-expand-or-complete
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
@@ -62,22 +62,12 @@ zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
 zstyle -e ':anyframe:selector:fzf:*' command 'reply=($GLOBAL_AQUA_ROOT_DIR/bin-copied/fzf $(compute-anyframe-fzf-options))'
 
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ls=' eza --time-style=long-iso -s=type -logF -a'
-alias tree=' eza -T -I=.git --git-ignore -s=type -a'
-alias cp='cp -i'
-alias mv='mv -i'
-alias rm='rm -I --preserve-root -r' # '--preserve-root' is only available for GNU rm
-alias tmp='cd "$(mktemp -d)"'
-alias ch='chezmoi'
-
 bindkey '^[OA' up-line-or-beginning-search # Up arrow
 bindkey '^[OB' down-line-or-beginning-search # Down arrow
 bindkey '^[[Z' reverse-menu-complete # Shift+Tab
 bindkey '^M' accept-line-with-expand-alias
 bindkey '\^' self-insert-with-tweak
-bindkey ' ' self-insert-or-wk
+bindkey ' ' self-insert-or-trigger-wk
 bindkey '^I' fzf-completion-or-expand-or-complete
 bindkey '^R' anyframe-widget-put-history
 bindkey '^[q' push-line-or-edit-with-show
@@ -87,6 +77,16 @@ bindkey '^X^F' anyframe-widget-insert-git-status-file
 bindkey '^X^X' anyframe-widget-insert-git-commit-hash
 bindkey '^X^G' anyframe-widget-insert-gitmoji
 bindkey '^X^E' edit-command-line
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ls=' eza --time-style=long-iso -s=type -logF -a'
+alias tree=' eza -T -I=.git --git-ignore -s=type -a'
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -I --preserve-root -r' # '--preserve-root' is only available for GNU rm
+alias tmp='cd "$(mktemp -d)"'
+alias ch='chezmoi'
 
 evalcache navi widget zsh
 evalcache zoxide init zsh --no-cmd
