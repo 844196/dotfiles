@@ -1,5 +1,14 @@
 # vim: set ft=zsh:
 
+__PSVAR_IDX_PWD=1
+__PSVAR_IDX_GIT_BRANCH=2
+__PSVAR_IDX_GIT_STATUS=3
+__PSVAR_IDX_GIT_REMOTE_AHEAD=4
+__PSVAR_IDX_GIT_REMOTE_BEHIND=5
+__PSVAR_IDX_GIT_AUTHOR=6
+__PSVAR_IDX_GIT_AUTHOR_WARNING=7
+__PSVAR_IDX_REMOTE_CONTAINERS=8
+
 prompt_zen_help() {
   cat <<'EOF'
 Usage:
@@ -7,13 +16,52 @@ Usage:
 EOF
 }
 
-prompt_zen_setup() {
+prompt_zen_pwd() {
   emulate -L zsh
   setopt EXTENDED_GLOB
 
-  autoload -Uz vcs_info add-zsh-hook evalcache
+  # https://zsh.sourceforge.io/Doc/Release/Expansion.html#index-glob-operators
+  local git_match=((../)#.git(#qN))
 
-  add-zsh-hook preexec prompt_zen_preexec
+  if (( $+git_match[1] )); then
+    local git_root=${git_match[1]:A:h}
+    print -rn ${git_root:t}${PWD#$git_root}
+  else
+    print -rn ${(%):-%~}
+  fi
+}
+
+prompt_zen_setup() {
+  emulate -L zsh
+  autoload -Uz add-zsh-hook
+
+  local -A opthash
+  zparseopts -D -A opthash -- -instant-pre -instant-post
+
+  # https://gist.github.com/romkatv/8b318a610dc302bdbe1487bb1847ad99
+  if [[ -n "$opthash[(i)--instant-pre]" ]]; then
+    unsetopt PROMPT_CR PROMPT_SP
+
+    psvar=("$(prompt_zen_pwd)")
+    local INSTANT_PS1='
+%F{12}%1v%f
+%F{8}%(!.#.)%f '
+    print -rn -- $'\e7'${(%)INSTANT_PS1}
+
+    __clear_instant_ps1() {
+      setopt PROMPT_CR PROMPT_SP
+      print -rn $'\e[?25l\e8\e[0m\e[J\e[?25h'
+      unfunction __clear_instant_ps1
+      add-zsh-hook -d precmd __clear_instant_ps1
+    }
+    return
+  elif [[ -n "$opthash[(i)--instant-post]" ]]; then
+    add-zsh-hook precmd __clear_instant_ps1
+    return
+  fi
+
+  setopt EXTENDED_GLOB
+  autoload -Uz vcs_info evalcache
 
   zstyle ':vcs_info:*' enable git
   zstyle ':vcs_info:git:*' use-simple yes
@@ -21,19 +69,24 @@ prompt_zen_setup() {
   zstyle ':vcs_info:git:*' check-for-staged-changes yes
   zstyle ':vcs_info:git:*' max-exports 1
   zstyle ':vcs_info:git:*' formats '%b:%u%c:%m' # %b:CurrentBranch, %u:Unstaged, %c:Staged, %m:Misc
-  zstyle ':vcs_info:git+set-message:*' hooks \
-    prompt_zen_git-status \
-    prompt_zen_git-remote \
-    prompt_zen_git-author
+  zstyle ':vcs_info:git+set-message:*' hooks prompt_zen_git-{status,remote,author}
 
   add-zsh-hook precmd prompt_zen_precmd
   zle -N prompt_zen_async_precmd_callback
 
-  prompt_opts=(cr sp percent)
-  PS1=$'%(9V.%{\e]133;D;%?\a%}.)
-%{\e]133;A\a%}%{\e]132;P;k=i\a%}%(7V.%F{4}%n@%m%f %F{8}in%f .)%F{12}%(1V.%1v.%~)%f %(2V.%F{8}on%f %F{5}%2v%(3V.%F{15}*%f . )%(4V.%F{5}⇡%4v%f .)%(5V.%F{5}⇣%5v%f.)%f.)
-%(?.%F{8}.%F{9})%(!.#.)%f %{\e]133;B\a%}'
-  RPS1=$'%(6V.%{\e]133;P;k=r\a%}%F{8}%6v%f%{\e]133;B\a%}.)'
+  prompt_opts=(percent)
+
+  local OSC_133_A=$'\e]133;A;\a'
+  local OSC_133_B=$'\e]133;B;\a'
+  local OSC_133_D=$'\e]133;D;\a'
+  local SGR_DIM_START=$'\e[2m'
+  local SGR_DIM_RESET=$'\e[22m'
+
+  PS1="%{${OSC_133_D}%}
+%{${OSC_133_A}%}%(${__PSVAR_IDX_REMOTE_CONTAINERS}V.%F{4}%n@%m%f %F{8}in%f .)%F{12}%${__PSVAR_IDX_PWD}v%f %(${__PSVAR_IDX_GIT_BRANCH}V.%F{8}on%f %F{5}%${__PSVAR_IDX_GIT_BRANCH}v%(${__PSVAR_IDX_GIT_STATUS}V.%F{15}*%f . )%(${__PSVAR_IDX_GIT_REMOTE_AHEAD}V.%F{5}⇡%4v%f .)%(${__PSVAR_IDX_GIT_REMOTE_BEHIND}V.%F{5}⇣%5v%f.)%f.)
+%(?.%F{8}.%F{9})%(!.#.)%f %{${OSC_133_B}%}"
+
+  RPS1="%(${__PSVAR_IDX_GIT_AUTHOR_WARNING}V.%F{1}.%F{8})%{${SGR_DIM_START}%}%(${__PSVAR_IDX_GIT_AUTHOR}V.%${__PSVAR_IDX_GIT_AUTHOR}v.)%{${SGR_DIM_RESET}%}%f"
 
   # https://news.ycombinator.com/item?id=26757438
   # https://www.reddit.com/r/zsh/comments/c160o2/comment/erbdiqj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
@@ -43,12 +96,6 @@ prompt_zen_setup() {
 
   zstyle ':completion:*' list-separator '│'
   zstyle ':completion:*' list-colors ${(s.:.)${LS_COLORS/no=([^:])#/}} 'no=0;38;5;8' 'ma=0;38;5;0;48;5;8'
-
-  export WK_SYMBOL_SPACE='␣'
-  export WK_SYMBOL_PROMPT=' '
-  export WK_SYMBOL_BREADCRUMB=" » "
-  export WK_SYMBOL_SEPARATOR='➜'
-  export WK_SYMBOL_GROUP="+"
 
   # see: https://gist.github.com/sheepla/d1ff1ef11cc21dcc7434a25a012a970f
   export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
@@ -77,7 +124,7 @@ prompt_zen_setup() {
   local current_fsh_theme
   zstyle -g current_fsh_theme ':plugin:fast-syntax-highlighting' theme
   if [[ "$current_fsh_theme" != "zen" ]]; then
-    zsh-defer fast-theme ~/.config/fsh/zen.ini 2>&1 >/dev/null
+    fast-theme $XDG_CONFIG_HOME/fsh/zen.ini 2>&1 >/dev/null
   fi
 }
 
@@ -86,19 +133,18 @@ prompt_zen_precmd() {
   setopt EXTENDED_GLOB
 
   {
-    psvar=()
-
-    psvar[7]=$REMOTE_CONTAINERS
+    psvar[$__PSVAR_IDX_PWD]="$(prompt_zen_pwd)"
+    psvar[$__PSVAR_IDX_REMOTE_CONTAINERS]=$REMOTE_CONTAINERS
+    psvar[$__PSVAR_IDX_GIT_BRANCH]=
+    psvar[$__PSVAR_IDX_GIT_STATUS]=
+    psvar[$__PSVAR_IDX_GIT_REMOTE_AHEAD]=
+    psvar[$__PSVAR_IDX_GIT_REMOTE_BEHIND]=
+    psvar[$__PSVAR_IDX_GIT_AUTHOR]=
+    psvar[$__PSVAR_IDX_GIT_AUTHOR_WARNING]=
 
     local fd
     exec {fd}< <(prompt_zen_async_precmd)
     zle -Fw $fd prompt_zen_async_precmd_callback
-
-    local match=((../)#.git(#qN))
-    if (( $+match[1] )); then
-      local root=${match[1]:A:h}
-      psvar[1]=${root:t}${PWD#$root}
-    fi
   } always {
     # Ensure next hook will run
     # see: https://zsh.sourceforge.io/Doc/Release/Functions.html#index-hook-functions
@@ -122,22 +168,18 @@ prompt_zen_async_precmd_callback() {
       return
 
     local segments=("${(@s[:])REPLY}")
-    psvar[2]=$segments[1]
-    psvar[3]=$segments[2]
-    psvar[4]=$segments[3]
-    psvar[5]=$segments[4]
-    psvar[6]=$segments[5]
+    psvar[$__PSVAR_IDX_GIT_BRANCH]=$segments[1]
+    psvar[$__PSVAR_IDX_GIT_STATUS]=$segments[2]
+    psvar[$__PSVAR_IDX_GIT_REMOTE_AHEAD]=$segments[3]
+    psvar[$__PSVAR_IDX_GIT_REMOTE_BEHIND]=$segments[4]
+    psvar[$__PSVAR_IDX_GIT_AUTHOR]=$segments[5]
+    psvar[$__PSVAR_IDX_GIT_AUTHOR_WARNING]=$segments[6]
 
     zle && [[ $CONTEXT == start ]] &&
       zle reset-prompt
   } always {
     exec {fd}<&-
   }
-}
-
-prompt_zen_preexec() {
-  printf "\e]133;C;\a"
-  psvar[9]=1
 }
 
 +vi-prompt_zen_git-status() {
@@ -154,7 +196,20 @@ prompt_zen_preexec() {
 }
 
 +vi-prompt_zen_git-author() {
-  hook_com[misc]+=":$(git config --local user.name 2>/dev/null)"
+  local git_author="${$(git config --local user.name 2>/dev/null)}"
+  if [[ -z "$git_author" ]]; then
+    hook_com[misc]+="::"
+    return
+  fi
+
+  local gh_user="$(yq '."github.com".user' $XDG_CONFIG_HOME/gh/hosts.yml 2>/dev/null)"
+
+  local warning_marker=
+  if [[ "$git_author" != "$gh_user" ]]; then
+    warning_marker=1
+  fi
+
+  hook_com[misc]+=":${git_author}:${warning_marker}"
 }
 
 prompt_zen_setup "$@"
