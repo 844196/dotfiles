@@ -9,9 +9,11 @@ autoload -Uz zman
 autoload -Uz anyframe-init
 autoload -Uz $XDG_DATA_HOME/zsh/functions/**/*(N.:t)
 
-if [[ -t 0 && -t 1 ]]; then
-  prompt_zen_setup --instant-pre
-fi
+# Avoid flickering on clear instant prompt due to direnv output via precmd hook
+# https://github.com/romkatv/powerlevel10k/blob/119e4039ef9068fa96490a90c559e7594843ec22/README.md#how-do-i-initialize-direnv-when-using-instant-prompt
+eval "$(direnv export zsh)"
+
+prompt_zen_setup instant-pre
 
 add-zsh-hook precmd send-osc7
 add-zsh-hook precmd toggle-delta-features
@@ -119,6 +121,4 @@ if [[ -f $ZDOTDIR/.zshrc.local ]]; then
   source $ZDOTDIR/.zshrc.local
 fi
 
-if [[ -t 0 && -t 1 ]]; then
-  prompt_zen_setup --instant-post
-fi
+prompt_zen_setup instant-post

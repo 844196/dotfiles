@@ -1,5 +1,7 @@
 # vim: set ft=zsh:
 
+__DISPLAYING_INSTANT_PS1=0
+
 __PSVAR_IDX_PWD=1
 __PSVAR_IDX_GIT_BRANCH=2
 __PSVAR_IDX_GIT_STATUS=3
@@ -12,53 +14,43 @@ __PSVAR_IDX_REMOTE_CONTAINERS=8
 prompt_zen_help() {
   cat <<'EOF'
 Usage:
-  prompt zen
+  prompt zen [instant-pre|instant-post]
 EOF
-}
-
-prompt_zen_pwd() {
-  emulate -L zsh
-  setopt EXTENDED_GLOB
-
-  # https://zsh.sourceforge.io/Doc/Release/Expansion.html#index-glob-operators
-  local git_match=((../)#.git(#qN))
-
-  if (( $+git_match[1] )); then
-    local git_root=${git_match[1]:A:h}
-    print -rn ${git_root:t}${PWD#$git_root}
-  else
-    print -rn ${(%):-%~}
-  fi
 }
 
 prompt_zen_setup() {
   emulate -L zsh
   autoload -Uz add-zsh-hook
 
-  local -A opthash
-  zparseopts -D -A opthash -- -instant-pre -instant-post
-
   # https://gist.github.com/romkatv/8b318a610dc302bdbe1487bb1847ad99
-  if [[ -n "$opthash[(i)--instant-pre]" ]]; then
-    unsetopt PROMPT_CR PROMPT_SP
+  case $1 in
+    (instant-pre)
+      [[ -t 0 && -t 1 && -t 2 ]] || return
 
-    psvar=("$(prompt_zen_pwd)")
-    local INSTANT_PS1='
+      unsetopt PROMPT_CR PROMPT_SP
+
+      psvar=("$(prompt_zen_pwd)")
+      local INSTANT_PS1='
 %F{12}%1v%f
 %F{8}%(!.#.)%f '
-    print -rn -- $'\e7'${(%)INSTANT_PS1}
+      print -rn -- $'\e7'${(%)INSTANT_PS1}
 
-    __clear_instant_ps1() {
-      setopt PROMPT_CR PROMPT_SP
-      print -rn $'\e[?25l\e8\e[0m\e[J\e[?25h'
-      unfunction __clear_instant_ps1
-      add-zsh-hook -d precmd __clear_instant_ps1
-    }
-    return
-  elif [[ -n "$opthash[(i)--instant-post]" ]]; then
-    add-zsh-hook precmd __clear_instant_ps1
-    return
-  fi
+      __clear_instant_ps1() {
+        setopt PROMPT_CR PROMPT_SP
+        print -rn $'\e[?25l\e8\e[0m\e[J\e[?25h'
+        unfunction __clear_instant_ps1
+        add-zsh-hook -d precmd __clear_instant_ps1
+        __DISPLAYING_INSTANT_PS1=0
+      }
+
+      __DISPLAYING_INSTANT_PS1=1
+      return
+      ;;
+    (instant-post)
+      (( __DISPLAYING_INSTANT_PS1 )) || return
+      add-zsh-hook precmd __clear_instant_ps1
+      ;;
+  esac
 
   setopt EXTENDED_GLOB
   autoload -Uz vcs_info evalcache
@@ -74,7 +66,13 @@ prompt_zen_setup() {
   add-zsh-hook precmd prompt_zen_precmd
   zle -N prompt_zen_async_precmd_callback
 
-  prompt_opts=(percent)
+  if (( __DISPLAYING_INSTANT_PS1 )); then
+    # PROMPT_CR と PROMPT_SP は __clear_instant_ps1() で有効化されるので、ここではセットしない
+    # セットするとインスタントプロンプト消去時に PROMPT_EOL_MARK が表示されて表示が崩れてしまう
+    prompt_opts=(percent)
+  else
+    prompt_opts=(cr sp percent)
+  fi
 
   local OSC_133_A=$'\e]133;A;\a'
   local OSC_133_B=$'\e]133;B;\a'
@@ -210,6 +208,21 @@ prompt_zen_async_precmd_callback() {
   fi
 
   hook_com[misc]+=":${git_author}:${warning_marker}"
+}
+
+prompt_zen_pwd() {
+  emulate -L zsh
+  setopt EXTENDED_GLOB
+
+  # https://zsh.sourceforge.io/Doc/Release/Expansion.html#index-glob-operators
+  local git_match=((../)#.git(#qN))
+
+  if (( $+git_match[1] )); then
+    local git_root=${git_match[1]:A:h}
+    print -rn ${git_root:t}${PWD#$git_root}
+  else
+    print -rn ${(%):-%~}
+  fi
 }
 
 prompt_zen_setup "$@"
