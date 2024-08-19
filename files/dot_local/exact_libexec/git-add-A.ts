@@ -17,6 +17,7 @@ const lines = statuses.sort((a, b) => a.localeCompare(b))
       .replace(/^remove/, colors.red("remove"))
   );
 
+console.log("");
 console.log(colors.black("┃"));
 console.log(`${colors.black("┃")}  ${colors.brightBlack("The following changes will be staged:")}`);
 console.log(colors.black("┃"));
@@ -24,8 +25,9 @@ for (const line of lines) {
   console.log(`${colors.black("┃")}    ${colors.brightBlack("•")} ${line}`);
 }
 console.log(colors.black("┃"));
+console.log("");
 
-const response = await $.confirm(`${colors.reset(colors.black("┃"))}  ${colors.yellow("Confirm?")}`, {
+const response = await $.confirm(`${colors.yellow("Confirm?")}`, {
   default: true,
   noClear: true,
 });
