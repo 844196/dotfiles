@@ -154,13 +154,13 @@
             - key: l
               desc: gh issue list
               type: command
-              buffer: '${GH_ISSUE_REPO:+ GH_REPO=}$GH_ISSUE_REPO gh issue list -w'
+              buffer: ' ${GH_ISSUE_REPO:+GH_REPO=$GH_ISSUE_REPO }gh issue list -w'
               eval: true
               trigger: ACCEPT
             - key: c
               desc: gh issue create
               type: command
-              buffer: '${GH_ISSUE_REPO:+ GH_REPO=}$GH_ISSUE_REPO gh issue create -w' # NOTE: -a @me をつけるとテンプレート一覧にからスタートしない
+              buffer: ' ${GH_ISSUE_REPO:+GH_REPO=$GH_ISSUE_REPO }gh issue create -w' # NOTE: -a @me をつけるとテンプレート一覧にからスタートしない
               eval: true
               trigger: ACCEPT
         - key: p
@@ -180,7 +180,7 @@
             - key: c
               desc: gh pr create
               type: command
-              buffer: 'git push -u origin HEAD && gh pr create -w${$(git base-branch):+${$(git base-branch)/#/ -B }} -H $(git current-branch) -a @me -t '
+              buffer: 'git push -u origin HEAD && gh pr create -w ${$(git base-branch):+-B $(git base-branch) }-H $(git current-branch) -a @me -t '
               eval: true
               trigger: COMPLETE
     - key: s
