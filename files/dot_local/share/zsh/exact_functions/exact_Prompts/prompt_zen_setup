@@ -58,10 +58,10 @@ prompt_zen_setup() {
   zstyle ':vcs_info:*' enable git
   zstyle ':vcs_info:git:*' use-simple yes
   zstyle ':vcs_info:git:*' check-for-changes no
-  zstyle ':vcs_info:git:*' check-for-staged-changes yes
+  zstyle ':vcs_info:git:*' check-for-staged-changes no
   zstyle ':vcs_info:git:*' max-exports 1
-  zstyle ':vcs_info:git:*' formats '%b:%u%c:%m' # %b:CurrentBranch, %u:Unstaged, %c:Staged, %m:Misc
-  zstyle ':vcs_info:git+set-message:*' hooks prompt_zen_git-{status,remote,author}
+  zstyle ':vcs_info:git:*' formats '%b:%m'
+  zstyle ':vcs_info:git+set-message:*' hooks prompt_zen_git-{status,author}
 
   add-zsh-hook precmd prompt_zen_precmd
   zle -N prompt_zen_async_precmd_callback
@@ -181,16 +181,22 @@ prompt_zen_async_precmd_callback() {
 }
 
 +vi-prompt_zen_git-status() {
-  [[ -n $hook_com[staged] ]] &&
-    return
+  emulate -L zsh
+  setopt EXTENDED_GLOB
 
-  # Avoid index update (i.e. .git/index.lock remain)
-  # see: https://git-scm.com/docs/git-status#_background_refresh
-  hook_com[unstaged]=${$(git --no-optional-locks status --porcelain -unormal 2>/dev/null):+U}
-}
+  local statuses=(
+    # Avoid index update (i.e. .git/index.lock remain)
+    # see: https://git-scm.com/docs/git-status#_background_refresh
+    "${(f)"$(git --no-optional-locks status --branch --porcelain=2 -unormal 2>/dev/null)"}"
+  )
 
-+vi-prompt_zen_git-remote() {
-  hook_com[misc]=${${(s: :j[:])$(git rev-list --left-right --count HEAD...${hook_com[branch]}@{upstream} 2>/dev/null || echo '0 0')}//0/}
+  local dirty=${${statuses:#\# *}:+1}
+
+  local branch_ab=${statuses[(r)\# branch.ab *]}
+  local ahead=${branch_ab[(ws. .r)+[1-9][0-9]#]#+}
+  local behind=${branch_ab[(ws. .r)-[1-9][0-9]#]#-}
+
+  hook_com[misc]+="${dirty}:${ahead}:${behind}"
 }
 
 +vi-prompt_zen_git-author() {
