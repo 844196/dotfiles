@@ -7,9 +7,10 @@ __PSVAR_IDX_GIT_BRANCH=2
 __PSVAR_IDX_GIT_STATUS=3
 __PSVAR_IDX_GIT_REMOTE_AHEAD=4
 __PSVAR_IDX_GIT_REMOTE_BEHIND=5
-__PSVAR_IDX_GIT_AUTHOR=6
-__PSVAR_IDX_GIT_AUTHOR_WARNING=7
-__PSVAR_IDX_REMOTE_CONTAINERS=8
+__PSVAR_IDX_GIT_NO_MERGES=6
+__PSVAR_IDX_GIT_AUTHOR=7
+__PSVAR_IDX_GIT_AUTHOR_WARNING=8
+__PSVAR_IDX_REMOTE_CONTAINERS=9
 
 prompt_zen_help() {
   cat <<'EOF'
@@ -32,7 +33,7 @@ prompt_zen_setup() {
       psvar=("$(prompt_zen_pwd)")
       local INSTANT_PS1='
 %F{12}%1v%f
-%F{8}%(!.#.)%f '
+%F{8}%(!.#.❯)%f '
       print -rn -- $'\e7'${(%)INSTANT_PS1}
 
       __clear_instant_ps1() {
@@ -61,7 +62,7 @@ prompt_zen_setup() {
   zstyle ':vcs_info:git:*' check-for-staged-changes no
   zstyle ':vcs_info:git:*' max-exports 1
   zstyle ':vcs_info:git:*' formats '%b:%m'
-  zstyle ':vcs_info:git+set-message:*' hooks prompt_zen_git-{status,author}
+  zstyle ':vcs_info:git+set-message:*' hooks prompt_zen_git-{status,no-merges,author}
 
   add-zsh-hook precmd prompt_zen_precmd
   zle -N prompt_zen_async_precmd_callback
@@ -81,8 +82,8 @@ prompt_zen_setup() {
   local SGR_DIM_RESET=$'\e[22m'
 
   PS1="%{${OSC_133_D}%}
-%{${OSC_133_A}%}%(${__PSVAR_IDX_REMOTE_CONTAINERS}V.%F{4}%n@%m%f %F{8}in%f .)%F{12}%${__PSVAR_IDX_PWD}v%f %(${__PSVAR_IDX_GIT_BRANCH}V.%F{8}on%f %F{5}%${__PSVAR_IDX_GIT_BRANCH}v%(${__PSVAR_IDX_GIT_STATUS}V.%F{15}*%f . )%(${__PSVAR_IDX_GIT_REMOTE_AHEAD}V.%F{5}⇡%4v%f .)%(${__PSVAR_IDX_GIT_REMOTE_BEHIND}V.%F{5}⇣%5v%f.)%f.)
-%(?.%F{8}.%F{9})%(!.#.)%f %{${OSC_133_B}%}"
+%{${OSC_133_A}%}%(${__PSVAR_IDX_REMOTE_CONTAINERS}V.%F{4}%n@%m%f %F{8}in%f .)%F{12}%${__PSVAR_IDX_PWD}v%f %(${__PSVAR_IDX_GIT_BRANCH}V.%F{8}on%f %F{5}%${__PSVAR_IDX_GIT_BRANCH}v%(${__PSVAR_IDX_GIT_STATUS}V.%F{15}*%f . )%(${__PSVAR_IDX_GIT_NO_MERGES}V.${SGR_DIM_START}%F{5}⫯%${__PSVAR_IDX_GIT_NO_MERGES}v%f${SGR_DIM_RESET} .)%(${__PSVAR_IDX_GIT_REMOTE_AHEAD}V.${SGR_DIM_START}%F{5}⇡%${__PSVAR_IDX_GIT_REMOTE_AHEAD}v%f${SGR_DIM_RESET} .)%(${__PSVAR_IDX_GIT_REMOTE_BEHIND}V.${SGR_DIM_START}%F{5}⇣%${__PSVAR_IDX_GIT_REMOTE_BEHIND}v%f.)%f${SGR_DIM_RESET}.)
+%(?.%F{8}.%F{9})%(!.#.❯)%f %{${OSC_133_B}%}"
 
   RPS1="%(${__PSVAR_IDX_GIT_AUTHOR_WARNING}V.%F{1}.%F{8})%{${SGR_DIM_START}%}%(${__PSVAR_IDX_GIT_AUTHOR}V.%${__PSVAR_IDX_GIT_AUTHOR}v.)%{${SGR_DIM_RESET}%}%f"
 
@@ -97,7 +98,7 @@ prompt_zen_setup() {
 
   # see: https://gist.github.com/sheepla/d1ff1ef11cc21dcc7434a25a012a970f
   export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
-    --prompt ' '
+    --prompt '❯ '
     --color gutter:-1
     --color prompt:8
     --color info:8
@@ -170,8 +171,9 @@ prompt_zen_async_precmd_callback() {
     psvar[$__PSVAR_IDX_GIT_STATUS]=$segments[2]
     psvar[$__PSVAR_IDX_GIT_REMOTE_AHEAD]=$segments[3]
     psvar[$__PSVAR_IDX_GIT_REMOTE_BEHIND]=$segments[4]
-    psvar[$__PSVAR_IDX_GIT_AUTHOR]=$segments[5]
-    psvar[$__PSVAR_IDX_GIT_AUTHOR_WARNING]=$segments[6]
+    psvar[$__PSVAR_IDX_GIT_NO_MERGES]=$segments[5]
+    psvar[$__PSVAR_IDX_GIT_AUTHOR]=$segments[6]
+    psvar[$__PSVAR_IDX_GIT_AUTHOR_WARNING]=$segments[7]
 
     zle && [[ $CONTEXT == start ]] &&
       zle reset-prompt
@@ -197,6 +199,23 @@ prompt_zen_async_precmd_callback() {
   local behind=${branch_ab[(ws. .r)-[1-9][0-9]#]#-}
 
   hook_com[misc]+="${dirty}:${ahead}:${behind}"
+}
+
++vi-prompt_zen_git-no-merges() {
+  local base_branch=$(git base-branch 2>/dev/null && :)
+  if [[ -z "$base_branch" ]]; then
+    hook_com[misc]+=":"
+    return
+  fi
+
+  local count=$(git rev-list --no-merges --count ${base_branch}..HEAD)
+
+  local no_merges=
+  if (( count > 0 )); then
+    no_merges=$count
+  fi
+
+  hook_com[misc]+=":${no_merges}"
 }
 
 +vi-prompt_zen_git-author() {
