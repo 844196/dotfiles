@@ -4,13 +4,13 @@ __DISPLAYING_INSTANT_PS1=0
 
 __PSVAR_IDX_PWD=1
 __PSVAR_IDX_GIT_BRANCH=2
-__PSVAR_IDX_GIT_STATUS=3
+__PSVAR_IDX_GIT_DIRTY=3
 __PSVAR_IDX_GIT_REMOTE_AHEAD=4
 __PSVAR_IDX_GIT_REMOTE_BEHIND=5
 __PSVAR_IDX_GIT_NO_MERGES=6
-__PSVAR_IDX_GIT_AUTHOR=7
-__PSVAR_IDX_GIT_AUTHOR_WARNING=8
-__PSVAR_IDX_REMOTE_CONTAINERS=9
+__PSVAR_IDX_GIT_USER=7
+__PSVAR_IDX_GIT_USER_WARNING=8
+__PSVAR_IDX_IS_REMOTE=9
 
 prompt_zen_help() {
   cat <<'EOF'
@@ -30,19 +30,17 @@ prompt_zen_setup() {
 
       unsetopt PROMPT_CR PROMPT_SP
 
-      psvar=("$(prompt_zen_pwd)")
-      local INSTANT_PS1='
-%F{12}%1v%f
-%F{8}%(!.#.❯)%f '
-      print -rn -- $'\e7'${(%)INSTANT_PS1}
-
       __clear_instant_ps1() {
         setopt PROMPT_CR PROMPT_SP
         print -rn $'\e[?25l\e8\e[0m\e[J\e[?25h'
-        unfunction __clear_instant_ps1
         add-zsh-hook -d precmd __clear_instant_ps1
+        unfunction __clear_instant_ps1
         __DISPLAYING_INSTANT_PS1=0
       }
+
+      print -rn -- $'\e7'${(%):-"
+%F{12}$(prompt_zen_pwd)%f
+%F{8}❯%f "}
 
       __DISPLAYING_INSTANT_PS1=1
       return
@@ -54,18 +52,10 @@ prompt_zen_setup() {
   esac
 
   setopt EXTENDED_GLOB
-  autoload -Uz vcs_info evalcache
-
-  zstyle ':vcs_info:*' enable git
-  zstyle ':vcs_info:git:*' use-simple yes
-  zstyle ':vcs_info:git:*' check-for-changes no
-  zstyle ':vcs_info:git:*' check-for-staged-changes no
-  zstyle ':vcs_info:git:*' max-exports 1
-  zstyle ':vcs_info:git:*' formats '%b:%m'
-  zstyle ':vcs_info:git+set-message:*' hooks prompt_zen_git-{status,no-merges,author}
+  autoload -Uz evalcache
 
   add-zsh-hook precmd prompt_zen_precmd
-  zle -N prompt_zen_async_precmd_callback
+  zle -N prompt_zen_async_callback
 
   if (( __DISPLAYING_INSTANT_PS1 )); then
     # PROMPT_CR と PROMPT_SP は __clear_instant_ps1() で有効化されるので、ここではセットしない
@@ -81,11 +71,23 @@ prompt_zen_setup() {
   local SGR_DIM_START=$'\e[2m'
   local SGR_DIM_RESET=$'\e[22m'
 
+  local segment_pwd="%(${__PSVAR_IDX_IS_REMOTE}V.%F{4}%n@%m%f %F{8}in%f .)%F{12}%${__PSVAR_IDX_PWD}v%f"
+
+  local segment_git_branch="%(${__PSVAR_IDX_GIT_BRANCH}V.%F{5}%${__PSVAR_IDX_GIT_BRANCH}v.)"
+  local segment_git_dirty="%(${__PSVAR_IDX_GIT_DIRTY}V.%F{15}*%f.)"
+
+  local segment_git_no_merges="%(${__PSVAR_IDX_GIT_NO_MERGES}V.${SGR_DIM_START}%F{3}⫯%f${SGR_DIM_RESET} .)"
+  local segment_git_remote_ahead="%(${__PSVAR_IDX_GIT_REMOTE_AHEAD}V.${SGR_DIM_START}%F{6}⇡%f${SGR_DIM_RESET}.)"
+  local segment_git_remote_behind="%(${__PSVAR_IDX_GIT_REMOTE_BEHIND}V.${SGR_DIM_START}%F{6}⇣%f${SGR_DIM_RESET}.)"
+  local segment_git_remote_space="%(${__PSVAR_IDX_GIT_NO_MERGES}V. .%(${__PSVAR_IDX_GIT_REMOTE_AHEAD}V. .%(${__PSVAR_IDX_GIT_REMOTE_BEHIND}V. .)))"
+
+  local segment_git="%(${__PSVAR_IDX_GIT_BRANCH}V. %F{8}on%f ${segment_git_branch}${segment_git_dirty}${segment_git_remote_space}${segment_git_no_merges}${segment_git_remote_ahead}${segment_git_remote_behind}.)"
+
   PS1="%{${OSC_133_D}%}
-%{${OSC_133_A}%}%(${__PSVAR_IDX_REMOTE_CONTAINERS}V.%F{4}%n@%m%f %F{8}in%f .)%F{12}%${__PSVAR_IDX_PWD}v%f %(${__PSVAR_IDX_GIT_BRANCH}V.%F{8}on%f %F{5}%${__PSVAR_IDX_GIT_BRANCH}v%(${__PSVAR_IDX_GIT_STATUS}V.%F{15}*%f . )%(${__PSVAR_IDX_GIT_NO_MERGES}V.${SGR_DIM_START}%F{5}⫯%${__PSVAR_IDX_GIT_NO_MERGES}v%f${SGR_DIM_RESET} .)%(${__PSVAR_IDX_GIT_REMOTE_AHEAD}V.${SGR_DIM_START}%F{5}⇡%${__PSVAR_IDX_GIT_REMOTE_AHEAD}v%f${SGR_DIM_RESET} .)%(${__PSVAR_IDX_GIT_REMOTE_BEHIND}V.${SGR_DIM_START}%F{5}⇣%${__PSVAR_IDX_GIT_REMOTE_BEHIND}v%f.)%f${SGR_DIM_RESET}.)
+%{${OSC_133_A}%}${segment_pwd}${segment_git}
 %(?.%F{8}.%F{9})%(!.#.❯)%f %{${OSC_133_B}%}"
 
-  RPS1="%(${__PSVAR_IDX_GIT_AUTHOR_WARNING}V.%F{1}.%F{8})%{${SGR_DIM_START}%}%(${__PSVAR_IDX_GIT_AUTHOR}V.%${__PSVAR_IDX_GIT_AUTHOR}v.)%{${SGR_DIM_RESET}%}%f"
+  RPS1="%(${__PSVAR_IDX_GIT_USER_WARNING}V.%F{1}.%F{8})%{${SGR_DIM_START}%}%(${__PSVAR_IDX_GIT_USER}V.%${__PSVAR_IDX_GIT_USER}v.)%{${SGR_DIM_RESET}%}%f"
 
   # https://news.ycombinator.com/item?id=26757438
   # https://www.reddit.com/r/zsh/comments/c160o2/comment/erbdiqj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
@@ -128,22 +130,18 @@ prompt_zen_setup() {
 }
 
 prompt_zen_precmd() {
-  emulate -L zsh
-  setopt EXTENDED_GLOB
-
   {
+    psvar=()
     psvar[$__PSVAR_IDX_PWD]="$(prompt_zen_pwd)"
-    psvar[$__PSVAR_IDX_REMOTE_CONTAINERS]=$REMOTE_CONTAINERS
-    psvar[$__PSVAR_IDX_GIT_BRANCH]=
-    psvar[$__PSVAR_IDX_GIT_STATUS]=
-    psvar[$__PSVAR_IDX_GIT_REMOTE_AHEAD]=
-    psvar[$__PSVAR_IDX_GIT_REMOTE_BEHIND]=
-    psvar[$__PSVAR_IDX_GIT_AUTHOR]=
-    psvar[$__PSVAR_IDX_GIT_AUTHOR_WARNING]=
+    psvar[$__PSVAR_IDX_IS_REMOTE]=${REMOTE_CONTAINERS:+1}
 
-    local fd
-    exec {fd}< <(prompt_zen_async_precmd)
-    zle -Fw $fd prompt_zen_async_precmd_callback
+    local fd_main fd_sub
+
+    exec {fd_main}< <(prompt_zen_async_git-stauts)
+    zle -Fw $fd_main prompt_zen_async_callback
+
+    exec {fd_sub}< <(prompt_zen_async_git-user)
+    zle -Fw $fd_sub prompt_zen_async_callback
   } always {
     # Ensure next hook will run
     # see: https://zsh.sourceforge.io/Doc/Release/Functions.html#index-hook-functions
@@ -151,88 +149,95 @@ prompt_zen_precmd() {
   }
 }
 
-prompt_zen_async_precmd() {
-  LANG=C vcs_info
-  print $vcs_info_msg_0_
-}
+prompt_zen_async_git-stauts() {
+  if ! git rev-parse --is-inside-work-tree &>/dev/null; then
+    return
+  fi
 
-prompt_zen_async_precmd_callback() {
-  local fd=$1
-  {
-    zle -F $fd
-
-    local REPLY
-    read -ru $fd
-    [[ -z $REPLY ]] &&
-      return
-
-    local segments=("${(@s[:])REPLY}")
-    psvar[$__PSVAR_IDX_GIT_BRANCH]=$segments[1]
-    psvar[$__PSVAR_IDX_GIT_STATUS]=$segments[2]
-    psvar[$__PSVAR_IDX_GIT_REMOTE_AHEAD]=$segments[3]
-    psvar[$__PSVAR_IDX_GIT_REMOTE_BEHIND]=$segments[4]
-    psvar[$__PSVAR_IDX_GIT_NO_MERGES]=$segments[5]
-    psvar[$__PSVAR_IDX_GIT_AUTHOR]=$segments[6]
-    psvar[$__PSVAR_IDX_GIT_AUTHOR_WARNING]=$segments[7]
-
-    zle && [[ $CONTEXT == start ]] &&
-      zle reset-prompt
-  } always {
-    exec {fd}<&-
-  }
-}
-
-+vi-prompt_zen_git-status() {
   emulate -L zsh
   setopt EXTENDED_GLOB
 
-  local statuses=(
-    # Avoid index update (i.e. .git/index.lock remain)
-    # see: https://git-scm.com/docs/git-status#_background_refresh
-    "${(f)"$(git --no-optional-locks status --branch --porcelain=2 -unormal 2>/dev/null)"}"
-  )
+  local fd_git_status fd_git_no_merges
 
-  local dirty=${${statuses:#\# *}:+1}
+  {
+    exec {fd_git_status}< <(
+      # Avoid index update (i.e. .git/index.lock remain)
+      # see: https://git-scm.com/docs/git-status#_background_refresh
+      git --no-optional-locks status --branch --porcelain=2 -unormal 2>/dev/null
+    )
 
-  local branch_ab=${statuses[(r)\# branch.ab *]}
-  local ahead=${branch_ab[(ws. .r)+[1-9][0-9]#]#+}
-  local behind=${branch_ab[(ws. .r)-[1-9][0-9]#]#-}
+    local statuses=("${(f)"$(<&${fd_git_status})"}")
+    local current_branch=${statuses[(r)\# branch.head *]#\# branch.head }
 
-  hook_com[misc]+="${dirty}:${ahead}:${behind}"
+    # Depends $current_branch
+    exec {fd_git_no_merges}< <(
+      # Git aliases was very slow
+      # local base_branch=$(git base-branch 2>/dev/null)
+      local base_branch=$(git config "branch.${current_branch}.base" 2>/dev/null)
+
+      if [[ -n "$base_branch" ]]; then
+        local count=$(git rev-list --no-merges --count ${base_branch}..HEAD)
+        if (( count > 0 )); then
+          echo $count
+        fi
+      fi
+    )
+
+    local dirty=${${statuses:#\# *}:+1}
+    local branch_ab=${statuses[(r)\# branch.ab *]}
+    local ahead=${branch_ab[(ws. .r)+[1-9][0-9]#]#+}
+    local behind=${branch_ab[(ws. .r)-[1-9][0-9]#]#-}
+    local no_merges=$(<&${fd_git_no_merges})
+
+    local chunks=(
+      "${__PSVAR_IDX_GIT_BRANCH}:${current_branch}"
+      "${__PSVAR_IDX_GIT_DIRTY}:${dirty}"
+      "${__PSVAR_IDX_GIT_REMOTE_AHEAD}:${ahead}"
+      "${__PSVAR_IDX_GIT_REMOTE_BEHIND}:${behind}"
+      "${__PSVAR_IDX_GIT_NO_MERGES}:${no_merges}"
+    )
+
+    print -n -- ${(pj.\t.)chunks}
+  } always {
+    exec {fd_git_status}>&-
+    exec {fd_git_no_merges}>&-
+  }
 }
 
-+vi-prompt_zen_git-no-merges() {
-  local base_branch=$(git base-branch 2>/dev/null && :)
-  if [[ -z "$base_branch" ]]; then
-    hook_com[misc]+=":"
+prompt_zen_async_git-user() {
+  if ! git rev-parse --is-inside-work-tree &>/dev/null; then
     return
   fi
 
-  local count=$(git rev-list --no-merges --count ${base_branch}..HEAD)
+  local fd_git_user fd_gh_user
 
-  local no_merges=
-  if (( count > 0 )); then
-    no_merges=$count
-  fi
+  {
+    exec {fd_git_user}< <(
+      git config --local user.name 2>/dev/null
+    )
 
-  hook_com[misc]+=":${no_merges}"
-}
+    exec {fd_gh_user}< <(
+      $GLOBAL_AQUA_ROOT_DIR/bin-copied/yq '."github.com".user' $XDG_CONFIG_HOME/gh/hosts.yml 2>/dev/null
+    )
 
-+vi-prompt_zen_git-author() {
-  local git_author="${$(git config --local user.name 2>/dev/null)}"
-  if [[ -z "$git_author" ]]; then
-    hook_com[misc]+="::"
-    return
-  fi
+    local git_user=$(<&${fd_git_user})
+    local gh_user=$(<&${fd_gh_user})
 
-  local gh_user="$(yq '."github.com".user' $XDG_CONFIG_HOME/gh/hosts.yml 2>/dev/null)"
+    local git_user_warning=
+    if [[ "$git_user" != "$gh_user" ]]; then
+      git_user_warning=1
+    fi
 
-  local warning_marker=
-  if [[ "$git_author" != "$gh_user" ]]; then
-    warning_marker=1
-  fi
+    local chunks=(
+      "${__PSVAR_IDX_GIT_USER}:${git_user}"
+      "${__PSVAR_IDX_GIT_USER_WARNING}:${git_user_warning}"
+    )
 
-  hook_com[misc]+=":${git_author}:${warning_marker}"
+    print -n -- ${(pj.\t.)chunks}
+  } always {
+    exec {fd_git_user}>&-
+    exec {fd_gh_user}>&-
+  }
 }
 
 prompt_zen_pwd() {
@@ -244,10 +249,38 @@ prompt_zen_pwd() {
 
   if (( $+git_match[1] )); then
     local git_root=${git_match[1]:A:h}
-    print -rn ${git_root:t}${PWD#$git_root}
+    print -rn -- ${git_root:t}${PWD#$git_root}
   else
-    print -rn ${(%):-%~}
+    print -rn -- ${(%):-%~}
   fi
+}
+
+prompt_zen_async_callback() {
+  local fd=$1
+
+  {
+    zle -F $fd
+
+    local REPLY
+    read -ru $fd
+    [[ -z $REPLY ]] &&
+      return
+
+    local segment
+    for segment in ${(ps:\t:)REPLY}; do
+      local chunks=(${(s.:.)segment})
+
+      local idx=${chunks[1]}
+      local value=${chunks[2]}
+
+      psvar[$idx]=$value
+    done
+
+    zle && [[ $CONTEXT == start ]] &&
+      zle reset-prompt
+  } always {
+    exec {fd}>&-
+  }
 }
 
 prompt_zen_setup "$@"
