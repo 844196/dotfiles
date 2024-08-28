@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/844196/wk/v0.0.3/schemas/bindings.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/844196/wk/v0.0.4/schemas/bindings.json
 ---
 - key: space
   desc: Insert space
