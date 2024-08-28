@@ -73,12 +73,12 @@ prompt_zen_setup() {
 
   local segment_pwd="%(${__PSVAR_IDX_IS_REMOTE}V.%F{4}%n@%m%f %F{8}in%f .)%F{12}%${__PSVAR_IDX_PWD}v%f"
 
-  local segment_git_branch="%(${__PSVAR_IDX_GIT_BRANCH}V.%F{5}%${__PSVAR_IDX_GIT_BRANCH}v.)"
+  local segment_git_branch="%(${__PSVAR_IDX_GIT_BRANCH}V.%F{5}%${__PSVAR_IDX_GIT_BRANCH}v%f.)"
   local segment_git_dirty="%(${__PSVAR_IDX_GIT_DIRTY}V.%F{15}*%f.)"
 
-  local segment_git_no_merges="%(${__PSVAR_IDX_GIT_NO_MERGES}V.${SGR_DIM_START}%F{3}⫯%f${SGR_DIM_RESET} .)"
-  local segment_git_remote_ahead="%(${__PSVAR_IDX_GIT_REMOTE_AHEAD}V.${SGR_DIM_START}%F{6}⇡%f${SGR_DIM_RESET}.)"
-  local segment_git_remote_behind="%(${__PSVAR_IDX_GIT_REMOTE_BEHIND}V.${SGR_DIM_START}%F{6}⇣%f${SGR_DIM_RESET}.)"
+  local segment_git_no_merges="%(${__PSVAR_IDX_GIT_NO_MERGES}V.%{${SGR_DIM_START}%}%F{3}⫯%f%{${SGR_DIM_RESET}%} .)"
+  local segment_git_remote_ahead="%(${__PSVAR_IDX_GIT_REMOTE_AHEAD}V.%{${SGR_DIM_START}%}%F{6}⇡%f%{${SGR_DIM_RESET}%}.)"
+  local segment_git_remote_behind="%(${__PSVAR_IDX_GIT_REMOTE_BEHIND}V.%{${SGR_DIM_START}%}%F{6}⇣%f%{${SGR_DIM_RESET}%}.)"
   local segment_git_remote_space="%(${__PSVAR_IDX_GIT_NO_MERGES}V. .%(${__PSVAR_IDX_GIT_REMOTE_AHEAD}V. .%(${__PSVAR_IDX_GIT_REMOTE_BEHIND}V. .)))"
 
   local segment_git="%(${__PSVAR_IDX_GIT_BRANCH}V. %F{8}on%f ${segment_git_branch}${segment_git_dirty}${segment_git_remote_space}${segment_git_no_merges}${segment_git_remote_ahead}${segment_git_remote_behind}.)"
