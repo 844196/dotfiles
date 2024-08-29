@@ -13,38 +13,15 @@
   desc: Git
   type: bindings
   bindings:
-    - key: C
-      desc: Checkout
-      type: bindings
-      bindings:
-        - key: space
-          desc: git checkout
-          type: command
-          buffer: 'git checkout '
-          trigger: COMPLETE
-        - key: b
-          desc: git checkout -b
-          type: command
-          buffer: 'git checkout -b '
-          trigger: COMPLETE
-        - key: .
-          desc: git checkout .
-          type: command
-          buffer: 'git checkout .'
     - key: b
       desc: Branch
       type: bindings
       bindings:
-        - key: space
+        - key: b
           desc: git branch
           type: command
           buffer: ' git -c pager.branch="~/.local/libexec/emojiless -E" branch -vvv' # NOTE: -E i.e. --quit-at-eof
           trigger: ACCEPT
-        - key: r
-          desc: git branch -m
-          type: command
-          buffer: 'git branch -m '
-          trigger: COMPLETE
         - key: m
           desc: git branch -m
           type: command
@@ -70,13 +47,23 @@
           buffer: 'git add-A'
           trigger: ACCEPT
     - key: c
-      desc: Commit
+      desc: Checkout/Commit
       type: bindings
       bindings:
         - key: space
-          desc: 'git commit '
+          desc: git checkout
           type: command
-          buffer: 'git commit '
+          buffer: 'git checkout '
+          trigger: COMPLETE
+        - key: b
+          desc: git checkout -b
+          type: command
+          buffer: 'git checkout -b '
+          trigger: COMPLETE
+        - key: .
+          desc: git checkout .
+          type: command
+          buffer: 'git checkout .'
         - key: m
           desc: git commit -m
           type: command
@@ -92,7 +79,7 @@
           buffer: 'git commit --fixup '
           trigger: COMPLETE
     - key: r
-      desc: Rebase
+      desc: Rebase/Reset
       type: bindings
       bindings:
         - key: space
@@ -105,6 +92,15 @@
           type: command
           buffer: 'git rebase -i '
           trigger: COMPLETE
+        - key: .
+          desc: git reset HEAD~
+          type: command
+          buffer: 'git reset HEAD~'
+        - key: h
+          desc: git reset --hard
+          type: command
+          buffer: 'git reset --hard $(git rev-parse --abbrev-ref HEAD@{u} 2>/dev/null)'
+          eval: true
     - key: p
       desc: Push/Pull
       type: bindings
@@ -112,41 +108,36 @@
         - key: space
           desc: git push
           type: command
-          buffer: 'git push origin HEAD'
+          buffer: 'git push origin $(git current-branch)'
+          eval: true
         - key: u
           desc: git push -u
           type: command
-          buffer: 'git push -u origin HEAD'
+          buffer: 'git push -u origin $(git current-branch)'
+          eval: true
         - key: f
           desc: git push -f
           type: command
-          buffer: 'git push --force-with-lease --force-if-includes origin HEAD'
+          buffer: 'git push --force-with-lease --force-if-includes origin $(git current-branch)'
+          eval: true
         - key: l
           desc: git pull
           type: command
           buffer: 'git pull'
           trigger: ACCEPT
-    - key: R
-      desc: Reset
-      type: bindings
-      bindings:
-        - key: space
-          desc: git reset
-          type: command
-          buffer: 'git reset '
-        - key: h
-          desc: git reset HEAD~
-          type: command
-          buffer: 'git reset HEAD~'
-        - key: H
-          desc: git reset --hard
-          type: command
-          buffer: 'git reset --hard $(git rev-parse --abbrev-ref HEAD@{u} 2>/dev/null)'
-          eval: true
     - key: h
       desc: GitHub
       type: bindings
       bindings:
+        - key: r
+          desc: Repository
+          type: bindings
+          bindings:
+            - key: v
+              desc: gh issue create
+              type: command
+              buffer: ' gh repo view --web'
+              trigger: ACCEPT
         - key: i
           desc: Issue
           type: bindings
@@ -241,17 +232,27 @@
     - key: .
       desc: Copy $PWD
       type: command
-      buffer: ' echo -ne "\e]52;c;$(base64 <(pwd | tee >$TTY | tr -d $''\n''))\a"'
+      buffer: ' echo -ne "\e]52;c;$(base64 <(pwd | tee >$TTY | sed -z ''$s/\n$//''))\a"'
       trigger: ACCEPT
     - key: f
-      desc: Copy relative path of selected file
+      desc: Copy relative path of selected files
       type: command
-      buffer: ' echo -ne "\e]52;c;$(base64 <(fzf --height 25% <$TTY | tee >$TTY | tr -d $''\n''))\a"'
+      buffer: ' echo -ne "\e]52;c;$(base64 <(fzf --multi --height 25% <$TTY | tee >$TTY | sed -z ''$s/\n$//''))\a"'
+      trigger: ACCEPT
+    - key: F
+      desc: Copy full path of selected files
+      type: command
+      buffer: ' echo -ne "\e]52;c;$(base64 <(fzf --multi --height 25% <$TTY | xargs -I{} realpath {} | tee >$TTY | sed -z ''$s/\n$//''))\a"'
+      trigger: ACCEPT
+    - key: w
+      desc: Copy path as Windows file path of selected files
+      type: command
+      buffer: ' echo -ne "\e]52;c;$(base64 <(fzf --multi --height 25% <$TTY | xargs -I{} wslpath -w {} | tee >$TTY | sed -z ''$s/\n$//''))\a"'
       trigger: ACCEPT
     - key: b
       desc: Copy current branch
       type: command
-      buffer: ' echo -ne "\e]52;c;$(base64 <(git current-branch | tee >$TTY | tr -d $''\n''))\a"'
+      buffer: ' echo -ne "\e]52;c;$(base64 <(git current-branch | tee >$TTY | sed -z ''$s/\n$//''))\a"'
       trigger: ACCEPT
     - key: c
       desc: Copy last commit...
@@ -260,15 +261,15 @@
         - key: m
           desc: Message
           type: command
-          buffer: ' echo -ne "\e]52;c;$(base64 <(git --no-pager log -1 --pretty=format:%s%n HEAD | tee >$TTY | tr -d $''\n''))\a"'
+          buffer: ' echo -ne "\e]52;c;$(base64 <(git --no-pager log -1 --pretty=format:%s%n HEAD | tee >$TTY | sed -z ''$s/\n$//''))\a"'
           trigger: ACCEPT
         - key: h
           desc: Hash (Short)
           type: command
-          buffer: ' echo -ne "\e]52;c;$(base64 <(git rev-parse --short HEAD | tee >$TTY | tr -d $''\n''))\a"'
+          buffer: ' echo -ne "\e]52;c;$(base64 <(git rev-parse --short HEAD | tee >$TTY | sed -z ''$s/\n$//''))\a"'
           trigger: ACCEPT
         - key: H
           desc: Hash (Full)
           type: command
-          buffer: ' echo -ne "\e]52;c;$(base64 <(git rev-parse HEAD | tee >$TTY | tr -d $''\n''))\a"'
+          buffer: ' echo -ne "\e]52;c;$(base64 <(git rev-parse HEAD | tee >$TTY | sed -z ''$s/\n$//''))\a"'
           trigger: ACCEPT

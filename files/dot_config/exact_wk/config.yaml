@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/844196/wk/v0.0.4/schemas/config.json
 ---
-timeout: 5000
+timeout: 60000
 symbols:
   prompt: "❯ "
 colors:
