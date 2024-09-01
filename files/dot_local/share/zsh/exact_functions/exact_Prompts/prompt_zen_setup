@@ -5,12 +5,11 @@ __DISPLAYING_INSTANT_PS1=0
 __PSVAR_IDX_PWD=1
 __PSVAR_IDX_GIT_BRANCH=2
 __PSVAR_IDX_GIT_DIRTY=3
-__PSVAR_IDX_GIT_REMOTE_AHEAD=4
-__PSVAR_IDX_GIT_REMOTE_BEHIND=5
-__PSVAR_IDX_GIT_NO_MERGES=6
+__PSVAR_IDX_GIT_NO_MERGES=4
+__PSVAR_IDX_GIT_REMOTE_AHEAD=5
+__PSVAR_IDX_GIT_REMOTE_BEHIND=6
 __PSVAR_IDX_GIT_USER=7
 __PSVAR_IDX_GIT_USER_WARNING=8
-__PSVAR_IDX_IS_REMOTE=9
 
 prompt_zen_help() {
   cat <<'EOF'
@@ -22,6 +21,39 @@ EOF
 prompt_zen_setup() {
   emulate -L zsh
   autoload -Uz add-zsh-hook
+
+  local SGR_DIM_START=$'\e[2m'
+  local SGR_DIM_RESET=$'\e[22m'
+  local ROUNDY_OPEN=$'\ue0b6'
+  local ROUNDY_CLOSE=$'\ue0b4'
+  local CHEVRON=$'\u276f'
+  local GIT_NO_MERGES=$'\u2aef'
+  local GIT_REMOTE_AHEAD=$'\u21e1'
+  local GIT_REMOTE_BEHIND=$'\u21e3'
+
+  local S1_BG='#262939'
+  local S1_FG='8'
+  local S2_BG='#1e212d'
+  local S2_FG='5'
+  local S3_FG='8'
+
+  local ps1=(
+    $'\n'
+    "%F{$S1_BG}${ROUNDY_OPEN}%f%K{$S1_BG}"
+      " %F{${S1_FG}}%${__PSVAR_IDX_PWD}v%f "
+    "%K{$S2_BG}%F{$S1_BG}${ROUNDY_CLOSE}%f"
+      "%(${__PSVAR_IDX_GIT_BRANCH}V.  %F{${S2_FG}}%${__PSVAR_IDX_GIT_BRANCH}v%f%(${__PSVAR_IDX_GIT_DIRTY}V. %F{15}*%f.) . )"
+    "%k%F{$S2_BG}${ROUNDY_CLOSE}%f"
+      " %F{${S3_FG}}%{${SGR_DIM_START}%}"
+      "%(${__PSVAR_IDX_GIT_NO_MERGES}V.${GIT_NO_MERGES} .)"
+      "%(${__PSVAR_IDX_GIT_REMOTE_AHEAD}V.${GIT_REMOTE_AHEAD} .)"
+      "%(${__PSVAR_IDX_GIT_REMOTE_BEHIND}V.${GIT_REMOTE_BEHIND}.)"
+      "%f%{${SGR_DIM_RESET}%}"
+    $'\n'
+    "%(?.%F{8}.%F{9})%(!.#.${CHEVRON})%f "
+  )
+  PS1=${(j..)ps1}
+  RPS1="%(${__PSVAR_IDX_GIT_USER_WARNING}V.%F{1}.%F{8})%{${SGR_DIM_START}%}%(${__PSVAR_IDX_GIT_USER}V.%${__PSVAR_IDX_GIT_USER}v.)%{${SGR_DIM_RESET}%}%f"
 
   # https://gist.github.com/romkatv/8b318a610dc302bdbe1487bb1847ad99
   case $1 in
@@ -38,9 +70,8 @@ prompt_zen_setup() {
         __DISPLAYING_INSTANT_PS1=0
       }
 
-      print -rn -- $'\e7'${(%):-"
-%F{12}$(prompt_zen_pwd)%f
-%F{8}❯%f "}
+      psvar=("$(prompt_zen_pwd)")
+      print -rn -- $'\e7'${(%)PS1}
 
       __DISPLAYING_INSTANT_PS1=1
       return
@@ -64,30 +95,6 @@ prompt_zen_setup() {
   else
     prompt_opts=(cr sp percent)
   fi
-
-  local OSC_133_A=$'\e]133;A;\a'
-  local OSC_133_B=$'\e]133;B;\a'
-  local OSC_133_D=$'\e]133;D;\a'
-  local SGR_DIM_START=$'\e[2m'
-  local SGR_DIM_RESET=$'\e[22m'
-
-  local segment_pwd="%(${__PSVAR_IDX_IS_REMOTE}V.%F{4}%n@%m%f %F{8}in%f .)%F{12}%${__PSVAR_IDX_PWD}v%f"
-
-  local segment_git_branch="%(${__PSVAR_IDX_GIT_BRANCH}V.%F{5}%${__PSVAR_IDX_GIT_BRANCH}v%f.)"
-  local segment_git_dirty="%(${__PSVAR_IDX_GIT_DIRTY}V.%F{15}*%f.)"
-
-  local segment_git_no_merges="%(${__PSVAR_IDX_GIT_NO_MERGES}V.%{${SGR_DIM_START}%}%F{3}⫯%f%{${SGR_DIM_RESET}%} .)"
-  local segment_git_remote_ahead="%(${__PSVAR_IDX_GIT_REMOTE_AHEAD}V.%{${SGR_DIM_START}%}%F{6}⇡%f%{${SGR_DIM_RESET}%}.)"
-  local segment_git_remote_behind="%(${__PSVAR_IDX_GIT_REMOTE_BEHIND}V.%{${SGR_DIM_START}%}%F{6}⇣%f%{${SGR_DIM_RESET}%}.)"
-  local segment_git_remote_space="%(${__PSVAR_IDX_GIT_NO_MERGES}V. .%(${__PSVAR_IDX_GIT_REMOTE_AHEAD}V. .%(${__PSVAR_IDX_GIT_REMOTE_BEHIND}V. .)))"
-
-  local segment_git="%(${__PSVAR_IDX_GIT_BRANCH}V. %F{8}on%f ${segment_git_branch}${segment_git_dirty}${segment_git_remote_space}${segment_git_no_merges}${segment_git_remote_ahead}${segment_git_remote_behind}.)"
-
-  PS1="%{${OSC_133_D}%}
-%{${OSC_133_A}%}${segment_pwd}${segment_git}
-%(?.%F{8}.%F{9})%(!.#.❯)%f %{${OSC_133_B}%}"
-
-  RPS1="%(${__PSVAR_IDX_GIT_USER_WARNING}V.%F{1}.%F{8})%{${SGR_DIM_START}%}%(${__PSVAR_IDX_GIT_USER}V.%${__PSVAR_IDX_GIT_USER}v.)%{${SGR_DIM_RESET}%}%f"
 
   # https://news.ycombinator.com/item?id=26757438
   # https://www.reddit.com/r/zsh/comments/c160o2/comment/erbdiqj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
@@ -133,7 +140,6 @@ prompt_zen_precmd() {
   {
     psvar=()
     psvar[$__PSVAR_IDX_PWD]="$(prompt_zen_pwd)"
-    psvar[$__PSVAR_IDX_IS_REMOTE]=${REMOTE_CONTAINERS:+1}
 
     local fd_main fd_sub
 
