@@ -55,6 +55,13 @@
           type: command
           buffer: 'git checkout '
           trigger: COMPLETE
+        - key: r
+          type: command
+          # 1つしかリモートが存在しない場合、オプションを付ける必要はない
+          # けど、forkしたリポジトリでoriginとは別にupstreamをセットすることがあるので付けておく
+          # https://qiita.com/tommy_aka_jps/items/6ce68f564cb3802ca9b0#comment-09fd8cd6069280cc13ac
+          buffer: 'git checkout -t '
+          trigger: COMPLETE
         - key: b
           type: command
           buffer: 'git checkout -b '

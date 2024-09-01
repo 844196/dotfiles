@@ -1,0 +1,10 @@
+# vim: set ft=zsh:
+
+tput cub 9999
+
+comm -23 <(git branch -r --format '%(refname:lstrip=2)' | grep -v 'origin/HEAD' | sort) <(git branch --format '%(upstream:lstrip=2)' | awk 'NF' | sort) \
+  | SHELL==$ZSH_NAME anyframe-selector-fzf '' \
+    --preview '~/.local/libexec/fzf-preview-helper git-branch {1}' \
+  | anyframe-action-insert
+
+zle redisplay
