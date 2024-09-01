@@ -92,7 +92,6 @@ alias mv='mv -i'
 alias rm='rm -I --preserve-root -r' # '--preserve-root' is only available for GNU rm
 alias tmp='cd "$(mktemp -d)"'
 alias ch='chezmoi'
-alias code='code -r'
 
 evalcache navi widget zsh
 evalcache zoxide init zsh --no-cmd
