@@ -22,7 +22,7 @@
       desc: Branch
       type: bindings
       bindings:
-        - key: b
+        - key: return
           desc: git branch
           type: command
           buffer: ' git -c pager.branch="~/.local/libexec/emojiless -E" branch -vvv' # NOTE: -E i.e. --quit-at-eof
@@ -97,7 +97,7 @@
       desc: Push/Pull
       type: bindings
       bindings:
-        - key: space
+        - key: return
           desc: git push
           type: command
           buffer: 'git push origin $(git current-branch)'
