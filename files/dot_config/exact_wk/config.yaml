@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/844196/wk/v0.0.4/schemas/config.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/844196/wk/v0.0.5/schemas/config.json
 ---
 timeout: 60000
 symbols:
