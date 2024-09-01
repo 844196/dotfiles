@@ -9,6 +9,11 @@
   type: command
   buffer: ' cd -- ${(q)$(anyframe-widget-z-ghq --height 20%):-.}'
   trigger: ACCEPT
+- key: tab
+  desc: Navi
+  type: command
+  buffer: ' navi'
+  trigger: ACCEPT
 - key: g
   desc: Git
   type: bindings
