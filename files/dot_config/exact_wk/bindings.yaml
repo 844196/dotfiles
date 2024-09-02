@@ -51,7 +51,7 @@
       desc: Checkout/Commit
       type: bindings
       bindings:
-        - key: space
+        - key: return
           type: command
           buffer: 'git checkout '
           trigger: COMPLETE
@@ -84,7 +84,7 @@
       desc: Rebase/Reset
       type: bindings
       bindings:
-        - key: space
+        - key: return
           type: command
           buffer: 'git rebase '
           trigger: COMPLETE
@@ -196,7 +196,7 @@
   desc: Docker
   type: bindings
   bindings:
-    - key: space
+    - key: return
       type: command
       buffer: 'docker '
     - key: r
@@ -206,7 +206,7 @@
       desc: Compose
       type: bindings
       bindings:
-        - key: space
+        - key: return
           type: command
           buffer: 'docker compose '
         - key: r
@@ -216,7 +216,7 @@
   desc: npm
   type: bindings
   bindings:
-    - key: space
+    - key: return
       type: command
       buffer: 'npm '
     - key: r
