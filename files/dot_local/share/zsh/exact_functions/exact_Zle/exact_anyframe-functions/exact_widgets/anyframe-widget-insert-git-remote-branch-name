@@ -2,9 +2,31 @@
 
 tput cub 9999
 
-comm -23 <(git branch -r --format '%(refname:lstrip=2)' | grep -v 'origin/HEAD' | sort) <(git branch --format '%(upstream:lstrip=2)' | awk 'NF' | sort) \
+git branch -r --format $'%(refname:short)\t%(subject)' \
+  | awk '
+      BEGIN {
+        FS = OFS = "\t"
+
+        while ("git branch --format \"%(upstream:lstrip=2)\"" | getline) {
+          if ($1 == "origin/HEAD") {
+            continue
+          }
+          local_branches[$0] = $0
+        }
+      }
+
+      $1 !~ "origin/HEAD" && local_branches[$1] == "" {
+        topic_branch_pattern = @/[^\/]+\/([^\/]+\/)+/
+        print $1, "\033[1;30m\033[2m" $2 "\033[22m\033[0m", match($1, topic_branch_pattern) ? "1" : "0"
+      }
+    ' \
+  | sort -t $'\t' -k3,3r -k1,1 \
+  | cut -d $'\t' -f1,2 \
+  | emojify \
+  | csview -t -H --style none \
   | SHELL==$ZSH_NAME anyframe-selector-fzf '' \
-    --preview '~/.local/libexec/fzf-preview-helper git-branch {1}' \
+      --preview '~/.local/libexec/fzf-preview-helper git-branch {1}' \
+  | awk '{print $1}' \
   | anyframe-action-insert
 
 zle redisplay
