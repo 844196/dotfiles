@@ -119,8 +119,8 @@ prompt_zen_setup() {
     --color bg:-1
     --color fg+:-1
     --color bg+:0
-    --color hl:1
-    --color hl+:1
+    --color hl:3
+    --color hl+:3
   "
 
   export BAT_THEME="iceberg"
@@ -182,7 +182,7 @@ prompt_zen_async_git-stauts() {
       local base_branch=$(git config "branch.${current_branch}.base" 2>/dev/null)
 
       if [[ -n "$base_branch" ]]; then
-        local count=$(git rev-list --no-merges --count ${base_branch}..HEAD)
+        local count=$(git rev-list --no-merges --count origin/${base_branch}..HEAD)
         if (( count > 0 )); then
           echo $count
         fi
