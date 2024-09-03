@@ -107,7 +107,7 @@ prompt_zen_setup() {
 
   # see: https://gist.github.com/sheepla/d1ff1ef11cc21dcc7434a25a012a970f
   export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
-    --prompt '❯ '
+    --prompt '$CHEVRON '
     --color gutter:-1
     --color prompt:8
     --color info:8

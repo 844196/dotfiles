@@ -3,20 +3,35 @@
 emulate -L zsh
 setopt EXTENDED_GLOB
 
-tput cub 9999
+echo -n $'\x1b[0`'
 
-local query=${${${LBUFFER##[[:space:]]##}%%[[:space:]]##}// /\\ }
-local hid=${${="$(
-  anyframe-source-history \
-    | anyframe-selector-fzf "${query:+'}$query" \
-      --height 9 \
-      --no-multi \
-      --delimiter '│ ' \
-      --nth 2.. \
-      --scheme history
-)"}[1]}
+local q="${LBUFFER:+${(q)LBUFFER}}"
+local exact="'"
 
-if (( hid )); then
+local hid=$(
+  fc -r -l 1 \
+    | sed -E 's/^( *[0-9]+\*?)( {,2})/\1\x1c\2\x1b[1;30m\x1b[2m│\x1b[22m\x1b[0m  \x1c/' \
+    | awk '
+        BEGIN {
+          FS = OFS = "\034"
+        }
+        !_[$3]++ {
+          print "\033[1;30m\033[2m" $1 "\033[22m\033[0m", $2, $3
+        }
+      ' \
+    | anyframe-selector-fzf "${q:+$exact}$q" \
+        --no-multi \
+        --delimiter $'\034' \
+        --scheme history \
+        --nth 3.. \
+        --height 9 \
+    | cut -d $'\034' -f 1,1
+)
+
+# SHARE_HISTORYが有効な場合、アクティブな別セッションの履歴番号末尾には '*' がついている
+hid=${hid%\*}
+
+if [[ -n "$hid" ]]; then
   zle vi-fetch-history -n $hid
 fi
 
