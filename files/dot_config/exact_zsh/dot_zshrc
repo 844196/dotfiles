@@ -45,8 +45,10 @@ HISTFILE=${ZHISTFILE:-$XDG_STATE_HOME/zsh/history}
 HISTSIZE=1000000
 SAVEHIST=1000000
 HISTORY_IGNORE='(:|true|false|pwd|which *|type *|where *|exit|(|z)man(| *)|neofetch(| *)|*--help|*--version)'
-setopt EXTENDED_HISTORY
 setopt SHARE_HISTORY
+# Not needed if SHARE_HISTORY is set
+# https://zsh.sourceforge.io/Doc/Release/Options.html#index-SHARE_005fHISTORY
+# setopt EXTENDED_HISTORY
 setopt HIST_REDUCE_BLANKS
 setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
