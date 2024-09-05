@@ -41,6 +41,8 @@ zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX + $#SUFF
 setopt MAGIC_EQUAL_SUBST
 setopt GLOB_DOTS
 
+# Workaround: When VSCode shell integration feature is enabled, HISTFILE is never empty
+# https://github.com/microsoft/vscode/issues/169264
 HISTFILE=${ZHISTFILE:-$XDG_STATE_HOME/zsh/history}
 HISTSIZE=1000000
 SAVEHIST=1000000
