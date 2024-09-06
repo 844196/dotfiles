@@ -16,8 +16,7 @@ git branch -r --format $'%(refname:short)\t%(subject)' \
       }
 
       $1 !~ "origin/HEAD" && local_branches[$1] == "" {
-        topic_branch_pattern = @/[^\/]+\/([^\/]+\/)+/
-        print $1, "\033[1;30m\033[2m" $2 "\033[22m\033[0m", match($1, topic_branch_pattern) ? "1" : "0"
+        print $1, "\033[1;30m\033[2m" $2 "\033[22m\033[0m", match($1, /[^\/]+\/([^\/]+\/)+/) ? "1" : "0"
       }
     ' \
   | sort -t $'\t' -k3,3r -k1,1 \
