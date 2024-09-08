@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/844196/wk/v0.1.0/schemas/bindings.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/844196/wk/v0.2.0/schemas/bindings.json
 ---
 - key: space
   desc: Insert space
@@ -8,12 +8,12 @@
   desc: Jump
   type: command
   buffer: ' cd -- ${(q)$(anyframe-widget-z-ghq --height 20%):-.}'
-  trigger: ACCEPT
+  accept: true
 - key: tab
   desc: Navi
   type: command
   buffer: ' navi'
-  trigger: ACCEPT
+  accept: true
 - key: g
   desc: Git
   type: bindings
@@ -26,7 +26,7 @@
           desc: git branch
           type: command
           buffer: ' git -c pager.branch="~/.local/libexec/emojiless -E" branch -vvv' # NOTE: -E i.e. --quit-at-eof
-          trigger: ACCEPT
+          accept: true
         - key: m
           type: command
           buffer: 'git branch -m '
@@ -46,7 +46,7 @@
         - key: a
           type: command
           buffer: 'git add-A'
-          trigger: ACCEPT
+          accept: true
     - key: c
       desc: Checkout/Commit
       type: bindings
@@ -122,7 +122,7 @@
         - key: l
           type: command
           buffer: 'git pull'
-          trigger: ACCEPT
+          accept: true
     - key: h
       desc: GitHub
       type: bindings
@@ -135,7 +135,7 @@
               desc: gh repo view
               type: command
               buffer: ' gh repo view --web'
-              trigger: ACCEPT
+              accept: true
         - key: i
           desc: Issue
           type: bindings
@@ -145,13 +145,13 @@
               type: command
               buffer: ' ${GH_ISSUE_REPO:+GH_REPO=$GH_ISSUE_REPO }gh issue list -w'
               eval: true
-              trigger: ACCEPT
+              accept: true
             - key: c
               desc: gh issue create
               type: command
               buffer: ' ${GH_ISSUE_REPO:+GH_REPO=$GH_ISSUE_REPO }gh issue create -w' # NOTE: -a @me をつけるとテンプレート一覧にからスタートしない
               eval: true
-              trigger: ACCEPT
+              accept: true
         - key: p
           desc: Pull request
           type: bindings
@@ -160,12 +160,12 @@
               desc: gh pr list
               type: command
               buffer: ' gh pr list -w'
-              trigger: ACCEPT
+              accept: true
             - key: v
               desc: gh pr view
               type: command
               buffer: ' gh pr view -w'
-              trigger: ACCEPT
+              accept: true
             - key: c
               desc: gh pr create
               type: command
@@ -176,22 +176,22 @@
       desc: Fetch with prune
       type: command
       buffer: 'git fetch --prune'
-      trigger: ACCEPT
+      accept: true
     - key: s
       desc: Status
       type: command
       buffer: ' git status'
-      trigger: ACCEPT
+      accept: true
     - key: d
       desc: Diff
       type: command
       buffer: ' git diff'
-      trigger: ACCEPT
+      accept: true
     - key: g
       desc: Last 10 commits graph
       type: command
       buffer: ' git -c pager.log="~/.local/libexec/emojiless -E" graph -n 10' # NOTE: -E i.e. --quit-at-eof
-      trigger: ACCEPT
+      accept: true
 - key: d
   desc: Docker
   type: bindings
@@ -230,27 +230,27 @@
       desc: Copy $PWD
       type: command
       buffer: ' echo -ne "\e]52;c;$(base64 <(pwd | tee >$TTY | sed -z ''$s/\n$//''))\a"'
-      trigger: ACCEPT
+      accept: true
     - key: f
       desc: Copy relative path of selected files
       type: command
       buffer: ' echo -ne "\e]52;c;$(base64 <(fzf --multi --height 25% <$TTY | tee >$TTY | sed -z ''$s/\n$//''))\a"'
-      trigger: ACCEPT
+      accept: true
     - key: F
       desc: Copy full path of selected files
       type: command
       buffer: ' echo -ne "\e]52;c;$(base64 <(fzf --multi --height 25% <$TTY | xargs -I{} realpath {} | tee >$TTY | sed -z ''$s/\n$//''))\a"'
-      trigger: ACCEPT
+      accept: true
     - key: w
       desc: Copy path as Windows file path of selected files
       type: command
       buffer: ' echo -ne "\e]52;c;$(base64 <(fzf --multi --height 25% <$TTY | xargs -I{} wslpath -w {} | tee >$TTY | sed -z ''$s/\n$//''))\a"'
-      trigger: ACCEPT
+      accept: true
     - key: b
       desc: Copy current branch
       type: command
       buffer: ' echo -ne "\e]52;c;$(base64 <(git current-branch | tee >$TTY | sed -z ''$s/\n$//''))\a"'
-      trigger: ACCEPT
+      accept: true
     - key: c
       desc: Copy last commit...
       type: bindings
@@ -259,14 +259,14 @@
           desc: Message
           type: command
           buffer: ' echo -ne "\e]52;c;$(base64 <(git --no-pager log -1 --pretty=format:%s%n HEAD | tee >$TTY | sed -z ''$s/\n$//''))\a"'
-          trigger: ACCEPT
+          accept: true
         - key: h
           desc: Hash (Short)
           type: command
           buffer: ' echo -ne "\e]52;c;$(base64 <(git rev-parse --short HEAD | tee >$TTY | sed -z ''$s/\n$//''))\a"'
-          trigger: ACCEPT
+          accept: true
         - key: H
           desc: Hash (Full)
           type: command
           buffer: ' echo -ne "\e]52;c;$(base64 <(git rev-parse HEAD | tee >$TTY | sed -z ''$s/\n$//''))\a"'
-          trigger: ACCEPT
+          accept: true

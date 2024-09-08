@@ -4,40 +4,10 @@ case $BUFFER in
   '')
     echo -n $'\x1b[?25l\x1b[0`' >$TTY # Avoid cursor flickering
 
-    local res=''
-    res=$(${=WK_COMMAND:-wk run} 2>&1)
-    local wk_exit=$?
+    local reply
+    zle _wk_widget
 
-    zle redisplay
-    echo -n $'\x1b[?25h' >$TTY
-
-    case $wk_exit in
-      0)
-        # NOOP
-        ;;
-      1|2)
-        # Abort, Timeout
-        return
-        ;;
-      *)
-        zle -M "wk: $res"
-        return $wk_exit
-        ;;
-    esac
-
-    res=("${(@ps:\t:)res}")
-
-    if [[ "${res[(rb:2:)eval:*]}" == 'eval:true' ]]; then
-      BUFFER=${(e)res[1]}
-    else
-      BUFFER=${res[1]}
-    fi
-    CURSOR=${#BUFFER}
-
-    case "${res[(rb:2:)trigger:*]}" in
-      trigger:ACCEPT)
-        zle accept-line-with-expand-alias
-        ;;
+    case "${reply[(rb:2:)trigger:*]}" in
       trigger:COMPLETE)
         zle fzf-completion-or-expand-or-complete
         ;;
