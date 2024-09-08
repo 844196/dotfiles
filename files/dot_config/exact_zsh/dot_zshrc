@@ -37,6 +37,7 @@ zstyle ':completion:*' ignore-parents parent pwd
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/compcache
 zstyle ':completion:*' completer _expand _complete _match _approximate _files
+zstyle ':completion:*:*:chezmoi:*:*' ignored-patterns '^(init|apply)'
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX + $#SUFFIX) / 3)) numeric)'
 setopt MAGIC_EQUAL_SUBST
 setopt GLOB_DOTS
