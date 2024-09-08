@@ -2,14 +2,15 @@
 
 __DISPLAYING_INSTANT_PS1=0
 
-__PSVAR_IDX_PWD=1
-__PSVAR_IDX_GIT_BRANCH=2
-__PSVAR_IDX_GIT_DIRTY=3
-__PSVAR_IDX_GIT_NO_MERGES=4
-__PSVAR_IDX_GIT_REMOTE_AHEAD=5
-__PSVAR_IDX_GIT_REMOTE_BEHIND=6
-__PSVAR_IDX_GIT_USER=7
-__PSVAR_IDX_GIT_USER_WARNING=8
+__PSVAR_IDX_INCOGNITO=1
+__PSVAR_IDX_PWD=2
+__PSVAR_IDX_GIT_BRANCH=3
+__PSVAR_IDX_GIT_DIRTY=4
+__PSVAR_IDX_GIT_NO_MERGES=5
+__PSVAR_IDX_GIT_REMOTE_AHEAD=6
+__PSVAR_IDX_GIT_REMOTE_BEHIND=7
+__PSVAR_IDX_GIT_USER=8
+__PSVAR_IDX_GIT_USER_WARNING=9
 
 prompt_zen_help() {
   cat <<'EOF'
@@ -30,7 +31,10 @@ prompt_zen_setup() {
   local GIT_NO_MERGES=$'\u2aef'
   local GIT_REMOTE_AHEAD=$'\u21e1'
   local GIT_REMOTE_BEHIND=$'\u21e3'
+  local INCOGNITO_SYMBOL='󰗹 '
 
+  local S0_BG='#353a50'
+  local S0_FG='15'
   local S1_BG='#262939'
   local S1_FG='8'
   local S2_BG='#1e212d'
@@ -39,10 +43,10 @@ prompt_zen_setup() {
 
   local ps1=(
     $'\n'
-    "%F{$S1_BG}${ROUNDY_OPEN}%f%K{$S1_BG}"
-      " %F{${S1_FG}}%${__PSVAR_IDX_PWD}v%f "
+    "%(${__PSVAR_IDX_INCOGNITO}V.%F{$S0_BG}${ROUNDY_OPEN}%f%K{$S0_BG} %F{$S0_FG}${INCOGNITO_SYMBOL}%f %K{${S1_BG}}%F{$S0_BG}${ROUNDY_CLOSE}%f.%F{$S1_BG}${ROUNDY_OPEN}%f%K{$S1_BG})"
+      "%(${__PSVAR_IDX_INCOGNITO}V. .) %F{${S1_FG}}%${__PSVAR_IDX_PWD}v%f %(${__PSVAR_IDX_INCOGNITO}V. .)"
     "%K{$S2_BG}%F{$S1_BG}${ROUNDY_CLOSE}%f"
-      "%(${__PSVAR_IDX_GIT_BRANCH}V.  %F{${S2_FG}}%${__PSVAR_IDX_GIT_BRANCH}v%f%(${__PSVAR_IDX_GIT_DIRTY}V. %F{15}*%f.) . )"
+      "%(${__PSVAR_IDX_GIT_BRANCH}V.  %F{${S2_FG}}%${__PSVAR_IDX_GIT_BRANCH}v%f%(${__PSVAR_IDX_GIT_DIRTY}V. %F{15}*%f. ) . )"
     "%k%F{$S2_BG}${ROUNDY_CLOSE}%f"
       " %F{${S3_FG}}%{${SGR_DIM_START}%}"
       "%(${__PSVAR_IDX_GIT_NO_MERGES}V.${GIT_NO_MERGES} .)"
@@ -70,7 +74,7 @@ prompt_zen_setup() {
         __DISPLAYING_INSTANT_PS1=0
       }
 
-      psvar=("$(prompt_zen_pwd)")
+      psvar=('' "$(prompt_zen_pwd)")
       print -rn -- $'\e7'${(%)PS1}
 
       __DISPLAYING_INSTANT_PS1=1
@@ -139,6 +143,7 @@ prompt_zen_setup() {
 prompt_zen_precmd() {
   {
     psvar=()
+    psvar[$__PSVAR_IDX_INCOGNITO]=${INCOGNITO:+1}
     psvar[$__PSVAR_IDX_PWD]="$(prompt_zen_pwd)"
 
     local fd_main fd_sub

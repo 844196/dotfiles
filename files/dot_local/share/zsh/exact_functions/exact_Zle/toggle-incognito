@@ -1,0 +1,13 @@
+# vim: set ft=zsh:
+
+if [[ $INCOGNITO == '1' ]]; then
+  fc -P
+  INCOGNITO=
+  psvar[$__PSVAR_IDX_INCOGNITO]=
+else
+  fc -p
+  INCOGNITO=1
+  psvar[$__PSVAR_IDX_INCOGNITO]=1
+fi
+
+zle reset-prompt
