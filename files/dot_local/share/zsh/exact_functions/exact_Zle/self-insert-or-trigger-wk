@@ -5,10 +5,11 @@ case $BUFFER in
     echo -n $'\x1b[?25l\x1b[0`' >$TTY # Avoid cursor flickering
 
     local res=''
-    res=$(wk --no-validation 2>&1)
+    res=$(${=WK_COMMAND:-wk run} 2>&1)
     local wk_exit=$?
 
     zle redisplay
+    echo -n $'\x1b[?25h' >$TTY
 
     case $wk_exit in
       0)
