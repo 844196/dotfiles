@@ -47,7 +47,24 @@ setopt GLOB_DOTS
 HISTFILE=${ZHISTFILE:-$XDG_STATE_HOME/zsh/history}
 HISTSIZE=1000000
 SAVEHIST=1000000
-HISTORY_IGNORE='(:|true|false|pwd|which *|type *|where *|exit|(|z)man(| *)|neofetch(| *)|*--help|*--version)'
+HISTORY_IGNORE_PATTERNS=(
+  ':'
+  'true'
+  'false'
+  'pwd'
+  'cd'
+  'which *'
+  'type *'
+  'where *'
+  'exit'
+  '(z|)man(| *)'
+  'neofetch(| *)'
+  'chezmoi ##apply'
+  '*tempCodeRunnerFile*'
+  '*--help'
+  '*--version'
+)
+HISTORY_IGNORE="(${(j.|.)HISTORY_IGNORE_PATTERNS})"
 setopt SHARE_HISTORY
 setopt EXTENDED_HISTORY
 setopt HIST_REDUCE_BLANKS
