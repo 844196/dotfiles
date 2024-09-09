@@ -27,6 +27,9 @@ setopt PRINT_EIGHT_BIT
 setopt EXTENDED_GLOB
 setopt INTERACTIVE_COMMENTS
 
+# https://zsh.sourceforge.io/Doc/Release/Parameters.html#index-ZLE_005fREMOVE_005fSUFFIX_005fCHARS
+ZLE_REMOVE_SUFFIX_CHARS=
+ZLE_SPACE_SUFFIX_CHARS=$'&|'
 zstyle ':completion' dump-file $XDG_CACHE_HOME/zsh/compdump-$ZSH_VERSION
 zstyle ':completion' dump-ttl $((60 * 60 * 18))
 zstyle ':completion:*' menu select=2
