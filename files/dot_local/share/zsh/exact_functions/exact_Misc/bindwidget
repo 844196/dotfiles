@@ -1,0 +1,8 @@
+# vim: set ft=zsh:
+
+local key=$1
+local widget_name=$2
+local function_name=${3:-$widget_name}
+
+zle -N $widget_name $function_name
+bindkey $key $widget_name

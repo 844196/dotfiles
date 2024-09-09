@@ -77,37 +77,28 @@ setopt HIST_FCNTL_LOCK
 
 select-word-style default
 anyframe-init
-zle -N accept-line-with-expand-alias
-zle -N self-insert-with-tweak
-zle -N self-insert-or-trigger-wk
-zle -N fzf-completion-or-expand-or-complete
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-zle -N insert-last-word smart-insert-last-word
-zle -N edit-command-line edit-command-line-shim
-zle -N push-line-or-edit-with-show
-zle -N toggle-incognito
 zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
 zstyle -e ':anyframe:selector:fzf:*' command 'reply=($GLOBAL_AQUA_ROOT_DIR/bin-copied/fzf $(compute-anyframe-fzf-options))'
 
-bindkey '^[OA' up-line-or-beginning-search # Up arrow
-bindkey '^[OB' down-line-or-beginning-search # Down arrow
 bindkey '^[[Z' reverse-menu-complete # Shift+Tab
-bindkey '^M' accept-line-with-expand-alias
-bindkey '\^' self-insert-with-tweak
-bindkey ' ' self-insert-or-trigger-wk
-bindkey '^I' fzf-completion-or-expand-or-complete
 bindkey '^R' anyframe-widget-put-history
-bindkey '^[q' push-line-or-edit-with-show
-bindkey '^Q' push-line-or-edit-with-show # `NO_FLOW_CONTROL` required
-bindkey '^G' toggle-incognito
 bindkey '^X^B' anyframe-widget-insert-git-branch-name
 bindkey '^X^F' anyframe-widget-insert-git-status-file
 bindkey '^X^X' anyframe-widget-insert-git-commit-hash
 bindkey '^X^G' anyframe-widget-insert-gitmoji
-bindkey '^X^E' edit-command-line
+bindwidget '^[.' insert-last-word smart-insert-last-word
+bindwidget '^[OA' up-line-or-beginning-search # Up arrow
+bindwidget '^[OB' down-line-or-beginning-search # Down arrow
+bindwidget '^M' accept-line-with-expand-alias
+bindwidget '\^' self-insert-with-tweak
+bindwidget ' ' self-insert-or-trigger-wk
+bindwidget '^I' fzf-completion-or-expand-or-complete
+bindwidget '^[q' push-line-or-edit-with-show
+bindwidget '^Q' push-line-or-edit-with-show # `NO_FLOW_CONTROL` required
+bindwidget '^G' toggle-incognito
+bindwidget '^X^E' edit-command-line edit-command-line-shim
 
 alias ..='cd ..'
 alias ...='cd ../..'
