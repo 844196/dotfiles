@@ -22,7 +22,7 @@
 .local/bin/wk:
   type: file
   executable: true
-  url: https://github.com/844196/wk/releases/download/v0.2.0/wk-x86_64-unknown-linux-gnu
+  url: https://github.com/844196/wk/releases/download/v0.2.1/wk-x86_64-unknown-linux-gnu
 
 .local/share/zsh/plugins/zman:
   type: archive
