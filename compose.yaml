@@ -8,6 +8,7 @@ services:
         USER_GID: ${HOST_GID:?}
     environment:
       - TERM
+      - COLORTERM
     volumes:
       - .:/home/nonroot/.dotfiles
     tty: true
