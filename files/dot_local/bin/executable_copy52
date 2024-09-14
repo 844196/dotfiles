@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+echo -ne "\e]52;c;$(cat - | tee > $TTY | sed -z '$s/\n$//' | openssl base64 -A -in -)\a"

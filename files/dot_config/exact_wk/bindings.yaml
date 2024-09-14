@@ -229,27 +229,27 @@
     - key: .
       desc: Copy $PWD
       type: command
-      buffer: ' echo -ne "\e]52;c;$(base64 <(pwd | tee >$TTY | sed -z ''$s/\n$//''))\a"'
+      buffer: ' pwd | copy52'
       accept: true
     - key: f
       desc: Copy relative path of selected files
       type: command
-      buffer: ' echo -ne "\e]52;c;$(base64 <(fzf --multi --height 25% <$TTY | tee >$TTY | sed -z ''$s/\n$//''))\a"'
+      buffer: ' fzf --multi --height 25% | copy52'
       accept: true
     - key: F
       desc: Copy full path of selected files
       type: command
-      buffer: ' echo -ne "\e]52;c;$(base64 <(fzf --multi --height 25% <$TTY | xargs -I{} realpath {} | tee >$TTY | sed -z ''$s/\n$//''))\a"'
+      buffer: ' fzf --multi --height 25% | xargs -I{} realpath {} | copy52'
       accept: true
     - key: w
       desc: Copy path as Windows file path of selected files
       type: command
-      buffer: ' echo -ne "\e]52;c;$(base64 <(fzf --multi --height 25% <$TTY | xargs -I{} wslpath -w {} | tee >$TTY | sed -z ''$s/\n$//''))\a"'
+      buffer: ' fzf --multi --height 25% | xargs -I{} wslpath -w {} | copy52'
       accept: true
     - key: b
       desc: Copy current branch
       type: command
-      buffer: ' echo -ne "\e]52;c;$(base64 <(git current-branch | tee >$TTY | sed -z ''$s/\n$//''))\a"'
+      buffer: ' git current-branch | copy52'
       accept: true
     - key: c
       desc: Copy last commit...
@@ -258,15 +258,15 @@
         - key: m
           desc: Message
           type: command
-          buffer: ' echo -ne "\e]52;c;$(base64 <(git --no-pager log -1 --pretty=format:%s%n HEAD | tee >$TTY | sed -z ''$s/\n$//''))\a"'
+          buffer: ' git --no-pager log -1 --pretty=format:%s%n HEAD | copy52'
           accept: true
         - key: h
           desc: Hash (Short)
           type: command
-          buffer: ' echo -ne "\e]52;c;$(base64 <(git rev-parse --short HEAD | tee >$TTY | sed -z ''$s/\n$//''))\a"'
+          buffer: ' git rev-parse --short HEAD | copy52'
           accept: true
         - key: H
           desc: Hash (Full)
           type: command
-          buffer: ' echo -ne "\e]52;c;$(base64 <(git rev-parse HEAD | tee >$TTY | sed -z ''$s/\n$//''))\a"'
+          buffer: ' git rev-parse HEAD | copy52'
           accept: true
