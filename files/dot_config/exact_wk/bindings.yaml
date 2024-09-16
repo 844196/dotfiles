@@ -66,6 +66,10 @@
           type: command
           buffer: 'git checkout -b '
           trigger: COMPLETE
+        - key: f
+          type: command
+          buffer: 'git checkout -- '
+          trigger: COMPLETE
         - key: .
           type: command
           buffer: 'git checkout .'
@@ -76,7 +80,7 @@
         - key: a
           type: command
           buffer: 'git commit --amend --no-edit'
-        - key: f
+        - key: F
           type: command
           buffer: 'git commit --fixup '
           trigger: COMPLETE

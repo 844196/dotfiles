@@ -8,6 +8,10 @@ case $BUFFER in
     FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --no-multi --select-1 --exit-0" anyframe-widget-insert-git-branch-name --head-ignore
     ;;
 
+  ?(*\ )git\ checkout\ --\ )
+    anyframe-widget-insert-git-status-file
+    ;;
+
   ?(*\ )git\ checkout\ -t\ )
     FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --no-multi --select-1 --exit-0" anyframe-widget-insert-git-remote-branch-name
     ;;
