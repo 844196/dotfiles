@@ -173,7 +173,7 @@
             - key: c
               desc: gh pr create
               type: command
-              buffer: 'git push -u origin HEAD && gh pr create -w ${$(git base-branch):+-B $(git base-branch) }-H $(git current-branch) -a @me -t '
+              buffer: 'git push -u origin $(git current-branch) && gh pr create -w ${$(git base-branch):+-B $(git base-branch) }-H $(git current-branch) -a @me -t '
               eval: true
               trigger: COMPLETE
     - key: f
@@ -246,6 +246,11 @@
       buffer: ' fzf --multi --height 25% | xargs -I{} realpath {} | copy52'
       accept: true
     - key: w
+      desc: Copy $PWD as Windows file path
+      type: command
+      buffer: ' pwd | xargs -I{} wslpath -w {} | copy52'
+      accept: true
+    - key: W
       desc: Copy path as Windows file path of selected files
       type: command
       buffer: ' fzf --multi --height 25% | xargs -I{} wslpath -w {} | copy52'
