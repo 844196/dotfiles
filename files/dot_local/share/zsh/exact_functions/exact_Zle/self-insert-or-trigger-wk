@@ -15,7 +15,11 @@ case $BUFFER in
     ;;
 
   *)
-    zle _expand_alias
-    zle self-insert
+    if zle _expand_alias; then
+      # Consider ZLE_REMOVE_SUFFIX_CHARS and ZLE_SPACE_SUFFIX_CHARS
+      :
+    else
+      zle self-insert
+    fi
     ;;
 esac
