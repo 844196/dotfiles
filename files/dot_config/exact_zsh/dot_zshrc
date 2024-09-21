@@ -27,11 +27,31 @@ setopt PRINT_EIGHT_BIT
 setopt EXTENDED_GLOB
 setopt INTERACTIVE_COMMENTS
 
+evalcache ~/.local/libexec/vivid-compat iceberg-dark
+export BAT_THEME="iceberg"
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
+  --color gutter:-1
+  --color prompt:8
+  --color info:8
+  --color header:8
+  --color border:0
+  --color pointer:8
+  --color marker:3
+  --color fg:-1
+  --color bg:-1
+  --color fg+:-1
+  --color bg+:0
+  --color hl:3
+  --color hl+:3
+"
+
 # https://zsh.sourceforge.io/Doc/Release/Parameters.html#index-ZLE_005fREMOVE_005fSUFFIX_005fCHARS
 ZLE_REMOVE_SUFFIX_CHARS=
 ZLE_SPACE_SUFFIX_CHARS=$'&|'
 zstyle ':completion' dump-file $XDG_CACHE_HOME/zsh/compdump-$ZSH_VERSION
 zstyle ':completion' dump-ttl $((60 * 60 * 18))
+zstyle ':completion:*' list-separator '│'
+zstyle ':completion:*' list-colors ${(s.:.)${LS_COLORS/no=([^:])#/}} 'no=0;38;5;8' 'ma=0;38;5;0;48;5;8'
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*' list-packed yes
@@ -75,12 +95,18 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_FCNTL_LOCK
 
+# https://news.ycombinator.com/item?id=26757438
+# https://www.reddit.com/r/zsh/comments/c160o2/comment/erbdiqj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+zle_highlight+=(paste:none)
 select-word-style default
 anyframe-init
+evalcache wk widget zsh --no-bindkey
 zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
 zstyle -e ':anyframe:selector:fzf:*' command 'reply=($GLOBAL_AQUA_ROOT_DIR/bin-copied/fzf $(compute-anyframe-fzf-options))'
+zstyle ':wk:*' options '--no-validation'
+zstyle ':wk:*' accept-widget accept-line-with-expand-alias
 
 bindkey '^[[Z' reverse-menu-complete # Shift+Tab
 bindkey '^R' anyframe-widget-put-history
@@ -112,14 +138,18 @@ alias tmp='cd "$(mktemp -d)"'
 evalcache zoxide init zsh --no-cmd
 evalcache direnv hook zsh
 
-evalcache wk widget zsh --no-bindkey
-zstyle ':wk:*' options '--no-validation'
-zstyle ':wk:*' accept-widget accept-line-with-expand-alias
-
 completioninit
 
 # Must be loaded after loading all other plugins (except zsh-autosuggestions, see below)
 source $XDG_DATA_HOME/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+
+# Set only when f-sy-h theme is not set
+# https://github.com/zdharma-continuum/fast-syntax-highlighting/issues/44#issuecomment-1399581264
+local current_fsh_theme
+zstyle -g current_fsh_theme ':plugin:fast-syntax-highlighting' theme
+if [[ "$current_fsh_theme" != "zen" ]]; then
+  fast-theme $XDG_CONFIG_HOME/fsh/zen.ini 2>&1 >/dev/null
+fi
 
 # Autosuggestions must be initialized after syntax highlighting
 # see: https://github.com/romkatv/zsh-bench#deferred-initialization
@@ -127,6 +157,7 @@ source $XDG_DATA_HOME/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlight
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 source $XDG_DATA_HOME/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=black,bold"
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(accept-line-with-expand-alias up-line-or-beginning-search down-line-or-beginning-search)

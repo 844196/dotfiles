@@ -1,7 +1,5 @@
 # vim: set ft=zsh:
 
-__DISPLAYING_INSTANT_PS1=0
-
 __PSVAR_IDX_INCOGNITO=1
 __PSVAR_IDX_PWD=2
 __PSVAR_IDX_GIT_BRANCH=3
@@ -20,7 +18,6 @@ EOF
 }
 
 prompt_zen_setup() {
-  emulate -L zsh
   autoload -Uz add-zsh-hook
 
   local SGR_DIM_START=$'\e[2m'
@@ -59,6 +56,8 @@ prompt_zen_setup() {
   PS1=${(j..)ps1}
   RPS1="%(${__PSVAR_IDX_GIT_USER_WARNING}V.%F{1}.%F{8})%{${SGR_DIM_START}%}%(${__PSVAR_IDX_GIT_USER}V.%${__PSVAR_IDX_GIT_USER}v.)%{${SGR_DIM_RESET}%}%f"
 
+  export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --prompt '$CHEVRON '"
+
   # https://gist.github.com/romkatv/8b318a610dc302bdbe1487bb1847ad99
   case $1 in
     (instant-pre)
@@ -71,73 +70,26 @@ prompt_zen_setup() {
         print -rn $'\e[?25l\e8\e[0m\e[J\e[?25h'
         add-zsh-hook -d precmd __clear_instant_ps1
         unfunction __clear_instant_ps1
-        __DISPLAYING_INSTANT_PS1=0
       }
 
       psvar=('' "$(prompt_zen_pwd)")
       print -rn -- $'\e7'${(%)PS1}
-
-      __DISPLAYING_INSTANT_PS1=1
       return
       ;;
     (instant-post)
-      (( __DISPLAYING_INSTANT_PS1 )) || return
-      add-zsh-hook precmd __clear_instant_ps1
+      if [[ "${+functions[__clear_instant_ps1]}" == 1 ]]; then
+        add-zsh-hook precmd __clear_instant_ps1
+      fi
+      return
       ;;
   esac
-
-  setopt EXTENDED_GLOB
-  autoload -Uz evalcache
 
   add-zsh-hook precmd prompt_zen_precmd
   zle -N prompt_zen_async_callback
 
-  if (( __DISPLAYING_INSTANT_PS1 )); then
-    # PROMPT_CR と PROMPT_SP は __clear_instant_ps1() で有効化されるので、ここではセットしない
-    # セットするとインスタントプロンプト消去時に PROMPT_EOL_MARK が表示されて表示が崩れてしまう
-    prompt_opts=(percent)
-  else
-    prompt_opts=(cr sp percent)
-  fi
-
-  # https://news.ycombinator.com/item?id=26757438
-  # https://www.reddit.com/r/zsh/comments/c160o2/comment/erbdiqj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-  zle_highlight+=(paste:none)
-
-  evalcache ~/.local/libexec/vivid-compat iceberg-dark
-
-  zstyle ':completion:*' list-separator '│'
-  zstyle ':completion:*' list-colors ${(s.:.)${LS_COLORS/no=([^:])#/}} 'no=0;38;5;8' 'ma=0;38;5;0;48;5;8'
-
-  # see: https://gist.github.com/sheepla/d1ff1ef11cc21dcc7434a25a012a970f
-  export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
-    --prompt '$CHEVRON '
-    --color gutter:-1
-    --color prompt:8
-    --color info:8
-    --color header:8
-    --color border:0
-    --color pointer:8
-    --color marker:3
-    --color fg:-1
-    --color bg:-1
-    --color fg+:-1
-    --color bg+:0
-    --color hl:3
-    --color hl+:3
-  "
-
-  export BAT_THEME="iceberg"
-
-  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=black,bold"
-
-  # Set only when f-sy-h theme is not set
-  # https://github.com/zdharma-continuum/fast-syntax-highlighting/issues/44#issuecomment-1399581264
-  local current_fsh_theme
-  zstyle -g current_fsh_theme ':plugin:fast-syntax-highlighting' theme
-  if [[ "$current_fsh_theme" != "zen" ]]; then
-    fast-theme $XDG_CONFIG_HOME/fsh/zen.ini 2>&1 >/dev/null
-  fi
+  # PROMPT_CR と PROMPT_SP は __clear_instant_ps1() で有効化されるので、ここではセットしない
+  # セットするとインスタントプロンプト消去時に PROMPT_EOL_MARK が表示されて表示が崩れてしまう
+  prompt_opts=(percent)
 }
 
 prompt_zen_precmd() {
