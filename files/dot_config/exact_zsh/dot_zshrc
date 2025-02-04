@@ -23,6 +23,7 @@ add-zsh-hook zshaddhistory historyignore
 disable r # It's so dangerous!
 unsetopt FLOW_CONTROL # Disable Ctrl+S and Ctrl+Q
 unsetopt BEEP
+unsetopt PATH_DIRS # Avoid slow completion on WSL2
 setopt PRINT_EIGHT_BIT
 setopt EXTENDED_GLOB
 setopt INTERACTIVE_COMMENTS
