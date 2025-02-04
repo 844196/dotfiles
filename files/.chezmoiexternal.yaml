@@ -29,12 +29,6 @@
   url: https://github.com/mattmc3/zman/archive/40483a43f262698476d3d3c740c3c865e15ac01e.tar.gz
   stripComponents: 1
 
-.local/share/zsh/plugins/zsh-completions:
-  type: archive
-  exact: true
-  url: https://github.com/zsh-users/zsh-completions/archive/7a884c75b4f3ce2d8d24df8e55dcc359a020be3f.tar.gz
-  stripComponents: 1
-
 .local/share/zsh/plugins/anyframe:
   type: archive
   exact: true
