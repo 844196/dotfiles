@@ -101,12 +101,11 @@ setopt HIST_FCNTL_LOCK
 zle_highlight+=(paste:none)
 select-word-style default
 anyframe-init
-evalcache wk widget zsh --no-bindkey
+evalcache wk --init ''
 zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
 zstyle -e ':anyframe:selector:fzf:*' command 'reply=($GLOBAL_AQUA_ROOT_DIR/bin-copied/fzf $(compute-anyframe-fzf-options))'
-zstyle ':wk:*' options '--no-validation'
 zstyle ':wk:*' accept-widget accept-line-with-expand-alias
 
 bindkey '^[[Z' reverse-menu-complete # Shift+Tab
