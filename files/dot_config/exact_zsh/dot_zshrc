@@ -106,6 +106,7 @@ zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
 zstyle -e ':anyframe:selector:fzf:*' command 'reply=($GLOBAL_AQUA_ROOT_DIR/bin-copied/fzf $(compute-anyframe-fzf-options))'
+zstyle ':wk:*' options '--up-one-line false'
 zstyle ':wk:*' accept-widget accept-line-with-expand-alias
 
 bindkey '^[[Z' reverse-menu-complete # Shift+Tab
@@ -119,6 +120,31 @@ bindwidget '^[OA' up-line-or-beginning-search # Up arrow
 bindwidget '^[OB' down-line-or-beginning-search # Down arrow
 bindwidget '^M' accept-line-with-expand-alias
 bindwidget '\^' self-insert-with-tweak
+self-insert-or-trigger-wk() {
+  case $BUFFER in
+    '')
+      echo -n $'\x1b[?25l\x1b[0`' >$TTY # Avoid cursor flickering
+
+      local reply
+      zle _wk_widget
+
+      case "${reply[(rb:2:)trigger:*]}" in
+        trigger:COMPLETE)
+          zle fzf-completion-or-expand-or-complete
+          ;;
+      esac
+      ;;
+
+    *)
+      if zle _expand_alias; then
+        # Consider ZLE_REMOVE_SUFFIX_CHARS and ZLE_SPACE_SUFFIX_CHARS
+        :
+      else
+        zle self-insert
+      fi
+      ;;
+  esac
+}
 bindwidget ' ' self-insert-or-trigger-wk
 bindwidget '^I' fzf-completion-or-expand-or-complete
 bindwidget '^[q' push-line-or-edit-with-show
