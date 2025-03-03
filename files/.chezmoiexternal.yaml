@@ -46,3 +46,9 @@
   exact: true
   url: https://github.com/zsh-users/zsh-autosuggestions/archive/0e810e5afa27acbd074398eefbe28d13005dbc15.tar.gz
   stripComponents: 1
+
+.neovim:
+  type: archive
+  exact: true
+  url: https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-linux-x86_64.tar.gz
+  stripComponents: 1

@@ -25,6 +25,8 @@ path=(
   # https://aquaproj.github.io/docs/reference/use-aqua-with-other-tools
   $XDG_DATA_HOME/mise/shims(N-/)
 
+  ~/.neovim/bin(N-/)
+
   $path
 )
 fpath=(
