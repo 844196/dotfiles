@@ -4,9 +4,6 @@
 registries:
   - type: standard
     ref: v4.228.0 # renovate: depName=aquaproj/aqua-registry
-  - name: local
-    type: local
-    path: registry.yaml
 packages:
   - name: sharkdp/bat@v0.23.0
   - name: dandavison/delta@0.15.1
