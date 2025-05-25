@@ -3,9 +3,6 @@
 set -euo pipefail
 
 mise=~/.local/bin/mise
-$mise install deno@{{ .denoVersion }}
-
-deno="$($mise which deno --tool=deno@{{ .denoVersion }})"
 
 files=(
   {{ .chezmoi.sourceDir }}/dot_local/exact_libexec/git-branch-pretty.ts  ~/.local/libexec/git-branch-pretty
@@ -21,5 +18,5 @@ for ((i = 0; i < ${#files[@]}; i += 2)); do
 
   rm -f "$dest"
 
-  "$deno" compile -A --target x86_64-unknown-linux-gnu --output "$dest" "$src"
+  "$mise" exec deno@{{ .denoVersion}} -- deno compile -A --target x86_64-unknown-linux-gnu --output "$dest" "$src"
 done
