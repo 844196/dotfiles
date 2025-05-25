@@ -16,14 +16,14 @@ path=(
   # aqua で管理されるディレクトリ
   $AQUA_ROOT_DIR/bin(N-/)
 
-  # aqua で管理されるディレクトリ (Dotfiles)
-  $GLOBAL_AQUA_ROOT_DIR/bin-copied(N-/)
-
   # DIY
   ~/.local/bin(N-/)
 
   # https://aquaproj.github.io/docs/reference/use-aqua-with-other-tools
   $XDG_DATA_HOME/mise/shims(N-/)
+
+  # aqua で管理されるディレクトリ (Dotfiles)
+  $GLOBAL_AQUA_ROOT_DIR/bin-copied(N-/)
 
   ~/.neovim/bin(N-/)
 
