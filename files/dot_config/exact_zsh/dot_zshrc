@@ -166,20 +166,6 @@ evalcache direnv hook zsh
 
 completioninit
 
-# Must be loaded after loading all other plugins (except zsh-autosuggestions, see below)
-source $XDG_DATA_HOME/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-
-# Set only when f-sy-h theme is not set
-# https://github.com/zdharma-continuum/fast-syntax-highlighting/issues/44#issuecomment-1399581264
-local current_fsh_theme
-zstyle -g current_fsh_theme ':plugin:fast-syntax-highlighting' theme
-if [[ "$current_fsh_theme" != "zen" ]]; then
-  fast-theme $XDG_CONFIG_HOME/fsh/zen.ini 2>&1 >/dev/null
-fi
-
-# Autosuggestions must be initialized after syntax highlighting
-# see: https://github.com/romkatv/zsh-bench#deferred-initialization
-# see: https://github.com/zsh-users/zsh-autosuggestions#disabling-automatic-widget-re-binding
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 source $XDG_DATA_HOME/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
