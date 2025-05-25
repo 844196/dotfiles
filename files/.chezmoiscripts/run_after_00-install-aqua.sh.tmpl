@@ -2,8 +2,8 @@
 
 set -euo pipefail
 
-if ! type aqua >/dev/null 2>&1 || [[ "$(aqua -v 2>&1)" != *423bf97060599e911f9a5a2c5622cf886673dd65* ]]; then
-  ~/.cache/aquaproj-aqua/aqua-installer -v v2.36.1
+if ! type aqua >/dev/null 2>&1 || [[ "$(aqua -v 2>&1)" != *2.51.2* ]]; then
+  ~/.cache/aquaproj-aqua/aqua-installer -v v2.51.2
   PATH=~/.local/share/aquaproj-aqua/bin:$PATH
 fi
 

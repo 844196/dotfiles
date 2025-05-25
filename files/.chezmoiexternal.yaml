@@ -10,8 +10,8 @@
 .cache/aquaproj-aqua/aqua-installer:
   type: file
   executable: true
-  url: https://raw.githubusercontent.com/aquaproj/aqua-installer/v3.0.1/aqua-installer
-  checksum.sha256: fb4b3b7d026e5aba1fc478c268e8fbd653e01404c8a8c6284fdba88ae62eda6a
+  url: https://raw.githubusercontent.com/aquaproj/aqua-installer/v4.0.0/aqua-installer
+  checksum.sha256: f7fa69dacb234ce9648f3008cef9120a1e59d96c37971e747668c0fada7bec68
 
 .local/bin/mise:
   type: file
