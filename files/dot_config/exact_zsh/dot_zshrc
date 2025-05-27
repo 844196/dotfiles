@@ -164,6 +164,22 @@ alias tmp='cd "$(mktemp -d)"'
 evalcache zoxide init zsh --no-cmd
 evalcache direnv hook zsh
 
+# NOTE: .zshenv で追加したshimエントリーはこの時点で削除され
+# "各プロジェクトで設定されたツール実体の場所を PATH の最上位に追加するフック" が登録される
+# https://mise.jdx.dev/dev-tools/shims.html#how-to-add-mise-shims-to-path
+evalcache mise activate zsh
+
+# mise.toml の変更が即時反映されなくなることを犠牲にプロンプトの表示を速くする
+add-zsh-hook -d precmd _mise_hook
+
+# mise activate で登録されるフックの後に PATH の最上位をaquaにすることで
+# aquaとmiseを同時に使えるようにする
+# https://aquaproj.github.io/docs/reference/use-aqua-with-other-tools
+aqua-first() {
+  export path=($AQUA_ROOT_DIR/bin(N-/) $path)
+}
+add-zsh-hook chpwd aqua-first
+
 completioninit
 
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
