@@ -8,3 +8,30 @@
 --no-sort
 --no-mouse
 --ellipsis ''
+--bind 'result:transform:
+  if [[ ${FZF_COLUMNS:-0} -ge 120 ]]; then
+    echo "change-preview-window(right,50%,border-left)"
+  elif [[ ${FZF_LINES:-0} -ge 24 ]]; then
+    echo "change-preview-window(bottom,50%,border-top)"
+  else
+    echo "change-preview-window(hidden)"
+  fi
+'
+--bind 'resize:transform:
+  if [[ ${FZF_COLUMNS:-0} -ge 120 ]]; then
+    echo "change-preview-window(right,50%,border-left)"
+  elif [[ ${FZF_LINES:-0} -ge 24 ]]; then
+    echo "change-preview-window(bottom,50%,border-top)"
+  else
+    echo "change-preview-window(hidden)"
+  fi
+'
+--bind 'ctrl-/:transform:
+  if [[ ${FZF_PREVIEW_LEFT:-0} -gt 0 ]]; then
+    echo "change-preview-window(nohidden,bottom,50%,border-top)"
+  elif [[ ${FZF_PREVIEW_TOP:-0} -gt 0 ]]; then
+    echo "change-preview-window(hidden)"
+  else
+    echo "change-preview-window(nohidden,right,50%,border-left)"
+  fi
+'

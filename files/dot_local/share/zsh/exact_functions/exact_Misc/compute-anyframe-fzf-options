@@ -13,22 +13,4 @@ if (( height < 12 )); then
   height=12
 fi
 
-local previewOpts=()
-if (( COLUMNS >= 240 )); then
-  previewOpts=(
-    '--preview-window' 'right,75%,border-left'
-    '--bind' 'ctrl-/:change-preview-window(bottom,75%,border-top|hidden|)'
-  )
-elif (( height > 24 )); then
-  previewOpts=(
-    '--preview-window' 'bottom,75%,border-top'
-    '--bind' 'ctrl-/:change-preview-window(right,75%,border-left|hidden|)'
-  )
-else
-  previewOpts=(
-    '--preview-window' 'hidden'
-    '--bind' 'ctrl-/:change-preview-window(nohidden,right,75%,border-left|nohidden,bottom,75%,border-top|)'
-  )
-fi
-
-echo '--height' $height $previewOpts
+echo '--height' $height
