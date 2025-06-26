@@ -7,6 +7,11 @@
   url: https://raw.githubusercontent.com/carloscuesta/gitmoji/master/packages/gitmojis/src/gitmojis.json
   refreshPeriod: 168h
 
+.config/bat/themes/tokyonight_night/tokyonight_night.tmTheme:
+  type: file
+  url: https://raw.githubusercontent.com/folke/tokyonight.nvim/refs/tags/v4.11.0/extras/sublime/tokyonight_night.tmTheme
+  refreshPeriod: 168h
+
 .cache/aquaproj-aqua/aqua-installer:
   type: file
   executable: true

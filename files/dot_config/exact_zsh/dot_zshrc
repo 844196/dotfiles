@@ -28,8 +28,8 @@ setopt PRINT_EIGHT_BIT
 setopt EXTENDED_GLOB
 setopt INTERACTIVE_COMMENTS
 
-evalcache ~/.local/libexec/vivid-compat iceberg-dark
-export BAT_THEME="iceberg"
+evalcache ~/.local/libexec/vivid-compat tokyonight-night
+export BAT_THEME="tokyonight_night"
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
   --color gutter:-1
   --color prompt:8

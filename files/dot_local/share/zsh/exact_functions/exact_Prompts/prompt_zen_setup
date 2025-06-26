@@ -30,13 +30,23 @@ prompt_zen_setup() {
   local GIT_REMOTE_BEHIND=$'\u21e3'
   local INCOGNITO_SYMBOL='󰗹 '
 
+  # iceberg
+  # local S0_BG='#353a50'
+  # local S0_FG='15'
+  # local S1_BG='#262939'
+  # local S1_FG='8'
+  # local S2_BG='#1e212d'
+  # local S2_FG='5'
+  # local S3_FG='8'
+
+  # tokyonight
   local S0_BG='#353a50'
   local S0_FG='15'
-  local S1_BG='#262939'
-  local S1_FG='8'
-  local S2_BG='#1e212d'
-  local S2_FG='5'
-  local S3_FG='8'
+  local S1_BG='#212736'
+  local S1_FG='#51597d'
+  local S2_BG='#1d2230'
+  local S2_FG='#bb9af7'
+  local S3_FG='#51597d'
 
   local ps1=(
     $'\n'
