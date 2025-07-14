@@ -55,5 +55,5 @@
 .neovim:
   type: archive
   exact: true
-  url: https://github.com/neovim/neovim/releases/download/v0.11.1/nvim-linux-x86_64.tar.gz
+  url: https://github.com/neovim/neovim/releases/download/v0.11.3/nvim-linux-x86_64.tar.gz
   stripComponents: 1
