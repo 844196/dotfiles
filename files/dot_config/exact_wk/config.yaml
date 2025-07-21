@@ -5,12 +5,8 @@ symbols:
   prompt: "❯ "
 colors:
   prompt: 8
-  inputKeys:
-    color: 8
-    attrs: [dim]
-  breadcrumb:
-    color: 8
-    attrs: [dim]
+  inputKeys: 8
+  breadcrumb: 8
   lastInputKey:
     color: 6
     attrs: [underline]
