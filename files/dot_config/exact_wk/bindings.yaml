@@ -279,3 +279,11 @@
           type: command
           buffer: ' git rev-parse HEAD | copy52'
           accept: true
+- key: '"'
+  desc: Init
+  type: bindings
+  bindings:
+    - key: i
+      desc: Put wk.bindings.yaml
+      type: command
+      buffer: ' cp -i ~/.config/wk/template.yaml wk.bindings.yaml'

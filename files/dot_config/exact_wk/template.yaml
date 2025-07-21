@@ -1,0 +1,26 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/844196/wk/v0.0.5/schemas/bindings.json
+---
+- key: m
+  desc: Major
+  type: bindings
+  bindings:
+    - key: d
+      desc: Dev
+      type: command
+      buffer: ' (echo "Error: no command specified" && exit 1)'
+      accept: true
+    - key: b
+      desc: Build
+      type: command
+      buffer: ' (echo "Error: no command specified" && exit 1)'
+      accept: true
+    - key: c
+      desc: Check
+      type: command
+      buffer: ' (echo "Error: no command specified" && exit 1)'
+      accept: true
+    - key: t
+      desc: Test
+      type: command
+      buffer: ' (echo "Error: no command specified" && exit 1)'
+      accept: true
