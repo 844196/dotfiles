@@ -101,7 +101,7 @@ setopt HIST_FCNTL_LOCK
 zle_highlight+=(paste:none)
 select-word-style default
 anyframe-init
-evalcache wk --init ''
+evalcache wk init --major-prefix 'm'
 zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
@@ -145,7 +145,24 @@ self-insert-or-trigger-wk() {
       ;;
   esac
 }
+self-insert-or-trigger-wk-major() {
+  if [[ -n $BUFFER ]]; then
+    zle self-insert
+  else
+    echo -n $'\x1b[?25l\x1b[0`' >$TTY # Avoid cursor flickering
+
+    local reply
+    zle _wk_widget_major
+
+    case "${reply[(rb:2:)trigger:*]}" in
+      trigger:COMPLETE)
+        zle fzf-completion-or-expand-or-complete
+        ;;
+    esac
+  fi
+}
 bindwidget ' ' self-insert-or-trigger-wk
+bindwidget ',' self-insert-or-trigger-wk-major
 bindwidget '^I' fzf-completion-or-expand-or-complete
 bindwidget '^[q' push-line-or-edit-with-show
 bindwidget '^Q' push-line-or-edit-with-show # `NO_FLOW_CONTROL` required
