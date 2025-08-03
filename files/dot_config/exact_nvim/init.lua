@@ -57,6 +57,11 @@ keymap({ 'n', 'v' }, '<Space>', function()
   vscode.call('vspacecode.space')
 end)
 
+keymap({ 'n', 'v' }, ',', function()
+  vscode.call('vspacecode.space')
+  vscode.call('whichkey.triggerKey', { args = {"m"} })
+end)
+
 keymap('n', 'g.', function()
   vscode.call('editor.action.quickFix')
 end)
