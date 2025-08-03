@@ -198,6 +198,7 @@ add-zsh-hook -d precmd _mise_hook
 aqua-first() {
   export path=($AQUA_ROOT_DIR/bin(N-/) $path)
 }
+aqua-first
 add-zsh-hook chpwd aqua-first
 
 completioninit
