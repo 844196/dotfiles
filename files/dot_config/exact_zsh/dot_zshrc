@@ -179,7 +179,7 @@ alias tree=' eza -T -I=.git --git-ignore -s=type -a'
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -I --preserve-root -r' # '--preserve-root' is only available for GNU rm
-alias tmp='cd "$(mktemp -d)"'
+alias t='cd "$(mktemp -d)"'
 
 evalcache zoxide init zsh --no-cmd
 evalcache direnv hook zsh
