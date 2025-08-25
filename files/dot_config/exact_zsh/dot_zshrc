@@ -180,6 +180,8 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -I --preserve-root -r' # '--preserve-root' is only available for GNU rm
 alias t='cd "$(mktemp -d)"'
+alias mx='mise x --'
+alias mr='mise run'
 
 evalcache zoxide init zsh --no-cmd
 evalcache direnv hook zsh
@@ -189,9 +191,6 @@ evalcache direnv hook zsh
 # https://mise.jdx.dev/dev-tools/shims.html#how-to-add-mise-shims-to-path
 evalcache mise activate zsh
 
-# mise.toml の変更が即時反映されなくなることを犠牲にプロンプトの表示を速くする
-add-zsh-hook -d precmd _mise_hook
-
 # mise activate で登録されるフックの後に PATH の最上位をaquaにすることで
 # aquaとmiseを同時に使えるようにする
 # https://aquaproj.github.io/docs/reference/use-aqua-with-other-tools
@@ -200,6 +199,7 @@ aqua-first() {
 }
 aqua-first
 add-zsh-hook chpwd aqua-first
+add-zsh-hook precmd aqua-first
 
 completioninit
 
