@@ -31,4 +31,4 @@ packages:
   - name: go-task/task@v3.31.0
   - name: wfxr/csview@v1.2.2
   - name: dylanaraps/neofetch@7.1.0
-  - name: charmbracelet/gum@v0.14.3
+  - name: charmbracelet/gum@v0.17.0
