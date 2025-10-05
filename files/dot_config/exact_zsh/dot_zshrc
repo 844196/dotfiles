@@ -186,20 +186,10 @@ alias mr='mise run'
 evalcache zoxide init zsh --no-cmd
 evalcache direnv hook zsh
 
-# NOTE: .zshenv で追加したshimエントリーはこの時点で削除され
-# "各プロジェクトで設定されたツール実体の場所を PATH の最上位に追加するフック" が登録される
+# zshenv で追加したshimエントリーはこの時点で削除され
+# chpwd と precmd に "各プロジェクトで設定されたツール実体の場所を PATH の最上位に追加するフック" が登録される
 # https://mise.jdx.dev/dev-tools/shims.html#how-to-add-mise-shims-to-path
 evalcache mise activate zsh
-
-# mise activate で登録されるフックの後に PATH の最上位をaquaにすることで
-# aquaとmiseを同時に使えるようにする
-# https://aquaproj.github.io/docs/reference/use-aqua-with-other-tools
-aqua-first() {
-  export path=($AQUA_ROOT_DIR/bin(N-/) $path)
-}
-aqua-first
-add-zsh-hook chpwd aqua-first
-add-zsh-hook precmd aqua-first
 
 completioninit
 
