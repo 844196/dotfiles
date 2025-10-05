@@ -21,7 +21,7 @@
 .local/bin/mise:
   type: file
   executable: true
-  url: https://github.com/jdx/mise/releases/download/v2025.9.15/mise-v2025.9.15-linux-x64-musl
+  url: https://github.com/jdx/mise/releases/download/v2025.9.25/mise-v2025.9.25-linux-x64-musl
 
 .local/bin/wk:
   type: file
