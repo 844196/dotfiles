@@ -24,7 +24,6 @@ disable r # It's so dangerous!
 unsetopt FLOW_CONTROL # Disable Ctrl+S and Ctrl+Q
 unsetopt BEEP
 unsetopt PATH_DIRS # Avoid slow completion on WSL2
-setopt PRINT_EIGHT_BIT
 setopt EXTENDED_GLOB
 setopt INTERACTIVE_COMMENTS
 
@@ -66,7 +65,21 @@ zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/compcache
 zstyle ':completion:*' completer _expand _complete _match _approximate _files
 zstyle ':completion:*:*:chezmoi:*:*' ignored-patterns '^(init|apply)'
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX + $#SUFFIX) / 3)) numeric)'
+
+# 日本語を含む補完候補リストを正しく表示するための設定だが LC_CTYPE にUTF-8ロケールが設定されている場合は不要
+# setopt PRINT_EIGHT_BIT
+
+# "git reset HEAD^" や "mise run check:*" のようなグロブ展開しようと思って入力したわけではないグロブ記号使用時に "no matches found" エラーが発生しないようにする
+unsetopt NOMATCH
+
+# anything=expression のような形式の引数の時、expression先頭の ~ および = を展開する
+# e.g. anything=~/foobar -> anything=/home/me/foobar
+#      anything==grep -> anything=/usr/bin/grep
+# また、補完関数によって明示的に指定されていない場合、expressionでファイル名補完が利用可能になる (文書化されていない)
+# https://unix.stackexchange.com/a/599449
 setopt MAGIC_EQUAL_SUBST
+
+# グロブ展開する際、入力の先頭にドットがなくてもドットから始まるファイルもマッチ対象にする
 setopt GLOB_DOTS
 
 # Workaround: When VSCode shell integration feature is enabled, HISTFILE is never empty

@@ -14,6 +14,11 @@ prompt_zen_help() {
   cat <<'EOF'
 Usage:
   prompt zen [instant-pre|instant-post]
+
+Note:
+  プロンプトにはNerdFont (i.e. 非ASCII文字) が含まれる。
+  文字参照の関係上 LC_CTYPE には en_US.UTF-8 などの非POSIXロケールを設定しておくこと。
+  (未設定の場合 "character not in range" エラーが発生する)
 EOF
 }
 
