@@ -9,5 +9,5 @@ _.path = [
   # aquaとmiseを同時に使えるようにする
   # https://aquaproj.github.io/docs/reference/use-aqua-with-other-tools
   # https://zenn.dev/link/comments/4a06cbe069df4a
-  "{{env.AQUA_ROOT_DIR}}/bin"
+  "{{env.HOME}}/.local/share/aquaproj-aqua/bin"
 ]
