@@ -2,6 +2,8 @@
 usage = "latest"
 node = "22.17.0"
 awscli = "2.22.0"
+neovim = "0.11.4"
+"github:844196/wk" = "v1.0.2"
 
 [env]
 _.path = [

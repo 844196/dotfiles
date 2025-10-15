@@ -23,11 +23,6 @@
   executable: true
   url: https://github.com/jdx/mise/releases/download/v2025.9.25/mise-v2025.9.25-linux-x64-musl
 
-.local/bin/wk:
-  type: file
-  executable: true
-  url: https://github.com/844196/wk/releases/download/v1.0.2/wk-x86_64-unknown-linux-gnu
-
 .local/share/zsh/plugins/zman:
   type: archive
   exact: true
@@ -50,10 +45,4 @@
   type: archive
   exact: true
   url: https://github.com/zsh-users/zsh-autosuggestions/archive/0e810e5afa27acbd074398eefbe28d13005dbc15.tar.gz
-  stripComponents: 1
-
-.neovim:
-  type: archive
-  exact: true
-  url: https://github.com/neovim/neovim/releases/download/v0.11.3/nvim-linux-x86_64.tar.gz
   stripComponents: 1
