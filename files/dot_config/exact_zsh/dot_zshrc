@@ -132,47 +132,6 @@ bindwidget '^[OA' up-line-or-beginning-search # Up arrow
 bindwidget '^[OB' down-line-or-beginning-search # Down arrow
 bindwidget '^M' accept-line-with-expand-alias
 bindwidget '\^' self-insert-with-tweak
-self-insert-or-trigger-wk() {
-  case $BUFFER in
-    '')
-      echo -n $'\x1b[?25l\x1b[0`' >$TTY # Avoid cursor flickering
-
-      local reply
-      zle _wk_widget
-
-      case "${reply[(rb:2:)trigger:*]}" in
-        trigger:COMPLETE)
-          zle fzf-completion-or-expand-or-complete
-          ;;
-      esac
-      ;;
-
-    *)
-      if zle _expand_alias; then
-        # Consider ZLE_REMOVE_SUFFIX_CHARS and ZLE_SPACE_SUFFIX_CHARS
-        :
-      else
-        zle self-insert
-      fi
-      ;;
-  esac
-}
-self-insert-or-trigger-wk-major() {
-  if [[ -n $BUFFER ]]; then
-    zle self-insert
-  else
-    echo -n $'\x1b[?25l\x1b[0`' >$TTY # Avoid cursor flickering
-
-    local reply
-    zle _wk_widget_major
-
-    case "${reply[(rb:2:)trigger:*]}" in
-      trigger:COMPLETE)
-        zle fzf-completion-or-expand-or-complete
-        ;;
-    esac
-  fi
-}
 bindwidget ' ' self-insert-or-trigger-wk
 bindwidget ',' self-insert-or-trigger-wk-major
 bindwidget '^I' fzf-completion-or-expand-or-complete
