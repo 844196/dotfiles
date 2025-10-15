@@ -48,9 +48,6 @@ export FZF_DEFAULT_OPTS_FILE=$XDG_CONFIG_HOME/fzf/config
 
 export DENO_NO_UPDATE_CHECK=1
 
-# https://github.com/direnv/direnv/wiki/Quiet-or-Silence-direnv
-export DIRENV_LOG_FORMAT=$'\e[2mdirenv: %s\e[0m'
-
 # Disable execution compinit in ubuntu distributed global zshrc (/etc/zsh/zshrc)
 # SEE: https://www.zsh.org/mla/users/2021/msg00879.html
 skip_global_compinit=1

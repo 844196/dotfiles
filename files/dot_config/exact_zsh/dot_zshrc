@@ -9,10 +9,6 @@ autoload -Uz zman
 autoload -Uz anyframe-init
 autoload -Uz $XDG_DATA_HOME/zsh/functions/**/*(N.:t)
 
-# Avoid flickering on clear instant prompt due to direnv output via precmd hook
-# https://github.com/romkatv/powerlevel10k/blob/119e4039ef9068fa96490a90c559e7594843ec22/README.md#how-do-i-initialize-direnv-when-using-instant-prompt
-eval "$(direnv export zsh)"
-
 prompt_zen_setup instant-pre
 
 add-zsh-hook precmd send-osc7
@@ -197,7 +193,6 @@ alias mx='mise x --'
 alias mr='mise run'
 
 evalcache zoxide init zsh --no-cmd
-evalcache direnv hook zsh
 
 # zshenv で追加したshimエントリーはこの時点で削除され
 # chpwd と precmd に "各プロジェクトで設定されたツール実体の場所を PATH の最上位に追加するフック" が登録される
