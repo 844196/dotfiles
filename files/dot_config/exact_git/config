@@ -37,6 +37,7 @@
   showUntrackedFiles = all
 [commit]
   verbose = true
+  cleanup = scissors
 [fetch]
   prune = true
 [diff]
