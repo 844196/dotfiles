@@ -1,0 +1,21 @@
+local gh_hosts="${GH_CONFIG_DIR:-$XDG_CONFIG_HOME/gh}/hosts.yml"
+
+# gh auth login をしてない状態では hosts.yml が存在しない
+if [[ -e "$gh_hosts" ]]; then
+  local active=$($GLOBAL_AQUA_ROOT_DIR/bin-copied/yq '."github.com".user' "$gh_hosts" 2>/dev/null)
+  local desired=${GH_PROFILE:-$active}
+
+  if [[ -n $active && $active != $desired ]]; then
+    local output
+    output="$(command gh auth switch --user $desired 2>&1)"
+    local exit_code=$?
+
+    if [[ $exit_code != 0 ]]; then
+      echo "$output" >&2
+
+      return $exit_code
+    fi
+  fi
+fi
+
+command gh "$@"

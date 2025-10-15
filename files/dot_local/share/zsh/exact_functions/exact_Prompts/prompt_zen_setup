@@ -195,7 +195,7 @@ prompt_zen_async_git-user() {
     )
 
     exec {fd_gh_user}< <(
-      $GLOBAL_AQUA_ROOT_DIR/bin-copied/yq '."github.com".user' $XDG_CONFIG_HOME/gh/hosts.yml 2>/dev/null
+      echo ${GH_PROFILE:-$($GLOBAL_AQUA_ROOT_DIR/bin-copied/yq '."github.com".user' ${GH_CONFIG_DIR:-$XDG_CONFIG_HOME/gh}/hosts.yml 2>/dev/null)}
     )
 
     local git_user=$(<&${fd_git_user})
