@@ -1,0 +1,4 @@
+#!/bin/bash
+set -eo pipefail
+
+exec /mnt/c/Program\ Files/Google/Chrome/Application/chrome.exe ${CHROME_PROFILE:+--profile-directory=}"${CHROME_PROFILE}" "$@"

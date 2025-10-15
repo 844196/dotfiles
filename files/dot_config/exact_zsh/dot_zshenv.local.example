@@ -1,5 +1,5 @@
 # vim:set ft=zsh:
 
-export BROWSER='wslview'
+export BROWSER=~/.local/libexec/windows-chrome
 export NEOFETCH_IMAGE_BACKEND='iterm2'
 export NEOFETCH_IMAGE_SOURCE="/path/to/image"
