@@ -173,7 +173,7 @@
             - key: c
               desc: gh pr create
               type: command
-              buffer: 'git push -u origin $(git current-branch) && echo "<\!-- I want to review in Japanese. -->\n\n\n\n<\!-- I want to review in Japanese. -->" | gh pr create -w ${$(git base-branch):+-B $(git base-branch) }-H $(git current-branch) -a @me -F - -t '
+              buffer: 'git push -u origin $(git current-branch) && gh pr create -w ${$(git base-branch):+-B $(git base-branch) }-H $(git current-branch) -a @me -t '
               eval: true
               trigger: COMPLETE
     - key: f
