@@ -1,4 +1,11 @@
 #!/bin/bash
-set -eo pipefail
+set -euo pipefail
 
-exec /mnt/c/Program\ Files/Google/Chrome/Application/chrome.exe ${CHROME_PROFILE:+--profile-directory=}"${CHROME_PROFILE}" "$@"
+profile_opt=
+if [[ "${CHROME_PROFILE:-}" != "" ]]; then
+  profile_opt="\"\"\"--profile-directory=${CHROME_PROFILE}\"\"\","
+fi
+
+script="Start-Process -FilePath chrome -ArgumentList ${profile_opt} \"$1\""
+
+/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe $script
