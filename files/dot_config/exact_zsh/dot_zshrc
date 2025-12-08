@@ -1,15 +1,28 @@
 # vim: set ft=zsh:
 
+autoload -Uz promptinit && promptinit
+
+if [[ "${VSCODE_COPILOT_TERMINAL-0}" = 1 ]]; then
+  source "$(code --locate-shell-integration-path zsh)"
+
+  # 高確率でコマンド出力の検出に失敗するため無効化
+  zstyle ':prompt:zen' async no
+  zstyle ':prompt:zen:right-prompt' enable no
+
+  # 人間用と区別しやすくする
+  zstyle ':prompt:zen:user' format $'\uf4b8 '
+else
+  zstyle ':prompt:zen:user' format ''
+  prompt zen instant
+fi
+
+autoload -Uz $XDG_DATA_HOME/zsh/functions/**/*(N.:t)
 autoload -Uz add-zsh-hook
 autoload -Uz select-word-style
 autoload -Uz smart-insert-last-word
 autoload -Uz {up,down}-line-or-beginning-search
-autoload -Uz promptinit
 autoload -Uz zman
 autoload -Uz anyframe-init
-autoload -Uz $XDG_DATA_HOME/zsh/functions/**/*(N.:t)
-
-prompt_zen_setup instant-pre
 
 add-zsh-hook precmd send-osc7
 add-zsh-hook precmd toggle-delta-features
@@ -170,12 +183,9 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(accept-line-with-expand-alias up-line-or-beginning-search down-line-or-beginning-search)
 ZSH_AUTOSUGGEST_HISTORY_IGNORE='( eza *|cd *|\\(cp|mv|rm) *|git (add|branch|checkout) *|gh pr create *|?(#c50,))'
 
-promptinit
-prompt zen
-setopt TRANSIENT_RPROMPT
-
 if [[ -f $ZDOTDIR/.zshrc.local ]]; then
   source $ZDOTDIR/.zshrc.local
 fi
 
-prompt_zen_setup instant-post
+setopt TRANSIENT_RPROMPT
+prompt zen

@@ -1,13 +1,21 @@
 # vim: set ft=zsh:
+# cSpell:words psvar
 
-if [[ $INCOGNITO == '1' ]]; then
+if (( ${INCOGNITO-0} )); then
   fc -P
+
+  zstyle ':prompt:zen:user' show no
+  psvar[$__ZEN_PSVAR_INDEXES[user]]=
+
   INCOGNITO=
-  psvar[$__PSVAR_IDX_INCOGNITO]=
 else
   fc -p
+
+  zstyle ':prompt:zen:user' show yes
+  zstyle ':prompt:zen:user' override $'\Uf05f9 '
+  psvar[$__ZEN_PSVAR_INDEXES[user]]=$'\Uf05f9 '
+
   INCOGNITO=1
-  psvar[$__PSVAR_IDX_INCOGNITO]=1
 fi
 
 zle reset-prompt
