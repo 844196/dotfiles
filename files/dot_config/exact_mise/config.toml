@@ -8,8 +8,30 @@ node = "22.17.0"
 awscli = "2.22.0"
 neovim = "0.11.4"
 "github:844196/wk" = "v1.0.2"
-"aqua:cli/cli" = "2.83.1"
 "npm:@devcontainers/cli" = "0.80.3"
+"aqua:cli/cli" = "2.83.1"
+"aqua:sharkdp/bat" = "v0.23.0"
+"aqua:dandavison/delta" = "0.15.1"
+"aqua:eza-community/eza" = "v0.18.14"
+"aqua:junegunn/fzf" = "v0.62.0"
+"aqua:ajeetdsouza/zoxide" = "v0.9.2"
+"aqua:denisidoro/navi" = "v2.22.1"
+"aqua:BurntSushi/ripgrep" = "13.0.0"
+"aqua:sharkdp/vivid" = "v0.10.1"
+"aqua:mrowa44/emojify" = "2.2.0"
+"aqua:x-motemen/ghq" = "v1.4.2"
+"aqua:jqlang/jq" = "jq-1.7.1"
+"aqua:mikefarah/yq" = "v4.34.1"
+"aqua:itchyny/gojo" = "v0.3.2"
+"aqua:awslabs/amazon-ecr-credential-helper" = "v0.7.1"
+"aqua:tstack/lnav" = "v0.12.0"
+"aqua:sharkdp/hyperfine" = "v1.17.0"
+"aqua:hadolint/hadolint" = "v2.12.0"
+"aqua:wagoodman/dive" = "v0.12.0"
+"aqua:gesquive/git-user" = "v2.0.6"
+"aqua:simonwhitaker/gibo" = "v3.0.12"
+"aqua:wfxr/csview" = "v1.2.2"
+"aqua:dylanaraps/neofetch" = "7.1.0"
 
 [env]
 _.path = [
@@ -17,5 +39,5 @@ _.path = [
   # aquaとmiseを同時に使えるようにする
   # https://aquaproj.github.io/docs/reference/use-aqua-with-other-tools
   # https://zenn.dev/link/comments/4a06cbe069df4a
-  "{{env.HOME}}/.local/share/aquaproj-aqua/bin"
+  "{{ get_env(name='AQUA_ROOT_DIR', default=xdg_data_home ~ '/aquaproj-aqua') }}/bin"
 ]

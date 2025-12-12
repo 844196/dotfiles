@@ -130,7 +130,7 @@ evalcache wk init --major-prefix 'm'
 zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
-zstyle -e ':anyframe:selector:fzf:*' command 'reply=($GLOBAL_AQUA_ROOT_DIR/bin-copied/fzf $(compute-anyframe-fzf-options))'
+zstyle -e ':anyframe:selector:fzf:*' command 'reply=($(mise which fzf) $(compute-anyframe-fzf-options))'
 zstyle ':wk:*' options '--up-one-line false'
 zstyle ':wk:*' accept-widget accept-line-with-expand-alias
 
