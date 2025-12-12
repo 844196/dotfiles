@@ -12,12 +12,6 @@
   url: https://raw.githubusercontent.com/folke/tokyonight.nvim/refs/tags/v4.11.0/extras/sublime/tokyonight_night.tmTheme
   refreshPeriod: 168h
 
-.cache/aquaproj-aqua/aqua-installer:
-  type: file
-  executable: true
-  url: https://raw.githubusercontent.com/aquaproj/aqua-installer/v4.0.0/aqua-installer
-  checksum.sha256: f7fa69dacb234ce9648f3008cef9120a1e59d96c37971e747668c0fada7bec68
-
 .local/bin/mise:
   type: file
   executable: true

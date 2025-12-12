@@ -2,11 +2,6 @@
 
 set -euo pipefail
 
-if ! type aqua >/dev/null 2>&1 || [[ "$(aqua -v 2>&1)" != *2.51.2* ]]; then
-  ~/.cache/aquaproj-aqua/aqua-installer -v v2.51.2
-  PATH=~/.local/share/aquaproj-aqua/bin:$PATH
-fi
-
 export AQUA_ROOT_DIR=~/.local/share/aquaproj-aqua-global
 export AQUA_CONFIG={{ .chezmoi.sourceDir }}/dot_config/exact_aquaproj-aqua/aqua.yaml
 export AQUA_POLICY_CONFIG={{ .chezmoi.sourceDir }}/dot_config/exact_aquaproj-aqua/policy.yaml
