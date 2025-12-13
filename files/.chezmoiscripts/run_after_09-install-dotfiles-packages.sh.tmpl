@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -euo pipefail
+
+~/.local/bin/mise trust {{.dotfilesDir}}
+~/.local/bin/mise run --cd {{.dotfilesDir}} //packages/...:install

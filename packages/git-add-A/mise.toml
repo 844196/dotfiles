@@ -1,0 +1,14 @@
+[tools]
+deno = "1.41.1"
+
+[tasks.build]
+sources = ["main.ts"]
+outputs = ["dist/git-add-A"]
+run = "deno compile -A --output dist/git-add-A main.ts"
+
+[tasks.install]
+depends = ":build"
+usage = '''
+flag "--prefix <path>" default="{{env.HOME}}/.local/libexec"
+'''
+run = "cp dist/git-add-A ${usage_prefix}/git-add-A"

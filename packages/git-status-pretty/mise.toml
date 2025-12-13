@@ -1,0 +1,14 @@
+[tools]
+deno = "1.41.1"
+
+[tasks.build]
+sources = ["main.ts"]
+outputs = ["dist/git-status-pretty"]
+run = "deno compile -A --output dist/git-status-pretty main.ts"
+
+[tasks.install]
+depends = ":build"
+usage = '''
+flag "--prefix <path>" default="{{env.HOME}}/.local/libexec"
+'''
+run = "cp dist/git-status-pretty ${usage_prefix}/git-status-pretty"

@@ -11,15 +11,5 @@
   "cSpell.words": [
     "chezmoi",
   ],
-  "deno.enable": true,
-  "deno.lint": true,
-  "deno.unstable": true,
-  "[typescript]": {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "denoland.vscode-deno",
-  },
-  "code-runner.executorMap": {
-    "typescript": " deno run -A",
-  },
   "code-runner.runInTerminal": true
 }
