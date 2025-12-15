@@ -17,6 +17,7 @@ else
 fi
 
 autoload -Uz add-zsh-hook
+autoload -Uz compinit
 autoload -Uz select-word-style
 autoload -Uz smart-insert-last-word
 autoload -Uz {up,down}-line-or-beginning-search
@@ -60,8 +61,6 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
 # https://zsh.sourceforge.io/Doc/Release/Parameters.html#index-ZLE_005fREMOVE_005fSUFFIX_005fCHARS
 ZLE_REMOVE_SUFFIX_CHARS=
 ZLE_SPACE_SUFFIX_CHARS=$'&|'
-zstyle ':completion' dump-file $XDG_CACHE_HOME/zsh/compdump-$ZSH_VERSION
-zstyle ':completion' dump-ttl $((60 * 60 * 18))
 zstyle ':completion:*' list-separator '│'
 zstyle ':completion:*' list-colors ${(s.:.)${LS_COLORS/no=([^:])#/}} 'no=0;38;5;8' 'ma=0;38;5;0;48;5;8'
 zstyle ':completion:*' menu select=2
@@ -172,7 +171,7 @@ eval "$(zoxide init zsh --no-cmd)"
 # https://mise.jdx.dev/dev-tools/shims.html#how-to-add-mise-shims-to-path
 eval "$(mise activate zsh)"
 
-completioninit
+compinit -d $XDG_CACHE_HOME/zsh/compdump-$ZSH_VERSION
 
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 source $XDG_DATA_HOME/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
