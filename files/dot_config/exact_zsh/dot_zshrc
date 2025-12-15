@@ -16,13 +16,13 @@ else
   prompt zen instant
 fi
 
-autoload -Uz $XDG_DATA_HOME/zsh/functions/**/*(N.:t)
 autoload -Uz add-zsh-hook
 autoload -Uz select-word-style
 autoload -Uz smart-insert-last-word
 autoload -Uz {up,down}-line-or-beginning-search
 autoload -Uz zman
 autoload -Uz anyframe-init
+autoload -Uz $XDG_DATA_HOME/zsh/functions/**/*(N.:t)
 
 add-zsh-hook precmd send-osc7
 add-zsh-hook precmd toggle-delta-features
@@ -36,7 +36,7 @@ unsetopt PATH_DIRS # Avoid slow completion on WSL2
 setopt EXTENDED_GLOB
 setopt INTERACTIVE_COMMENTS
 
-evalcache ~/.local/libexec/vivid-compat tokyonight-night
+export LS_COLORS="$(vivid generate tokyonight-night)"
 export BAT_THEME="tokyonight_night"
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
   --color=bg+:#283457 \
@@ -126,7 +126,7 @@ setopt HIST_FCNTL_LOCK
 zle_highlight+=(paste:none)
 select-word-style default
 anyframe-init
-evalcache wk init --major-prefix 'm'
+eval "$(wk init --major-prefix 'm')"
 zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
@@ -165,12 +165,12 @@ alias t='cd "$(mktemp -d)"'
 alias mx='mise x --'
 alias mr='mise run'
 
-evalcache zoxide init zsh --no-cmd
+eval "$(zoxide init zsh --no-cmd)"
 
 # zshenv で追加したshimエントリーはこの時点で削除され
 # chpwd と precmd に "各プロジェクトで設定されたツール実体の場所を PATH の最上位に追加するフック" が登録される
 # https://mise.jdx.dev/dev-tools/shims.html#how-to-add-mise-shims-to-path
-evalcache mise activate zsh
+eval "$(mise activate zsh)"
 
 completioninit
 
