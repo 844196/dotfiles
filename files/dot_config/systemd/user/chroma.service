@@ -3,7 +3,12 @@ Description=Chroma server
 
 [Service]
 Type=simple
+RuntimeDirectory=chroma
+RuntimeDirectoryPreserve=yes
+Environment=CHROMA_RUNTIME_DIR=%t/chroma
+ExecStartPre=rm -f %t/chroma/chroma.sock
 ExecStart=%h/.local/bin/chroma server
+ExecStopPost=rm -f %t/chroma/chroma.sock
 
 [Install]
 WantedBy=default.target

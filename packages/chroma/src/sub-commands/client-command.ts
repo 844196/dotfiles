@@ -4,6 +4,18 @@ import { join as joinPath } from 'node:path'
 import { DEFAULT_SOCKET_NAME } from '../const.ts'
 import { createClient } from '../server.ts'
 
+const fileExists = (path: string): boolean => {
+  try {
+    Deno.lstatSync(path)
+    return true
+  } catch (e: unknown) {
+    if (!(e instanceof Deno.errors.NotFound)) {
+      throw e
+    }
+    return false
+  }
+}
+
 export const clientCommand = new Command()
   .env('CHROMA_HOST=<host:string>', '', { prefix: 'CHROMA_' })
   .env('CHROMA_RUNTIME_DIR=<path:string>', '')
@@ -12,11 +24,16 @@ export const clientCommand = new Command()
   .option('-H, --host <host:string>', '')
   .option('-p, --profile <profile:string>', '')
   .arguments('<url:string>')
-  .action(async ({ host, chromaRuntimeDir, xdgRuntimeDir, profile }, url) => {
-    const socketPath = match([host, chromaRuntimeDir ?? xdgRuntimeDir])
-      .with([P.string, P.any], ([left]) => left.replace(/^unix:\/\//, ''))
-      .with([undefined, P.string], ([, right]) => joinPath(right, DEFAULT_SOCKET_NAME))
-      .with([undefined, undefined], () => undefined)
+  .action(async ({ profile, ...runtime }, url) => {
+    const socketPath = match(runtime)
+      .with({ host: P.string }, ({ host }) => host.replace(/^unix:\/\//, ''))
+      .with({ chromaRuntimeDir: P.string }, ({ chromaRuntimeDir }) => joinPath(chromaRuntimeDir, DEFAULT_SOCKET_NAME))
+      .with({ xdgRuntimeDir: P.string }, ({ xdgRuntimeDir }) =>
+        [
+          joinPath(xdgRuntimeDir, 'chroma', DEFAULT_SOCKET_NAME),
+          joinPath(xdgRuntimeDir, DEFAULT_SOCKET_NAME),
+        ].find(fileExists))
+      .with({}, () => undefined)
       .exhaustive()
     if (socketPath === undefined) {
       console.error('Cannot determine chroma host.')
