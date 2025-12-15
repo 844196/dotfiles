@@ -1,12 +1,23 @@
-```console
-% GH_CONFIG_DIR=~/.local/state/gh/<GITHUB_USERNAME> gh auth login --web
+```bash
+GH_CONFIG_DIR=${XDG_STATE_HOME}/gh/<GITHUB_USERNAME> gh auth login --web
 ```
 
 ```toml
-[env]
-GH_CONFIG_DIR = "{{env.HOME}}/.local/state/gh/<GITHUB_USERNAME>"
+# mise.local.toml
 
-[[hooks.enter]]
-shell = "zsh"
-script = "export GITHUB_TOKEN=$(gh auth token --user <GITHUB_USERNAME>)"
+[env]
+GH_CONFIG_DIR = "{{xdg_state_home}}/gh/<GITHUB_USERNAME>"
+```
+
+```yaml
+# compose.override.yaml
+
+services:
+  app:
+    environment:
+      - GITHUB_TOKEN
+```
+
+```bash
+GITHUB_TOKEN=$(gh auth token --user <GITHUB_USERNAME>) devcontainer up --workspace-folder . --remove-existing-container
 ```
