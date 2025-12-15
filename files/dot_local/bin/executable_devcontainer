@@ -1,0 +1,4 @@
+#!/usr/bin/env -S mise tool-stub
+
+tool = "devcontainer-cli"
+version = "0.80.3"
