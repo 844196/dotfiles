@@ -284,21 +284,7 @@ prompt_zen_git-user() {
     return
   fi
 
-  local format
-  zstyle -T ':prompt:zen:git:user' format
-  case $? in
-    0)
-      format='%u'
-      ;;
-    1)
-      zstyle -s ':prompt:zen:git:user' format format
-      ;;
-  esac
-
-  local formatted
-  zformat -F formatted "$format" "u:$(git config --local user.name 2>/dev/null)"
-
-  print -n -- "${__ZEN_PSVAR_INDEXES[git:user]}:${formatted}"
+  print -n -- "${__ZEN_PSVAR_INDEXES[git:user]}:$(git config --local user.name 2>/dev/null)"
 }
 
 prompt_zen_set_psvar() {
