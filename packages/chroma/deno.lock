@@ -1,0 +1,80 @@
+{
+  "version": "5",
+  "specifiers": {
+    "jsr:@cliffy/command@1.0.0-rc.8": "1.0.0-rc.8",
+    "jsr:@cliffy/flags@1.0.0-rc.8": "1.0.0-rc.8",
+    "jsr:@cliffy/internal@1.0.0-rc.8": "1.0.0-rc.8",
+    "jsr:@cliffy/table@1.0.0-rc.8": "1.0.0-rc.8",
+    "jsr:@gabriel/ts-pattern@5.9.0": "5.9.0",
+    "jsr:@hono/hono@4.11.0": "4.11.0",
+    "jsr:@hono/hono@^4.8.3": "4.11.0",
+    "jsr:@hono/zod-validator@0.7.5": "0.7.5",
+    "jsr:@std/fmt@~1.0.2": "1.0.8",
+    "jsr:@std/text@~1.0.7": "1.0.16",
+    "jsr:@zod/zod@4.1.13": "4.1.13",
+    "npm:zod@^4.0.5": "4.1.13"
+  },
+  "jsr": {
+    "@cliffy/command@1.0.0-rc.8": {
+      "integrity": "758147790797c74a707e5294cc7285df665422a13d2a483437092ffce40b5557",
+      "dependencies": [
+        "jsr:@cliffy/flags",
+        "jsr:@cliffy/internal",
+        "jsr:@cliffy/table",
+        "jsr:@std/fmt",
+        "jsr:@std/text"
+      ]
+    },
+    "@cliffy/flags@1.0.0-rc.8": {
+      "integrity": "0f1043ce6ef037ba1cb5fe6b1bcecb25dc2f29371a1c17f278ab0f45e4b6f46c",
+      "dependencies": [
+        "jsr:@std/text"
+      ]
+    },
+    "@cliffy/internal@1.0.0-rc.8": {
+      "integrity": "34cdf2fad9b084b5aed493b138d573f52d4e988767215f7460daf0b918ff43d8"
+    },
+    "@cliffy/table@1.0.0-rc.8": {
+      "integrity": "8bbcdc2ba5e0061b4b13810a24e6f5c6ab19c09f0cce9eb691ccd76c7c6c9db5",
+      "dependencies": [
+        "jsr:@std/fmt"
+      ]
+    },
+    "@gabriel/ts-pattern@5.9.0": {
+      "integrity": "20a6bd65dc4d00c046013fc562f767b38d59ba467d62053e1a87e9a978f4a36c"
+    },
+    "@hono/hono@4.11.0": {
+      "integrity": "c697b6a2b07591081b8119bc8e946aa5c33b14d4b9a8208b02f3037cda5c7d9d"
+    },
+    "@hono/zod-validator@0.7.5": {
+      "integrity": "aeecfc6e7176963598b4d97091873e8d3b2fc74ff5d731b21acaf8ced94bb565",
+      "dependencies": [
+        "jsr:@hono/hono@^4.8.3",
+        "npm:zod"
+      ]
+    },
+    "@std/fmt@1.0.8": {
+      "integrity": "71e1fc498787e4434d213647a6e43e794af4fd393ef8f52062246e06f7e372b7"
+    },
+    "@std/text@1.0.16": {
+      "integrity": "ddb9853b75119a2473857d691cf1ec02ad90793a2e8b4a4ac49d7354281a0cf8"
+    },
+    "@zod/zod@4.1.13": {
+      "integrity": "fef799152d630583b248645fcac03abedd13e39fd2b752d9466b905d73619bfd"
+    }
+  },
+  "npm": {
+    "zod@4.1.13": {
+      "integrity": "sha512-AvvthqfqrAhNH9dnfmrfKzX5upOdjUVJYFqNSlkmGf64gRaTzlPwz99IHYnVs28qYAybvAlBV+H7pn0saFY4Ig=="
+    }
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@cliffy/command@1.0.0-rc.8",
+      "jsr:@gabriel/ts-pattern@5.9.0",
+      "jsr:@hono/hono@4.11.0",
+      "jsr:@hono/zod-validator@0.7.5",
+      "jsr:@zod/zod@4.1.13"
+    ]
+  }
+}

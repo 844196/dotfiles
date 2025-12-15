@@ -1,0 +1,23 @@
+{
+  "lock": {
+    "frozen": true
+  },
+  "compilerOptions": {
+    "strict": true,
+    "erasableSyntaxOnly": true
+  },
+  "fmt": {
+    "useTabs": false,
+    "lineWidth": 120,
+    "indentWidth": 2,
+    "semiColons": false,
+    "singleQuote": true
+  },
+  "imports": {
+    "@cliffy/command": "jsr:@cliffy/command@1.0.0-rc.8",
+    "@gabriel/ts-pattern": "jsr:@gabriel/ts-pattern@5.9.0",
+    "@hono/hono": "jsr:@hono/hono@4.11.0",
+    "@hono/zod-validator": "jsr:@hono/zod-validator@0.7.5",
+    "@zod/zod": "jsr:@zod/zod@4.1.13"
+  }
+}

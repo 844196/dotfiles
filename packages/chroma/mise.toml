@@ -1,0 +1,15 @@
+[tools]
+deno = "2.6.0"
+
+[tasks.build]
+sources = ["deno.lock", "src/**/*"]
+outputs = ["dist/chroma"]
+run = [
+  "deno install",
+  "deno bundle --minify --platform deno --output dist/chroma.bundle.js src/chroma.ts",
+  "deno compile --allow-all --output dist/chroma dist/chroma.bundle.js",
+]
+
+[tasks.install]
+depends = [":build"]
+run = "cp dist/chroma {{env.HOME}}/.local/bin/chroma"

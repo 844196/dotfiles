@@ -1,0 +1,9 @@
+[Unit]
+Description=Chroma server
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/chroma server
+
+[Install]
+WantedBy=default.target
