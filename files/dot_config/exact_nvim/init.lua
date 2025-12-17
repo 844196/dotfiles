@@ -32,3 +32,5 @@ vim.opt.wrapscan = false
 -- n/N検索で大文字小文字を区別しないが、大文字を含む場合は区別する
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+
+require('config.lazy')

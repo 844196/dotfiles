@@ -40,3 +40,9 @@
   exact: true
   url: https://github.com/zsh-users/zsh-autosuggestions/archive/0e810e5afa27acbd074398eefbe28d13005dbc15.tar.gz
   stripComponents: 1
+
+.local/share/nvim/lazy/lazy.nvim:
+  type: archive
+  exact: true
+  url: https://github.com/folke/lazy.nvim/archive/refs/tags/v11.17.5.tar.gz
+  stripComponents: 1
