@@ -171,6 +171,9 @@ eval "$(zoxide init zsh --no-cmd)"
 # https://mise.jdx.dev/dev-tools/shims.html#how-to-add-mise-shims-to-path
 eval "$(mise activate zsh)"
 
+export FNOX_SHELL_OUTPUT=none
+eval "$(fnox activate zsh)"
+
 compinit -d $XDG_CACHE_HOME/zsh/compdump-$ZSH_VERSION
 
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
