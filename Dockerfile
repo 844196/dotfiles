@@ -1,25 +1,28 @@
 FROM debian:bullseye
 
-ARG HOST_UID=1000
-ARG HOST_GID=1000
+ARG USER_UID
+ARG USER_GID
 
 RUN \
   useradd --shell /bin/bash --create-home --user-group nonroot && \
-  usermod --non-unique --uid ${HOST_UID} nonroot && \
-  groupmod --non-unique --gid ${HOST_GID} nonroot
+  usermod --non-unique --uid ${USER_UID?} nonroot && \
+  groupmod --non-unique --gid ${USER_GID?} nonroot
 
 RUN \
   apt-get update && \
   apt-get install -y --no-install-recommends \
-    sudo=* \
-    gosu=* \
-    curl=* \
+    # Obviously
     ca-certificates=* \
-    git=1:2.* \
     zsh=* \
-    less=* \
+    # For Nerd Fonts
     locales=* \
-    unzip=* && \
+    # Required by "install.sh"
+    curl=* \
+    # Required by "deno compile"
+    unzip=* \
+    # For debugging
+    sudo=* \
+    && \
   rm -rf /var/lib/apt/lists/*
 
 COPY <<EOF /etc/locale.gen

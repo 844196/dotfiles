@@ -3,12 +3,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        USER_UID: ${HOST_UID:?}
-        USER_GID: ${HOST_GID:?}
     environment:
       - TERM
       - COLORTERM
+      - MISE_GITHUB_TOKEN
     volumes:
       - .:/home/nonroot/.dotfiles
     tty: true

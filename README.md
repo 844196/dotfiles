@@ -33,17 +33,8 @@ convert -size 3840x2160 xc:'#161821' wallpaper.png
 ## :construction_worker: Debug
 
 ```bash
-# in host
-echo "HOST_UID=$(id -u)" >> .env
-echo "HOST_GID=$(id -g)" >> .env
-
-docker compose build
-docker compose run --rm sandbox
-```
-
-```bash
-# in container
-./install.sh
+docker compose build --build-arg USER_UID=$(id -u) --build-arg USER_GID=$(id -g)
+MISE_GITHUB_TOKEN=$(gh auth token) docker compose run --rm sandbox ./install.sh
 ```
 
 ## :page_facing_up: License
