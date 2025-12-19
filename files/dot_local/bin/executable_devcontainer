@@ -1,4 +1,4 @@
 #!/usr/bin/env -S mise tool-stub
 
-tool = "devcontainer-cli"
+tool = "npm:@devcontainers/cli"
 version = "0.80.3"
