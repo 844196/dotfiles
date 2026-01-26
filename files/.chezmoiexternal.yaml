@@ -12,10 +12,10 @@
   url: https://raw.githubusercontent.com/folke/tokyonight.nvim/refs/tags/v4.11.0/extras/sublime/tokyonight_night.tmTheme
   refreshPeriod: 168h
 
-.local/bin/mise:
+.local/share/mise/installer:
   type: file
   executable: true
-  url: https://github.com/jdx/mise/releases/download/v2025.11.7/mise-v2025.11.7-linux-x64-musl
+  url: https://mise.run
 
 .local/share/zsh/plugins/zman:
   type: archive
