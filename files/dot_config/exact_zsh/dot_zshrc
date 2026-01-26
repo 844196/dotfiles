@@ -126,7 +126,13 @@ setopt HIST_FCNTL_LOCK
 zle_highlight+=(paste:none)
 select-word-style default
 anyframe-init
-eval "$(wk init --major-prefix 'm')"
+
+if [[ "${VSCODE_COPILOT_TERMINAL-0}" = 0 ]]; then
+  eval "$(wk init --major-prefix 'm')"
+  bindwidget ' ' self-insert-or-trigger-wk
+  bindwidget ',' self-insert-or-trigger-wk-major
+fi
+
 zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
@@ -145,8 +151,6 @@ bindwidget '^[OA' up-line-or-beginning-search # Up arrow
 bindwidget '^[OB' down-line-or-beginning-search # Down arrow
 bindwidget '^M' accept-line-with-expand-alias
 bindwidget '\^' self-insert-with-tweak
-bindwidget ' ' self-insert-or-trigger-wk
-bindwidget ',' self-insert-or-trigger-wk-major
 bindwidget '^I' fzf-completion-or-expand-or-complete
 bindwidget '^[q' push-line-or-edit-with-show
 bindwidget '^Q' push-line-or-edit-with-show # `NO_FLOW_CONTROL` required
