@@ -7,3 +7,6 @@ tempCodeRunnerFile.*
 wk.bindings.*
 mise.local.toml
 fnox.local.toml
+.vscode/settings.json
+*.code-workspace
+!*.example.code-workspace
