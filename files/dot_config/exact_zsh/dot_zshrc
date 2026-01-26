@@ -36,6 +36,7 @@ unsetopt BEEP
 unsetopt PATH_DIRS # Avoid slow completion on WSL2
 setopt EXTENDED_GLOB
 setopt INTERACTIVE_COMMENTS
+setopt AUTO_CD
 
 export LS_COLORS="$(vivid generate tokyonight-night)"
 export BAT_THEME="tokyonight_night"
