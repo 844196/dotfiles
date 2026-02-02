@@ -72,7 +72,7 @@
           trigger: COMPLETE
         - key: .
           type: command
-          buffer: 'git checkout .'
+          buffer: 'git checkout -- :/'
         - key: m
           type: command
           buffer: 'git commit -m '
