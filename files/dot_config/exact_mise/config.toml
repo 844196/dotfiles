@@ -10,7 +10,6 @@ neovim = "0.11.4"
 fnox = "1.7.0"
 claude = "2.1.19"
 eza = "v0.23.4"
-"github:844196/wk" = "v1.0.2"
 "aqua:cli/cli" = "2.83.1"
 "aqua:sharkdp/bat" = "v0.23.0"
 "aqua:dandavison/delta" = "0.15.1"
@@ -33,6 +32,10 @@ eza = "v0.23.4"
 "aqua:simonwhitaker/gibo" = "v3.0.12"
 "aqua:wfxr/csview" = "v1.2.2"
 "aqua:dylanaraps/neofetch" = "7.1.0"
+
+[tools."github:844196/wk"]
+version = "v1.0.2"
+bin = "wk"
 
 [env]
 _.path = [
