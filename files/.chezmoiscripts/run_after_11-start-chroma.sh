@@ -6,5 +6,5 @@ if ! which systemctl &>/dev/null; then
   exit
 fi
 
-systemctl --user start chroma.service
-systemctl --user enable chroma.service
+systemctl --user start chromad.service
+systemctl --user enable chromad.service
