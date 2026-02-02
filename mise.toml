@@ -1,6 +1,2 @@
 experimental_monorepo_root = true
-
-# HACK: プロジェクトルートにタスク定義が一つもないと、依存関係を持つサブプロジェクトタスクを実行できない (バグ?)
-# e.g. mise run //packages/...:install
-[tasks.dummy]
-run = ":"
+monorepo.config_roots = ["packages/*"]
