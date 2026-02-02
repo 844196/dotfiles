@@ -1,5 +1,6 @@
 [settings]
 experimental = true
+task_show_full_cmd = true
 
 [tools]
 aqua = "2.55.3"
