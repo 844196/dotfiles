@@ -10,6 +10,20 @@ ZEVALCACHEDIR=$XDG_CACHE_HOME/zsh/evalcache
 
 export AQUA_ROOT_DIR=$XDG_DATA_HOME/aquaproj-aqua
 
+# ignore /etc/zprofile, /etc/zshrc, /etc/zlogin, and /etc/zlogout
+# ref. http://zsh.sourceforge.net/Doc/Release/Files.html
+# ref. http://zsh.sourceforge.net/Doc/Release/Options.html#index-GLOBALRCS
+unsetopt GLOBAL_RCS
+
+# system-wide environment settings for zsh(1)
+if [ -x /usr/libexec/path_helper ]; then
+  eval `/usr/libexec/path_helper -s`
+fi
+
+# Disable execution compinit in ubuntu distributed global zshrc (/etc/zsh/zshrc)
+# SEE: https://www.zsh.org/mla/users/2021/msg00879.html
+skip_global_compinit=1
+
 typeset -U {,F,MAN}PATH {,f,man}path
 path=(
   # aqua で管理されるディレクトリ
@@ -20,6 +34,16 @@ path=(
 
   # https://aquaproj.github.io/docs/reference/use-aqua-with-other-tools
   $XDG_DATA_HOME/mise/shims(N-/)
+
+  # GNU CLI tools via Homebrew
+  /opt/homebrew/opt/coreutils/libexec/gnubin(N-/)
+  /opt/homebrew/opt/grep/libexec/gnubin(N-/)
+  /opt/homebrew/opt/gnu-sed/libexec/gnubin(N-/)
+  /opt/homebrew/opt/gnu-tar/libexec/gnubin(N-/)
+  /opt/homebrew/opt/gawk/libexec/gnubin(N-/)
+
+  # Homebrew
+  /opt/homebrew/bin(N-/)
 
   $path
 )
@@ -43,10 +67,6 @@ export AWS_ECR_CACHE_DIR=$XDG_CACHE_HOME/ecr
 export FZF_DEFAULT_OPTS_FILE=$XDG_CONFIG_HOME/fzf/config
 
 export DENO_NO_UPDATE_CHECK=1
-
-# Disable execution compinit in ubuntu distributed global zshrc (/etc/zsh/zshrc)
-# SEE: https://www.zsh.org/mla/users/2021/msg00879.html
-skip_global_compinit=1
 
 if [[ -f $ZDOTDIR/.zshenv.local ]]; then
   source $ZDOTDIR/.zshenv.local
