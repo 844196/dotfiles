@@ -35,6 +35,9 @@ path=(
   # https://aquaproj.github.io/docs/reference/use-aqua-with-other-tools
   $XDG_DATA_HOME/mise/shims(N-/)
 
+  # Rancher
+  ~/.rd/bin(N-/)
+
   # GNU CLI tools via Homebrew
   /opt/homebrew/opt/coreutils/libexec/gnubin(N-/)
   /opt/homebrew/opt/grep/libexec/gnubin(N-/)
