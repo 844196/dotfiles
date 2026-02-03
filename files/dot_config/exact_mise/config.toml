@@ -1,6 +1,8 @@
 [settings]
 experimental = true
 task_show_full_cmd = true
+env_cache = true
+env_cache_ttl = "1h"
 
 [tools]
 aqua = "2.55.3"
