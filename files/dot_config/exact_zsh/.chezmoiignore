@@ -1,3 +1,6 @@
 *.zwc
 .zshenv.local
 .zshrc.local
+
+# FIXME なぜか作られる
+.zcompdump
