@@ -34,7 +34,6 @@ path=(
   # aqua で管理されるディレクトリ
   $AQUA_ROOT_DIR/bin(N-/)
 
-
   # DIY
   ~/.local/bin(N-/)
 

@@ -10,3 +10,5 @@ fnox.local.toml
 .vscode/settings.json
 *.code-workspace
 !*.example.code-workspace
+.claude/settings.local.json
+CLAUDE.local.md
