@@ -5,6 +5,11 @@ export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
 export XDG_STATE_HOME=$HOME/.local/state
 
+# https://stackoverflow.com/questions/14237142/xdg-runtime-dir-on-mac-os-x
+if [[ $(uname) = Darwin ]] && which getconf &>/dev/null; then
+  export XDG_RUNTIME_DIR="${$(getconf DARWIN_USER_TEMP_DIR)%/}"
+fi
+
 ZDOTDIR=$XDG_CONFIG_HOME/zsh
 ZEVALCACHEDIR=$XDG_CACHE_HOME/zsh/evalcache
 
@@ -28,6 +33,7 @@ typeset -U {,F,MAN}PATH {,f,man}path
 path=(
   # aqua で管理されるディレクトリ
   $AQUA_ROOT_DIR/bin(N-/)
+
 
   # DIY
   ~/.local/bin(N-/)

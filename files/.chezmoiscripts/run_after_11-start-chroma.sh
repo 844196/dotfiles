@@ -2,9 +2,11 @@
 
 set -euo pipefail
 
-if ! which systemctl &>/dev/null; then
-  exit
+if which systemctl &>/dev/null; then
+  systemctl --user enable chromad.service
+  systemctl --user start chromad.service
 fi
 
-systemctl --user start chromad.service
-systemctl --user enable chromad.service
+if which launchctl &>/dev/null; then
+  launchctl load ~/Library/LaunchAgents/sh.844196.chromad.plist
+fi
