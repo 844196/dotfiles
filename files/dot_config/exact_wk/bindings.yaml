@@ -75,8 +75,7 @@
           buffer: 'git checkout -- :/'
         - key: m
           type: command
-          buffer: 'git commit -m '
-          trigger: COMPLETE
+          buffer: 'claude -p "/git-commit ステージ済みの変更のみコミット"'
         - key: a
           type: command
           buffer: 'git commit --amend --no-edit'
