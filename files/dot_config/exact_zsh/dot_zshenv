@@ -79,3 +79,9 @@ export DENO_NO_UPDATE_CHECK=1
 if [[ -f $ZDOTDIR/.zshenv.local ]]; then
   source $ZDOTDIR/.zshenv.local
 fi
+
+# 非対話シェル（Claude Code VSCode拡張等）でもプロジェクトローカルの環境変数を適用
+# 対話シェルでは .zshrc の mise activate で処理される
+if [[ ! -o interactive ]] && which mise &>/dev/null; then
+  eval "$(mise hook-env -s zsh)"
+fi
