@@ -1,0 +1,125 @@
+{
+  "version": 3,
+  "lines": [
+    [
+      {
+        "id": "3",
+        "type": "current-working-dir",
+        "color": "hex:787C99",
+        "backgroundColor": "hex:24283B",
+        "rawValue": true,
+        "metadata": {
+          "fishStyle": "true"
+        }
+      },
+      {
+        "id": "c854f8a3-8ab9-49a7-81b8-760922061e6e",
+        "type": "custom-text",
+        "color": "hex:BB9AF7",
+        "backgroundColor": "hex:1D2230",
+        "customText": " ",
+        "merge": "no-padding"
+      },
+      {
+        "id": "5",
+        "type": "git-branch",
+        "color": "hex:BB9AF7",
+        "backgroundColor": "hex:1D2230",
+        "rawValue": true,
+        "merge": "no-padding",
+        "metadata": {
+          "hideNoGit": "false"
+        }
+      },
+      {
+        "id": "eb300fdb-dc2c-4462-b595-3e06ebe667cb",
+        "type": "custom-text",
+        "color": "hex:A0A9CB",
+        "backgroundColor": "hex:1D2230",
+        "customText": " ",
+        "merge": "no-padding"
+      },
+      {
+        "id": "9a5b18b1-491e-47a0-9a70-4ee74b49589d",
+        "type": "git-changes",
+        "color": "hex:A0A9CB",
+        "backgroundColor": "hex:1D2230",
+        "bold": false,
+        "metadata": {
+          "hideNoGit": "false"
+        }
+      },
+      {
+        "id": "e4283937-7ad0-4060-bef1-c75d38e90e36",
+        "type": "model",
+        "rawValue": true,
+        "merge": "no-padding",
+        "color": "hex:414868"
+      },
+      {
+        "id": "fe16e71b-2cb7-4a16-9ebe-25ed93beb2e9",
+        "type": "custom-text",
+        "color": "hex:414868"
+      },
+      {
+        "id": "7",
+        "type": "context-length",
+        "color": "hex:414868",
+        "rawValue": true,
+        "merge": "no-padding"
+      },
+      {
+        "id": "53fdb6cb-1663-456e-9e1d-f5c4905fffb7",
+        "type": "custom-text",
+        "color": "hex:414868",
+        "customText": " (",
+        "merge": "no-padding"
+      },
+      {
+        "id": "799abeca-37bb-4883-bf82-56dae6b1fbe7",
+        "type": "context-percentage",
+        "color": "hex:414868",
+        "rawValue": true,
+        "merge": "no-padding",
+        "metadata": {
+          "inverse": "false"
+        }
+      },
+      {
+        "id": "f6b6fe36-f89d-4998-83ae-4cef5b02e2f5",
+        "type": "custom-text",
+        "color": "hex:414868",
+        "customText": ")"
+      }
+    ],
+    [],
+    []
+  ],
+  "flexMode": "full",
+  "compactThreshold": 60,
+  "colorLevel": 3,
+  "defaultPadding": " ",
+  "inheritSeparatorColors": false,
+  "globalBold": false,
+  "powerline": {
+    "enabled": true,
+    "separators": [
+      "",
+      "",
+      " ",
+      ""
+    ],
+    "separatorInvertBackground": [
+      false,
+      false,
+      false,
+      false
+    ],
+    "startCaps": [
+      ""
+    ],
+    "endCaps": [],
+    "theme": "custom",
+    "autoAlign": false
+  }
+}
