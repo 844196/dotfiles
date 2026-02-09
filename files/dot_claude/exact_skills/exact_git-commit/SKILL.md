@@ -84,15 +84,8 @@ git commit -m "<type>[(scope)][!]: <subject>"
 ```
 
 ```bash
-# With Body
-git commit -m "$(cat <<'EOF'
-<type>[(scope)][!]: <subject>
-
-[optional body]
-
-[optional footer(s)]
-EOF
-)"
+# With Body (各 -m は空行で区切られる)
+git commit -m "<type>[(scope)][!]: <subject>" -m "[optional body]" -m "[optional footer(s)]"
 ```
 
 ## Commit Message Examples
