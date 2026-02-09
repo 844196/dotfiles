@@ -6,7 +6,8 @@
     "CLAUDE_CODE_SHELL": "zsh",
     "DISABLE_AUTOUPDATER": "1",
     "DISABLE_INSTALLATION_CHECKS": "1",
-    "DISABLE_ERROR_REPORTING": "1"
+    "DISABLE_ERROR_REPORTING": "1",
+    "ENABLE_LSP_TOOL": "true"
   },
   "permissions": {
     "defaultMode": "acceptEdits",
@@ -41,6 +42,7 @@
       "Write",
       "Edit",
       "Skill(git-commit)",
+      "Skill(ts-code-exploration)",
       "Bash(mkdir *)",
       "Bash(git branch *)",
       "Bash(git status *)",
@@ -61,5 +63,8 @@
   "statusLine": {
     "type": "command",
     "command": "mise x bun@1.3.8 -- bunx ccstatusline@2.0.25"
+  },
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true
   }
 }
