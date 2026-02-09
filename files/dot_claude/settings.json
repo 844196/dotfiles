@@ -39,6 +39,7 @@
       "Bash(gh pr create *)"
     ],
     "allow": [
+      "WebSearch",
       "Write",
       "Edit",
       "Skill(git-commit)",
