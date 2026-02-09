@@ -1,7 +1,6 @@
 ---
 name: git-commit
-description: Gitコミットの手順とコミットメッセージの規則に従って、適切なコミットメッセージを生成し、変更をコミットします。ユーザーから「コミットして」と指示された際に使用します。
-allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git add:*), Bash(git commit:*)
+description: Gitコミットの手順とコミットメッセージの規則に従って、適切なコミットメッセージを生成し、変更をコミットする。
 ---
 
 # Git Commit
