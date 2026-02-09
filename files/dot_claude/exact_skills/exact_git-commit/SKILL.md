@@ -88,6 +88,21 @@ git commit -m "<type>[(scope)][!]: <subject>"
 git commit -m "<type>[(scope)][!]: <subject>" -m "[optional body]" -m "[optional footer(s)]"
 ```
 
+## 5. Output Result
+
+コミット完了後、**必ず以下の固定フォーマットで出力**します。
+
+~~~
+コミットが完了しました。
+
+変更内容:
+* <変更点1の日本語での簡潔な説明>
+* <変更点2の日本語での簡潔な説明>
+* ...
+
+<コミットメッセージ全文 (subject, body, footer すべて含む)>
+~~~
+
 ## Commit Message Examples
 
 - `feat(client): add new options for foobar`
