@@ -18,6 +18,8 @@
   # https://hackerslab.aktsk.jp/git-base-branch
   current-branch = symbolic-ref --short HEAD
   base-branch = !git config "branch.$(git current-branch).base"
+  base-branch-remote = !echo "$(git config branch.$(git base-branch).remote)/$(git base-branch)"
+  log-topic-branch = !git log $(git base-commit-long)..HEAD
   base-commit-long = !git merge-base origin/$(git base-branch) HEAD
   base-commit = !git rev-parse --short $(git base-commit-long)
   graph = log --graph --pretty=format:'%C(blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset) %C(yellow)%d%C(reset)' --abbrev-commit --date=relative --color=always
@@ -45,6 +47,7 @@
   colorMoved = default
 [advice]
   statusHints = false
+  skippedCherryPicks = false
 [ghq]
   user = "844196"
   root = ~/.ghq

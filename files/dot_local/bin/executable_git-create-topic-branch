@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+current_branch="$(git current-branch)"
+if [[ "$current_branch" =~ / ]] || git base-branch &>/dev/null; then
+  echo "Do not create a topic branch from the topic branch." >&2
+  exit 1
+fi
+
+git checkout -b "${1:?Branch name is required}"
+git base-branch "$current_branch"

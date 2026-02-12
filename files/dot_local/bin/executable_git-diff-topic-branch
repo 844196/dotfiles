@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+git fetch origin $(git base-branch) &>/dev/null
+git diff $(git base-branch-remote)...HEAD
