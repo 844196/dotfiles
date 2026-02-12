@@ -166,8 +166,11 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -I --preserve-root -r' # '--preserve-root' is only available for GNU rm
 alias t='cd "$(mktemp -d)"'
+alias nr='npm run'
 alias mx='mise x --'
 alias mr='mise run'
+alias dc='docker compose'
+alias pc='process-compose'
 
 eval "$(zoxide init zsh --no-cmd)"
 
