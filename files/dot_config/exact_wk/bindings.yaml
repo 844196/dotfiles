@@ -75,7 +75,7 @@
           buffer: 'git checkout -- :/'
         - key: m
           type: command
-          buffer: 'claude --model sonnet -p "/git-commit ステージ済みの変更のみコミット"'
+          buffer: 'claude --model sonnet -p "/creating-git-commits ステージ済みの変更のみコミット"'
         - key: a
           type: command
           buffer: 'git commit --amend --no-edit'
