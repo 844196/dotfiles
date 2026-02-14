@@ -1,0 +1,27 @@
+# vim: set ft=yaml:
+---
+types:
+  -
+    # 新しいツール・設定の追加
+    type: feat
+  -
+    # バグ修正
+    type: fix
+  -
+    # リファクタリング
+    type: refactor
+  -
+    # パフォーマンス改善
+    type: perf
+  -
+    # テストコードの追加・修正
+    type: test
+  -
+    # フォーマット修正 (コードの動作に影響しない変更)
+    type: style
+  -
+    # ドキュメントの追加・更新 (README.md)
+    type: docs
+  -
+    # メンテナンス作業
+    type: chore

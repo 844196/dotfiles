@@ -1,2 +1,12 @@
 experimental_monorepo_root = true
 monorepo.config_roots = ["packages/*"]
+
+[settings]
+lockfile = true
+
+[tools]
+lefthook = "2.0.15"
+"github:convco/convco" = "0.6.2"
+
+[hooks]
+postinstall = "lefthook install"

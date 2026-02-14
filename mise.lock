@@ -1,0 +1,7 @@
+[[tools."github:convco/convco"]]
+version = "0.6.2"
+backend = "github:convco/convco"
+
+[[tools.lefthook]]
+version = "2.0.15"
+backend = "aqua:evilmartians/lefthook"

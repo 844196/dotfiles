@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "plansDirectory": ".agents/plans",
+  "env": {
+    "CLAUDE_CODE_TASK_LIST_ID": "844196/dotfiles"
+  },
+  "permissions": {
+    "ask": [
+      "Bash(chezmoi apply)"
+    ],
+    "allow": [
+      "Bash(chezmoi diff*)"
+    ]
+  }
+}

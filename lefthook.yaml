@@ -1,0 +1,4 @@
+commit-msg:
+  jobs:
+    - name: Validate commit message
+      run: cat {1} | convco check --from-stdin
