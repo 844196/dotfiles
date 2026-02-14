@@ -12,3 +12,4 @@ fnox.local.toml
 !*.example.code-workspace
 .claude/settings.local.json
 CLAUDE.local.md
+.gitignore_local
