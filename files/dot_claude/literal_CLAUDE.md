@@ -19,6 +19,13 @@
 
 - `/creating-pull-requests` スキルを使用します。
 
+## Git 操作時の注意点
+
+- カレントディレクトリが対象リポジトリである場合、`git -C` でパスを指定しません。
+- コミットメッセージは HEREDOC ではなく `-m` フラグを複数回指定する形式を使用します。
+  - パーミッション設定の `Bash(git commit *)` グロブパターンが改行を含むコマンドにマッチしないためです。
+  - 例: `git commit -m "title" -m "paragraph" -m "paragraph" -m "Co-Authored-By: ..."`
+
 ## 開発ドキュメント作成・更新時の注意点
 
 - `/writing-dev-docs` スキルを使用します。
