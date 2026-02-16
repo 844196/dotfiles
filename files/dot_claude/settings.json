@@ -48,6 +48,7 @@
       "Skill(creating-pull-requests)",
       "Skill(writing-agent-context-docs)",
       "Skill(exploring-typescript-code)",
+      "Skill(commit)",
       "Bash(mkdir *)",
       "Bash(git branch *)",
       "Bash(git status *)",
