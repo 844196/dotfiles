@@ -40,7 +40,7 @@ git log --oneline -10
 ユーザーからの追加の説明:
 $ARGUMENTS
 
-### 3. コミットの実行
+### 4. コミットの実行
 
 ```bash
 git commit -m "<title>" [-m "paragraph"] [-m "paragraph"] -m "Co-Authored-By: ..."
