@@ -4,5 +4,3 @@
 
 ~/.local/bin/mise install
 ~/.local/bin/mise upgrade
-
-~/.local/bin/mise plugin link --force gh ~/.local/share/mise-plugins/gh
