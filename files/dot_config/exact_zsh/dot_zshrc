@@ -145,7 +145,6 @@ bindkey '^R' anyframe-widget-put-history
 bindkey '^X^B' anyframe-widget-insert-git-branch-name
 bindkey '^X^F' anyframe-widget-insert-git-status-file
 bindkey '^X^X' anyframe-widget-insert-git-commit-hash
-bindkey '^X^G' anyframe-widget-insert-gitmoji
 bindwidget '^[.' insert-last-word smart-insert-last-word
 bindwidget '^[OA' up-line-or-beginning-search # Up arrow
 bindwidget '^[OB' down-line-or-beginning-search # Down arrow

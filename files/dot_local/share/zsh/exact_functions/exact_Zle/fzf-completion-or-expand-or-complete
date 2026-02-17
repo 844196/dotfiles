@@ -98,16 +98,6 @@ case $BUFFER in
     CURSOR=${#BUFFER}
     ;;
 
-  ?(*\ )git\ commit\ (-m\ |--message(=|\ )))
-    local old_buffer=$BUFFER
-
-    anyframe-widget-insert-gitmoji --wrap --height 25%
-
-    if [[ "$old_buffer" != "$BUFFER" ]]; then
-      CURSOR=$(( ${#BUFFER} - 1 ))
-    fi
-    ;;
-
   ?(*\ )gh\ pr\ create\ ?(*\ )(-t|--title)\ )
     local reply=''
 
