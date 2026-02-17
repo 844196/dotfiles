@@ -1,0 +1,9 @@
+---
+name: commit
+description: ステージ済みの変更からコミットメッセージを自動生成し、コミットする。
+disable-model-invocation: true
+context: fork
+model: haiku
+---
+
+{{ template "commit-skill-body.md" . -}}

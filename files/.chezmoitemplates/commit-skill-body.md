@@ -1,9 +1,3 @@
----
-name: commit
-description: ステージ済みの変更からコミットメッセージを自動生成し、コミットする。
-disable-model-invocation: true
----
-
 # Committing Staged Changes
 
 ステージ済みの変更のみをコミットします。ユーザーへの確認なしに直接コミットを実行することが許可されています。

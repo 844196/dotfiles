@@ -75,7 +75,8 @@
           buffer: 'git checkout -- :/'
         - key: m
           type: command
-          buffer: 'claude --model haiku -p "/commit"'
+          buffer: 'claude-commit '
+          trigger: COMPLETE
         - key: a
           type: command
           buffer: 'git commit --amend --no-edit'
