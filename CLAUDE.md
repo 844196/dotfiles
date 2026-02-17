@@ -28,6 +28,7 @@ files/                    # chezmoi ソースディレクトリ (.chezmoiroot �
   dot_config/
   dot_docker/
   dot_local/
+  exact_dot_844196/
   .chezmoiexternal.yaml
 packages/                 # 自作ツール群 (詳細は packages/CLAUDE.md を参照)
 install.sh                # ブートストラップスクリプト (devcontainer で使用)

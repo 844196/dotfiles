@@ -24,7 +24,6 @@
   base-commit = !git rev-parse --short $(git base-commit-long)
   graph = log --graph --pretty=format:'%C(blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset) %C(yellow)%d%C(reset)' --abbrev-commit --date=relative --color=always
   profile = user --config ~/.config/git/profiles
-  add-A = ! ~/.local/libexec/git-add-A
   commit-language = !git config commit.language
 [color]
   ui = auto

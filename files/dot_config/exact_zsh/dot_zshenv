@@ -35,10 +35,14 @@ path=(
   $AQUA_ROOT_DIR/bin(N-/)
 
   # DIY
-  ~/.local/bin(N-/)
+  ~/.844196/bin(N-/)
 
   # https://aquaproj.github.io/docs/reference/use-aqua-with-other-tools
   $XDG_DATA_HOME/mise/shims(N-/)
+
+  # Conventional user-level bin directories
+  ~/.local/bin(N-/)
+  ~/bin(N-/)
 
   # Rancher
   ~/.rd/bin(N-/)
