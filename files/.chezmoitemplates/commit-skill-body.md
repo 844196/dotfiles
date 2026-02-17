@@ -43,7 +43,7 @@ $ARGUMENTS
 ### 4. コミットの実行
 
 ```bash
-git commit -m "<title>" [-m "paragraph"] [-m "paragraph"] -m "Co-Authored-By: ..."
+git commit -m '<title>' [-m $'paragraph-line\nparagraph-line'] [-m $'paragraph-line\nparagraph-line'] -m 'Co-Authored-By: ...'
 ```
 
 ### 5. 完了報告

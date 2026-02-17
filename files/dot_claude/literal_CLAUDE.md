@@ -35,7 +35,7 @@
 
   ```bash
   # Good
-  git commit -m "title" -m "paragraph" -m "paragraph" -m "Co-Authored-By: ..."
+  git commit -m 'title' -m $'paragraph-line\nparagraph-line' -m $'paragraph-line\nparagraph-line' -m 'Co-Authored-By: ...'
   ```
 
   ```bash
@@ -43,9 +43,11 @@
   git commit -F- <<EOM
   title
 
-  paragraph
+  paragraph-line
+  paragraph-line
 
-  paragraph
+  paragraph-line
+  paragraph-line
 
   Co-Authored-By: ...
   EOM
