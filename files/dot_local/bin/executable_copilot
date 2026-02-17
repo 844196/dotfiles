@@ -1,4 +1,0 @@
-#!/usr/bin/env -S mise tool-stub
-
-tool = "npm:@github/copilot"
-version = "0.0.371"
