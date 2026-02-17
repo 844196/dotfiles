@@ -73,6 +73,7 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/compcache
 zstyle ':completion:*' completer _expand _complete _match _approximate _files
 zstyle ':completion:*:*:chezmoi:*:*' ignored-patterns '^(init|apply)'
+zstyle ':completion:*:*:git:*' user-commands claude-commit:'commit with Claude Code'
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX + $#SUFFIX) / 3)) numeric)'
 
 # 日本語を含む補完候補リストを正しく表示するための設定だが LC_CTYPE にUTF-8ロケールが設定されている場合は不要

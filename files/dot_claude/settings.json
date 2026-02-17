@@ -49,6 +49,7 @@
       "Skill(writing-agent-context-docs)",
       "Skill(exploring-typescript-code)",
       "Skill(commit)",
+      "Skill(commit-amend)",
       "Bash(mkdir *)",
       "Bash(git branch *)",
       "Bash(git status *)",

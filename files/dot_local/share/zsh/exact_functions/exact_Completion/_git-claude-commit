@@ -1,0 +1,5 @@
+#compdef git-claude-commit
+
+_arguments \
+  '--amend[amend the last commit]' \
+  && return 0
