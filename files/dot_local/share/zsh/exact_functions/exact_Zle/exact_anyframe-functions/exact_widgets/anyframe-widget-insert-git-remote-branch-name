@@ -24,7 +24,7 @@ git branch -r --format $'%(refname:short)\t%(subject)' \
   | emojify \
   | csview -t -H --style none \
   | SHELL==$ZSH_NAME anyframe-selector-fzf '' \
-      --preview '~/.local/libexec/fzf-preview-helper git-branch {1}' \
+      --preview '~/.844196/libexec/fzf-preview-helper git-branch {1}' \
   | awk '{print $1}' \
   | anyframe-action-insert
 

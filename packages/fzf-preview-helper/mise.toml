@@ -9,6 +9,6 @@ run = "deno compile -A --output dist/fzf-preview-helper main.ts"
 [tasks.install]
 depends = ":build"
 usage = '''
-flag "--prefix <path>" default="{{env.HOME}}/.local/libexec"
+flag "--prefix <path>" default="{{env.HOME}}/.844196/libexec"
 '''
 run = "cp dist/fzf-preview-helper ${usage_prefix}/fzf-preview-helper"
