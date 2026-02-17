@@ -78,7 +78,7 @@
           buffer: 'git claude-commit '
         - key: a
           type: command
-          buffer: 'git commit --amend --no-edit'
+          buffer: 'git claude-commit --amend '
         - key: F
           type: command
           buffer: 'git commit --fixup '
