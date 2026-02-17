@@ -42,8 +42,6 @@ $ARGUMENTS
 
 ### 3. コミットの実行
 
-`-m` フラグを複数回指定する形式でコミットします (HEREDOC は使用しない)。
-
 ```bash
 git commit -m "<title>" [-m "paragraph"] [-m "paragraph"] -m "Co-Authored-By: ..."
 ```
