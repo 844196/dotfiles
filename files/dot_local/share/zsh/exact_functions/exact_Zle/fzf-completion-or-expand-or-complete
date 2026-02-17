@@ -36,11 +36,6 @@ case $BUFFER in
     anyframe-widget-insert-git-status-file
     ;;
 
-  ?(*\ )claude-commit\ )
-    BUFFER="claude-commit ''"
-    CURSOR=$((${#BUFFER} - 1))
-    ;;
-
   ?(*\ )git\ rebase\ )
     local base="$(git base-branch)"
     if [[ -n "$base" ]]; then

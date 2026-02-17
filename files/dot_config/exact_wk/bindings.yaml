@@ -75,8 +75,7 @@
           buffer: 'git checkout -- :/'
         - key: m
           type: command
-          buffer: 'claude-commit '
-          trigger: COMPLETE
+          buffer: 'git claude-commit '
         - key: a
           type: command
           buffer: 'git commit --amend --no-edit'

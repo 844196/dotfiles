@@ -1,13 +1,13 @@
-# vim: set ft=zsh:
+#!/bin/bash
 
-local head_before=$(git rev-parse HEAD 2>/dev/null)
+head_before=$(git rev-parse HEAD 2>/dev/null)
 
 claude --print --verbose --model haiku --output-format stream-json -p "/commit-headless $*" \
   | jq -r 'select(.type == "assistant") | .message.content[]? | select(.type? == "text") | .text'
 
-local head_after=$(git rev-parse HEAD 2>/dev/null)
+head_after=$(git rev-parse HEAD 2>/dev/null)
 if [[ "$head_before" != "$head_after" ]]; then
-  return 0
+  exit 0
 fi
 
 claude --continue
