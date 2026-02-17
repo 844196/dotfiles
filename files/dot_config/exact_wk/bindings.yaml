@@ -25,7 +25,7 @@
         - key: return
           desc: git branch
           type: command
-          buffer: ' git -c pager.branch="~/.local/libexec/emojiless -E" branch -vvv' # NOTE: -E i.e. --quit-at-eof
+          buffer: ' git -c pager.branch="emojiless -E" branch -vvv' # NOTE: -E i.e. --quit-at-eof
           accept: true
         - key: m
           type: command
@@ -194,7 +194,7 @@
     - key: g
       desc: Last 10 commits graph
       type: command
-      buffer: ' git -c pager.log="~/.local/libexec/emojiless -E" graph -n 10' # NOTE: -E i.e. --quit-at-eof
+      buffer: ' git -c pager.log="emojiless -E" graph -n 10' # NOTE: -E i.e. --quit-at-eof
       accept: true
 - key: d
   desc: Docker

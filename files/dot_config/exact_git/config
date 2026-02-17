@@ -9,7 +9,7 @@
   pager = delta
 [pager]
   branch = emojify
-  log = ~/.local/libexec/emojiless
+  log = emojiless
 [interactive]
   diffFilter = delta
 [merge]
