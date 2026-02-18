@@ -1,0 +1,34 @@
+#!/bin/bash
+# Claude Code の Notification フックで OS 通知を送る
+
+INPUT=$(cat)
+MESSAGE=$(echo "$INPUT" | jq -r '.message // "通知があります"')
+
+{{ if eq .chezmoi.os "darwin" -}}
+osascript -e "display notification \"$MESSAGE\" with title \"Claude Code\"" &>/dev/null &
+{{ else -}}
+PSCMD='$null = [Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime]
+$null = [Windows.Data.Xml.Dom.XmlDocument, Windows.Data.Xml.Dom.XmlDocument, ContentType = WindowsRuntime]
+$xml = @"
+<toast scenario="reminder">
+  <visual>
+    <binding template="ToastGeneric">
+      <text>Claude Code</text>
+      <text>__MESSAGE__</text>
+    </binding>
+  </visual>
+  <actions>
+    <action content="OK" arguments="dismiss" activationType="system"/>
+  </actions>
+</toast>
+"@
+$doc = [Windows.Data.Xml.Dom.XmlDocument]::new()
+$doc.LoadXml($xml)
+$notifier = [Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier("Microsoft.Windows.Explorer")
+$notifier.Show([Windows.UI.Notifications.ToastNotification]::new($doc))'
+
+PSCMD="${PSCMD/__MESSAGE__/$MESSAGE}"
+powershell.exe -NoProfile -Command "$PSCMD" </dev/null &>/dev/null &
+{{ end -}}
+
+exit 0
