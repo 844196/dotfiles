@@ -1,6 +1,7 @@
 [[tools."github:convco/convco"]]
 version = "0.6.2"
 backend = "github:convco/convco"
+"platforms.macos-arm64" = { checksum = "blake3:eaded742c30e6454d49a4f3bf9fd6de6bd2d9a6c1c63627a52c856f3f5c6bc2c", url = "https://github.com/convco/convco/releases/download/v0.6.2/convco-macos.zip", url_api = "https://api.github.com/repos/convco/convco/releases/assets/225629981"}
 
 [[tools.lefthook]]
 version = "2.0.15"
