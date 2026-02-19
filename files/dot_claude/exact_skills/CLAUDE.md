@@ -2,7 +2,7 @@
 
 ## commit / commit-headless / commit-amend / commit-amend-headless
 
-スキルの本文は `../../.chezmoitemplates/` 配下のテンプレートを使用しており、frontmatter のみ異なる。commit 系は `commit-skill-body.md`、amend 系は `commit-amend-skill-body.md` を参照する。
+スキルの本文は `../../.chezmoitemplates/` 配下のテンプレートを使用しており、frontmatter のみ異なる。commit 系は `commit-skill-body.md`、amend 系は `commit-amend-skill-body.md` を参照する。各テンプレートには `dict` 関数で `interactive` フラグを渡し、対話用 (`true`) / 非対話用 (`false`) でテンプレート内の振る舞いを分岐させている。対話用スキルではステージ済みの変更がない場合に未ステージの変更を自動ステージする。
 
 | スキル | モード | `context: fork` | 用途 |
 |---|---|---|---|

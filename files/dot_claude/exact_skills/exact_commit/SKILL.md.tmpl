@@ -5,4 +5,4 @@ context: fork
 model: haiku
 ---
 
-{{ template "commit-skill-body.md" . -}}
+{{ template "commit-skill-body.md" (dict "interactive" true) -}}

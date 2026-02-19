@@ -5,4 +5,4 @@ disable-model-invocation: true
 model: haiku
 ---
 
-{{ template "commit-skill-body.md" . -}}
+{{ template "commit-skill-body.md" (dict "interactive" false) -}}
