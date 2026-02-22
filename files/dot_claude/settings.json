@@ -73,7 +73,7 @@
       "Bash(gh pr view *)",
       "Bash(gh issue list *)",
       "Bash(gh issue view *)",
-      "Bash(gh search issue *)",
+      "Bash(gh search *)",
       "Bash(chroma *)"
     ]
   },
