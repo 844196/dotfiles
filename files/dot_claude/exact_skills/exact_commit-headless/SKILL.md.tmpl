@@ -5,4 +5,24 @@ disable-model-invocation: true
 model: haiku
 ---
 
-{{ template "commit-skill-body.md" (dict "interactive" false) -}}
+# Committing Staged Changes
+
+ステージ済みの変更のみをコミットします。ユーザーへの確認なしに直接コミットを実行することが許可されています。
+
+## 手順
+
+**注意:**
+- CWD がリポジトリルートであることを前提とします。すべての git コマンドは `-C` オプションや `cd` なしでそのまま実行します。
+
+### 1. ステージ済みの変更を確認
+
+`git status --short` 実行結果:
+!`git status --short`
+
+`git diff --cached --stat` 実行結果:
+!`git diff --cached --stat`
+
+`git diff --cached` 実行結果:
+!`git diff --cached`
+
+{{ template "commit-skill-steps.md" -}}
