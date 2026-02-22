@@ -52,6 +52,7 @@
       "Skill(commit-amend)",
       "Bash(mkdir *)",
       "Bash(git branch *)",
+      "Bash(git current-branch)",
       "Bash(git status *)",
       "Bash(git log *)",
       "Bash(git show *)",
