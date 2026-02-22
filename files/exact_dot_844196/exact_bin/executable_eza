@@ -1,0 +1,4 @@
+#!/bin/bash
+set -eo pipefail
+
+exec "$(mise which eza)" --time-style=long-iso -s=type -ogF "$@"
