@@ -78,7 +78,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "mise x bun@1.3.8 -- bunx --bun ccstatusline@2.0.25"
+    "command": "mise x bun@1.3.8 -- bunx --bun ccstatusline@2.0.28"
   },
   "hooks": {
     "Notification": [
