@@ -12,7 +12,14 @@ if [[ "${VSCODE_COPILOT_TERMINAL-0}" = 1 ]]; then
   # 人間用と区別しやすくする
   zstyle ':prompt:zen:user' format $'\uf4b8 '
 else
-  zstyle ':prompt:zen:user' format ''
+  if [[ -n "$REMOTE_CONTAINERS" ]]; then
+    zstyle ':prompt:zen:user' format $'\uf4b7 '
+    zstyle ':prompt:zen:user' bg '#414868'
+    zstyle ':prompt:zen:user' fg '#a0a9cb'
+  else
+    zstyle ':prompt:zen:user' format ''
+  fi
+
   prompt zen instant
 fi
 
