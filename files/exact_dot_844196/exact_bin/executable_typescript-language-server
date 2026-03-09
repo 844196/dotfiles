@@ -1,4 +1,0 @@
-#!/usr/bin/env -S mise tool-stub
-
-tool = "npm:typescript-language-server"
-version = "5.1.3"
