@@ -1,3 +1,3 @@
 #!/bin/bash
 
-MISE_VERSION=v2026.2.23 ~/.local/share/mise/installer
+MISE_VERSION=v2026.3.5 ~/.local/share/mise/installer
