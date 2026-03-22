@@ -12,6 +12,7 @@
     "GIT_PAGER": "cat"
   },
   "skipDangerousModePermissionPrompt": true,
+  "effortLevel": "high",
   "permissions": {
     "defaultMode": "acceptEdits",
     "deny": [
