@@ -1,0 +1,86 @@
+#!/usr/bin/env python3
+"""セッションログの概要（ツール利用統計、エラー率、ユーザー介入）を表示する。
+
+Usage: session-summary <jsonl-path>
+"""
+import sys
+import json
+from collections import Counter
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: session-summary <jsonl-path>", file=sys.stderr)
+        sys.exit(1)
+
+    entries = []
+    with open(sys.argv[1]) as f:
+        for line in f:
+            entries.append(json.loads(line))
+
+    # Collect stats
+    tool_uses = Counter()
+    tool_errors = Counter()
+    user_rejections = 0
+    user_messages = []
+    total_results = 0
+
+    tool_calls = {}
+    for obj in entries:
+        msg = obj.get("message", {})
+
+        if msg.get("role") == "assistant":
+            for block in msg.get("content", []):
+                if block.get("type") == "tool_use":
+                    tool_uses[block["name"]] += 1
+                    tool_calls[block["id"]] = block["name"]
+
+        if obj.get("type") == "user":
+            content = msg.get("content", "")
+            # Plain text user message
+            if isinstance(content, str) and content.strip():
+                user_messages.append(content.strip())
+            elif isinstance(content, list):
+                for c in content:
+                    if isinstance(c, dict) and c.get("type") == "tool_result":
+                        total_results += 1
+                        if c.get("is_error"):
+                            tid = c.get("tool_use_id", "")
+                            name = tool_calls.get(tid, "unknown")
+                            tool_errors[name] += 1
+                            # Check if user rejection
+                            text = c.get("content", "")
+                            if "user doesn't want" in text or "was rejected" in text:
+                                user_rejections += 1
+
+    total_calls = sum(tool_uses.values())
+    total_errs = sum(tool_errors.values())
+
+    print(f"=== Session Summary ===")
+    print(f"Tool calls: {total_calls} total, {total_errs} errors ({user_rejections} user rejections)")
+    print(f"User messages: {len(user_messages)}")
+    print()
+
+    print("--- Tool usage ---")
+    for name, count in tool_uses.most_common():
+        errs = tool_errors.get(name, 0)
+        err_str = f" ({errs} errors)" if errs else ""
+        print(f"  {name}: {count}{err_str}")
+    print()
+
+    if tool_errors:
+        print("--- Error-prone tools ---")
+        for name, errs in tool_errors.most_common():
+            total = tool_uses[name]
+            rate = errs / total * 100 if total else 0
+            print(f"  {name}: {errs}/{total} ({rate:.0f}%)")
+        print()
+
+    if user_messages:
+        print("--- User messages (first line each) ---")
+        for m in user_messages:
+            first_line = m.split("\n")[0][:120]
+            print(f"  - {first_line}")
+
+
+if __name__ == "__main__":
+    main()
