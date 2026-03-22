@@ -11,6 +11,7 @@
     "ENABLE_LSP_TOOL": "true",
     "GIT_PAGER": "cat"
   },
+  "skipDangerousModePermissionPrompt": true,
   "permissions": {
     "defaultMode": "acceptEdits",
     "deny": [
