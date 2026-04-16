@@ -21,7 +21,7 @@
     "verbs": ["I'm gonna act super cute"]
   },
   "permissions": {
-    "defaultMode": "acceptEdits",
+    "defaultMode": "auto",
     "deny": [
       "Read(**/.env)",
       "Read(**/.env.local)",
