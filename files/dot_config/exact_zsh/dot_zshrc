@@ -179,7 +179,7 @@ alias mx='mise x --'
 alias mr='mise run'
 alias dc='docker compose'
 alias pc='process-compose'
-alias cc='claude --allow-dangerously-skip-permissions --permission-mode auto'
+alias cc=' claude --allow-dangerously-skip-permissions'
 
 eval "$(zoxide init zsh --no-cmd)"
 
