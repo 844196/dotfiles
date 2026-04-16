@@ -3,9 +3,16 @@
   "$docs": "https://code.claude.com/docs/ja/keybindings",
   "bindings": [
     {
+      "context": "Global",
+      "bindings": {
+        "ctrl+l": "app:redraw"
+      }
+    },
+    {
       "context": "Chat",
       "bindings": {
-        "ctrl+q": "chat:stash"
+        "ctrl+q": "chat:stash",
+        "ctrl+l": null
       }
     }
   ]
