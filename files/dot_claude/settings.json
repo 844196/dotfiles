@@ -14,6 +14,7 @@
   "skipDangerousModePermissionPrompt": true,
   "skipAutoPermissionPrompt": true,
   "effortLevel": "high",
+  "tui": "fullscreen",
   "permissions": {
     "defaultMode": "acceptEdits",
     "deny": [
