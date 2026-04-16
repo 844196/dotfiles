@@ -15,6 +15,11 @@
   "skipAutoPermissionPrompt": true,
   "effortLevel": "high",
   "tui": "fullscreen",
+  "spinnerTipsEnabled": false,
+  "spinnerVerbs": {
+    "mode": "replace",
+    "verbs": ["I'm gonna act super cute"]
+  },
   "permissions": {
     "defaultMode": "acceptEdits",
     "deny": [
