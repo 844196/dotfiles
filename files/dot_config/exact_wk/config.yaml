@@ -4,7 +4,7 @@ timeout: 60000
 symbols:
   prompt: "❯ "
 colors:
-  prompt: 8
+  prompt: '#414868'
   inputKeys: 8
   breadcrumb: 8
   lastInputKey:
