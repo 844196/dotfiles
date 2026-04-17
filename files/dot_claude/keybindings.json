@@ -12,7 +12,8 @@
       "context": "Chat",
       "bindings": {
         "ctrl+q": "chat:stash",
-        "ctrl+l": null
+        "ctrl+l": null,
+        "ctrl+g": null
       }
     }
   ]
