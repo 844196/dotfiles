@@ -1,5 +1,10 @@
 # vim: set ft=zsh:
 
+if [[ -z ${NO_TMUX+X}${TMUX+X}${ZSH_SCRIPT+X}${ZSH_EXECUTION_STRING+X} && -n "$VSCODE_WORKSPACE" ]]; then
+  # e.g. /home/m-takeda/.dotfiles → -home-m-takeda--dotfiles
+  exec tmux new-session -A -s "vscode-${${VSCODE_WORKSPACE//\//-}//./-}"
+fi
+
 autoload -Uz promptinit && promptinit
 
 if [[ "${VSCODE_COPILOT_TERMINAL-0}" = 1 ]]; then
