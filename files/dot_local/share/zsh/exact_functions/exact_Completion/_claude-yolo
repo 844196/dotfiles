@@ -1,0 +1,6 @@
+#compdef claude-yolo
+
+_arguments \
+  '--resume[resume a previous session]' \
+  '--continue[continue the most recent session]' \
+  && return 0

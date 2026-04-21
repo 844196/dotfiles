@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+if [[ "$1" == "--split-pane" ]]; then
+  shift
+  cmd="claude-yolo"
+  for arg in "$@"; do
+    cmd+=" $(printf '%q' "$arg")"
+  done
+  exec tmux split-window -h -c "$PWD" "$cmd"
+fi
+exec claude --enable-auto-mode --allow-dangerously-skip-permissions "$@"
