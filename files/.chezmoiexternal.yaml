@@ -41,3 +41,7 @@
   exact: true
   url: https://github.com/folke/lazy.nvim/archive/refs/tags/v11.17.5.tar.gz
   stripComponents: 1
+
+.claude/skills/grill-me/SKILL.md:
+  type: file
+  url: https://raw.githubusercontent.com/mattpocock/skills/8868f54212dfcf450b665d2e2a5bf521ada64c3e/grill-me/SKILL.md
