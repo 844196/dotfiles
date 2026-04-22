@@ -5,6 +5,6 @@ if [[ "$1" == "--split-pane" ]]; then
   for arg in "$@"; do
     cmd+=" $(printf '%q' "$arg")"
   done
-  exec tmux split-window -h -c "$PWD" "$cmd"
+  exec tmux split-window -h -c "$PWD" -t "${TMUX_PANE:?claude-yolo --split-pane requires running inside tmux}" "$cmd"
 fi
 exec claude --enable-auto-mode --allow-dangerously-skip-permissions "$@"
