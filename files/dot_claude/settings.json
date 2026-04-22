@@ -137,7 +137,22 @@
         "hooks": [
           {
             "type": "command",
+            "command": "~/.claude/hooks/bell.sh"
+          },
+          {
+            "type": "command",
             "command": "~/.claude/hooks/notify.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/bell.sh"
           }
         ]
       }
