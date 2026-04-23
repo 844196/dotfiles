@@ -1,14 +1,15 @@
 ---
 name: using-mise-tasks
 description: |
-  mise のタスク機能（TOML タスク、ファイルタスク、monorepo タスク）に関するガイドライン。
-  mise.toml が存在するプロジェクトでタスクの実行・定義・変更を行う際に参照する。
+  mise タスク機能の使い方。以下のいずれかに当てはまる作業では必ずこのスキルを参照する — モデルが学習データで混同しがちな mise 固有の構文を避けるため:
 
-  以下の状況でこのスキルを参照する:
-  - `mise run` でタスクを実行する
-  - `mise.toml` の `[tasks]` セクションを読み書きする
-  - ファイルベースタスク（`.mise/tasks/` 等）を作成・編集する
-  - monorepo 構成のプロジェクトで `//` プレフィックス付きタスクを扱う
+  - `mise run` でのタスク実行（引数・フラグの渡し方。`--` は `-q`/`-v`/`-h`/`--help` などの予約フラグ pass-through 専用）
+  - `mise.toml` の `[tasks.*]` の読み書き（`run`、`depends`、`depends_post`、`usage`、`sources`、`outputs`、`tools`、`dir`、`raw`）
+  - ファイルタスク (`.mise/tasks/`、`mise-tasks/`、`.config/mise/tasks/` 等) の作成・編集（shebang、実行権限、`#MISE` / `#USAGE` ディレクティブ）
+  - monorepo タスク — `experimental_monorepo_root`、`//path:task` 絶対指定、`//packages/...:*` のパス×タスクワイルドカード、パッケージ間依存
+  - `mise tasks --all --json` などタスク調査コマンドの使い分け
+
+  対象外（別機能）: `mise use`/`mise install` などの tool・version 管理、shim 設定、top-level `[env]` セクション、`mise.lock` の運用、`.mise.toml` 以外の設定ファイル配置。
 ---
 
 # Using mise Tasks
