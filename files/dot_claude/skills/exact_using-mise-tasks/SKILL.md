@@ -1,5 +1,5 @@
 ---
-name: using-mise
+name: using-mise-tasks
 description: |
   mise のタスク機能（TOML タスク、ファイルタスク、monorepo タスク）に関するガイドライン。
   mise.toml が存在するプロジェクトでタスクの実行・定義・変更を行う際に参照する。
