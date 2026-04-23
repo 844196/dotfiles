@@ -1,0 +1,5 @@
+name: global
+version: 1.0.0
+dependencies:
+  apm:
+    - mattpocock/skills/grill-me#8868f54212dfcf450b665d2e2a5bf521ada64c3e
