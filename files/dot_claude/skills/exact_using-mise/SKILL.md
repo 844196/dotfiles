@@ -88,10 +88,28 @@ mise-tasks/
 ## 2. タスクの実行
 
 ```bash
-mise run <task>           # 基本形
-mise run <task> -- <args>  # タスクに引数を渡す
-mise run build ::: test    # 複数タスクを別々の引数で実行（::: 区切り）
+mise run <task>                   # 基本形
+mise run <task> <args...>         # 引数・フラグはそのまま後ろに続ける（Smart Flag Routing）
+mise run build ::: test           # 複数タスクを別々の引数で実行（::: 区切り）
 ```
+
+### 引数・フラグの渡し方
+
+mise は Smart Flag Routing を採用していて、引数・フラグは `--` を挟まずに直接渡せる:
+
+```bash
+mise run build --release          # --release はタスクへルーティング
+mise run deploy prod --verbose    # 位置引数・フラグそのまま
+```
+
+`--` が必要なのは、mise 予約フラグ (`-q`, `-v`, `-h`, `--help`) をタスク側に渡したい時だけ:
+
+```bash
+mise run foo -- --help            # タスクの --help を呼ぶ（mise の help ではなく）
+mise run foo -- -q arg1           # タスクに -q を渡す
+```
+
+`--` の本来の用途は escape hatch。通常のタスク引数には不要。
 
 ### タスクの情報取得
 
@@ -147,10 +165,12 @@ mise run //packages/app:build
 mise run '//...:test'                 # 全プロジェクトの test タスク
 mise run '//packages/...:build'       # packages/ 以下全ての build タスク
 mise run '//packages/frontend:*'      # frontend の全タスク
+mise run '//packages/...:*'           # packages/ 以下全プロジェクトの全タスク
 ```
 
 - `...` はディレクトリの任意の深さにマッチ
 - `*` はタスク名のワイルドカード
+- パスワイルドカード `...` とタスクワイルドカード `*` は組み合わせられる。「複数プロジェクトで lint/check/test を一発で」といった用途では `//packages/...:*` が最短
 
 ### プロジェクト間の依存
 
