@@ -11,5 +11,6 @@ fnox.local.toml
 *.code-workspace
 !*.example.code-workspace
 .claude/settings.local.json
+.claude/scheduled_tasks.lock
 CLAUDE.local.md
 .gitignore_local
