@@ -3,3 +3,4 @@ version: 1.0.0
 dependencies:
   apm:
     - mattpocock/skills/grill-me#8868f54212dfcf450b665d2e2a5bf521ada64c3e
+    - anthropics/claude-plugins-official/plugins/skill-creator/skills/skill-creator#cf62a6c02dc03db88da8eb7c61bdb9fd88da6326
