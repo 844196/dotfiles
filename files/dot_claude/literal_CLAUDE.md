@@ -45,6 +45,3 @@
 
 - `/creating-pull-requests` スキルを使用します。
 
-## 開発ドキュメント作成・更新時の注意点
-
-- `/writing-dev-docs` スキルを使用します。
