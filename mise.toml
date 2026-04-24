@@ -10,3 +10,11 @@ lefthook = "2.0.15"
 
 [hooks]
 postinstall = "lefthook install"
+
+[tasks.diff]
+description = "chezmoi diff, excluding lifecycle scripts"
+run = "chezmoi diff --exclude scripts"
+
+[tasks.apply]
+description = "chezmoi apply with GITHUB_TOKEN from gh auth"
+run = "GITHUB_TOKEN=$(gh auth token) chezmoi apply"
