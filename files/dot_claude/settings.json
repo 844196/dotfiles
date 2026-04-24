@@ -84,7 +84,9 @@
       "Bash(gh issue view *)",
       "Bash(gh search *)",
       "Bash(chroma *)",
-      "Bash(claude-yolo --split-pane *)"
+      "Bash(claude-yolo --split-pane *)",
+      "Bash(command -v difit)",
+      "Bash(difit *)"
     ]
   },
   "statusLine": {
