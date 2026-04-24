@@ -27,28 +27,6 @@
   git -C <プロジェクトルート> log --oneline
   ```
 
-- 複数行のコミットメッセージを伴う `git commit` は `-m` オプションを複数回指定する形式を使用します。ヒアドキュメントは避けます。
-
-  ```bash
-  # Good
-  git commit -m 'title' -m $'paragraph-line\nparagraph-line' -m $'paragraph-line\nparagraph-line' -m 'Co-Authored-By: ...'
-  ```
-
-  ```bash
-  # Bad
-  git commit -F- <<EOM
-  title
-
-  paragraph-line
-  paragraph-line
-
-  paragraph-line
-  paragraph-line
-
-  Co-Authored-By: ...
-  EOM
-  ```
-
 ## mise を使用するプロジェクトでの注意点
 
 - タスクの実行・定義・変更を行う際は `/using-mise-tasks` スキルを参照します。

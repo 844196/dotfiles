@@ -22,9 +22,7 @@ $ARGUMENTS
 
 ### 4. コミットの実行
 
-```bash
-git commit -m '<title>' [-m $'paragraph-line\nparagraph-line'] [-m $'paragraph-line\nparagraph-line'] -m 'Co-Authored-By: ...'
-```
+コミットメッセージを渡して `git commit` を実行する。
 
 ### 5. 完了報告
 
