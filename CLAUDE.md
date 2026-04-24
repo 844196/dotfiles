@@ -39,7 +39,7 @@ install.sh                # chezmoi 本体を bootstrap するスクリプト
 
 - 変更はすべて `main` ブランチに直接コミットします。
 - コミットメッセージのフォーマットは [Conventional Commits](https://www.conventionalcommits.org/) に従います。
-  - 利用可能なタイプとスコープは `.versionrc` を参照してください。
+  - 利用可能なタイプは `.versionrc` を参照してください (scope は未定義のため省略)。
 
 ## 運用ワークフロー
 
