@@ -2,3 +2,10 @@ sourceDir: {{ .chezmoi.sourceDir | quote }}
 
 data:
   dotfilesDir: {{ quote (clean (join "" (list .chezmoi.sourceDir "/.."))) }}
+
+textconv:
+  - pattern: "**/.claude/settings.json"
+    command: "jq"
+    args:
+      - "-S"
+      - "."
