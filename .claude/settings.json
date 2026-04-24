@@ -5,11 +5,14 @@
     "CLAUDE_CODE_TASK_LIST_ID": "844196/dotfiles"
   },
   "permissions": {
-    "ask": [
+    "deny": [
       "Bash(chezmoi apply)"
     ],
+    "ask": [
+      "Bash(mise run //:apply)"
+    ],
     "allow": [
-      "Bash(chezmoi diff*)"
+      "Bash(mise run //:diff)"
     ]
   }
 }
