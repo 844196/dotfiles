@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Read attribution.commit from Claude Code settings files in priority order:
+# 1. .claude/settings.local.json (project-local override)
+# 2. .claude/settings.json (project)
+# 3. ~/.claude/settings.json (global)
+#
+# If the key exists with a non-empty value, outputs an instruction.
+# If the key exists but is empty/whitespace, outputs nothing (explicit opt-out).
+# If the key doesn't exist, falls through to the next file.
+
+for file in ".claude/settings.local.json" ".claude/settings.json" "$HOME/.claude/settings.json"; do
+  if [[ ! -f "$file" ]]; then
+    continue
+  fi
+
+  # Check if .attribution.commit key exists (regardless of value)
+  if ! jq -e 'has("attribution") and (.attribution | has("commit"))' "$file" >/dev/null 2>&1; then
+    continue
+  fi
+
+  # Key exists, get the value
+  value=$(jq -r '.attribution.commit // empty' "$file" 2>/dev/null || true)
+  trimmed="${value#"${value%%[![:space:]]*}"}"
+  trimmed="${trimmed%"${trimmed##*[![:space:]]}"}"
+
+  if [[ -n "$trimmed" ]]; then
+    cat <<EOF
+コミットメッセージの末尾に以下のトレーラーを付ける。\`<model>\` が含まれていれば human-readable なモデル名で置換する。モデル名は「Opus 4.5」「Sonnet 4.6」「Haiku 4.5」のような形式（model ID の \`claude-xxx-x-x\` ではなく）:
+
+$value
+EOF
+  fi
+  # Key exists, so stop here (even if value is empty)
+  exit 0
+done

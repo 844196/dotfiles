@@ -16,6 +16,9 @@
   "skipDangerousModePermissionPrompt": true,
   "skipAutoPermissionPrompt": true,
   "effortLevel": "high",
+  "attribution": {
+    "commit": "Co-Authored-By: Claude <model> <noreply@anthropic.com>"
+  },
   "tui": "fullscreen",
   "spinnerTipsEnabled": false,
   "spinnerVerbs": {
@@ -73,6 +76,7 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(git commit-language)",
+      "Bash(git claude-attribution)",
       "Bash(git fetch *)",
       "Bash(gh pr list *)",
       "Bash(gh pr view *)",
