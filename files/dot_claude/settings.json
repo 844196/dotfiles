@@ -20,11 +20,14 @@
     "commit": "Co-Authored-By: Claude <model> <noreply@anthropic.com>"
   },
   "tui": "fullscreen",
+  "theme": "dark-ansi",
   "spinnerTipsEnabled": false,
   "spinnerVerbs": {
     "mode": "replace",
     "verbs": ["I'm gonna act super cute"]
   },
+  "agentPushNotifEnabled": false,
+  "remoteControlAtStartup": false,
   "permissions": {
     "defaultMode": "auto",
     "deny": [
