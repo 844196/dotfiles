@@ -63,6 +63,7 @@ install.sh                # chezmoi 本体を bootstrap するスクリプト
 |---|---|---|
 | `files/` | chezmoi ソース (apply で `~/` に反映) | 自由 |
 | `packages/` | 自作ツールのソースコード (ビルドされて `~/` に配置) | 自由 |
+| `.agents/` | エージェントのワーキングメモ (`.gitignore` 済み、git 管理外) | 自由 (コミット不要) |
 | `CLAUDE.md`, `README.md`, `LICENSE.md`, `mise.toml`, `lefthook.yaml`, `.versionrc`, `.editorconfig`, `.gitattributes`, `.gitignore`, `.ignore` | プロジェクトメタ | 編集可 (普段は触らない) |
 | `install.sh`, `Dockerfile`, `compose.yaml`, `mise.local.toml` | bootstrap / デバッグ環境 | ユーザー指示時のみ |
 | `wk.bindings.yaml` | 独自 which-key バインド | ユーザー指示時のみ (他の変更のついでに触らない) |
