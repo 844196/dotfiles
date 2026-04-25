@@ -54,6 +54,8 @@
 
 `$ARGUMENTS` がスキル本文に存在しない場合、`ARGUMENTS: <value>` として末尾に追加される。
 
+これらは **環境変数ではなくレンダリング前の文字列置換**。スキル呼び出し時に SKILL.md の本文中の placeholder が置換され、その結果が単一メッセージとして注入される。適用範囲は SKILL.md ファイル内 (frontmatter ではなく本文) に限られる。エージェント側で `env` などで取得する必要はない (取得しても存在しない)。
+
 ## プリプロセッシング: `` !`...` `` と ` ```! ` ブロック
 
 スキルコンテンツが Claude に送られる前にシェル実行され、出力で置換される。Claude は最終結果のみを見る (= 前処理であり、Claude が実行するものではない)。
@@ -81,6 +83,18 @@ git status --short
 - **パーミッション**: `` !`...` `` のコマンドは `settings.json` の `permissions.allow` の影響を受ける
 - **`allowed-tools` で Bash パターンは効かない** ([#14956](https://github.com/anthropics/claude-code/issues/14956))。スキルの `allowed-tools: Bash(git:*)` のようにしても本文の `` !`...` `` には適用されない。`settings.json` の `permissions.allow` に追加する必要がある
 - **無効化**: `settings.json` の `disableSkillShellExecution: true` で各コマンドが `[shell command execution disabled by policy]` に置換される (バンドル/管理スキルは影響を受けない)
+
+## HTML コメントの扱い
+
+SKILL.md 内の `<!-- ... -->` は **削除されずそのまま Claude に届く** (実機 v2.1.119 で検証)。コードブロック内・外、ブロックレベル・インラインを問わず保持される。プリプロセッシングで行われるのは文字列置換と `` !`...` `` 実行のみで、コメント除去は含まれない。
+
+CLAUDE.md とは挙動が異なる: CLAUDE.md ではブロックレベル HTML コメントは Claude のコンテキストに注入される前に削除され、コードブロック内のみ保持される (公式 memory.md「CLAUDE.md ファイルの読み込み方法」)。
+
+含意:
+
+- SKILL.md にコメントを書くとトークンを消費する
+- エージェント向けの注意書きをコメント形式で残しても機能する (= 人間とエージェント両方が見る)
+- 人間専用のメモを残したい場合はトークン消費を許容するか、別ファイルに分離する
 
 ## ライフサイクル
 
