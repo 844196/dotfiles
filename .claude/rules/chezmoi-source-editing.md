@@ -40,6 +40,8 @@
 
 バージョン更新 (URL の tag / commit hash の書き換え) はユーザーの明示指示があるときのみ行います。pin している意図を尊重し、エージェントが勝手にアップデートしません。
 
+例外として `Piebald-AI/claude-code-system-prompts` のタグは Claude Code CLI のバージョンに連動するため、`files/dot_config/exact_mise/config.toml` の `claude` を変更するときは `.chezmoiexternal.yaml` 側のタグも同じバージョンに揃えます。
+
 ## `.chezmoiscripts/` の方針
 
 - `run_once_*` は使いません。初回限定の処理は `install.sh` に書き、再実行が必要な処理は `run_onchange_*` で表現します。
