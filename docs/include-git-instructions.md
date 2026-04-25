@@ -56,4 +56,3 @@ git grep -l 'includeGitInstructions' files/
 ## 参考
 
 - 元の指令の実体: `~/.local/share/claude-code-system-prompts/system-prompts/tool-description-bash-git-commit-and-pr-creation-instructions.md`
-- システムプロンプト集の概要: `~/.claude/docs/system-prompts.md`
