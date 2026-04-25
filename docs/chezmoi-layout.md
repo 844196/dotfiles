@@ -48,7 +48,7 @@
 
 迷ったら付けない方が安全です。`exact_` を付けると他ツールの生成物が apply 時に消える事故が起こり得ます。
 
-「外部ツールも書き込むが chezmoi 管理ぶんは掌握したい」場合は、`exact_` を付けつつ `.chezmoiignore` で外部配置パスを除外する組み合わせを使えます。実例: `files/dot_config/exact_bat/themes/.chezmoiignore` (bat が動的生成する `tokyonight_night` を除外)、`files/dot_claude/exact_skills/.chezmoiignore` (apm 配置スキルを除外、詳細: `files/dot_apm/CLAUDE.md`)。
+「外部ツールも書き込むが chezmoi 管理ぶんは掌握したい」場合は、`exact_` を付けつつ `.chezmoiignore` で外部配置パスを除外する組み合わせを使えます。実例: `files/dot_config/exact_bat/themes/.chezmoiignore` (bat が動的生成する `tokyonight_night` を除外)、`files/dot_claude/exact_skills/.chezmoiignore` (apm 配置スキルを除外、詳細: `.claude/rules/dot-apm.md`)。
 
 XDG を守らず `~/.config/<tool>/` に状態を書き込むツールがある点にも注意してください。
 

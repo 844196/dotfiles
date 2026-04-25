@@ -26,7 +26,7 @@ paths:
 
 ソースから削除/リネームしても、親ディレクトリが `exact_` でなければターゲットには伝播しません (例: `dot_claude/` は非 `exact_`)。明示的にターゲットから消したい場合は `files/.chezmoiremove` を一時作成 (`~/` 相対パスで列挙) → `mise run //:apply` → `.chezmoiremove` 削除、の順で行います。コミット履歴を汚さずに削除を反映できます。
 
-`dot_claude/exact_skills/` のように `exact_` 配下に外部ツール (apm 等) も配置する場合は、`.chezmoiignore` で外部ぶんを除外しつつ chezmoi 管理ぶんは exact 削除に任せるパターンを取ります (詳細: `files/dot_apm/CLAUDE.md`)。
+`dot_claude/exact_skills/` のように `exact_` 配下に外部ツール (apm 等) も配置する場合は、`.chezmoiignore` で外部ぶんを除外しつつ chezmoi 管理ぶんは exact 削除に任せるパターンを取ります (詳細: `.claude/rules/dot-apm.md`)。
 
 どのディレクトリが `exact_` か、なぜそうなっているかは `docs/chezmoi-layout.md` の「`exact_` を付けるか外すか」を参照してください。
 

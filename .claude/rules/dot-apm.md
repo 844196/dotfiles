@@ -1,4 +1,10 @@
-# apm
+---
+description: files/dot_apm/ 配下を編集するときの規律 (apm パッケージと .chezmoiignore の同期)
+paths:
+  - files/dot_apm/**
+---
+
+# `files/dot_apm/` の構成
 
 このディレクトリは [microsoft/apm](https://github.com/microsoft/apm) (Agent Package Manager) の設定をホストする。`apm.yml` に列挙したパッケージが `~/.apm/apm_modules/` に取り込まれ、種別に応じて `~/.claude/skills/<name>/` などへ配置される (実配置先は `~/.apm/apm.lock.yaml` の `deployed_files` を参照)。
 
