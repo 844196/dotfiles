@@ -30,6 +30,16 @@ paths:
 
 どのディレクトリが `exact_` か、なぜそうなっているかは `docs/chezmoi-layout.md` の「`exact_` を付けるか外すか」を参照してください。
 
+## `files/` 配下の `CLAUDE.md` は置かない
+
+`files/` の中身はそのまま `~/` にコピーされるため、`files/<somewhere>/CLAUDE.md` をソース側に置くと、Claude Code がこのリポジトリ配下で起動したときにも (本来はターゲット側の memory として書いたはずの) その CLAUDE.md を nested memory として拾ってしまいます。
+
+そのため `files/` 配下では以下のルールに統一します:
+
+- ソース側エージェントへの指示 (「この `files/<dir>/` を編集するときの注意」) は、リポジトリ直下の `.claude/rules/<name>.md` に paths frontmatter (`paths: [files/<dir>/**]`) 付きで書きます。`files/<dir>/CLAUDE.md` は作りません。
+- ターゲット側 (`~/`) で memory として読ませたい CLAUDE.md (例: `~/.claude/CLAUDE.md`) が必要な場合は、ソース上は `literal_CLAUDE.md` という名前で置きます。chezmoi の `literal_` prefix が外れて `CLAUDE.md` として配置されつつ、ソース側でのファイル名は `CLAUDE.md` ではなくなるので、このリポジトリのエージェントに誤読されません。
+- `files/` 以外 (`packages/`、リポジトリ直下など) では、通常通り nested `CLAUDE.md` を使ってかまいません。`files/` 限定の制約です。
+
 ## `.chezmoiexternal.yaml` は最終手段
 
 外部からファイルを取り込むときの優先順位:
