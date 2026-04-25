@@ -130,17 +130,6 @@
         ]
       }
     ],
-    "PostToolUse": [
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/check-doc-consistency.sh"
-          }
-        ]
-      }
-    ],
     "Notification": [
       {
         "matcher": "",
