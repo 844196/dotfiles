@@ -1,4 +1,11 @@
-# システムプロンプト集の参照
+---
+paths:
+  - "**/.claude/rules/*.md"
+  - "**/.claude/skills/**/SKILL.md"
+  - "**/CLAUDE.md"
+---
+
+# Claude Code システムプロンプト集の参照
 
 Claude Code CLI から抽出されたシステムプロンプト・ツール説明・組み込みスキルの一式は `~/.local/share/claude-code-system-prompts/` に取り込まれている (`Piebald-AI/claude-code-system-prompts` のリリース tarball を解凍したもの)。CLAUDE.md / スキル / rules / hooks / settings を新規・改訂する際は、既存の指令と冗長にならないように必要に応じて参照する。
 
