@@ -43,7 +43,7 @@
 - `dot_local/share/{mise,navi,zsh}/{plugins,cheats,vendor-completions}` — プラグインや補完関数が動的に追加される
 - `dot_docker/cli-plugins` — docker が plugin を自動追加
 - `dot_config/systemd/user` — `systemctl enable` が unit の symlink を置く
-- `dot_claude/`, `dot_claude/skills/` — Claude Code が `projects/` や `todos/` など動的生成物を置く / スキルが追加される
+- `dot_claude/`, `dot_claude/skills/` — Claude Code が `projects/`、`todos/`、`sessions/`、`history.jsonl` 等を動的に生成 / apm (`files/dot_apm/apm.yml`) が `~/.claude/skills/` 配下に外部スキルを配置
 - `.chezmoiexternal.yaml` で展開先になっているパスの親ディレクトリ
 
 迷ったら付けない方が安全です。`exact_` を付けると他ツールの生成物が apply 時に消える事故が起こり得ます。
