@@ -16,6 +16,7 @@ paths:
 ## 差分確認と apply の発火
 
 - 差分確認は `mise run //:diff` を使います (`chezmoi diff --exclude scripts` のラッパー、ライフサイクルスクリプトのノイズを除外)。
+- `.chezmoiignore` を編集したときの効果確認は `chezmoi ignored` (target 相対パスで一覧)。
 - ターゲットへの反映は `mise run //:apply` を使います (`GITHUB_TOKEN=$(gh auth token) chezmoi apply` のラッパー)。`files/.chezmoiscripts/run_after_08-setup-mise.sh` が `mise install` / `mise upgrade` を経由して GitHub API を大量に呼ぶため、`GITHUB_TOKEN` なしでは即座にレートリミットに到達します。
 - 生の `chezmoi apply` は `.claude/settings.json` で `deny` されています。エージェントから直接呼び出さず、常に `mise run //:apply` を使ってください。
 - `mise run //:apply` は `.claude/settings.json` の `permissions.ask` に登録済みです。エージェントから発火し、ユーザーの確認を経て実行されます。
@@ -23,7 +24,9 @@ paths:
 
 ## ターゲット側の削除・リネーム
 
-ソースから削除/リネームしても、親ディレクトリが `exact_` でなければターゲットには伝播しません (`dot_claude/`、`dot_claude/skills/` は非 `exact_`)。明示的にターゲットから消したい場合は `files/.chezmoiremove` を一時作成 (`~/` 相対パスで列挙) → `mise run //:apply` → `.chezmoiremove` 削除、の順で行います。コミット履歴を汚さずに削除を反映できます。
+ソースから削除/リネームしても、親ディレクトリが `exact_` でなければターゲットには伝播しません (例: `dot_claude/` は非 `exact_`)。明示的にターゲットから消したい場合は `files/.chezmoiremove` を一時作成 (`~/` 相対パスで列挙) → `mise run //:apply` → `.chezmoiremove` 削除、の順で行います。コミット履歴を汚さずに削除を反映できます。
+
+`dot_claude/exact_skills/` のように `exact_` 配下に外部ツール (apm 等) も配置する場合は、`.chezmoiignore` で外部ぶんを除外しつつ chezmoi 管理ぶんは exact 削除に任せるパターンを取ります (詳細: `files/dot_apm/CLAUDE.md`)。
 
 どのディレクトリが `exact_` か、なぜそうなっているかは `docs/chezmoi-layout.md` の「`exact_` を付けるか外すか」を参照してください。
 
