@@ -136,7 +136,27 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/hooks/check-doc-consistency.sh"
+            "command": "~/.claude/hooks/record-edit.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/record-deletion.sh"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/reset-turn-state.sh"
           }
         ]
       }
@@ -166,7 +186,7 @@
           },
           {
             "type": "command",
-            "command": "~/.claude/hooks/agent-context-docs.sh"
+            "command": "~/.claude/hooks/edit-reminders-on-stop.sh"
           }
         ]
       }
