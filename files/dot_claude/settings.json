@@ -152,6 +152,10 @@
           {
             "type": "command",
             "command": "~/.claude/hooks/bell.sh"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/agent-context-docs.sh"
           }
         ]
       }
