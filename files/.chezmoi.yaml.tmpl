@@ -9,3 +9,8 @@ textconv:
     args:
       - "-S"
       - "."
+  - pattern: "**/.config/ccstatusline/settings.json"
+    command: "jq"
+    args:
+      - "-S"
+      - "."
