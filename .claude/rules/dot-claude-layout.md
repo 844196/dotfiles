@@ -8,11 +8,18 @@ paths:
 
 `~/.claude/` にマップされる Claude Code 設定:
 
-- `literal_CLAUDE.md` — 全プロジェクト共通の常時ロード指令 (`literal_` で chezmoi に prefix 解釈をスキップさせ、ターゲットでは `~/.claude/CLAUDE.md` として配置される。ソース側のファイル名を `CLAUDE.md` から外しているのは、このリポジトリ上のエージェントが `~/.claude/CLAUDE.md` 用の指令を誤って自リポジトリの memory として読み込むのを防ぐため)
-- `exact_rules/*.md` — 自動ロードされる切り出し (`paths` なしは常時ロード、`paths` 付きは該当ファイル Read 時のみ発火)。内容は規範でも知識でもよく、サイズと発火頻度で配置を決める
+- `literal_CLAUDE.md` — 常時ロード指令。`literal_` で chezmoi に prefix 解釈をスキップさせ、ターゲットでは `~/.claude/CLAUDE.md` として配置される (ソース側のファイル名を `CLAUDE.md` から外しているのは、このリポジトリ上のエージェントが `~/.claude/CLAUDE.md` 用の指令を誤って自リポジトリの memory として読み込むのを防ぐため)
+- `exact_rules/*.md` — 自動ロードされる切り出し (`paths` なしは常時ロード、`paths` 付きは該当ファイル Read 時のみ発火)。
 - `exact_docs/*.md` — Claude Code 自動認識ディレクトリではない自前運用領域。常時ロード rule (`paths` なし) または paths 付き rule からの「詳細: ...」リンク経由でのみ到達可能。rule 本体に直接書くと常時ロードコストや paths 付きでも肥大が問題になる場合の切り出し先
 - `exact_hooks/` — hook スクリプト本体 (`settings.json` から登録)
-- `exact_agents/`, `exact_skills/` — サブエージェント・スキル定義の置き場。ソース編集時のメモは `~/.claude/agents/CLAUDE.md` などに置かず、このリポジトリの `.claude/rules/dot-claude-agents.md` / `.claude/rules/dot-claude-skills.md` (paths 付き) に置く
+- `exact_agents/`, `exact_skills/` — サブエージェント・スキル定義の置き場。
 - `settings.json` — Claude Code 設定
+
+`literal_CLAUDE.md` と paths なし `exact_rules/*.md` は機能的に同じ常時ロードで、役割で使い分ける:
+
+- 横断メタ原則 (rule/skill 全体に効く、paths 付き rule の発火条件を前提にした指令など) → `literal_CLAUDE.md` (例: 新規ファイル作成プロトコル)
+- 独立トピック (バグ修正、mise タスクなど、ファイル単位で分割したい規範・知識) → paths なし `exact_rules/*.md`
+
+トピック粒度の rule は今後増えていく前提なので、`literal_CLAUDE.md` を肥大化させず横断メタだけに絞る。
 
 自前運用パターンの参考: paths 付き rule (`claude-code-meta`) から大きめの docs (`claude-code-rules.md`、`skills.md`) を発火条件下で参照するペア構成。Claude Code rules/skills の機能仕様自体もこのペアに収めている (詳細は `~/.claude/docs/claude-code-rules.md`、`~/.claude/docs/skills.md`)。
