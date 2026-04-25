@@ -25,6 +25,18 @@
         "color": "hex:24283B"
       },
       {
+        "id": "af92b56a-8c6d-4089-9e79-90034f07871b",
+        "type": "context-length",
+        "color": "hex:414868",
+        "rawValue": true
+      },
+      {
+        "id": "e66018e9-98fb-47f5-a2ce-804328536682",
+        "type": "custom-text",
+        "color": "hex:414868",
+        "customText": " ("
+      },
+      {
         "id": "fa07f745-84ab-4907-ad78-71693532a33b",
         "type": "context-percentage-usable",
         "color": "hex:414868",
@@ -34,6 +46,12 @@
         }
       },
       {
+        "id": "f05d72ac-ac91-4d0c-b7e4-c96d2007afbc",
+        "type": "custom-text",
+        "color": "hex:414868",
+        "customText": ")"
+      },
+      {
         "id": "4a6bb4ba-9674-4f8b-8708-bfad4099522d",
         "type": "flex-separator",
         "color": "hex:24283B"
@@ -41,11 +59,11 @@
       {
         "id": "27f9f9db-c77c-47eb-995b-9f758174dd2a",
         "type": "current-working-dir",
+        "color": "hex:414868",
+        "rawValue": true,
         "metadata": {
           "fishStyle": "true"
-        },
-        "rawValue": true,
-        "color": "hex:414868"
+        }
       }
     ],
     [],
