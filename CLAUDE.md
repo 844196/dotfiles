@@ -70,20 +70,6 @@ install.sh                # chezmoi 本体を bootstrap するスクリプト
 
 `files/` の内部構造・プレフィックス・テンプレート・`.chezmoiscripts/`・`.chezmoiexternal.yaml` の詳細は `docs/chezmoi-layout.md` を参照してください。
 
-## `files/dot_claude/` の構成
-
-`~/.claude/` にマップされる Claude Code 設定:
-
-- `CLAUDE.md` — 全プロジェクト共通の常時ロード指令
-- `exact_rules/*.md` — 規範 (`paths` なしは常時ロード、`paths` 付きは該当ファイル Read 時のみ発火)
-- `exact_docs/*.md` — 知識 (自前運用、rule/CLAUDE.md からの「詳細: ...」参照経由でエージェントが Read。Claude Code 自動認識ディレクトリではない)
-- `exact_hooks/` — hook スクリプト本体 (`settings.json` から登録)
-- `skills/CLAUDE.md` — スキル親 CLAUDE.md (`~/.claude/skills/` 配下を読む際にオンデマンドロード)
-- `exact_agents/CLAUDE.md` — サブエージェント親 CLAUDE.md
-- `settings.json` — Claude Code 設定
-
-自前運用パターン (rule + docs ペア、`claude-code-meta` による集約参照) の詳細: `~/.claude/docs/claude-code-rules.md`、`~/.claude/docs/skills.md`
-
 ## 補遺
 
 - `apt` もしくは `brew` を使用しなければインストールすることができないツール群の管理は、このコードベースの対象外とします。
