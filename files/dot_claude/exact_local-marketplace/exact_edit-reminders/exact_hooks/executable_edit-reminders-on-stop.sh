@@ -16,16 +16,22 @@
 # 両方該当する場合は reason 内に両セクションを並べ、block は 1 回。
 #
 # 検知の仕組み:
-#   tracked   - git stash create のスナップショット同士を git diff --name-status -M で比較
-#   untracked - <hash>\t<path> 形式の一覧 (ls-files + git hash-object) を path で
-#               マージし、ADDED / MODIFIED / REMOVED に分類
-# どちらも CWD の git 作業ツリー限定なので、CWD 外の変更は構造的に拾わない。
+#   ターン開始時の snap-files (CWD git 作業ツリー配下、.gitignore 除外、
+#   <hash>\t<path> 一覧) と現状の同形式一覧を path key でマージし、
+#     ADDED    - new にしか居ない path  → 新規発生
+#     MODIFIED - 両方に居て hash 違う   → 内容変更
+#     REMOVED  - old にしか居ない path  → 削除 / リネーム旧パス
+#   に分類する。
+# tracked/untracked を区別せず純粋にファイル内容 hash のみで判定するので、
+# git add や git commit のような index 移動は snap に変化を生じさせない
+# (= 内容が変わらない作業ではフックが発火しない)。
 # Edit/Write/NotebookEdit/サブエージェント/MCP/Bash 経由 (rm/mv/cp/redirect 等) を
 # 経路を問わず一律に検知する。
 #
 # 既知の盲点:
 #   - .gitignore 配下のファイル (`.agents/` 等は意図的に除外)
 #   - git リポジトリ外の CWD では一切検知しない
+#   - mode 変更 (実行ビット等) は内容不変なら検知しない
 
 set -euo pipefail
 
@@ -53,59 +59,24 @@ classify_path() {
   esac
 }
 
-new_snap=$(git -C "$cwd" --no-optional-locks stash create 2>/dev/null || true)
-if [ -z "$new_snap" ]; then
-  new_snap=$(git -C "$cwd" rev-parse HEAD 2>/dev/null || true)
-fi
-old_snap=""
-[ -f "$state_dir/snap-tracked" ] && old_snap=$(cat "$state_dir/snap-tracked")
+new_paths_file="$state_dir/.new-paths"
+new_hashes_file="$state_dir/.new-hashes"
+new_snap_file="$state_dir/.new-snap"
 
-# git add で untracked から tracked に移ったパスを記録する。
-# untracked-removed の判定で「rm 由来」と「git add 由来」を区別するため。
-tracked_added_file="$state_dir/.tracked-added"
-: > "$tracked_added_file"
+git -C "$cwd" --no-optional-locks ls-files --cached --others --exclude-standard 2>/dev/null \
+  | while IFS= read -r p; do
+      if [ -e "$cwd/$p" ]; then printf '%s\n' "$p"; fi
+    done > "$new_paths_file"
 
-if [ -n "$old_snap" ] && [ -n "$new_snap" ]; then
-  while IFS=$'\t' read -r code path1 path2; do
-    [ -z "$code" ] && continue
-    case "$code" in
-      A*)
-        classify_path "$path1"
-        printf '%s\n' "$path1" >> "$tracked_added_file"
-        ;;
-      M*|T*)
-        classify_path "$path1"
-        ;;
-      D*)
-        has_deleted=1
-        classify_path "$path1"
-        ;;
-      R*|C*)
-        has_deleted=1
-        classify_path "$path1"
-        classify_path "$path2"
-        printf '%s\n' "$path2" >> "$tracked_added_file"
-        ;;
-    esac
-  done < <(git -C "$cwd" diff "$old_snap" "$new_snap" --name-status -M 2>/dev/null || true)
+if [ -s "$new_paths_file" ]; then
+  git -C "$cwd" hash-object --stdin-paths < "$new_paths_file" \
+    > "$new_hashes_file" 2>/dev/null || true
+  paste "$new_hashes_file" "$new_paths_file" | LC_ALL=C sort -k2 > "$new_snap_file"
+else
+  : > "$new_snap_file"
 fi
 
-sort -u "$tracked_added_file" -o "$tracked_added_file" 2>/dev/null || :
-
-new_untracked_file="$state_dir/.new-untracked"
-git -C "$cwd" --no-optional-locks ls-files --others --exclude-standard -z 2>/dev/null \
-  | while IFS= read -r -d '' p; do
-      h=$(git -C "$cwd" hash-object -- "$p" 2>/dev/null || echo MISSING)
-      printf '%s\t%s\n' "$h" "$p"
-    done | LC_ALL=C sort -k2 > "$new_untracked_file" || true
-
-# old (snap-untracked) と new (new-untracked) を path key でマージし、
-#   ADDED    - new にしか居ない path        → 新規 untracked
-#   MODIFIED - 両方に居て hash が異なる     → 既存 untracked への内容変更
-#   REMOVED  - old にしか居ない path        → 削除 (ただし git add 由来は除外)
-# の 3 種に分類する。tracked-added (A / R-new / C-new) と一致する REMOVED は
-# 「git add で tracked に昇格した」だけなので削除扱いしない。
-if [ -f "$state_dir/snap-untracked" ]; then
+if [ -f "$state_dir/snap-files" ]; then
   while IFS=$'\t' read -r kind path; do
     [ -z "$kind" ] && continue
     case "$kind" in
@@ -113,11 +84,9 @@ if [ -f "$state_dir/snap-untracked" ]; then
       REMOVED) has_deleted=1; classify_path "$path" ;;
     esac
   done < <(awk -F'\t' -v OFS='\t' \
-              -v old_file="$state_dir/snap-untracked" \
-              -v added_file="$tracked_added_file" \
-              -v new_file="$new_untracked_file" '
-              FILENAME == old_file   { old[$2]=$1; next }
-              FILENAME == added_file { added[$1]=1; next }
+              -v old_file="$state_dir/snap-files" \
+              -v new_file="$new_snap_file" '
+              FILENAME == old_file { old[$2]=$1; next }
               FILENAME == new_file {
                 if ($2 in old) {
                   if (old[$2] != $1) print "MODIFIED", $2
@@ -127,9 +96,9 @@ if [ -f "$state_dir/snap-untracked" ]; then
                 }
               }
               END {
-                for (p in old) if (!(p in added)) print "REMOVED", p
+                for (p in old) print "REMOVED", p
               }
-            ' "$state_dir/snap-untracked" "$tracked_added_file" "$new_untracked_file")
+            ' "$state_dir/snap-files" "$new_snap_file")
 fi
 
 reasons=()
