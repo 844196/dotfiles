@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Stop hook: ターン中に PostToolUse 系 hook が立てたフラグと、UserPromptSubmit
-# 時点との git status diff から削除を検出し、編集の種別に応じた reminder を
+# Stop hook: UserPromptSubmit 時のスナップショットと現状を比較し、ターン中に
+# 発生した変更から編集の種別 (md / impl / 削除) を判定して、対応する reminder を
 # decision:"block" + reason で注入する。
 #
 # Stop イベントでは hookSpecificOutput.additionalContext は無効で、エージェント
@@ -11,18 +11,21 @@
 # (UserPromptSubmit) に reset-turn-state.sh が行う。
 #
 # ルール:
-#   [doc-consistency] — flag-md があれば
-#   [doc-followup]    — flag-impl OR (flag-deleted OR git status diff で削除検出) があれば
+#   [doc-consistency] — has_md があれば
+#   [doc-followup]    — has_impl OR has_deleted があれば
 # 両方該当する場合は reason 内に両セクションを並べ、block は 1 回。
 #
-# 検知の対象/対象外 (PostToolUse での記録に依存):
-#   対象  : Edit, Write tool_use (= record-edit.sh)
-#           Bash の rm / git rm 系コマンド (= record-deletion.sh)
-#           UserPromptSubmit 後に新規発生した削除 (= git status diff、補完用)
-#   対象外: NotebookEdit, サブエージェント (Agent) 内の編集, MCP server の編集,
-#           Bash 経由の mv/cp/touch/sed -i/redirect 等 (削除以外のファイル操作)
-# 設計判断: 削除はドキュメント参照を破る影響が大きいため、PostToolUse:Bash の
-# パターンマッチで主に検知し、漏れは git status の snapshot-diff で補完する。
+# 検知の仕組み:
+#   tracked   - git stash create のスナップショット同士を git diff --name-status -M で比較
+#   untracked - <hash>\t<path> 形式の一覧 (ls-files + git hash-object) を path で
+#               マージし、ADDED / MODIFIED / REMOVED に分類
+# どちらも CWD の git 作業ツリー限定なので、CWD 外の変更は構造的に拾わない。
+# Edit/Write/NotebookEdit/サブエージェント/MCP/Bash 経由 (rm/mv/cp/redirect 等) を
+# 経路を問わず一律に検知する。
+#
+# 既知の盲点:
+#   - .gitignore 配下のファイル (`.agents/` 等は意図的に除外)
+#   - git リポジトリ外の CWD では一切検知しない
 
 set -euo pipefail
 
@@ -37,24 +40,96 @@ state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/claude/edit-reminders/$session_
 [ -d "$state_dir" ] || exit 0
 [ -f "$state_dir/blocked" ] && exit 0
 
+git -C "$cwd" rev-parse --is-inside-work-tree &>/dev/null || exit 0
+
 has_md=0
 has_impl=0
 has_deleted=0
-[ -f "$state_dir/md" ] && has_md=1
-[ -f "$state_dir/impl" ] && has_impl=1
-[ -f "$state_dir/deleted" ] && has_deleted=1
 
-# git status diff で削除を補完検出 (PostToolUse:Bash の record-deletion.sh が
-# 拾えなかったケース、例: Bash 以外で発生した削除や複雑な削除コマンド)。
-# --no-optional-locks で .git/index.lock の残置を回避。
-if [ "$has_deleted" -eq 0 ] && [ -f "$state_dir/git-snapshot" ] \
-  && git -C "$cwd" rev-parse --is-inside-work-tree &>/dev/null; then
-  current_deletions="$(git -C "$cwd" --no-optional-locks status --porcelain 2>/dev/null \
-    | grep -E '^.D|^D.|^R' \
-    | sed -E 's/^.{3}//; s/ -> .*$//' \
-    | sort -u || true)"
-  new_deletions="$(comm -23 <(echo "$current_deletions") "$state_dir/git-snapshot" 2>/dev/null || true)"
-  [ -n "$new_deletions" ] && has_deleted=1
+classify_path() {
+  case "$1" in
+    *.md) has_md=1 ;;
+    *)    has_impl=1 ;;
+  esac
+}
+
+new_snap=$(git -C "$cwd" --no-optional-locks stash create 2>/dev/null || true)
+if [ -z "$new_snap" ]; then
+  new_snap=$(git -C "$cwd" rev-parse HEAD 2>/dev/null || true)
+fi
+old_snap=""
+[ -f "$state_dir/snap-tracked" ] && old_snap=$(cat "$state_dir/snap-tracked")
+
+# git add で untracked から tracked に移ったパスを記録する。
+# untracked-removed の判定で「rm 由来」と「git add 由来」を区別するため。
+tracked_added_file="$state_dir/.tracked-added"
+: > "$tracked_added_file"
+
+if [ -n "$old_snap" ] && [ -n "$new_snap" ]; then
+  while IFS=$'\t' read -r code path1 path2; do
+    [ -z "$code" ] && continue
+    case "$code" in
+      A*)
+        classify_path "$path1"
+        printf '%s\n' "$path1" >> "$tracked_added_file"
+        ;;
+      M*|T*)
+        classify_path "$path1"
+        ;;
+      D*)
+        has_deleted=1
+        classify_path "$path1"
+        ;;
+      R*|C*)
+        has_deleted=1
+        classify_path "$path1"
+        classify_path "$path2"
+        printf '%s\n' "$path2" >> "$tracked_added_file"
+        ;;
+    esac
+  done < <(git -C "$cwd" diff "$old_snap" "$new_snap" --name-status -M 2>/dev/null || true)
+fi
+
+sort -u "$tracked_added_file" -o "$tracked_added_file" 2>/dev/null || :
+
+new_untracked_file="$state_dir/.new-untracked"
+git -C "$cwd" --no-optional-locks ls-files --others --exclude-standard -z 2>/dev/null \
+  | while IFS= read -r -d '' p; do
+      h=$(git -C "$cwd" hash-object -- "$p" 2>/dev/null || echo MISSING)
+      printf '%s\t%s\n' "$h" "$p"
+    done | LC_ALL=C sort -k2 > "$new_untracked_file" || true
+
+# old (snap-untracked) と new (new-untracked) を path key でマージし、
+#   ADDED    - new にしか居ない path        → 新規 untracked
+#   MODIFIED - 両方に居て hash が異なる     → 既存 untracked への内容変更
+#   REMOVED  - old にしか居ない path        → 削除 (ただし git add 由来は除外)
+# の 3 種に分類する。tracked-added (A / R-new / C-new) と一致する REMOVED は
+# 「git add で tracked に昇格した」だけなので削除扱いしない。
+if [ -f "$state_dir/snap-untracked" ]; then
+  while IFS=$'\t' read -r kind path; do
+    [ -z "$kind" ] && continue
+    case "$kind" in
+      ADDED|MODIFIED) classify_path "$path" ;;
+      REMOVED) has_deleted=1; classify_path "$path" ;;
+    esac
+  done < <(awk -F'\t' -v OFS='\t' \
+              -v old_file="$state_dir/snap-untracked" \
+              -v added_file="$tracked_added_file" \
+              -v new_file="$new_untracked_file" '
+              FILENAME == old_file   { old[$2]=$1; next }
+              FILENAME == added_file { added[$1]=1; next }
+              FILENAME == new_file {
+                if ($2 in old) {
+                  if (old[$2] != $1) print "MODIFIED", $2
+                  delete old[$2]
+                } else {
+                  print "ADDED", $2
+                }
+              }
+              END {
+                for (p in old) if (!(p in added)) print "REMOVED", p
+              }
+            ' "$state_dir/snap-untracked" "$tracked_added_file" "$new_untracked_file")
 fi
 
 reasons=()
