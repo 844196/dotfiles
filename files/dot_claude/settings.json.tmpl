@@ -96,6 +96,17 @@
     "type": "command",
     "command": "mise x bun@1.3.12 -- bunx --bun ccstatusline@2.2.8"
   },
+  "extraKnownMarketplaces": {
+    "local": {
+      "source": {
+        "source": "directory",
+        "path": "{{ .chezmoi.homeDir }}/.claude/local-marketplace"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "edit-reminders@local": true
+  },
   "hooks": {
     "SessionStart": [
       {
@@ -130,37 +141,6 @@
         ]
       }
     ],
-    "PostToolUse": [
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/record-edit.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/record-deletion.sh"
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/reset-turn-state.sh"
-          }
-        ]
-      }
-    ],
     "Notification": [
       {
         "matcher": "",
@@ -183,10 +163,6 @@
           {
             "type": "command",
             "command": "~/.claude/hooks/bell.sh"
-          },
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/edit-reminders-on-stop.sh"
           }
         ]
       }

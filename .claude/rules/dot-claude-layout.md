@@ -11,9 +11,10 @@ paths:
 - `literal_CLAUDE.md` — 常時ロード指令。`literal_` で chezmoi に prefix 解釈をスキップさせ、ターゲットでは `~/.claude/CLAUDE.md` として配置される (ソース側のファイル名を `CLAUDE.md` から外しているのは、このリポジトリ上のエージェントが `~/.claude/CLAUDE.md` 用の指令を誤って自リポジトリの memory として読み込むのを防ぐため)
 - `exact_rules/*.md` — 自動ロードされる切り出し (`paths` なしは常時ロード、`paths` 付きは該当ファイル Read 時のみ発火)。
 - `exact_docs/*.md` — Claude Code 自動認識ディレクトリではない自前運用領域。常時ロード rule (`paths` なし) または paths 付き rule からの「詳細: ...」リンク経由でのみ到達可能。rule 本体に直接書くと常時ロードコストや paths 付きでも肥大が問題になる場合の切り出し先
-- `exact_hooks/` — hook スクリプト本体 (`settings.json` から登録)
+- `exact_hooks/` — hook スクリプト本体 (`settings.json` の `hooks` から直接登録するもの)
+- `exact_local-marketplace/` — ローカル専用プラグインのマーケットプレイス (`.claude-plugin/marketplace.json` + 各プラグイン)。`settings.json` の `extraKnownMarketplaces.local` + `enabledPlugins."<plugin>@local"` で有効化される。協調する複数 hook を 1 セットでバンドルしたい場合は単独 hook (`exact_hooks/`) ではなくこちらに切り出す。各プラグインの動作詳細は当該プラグイン直下の `README.md` に書く (公式マーケットプレイスの慣習に揃える)
 - `exact_agents/`, `exact_skills/` — サブエージェント・スキル定義の置き場。
-- `settings.json` — Claude Code 設定
+- `settings.json` — Claude Code 設定 (テンプレートが必要なため `.tmpl` 化されている)
 
 `literal_CLAUDE.md` と paths なし `exact_rules/*.md` は機能的に同じ常時ロードで、役割で使い分ける:
 

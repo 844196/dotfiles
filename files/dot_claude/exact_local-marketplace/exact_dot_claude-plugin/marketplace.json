@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "local",
+  "owner": {
+    "name": "844196"
+  },
+  "plugins": [
+    {
+      "name": "edit-reminders",
+      "source": "./edit-reminders",
+      "description": "ターン中の編集 (Edit/Write/削除) を検知して、ターン終了時にドキュメント整合性チェックを促す reminder を block で注入する hook 群"
+    }
+  ]
+}
