@@ -9,10 +9,10 @@
       "Bash(chezmoi apply)"
     ],
     "ask": [
-      "Bash(mise run //:apply)"
+      "Bash(mise run //:chezmoi:apply)"
     ],
     "allow": [
-      "Bash(mise run //:diff)"
+      "Bash(mise run //:chezmoi:diff)"
     ]
   }
 }

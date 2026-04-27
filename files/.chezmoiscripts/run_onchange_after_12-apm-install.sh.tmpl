@@ -2,5 +2,5 @@
 
 set -euo pipefail
 
-# apm.yml hash: {{ include "dot_apm/apm.yml" | sha256sum }}
+# apm.yml hash: {{ include "exact_dot_apm/apm.yml" | sha256sum }}
 cd ~/.apm && ~/.local/bin/mise exec -- apm install -g

@@ -1,10 +1,4 @@
----
-description: files/dot_claude/exact_skills/ 配下のスキル定義を編集するときの参照先
-paths:
-  - files/dot_claude/exact_skills/**
----
-
-# `files/dot_claude/exact_skills/` のスキル定義
+# `files/dot_claude/exact_skills/` (`~/.claude/skills/`)
 
 `~/.claude/skills/` にデプロイされるカスタムスキル定義の参照ポインタ。
 

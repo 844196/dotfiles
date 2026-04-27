@@ -1,10 +1,4 @@
----
-description: files/dot_claude/exact_agents/ 配下のカスタムエージェント定義を編集するときの注意点
-paths:
-  - files/dot_claude/exact_agents/**
----
-
-# `files/dot_claude/exact_agents/` のカスタムエージェント定義
+# `files/dot_claude/exact_agents/` (`~/.claude/agents/`)
 
 `~/.claude/agents/` にデプロイされるカスタムエージェント定義に関する注意点。
 
