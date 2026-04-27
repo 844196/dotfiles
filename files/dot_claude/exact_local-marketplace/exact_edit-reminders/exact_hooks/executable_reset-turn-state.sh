@@ -13,7 +13,7 @@
 #                生じさせない (= 内容が変わらない作業ではフックが発火しない)。
 #
 # git status は --no-optional-locks 付きで実行する (.git/index.lock の残置回避、
-# cf. files/dot_local/share/zsh/exact_functions/exact_Prompts/prompt_zen_setup)。
+# cf. files/exact_dot_zsh/exact_functions/exact_Prompts/prompt_zen_setup)。
 
 set -euo pipefail
 

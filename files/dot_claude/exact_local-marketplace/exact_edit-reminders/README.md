@@ -77,7 +77,7 @@ tracked / untracked の区別を持ち込まず、CWD 配下の全ファイル (
 - 検出対象は「ターン中に内容 hash が変化した path」だけに絞られる
 - 削除はリネームの旧パスを含めて REMOVED として一律に拾う (リネームの新パスは ADDED 扱い、`-M` の類似度判定に依存しない)
 
-`git status` 系は `--no-optional-locks` 付きで実行する (`.git/index.lock` の残置回避、cf. `files/dot_local/share/zsh/exact_functions/exact_Prompts/prompt_zen_setup`)。
+`git status` 系は `--no-optional-locks` 付きで実行する (`.git/index.lock` の残置回避、cf. `files/exact_dot_zsh/exact_functions/exact_Prompts/prompt_zen_setup`)。
 
 ## Detection Scope
 

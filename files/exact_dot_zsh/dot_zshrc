@@ -35,7 +35,7 @@ autoload -Uz smart-insert-last-word
 autoload -Uz {up,down}-line-or-beginning-search
 autoload -Uz zman
 autoload -Uz anyframe-init
-autoload -Uz $XDG_DATA_HOME/zsh/functions/**/*(N.:t)
+autoload -Uz $ZDOTDIR/functions/**/*(N.:t)
 
 add-zsh-hook precmd send-osc7
 add-zsh-hook precmd toggle-delta-features
@@ -202,7 +202,7 @@ eval "$(fnox activate zsh)"
 compinit -d $XDG_CACHE_HOME/zsh/compdump-$ZSH_VERSION
 
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-source $XDG_DATA_HOME/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=black,bold"
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20

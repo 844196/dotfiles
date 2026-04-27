@@ -10,7 +10,7 @@ if [[ $(uname) = Darwin ]] && which getconf &>/dev/null; then
   export XDG_RUNTIME_DIR="${$(getconf DARWIN_USER_TEMP_DIR)%/}"
 fi
 
-ZDOTDIR=$XDG_CONFIG_HOME/zsh
+ZDOTDIR=$HOME/.zsh
 ZEVALCACHEDIR=$XDG_CACHE_HOME/zsh/evalcache
 
 export AQUA_ROOT_DIR=$XDG_DATA_HOME/aquaproj-aqua
@@ -60,11 +60,11 @@ path=(
   $path
 )
 fpath=(
-  $XDG_DATA_HOME/zsh/functions/*(N-/)
-  $XDG_DATA_HOME/zsh/functions/Zle/anyframe-functions/*(N-/)
-  $XDG_DATA_HOME/zsh/plugins/anyframe(N-/)
-  $XDG_DATA_HOME/zsh/plugins/zman/functions(N-/)
-  $XDG_DATA_HOME/zsh/vendor-completions(N-/)
+  $ZDOTDIR/functions/*(N-/)
+  $ZDOTDIR/functions/Zle/anyframe-functions/*(N-/)
+  $ZDOTDIR/plugins/anyframe(N-/)
+  $ZDOTDIR/plugins/zman/functions(N-/)
+  $ZDOTDIR/vendor-completions(N-/)
   $fpath
 )
 
