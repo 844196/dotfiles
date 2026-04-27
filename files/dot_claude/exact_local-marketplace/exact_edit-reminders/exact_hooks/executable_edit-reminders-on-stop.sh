@@ -46,7 +46,14 @@ state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/claude/edit-reminders/$session_
 [ -d "$state_dir" ] || exit 0
 [ -f "$state_dir/blocked" ] && exit 0
 
-git -C "$cwd" rev-parse --is-inside-work-tree &>/dev/null || exit 0
+# CWD ではなくリポジトリルートを基準にする
+repo_root="$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null)" || exit 0
+
+# snap 取得時と異なるリポジトリならスキップ
+if [ -f "$state_dir/repo_root" ]; then
+  snap_repo_root="$(cat "$state_dir/repo_root")"
+  [ "$snap_repo_root" != "$repo_root" ] && exit 0
+fi
 
 has_md=0
 has_impl=0
@@ -63,13 +70,13 @@ new_paths_file="$state_dir/.new-paths"
 new_hashes_file="$state_dir/.new-hashes"
 new_snap_file="$state_dir/.new-snap"
 
-git -C "$cwd" --no-optional-locks ls-files --cached --others --exclude-standard 2>/dev/null \
+git -C "$repo_root" --no-optional-locks ls-files --cached --others --exclude-standard 2>/dev/null \
   | while IFS= read -r p; do
-      if [ -e "$cwd/$p" ]; then printf '%s\n' "$p"; fi
+      if [ -e "$repo_root/$p" ]; then printf '%s\n' "$p"; fi
     done > "$new_paths_file"
 
 if [ -s "$new_paths_file" ]; then
-  git -C "$cwd" hash-object --stdin-paths < "$new_paths_file" \
+  git -C "$repo_root" hash-object --stdin-paths < "$new_paths_file" \
     > "$new_hashes_file" 2>/dev/null || true
   paste "$new_hashes_file" "$new_paths_file" | LC_ALL=C sort -k2 > "$new_snap_file"
 else

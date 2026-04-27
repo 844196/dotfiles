@@ -24,25 +24,28 @@ cwd="$(jq -r '.cwd // empty' <<<"$input")"
 
 [ -z "$session_id" ] && exit 0
 
+# CWD ではなくリポジトリルートを基準にする (CWD が変わっても同じリポジトリなら同じ snap)
+repo_root="$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null)" || exit 0
+
 state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/claude/edit-reminders/$session_id"
 rm -rf "$state_dir"
-
-git -C "$cwd" rev-parse --is-inside-work-tree &>/dev/null || exit 0
-
 mkdir -p "$state_dir"
+
+# repo_root を記録 (Stop 時に比較)
+printf '%s\n' "$repo_root" > "$state_dir/repo_root"
 
 paths_file="$state_dir/.paths"
 hashes_file="$state_dir/.hashes"
 
 # 削除済み tracked (index には居るが work tree に無い) は hash-object に渡せないので
 # [ -e ] で work tree 存在を確認しながらフィルタする。
-git -C "$cwd" --no-optional-locks ls-files --cached --others --exclude-standard 2>/dev/null \
+git -C "$repo_root" --no-optional-locks ls-files --cached --others --exclude-standard 2>/dev/null \
   | while IFS= read -r p; do
-      if [ -e "$cwd/$p" ]; then printf '%s\n' "$p"; fi
+      if [ -e "$repo_root/$p" ]; then printf '%s\n' "$p"; fi
     done > "$paths_file"
 
 if [ -s "$paths_file" ]; then
-  git -C "$cwd" hash-object --stdin-paths < "$paths_file" \
+  git -C "$repo_root" hash-object --stdin-paths < "$paths_file" \
     > "$hashes_file" 2>/dev/null || true
   paste "$hashes_file" "$paths_file" | LC_ALL=C sort -k2 > "$state_dir/snap-files"
 else

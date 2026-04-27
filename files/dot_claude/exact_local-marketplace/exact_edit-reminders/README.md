@@ -23,7 +23,7 @@
 | Hook | Event | 動作 |
 |---|---|---|
 | `session-start-gc.sh` | `SessionStart` | state root 配下の `<session_id>/` を sweep し、7 日以上更新されていない dir を削除 (終了済みセッションの掃除) |
-| `reset-turn-state.sh` | `UserPromptSubmit` | 自セッションの state dir をクリア、直後に `ls-files --cached --others --exclude-standard` × `git hash-object --stdin-paths` で CWD 配下の `<hash>\t<path>` 一覧 (`snap-files`) を保存 |
+| `reset-turn-state.sh` | `UserPromptSubmit` | 自セッションの state dir をクリア、リポジトリルートを `repo_root` に記録、`ls-files` × `git hash-object` でリポジトリ配下の `<hash>\t<path>` 一覧 (`snap-files`) を保存 |
 | `edit-reminders-on-stop.sh` | `Stop` | スナップショットと現状の差分から `has_md` / `has_impl` / `has_deleted` を判定、reason を組み立て `decision: "block"` で注入。`blocked` フラグを立てて二重発火を防ぐ |
 
 互いに状態 (`${XDG_STATE_HOME:-$HOME/.local/state}/claude/edit-reminders/<session_id>/`) を介して協調する 1 セット。
@@ -32,7 +32,8 @@
 
 ```
 ${XDG_STATE_HOME:-$HOME/.local/state}/claude/edit-reminders/<session_id>/
-├── snap-files  # ターン開始時の CWD 配下ファイルの <hash>\t<path> 一覧 (path で sort 済み)
+├── repo_root   # snap 取得時の git リポジトリルート (Stop 時に比較、異なればスキップ)
+├── snap-files  # ターン開始時のリポジトリ配下ファイルの <hash>\t<path> 一覧 (path で sort 済み)
 └── blocked     # Stop で reason 注入済みのフラグ (空ファイル)
 ```
 
@@ -46,13 +47,15 @@ SessionStart (セッション開始時 1 回)
 UserPromptSubmit
   └─ reset-turn-state.sh
        ├─ 状態ディレクトリを rm -rf
-       └─ ls-files --cached --others --exclude-standard で path 列挙、
+       ├─ git rev-parse --show-toplevel でリポジトリルートを取得、repo_root に保存
+       └─ リポジトリルートから ls-files --cached --others --exclude-standard で path 列挙、
           git hash-object --stdin-paths でハッシュ化、
           snap-files (<hash>\t<path> 一覧) を保存
 
 Stop
   └─ edit-reminders-on-stop.sh
        ├─ blocked が既にあれば exit 0 (二重発火防止)
+       ├─ repo_root と現在のリポジトリルートを比較、異なれば exit 0 (異なるリポジトリの比較を防ぐ)
        ├─ 現状の <hash>\t<path> 一覧を生成
        ├─ snap-files と path key でマージし ADDED / MODIFIED / REMOVED に分類
        ├─ パスの拡張子から has_md / has_impl、REMOVED があれば has_deleted を判定
