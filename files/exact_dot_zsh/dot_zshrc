@@ -7,14 +7,6 @@ fi
 
 autoload -Uz promptinit && promptinit
 
-if [[ -n "$REMOTE_CONTAINERS" ]]; then
-  zstyle ':prompt:zen:user' format $'\uf4b7 '
-  zstyle ':prompt:zen:user' bg '#414868'
-  zstyle ':prompt:zen:user' fg '#a0a9cb'
-else
-  zstyle ':prompt:zen:user' format ''
-fi
-
 prompt zen instant
 
 autoload -Uz add-zsh-hook

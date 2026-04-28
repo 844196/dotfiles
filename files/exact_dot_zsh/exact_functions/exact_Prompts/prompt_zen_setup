@@ -14,8 +14,8 @@ declare -gA __ZEN_SYMBOLS_DEFAULT=(
 declare -gA __ZEN_COLORS_DEFAULT=(
   prompt:ok:fg '#414868'
   prompt:ng:fg '#f7768e'
-  user:bg '#7aa2f7'
-  user:fg '#16161e'
+  notice:bg '#7aa2f7'
+  notice:fg '#16161e'
   path:bg '#24283b'
   path:fg '#787c99'
   git:branch:bg '#1d2230'
@@ -27,7 +27,7 @@ declare -gA __ZEN_COLORS_DEFAULT=(
   git:user:fg '#414868'
 )
 declare -gA __ZEN_PSVAR_INDEXES=(
-  user 1
+  notice 1
   pwd 2
   git:branch 3
   git:branch:dirty 4
@@ -76,10 +76,10 @@ prompt_zen_refresh_ps() {
 
   local ps=(
     $'\n'
-    "%(${__ZEN_PSVAR_INDEXES[user]}V."
-      "%F{$__ZEN_COLORS[user:bg]}$__ZEN_SYMBOLS[round:open]%K{$__ZEN_COLORS[user:bg]}"
-      " %F{$__ZEN_COLORS[user:fg]}%${__ZEN_PSVAR_INDEXES[user]}v%f "
-      "%k%F{$__ZEN_COLORS[user:bg]}%K{$__ZEN_COLORS[path:bg]}$__ZEN_SYMBOLS[round:close]%f"
+    "%(${__ZEN_PSVAR_INDEXES[notice]}V."
+      "%F{$__ZEN_COLORS[notice:bg]}$__ZEN_SYMBOLS[round:open]%K{$__ZEN_COLORS[notice:bg]}"
+      " %F{$__ZEN_COLORS[notice:fg]}%${__ZEN_PSVAR_INDEXES[notice]}v%f "
+      "%k%F{$__ZEN_COLORS[notice:bg]}%K{$__ZEN_COLORS[path:bg]}$__ZEN_SYMBOLS[round:close]%f"
     "."
       "%F{$__ZEN_COLORS[path:bg]}$__ZEN_SYMBOLS[round:open]%K{$__ZEN_COLORS[path:bg]}"
     ")"
@@ -124,7 +124,7 @@ prompt_zen_show_instant_prompt() {
   unsetopt PROMPT_CR PROMPT_SP
 
   psvar=()
-  psvar[$__ZEN_PSVAR_INDEXES[user]]="$(prompt_zen_user)"
+  psvar[$__ZEN_PSVAR_INDEXES[notice]]="$(prompt_zen_notice)"
   psvar[$__ZEN_PSVAR_INDEXES[pwd]]="$(prompt_zen_pwd)"
 
   # \e7 -> Save cursor position
@@ -169,7 +169,7 @@ prompt_zen_setup() {
 prompt_zen_precmd_sync() {
   {
     psvar=()
-    psvar[$__ZEN_PSVAR_INDEXES[user]]="$(prompt_zen_user)"
+    psvar[$__ZEN_PSVAR_INDEXES[notice]]="$(prompt_zen_notice)"
     psvar[$__ZEN_PSVAR_INDEXES[pwd]]="$(prompt_zen_pwd)"
 
     prompt_zen_set_psvar "$(prompt_zen_git-branch)"
@@ -185,7 +185,7 @@ prompt_zen_precmd_async() {
   local fd_git_branch fd_git_user
   {
     psvar=()
-    psvar[$__ZEN_PSVAR_INDEXES[user]]="$(prompt_zen_user)"
+    psvar[$__ZEN_PSVAR_INDEXES[notice]]="$(prompt_zen_notice)"
     psvar[$__ZEN_PSVAR_INDEXES[pwd]]="$(prompt_zen_pwd)"
 
     exec {fd_git_branch}< <(prompt_zen_git-branch)
@@ -200,18 +200,9 @@ prompt_zen_precmd_async() {
   }
 }
 
-prompt_zen_user() {
+prompt_zen_notice() {
   local format
-  zstyle -T ':prompt:zen:user' format
-  case $? in
-    0)
-      format='%n'
-      ;;
-    1)
-      zstyle -s ':prompt:zen:user' format format
-      ;;
-  esac
-
+  zstyle -s ':prompt:zen:notice' format format
   print -rn -- ${(%)format}
 }
 

@@ -4,16 +4,16 @@
 if (( ${INCOGNITO-0} )); then
   fc -P
 
-  zstyle ':prompt:zen:user' show no
-  psvar[$__ZEN_PSVAR_INDEXES[user]]=
+  zstyle ':prompt:zen:notice' show no
+  psvar[$__ZEN_PSVAR_INDEXES[notice]]=
 
   INCOGNITO=
 else
   fc -p
 
-  zstyle ':prompt:zen:user' show yes
-  zstyle ':prompt:zen:user' override $'\Uf05f9 '
-  psvar[$__ZEN_PSVAR_INDEXES[user]]=$'\Uf05f9 '
+  zstyle ':prompt:zen:notice' show yes
+  zstyle ':prompt:zen:notice' override $'\Uf05f9 '
+  psvar[$__ZEN_PSVAR_INDEXES[notice]]=$'\Uf05f9 '
 
   INCOGNITO=1
 fi
