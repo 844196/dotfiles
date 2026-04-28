@@ -15,8 +15,19 @@
 
 ## 運用コマンド
 
-- `mise run //:chezmoi:diff` - ソースとホームディレクトリの差分を表示します。
-- `mise run //:chezmoi:apply` - ソースをホームディレクトリに適用します。
+- `mise run //:chezmoi:diff [chezmoi-flags...]` - ソースとホームディレクトリの差分を表示します。
+
+  ```bash
+  mise run //:chezmoi:diff
+  mise run //:chezmoi:diff --exclude scripts # 実行される予定の .chezmoiscripts ソースコードは除いた差分
+  ```
+
+- `mise run //:chezmoi:apply [chezmoi-flags...]` - ソースをホームディレクトリに適用します。
+
+  ```bash
+  mise run //:chezmoi:apply
+  mise run //:chezmoi:apply -nv # ドライラン + 詳細表示
+  ```
 
 ## ワークフロー
 
