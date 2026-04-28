@@ -57,24 +57,26 @@
 [delta]
   navigate = true
   true-color = always
-  features = iceberg line-numbers
-[delta "iceberg"]
-  syntax-theme = iceberg
-  file-style = bold "#6b7089"
-  file-decoration-style = "#34394E" ul
+  features = tokyonight_night line-numbers
+[delta "tokyonight_night"]
+  syntax-theme = tokyonight_night
+  file-style = bold "#7aa2f7"
+  file-decoration-style = "#3b4261" ul
   hunk-header-style = omit
-  plus-style = syntax "#353933"
-  plus-emph-style = syntax "#445861"
-  plus-non-emph-style = syntax "#2D3841"
-  minus-style = syntax "#3E2B32"
-  minus-emph-style = syntax "#445861"
-  minus-non-emph-style = syntax "#2D3841"
+  minus-style = syntax "#37222c"
+  minus-non-emph-style = syntax "#37222c"
+  minus-emph-style = syntax "#713137"
+  minus-empty-line-marker-style = syntax "#37222c"
+  plus-style = syntax "#20303b"
+  plus-non-emph-style = syntax "#20303b"
+  plus-emph-style = syntax "#2c5a66"
+  plus-empty-line-marker-style = syntax "#20303b"
 [delta "line-numbers"]
   line-numbers = true
-  line-numbers-left-style = "#34394E"
+  line-numbers-left-style = "#3b4261"
   line-numbers-right-style = line-numbers-left-style
-  line-numbers-zero-style = "#454b68"
-  line-numbers-plus-style = line-numbers-zero-style
-  line-numbers-minus-style = line-numbers-zero-style
+  line-numbers-zero-style = "#3b4261"
+  line-numbers-plus-style = "#449dab"
+  line-numbers-minus-style = "#914c54"
 [delta "side-by-side"]
   side-by-side = true
