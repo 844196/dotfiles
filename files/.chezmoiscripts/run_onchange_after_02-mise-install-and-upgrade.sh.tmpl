@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# config.toml hash: {{ includeTemplate "dot_config/exact_mise/config.toml.tmpl" . | sha256sum }}
+~/.local/bin/mise install
+~/.local/bin/mise upgrade
