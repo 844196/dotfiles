@@ -45,5 +45,5 @@
 .local/share/claude-code-system-prompts:
   type: archive
   exact: true
-  url: https://github.com/Piebald-AI/claude-code-system-prompts/archive/refs/tags/v2.1.120.tar.gz
+  url: https://github.com/Piebald-AI/claude-code-system-prompts/archive/refs/tags/v{{ .versions.claude }}.tar.gz
   stripComponents: 1
