@@ -4,9 +4,6 @@ monorepo.config_roots = ["packages/*"]
 [settings]
 lockfile = true
 
-[settings.github]
-credential_command = "gh auth token"
-
 [tools]
 lefthook = "2.0.15"
 "github:convco/convco" = "0.6.2"
@@ -15,9 +12,8 @@ lefthook = "2.0.15"
 postinstall = "lefthook install"
 
 [tasks."chezmoi:diff"]
-description = "chezmoi diff"
-run = "chezmoi diff --exclude scripts"
+run = "chezmoi diff"
 
 [tasks."chezmoi:apply"]
-description = "chezmoi apply"
+env = { MISE_GITHUB_TOKEN = "{{ exec(command='gh auth token') }}" }
 run = "chezmoi apply"
