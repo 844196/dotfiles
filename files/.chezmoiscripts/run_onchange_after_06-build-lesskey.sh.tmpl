@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# trigger: dot_lesskey sha256 = {{ include "dot_config/exact_less/dot_lesskey" | sha256sum }}
+
 set -euo pipefail
 
 if type lesskey >/dev/null 2>&1; then
