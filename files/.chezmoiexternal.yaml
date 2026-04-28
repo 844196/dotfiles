@@ -1,7 +1,3 @@
-.zsh/vendor-completions/_task:
-  type: file
-  url: https://raw.githubusercontent.com/go-task/task/v3.31.0/completion/zsh/_task
-
 .config/bat/themes/tokyonight_night/tokyonight_night.tmTheme:
   type: file
   url: https://raw.githubusercontent.com/folke/tokyonight.nvim/refs/tags/v4.11.0/extras/sublime/tokyonight_night.tmTheme
