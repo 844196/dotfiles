@@ -11,7 +11,6 @@ if [[ $(uname) = Darwin ]] && which getconf &>/dev/null; then
 fi
 
 ZDOTDIR=$HOME/.zsh
-ZEVALCACHEDIR=$XDG_CACHE_HOME/zsh/evalcache
 
 export AQUA_ROOT_DIR=$XDG_DATA_HOME/aquaproj-aqua
 
