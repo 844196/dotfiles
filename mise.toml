@@ -15,5 +15,5 @@ postinstall = "lefthook install"
 run = "chezmoi diff"
 
 [tasks."chezmoi:apply"]
-env = { MISE_GITHUB_TOKEN = "{{ exec(command='gh auth token') }}" }
+env = { GITHUB_TOKEN = "{{ exec(command='gh auth token') }}" }
 run = "chezmoi apply"
