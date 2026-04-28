@@ -3,8 +3,6 @@
 local files=(
   ~/.zsh/.{zshenv,zshrc}
   ~/.zsh/plugins/zsh-autosuggestions/**/*.zsh
-  ~/.zsh/plugins/fast-syntax-highlighting/**/*.zsh
-  ~/.zsh/plugins/fast-syntax-highlighting/{fast-highlight,fast-string-highlight,fast-theme}
 )
 
 local f
