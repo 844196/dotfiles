@@ -179,6 +179,15 @@ dconf load / < {{ joinPath .chezmoi.sourceDir "dconf.ini" | quote }}
 
 参照しているデータファイル自体はターゲットに配置したくないことが多いので、`.chezmoiignore` に登録して deploy から外すのが定石。
 
+監視対象が**テンプレート (`*.tmpl`) で `.chezmoidata` 等を参照している**場合、`include` は生ソースを返すだけなのでデータ変更に追従しない。テンプレート展開後の文字列を hash したいときは `includeTemplate <path> .` を使う (第 2 引数 `.` で現在のデータスコープを渡す):
+
+```sh
+#!/bin/bash
+# config.toml hash: {{ includeTemplate "dot_config/foo/config.toml.tmpl" . | sha256sum }}
+```
+
+これならテンプレートのリテラル変更でも参照データ (`.chezmoidata/*` や `.chezmoi.toml.tmpl` の `data:`) の変更でも展開結果が変われば hash が変わる。
+
 ### 番号 `NN` の役割
 
 番号は実行順序の指定。chezmoi はファイル名 (lexicographic) 順に実行する。依存関係に応じて決める。飛び番は許容され、後から間にスクリプトを挿入する余地を残せる。
