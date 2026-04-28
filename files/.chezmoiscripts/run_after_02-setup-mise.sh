@@ -1,4 +1,6 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
+
+set -euo pipefail
 
 ~/.local/bin/mise completion zsh > ~/.zsh/vendor-completions/_mise
 

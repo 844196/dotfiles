@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+set -euo pipefail
+
 local files=(
   ~/.zsh/.{zshenv,zshrc}
   ~/.zsh/plugins/zsh-autosuggestions/**/*.zsh
