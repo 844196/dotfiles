@@ -31,4 +31,4 @@
 - ビルド成果物のホームディレクトリ以下への配置
   - e.g. `~/.844196/bin`, `~/.844196/libexec`
 
-各自作ツールの `install` タスクは `chezmoi apply` 後に `files/.chezmoiscripts/run_after_09-install-dotfiles-packages.sh.tmpl` から `mise run //packages/...:install` で一括呼び出しされます。個別ツールの動作確認時は `mise run //packages/<tool-name>:install` を直接実行できます。
+各自作ツールの `install` タスクは `chezmoi apply` 後に `files/.chezmoiscripts/run_after_10-install-dotfiles-packages.sh.tmpl` から `mise run //packages/...:install` で一括呼び出しされます。個別ツールの動作確認時は `mise run //packages/<tool-name>:install` を直接実行できます。
