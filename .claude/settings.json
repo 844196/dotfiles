@@ -14,7 +14,9 @@
     "allow": [
       "Bash(mise run //:chezmoi:diff)",
       "Bash(.claude/skills/update-claude/scripts/update-chezmoidata.sh *)",
-      "Bash(claude --version)"
+      "Bash(claude --version)",
+      "Bash(.claude/skills/update-mise/scripts/update-chezmoidata.sh *)",
+      "Bash(mise --version)"
     ]
   }
 }
