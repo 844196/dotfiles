@@ -12,7 +12,9 @@
       "Bash(mise run //:chezmoi:apply)"
     ],
     "allow": [
-      "Bash(mise run //:chezmoi:diff)"
+      "Bash(mise run //:chezmoi:diff)",
+      "Bash(.claude/skills/update-claude/scripts/update-chezmoidata.sh *)",
+      "Bash(claude --version)"
     ]
   }
 }
