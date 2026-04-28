@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# trigger: chroma version = {{ .versions.chroma }}
+# trigger: chromad.service sha256 = {{ include "dot_config/systemd/user/chromad.service" | sha256sum }}
+
 set -euo pipefail
 
 if ! which systemctl &>/dev/null; then

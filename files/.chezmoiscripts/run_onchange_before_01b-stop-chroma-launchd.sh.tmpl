@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# trigger: chroma version = {{ .versions.chroma }}
+# trigger: sh.844196.chromad.plist sha256 = {{ include "Library/LaunchAgents/private_sh.844196.chromad.plist" | sha256sum }}
+
+set -euo pipefail
+
+if ! which launchctl &>/dev/null; then
+  exit
+fi
+
+launchctl unload ~/Library/LaunchAgents/sh.844196.chromad.plist || true
