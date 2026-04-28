@@ -7,26 +7,15 @@ fi
 
 autoload -Uz promptinit && promptinit
 
-if [[ "${VSCODE_COPILOT_TERMINAL-0}" = 1 ]]; then
-  source "$(code --locate-shell-integration-path zsh)"
-
-  # 高確率でコマンド出力の検出に失敗するため無効化
-  zstyle ':prompt:zen' async no
-  zstyle ':prompt:zen:right-prompt' enable no
-
-  # 人間用と区別しやすくする
-  zstyle ':prompt:zen:user' format $'\uf4b8 '
+if [[ -n "$REMOTE_CONTAINERS" ]]; then
+  zstyle ':prompt:zen:user' format $'\uf4b7 '
+  zstyle ':prompt:zen:user' bg '#414868'
+  zstyle ':prompt:zen:user' fg '#a0a9cb'
 else
-  if [[ -n "$REMOTE_CONTAINERS" ]]; then
-    zstyle ':prompt:zen:user' format $'\uf4b7 '
-    zstyle ':prompt:zen:user' bg '#414868'
-    zstyle ':prompt:zen:user' fg '#a0a9cb'
-  else
-    zstyle ':prompt:zen:user' format ''
-  fi
-
-  prompt zen instant
+  zstyle ':prompt:zen:user' format ''
 fi
+
+prompt zen instant
 
 autoload -Uz add-zsh-hook
 autoload -Uz compinit
@@ -141,11 +130,9 @@ zle_highlight+=(paste:none)
 select-word-style default
 anyframe-init
 
-if [[ "${VSCODE_COPILOT_TERMINAL-0}" = 0 ]]; then
-  eval "$(wk init --major-prefix 'm')"
-  bindwidget ' ' self-insert-or-trigger-wk
-  bindwidget ',' self-insert-or-trigger-wk-major
-fi
+eval "$(wk init --major-prefix 'm')"
+bindwidget ' ' self-insert-or-trigger-wk
+bindwidget ',' self-insert-or-trigger-wk-major
 
 zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
