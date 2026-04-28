@@ -22,6 +22,13 @@
   mise run //:chezmoi:diff --exclude scripts # 実行される予定の .chezmoiscripts ソースコードは除いた差分
   ```
 
+- `mise run //:chezmoi:scripts <next|all>` - `.chezmoiscripts` を実行される順番に表示します。
+
+  ```bash
+  mise run //:chezmoi:scripts next # 次の apply 時に実行されるもの
+  mise run //:chezmoi:scripts all # 現在の状態にかかわらず全て
+  ```
+
 - `mise run //:chezmoi:apply [chezmoi-flags...]` - ソースをホームディレクトリに適用します。
 
   ```bash
