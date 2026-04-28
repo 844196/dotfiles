@@ -47,10 +47,5 @@ bin = "wk"
 
 [env]
 _.path = [
-  # mise activate で登録されるフックの後に PATH の最上位をaquaにすることで
-  # aquaとmiseを同時に使えるようにする
-  # https://aquaproj.github.io/docs/reference/use-aqua-with-other-tools
-  # https://zenn.dev/link/comments/4a06cbe069df4a
-  "{{"{{"}} get_env(name='AQUA_ROOT_DIR', default=xdg_data_home ~ '/aquaproj-aqua') {{"}}"}}/bin",
   "~/.844196/bin",
 ]
