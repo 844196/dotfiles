@@ -50,8 +50,8 @@
 
 | パス | 役割 |
 |---|---|
-| `files/` | chezmoi ソースルート (chezmoi で `~/` に反映、詳細は `files/CLAUDE.md`) |
-| `packages/` | 自作ツールのソースコード (ビルドされて `~/` に配置、詳細は `packages/CLAUDE.md`) |
+| `files/` | chezmoi ソースルート (chezmoi で `~/` に反映、詳細は [`./files/CLAUDE.md`](./files/CLAUDE.md)) |
+| `packages/` | 自作ツールのソースコード (ビルドされて `~/` に配置、詳細は [`./packages/CLAUDE.md`](./packages/CLAUDE.md)) |
 | `install.sh` | ブートストラップスクリプト |
 
 ## Git ワークフロー
