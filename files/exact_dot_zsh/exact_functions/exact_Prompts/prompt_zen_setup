@@ -151,12 +151,8 @@ prompt_zen_setup() {
 
   prompt_opts=(percent)
 
-  if zstyle -T ':prompt:zen' async; then
-    add-zsh-hook precmd prompt_zen_precmd_async
-    zle -N prompt_zen_precmd_async_callback
-  else
-    add-zsh-hook precmd prompt_zen_precmd_sync
-  fi
+  add-zsh-hook precmd prompt_zen_precmd_async
+  zle -N prompt_zen_precmd_async_callback
 
   if (( ${precmd_functions[(I)prompt_zen_clear_instant_prompt]} > 0 )); then
     # 必ず最後に実行されるようにしないと、画面がちらつく
@@ -164,21 +160,6 @@ prompt_zen_setup() {
   else
     prompt_opts+=(cr sp)
   fi
-}
-
-prompt_zen_precmd_sync() {
-  {
-    psvar=()
-    psvar[$__ZEN_PSVAR_INDEXES[notice]]="$(prompt_zen_notice)"
-    psvar[$__ZEN_PSVAR_INDEXES[pwd]]="$(prompt_zen_pwd)"
-
-    prompt_zen_set_psvar "$(prompt_zen_git-branch)"
-    prompt_zen_set_psvar "$(prompt_zen_git-user)"
-  } always {
-    # Ensure next hook will run
-    # See https://zsh.sourceforge.io/Doc/Release/Functions.html#index-hook-functions
-    :
-  }
 }
 
 prompt_zen_precmd_async() {
