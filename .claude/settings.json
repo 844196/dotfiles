@@ -11,7 +11,6 @@
       "Bash(chezmoi diff *)",
       "Bash(chezmoi ls-scripts *)",
       "Bash(.claude/skills/update-claude/scripts/update-chezmoidata.sh *)",
-      "Bash(claude --version)",
       "Bash(.claude/skills/update-mise/scripts/update-chezmoidata.sh *)",
       "Bash(mise --version)"
     ]
