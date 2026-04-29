@@ -102,7 +102,7 @@
     "local": {
       "source": {
         "source": "directory",
-        "path": "{{ .chezmoi.homeDir }}/.claude/local-marketplace"
+        "path": "~/.claude/local-marketplace"
       }
     }
   },
