@@ -4,7 +4,7 @@ zparseopts -D -E - -amend=opt_amend
 
 skill="headless-commit"
 if (( $#opt_amend )); then
-  skill="headless-commit-amend"
+  skill="commit-amend"
 fi
 
 head_before=$(git rev-parse HEAD 2>/dev/null)

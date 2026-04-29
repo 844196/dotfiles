@@ -2,7 +2,7 @@
 
 `~/.claude/skills/` にデプロイされるカスタムスキル定義の参照ポインタ。
 
-## commit / commit-amend / headless-commit / headless-commit-amend
+## commit / commit-amend / headless-commit
 
 実装の本体は `files/exact_dot_844196/exact_bin/executable_git-claude-commit` を参照。
 
