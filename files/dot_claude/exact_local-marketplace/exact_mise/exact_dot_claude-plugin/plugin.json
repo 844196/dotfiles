@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "name": "mise",
+  "version": "0.1.0",
+  "description": "mise タスク機能の使い方ガイドライン (using-mise-tasks)。mise を使うプロジェクトでのみ有効化する想定"
+}

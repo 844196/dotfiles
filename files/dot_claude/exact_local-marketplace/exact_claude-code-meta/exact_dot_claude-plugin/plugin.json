@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "name": "claude-code-meta",
+  "version": "0.1.0",
+  "description": "CLAUDE.md / SKILL.md / .claude/rules/*.md を編集するときに参照する Claude Code 本体プロンプト集 (Piebald-AI から抽出した references を同梱)"
+}

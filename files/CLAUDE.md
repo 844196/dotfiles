@@ -9,7 +9,6 @@
 ただし、動的にファイルが生成されるディレクトリは以下のように対応する:
 - `exact_` を付けつつ `.chezmoiignore` で動的に生成されるファイルを除外する
   - 動的生成されるファイルが少ない・特定できる場合
-  - e.g. `./dot_claude/exact_skills/` + `.chezmoiignore` (apm が管理・配置するスキルが `chezmoi diff` に出てこないように `.chezmoiignore` で除外)
 - `exact_` を付けない
   - 動的生成されるファイルが多すぎる・特定できない、システムや他のツールも使用・参照している場合
   - e.g. `./dot_claude/`

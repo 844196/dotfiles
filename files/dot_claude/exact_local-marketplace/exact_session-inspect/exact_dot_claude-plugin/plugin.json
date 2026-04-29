@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "name": "session-inspect",
+  "version": "0.1.0",
+  "description": "他セッションを覗いて分析するスキル群: analyze-session (ツールコール時系列・エラー抽出), interview-session (--resume -p で当事者振り返り)"
+}

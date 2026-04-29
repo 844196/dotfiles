@@ -14,6 +14,41 @@
       "name": "new-file-protocol",
       "source": "./new-file-protocol",
       "description": "Write 単体での新規ファイル作成を PreToolUse で deny し、touch → Read → Write の 3 ステップを促す hook"
+    },
+    {
+      "name": "git",
+      "source": "./git",
+      "description": "Git 操作スキル群: commit / commit-amend / headless-commit"
+    },
+    {
+      "name": "github",
+      "source": "./github",
+      "description": "GitHub 操作スキル群: pr"
+    },
+    {
+      "name": "handover",
+      "source": "./handover",
+      "description": "セッション引き継ぎ・フォーク系スキル群: handover / handover-tmux / fork-tmux"
+    },
+    {
+      "name": "session-inspect",
+      "source": "./session-inspect",
+      "description": "他セッション分析スキル群: analyze-session / interview-session"
+    },
+    {
+      "name": "claude-code-meta",
+      "source": "./claude-code-meta",
+      "description": "CLAUDE.md / SKILL.md / .claude/rules/*.md 編集時に参照する Claude Code 本体プロンプト集"
+    },
+    {
+      "name": "mise",
+      "source": "./mise",
+      "description": "mise タスク機能の使い方ガイドライン (using-mise-tasks)"
+    },
+    {
+      "name": "agent-teams-compat",
+      "source": "./agent-teams-compat",
+      "description": "Agent Teams を旧モデル限定環境でも動かすための互換レイヤー (`model: inherit` の wizard エージェント)"
     }
   ]
 }

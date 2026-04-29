@@ -1,7 +1,3 @@
-# `files/dot_claude/exact_agents/` (`~/.claude/agents/`)
-
-`~/.claude/agents/` にデプロイされるカスタムエージェント定義に関する注意点。
-
 ## `model: inherit` の意図
 
 Agent ツールで model を省略すると CLI リリース時点の最新モデルが使われる。しかし GCP Vertex AI 等の環境では、そのモデルが利用できない場合がある (例: Vertex AI で opus 4.7 が未提供)。

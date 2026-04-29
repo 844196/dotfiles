@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "name": "handover",
+  "version": "0.1.0",
+  "description": "セッションを引き継ぐ・別ペインで仕切り直すスキル群: handover (引き継ぎ文書作成), handover-tmux (文書 + 新ペイン起動), fork-tmux (現セッション fork)"
+}
