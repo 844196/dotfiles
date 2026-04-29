@@ -2,3 +2,8 @@ commit-msg:
   jobs:
     - name: Validate commit message
       run: cat {1} | convco check --from-stdin
+
+pre-commit:
+  jobs:
+    - name: Check links
+      run: lychee --no-progress --root-dir "$PWD" .
