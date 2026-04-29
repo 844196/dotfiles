@@ -49,6 +49,11 @@
       "name": "agent-teams-compat",
       "source": "./agent-teams-compat",
       "description": "Agent Teams を旧モデル限定環境でも動かすための互換レイヤー (`model: inherit` の wizard エージェント)"
+    },
+    {
+      "name": "notification",
+      "source": "./notification",
+      "description": "Notification / Stop イベントで tmux ベルと OS デスクトップ通知を発火させる hook 群"
     }
   ]
 }

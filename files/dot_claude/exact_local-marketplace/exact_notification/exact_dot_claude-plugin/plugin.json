@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "name": "notification",
+  "version": "0.1.0",
+  "description": "Notification / Stop イベントで tmux ベルと OS デスクトップ通知を発火させる hook 群"
+}

@@ -1,12 +1,9 @@
 #!/bin/bash
-# Claude Code の Notification フックで OS 通知を送る
+# WSL2 から Windows のトースト通知を出す
 
 INPUT=$(cat)
 MESSAGE=$(echo "$INPUT" | jq -r '.message // "通知があります"')
 
-{{ if eq .chezmoi.os "darwin" -}}
-osascript -e "display notification \"$MESSAGE\" with title \"Claude Code\"" &>/dev/null &
-{{ else -}}
 PSCMD='$null = [Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime]
 $null = [Windows.Data.Xml.Dom.XmlDocument, Windows.Data.Xml.Dom.XmlDocument, ContentType = WindowsRuntime]
 $xml = @"
@@ -29,6 +26,5 @@ $notifier.Show([Windows.UI.Notifications.ToastNotification]::new($doc))'
 
 PSCMD="${PSCMD/__MESSAGE__/$MESSAGE}"
 powershell.exe -NoProfile -Command "$PSCMD" </dev/null &>/dev/null &
-{{ end -}}
 
 exit 0

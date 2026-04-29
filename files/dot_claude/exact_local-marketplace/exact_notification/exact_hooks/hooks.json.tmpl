@@ -1,0 +1,34 @@
+{
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/bell.sh"
+          },
+          {
+            "type": "command",
+{{- if eq .chezmoi.os "darwin" }}
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/notify-darwin.sh"
+{{- else }}
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/notify-windows.sh"
+{{- end }}
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/bell.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
