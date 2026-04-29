@@ -76,7 +76,6 @@ prompt: "前バージョン X.Y.Z から新バージョン A.B.C までの間に
 - hooks の仕様変更 (`PreToolUse` / `PostToolUse` / `UserPromptSubmit` 等のスキーマやイベント追加)
 - スキル機能 (`paths` フロントマター、`${CLAUDE_SESSION_ID}` 等の文字列置換、`!` プリプロセッシング、`SKILL.md` 評価タイミング) の変更
 - 組み込みスキル / slash command の追加・改名・廃止 (このリポジトリのカスタムスキルと衝突する可能性)
-- `claude-code-system-prompts` 抽出に影響するプロンプト構造の変化 (`~/.claude/rules/claude-code-system-prompts.md` 参照)
 - 環境変数 (`CLAUDE_*`) の追加・変更
 - mise / chezmoi 連携や XDG 準拠に響く変更 (設定ファイルパス、状態ファイル位置等)
 - WSL2 / macOS 固有の挙動差分

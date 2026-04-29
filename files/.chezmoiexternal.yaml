@@ -32,7 +32,7 @@
   url: https://github.com/folke/lazy.nvim/archive/refs/tags/v11.17.5.tar.gz
   stripComponents: 1
 
-.local/share/claude-code-system-prompts:
+.claude/skills/claude-code-meta/references/claude-code-system-prompts:
   type: archive
   exact: true
   url: https://github.com/Piebald-AI/claude-code-system-prompts/archive/refs/tags/v{{ .versions.claude }}.tar.gz
