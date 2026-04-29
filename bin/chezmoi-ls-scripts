@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+case "${1:-all}" in
+  all)
+    # https://github.com/twpayne/chezmoi/discussions/3491
+    chezmoi status --persistent-state=$(mktemp -d)/chezmoistate.boltdb --include=scripts 2>&1 \
+      | grep -vF 'config file template has changed'
+    ;;
+  next)
+    chezmoi status --include=scripts
+    ;;
+esac

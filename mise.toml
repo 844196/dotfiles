@@ -1,6 +1,9 @@
 experimental_monorepo_root = true
 monorepo.config_roots = ["packages/*"]
 
+[env]
+_.path = ["{{config_root}}/bin"]
+
 [settings]
 lockfile = true
 
@@ -10,31 +13,3 @@ lefthook = "2.0.15"
 
 [hooks]
 postinstall = "lefthook install"
-
-[tasks."chezmoi:diff"]
-run = "chezmoi diff"
-
-[tasks."chezmoi:apply"]
-env = { GITHUB_TOKEN = "{{ exec(command='gh auth token') }}" }
-run = "chezmoi apply"
-
-[tasks."chezmoi:scripts"]
-description = ".chezmoiscripts を実行される順番に表示します。"
-quiet = true
-usage = '''
-arg "<mode>" help="all: 設定されている全 script | next: 次の apply で実行される script のみ" {
-  choices "all" "next"
-}
-'''
-# https://github.com/twpayne/chezmoi/discussions/3491
-run = '''
-case "$usage_mode" in
-  all)
-    chezmoi status --persistent-state=$(mktemp -d)/chezmoistate.boltdb --include=scripts 2>&1 \
-      | grep -vF 'config file template has changed'
-    ;;
-  next)
-    chezmoi status --include=scripts
-    ;;
-esac
-'''

@@ -2,14 +2,14 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "plansDirectory": ".agents/plans",
   "permissions": {
-    "deny": [
-      "Bash(chezmoi apply)"
-    ],
     "ask": [
-      "Bash(mise run //:chezmoi:apply)"
+      "Bash(chezmoi apply)",
+      "Bash(chezmoi apply *)"
     ],
     "allow": [
-      "Bash(mise run //:chezmoi:diff)",
+      "Bash(chezmoi diff)",
+      "Bash(chezmoi diff *)",
+      "Bash(chezmoi ls-scripts *)",
       "Bash(.claude/skills/update-claude/scripts/update-chezmoidata.sh *)",
       "Bash(claude --version)",
       "Bash(.claude/skills/update-mise/scripts/update-chezmoidata.sh *)",

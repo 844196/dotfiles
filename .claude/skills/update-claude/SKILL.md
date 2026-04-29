@@ -40,8 +40,8 @@ Claude Code (CLI) と抽出されたシステムプロンプト (Piebald-AI/clau
 ### 2. chezmoi で反映
 
 ```bash
-mise run //:chezmoi:diff
-mise run //:chezmoi:apply
+chezmoi diff
+chezmoi apply
 ```
 
 chezmoi でエラーが発生した場合、このスキル以外の問題 (ディスク容量、権限、他の chezmoi 設定の問題など) が原因である可能性が高い。ユーザーに確認を促す。

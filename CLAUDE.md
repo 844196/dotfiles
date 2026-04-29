@@ -15,25 +15,25 @@
 
 ## 運用コマンド
 
-- `mise run //:chezmoi:diff [chezmoi-flags...]` - ソースとホームディレクトリの差分を表示します。
+- `chezmoi diff` - ソースとホームディレクトリの差分を表示します。
 
   ```bash
-  mise run //:chezmoi:diff
-  mise run //:chezmoi:diff --exclude scripts # 実行される予定の .chezmoiscripts ソースコードは除いた差分
+  chezmoi diff
+  chezmoi diff --exclude scripts # 実行される予定の .chezmoiscripts ソースコードは除いた差分
   ```
 
-- `mise run //:chezmoi:scripts <next|all>` - `.chezmoiscripts` を実行される順番に表示します。
+- `chezmoi ls-scripts <next|all>` - `.chezmoiscripts` を実行される順番に表示します。
 
   ```bash
-  mise run //:chezmoi:scripts next # 次の apply 時に実行されるもの
-  mise run //:chezmoi:scripts all # 現在の状態にかかわらず全て
+  chezmoi ls-scripts next # 次の apply 時に実行されるもの
+  chezmoi ls-scripts all # 現在の状態にかかわらず全て
   ```
 
-- `mise run //:chezmoi:apply [chezmoi-flags...]` - ソースをホームディレクトリに適用します。
+- `chezmoi apply` - ソースをホームディレクトリに適用します。
 
   ```bash
-  mise run //:chezmoi:apply
-  mise run //:chezmoi:apply -nv # ドライラン + 詳細表示
+  chezmoi apply
+  chezmoi apply --dry-run --verbose # ドライラン + 詳細表示
   ```
 
 ## ワークフロー
@@ -41,8 +41,8 @@
 ソースを編集する場合は以下の順で進めます:
 
 1. `files/` 以下のソースを編集する (ホームディレクトリ以下は直接編集しない)。
-2. `mise run //:chezmoi:diff` で反映される差分を確認する。
-3. `mise run //:chezmoi:apply` で反映する。
+2. `chezmoi diff` で反映される差分を確認する。
+3. ユーザーの同意を得てから `chezmoi apply` で反映する。
 4. 反映後の挙動を確認する。
 5. ユーザーが期待通り動いていることを確認してからコミットする。
 
