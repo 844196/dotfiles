@@ -1,6 +1,7 @@
 ---
 name: analyze-session
 description: 他のClaude Codeセッションログを分析し、改善に役立つ知見を抽出する。セッションIDを渡すと、ツールコールの成功/失敗/ユーザー介入を時系列で確認できる。改善サイクルでエージェントの振る舞いを評価するために使用する。
+disable-model-invocation: true
 ---
 
 # セッションログ分析

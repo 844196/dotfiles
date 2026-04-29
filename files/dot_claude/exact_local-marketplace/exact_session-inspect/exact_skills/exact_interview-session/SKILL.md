@@ -1,6 +1,7 @@
 ---
 name: interview-session
 description: 終了したClaude Codeセッションを再開して振り返りインタビューを行う。失敗原因の深掘りや、改善のためのフィードバックを当事者視点で得る。
+disable-model-invocation: true
 ---
 
 # セッションインタビュー
