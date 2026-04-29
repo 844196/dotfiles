@@ -31,7 +31,7 @@ setopt EXTENDED_GLOB
 setopt INTERACTIVE_COMMENTS
 setopt AUTO_CD
 
-export LS_COLORS="$(vivid generate tokyonight-night)"
+export LS_COLORS="$(<$XDG_CACHE_HOME/zsh/ls_colors)"
 export BAT_THEME="tokyonight_night"
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
   --color=bg+:#283457 \

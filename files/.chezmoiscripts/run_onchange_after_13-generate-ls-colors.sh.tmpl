@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# trigger:
+#   vivid version: {{ .versions.vivid }}
+#   theme: tokyonight-night
+
+set -euo pipefail
+
+cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+mkdir -p "$cache_dir"
+~/.local/bin/mise exec -- vivid generate tokyonight-night > "$cache_dir/ls_colors"

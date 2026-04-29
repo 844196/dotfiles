@@ -5,6 +5,7 @@
     "chroma": "3.0.1",
     "gh": "2.83.1",
     "bat": "v0.23.0",
+    "vivid": "v0.10.1",
     "tokyonight": "4.11.0",
     "zshAutosuggestions": "0e810e5afa27acbd074398eefbe28d13005dbc15"
   }
