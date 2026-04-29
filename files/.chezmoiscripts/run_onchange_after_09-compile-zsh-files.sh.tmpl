@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+# trigger:
+#   zshenv sha256 = {{ include "exact_dot_zsh/dot_zshenv" | sha256sum }}
+#   zshrc sha256 = {{ include "exact_dot_zsh/dot_zshrc" | sha256sum }}
+#   zsh-autosuggestions = {{ .versions.zshAutosuggestions }}
+
+set -euo pipefail
+
+local files=(
+  ~/.zsh/.{zshenv,zshrc}
+  ~/.zsh/plugins/zsh-autosuggestions/**/*.zsh
+)
+
+local f
+for f in $files; do
+  echo "Compiling $f"
+  zcompile -R -- "$f".zwc "$f"
+done

@@ -23,7 +23,7 @@
 .zsh/plugins/zsh-autosuggestions:
   type: archive
   exact: true
-  url: https://github.com/zsh-users/zsh-autosuggestions/archive/0e810e5afa27acbd074398eefbe28d13005dbc15.tar.gz
+  url: https://github.com/zsh-users/zsh-autosuggestions/archive/{{ .versions.zshAutosuggestions }}.tar.gz
   stripComponents: 1
 
 .local/share/nvim/lazy/lazy.nvim:
