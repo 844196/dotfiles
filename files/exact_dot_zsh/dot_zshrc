@@ -175,8 +175,15 @@ eval "$(zoxide init zsh --no-cmd)"
 # https://mise.jdx.dev/dev-tools/shims.html#how-to-add-mise-shims-to-path
 eval "$(mise activate zsh)"
 
+# FPATH への補完関数追加が完了してからでないと意味がない
+# (FPATH 上のファイルを走査して補完関数を集めるため、後から FPATH に足したものは反映されない)
+# https://zsh.sourceforge.io/Doc/Release/Completion-System.html
 compinit -d $XDG_CACHE_HOME/zsh/compdump-$ZSH_VERSION
 
+# ラップ対象 widget (ZSH_AUTOSUGGEST_*_WIDGETS) が初回 precmd 時点で揃っている必要がある
+# ZSH_AUTOSUGGEST_MANUAL_REBIND=0 or 指定なし - 毎 precmd で再バインドする
+# ZSH_AUTOSUGGEST_MANUAL_REBIND=1 - 初回 precmd で1回だけ既存 widget をラップする
+# https://github.com/zsh-users/zsh-autosuggestions/blob/0e810e5afa27acbd074398eefbe28d13005dbc15/src/start.zsh#L7-L12
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
