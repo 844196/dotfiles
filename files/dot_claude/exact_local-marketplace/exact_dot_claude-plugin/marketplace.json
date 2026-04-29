@@ -54,6 +54,11 @@
       "name": "notification",
       "source": "./notification",
       "description": "Notification / Stop イベントで tmux ベルと OS デスクトップ通知を発火させる hook 群"
+    },
+    {
+      "name": "block-long-sleep",
+      "source": "./block-long-sleep",
+      "description": "Bash の `sleep N[smhd]` を全箇所スキャンし、25 秒以上のものを PreToolUse でブロックする hook"
     }
   ]
 }
