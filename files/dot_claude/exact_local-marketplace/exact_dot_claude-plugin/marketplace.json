@@ -9,6 +9,11 @@
       "name": "edit-reminders",
       "source": "./edit-reminders",
       "description": "ターン中の編集 (Edit/Write/削除) を検知して、ターン終了時にドキュメント整合性チェックを促す reminder を block で注入する hook 群"
+    },
+    {
+      "name": "new-file-protocol",
+      "source": "./new-file-protocol",
+      "description": "Write 単体での新規ファイル作成を PreToolUse で deny し、touch → Read → Write の 3 ステップを促す hook"
     }
   ]
 }
