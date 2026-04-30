@@ -125,7 +125,7 @@ zle_highlight+=(paste:none)
 select-word-style default
 anyframe-init
 
-eval "$(wk init --major-prefix 'm')"
+source $XDG_CACHE_HOME/wk/init.zsh
 if [[ -z "$ZSH_BENCH" ]]; then
   bindwidget ' ' self-insert-or-trigger-wk
   bindwidget ',' self-insert-or-trigger-wk-major
@@ -173,7 +173,7 @@ alias dc='docker compose'
 alias pc='process-compose'
 alias cc=' claude-yolo'
 
-eval "$(zoxide init zsh --no-cmd)"
+source $XDG_CACHE_HOME/zoxide/init.zsh
 
 # zshenv で追加したshimエントリーはこの時点で削除され
 # chpwd と precmd に "各プロジェクトで設定されたツール実体の場所を PATH の最上位に追加するフック" が登録される

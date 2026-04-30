@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# trigger:
+#   wk version: {{ .versions.wk }}
+#   major-prefix: m
+
+set -euo pipefail
+
+cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/wk"
+mkdir -p "$cache_dir"
+~/.local/bin/mise exec -- wk init --major-prefix 'm' > "$cache_dir/init.zsh"

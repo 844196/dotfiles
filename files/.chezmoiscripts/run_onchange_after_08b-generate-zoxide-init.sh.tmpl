@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# trigger:
+#   zoxide version: {{ .versions.zoxide }}
+
+set -euo pipefail
+
+cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/zoxide"
+mkdir -p "$cache_dir"
+~/.local/bin/mise exec -- zoxide init zsh --no-cmd > "$cache_dir/init.zsh"
