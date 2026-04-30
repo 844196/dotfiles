@@ -7,7 +7,10 @@ fi
 
 autoload -Uz promptinit && promptinit
 
-prompt zen instant
+# `-c` 起動時は precmd が走らず instant prompt の生バイトが出力に残ってしまう
+if [[ -z "$ZSH_EXECUTION_STRING" ]]; then
+  prompt zen instant
+fi
 
 autoload -Uz add-zsh-hook
 autoload -Uz compinit
@@ -123,8 +126,10 @@ select-word-style default
 anyframe-init
 
 eval "$(wk init --major-prefix 'm')"
-bindwidget ' ' self-insert-or-trigger-wk
-bindwidget ',' self-insert-or-trigger-wk-major
+if [[ -z "$ZSH_BENCH" ]]; then
+  bindwidget ' ' self-insert-or-trigger-wk
+  bindwidget ',' self-insert-or-trigger-wk-major
+fi
 
 zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
