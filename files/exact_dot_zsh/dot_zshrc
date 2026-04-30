@@ -32,7 +32,9 @@ unsetopt BEEP
 unsetopt PATH_DIRS # Avoid slow completion on WSL2
 setopt EXTENDED_GLOB
 setopt INTERACTIVE_COMMENTS
+
 setopt AUTO_CD
+source $XDG_CACHE_HOME/zoxide/init.zsh
 
 export LS_COLORS="$(<$XDG_CACHE_HOME/zsh/ls_colors)"
 export BAT_THEME="tokyonight_night"
@@ -173,8 +175,6 @@ alias mr='mise run'
 alias dc='docker compose'
 alias pc='process-compose'
 alias cc='claude-yolo'
-
-source $XDG_CACHE_HOME/zoxide/init.zsh
 
 # zshenv で追加したshimエントリーはこの時点で削除され
 # chpwd と precmd に "各プロジェクトで設定されたツール実体の場所を PATH の最上位に追加するフック" が登録される
