@@ -171,7 +171,7 @@ alias mx='mise x --'
 alias mr='mise run'
 alias dc='docker compose'
 alias pc='process-compose'
-alias cc=' claude-yolo'
+alias cc='claude-yolo'
 
 source $XDG_CACHE_HOME/zoxide/init.zsh
 
