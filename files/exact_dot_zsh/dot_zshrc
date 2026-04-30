@@ -38,24 +38,6 @@ source $XDG_CACHE_HOME/zoxide/init.zsh
 
 export LS_COLORS="$(<$XDG_CACHE_HOME/zsh/ls_colors)"
 export BAT_THEME="tokyonight_night"
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
-  --color=bg+:#283457 \
-  --color=bg:-1 \
-  --color=border:#27a1b9 \
-  --color=fg:-1 \
-  --color=gutter:-1 \
-  --color=header:-1 \
-  --color=hl+:#2ac3de \
-  --color=hl:#2ac3de \
-  --color=info:#545c7e \
-  --color=marker:#ff007c \
-  --color=pointer:#ff007c \
-  --color=prompt:#2ac3de \
-  --color=query:#c0caf5:regular \
-  --color=scrollbar:#27a1b9 \
-  --color=separator:#ff9e64 \
-  --color=spinner:#ff007c \
-"
 
 # https://zsh.sourceforge.io/Doc/Release/Parameters.html#index-ZLE_005fREMOVE_005fSUFFIX_005fCHARS
 ZLE_REMOVE_SUFFIX_CHARS=
