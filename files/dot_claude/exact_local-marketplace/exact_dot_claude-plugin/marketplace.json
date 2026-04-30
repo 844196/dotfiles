@@ -28,7 +28,12 @@
     {
       "name": "handover",
       "source": "./handover",
-      "description": "セッション引き継ぎ・フォーク系スキル群: handover / handover-tmux / fork-tmux"
+      "description": "セッション引き継ぎスキル群: tomorrow (引き継ぎ文書作成) / tmux (文書 + tmux 新ペイン起動)"
+    },
+    {
+      "name": "fork",
+      "source": "./fork",
+      "description": "現セッションを別ペインで fork するスキル群: tmux"
     },
     {
       "name": "session-inspect",

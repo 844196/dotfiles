@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "name": "fork",
+  "version": "0.1.0",
+  "description": "現在のセッションを別ペインでフォークするスキル群: tmux (tmux 上での fork)"
+}
