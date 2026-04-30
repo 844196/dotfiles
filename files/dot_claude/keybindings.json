@@ -13,7 +13,8 @@
       "bindings": {
         "ctrl+q": "chat:stash",
         "ctrl+l": null,
-        "ctrl+g": null
+        "ctrl+g": null,
+        "escape": null
       }
     }
   ]
