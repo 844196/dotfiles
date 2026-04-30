@@ -1,5 +1,5 @@
 ---
-name: tmux
+name: fork-tmux
 description: 現在のセッションを tmux の新しいペインでフォークする。tmux 上で動作している場合に使用する。
 ---
 
