@@ -1,9 +1,6 @@
 experimental_monorepo_root = true
 monorepo.config_roots = ["packages/*"]
 
-[env]
-_.path = ["{{config_root}}/bin"]
-
 [settings]
 lockfile = true
 
