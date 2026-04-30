@@ -125,12 +125,6 @@ zle_highlight+=(paste:none)
 select-word-style default
 anyframe-init
 
-source $XDG_CACHE_HOME/wk/init.zsh
-if [[ -z "$ZSH_BENCH" ]]; then
-  bindwidget ' ' self-insert-or-trigger-wk
-  bindwidget ',' self-insert-or-trigger-wk-major
-fi
-
 zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
@@ -156,6 +150,13 @@ bindwidget '^[q' push-line-or-edit-with-show
 bindwidget '^Q' push-line-or-edit-with-show # `NO_FLOW_CONTROL` required
 bindwidget '^G' toggle-incognito
 bindwidget '^X^E' edit-command-line edit-command-line-shim
+
+source $XDG_CACHE_HOME/wk/init.zsh
+# zsh-bench ベンチマークにおいてキー入力が行われた際にウィジェットが起動し完走できない
+if [[ -z "$ZSH_BENCH" ]]; then
+  bindwidget ' ' self-insert-or-trigger-wk
+  bindwidget ',' self-insert-or-trigger-wk-major
+fi
 
 alias ..='cd ..'
 alias ...='cd ../..'
