@@ -109,6 +109,8 @@ HISTORY_IGNORE_PATTERNS=(
   '(z|)man(| *)'
   'neofetch(| *)'
   'chezmoi ##apply'
+  'chezmoi ##diff'
+  'chezmoi ##ls-scripts'
   '*tempCodeRunnerFile*'
   '*--help'
   '*--version'
