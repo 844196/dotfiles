@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "name": "cwd-reminder",
+  "version": "0.1.0",
+  "description": "CWD が git リポジトリルートからズレている場合に SessionStart / UserPromptSubmit でリマインドする hook"
+}

@@ -116,6 +116,7 @@
     "claude-code-meta@local": true,
     "mise@local": true,
     "notification@local": true,
-    "block-long-sleep@local": true
+    "block-long-sleep@local": true,
+    "cwd-reminder@local": true
   }
 }

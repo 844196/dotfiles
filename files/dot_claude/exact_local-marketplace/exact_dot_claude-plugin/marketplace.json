@@ -59,6 +59,11 @@
       "name": "block-long-sleep",
       "source": "./block-long-sleep",
       "description": "Bash の `sleep N[smhd]` を全箇所スキャンし、25 秒以上のものを PreToolUse でブロックする hook"
+    },
+    {
+      "name": "cwd-reminder",
+      "source": "./cwd-reminder",
+      "description": "CWD が git リポジトリルートからズレている場合に SessionStart / UserPromptSubmit でリマインドする hook"
     }
   ]
 }
