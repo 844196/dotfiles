@@ -1,0 +1,17 @@
+:
+true
+false
+pwd
+cd
+which *
+type *
+where *
+exit
+(z|)man(| *)
+neofetch(| *)
+chezmoi ##apply
+chezmoi ##diff
+chezmoi ##ls-scripts
+*tempCodeRunnerFile*
+*--help
+*--version
