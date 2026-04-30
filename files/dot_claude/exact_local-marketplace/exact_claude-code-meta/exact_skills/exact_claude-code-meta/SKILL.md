@@ -1,7 +1,7 @@
 ---
 name: claude-code-meta
 description: |
-  CLAUDE.md / SKILL.md / `.claude/rules/*.md` を新規作成・更新・レビューするとき必ず参照する。Claude Code 本体のシステムプロンプト・組み込みスキル・ツール説明 (Piebald-AI から抽出した本体プロンプト一式) を references に同梱しており、新規・改訂内容が本体側の既存指令と冗長にならないようにする材料として使う。SKILL.md を編集する場合は、エージェントが学習データから知らない Claude Code 固有挙動 — プリプロセッシング (`` !`...` `` の前処理シェル実行)、`${CLAUDE_SESSION_ID}` 等の文字列置換 — を理解した上で作業する。
+  CLAUDE.md / SKILL.md / `.claude/rules/*.md` を新規作成・更新・レビューするとき必ず参照する。Claude Code 本体のシステムプロンプト・組み込みスキル・ツール説明 (Piebald-AI から抽出した本体プロンプト一式) を references に同梱しており、新規・改訂内容が本体側の既存指令と冗長にならないようにする材料として使う。SKILL.md を編集する場合は、エージェントが学習データから知らない Claude Code 固有挙動 — プリプロセッシング、`${CLAUDE_SESSION_ID}` 等の文字列置換 — を理解した上で作業する。
 ---
 
 # Claude Code 自身のメタ情報
@@ -14,32 +14,33 @@ CLAUDE.md / `.claude/rules/*.md` / SKILL.md を新規作成・更新・レビュ
 
 SKILL.md 内の `${CLAUDE_SESSION_ID}` は **スキルのレンダリング前に行われる文字列置換**。`env` 等で取得しようとしても存在しない。他に `${CLAUDE_SKILL_DIR}`、`$ARGUMENTS`、`$ARGUMENTS[N]` (短縮 `$N`)、`arguments` frontmatter で宣言した名前付き引数 `$name` がある。適用範囲は SKILL.md 本文のみ (frontmatter 内では置換されない)。
 
-### `` !`...` `` は前処理であり Claude が実行するものではない
+### SKILL.md のプリプロセッシング
 
-SKILL.md 内の `` !`<command>` `` および ` ```! ` フェンスコードブロックは、スキル呼び出し時にシェル実行され、出力で置換される。Claude は置換後のテキストのみを見る (= Claude が実行するわけではない)。
+SKILL.md 内の以下のような記法は、スキル呼び出し時にシェル実行され、出力で置換される。Claude は置換後のテキストのみを見る (= Claude が実行するわけではない)。
+
+(以下の例に置ける `&#96;` はバッククォートを表している。このスキル文書自体も Claude によるプリプロセッシングの対象であるため。)
 
 インライン:
 
 ```md
-PR diff: !`gh pr diff`
+PR diff: !&#96;gh pr diff&#96;
 ```
 
-複数行は ` ```! ` フェンスコードブロック:
+複数行はフェンスコードブロック:
 
-````md
-```!
+~~~md
+&#96;&#96;&#96;!
 node --version
 git status --short
-```
-````
+&#96;&#96;&#96;
+~~~
 
 落とし穴:
 
 - **キャッシュなし**: スキル呼び出しのたびに毎回実行される
 - **並列実行**: 複数コマンドは並列で動く。順序依存があるなら 1 つのブロックにまとめる
-- **指示文中での使用は危険**: 指示文中に `` !`...` `` を書くと指示文自体が出力で置換され、読めない指示になる場合がある。動的な指示文はスクリプト側でレンダリングする
-- **パーミッション**: `` !`...` `` のコマンドは `settings.json` の `permissions.allow` の影響を受ける
-- **`allowed-tools` で Bash パターンは効かない** ([anthropics/claude-code#14956](https://github.com/anthropics/claude-code/issues/14956))。スキル frontmatter で `allowed-tools: Bash(git:*)` のようにしても本文の `` !`...` `` には適用されない。`settings.json` の `permissions.allow` に追加する必要がある
+- **パーミッション**: 実行されるコマンドは `settings.json` の `permissions.allow` の影響を受ける
+- **`allowed-tools` で Bash パターンは効かない** ([anthropics/claude-code#14956](https://github.com/anthropics/claude-code/issues/14956))。スキル frontmatter で `allowed-tools: Bash(git:*)` のようにしても本文内のこの記法には適用されない。`settings.json` の `permissions.allow` に追加する必要がある
 - **無効化**: `settings.json` の `disableSkillShellExecution: true` で各コマンドが `[shell command execution disabled by policy]` に置換される (バンドル/管理スキルは影響を受けない)
 
 ## 2. Claude Code 本体のシステムプロンプト集 (references)
