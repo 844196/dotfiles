@@ -62,6 +62,7 @@
       "Write",
       "Edit",
       "Bash(claude --version)",
+      "Bash(mise --version)",
       "Bash(touch *)",
       "Bash(mkdir *)",
       "Bash(git branch *)",
