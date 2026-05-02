@@ -8,6 +8,12 @@
   executable: true
   url: https://mise.run
 
+.zsh/zsh-bench:
+  type: archive
+  exact: true
+  url: https://github.com/romkatv/zsh-bench/archive/28b1b1bc888159f0a2cf50f9d29381758341aba1.tar.gz
+  stripComponents: 1
+
 .zsh/plugins/zman:
   type: archive
   exact: true
