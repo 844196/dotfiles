@@ -2,7 +2,6 @@
 name: commit-amend
 description: 直前のコミットを修正 (amend) する。コミットメッセージを自動生成し、amend コミットを実行する。
 disable-model-invocation: true
-context: fork
 model: haiku
 ---
 
