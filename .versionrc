@@ -4,24 +4,32 @@ types:
   -
     # 新しいツール・設定の追加
     type: feat
+    section: nop
   -
     # バグ修正
     type: fix
+    section: nop
   -
     # リファクタリング
     type: refactor
+    section: nop
   -
     # パフォーマンス改善
     type: perf
+    section: nop
   -
     # テストコードの追加・修正
     type: test
+    section: nop
   -
     # フォーマット修正 (コードの動作に影響しない変更)
     type: style
+    section: nop
   -
     # ドキュメントの追加・更新 (README.md)
     type: docs
+    section: nop
   -
     # メンテナンス作業
     type: chore
+    section: nop
