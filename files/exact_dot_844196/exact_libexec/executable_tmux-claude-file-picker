@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# tmux popup から起動して、CWD 配下のファイル・ディレクトリを fzf で複数選択し
+# `@` プレフィックスを付けて bracketed paste で TARGET_PANE に貼り付ける。
+set -euo pipefail
+
+target="${TARGET_PANE:?TARGET_PANE is required}"
+
+selection=$(
+  # tmp/ や .844196/ を候補に入れるため global/project の gitignore は無視する
+  # でも well-known なディレクトリは除外する
+  fd --strip-cwd-prefix --hidden --no-ignore-vcs --exclude .git --exclude node_modules \
+    | fzf --multi --prompt '@ '
+) || exit 0
+
+[ -z "$selection" ] && exit 0
+
+formatted=$(printf '%s\n' "$selection" | sed 's|^|@|')
+
+tmux set-buffer -b claude-file-picker -- "$formatted"
+tmux paste-buffer -p -d -b claude-file-picker -t "$target"
