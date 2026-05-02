@@ -8,6 +8,7 @@ lockfile = true
 lefthook = "2.0.15"
 "lychee" = "0.24.1"
 "github:convco/convco" = "0.6.2"
+editorconfig-checker = "3.6.1"
 
 [hooks]
 postinstall = "lefthook install"

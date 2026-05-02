@@ -7,3 +7,5 @@ pre-commit:
   jobs:
     - name: Check links
       run: lychee --no-progress --root-dir "$PWD" .
+    - name: Check editorconfig
+      run: ec
