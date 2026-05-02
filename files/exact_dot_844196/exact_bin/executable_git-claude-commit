@@ -9,7 +9,9 @@ fi
 
 head_before=$(git rev-parse HEAD 2>/dev/null)
 
-claude --print --verbose --model haiku --output-format stream-json -p "/$skill $*" \
+session_id=$(uuidgen)
+
+claude --print --session-id "$session_id" --verbose --model haiku --output-format stream-json -p "/$skill $*" \
   | jq -r 'select(.type == "assistant") | .message.content[]? | select(.type? == "text") | .text'
 
 head_after=$(git rev-parse HEAD 2>/dev/null)
@@ -17,4 +19,4 @@ if [[ "$head_before" != "$head_after" ]]; then
   exit 0
 fi
 
-claude --continue
+claude --resume "$session_id"
