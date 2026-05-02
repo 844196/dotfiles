@@ -52,6 +52,41 @@
         "customText": ")"
       },
       {
+        "id": "5847bc7e-be43-40ae-95e2-97785d121810",
+        "type": "separator",
+        "color": "hex:24283B"
+      },
+      {
+        "id": "15eed0c3-eecd-4746-8573-465edb42c192",
+        "type": "session-usage",
+        "rawValue": true,
+        "metadata": {
+          "display": "time"
+        },
+        "color": "hex:414868"
+      },
+      {
+        "id": "a2b2deb5-205a-483c-a8b3-ff8059078519",
+        "type": "custom-text",
+        "customText": " (",
+        "color": "hex:414868"
+      },
+      {
+        "id": "11ce23aa-a4b5-42c0-829a-0c549063f0d5",
+        "type": "reset-timer",
+        "rawValue": true,
+        "metadata": {
+          "compact": "true"
+        },
+        "color": "hex:414868"
+      },
+      {
+        "id": "61368bab-da79-42f0-94cf-673808242852",
+        "type": "custom-text",
+        "customText": ")",
+        "color": "hex:414868"
+      },
+      {
         "id": "4a6bb4ba-9674-4f8b-8708-bfad4099522d",
         "type": "flex-separator",
         "color": "hex:24283B"
