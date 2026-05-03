@@ -5,7 +5,6 @@
 このコードベースは 844196 の dotfiles です。
 
 - chezmoi を使用して管理します。
-  - chezmoi 自体に関する知識は `/chezmoi` スキルをロードしてください。
 - Linux (WSL2, devcontainer) および macOS で運用することを前提とします。
 - XDG Base Directory Specification に可能な限り準拠させます。
 - Zsh をデフォルトシェルとして使用します。
