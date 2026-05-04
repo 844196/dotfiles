@@ -28,7 +28,7 @@
 ### `command_lag_ms` (`-p`)
 
 ```bash
-tmux split-window -v -l 60% "$HOME/.zsh/zsh-bench/human-bench -p 0 -p <N>"
+tmux split-window -v -l 60% "$(ghq list --full-path --exact romkatv/zsh-bench)/human-bench -p 0 -p <N>"
 ```
 
 playground で短いコマンド (`pwd`、`ls`、`:` など) を打って Enter を繰り返す実用シナリオ。Enter → 次プロンプト表示までの遅延を、出力を眺めたり次のコマンドを打ち始めたりする自然な操作の流れの中で識別する。空 Enter 連打 + 空白フレーム凝視は最高感度シナリオで実用とは乖離するため使わない。
@@ -36,7 +36,7 @@ playground で短いコマンド (`pwd`、`ls`、`:` など) を打って Enter 
 ### `first_command_lag_ms` (`-c`)
 
 ```bash
-tmux split-window -v -l 60% "$HOME/.zsh/zsh-bench/human-bench -c 0 -c <N>"
+tmux split-window -v -l 60% "$(ghq list --full-path --exact romkatv/zsh-bench)/human-bench -c 0 -c <N>"
 ```
 
 `Y` Enter 直後に **最短コマンド `:` を即打鍵 + Enter**。コマンドは 1 文字に固定 — `human-bench` の lag は絶対時刻方式 (`_ZB_START_TIME_SEC + lag` まで sleep) で実装されており、打鍵時間が伸びると lag が吸収されて消える。これは「現実でも手の遅さで起動 lag が見えなくなる」現象とも整合しているため、結果を個人の体感閾値として正当に採用できる。
@@ -44,7 +44,7 @@ tmux split-window -v -l 60% "$HOME/.zsh/zsh-bench/human-bench -c 0 -c <N>"
 ### `input_lag_ms` (`-i`)
 
 ```bash
-tmux split-window -v -l 60% "$HOME/.zsh/zsh-bench/human-bench -i 0 -i <N>"
+tmux split-window -v -l 60% "$(ghq list --full-path --exact romkatv/zsh-bench)/human-bench -i 0 -i <N>"
 ```
 
 playground で長めの行を入力し、各文字が打鍵に追従して画面に出る速度を見る。タイピング速度に依存 (打鍵間隔より短い lag は吸収されて見えない)。
@@ -52,7 +52,7 @@ playground で長めの行を入力し、各文字が打鍵に追従して画面
 ### `first_prompt_lag_ms` (`-f`)
 
 ```bash
-tmux split-window -v -l 60% "$HOME/.zsh/zsh-bench/human-bench -f 0 -f <N> -s 'tmux split-window -v -l 60% -e ZDOTDIR=\$ZDOTDIR -e _ZB_ORIG_ZDOTDIR=\$_ZB_ORIG_ZDOTDIR -e _ZB_FIRST_PROMPT_LAG_MS=\$_ZB_FIRST_PROMPT_LAG_MS -e _ZB_START_TIME_SEC=\$_ZB_START_TIME_SEC'"
+tmux split-window -v -l 60% "$(ghq list --full-path --exact romkatv/zsh-bench)/human-bench -f 0 -f <N> -s 'tmux split-window -v -l 60% -e ZDOTDIR=\$ZDOTDIR -e _ZB_ORIG_ZDOTDIR=\$_ZB_ORIG_ZDOTDIR -e _ZB_FIRST_PROMPT_LAG_MS=\$_ZB_FIRST_PROMPT_LAG_MS -e _ZB_START_TIME_SEC=\$_ZB_START_TIME_SEC'"
 ```
 
 > 注意: コマンドを書き換える際の落とし穴 2 つ。**(1) `-s` の末尾に `zsh` を入れない** (default-shell = zsh が 1 段で起動するように shell-command を省略)。**(2) `\$ZDOTDIR` 等のバックスラッシュエスケープを外さない** (outer 展開を抑止して human-bench の eval 時に展開させる)。それぞれの理由は下記。

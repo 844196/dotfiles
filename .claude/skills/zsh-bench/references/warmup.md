@@ -3,7 +3,7 @@
 正典の bench コマンド:
 
 ```bash
-zsh -ic exit && MISE_HOOK_ENV_CACHE_TTL=600s ZSH_BENCH=1 NO_TMUX=1 ~/.zsh/zsh-bench/zsh-bench --iters 32
+zsh -ic exit && MISE_HOOK_ENV_CACHE_TTL=600s ZSH_BENCH=1 NO_TMUX=1 "$(ghq list --full-path --exact romkatv/zsh-bench)/zsh-bench" --iters 32
 ```
 
 この 1 ライナーには 2 つの「お膳立て」が入っている: `zsh -ic exit` (compdump warmup) と `MISE_HOOK_ENV_CACHE_TTL=600s` (mise hook-env fast-path 強制)。`--iters 32` の意図は SKILL.md `iter 数の選び方` を参照。前後比較するときはこのコマンドラインを丸ごと再現する。
