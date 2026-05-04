@@ -1,6 +1,0 @@
-# vim:set ft=zsh:
-
-export BROWSER='chroma-open'
-export CHROMA_PROFILE='Profile 3'
-export NEOFETCH_IMAGE_BACKEND='iterm2'
-export NEOFETCH_IMAGE_SOURCE="/path/to/image"
