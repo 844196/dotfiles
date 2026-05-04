@@ -59,6 +59,11 @@
       "name": "cwd-reminder",
       "source": "./cwd-reminder",
       "description": "CWD が git リポジトリルートからズレている場合に SessionStart / UserPromptSubmit でリマインドする hook"
+    },
+    {
+      "name": "done-check",
+      "source": "./done-check",
+      "description": "ターン終了宣言の直前に呼ぶ Skill 1 個構成のチェックリスト (edit-reminders の Skill 化版)。`<repo>/.claude/done-check.local.md` で挙動を上書きできる"
     }
   ]
 }

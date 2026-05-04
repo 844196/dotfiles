@@ -108,7 +108,8 @@
     }
   },
   "enabledPlugins": {
-    "edit-reminders@local": true,
+    "edit-reminders@local": false,
+    "done-check@local": true,
     "new-file-protocol@local": true,
     "git@local": true,
     "github@local": true,
