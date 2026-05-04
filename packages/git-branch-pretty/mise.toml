@@ -9,6 +9,9 @@ run = "deno compile -A --output dist/git-branch-pretty main.ts"
 [tasks.install]
 depends = ":build"
 usage = '''
-flag "--prefix <path>" default="{{env.HOME}}/.844196/libexec"
+flag "--prefix <path>" default="{{env.HOME}}/.opt/dotfiles/opt/git-branch-pretty/libexec"
 '''
-run = "cp dist/git-branch-pretty ${usage_prefix}/git-branch-pretty"
+run = """
+mkdir -p ${usage_prefix}
+cp dist/git-branch-pretty ${usage_prefix}/git-branch-pretty
+"""

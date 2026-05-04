@@ -2,9 +2,9 @@
 
 tput cub 9999
 
-~/.844196/libexec/git-branch-pretty "$@" \
+~/.opt/dotfiles/opt/git-branch-pretty/libexec/git-branch-pretty "$@" \
   | SHELL==$ZSH_NAME anyframe-selector-fzf '' \
-    --preview '~/.844196/libexec/fzf-preview-helper git-branch {1}' \
+    --preview '~/.opt/dotfiles/opt/fzf-preview-helper/libexec/fzf-preview-helper git-branch {1}' \
   | cut -d ' ' -f 1,1 \
   | anyframe-action-insert
 

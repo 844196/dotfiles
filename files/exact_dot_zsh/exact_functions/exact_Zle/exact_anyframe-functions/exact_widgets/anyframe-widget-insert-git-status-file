@@ -2,7 +2,7 @@
 
 tput cub 9999
 
-~/.844196/libexec/git-status-pretty \
+~/.opt/dotfiles/opt/git-status-pretty/libexec/git-status-pretty \
   | SHELL==$ZSH_NAME anyframe-selector-fzf '' \
     --multi \
     --select-1 \
@@ -10,7 +10,7 @@ tput cub 9999
     --nth 2.. \
     --scheme path \
     --preview-window +2 \
-    --preview '~/.844196/libexec/fzf-preview-helper git-status {}' \
+    --preview '~/.opt/dotfiles/opt/fzf-preview-helper/libexec/fzf-preview-helper git-status {}' \
   | sed 's/^.....//g' \
   | anyframe-action-insert
 

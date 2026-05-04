@@ -9,6 +9,9 @@ run = "deno compile -A --output dist/git-add-A main.ts"
 [tasks.install]
 depends = ":build"
 usage = '''
-flag "--prefix <path>" default="{{env.HOME}}/.844196/bin"
+flag "--prefix <path>" default="{{env.HOME}}/.opt/dotfiles/opt/git-add-A/bin"
 '''
-run = "cp dist/git-add-A ${usage_prefix}/git-add-A"
+run = """
+mkdir -p ${usage_prefix}
+cp dist/git-add-A ${usage_prefix}/git-add-A
+"""

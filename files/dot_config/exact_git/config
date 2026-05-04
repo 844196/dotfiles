@@ -53,7 +53,7 @@
   user = "844196"
   root = ~/.ghq
 [credential]
-  helper = "!f() { ~/.844196/libexec/git-credential-manager-proxy $*; }; f"
+  helper = "!f() { ~/.opt/dotfiles/libexec/git-credential-manager-proxy $*; }; f"
 [delta]
   navigate = true
   true-color = always
