@@ -1,3 +1,2 @@
-*.zwc
-.zshenv.local
-.zshrc.local
+**/*.zwc
+/.zsh{env,rc}.local
