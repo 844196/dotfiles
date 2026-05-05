@@ -3,5 +3,5 @@
 zsh-bench は計測対象 zsh を独自に組んだ環境で起動する。HOME は本物のままだが CWD が独自なため、メトリクスを解釈するときに気をつける点がある。
 
 - **HOME は本物の `~/`**: `~/.zshrc` も実体が読まれるし、`$HOME` を参照するロジック (mise のグローバル config、`~/.zshrc.local` の source、prompt テーマの設定ファイル参照など) は実ユーザーと同じ。zsh-bench 本体内に `local -x ... HOME=$_zb_tmpdir` の記述が出てくるが、これは内部で `git init` するための一時無名関数の中だけのローカル設定で、計測対象 zsh には伝わらない
-- **CWD は `/tmp/zsh-bench-XXXXXXXXXX/<random-cwd>`**: `mktemp -d` で tmpdir を作り、その下にプロンプト検出用の特殊な名前のサブディレクトリを作って、そこで計測対象 zsh を起動する。CWD 依存のロジック (mise / direnv の `mise.toml` / `.envrc` 探索、`autoenv`、git 状態取得など) は実作業環境とズレる
+- **CWD は `/tmp/zsh-bench-XXXXXXXXXX/<random-cwd>`**: `mktemp -d` で tmpdir を作り、その下にプロンプト検出用の特殊な名前のサブディレクトリを作って、そこで計測対象 zsh を起動する。CWD 依存のロジック (`mise.toml` / `.envrc` のような CWD 依存設定ファイル探索、git 状態取得など) は実作業環境とズレる
 - **デフォルトでは CWD が git リポジトリ**: `--git yes` がデフォルト (`--git no` で無効化、`--git empty` で `git init` だけ)。`yes` の場合は 10000 ファイル (10×10×10×10 の 4 段ツリー) + 1 コミット + ランダム接頭辞付きのブランチ checkout 済みの状態。`has_git_prompt` の意味は「プロンプトの出力テキストにこのランダムブランチ名が現れるか」であって「リポジトリの有無」ではない。デフォルト計測でリポジトリ内にいるのに 0 が出る場合は「プロンプト側で表示が抑止されている」(特殊ブランチ名でテーマが reject する、git セグメントが無効、等) を疑う
