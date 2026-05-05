@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+
+set -euo pipefail
+
+autoload -Uz zrecompile
+
+setopt extendedglob
+
+zrecompile -p \
+  -R ${ZDOTDIR:-$HOME}/.zshenv -- \
+  -R ${ZDOTDIR:-$HOME}/.zshrc -- \
+  -R ${XDG_CACHE_HOME:-$HOME/.cache}/wk/init.zsh -- \
+  -R ${XDG_CACHE_HOME:-$HOME/.cache}/zoxide/init.zsh
+
+for d in ${ZDOTDIR:-$HOME}/functions/*(N-/) ${ZDOTDIR:-$HOME}/functions/Completion/*(N-/) ${ZDOTDIR:-$HOME}/functions/Zle/anyframe-functions/*(N-/); do
+  zcompile -U -M $d.zwc $d/*~*.zwc(^/)
+done
+
+for f in ${ZDOTDIR:-$HOME}/plugins/zsh-autosuggestions/**/*.zsh; do
+  zcompile -R "$f"
+done
