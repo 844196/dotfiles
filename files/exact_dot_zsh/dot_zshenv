@@ -57,6 +57,7 @@ fpath=(
   $ZDOTDIR/functions/Zle/anyframe-functions/*(N-/)
   $ZDOTDIR/plugins/anyframe(N-/)
   $ZDOTDIR/plugins/zman/functions(N-/)
+  $ZDOTDIR/dotfiles-completions(N-/)
   $ZDOTDIR/vendor-completions(N-/)
   $fpath
 )
