@@ -1,0 +1,23 @@
+# vim: set ft=zsh:
+
+autoload -Uz compinit
+
+local compdump_file="${1:-${ZDOTDIR:-$HOME}/.zcompdump}"
+
+local fresh=($compdump_file(N.ms-64800)) # 64800 = 60 * 60 * 18
+if (( $#fresh )); then
+  compinit -C -d "$compdump_file"
+else
+  compinit -d "$compdump_file"
+  touch "$compdump_file"
+fi
+
+{
+  if [[ -e "$compdump_file" && (! -e "${compdump_file}.zwc" || "$compdump_file" -nt "${compdump_file}.zwc") ]]; then
+    # mac だと flock がないのでめんどい
+    if mkdir "${compdump_file}.zwc.lock" &>/dev/null; then
+      zcompile -M "$compdump_file"
+      rmdir "${compdump_file}.zwc.lock" &>/dev/null
+    fi
+  fi
+} &!

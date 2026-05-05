@@ -13,7 +13,6 @@ if [[ -z "$ZSH_EXECUTION_STRING" ]]; then
 fi
 
 autoload -Uz add-zsh-hook
-autoload -Uz compinit
 autoload -Uz select-word-style
 autoload -Uz smart-insert-last-word
 autoload -Uz {up,down}-line-or-beginning-search
@@ -151,7 +150,7 @@ eval "$(mise activate zsh)"
 # FPATH への補完関数追加が完了してからでないと意味がない
 # (FPATH 上のファイルを走査して補完関数を集めるため、後から FPATH に足したものは反映されない)
 # https://zsh.sourceforge.io/Doc/Release/Completion-System.html
-compinit -d $XDG_CACHE_HOME/zsh/compdump-$ZSH_VERSION
+completioninit $XDG_CACHE_HOME/zsh/compdump-$ZSH_VERSION
 
 # ラップ対象 widget (ZSH_AUTOSUGGEST_*_WIDGETS) が初回 precmd 時点で揃っている必要がある
 # ZSH_AUTOSUGGEST_MANUAL_REBIND=0 or 指定なし - 毎 precmd で再バインドする
