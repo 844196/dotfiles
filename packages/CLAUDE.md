@@ -36,5 +36,5 @@
 ### `bin/` を持つ package を追加するとき
 
 次のファイルに `~/.opt/dotfiles/opt/<tool-name>/bin` を追記する必要があります:
-- [`.zshrc`](../files/exact_dot_zsh/dot_zshenv)
+- [`.zshenv`](../files/exact_dot_zsh/dot_zshenv.tmpl)
 - [`mise.toml`](../files/dot_config/exact_mise/config.toml.tmpl)
