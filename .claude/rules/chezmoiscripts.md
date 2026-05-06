@@ -3,7 +3,7 @@ paths:
   - files/.chezmoiscripts/**
 ---
 
-# `.chezmoiscripts/` の運用方針
+# `files/.chezmoiscripts/` の運用方針
 
 `run_after_*` は主に以下の用途で使用する:
 
