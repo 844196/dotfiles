@@ -157,7 +157,7 @@ completioninit $XDG_CACHE_HOME/zsh/compdump-$ZSH_VERSION
 # ZSH_AUTOSUGGEST_MANUAL_REBIND=1 - 初回 precmd で1回だけ既存 widget をラップする
 # https://github.com/zsh-users/zsh-autosuggestions/blob/0e810e5afa27acbd074398eefbe28d13005dbc15/src/start.zsh#L7-L12
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $XDG_DATA_HOME/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=black,bold"
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20

@@ -3,4 +3,4 @@
 set -euo pipefail
 
 # gh version: {{ .versions.gh }}
-~/.local/bin/mise exec -- gh completion --shell zsh > ~/.zsh/functions/Completion/vendor/_gh
+~/.local/bin/mise exec -- gh completion --shell zsh > ${XDG_DATA_HOME:-$HOME/.local/share}/zsh/site-functions/_gh

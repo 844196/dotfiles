@@ -3,4 +3,4 @@
 set -euo pipefail
 
 # mise version: {{ .versions.mise }}
-~/.local/bin/mise completion zsh > ~/.zsh/functions/Completion/vendor/_mise
+~/.local/bin/mise completion zsh > ${XDG_DATA_HOME:-$HOME/.local/share}/zsh/site-functions/_mise
