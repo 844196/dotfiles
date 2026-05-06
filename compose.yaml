@@ -3,10 +3,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    working_dir: /home/nonroot/.dotfiles
     environment:
       - TERM
       - COLORTERM
-      - MISE_GITHUB_TOKEN
+      - GITHUB_TOKEN_FILE=/run/secrets/github_token
+    secrets:
+      - github_token
     volumes:
       - .:/home/nonroot/.dotfiles
     tty: true
+
+secrets:
+  github_token:
+    environment: GITHUB_TOKEN

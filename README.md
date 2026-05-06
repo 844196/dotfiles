@@ -34,7 +34,7 @@ convert -size 3840x2160 xc:'#161821' wallpaper.png
 
 ```bash
 docker compose build --build-arg USER_UID=$(id -u) --build-arg USER_GID=$(id -g)
-MISE_GITHUB_TOKEN=$(gh auth token) docker compose run --rm sandbox ./install.sh
+GITHUB_TOKEN=$(gh auth token) docker compose run --rm sandbox ./install.sh
 ```
 
 ## :page_facing_up: License

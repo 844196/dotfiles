@@ -1,14 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
-if [ "$(command -v chezmoi)" ]; then
-  chezmoi=chezmoi
-else
+if ! chezmoi="$(command -v chezmoi)"; then
   mkdir -p ~/.local/bin
-  if [ "$(command -v curl)" ]; then
+  if command -v curl &>/dev/null; then
     sh -c "$(curl -fsSL get.chezmoi.io)" -- -b ~/.local/bin -t v2.69.4
-  elif [ "$(command -v wget)" ]; then
+  elif command -v wget &>/dev/null; then
     sh -c "$(wget -qO- get.chezmoi.io)" -- -b ~/.local/bin -t v2.69.4
   else
     echo "To install chezmoi, you must have curl or wget installed." >&2
@@ -18,4 +16,9 @@ else
 fi
 
 dotfiles="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
-exec "$chezmoi" init --apply "--source=$dotfiles"
+
+if [[ -z "${GITHUB_TOKEN:-}" && -f "${GITHUB_TOKEN_FILE:-}" ]]; then
+  : ${GITHUB_TOKEN:=$(<"$GITHUB_TOKEN_FILE")}
+fi
+
+GITHUB_TOKEN="$GITHUB_TOKEN" "$chezmoi" init --apply --source="$dotfiles"
