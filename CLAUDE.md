@@ -10,7 +10,7 @@ Linux (WSL2) および macOS で運用する dotfiles です。[Chezmoi](https:/
 
   このディレクトリ以下のファイルは `chezmoi apply` によってターゲット (`~/`) に展開されます。
 
-- [`packages/`](packages/CLAUDE.md) - 自作ツールのソースコード。
+- [`packages/tool-*/`](.claude/rules/diy-tools.md) - 自作ツールのソースコード。
 
   「シェルスクリプトで実装すると複雑になるので、TypeScript などで書いてビルドして配置したいが、独立したリポジトリにするほどではない自作ツール」のソースコードを配置します。`chezmoi apply` 時に chezmoiscripts によってビルドされ、ホームディレクトリ以下に配置されます。
 
