@@ -1,4 +1,4 @@
-# `files/dot_claude/` (`~/.claude/`)
+# `~/.claude/`
 
 `~/.claude/CLAUDE.md` は使用しない。トピックごとに `exact_rules/*.md` に分割して管理する。
 - `exact_local-marketplace/` — ローカル専用プラグインのマーケットプレイス。自作スキル・エージェント・hook はすべてここにプラグインとして配置する

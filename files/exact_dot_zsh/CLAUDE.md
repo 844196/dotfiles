@@ -1,4 +1,4 @@
-# `files/exact_dot_zsh/` (`~/.zsh/`)
+# `~/.zsh/`
 
 このディレクトリは「XDG Base Directory に従うと Package by Layer になって凝集度が低くなる」問題を解決するために `.zsh*` 系および自作関数を配置する場所です。
 

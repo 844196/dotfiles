@@ -1,4 +1,4 @@
-# `files/dot_local/share/mise/plugins/exact_gh/` (`~/.local/share/mise/plugins/gh/`)
+# `~/.local/share/mise/plugins/gh/`
 
 GitHub CLI は本来 `$XDG_STATE_HOME` に格納されるべき "アクティブなアカウント情報" をデフォルトでは `${XDG_CONFIG_HOME:-$HOME/.config}/gh/` に格納します。このため、マルチアカウント運用、および、chezmoi の `exact_` と相性が悪い問題があります。
 

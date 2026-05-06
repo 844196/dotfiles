@@ -1,4 +1,4 @@
-# `files/exact_dot_apm/` (`~/.apm/`)
+# `~/.apm/`
 
 このディレクトリは [microsoft/apm](https://github.com/microsoft/apm) (Agent Package Manager) の設定をホストする。`apm.yml` に列挙したパッケージが `~/.apm/apm_modules/` に取り込まれ、種別に応じて `~/.claude/skills/<name>/` などへ配置される。
 

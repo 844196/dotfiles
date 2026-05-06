@@ -1,4 +1,4 @@
-# `files/dot_opt/exact_dotfiles/` (`~/.opt/dotfiles/`)
+# `~/.opt/dotfiles/`
 
 このディレクトリは「`~/.local/bin` は well-known なため `exact_` をつけることが出来ない」問題を回避するためのスクリプト置き場。
 
