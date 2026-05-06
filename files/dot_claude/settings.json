@@ -119,5 +119,11 @@
     "notification@local": true,
     "block-long-sleep@local": true,
     "cwd-reminder@local": true
+  },
+  "skillOverrides": {
+    "grill-me": "user-invocable-only",
+    "skill-creator": "user-invocable-only",
+    "claude-md-improver": "user-invocable-only",
+    "revise-claude-md": "user-invocable-only"
   }
 }
