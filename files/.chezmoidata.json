@@ -9,6 +9,7 @@
     "tokyonight": "4.11.0",
     "wk": "v1.0.2",
     "zoxide": "v0.9.2",
-    "zshAutosuggestions": "0e810e5afa27acbd074398eefbe28d13005dbc15"
+    "zshAutosuggestions": "0e810e5afa27acbd074398eefbe28d13005dbc15",
+    "apm": "0.12.2"
   }
 }
