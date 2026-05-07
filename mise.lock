@@ -48,3 +48,31 @@ backend = "aqua:evilmartians/lefthook"
 [[tools.lychee]]
 version = "0.24.1"
 backend = "aqua:lycheeverse/lychee"
+
+[tools.lychee."platforms.linux-arm64"]
+checksum = "sha256:b93d5b1744ec443574bcd6d55f2268da9f4628a1990213019b2b2289cf894907"
+url = "https://github.com/lycheeverse/lychee/releases/download/lychee-v0.24.1/lychee-aarch64-unknown-linux-musl.tar.gz"
+
+[tools.lychee."platforms.linux-arm64-musl"]
+checksum = "sha256:b93d5b1744ec443574bcd6d55f2268da9f4628a1990213019b2b2289cf894907"
+url = "https://github.com/lycheeverse/lychee/releases/download/lychee-v0.24.1/lychee-aarch64-unknown-linux-musl.tar.gz"
+
+[tools.lychee."platforms.linux-x64"]
+checksum = "sha256:5f5e8301bcc3edc0fd5470f1c22fb039a6cc487bf5b788af5e30b6dfbcc5b388"
+url = "https://github.com/lycheeverse/lychee/releases/download/lychee-v0.24.1/lychee-x86_64-unknown-linux-musl.tar.gz"
+
+[tools.lychee."platforms.linux-x64-musl"]
+checksum = "sha256:5f5e8301bcc3edc0fd5470f1c22fb039a6cc487bf5b788af5e30b6dfbcc5b388"
+url = "https://github.com/lycheeverse/lychee/releases/download/lychee-v0.24.1/lychee-x86_64-unknown-linux-musl.tar.gz"
+
+[tools.lychee."platforms.macos-arm64"]
+checksum = "sha256:7485ac758fcaf9f8bd660a2d585a1baba9c2a0d48055fd3259e9284ed659a815"
+url = "https://github.com/lycheeverse/lychee/releases/download/lychee-v0.24.1/lychee-aarch64-apple-darwin.tar.gz"
+
+[tools.lychee."platforms.macos-x64"]
+checksum = "sha256:59ef444bfbf9f54ca7d045937b15c609e856848b9e39cddb4267fa2ab5cf793d"
+url = "https://github.com/lycheeverse/lychee/releases/download/lychee-v0.24.1/lychee-x86_64-apple-darwin.tar.gz"
+
+[tools.lychee."platforms.windows-x64"]
+checksum = "sha256:34a12a7da946e4db1babe8cb3f7549e036129d524b36f2baf3068acdef66d0c3"
+url = "https://github.com/lycheeverse/lychee/releases/download/lychee-v0.24.1/lychee-x86_64-pc-windows-msvc.zip"
