@@ -1,6 +1,11 @@
 ---
 name: prior-session-reader
 description: 前セッションのトランスクリプトを読んで質問に答える。ハンドオーバー文書の「参考」セクションにあるセッションIDと、確認したい内容を渡すこと。
+tools:
+  - Bash
+  - Read
+  - Grep
+  - Glob
 ---
 
 # Prior Session Reader
