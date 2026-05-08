@@ -1,3 +1,0 @@
-[providers.gh]
-type = "keychain"
-service = "gh:github.com"
