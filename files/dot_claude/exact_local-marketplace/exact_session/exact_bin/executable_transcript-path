@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# セッションIDから JSONL ファイルのパスを解決する。
+# セッションIDからトランスクリプト (JSONL) ファイルのパスを返す。
 #
-# Usage: resolve-session-path <session-id>
+# Usage: transcript-path <session-id>
 #
 # CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR=1 で cwd が安定し、かつ
 # プロジェクトルートでしか claude code を起動しない運用なので、
@@ -9,7 +9,7 @@
 set -euo pipefail
 
 if [[ $# -ne 1 ]]; then
-    echo "Usage: resolve-session-path <session-id>" >&2
+    echo "Usage: transcript-path <session-id>" >&2
     exit 1
 fi
 

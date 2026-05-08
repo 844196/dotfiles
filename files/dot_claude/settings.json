@@ -95,7 +95,7 @@
       "Bash(command -v difit)",
       "Bash(difit *)",
       "Bash(handover-path.sh)",
-      "Bash(resolve-session-path *)"
+      "Bash(transcript-path *)"
     ]
   },
   "statusLine": {
