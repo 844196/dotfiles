@@ -92,7 +92,9 @@
       "Bash(chroma *)",
       "Bash(claude-yolo --split-pane *)",
       "Bash(command -v difit)",
-      "Bash(difit *)"
+      "Bash(difit *)",
+      "Bash(handover-path.sh)",
+      "Bash(resolve-session-path *)"
     ]
   },
   "statusLine": {
