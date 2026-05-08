@@ -20,9 +20,11 @@ Bash ツールの `run_in_background: true` を使うと、出力は自動でフ
 フォアグラウンドで実行しつつ出力を残したいときは `tee` を使う。
 
 ```bash
+set -o pipefail
 npm run build 2>&1 | tee /tmp/build-$(date +%s).log
-mise run deploy 2>&1 | tee /tmp/deploy-$(date +%s).log
 ```
+
+`set -o pipefail` が必要。これがないとパイプの終了コードが `tee` のもの（常に 0）になり、コマンドの失敗を検知できない。
 
 ## 出力が途中で切れてしまったら
 
