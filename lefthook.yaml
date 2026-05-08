@@ -6,6 +6,6 @@ commit-msg:
 pre-commit:
   jobs:
     - name: Check links
-      run: lychee --no-progress --root-dir "$PWD" .
+      run: lychee --no-progress --hidden --root-dir "$PWD" .
     - name: Check editorconfig
       run: ec
