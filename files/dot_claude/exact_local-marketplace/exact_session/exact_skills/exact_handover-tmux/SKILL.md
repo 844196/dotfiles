@@ -1,6 +1,7 @@
 ---
 name: handover-tmux
 description: 現在の会話をハンドオーバー文書にまとめ、tmux の新しいペインでまっさらな Claude Code セッションを起動して引き継ぐ。コンテキストウィンドウの上限が近づき、/session:handover-tomorrow + /clear + 手動再開の手間を省きたいときに使用する。tmux 上で動作している場合にのみ使用可能。
+disable-model-invocation: true
 ---
 
 # Handover in a new tmux pane

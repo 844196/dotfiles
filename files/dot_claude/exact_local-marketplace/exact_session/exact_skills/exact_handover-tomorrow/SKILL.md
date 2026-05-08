@@ -1,6 +1,7 @@
 ---
 name: handover-tomorrow
 description: 現在の会話をハンドオーバー文書にまとめ、後で読み返して再開できる形で書き出す。ユーザーが「ハンドオーバー文書にまとめて」「次のセッションに引き継いで」「明日の自分に引き継いで」と指示したときに適用する。新セッションの起動は伴わない。
+disable-model-invocation: true
 ---
 
 # Handover for tomorrow

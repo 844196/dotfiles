@@ -1,6 +1,7 @@
 ---
 name: fork-tmux
 description: 現在のセッションを tmux の新しいペインでフォークする。tmux 上で動作している場合に使用する。
+disable-model-invocation: true
 ---
 
 # Fork session in tmux
