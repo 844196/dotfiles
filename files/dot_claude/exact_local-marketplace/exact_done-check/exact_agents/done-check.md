@@ -1,11 +1,7 @@
 ---
 name: done-check
 description: ユーザーが示したゴールの達成度を、プロジェクト定義のチェックリストに照らして評価し、結果を簡潔に返す。
-tools:
-  - Bash
-  - Read
-  - Grep
-  - Glob
+tools: Bash, Read, Grep, Glob
 model: sonnet
 ---
 
