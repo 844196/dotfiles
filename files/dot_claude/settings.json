@@ -95,7 +95,8 @@
       "Bash(command -v difit)",
       "Bash(difit *)",
       "Bash(handover-path.sh)",
-      "Bash(transcript-path *)"
+      "Bash(transcript-path *)",
+      "Bash(read-checklist.sh)"
     ]
   },
   "statusLine": {

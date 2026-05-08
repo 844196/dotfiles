@@ -26,7 +26,7 @@ prompt が空、または 3 セクションが揃っていない場合は `skipp
 入力を受け取った上で以下を実行してチェックリストを取得する:
 
 ```bash
-"${CLAUDE_PLUGIN_ROOT}/bin/read-checklist.sh"
+read-checklist.sh
 ```
 
 チェックリストのスキーマ:
