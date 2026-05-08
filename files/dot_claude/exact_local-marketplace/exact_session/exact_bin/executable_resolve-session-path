@@ -1,37 +1,25 @@
-#!/usr/bin/env python3
-"""セッションIDからJSONLファイルのパスを解決する。
+#!/usr/bin/env bash
+# セッションIDから JSONL ファイルのパスを解決する。
+#
+# Usage: resolve-session-path <session-id>
+#
+# CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR=1 で cwd が安定し、かつ
+# プロジェクトルートでしか claude code を起動しない運用なので、
+# プロジェクトの slug は cwd から導出できる。
+set -euo pipefail
 
-Usage: resolve-session-path <session-id> [--project-dir <dir>]
+if [[ $# -ne 1 ]]; then
+    echo "Usage: resolve-session-path <session-id>" >&2
+    exit 1
+fi
 
---project-dir を省略した場合、~/.claude/projects/ 以下の全プロジェクトから検索する。
-"""
-import sys
-import os
-import argparse
-from pathlib import Path
+sid="$1"
+slug=$(pwd | tr '/.' '-')
+path="$HOME/.claude/projects/$slug/$sid.jsonl"
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("session_id", help="Session UUID")
-    parser.add_argument("--project-dir", help="Limit search to specific project slug dir")
-    args = parser.parse_args()
+if [[ ! -f "$path" ]]; then
+    echo "Session $sid not found at $path" >&2
+    exit 1
+fi
 
-    base = Path.home() / ".claude" / "projects"
-    sid = args.session_id
-
-    if args.project_dir:
-        candidates = [base / args.project_dir / f"{sid}.jsonl"]
-    else:
-        candidates = list(base.glob(f"*/{sid}.jsonl"))
-
-    found = [p for p in candidates if p.exists()]
-    if not found:
-        print(f"Session {sid} not found", file=sys.stderr)
-        sys.exit(1)
-
-    for p in found:
-        print(str(p))
-
-
-if __name__ == "__main__":
-    main()
+echo "$path"
