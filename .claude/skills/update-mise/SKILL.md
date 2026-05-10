@@ -30,7 +30,7 @@ mise を指定バージョンに更新する。
 
 スクリプトが以下を実行する:
 - 最新バージョンの取得 (gh で jdx/mise のリリースから)
-- `files/.chezmoidata.json` の更新
+- [chezmoidata](../../../files/.chezmoidata.json) の更新
 
 エラー終了した場合はユーザーに伝えて作業を中止する。
 

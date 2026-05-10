@@ -6,15 +6,15 @@
 zsh -ic exit && MISE_HOOK_ENV_CACHE_TTL=600s ZSH_BENCH=1 NO_TMUX=1 "$(ghq list --full-path --exact romkatv/zsh-bench)/zsh-bench" --iters 32
 ```
 
-この 1 ライナーには 2 つの「お膳立て」が入っている: `zsh -ic exit` (compdump warmup) と `MISE_HOOK_ENV_CACHE_TTL=600s` (mise hook-env fast-path 強制)。`--iters 32` の意図は SKILL.md `iter 数の選び方` を参照。前後比較するときはこのコマンドラインを丸ごと再現する。
+この 1 ライナーには 2 つの「お膳立て」が入っている: `zsh -ic exit` (compdump warmup) と `MISE_HOOK_ENV_CACHE_TTL=600s` (mise hook-env fast-path 強制)。`--iters 32` の意図は [iter 数の選び方](../SKILL.md#iter-数の選び方) を参照。前後比較するときはこのコマンドラインを丸ごと再現する。
 
 ## なぜ `zsh -ic exit` で compdump warmup が要るか
 
-このリポジトリの `files/.chezmoiscripts/` は **シェル起動時の負荷分散** を担っており、`chezmoi apply` のたびに各種キャッシュが破棄・再生成される。代表的なもの:
+このリポジトリの [chezmoiscripts](../../../rules/chezmoiscripts.md) は **シェル起動時の負荷分散** を担っており、`chezmoi apply` のたびに各種キャッシュが破棄・再生成される。代表的なもの:
 
-- `run_after_08-clear-compdump.sh` — `~/.cache/zsh/compdump*` を **毎 apply で削除**。次回 zsh 起動時に `compinit` が compdump を再生成するため、apply 直後の初回起動は `compinit` / `compdump` が重く出る (`first_command_lag_ms` / `first_prompt_lag_ms` に直撃)
-- `run_onchange_after_09-compile-zsh-files.sh.tmpl` — `~/.zsh/.zshenv` / `.zshrc` / `zsh-autosuggestions/**/*.zsh` / wk init / zoxide init を `zcompile` して `.zwc` 化
-- `run_onchange_after_08a-generate-wk-init.sh.tmpl` / `08b-generate-zoxide-init.sh.tmpl` / `13-generate-ls-colors.sh.tmpl` / `07-rebuild-bat-cache.sh.tmpl` — 各種ツールの init キャッシュ生成
+- [clear-compdump](../../../../files/.chezmoiscripts/run_after_08-clear-compdump.sh) — `~/.cache/zsh/compdump*` を **毎 apply で削除**。次回 zsh 起動時に `compinit` が compdump を再生成するため、apply 直後の初回起動は `compinit` / `compdump` が重く出る (`first_command_lag_ms` / `first_prompt_lag_ms` に直撃)
+- [compile-zsh-files](../../../../files/.chezmoiscripts/run_after_14-compile-zsh-files.sh.tmpl) — `~/.zsh/.zshenv` / `.zshrc` / `zsh-autosuggestions/**/*.zsh` / wk init / zoxide init を `zcompile` して `.zwc` 化
+- [generate-wk-init](../../../../files/.chezmoiscripts/run_onchange_after_08a-generate-wk-init.sh.tmpl) / [generate-zoxide-init](../../../../files/.chezmoiscripts/run_onchange_after_08b-generate-zoxide-init.sh.tmpl) / [generate-ls-colors](../../../../files/.chezmoiscripts/run_onchange_after_13-generate-ls-colors.sh.tmpl) / [rebuild-bat-cache](../../../../files/.chezmoiscripts/run_onchange_after_07-rebuild-bat-cache.sh.tmpl) — 各種ツールの init キャッシュ生成
 
 compdump 削除は本物の起動コストではなく一時状態のため、bench 直前に `zsh -ic exit` を 1 回挟んで compdump を再生成しておく。これで前後比較が安定する (apply 直後だけ重い、というアーティファクトを潰す)。`.zwc` や各種 init キャッシュは apply 時にもう生成済みなので追加 warmup は不要。
 

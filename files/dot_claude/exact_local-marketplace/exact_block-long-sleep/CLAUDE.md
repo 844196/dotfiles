@@ -6,7 +6,7 @@
 
 | Hook | Event | Matcher | 動作 |
 |---|---|---|---|
-| `block-long-sleep.sh` | `PreToolUse` | `Bash` | `tool_input.command` 内の `sleep N[smhd]` を全箇所 grep。1 つでも 25 秒以上 (秒/分/時/日換算) なら `decision: "block"` で停止し、reason に代替手段を案内 |
+| [`block-long-sleep.sh`](exact_hooks/executable_block-long-sleep.sh) | `PreToolUse` | `Bash` | `tool_input.command` 内の `sleep N[smhd]` を全箇所 grep。1 つでも 25 秒以上 (秒/分/時/日換算) なら `decision: "block"` で停止し、reason に代替手段を案内 |
 
 ブロック時の reason: 「定期ポーリングには `CronCreate` ツール (`/loop` スキルから呼べる)、完了待ちには Bash ツールの `run_in_background` オプションを使用」。
 

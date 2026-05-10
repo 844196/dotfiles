@@ -6,13 +6,13 @@ Claude Code の `Notification` / `Stop` イベントで、tmux のベル (`monit
 
 | Hook | Event | 動作 |
 |---|---|---|
-| `bell.sh` | `Notification` / `Stop` | Claude のペインの tty に `\a` (BEL) を書き出し、tmux の `monitor-bell` を発火させる |
-| `notify-darwin.sh` | `Notification` (macOS のみ) | hook input の `message` を `osascript` で macOS Notification Center にバナー表示 |
-| `notify-windows.sh` | `Notification` (それ以外 = WSL2 想定) | hook input の `message` を `powershell.exe` 経由で Windows のトースト通知として表示 |
+| [`bell.sh`][bell] | `Notification` / `Stop` | Claude のペインの tty に `\a` (BEL) を書き出し、tmux の `monitor-bell` を発火させる |
+| [`notify-darwin.sh`][notify-darwin] | `Notification` (macOS のみ) | hook input の `message` を `osascript` で macOS Notification Center にバナー表示 |
+| [`notify-windows.sh`][notify-windows] | `Notification` (それ以外 = WSL2 想定) | hook input の `message` を `powershell.exe` 経由で Windows のトースト通知として表示 |
 
-`Notification` はエージェントが入力待ち・許可待ちになった瞬間、`Stop` はターン終了時に発火する。`bell.sh` は両方で鳴らし、OS 通知系は `Notification` のみ (Stop で毎ターン OS 通知が出ると煩いため)。
+`Notification` はエージェントが入力待ち・許可待ちになった瞬間、`Stop` はターン終了時に発火する。[`bell.sh`][bell] は両方で鳴らし、OS 通知系は `Notification` のみ (Stop で毎ターン OS 通知が出ると煩いため)。
 
-`hooks.json.tmpl` を chezmoi テンプレート化し、`{{ if eq .chezmoi.os "darwin" }}` で `Notification` に登録するスクリプトを `notify-darwin.sh` / `notify-windows.sh` のどちらかに切り替える。両方の `.sh` は target にデプロイされるが、`hooks.json` から参照されるのは片方だけなので実害はない。
+[`hooks.json.tmpl`](exact_hooks/hooks.json.tmpl) を chezmoi テンプレート化し、`{{ if eq .chezmoi.os "darwin" }}` で `Notification` に登録するスクリプトを [`notify-darwin.sh`][notify-darwin] / [`notify-windows.sh`][notify-windows] のどちらかに切り替える。両方の `.sh` は target にデプロイされるが、`hooks.json` から参照されるのは片方だけなので実害はない。
 
 ## How It Works
 
@@ -58,3 +58,7 @@ tmux 側で `monitor-bell` を有効にしておくとベルが拾われる:
 set -g monitor-bell on
 set -g bell-action other
 ```
+
+[bell]: exact_hooks/executable_bell.sh
+[notify-darwin]: exact_hooks/executable_notify-darwin.sh
+[notify-windows]: exact_hooks/executable_notify-windows.sh

@@ -45,4 +45,4 @@ Linux (WSL2) および macOS で運用する dotfiles です。[Chezmoi](https:/
 4. 反映後の挙動を確認する。
 5. ユーザーが期待通り動いていることを確認してからコミットする。
    - 変更はすべて `main` ブランチに直接コミットする。
-   - コミットメッセージのフォーマットは Conventional Commits に従う。コミットタイプは [`.versionrc`](.versionrc) を参照のこと。
+   - コミットメッセージのフォーマットは Conventional Commits に従う。コミットタイプは [`convco` 設定ファイル](.versionrc) を参照のこと。

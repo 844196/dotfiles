@@ -39,4 +39,4 @@ GITHUB_TOKEN=$(gh auth token) docker compose run --rm sandbox ./install.sh
 
 ## :page_facing_up: License
 
-See [`LICENSE.md`](/LICENSE.md). [Logo](https://github.com/jglovier/dotfiles-logo) by [Joel Glovier](https://github.com/jglovier).
+See [License](LICENSE.md). [Logo](https://github.com/jglovier/dotfiles-logo) by [Joel Glovier](https://github.com/jglovier).

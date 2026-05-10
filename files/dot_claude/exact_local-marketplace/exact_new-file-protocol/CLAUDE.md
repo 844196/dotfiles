@@ -19,8 +19,8 @@ Claude Code の `paths` 付き rule (`~/.claude/rules/*.md` または `<project>
 
 | Hook | Event | Matcher | 動作 |
 |---|---|---|---|
-| `session-start.sh` | `SessionStart` | (なし: 全 source) | `additionalContext` で 3 ステップ手順を事前告知 |
-| `pre-write.sh` | `PreToolUse` | `Write` | `tool_input.file_path` が存在しない場合のみ deny + reason |
+| [`session-start.sh`](exact_hooks/executable_session-start.sh) | `SessionStart` | (なし: 全 source) | `additionalContext` で 3 ステップ手順を事前告知 |
+| [`pre-write.sh`](exact_hooks/executable_pre-write.sh) | `PreToolUse` | `Write` | `tool_input.file_path` が存在しない場合のみ deny + reason |
 
 サブエージェント / MCP 経由の Write も PreToolUse は発火するため一律にカバーされる。SessionStart は `startup` / `resume` / `clear` / `compact` のすべての source で発火させ、resume 時にも告知が再注入されるようにしている。
 
