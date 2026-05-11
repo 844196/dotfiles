@@ -1,0 +1,36 @@
+update_check = false
+
+key_path = "~/.local/share/atuin/key"
+db_path = "~/.local/state/atuin/history.db"
+
+workspace = true
+
+enter_accept = false
+style = "compact"
+prefers_reduced_motion = true
+inline_height = 15
+max_preview_height = 5
+show_help = false
+show_tabs = false
+show_numeric_shortcuts = false
+
+history_filter = [
+  "^(:|true|false)$",
+  "^exit ?.*$",
+  "^pwd$",
+  "^cd$",
+  "^(which|type|where) .+",
+  "^z?man ?.*",
+]
+
+[search]
+filters = ["host", "workspace", "directory"]
+
+[preview]
+strategy = "fixed" # Use max_preview_height as fixed value
+
+[logs]
+dir = "~/.cache/atuin/logs"
+
+[keys]
+scroll_exits = false

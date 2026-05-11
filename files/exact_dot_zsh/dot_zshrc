@@ -15,13 +15,11 @@ fi
 autoload -Uz add-zsh-hook
 autoload -Uz select-word-style
 autoload -Uz smart-insert-last-word
-autoload -Uz {up,down}-line-or-beginning-search
 autoload -Uz zman
 autoload -Uz anyframe-init
 autoload -Uz $ZDOTDIR/functions/**/*(N.:t)
 
 add-zsh-hook precmd send-osc7
-add-zsh-hook zshaddhistory historyignore
 
 # TODO そのうちいらなくなるかも
 # https://github.com/dandavison/delta/pull/2084
@@ -74,18 +72,17 @@ setopt MAGIC_EQUAL_SUBST
 # グロブ展開する際、入力の先頭にドットがなくてもドットから始まるファイルもマッチ対象にする
 setopt GLOB_DOTS
 
+source $XDG_CACHE_HOME/atuin/init.zsh
+
+# Zsh デフォルトの履歴システムは、Atuin のバックアップとして維持する
+HISTSIZE=1000000
+SAVEHIST=1000000
+setopt EXTENDED_HISTORY
+setopt INC_APPEND_HISTORY
+setopt HIST_FCNTL_LOCK
 # Workaround: When VSCode shell integration feature is enabled, HISTFILE is never empty
 # https://github.com/microsoft/vscode/issues/169264
 HISTFILE=${ZHISTFILE:-$XDG_STATE_HOME/zsh/history}
-HISTSIZE=1000000
-SAVEHIST=1000000
-HISTORY_IGNORE="(${(j.|.)${(f)"$(<$ZDOTDIR/.zsh_historyignore)"}})"
-setopt SHARE_HISTORY
-setopt EXTENDED_HISTORY
-setopt HIST_REDUCE_BLANKS
-setopt HIST_IGNORE_SPACE
-setopt HIST_FIND_NO_DUPS
-setopt HIST_FCNTL_LOCK
 
 # https://news.ycombinator.com/item?id=26757438
 # https://www.reddit.com/r/zsh/comments/c160o2/comment/erbdiqj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
@@ -104,19 +101,18 @@ bindkey '^[[1~' beginning-of-line # Home
 bindkey '^[[4~' end-of-line # End
 bindkey '^[[3~' delete-char # Delete
 bindkey '^[[Z' reverse-menu-complete # Shift+Tab
-bindkey '^R' anyframe-widget-put-history
+bindkey '^R' atuin-search
+bindkey '^[[A' atuin-up-search
+bindkey '^[OA' atuin-up-search # Up arrow
 bindkey '^X^B' anyframe-widget-insert-git-branch-name
 bindkey '^X^F' anyframe-widget-insert-git-status-file
 bindkey '^X^X' anyframe-widget-insert-git-commit-hash
 bindwidget '^[.' insert-last-word smart-insert-last-word
-bindwidget '^[OA' up-line-or-beginning-search # Up arrow
-bindwidget '^[OB' down-line-or-beginning-search # Down arrow
 bindwidget '^M' accept-line-with-expand-alias
 bindwidget '\^' self-insert-with-tweak
 bindwidget '^I' fzf-completion-or-expand-or-complete
 bindwidget '^[q' push-line-or-edit-with-show
 bindwidget '^Q' push-line-or-edit-with-show # `NO_FLOW_CONTROL` required
-bindwidget '^G' toggle-incognito
 bindwidget '^X^E' edit-command-line edit-command-line-shim
 
 source $XDG_CACHE_HOME/wk/init.zsh
@@ -161,8 +157,8 @@ source $XDG_DATA_HOME/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=black,bold"
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(accept-line-with-expand-alias up-line-or-beginning-search down-line-or-beginning-search)
+ZSH_AUTOSUGGEST_STRATEGY=(atuin completion)
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(accept-line-with-expand-alias atuin-up-search)
 ZSH_AUTOSUGGEST_HISTORY_IGNORE='( eza *|cd *|\\(cp|mv|rm) *|git (add|branch|checkout) *|gh pr create *|?(#c50,))'
 
 if [[ -f $ZDOTDIR/.zshrc.local ]]; then

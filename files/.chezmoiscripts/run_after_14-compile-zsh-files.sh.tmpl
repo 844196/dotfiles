@@ -10,7 +10,8 @@ zrecompile -p \
   -R ${ZDOTDIR:-$HOME}/.zshenv -- \
   -R ${ZDOTDIR:-$HOME}/.zshrc -- \
   -R ${XDG_CACHE_HOME:-$HOME/.cache}/wk/init.zsh -- \
-  -R ${XDG_CACHE_HOME:-$HOME/.cache}/zoxide/init.zsh
+  -R ${XDG_CACHE_HOME:-$HOME/.cache}/zoxide/init.zsh -- \
+  -R ${XDG_CACHE_HOME:-$HOME/.cache}/atuin/init.zsh
 
 for d in ${ZDOTDIR:-$HOME}/functions/*(N-/) ${ZDOTDIR:-$HOME}/functions/Completion/*(N-/) ${ZDOTDIR:-$HOME}/functions/Zle/anyframe-functions/*(N-/); do
   zcompile -U -M $d.zwc $d/*~*.zwc(^/)

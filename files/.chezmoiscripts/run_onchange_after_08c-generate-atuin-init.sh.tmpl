@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# trigger:
+#   atuin version: {{ .versions.atuin }}
+
+set -euo pipefail
+
+cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/atuin"
+mkdir -p "$cache_dir"
+ATUIN_NOBIND=true ~/.local/bin/mise exec -- atuin init zsh > "$cache_dir/init.zsh"
