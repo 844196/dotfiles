@@ -38,7 +38,7 @@ disable-model-invocation: true
 # <タイトル>
 
 > [!NOTE]
-> 不明な点は `prior-session-reader` エージェントを spawn して前セッションのトランスクリプトを確認すること。
+> 不明な点は `session:session-analyzer` エージェントを spawn して前セッションのトランスクリプトを確認すること。
 
 ## 最終ゴール
 ...

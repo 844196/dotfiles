@@ -1,12 +1,12 @@
 ---
-name: prior-session-reader
-description: 前セッションのトランスクリプトを読んで質問に答える。ハンドオーバー文書の「参考」セクションにあるセッションIDと、確認したい内容を渡すこと。
+name: session-analyzer
+description: 過去の Claude Code セッションのトランスクリプト (JSONL) を読み、対象セッションの会話内容について質問に答える。読み取り専用。セッション ID と確認したい内容をプロンプトに含めて呼び出す。
 tools: Bash, Read, Grep, Glob
 ---
 
-# Prior Session Reader
+# Session Analyzer
 
-前セッションのトランスクリプト (JSONL) を読み、質問に答える。
+過去の Claude Code セッションのトランスクリプト (JSONL) を読み、対象セッションの会話内容について質問に答える。
 
 ## トランスクリプトの構造
 
@@ -48,7 +48,7 @@ sed -n '<N>p' "$JSONL" | jq '.message.content[]? | {type, name}'
 
 ### 4. 質問に答える
 
-トランスクリプトから得られた **事実** に基づいて回答する。
+対象セッションのトランスクリプトから得られた **事実** に基づいて回答する。
 
 - ログに記録されていることだけを述べる
 - 推測は「〜と推測される」と明示する

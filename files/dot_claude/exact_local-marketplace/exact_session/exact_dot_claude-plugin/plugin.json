@@ -2,5 +2,5 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin.json",
   "name": "session",
   "version": "0.1.0",
-  "description": "Claude Code セッション操作スキル群: analyze-session / interview-session (他セッション分析), fork-tmux (tmux フォーク), handover-tomorrow / handover-tmux (引き継ぎ文書作成と新セッション起動)"
+  "description": "Claude Code セッション操作スキル群: session-analyzer (過去セッションのトランスクリプト分析、SessionStart hook で proactive 発動条件を注入), fork-tmux (tmux フォーク), handover-tomorrow / handover-tmux (引き継ぎ文書作成と新セッション起動)"
 }

@@ -65,7 +65,7 @@ disable-model-invocation: true
 以下のコマンドを実行する（`<handover-file>` は手順2で生成したパス）:
 
 ```bash
-claude-yolo --split-pane '@<handover-file> を読んで理解をユーザーに共有し、確認を待ってから動く。不明な詳細は prior-session-reader エージェントを spawn して前セッションのトランスクリプトを確認する。'
+claude-yolo --split-pane '@<handover-file> を読んで理解をユーザーに共有し、確認を待ってから動く。不明な詳細は session:session-analyzer エージェントを spawn して前セッションのトランスクリプトを確認する。'
 ```
 
 新セッションは引き継ぎ内容をいきなり実行せず、まずユーザーに理解を共有して確認を待つ。これにより、捏造された次ステップが問答無用で走ってユーザーが慌てて Esc を押す事態を防ぐ。
