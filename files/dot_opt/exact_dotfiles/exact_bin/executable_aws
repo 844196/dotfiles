@@ -1,0 +1,4 @@
+#!/usr/bin/env -S mise tool-stub
+
+tool = "aqua:aws/aws-cli"
+version = "2.22.0"

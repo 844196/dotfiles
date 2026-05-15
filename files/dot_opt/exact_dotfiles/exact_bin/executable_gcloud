@@ -1,0 +1,4 @@
+#!/usr/bin/env -S mise tool-stub
+
+tool = "vfox:mise-plugins/vfox-gcloud"
+version = "554.0.0"
