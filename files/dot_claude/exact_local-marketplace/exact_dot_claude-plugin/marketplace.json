@@ -64,6 +64,11 @@
       "name": "done-check",
       "source": "./done-check",
       "description": "ターン終了宣言の直前に呼ぶ Skill 1 個構成のチェックリスト (edit-reminders の Skill 化版)。`<repo>/.claude/done-check.local.md` で挙動を上書きできる"
+    },
+    {
+      "name": "atuin",
+      "source": "./atuin",
+      "description": "Bash ツール実行を atuin 履歴に記録する hook 群 (`atuin hook install claude-code` 相当)"
     }
   ]
 }
