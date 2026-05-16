@@ -102,8 +102,6 @@ bindkey '^[[4~' end-of-line # End
 bindkey '^[[3~' delete-char # Delete
 bindkey '^[[Z' reverse-menu-complete # Shift+Tab
 bindkey '^R' atuin-search
-bindkey '^[[A' atuin-up-search
-bindkey '^[OA' atuin-up-search # Up arrow
 bindkey '^X^B' anyframe-widget-insert-git-branch-name
 bindkey '^X^F' anyframe-widget-insert-git-status-file
 bindkey '^X^X' anyframe-widget-insert-git-commit-hash
