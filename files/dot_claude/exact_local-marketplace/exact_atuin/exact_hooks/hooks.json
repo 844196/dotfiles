@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "atuin hook claude-code"
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/atuin-hook.sh"
           }
         ]
       }
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "atuin hook claude-code"
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/atuin-hook.sh"
           }
         ]
       }
@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "atuin hook claude-code"
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/atuin-hook.sh"
           }
         ]
       }
