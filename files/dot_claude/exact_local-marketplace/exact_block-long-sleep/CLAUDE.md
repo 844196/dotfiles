@@ -1,6 +1,6 @@
 # Block Long Sleep
 
-`PreToolUse:Bash` で実行される Bash コマンドを全箇所スキャンし、`sleep N[smhd]` が 25 秒以上ならブロックする hook。長尺の `sleep` でターンが詰まるのを防ぎ、適切な代替 (`CronCreate` / `run_in_background`) に誘導する。
+`PreToolUse:Bash` で実行される Bash コマンドを全箇所スキャンし、`sleep N[smhd]` が 25 秒以上ならブロックする hook。長尺の `sleep` でターンが詰まるのを防ぎ、適切な代替 (`run_in_background` / `Monitor` / `CronCreate`) に誘導する。
 
 ## What It Does
 
@@ -8,7 +8,11 @@
 |---|---|---|---|
 | [`block-long-sleep.sh`](exact_hooks/executable_block-long-sleep.sh) | `PreToolUse` | `Bash` | `tool_input.command` 内の `sleep N[smhd]` を全箇所 grep。1 つでも 25 秒以上 (秒/分/時/日換算) なら `decision: "block"` で停止し、reason に代替手段を案内 |
 
-ブロック時の reason: 「定期ポーリングには `CronCreate` ツール (`/loop` スキルから呼べる)、完了待ちには Bash ツールの `run_in_background` オプションを使用」。
+ブロック時の reason は用途別に 3 つの代替を案内する:
+
+- **完了待ち**: Bash ツールの `run_in_background` オプション
+- **状態変化の監視 (ログ・プロセス・コマンド出力)**: `Monitor` ツール
+- **定期的な LLM 判断**: `CronCreate` ツール (`/loop` スキルから呼べる)
 
 ## Why
 
@@ -21,6 +25,8 @@ Claude Code 本体にも類似のブロック機能が feature flag `tengu_amber
 3. `s`/`m`/`h`/`d` 単位付きの `sleep`
 
 `tengu_amber_sentinel` が GA 化してカバー範囲が重なったらこのプラグインは削除候補。
+
+なお、v2.1.144 で本体の `CronCreate` description に「ログ・プロセス・コマンド出力の継続監視は cron ではなく `Monitor` ツールへ」という誘導節 ("Not for live watching") が追加された。本フックの reason もこの分類に合わせている。
 
 ## Configuration
 

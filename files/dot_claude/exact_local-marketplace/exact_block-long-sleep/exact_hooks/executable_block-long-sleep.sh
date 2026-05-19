@@ -19,7 +19,7 @@ while IFS= read -r match; do
   if (( seconds >= 25 )); then
     jq -n '{
       decision: "block",
-      reason: "25秒以上の sleep はブロック。定期ポーリングには CronCreate ツール（/loop スキルから呼べる）、完了待ちには Bash ツールの run_in_background オプションを使用。"
+      reason: "25秒以上の sleep はブロック。代替手段:\n- 完了待ち: Bash ツールの run_in_background オプション\n- 状態変化の監視 (ログ・プロセス・コマンド出力): Monitor ツール\n- 定期的な LLM 判断: CronCreate ツール (/loop スキルから呼べる)"
     }'
     exit 2
   fi
