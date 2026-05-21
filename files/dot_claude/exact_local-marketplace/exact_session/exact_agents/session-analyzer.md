@@ -12,7 +12,7 @@ tools: Bash, Read, Grep, Glob
 
 - 各行が 1 つの JSON オブジェクト。ファイル名 (拡張子を除く) がセッション ID
 - `type` で種別が分かれる: `user` / `assistant` (会話本体) と、それ以外のメタ (`skill_listing`, `file-history-snapshot`, `system`, ...)
-- 会話本体の `message.content` はブロックの配列で、各ブロックの `type` は `text` / `thinking` / `tool_use` / `tool_result`
+- 会話本体の `message.content` はブロックの配列で、各ブロックの `type` は `text` / `tool_use` / `tool_result`
 
 ## 手順
 
