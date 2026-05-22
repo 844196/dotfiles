@@ -97,7 +97,10 @@
       "Bash(difit *)",
       "Bash(handover-path.sh)",
       "Bash(transcript-path *)",
-      "Bash(read-checklist.sh)"
+      "Bash(read-checklist.sh)",
+      "Bash(claude-p2p poll)",
+      "Bash(claude-p2p send *)",
+      "Bash(claude-p2p read *)"
     ]
   },
   "statusLine": {
@@ -136,7 +139,8 @@
     "mise@local": true,
     "notification@local": true,
     "block-long-sleep@local": true,
-    "atuin@local": true
+    "atuin@local": true,
+    "p2p@local": true
   },
   "skillOverrides": {
     "grill-me": "user-invocable-only",

@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# claude-p2p — Claude Code セッション間 P2P メッセージング CLI。
+#
+#   claude-p2p poll              自分のメールボックスを監視する (monitor が実行)
+#   claude-p2p send <id> [body]  セッション <id> へメッセージを送る (body 省略時は stdin)
+#   claude-p2p read <ts>         自分のメールボックスから ts のメッセージ本文を取り出す
+#
+# メールボックスは JSONL: 1 行 = {"ts":<epoch float>,"from":"<id>","body":"<text>"}
+set -euo pipefail
+
+# メールボックスの置き場所: ランタイムディレクトリ優先、無ければ TMPDIR/tmp。
+# どちらも umask 077 でセッションディレクトリを 700 で作る (poll 参照)。
+if [ -n "${XDG_RUNTIME_DIR:-}" ]; then
+  sessions_dir="$XDG_RUNTIME_DIR/claude-p2p/sessions"
+else
+  sessions_dir="${TMPDIR:-/tmp}/claude-p2p-$(id -u)/sessions"
+fi
+
+mailbox_of() { printf '%s/%s/messages' "$sessions_dir" "$1"; }
+
+cmd="${1:?usage: claude-p2p <poll|send|read> ...}"
+shift
+
+case "$cmd" in
+  poll)
+    # 自分のメールボックスを tail -F で監視する。monitor から実行される。
+    umask 077
+    mailbox="$(mailbox_of "${CLAUDE_CODE_SESSION_ID:?}")"
+    mkdir -p "$(dirname "$mailbox")"
+    touch "$mailbox"
+    exec tail -n 0 -F "$mailbox"
+    ;;
+
+  send)
+    # 相手セッションのメールボックスへ JSONL を 1 行追記する。
+    target="${1:?usage: claude-p2p send <target-session-id> [body]}"
+    body="${2-$(cat)}"
+    mailbox="$(mailbox_of "$target")"
+    [ -f "$mailbox" ] || {
+      echo "claude-p2p: no mailbox for session '$target' (not running?)" >&2
+      exit 1
+    }
+    # ts は jq の now (マイクロ秒精度の epoch)。タイムスタンプ兼メッセージ ID。
+    # ts を先頭・body を末尾に置く: 通知が ~3KB で truncate されても ts は残る。
+    line="$(jq -cn \
+      --arg from "${CLAUDE_CODE_SESSION_ID:?}" \
+      --arg body "$body" \
+      '{ts: now, from: $from, body: $body}')"
+    printf '%s\n' "$line" >> "$mailbox"
+    echo "claude-p2p: sent to $target -> $line" >&2
+    ;;
+
+  read)
+    # 自分のメールボックスから ts のメッセージ本文を取り出す。
+    ts="${1:?usage: claude-p2p read <ts>}"
+    mailbox="$(mailbox_of "${CLAUDE_CODE_SESSION_ID:?}")"
+    [ -f "$mailbox" ] || { echo "claude-p2p: own mailbox not found" >&2; exit 1; }
+    line="$(grep -F "{\"ts\":$ts," "$mailbox" | tail -1)" || true
+    [ -n "$line" ] || { echo "claude-p2p: no message with ts=$ts" >&2; exit 1; }
+    printf '%s' "$line" | jq -r '.body'
+    ;;
+
+  *)
+    echo "claude-p2p: unknown subcommand '$cmd' (expected poll|send|read)" >&2
+    exit 1
+    ;;
+esac

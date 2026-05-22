@@ -69,6 +69,11 @@
       "name": "atuin",
       "source": "./atuin",
       "description": "Bash ツール実行を atuin 履歴に記録する hook 群 (`atuin hook install claude-code` 相当)"
+    },
+    {
+      "name": "p2p",
+      "source": "./p2p",
+      "description": "Claude Code セッション間 P2P メッセージング: claude-p2p CLI (poll / send / read)、受信用 monitor、送信スキル (send) と受信スキル (receive)"
     }
   ]
 }

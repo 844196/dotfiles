@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "name": "p2p",
+  "version": "0.1.0",
+  "description": "Claude Code セッション間 P2P メッセージング: claude-p2p CLI (poll / send / read)、受信用 monitor、送信スキル (send) と受信スキル (receive)"
+}
