@@ -2,5 +2,9 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin.json",
   "name": "atuin",
   "version": "0.1.0",
-  "description": "Bash ツール実行を atuin 履歴に記録する hook 群 (`atuin hook install claude-code` 相当)"
+  "description": "Bash ツール実行を atuin 履歴に記録する hook 群 (`atuin hook install claude-code` 相当)",
+  "dependencies": [
+    { "name": "personal-scratchpad" },
+    { "name": "session-analyzer" }
+  ]
 }

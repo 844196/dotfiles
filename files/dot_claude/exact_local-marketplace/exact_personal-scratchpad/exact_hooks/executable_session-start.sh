@@ -1,6 +1,19 @@
-# `<repository-root>/.844196/` (個人スクラッチディレクトリ)
+#!/usr/bin/env bash
+# SessionStart hook: .844196/ (個人スクラッチパッドディレクトリ) の運用ルールを
+# additionalContext として注入する。
+#
+# 経緯: ルール本文を ~/.claude/rules/*.md に置く案もあるが、`**/CLAUDE.md` が
+# chezmoiignore で除外されるためプラグイン内 CLAUDE.md はエージェント側に届かない。
+# また rule ファイルとプラグインの SessionStart hook で同じ内容を二重に持つと
+# 同期が崩れる。本 hook を「正典の伝達経路」と位置付け、ここに本文を集約する。
 
-`<repository-root>/.844196/` は、ユーザー固有の補助的なファイル (調査レポート、プラン文書、ハンドオーバー、スクリプト等) を置く個人スクラッチディレクトリ。
+set -euo pipefail
+
+context='[personal-scratchpad] このセッションでは personal-scratchpad プラグインが有効です。
+
+# `<repository-root>/.844196/` (個人スクラッチパッドディレクトリ)
+
+`<repository-root>/.844196/` は、ユーザー固有の補助的なファイル (調査レポート、プラン文書、ハンドオーバー、スクリプト等) を置く個人スクラッチパッドディレクトリ。
 
 ユーザーの global gitignore で除外されているので、プロジェクト側の `.gitignore` を汚さずに置ける。
 
@@ -12,11 +25,17 @@
 - `rm <path>`: 本当に消してよい内容か (別プロセスのロックファイル、未把握の状態等)
 - 上書き: 既存内容が失われて困らないか
 
-衝突や懸念を見つけたら、独断で進めずユーザーに報告する。曖昧な指示を受けた場合は、[ユーザーが明示していないスコープ判断が必要になったら作業を中断する](scope-discipline.md) に従って解釈を確認してから実行する。
+衝突や懸念を見つけたら、独断で進めずユーザーに報告する。
 
-### 個人スクラッチでは特に注意
+### 個人スクラッチパッドでは特に注意
 
 このディレクトリは gitignore されているため、誤って上書き・削除しても `git restore` や `git checkout` で復元できない。本体システムプロンプトが警告する破壊的操作の例 (`rm -rf`、`overwriting uncommitted changes` 等) は Git で追跡されているファイルを前提にしており、ここではその救済策が効かない。
+
+破壊的操作 (上書き、削除、移動など) を行う前に:
+
+- 移動先に同名ファイルが存在しないか確認する
+- 上書きの影響範囲を確認する
+- 必要なら事前にバックアップを取る
 
 ## 既に存在する場合
 
@@ -37,3 +56,14 @@
   logs/         # 実験のために書き出したログ
   scripts/      # ユーザーが個人で使う補助スクリプト
 ```
+
+## ディレクトリの場所を取得する
+
+`scratchpad-root.sh` を裸コマンドとして呼ぶと `<repository-root>/.844196` のパスが取れる (本プラグインの bin/ が PATH に乗っている)。'
+
+jq -n --arg context "$context" '{
+  hookSpecificOutput: {
+    hookEventName: "SessionStart",
+    additionalContext: $context
+  }
+}'

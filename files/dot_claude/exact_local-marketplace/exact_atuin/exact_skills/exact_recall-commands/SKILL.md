@@ -70,7 +70,7 @@ atuin search --search-mode full-text \
 - `--format` のヘルプには `{session}` が載っていないが、実際は機能する (undocumented)
 - session ID だけが欲しければ後段で `| awk -F'|' '{print $2}' | sort -u` で抽出
 
-特定後の典型的な流れ: 得られた session ID を [`session-analyzer` エージェント](../../../exact_session/exact_agents/session-analyzer.md) に渡し、当時の会話文脈を読ませる。`recall-commands` で「いつ・どの session で・どんなコマンドを」を確定させ、`session-analyzer` で「なぜそれをやったのか」を埋めるイメージ。
+特定後の典型的な流れ: 得られた session ID を [`session-analyzer` エージェント](../../../exact_session-analyzer/exact_agents/session-analyzer.md) に渡し、当時の会話文脈を読ませる。`recall-commands` で「いつ・どの session で・どんなコマンドを」を確定させ、`session-analyzer` で「なぜそれをやったのか」を埋めるイメージ。
 
 ## ユースケース 3 — 時間範囲・著者・終了コードで俯瞰
 

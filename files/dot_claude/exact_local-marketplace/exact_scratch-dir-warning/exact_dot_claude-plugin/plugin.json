@@ -1,6 +1,0 @@
-{
-  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
-  "name": "scratch-dir-warning",
-  "version": "0.1.0",
-  "description": ".844196/ (個人スクラッチディレクトリ) への操作を検出し警告する。gitignore されているため git restore で復元できないことを注意喚起"
-}

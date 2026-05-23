@@ -8,7 +8,7 @@
 # command-history-analyzer エージェントの description に書くと、それらが
 # ロードされる前のメインエージェントには届かない。SessionStart の
 # additionalContext として注入することで、最初から知っている状態にする。
-# session プラグインの session-start.sh と同じパターン。
+# session-analyzer プラグインの session-start.sh と同じパターン。
 
 set -euo pipefail
 
@@ -21,9 +21,9 @@ Claude Code の Bash 実行は atuin 履歴に記録されており、`{session}
 session 関連の読み取り専用エージェントは 2 つあり、突き合わせ軸は session ID:
 
 - `atuin:command-history-analyzer` (これ) — Bash 実コマンド列 (実際に何を打ったか、引数・終了コード・時刻) を atuin DB から取得
-- `session:session-analyzer` — 会話 transcript (なぜそれをやったか、どんな思考を経たか) を JSONL から取得
+- `session-analyzer:session-analyzer` — 会話 transcript (なぜそれをやったか、どんな思考を経たか) を JSONL から取得
 
-コマンド断片しか手がかりが無いとき、`atuin:command-history-analyzer` で session ID を逆引きしてから `session:session-analyzer` に渡す、というチェーンが自然。
+コマンド断片しか手がかりが無いとき、`atuin:command-history-analyzer` で session ID を逆引きしてから `session-analyzer:session-analyzer` に渡す、というチェーンが自然。
 
 ## 直接 Bash で叩く vs エージェント経由
 
@@ -34,7 +34,7 @@ atuin の生出力は数千〜数万行になり得る。メインで直接 Bash
 - 終了コードを 1 件だけ確認する
 - 1 回限りの軽量な確認
 
-それ以外 (検索範囲が広い・複数クエリの組合せ・session:session-analyzer 連携を含むチェーン・時間範囲俯瞰・複数 session の突き合わせ) は `atuin:command-history-analyzer` エージェントに委ねる。
+それ以外 (検索範囲が広い・複数クエリの組合せ・session-analyzer:session-analyzer 連携を含むチェーン・時間範囲俯瞰・複数 session の突き合わせ) は `atuin:command-history-analyzer` エージェントに委ねる。
 エージェント側で生出力を閉じ込め、メインには整理されたサマリだけ返る。'
 
 jq -n --arg context "$context" '{

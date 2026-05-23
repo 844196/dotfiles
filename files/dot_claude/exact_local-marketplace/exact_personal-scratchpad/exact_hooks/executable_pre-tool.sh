@@ -26,7 +26,7 @@ esac
 # .844196/ を含まなければ通す
 [[ "$target" != *".844196/"* ]] && exit 0
 
-warning="[scratch-dir-warning] .844196/ は gitignore されているため、git restore で復元できない。破壊的操作 (上書き、削除、移動など) を行う前に:
+warning="[personal-scratchpad] .844196/ は gitignore されているため、git restore で復元できない。破壊的操作 (上書き、削除、移動など) を行う前に:
 
 - 移動先に同名ファイルが存在しないか確認する
 - 上書きの影響範囲を確認する

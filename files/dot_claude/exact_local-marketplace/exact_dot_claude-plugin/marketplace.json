@@ -26,9 +26,19 @@
       "description": "GitHub 操作スキル群: pr"
     },
     {
-      "name": "session",
-      "source": "./session",
-      "description": "Claude Code セッション操作スキル群: analyze-session / interview-session (他セッション分析), fork-tmux (tmux フォーク), handover-tomorrow / handover-tmux (引き継ぎ文書作成と新セッション起動)"
+      "name": "personal-scratchpad",
+      "source": "./personal-scratchpad",
+      "description": ".844196/ (個人スクラッチパッドディレクトリ) のオーナー。運用ルール注入・破壊的操作警告・ハンドオーバー文書作成スキル (handover-tmux / handover-tomorrow) を提供"
+    },
+    {
+      "name": "session-analyzer",
+      "source": "./session-analyzer",
+      "description": "過去の Claude Code セッションのトランスクリプト (JSONL) を読み取り専用で解析するエージェント。SessionStart で proactive 発動条件を注入"
+    },
+    {
+      "name": "tmux-helpers",
+      "source": "./tmux-helpers",
+      "description": "tmux 上で動作する Claude Code セッションを操作するスキル群: fork-tmux"
     },
     {
       "name": "claude-code-meta",
