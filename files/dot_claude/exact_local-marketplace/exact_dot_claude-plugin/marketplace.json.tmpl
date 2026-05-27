@@ -1,0 +1,22 @@
+{{- /* marketplace.json はこのテンプレートから自動生成される */ -}}
+{{- /* 兄弟プラグインの plugin.json を集めて plugins[] を組み立てる */ -}}
+{{- $dir := printf "%s/dot_claude/exact_local-marketplace" .chezmoi.sourceDir -}}
+{{- $files := glob (printf "%s/exact_*/exact_dot_claude-plugin/plugin.json" $dir) -}}
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "844196-dotfiles",
+  "owner": {
+    "name": "844196"
+  },
+  "plugins": [
+{{- range $i, $p := $files }}
+{{- $plugin := include $p | fromJson }}
+{{- $name := trimPrefix "exact_" (base (dir (dir $p))) }}
+    {
+      "name": {{ $plugin.name | toRawJson }},
+      "source": {{ printf "./%s" $name | toRawJson }},
+      "description": {{ $plugin.description | toRawJson }}
+    }{{ if lt (add $i 1) (len $files) }},{{ end }}
+{{- end }}
+  ]
+}
