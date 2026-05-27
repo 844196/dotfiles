@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "session-analyzer",
   "version": "0.1.0",
   "description": "過去の Claude Code セッションのトランスクリプト (JSONL) を読み取り専用で解析するエージェント。SessionStart hook で proactive 発動条件を注入。transcript-path bin でセッション ID から JSONL パスを解決する。"

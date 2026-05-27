@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "mise",
   "version": "0.1.0",
   "description": "mise を使うプロジェクト向けの統合プラグイン: mise タスク機能のスキル (using-mise-tasks)、SessionStart でのエージェント行動指針注入。プロジェクト単位で有効化する想定"

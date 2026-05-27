@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "new-file-protocol",
   "version": "0.1.0",
   "description": "Write 単体での新規ファイル作成を PreToolUse で deny し、touch → Read → Write の 3 ステップを促す hook"

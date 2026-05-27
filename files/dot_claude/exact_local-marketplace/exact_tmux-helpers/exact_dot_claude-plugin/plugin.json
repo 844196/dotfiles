@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "tmux-helpers",
   "version": "0.1.0",
   "description": "tmux 上で動作する Claude Code セッションを操作するスキル群。現状は fork-tmux (現セッションを新ペインで fork) のみ。"

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "block-long-sleep",
   "version": "0.1.0",
   "description": "Bash の `sleep N[smhd]` を全箇所スキャンし、25 秒以上のものを PreToolUse でブロックする hook"

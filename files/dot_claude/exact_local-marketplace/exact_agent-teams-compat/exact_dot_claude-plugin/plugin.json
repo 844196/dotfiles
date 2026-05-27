@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "agent-teams-compat",
   "version": "0.1.0",
   "description": "Agent Teams を旧モデル限定環境 (e.g. Vertex AI で opus 4.7 未提供) でも動かすための互換レイヤー。`model: inherit` を frontmatter に持つ汎用エージェント wizard を提供する。最新モデルが行き渡ったら廃止予定"

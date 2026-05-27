@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "git",
   "version": "0.1.0",
   "description": "Git 操作スキル群: commit (会話文脈ありコミット), commit-amend (haiku amend), headless-commit (haiku ヘッドレス)。git-claude-attribution / git commit-language / git-claude-commit を共有"
