@@ -1,6 +1,6 @@
 ---
 name: update-mise
-description: mise を最新または指定バージョンにアップデートする。chezmoi を使って mise のバージョンを更新する。「mise をアップデート」「mise を最新に」「/update-mise」「mise を X.Y.Z に」といった指示で発動する。
+description: mise を最新または指定バージョンにアップデートする。「mise をアップデート」「mise を最新に」「mise を X.Y.Z に」といった指示で発動する。
 ---
 
 # mise アップデート
@@ -11,6 +11,7 @@ mise を指定バージョンに更新する。
 
 - 引数なし: 最新バージョンへアップデート
 - `vX.Y.Z` または `X.Y.Z`: 指定バージョンへアップデート
+  - 古いバージョンへのダウングレードも可能
 
 ## ワークフロー
 
@@ -23,7 +24,7 @@ mise を指定バージョンに更新する。
 確認後、適切な引数でスクリプトを実行する:
 
 ```bash
-.claude/skills/update-mise/scripts/update-chezmoidata.sh <version>
+${CLAUDE_SKILL_DIR}/scripts/update-chezmoidata.sh <version>
 ```
 
 `<version>` は `latest` または `vX.Y.Z` 形式のバージョン番号。
@@ -50,7 +51,3 @@ mise --version
 ```
 
 期待したバージョンになっていることを確認する。
-
-## ダウングレード
-
-古いバージョンへのダウングレードも可能。

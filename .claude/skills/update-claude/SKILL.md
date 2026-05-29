@@ -1,6 +1,6 @@
 ---
 name: update-claude
-description: Claude Code を最新または指定バージョンにアップデートする。mise と chezmoi を使って claude CLI 更新し、公式チェンジログを要約する。「claude をアップデート」「claude を最新に」「claude を X.Y.Z に」といった指示で発動する。
+description: Claude Code を最新または指定バージョンにアップデートし、公式チェンジログを要約する。「claude をアップデート」「claude を最新に」「claude を X.Y.Z に」といった指示で発動する。
 ---
 
 # Claude Code アップデート
@@ -11,7 +11,7 @@ Claude Code (CLI) を更新する。
 
 - 引数なし: 最新バージョンへアップデート
 - `X.Y.Z`: 指定バージョンへアップデート
-  - 古いバージョンへのダウングレードも可能。
+  - 古いバージョンへのダウングレードも可能
 
 ## ワークフロー
 
