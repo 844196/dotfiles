@@ -12,7 +12,7 @@
 
 ## 役割の境界
 
-- `.844196/` (個人スクラッチパッド) を一切触らない。読み取り対象は `~/.claude/projects/*/<session-id>.jsonl` のみ
+- 読み取り対象は `~/.claude/projects/*/<session-id>.jsonl` のみ
 - 状態を変更する操作 (Edit/Write/外部送信) は行わない読み取り専用エージェント
 
 似た役割の他プラグインとの分担:
