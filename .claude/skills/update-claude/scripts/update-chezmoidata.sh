@@ -5,7 +5,7 @@
 #
 # Exit codes:
 #   0 - Success or already at target version
-#   1 - Error (failed to fetch, system prompts unavailable, etc.)
+#   1 - Error (failed to fetch, etc.)
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -31,11 +31,6 @@ get_latest_version() {
 
 get_current_version() {
   jq -r '.versions.claude' "$CHEZMOIDATA"
-}
-
-check_system_prompts() {
-  local version="$1"
-  retry gh release view "v${version}" --repo Piebald-AI/claude-code-system-prompts &>/dev/null
 }
 
 update_chezmoidata() {
@@ -65,12 +60,6 @@ main() {
   if [[ "$current" == "$target" ]]; then
     echo "Already at version $target"
     exit 0
-  fi
-
-  if ! check_system_prompts "$target"; then
-    echo "Error: System prompts not available for v${target}" >&2
-    echo "Check: https://github.com/Piebald-AI/claude-code-system-prompts/releases" >&2
-    exit 1
   fi
 
   echo "Updating: $current -> $target"
