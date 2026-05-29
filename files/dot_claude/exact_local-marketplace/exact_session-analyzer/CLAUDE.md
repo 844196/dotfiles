@@ -8,7 +8,7 @@
 |---|---|
 | [`session-analyzer` エージェント](exact_agents/session-analyzer.md) | セッション ID と質問を渡すと、対象セッションの JSONL を Grep / Read / jq で掘って答える読み取り専用エージェント |
 | [`exact_bin/executable_transcript-path`](exact_bin/executable_transcript-path) | セッション ID から JSONL パス (`~/.claude/projects/<slug>/<id>.jsonl`) を解決する裸コマンド。エージェントが手順 1 で使う |
-| [`exact_hooks/executable_session-start.sh`](exact_hooks/executable_session-start.sh) | SessionStart で proactive 発動条件 (ハンドオーバーから始まったセッション、ユーザーが過去セッションを参照したとき) を `additionalContext` で告知 |
+| [SessionStart フック](exact_hooks/hooks.json) と [`exact_rules/session-start.md`](exact_rules/session-start.md) | SessionStart で proactive 発動条件 (ハンドオーバーから始まったセッション、ユーザーが過去セッションを参照したとき) を告知 |
 
 ## 役割の境界
 
