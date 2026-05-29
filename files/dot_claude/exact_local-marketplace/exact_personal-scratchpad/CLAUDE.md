@@ -42,4 +42,3 @@
 ## 他プラグインからの参照
 
 - [atuin](../exact_atuin/CLAUDE.md): `recall-commands` スキルがハンドオーバー文書を入口にするため `dependencies` に宣言
-- [edit-reminders](../exact_edit-reminders/CLAUDE.md): `.844196/` 除外設計の前提として `dependencies` に宣言

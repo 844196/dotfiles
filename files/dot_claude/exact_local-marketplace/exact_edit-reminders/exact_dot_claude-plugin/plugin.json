@@ -1,9 +1,0 @@
-{
-  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
-  "name": "edit-reminders",
-  "version": "0.1.0",
-  "description": "ターン中の編集 (Edit/Write/削除) を検知して、ターン終了時にドキュメント整合性チェックを促す reminder を block で注入する hook 群",
-  "dependencies": [
-    { "name": "personal-scratchpad" }
-  ]
-}

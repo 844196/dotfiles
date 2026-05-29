@@ -1,6 +1,0 @@
-{
-  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
-  "name": "done-check",
-  "version": "0.1.0",
-  "description": "タスク完了の確信時に走らせるチェックリスト Skill (edit-reminders の Skill 化版)。ユーザーゴール・実施計画・自己評価をサブエージェントに渡して評価する。`<repo>/.claude/done-check.local.md` で挙動を上書きでき、デフォルトは md 整合性 / impl→doc 追従 / 削除参照クリーンアップ"
-}
