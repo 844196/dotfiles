@@ -1,6 +1,6 @@
 ---
 name: recall-commands
-description: atuin に記録された Claude Code 実行コマンドの履歴を、セッション ID 単位で機械的にサルベージするためのスキル。次のような場面で必ず使う - (a) ハンドオーバー文書 (`.844196/handovers/...`) を読んだ直後で前セッションの実コマンド (引数・終了コード・時刻・cwd) を会話ログの外から確認したいとき、(b) コマンド断片しか手がかりがなく、それを実行した Claude Code セッション ID を逆引きしたいとき (session-analyzer エージェントに渡す前段として特に重要 — session-analyzer は ID が分かっていれば会話文脈を掘れるが、コマンド断片から ID を特定するのはこのスキルの仕事)、(c) session-analyzer の出力に Bash の引数・順序・失敗の情報が足りないと感じたとき (会話 transcript は Bash 引数を省略していることがあり、atuin の方が情報が濃い)、(d) claude-code が打ったコマンドを時間範囲・cwd・著者・終了コードで俯瞰したいとき、(e) ハンドオーバー文書を書く側として現セッションのコマンド実行サマリを文書に同梱したいとき。`atuin search` / `atuin history list` には複数の罠 (filter-mode session が `ATUIN_SESSION` を無視、prefix モードがクエリ不一致時にノイズを返す、`--before`/`--after` の TZ 非明示時 UTC 解釈バグ) があり、それを回避する正しいクエリ組み立て方をまとめている。
+description: atuin に記録された Claude Code の Bash 実行履歴をサルベージするための「正しいクエリ組み立て方」リファレンス
 ---
 
 # recall-commands
@@ -39,7 +39,7 @@ description: atuin に記録された Claude Code 実行コマンドの履歴を
 
 ## ユースケース 1 — 特定セッションの全履歴を取得
 
-ハンドオーバー文書に書かれた前セッション ID (`前のセッションID: xxx`) の Bash 実行ログを丸ごと欲しいとき。
+前セッション ID が分かっていて、その Bash 実行ログを丸ごと欲しいとき。
 
 ```bash
 ATUIN_SESSION=<session-id> atuin history list --session \
@@ -70,7 +70,7 @@ atuin search --search-mode full-text \
 - `--format` のヘルプには `{session}` が載っていないが、実際は機能する (undocumented)
 - session ID だけが欲しければ後段で `| awk -F'|' '{print $2}' | sort -u` で抽出
 
-特定後の典型的な流れ: 得られた session ID を [`session-analyzer` エージェント](../../../exact_session-analyzer/exact_agents/session-analyzer.md) に渡し、当時の会話文脈を読ませる。`recall-commands` で「いつ・どの session で・どんなコマンドを」を確定させ、`session-analyzer` で「なぜそれをやったのか」を埋めるイメージ。
+このスキルが確定させるのは「いつ・どの session で・どんなコマンドを」まで。逆引きした session ID を起点に当時の会話文脈まで辿る流れは別途まとめてある。
 
 ## ユースケース 3 — 時間範囲・著者・終了コードで俯瞰
 
@@ -153,5 +153,5 @@ date -d 'today 00:00' -Iseconds  # 例: 2026-05-20T00:00:00+09:00
 | 取得元 | 方法 |
 |---|---|
 | 現セッション | 環境変数 `CLAUDE_CODE_SESSION_ID` |
-| 前セッション (ハンドオーバー文書経由) | 文書末尾の「参考」セクション (`前のセッションID: <UUID>`) |
+| 前セッション | ユーザー提示・引き継ぎ文書など外部の手がかりから |
 | コマンド断片しかないとき | ユースケース 2 で逆引き |
