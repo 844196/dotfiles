@@ -12,6 +12,7 @@
 | [`exact_bin/executable_handover-path.sh`](exact_bin/executable_handover-path.sh) | 新規ハンドオーバー文書のパス候補 (`<root>/handovers/<datetime>_<kebab>.md`) を echo |
 | [`handover-tmux` スキル](exact_skills/exact_handover-tmux/SKILL.md) | 会話をハンドオーバー文書に書き出し、tmux の新ペインで新セッションを起動して引き継ぐ |
 | [`handover-tomorrow` スキル](exact_skills/exact_handover-tomorrow/SKILL.md) | 会話をハンドオーバー文書に書き出す (新セッション起動は伴わない) |
+| [`takeover` スキル](exact_skills/exact_takeover/SKILL.md) | ハンドオーバー文書を読んで前セッションの作業を引き継ぐ。理解を共有して確認を待ち、不明点は session-analyzer で前セッションを確認する。handover-tmux が起動した新セッションの初期プロンプトとして実行される |
 
 ## サブディレクトリ規約
 
