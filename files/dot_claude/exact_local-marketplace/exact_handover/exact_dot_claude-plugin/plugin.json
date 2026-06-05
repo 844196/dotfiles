@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "handover",
+  "dependencies": ["atuin", "session-analyzer"],
+  "userConfig": {
+    "HANDOVER_OUTPUT_PATH_FORMAT": {
+      "title": "HANDOVER_OUTPUT_PATH_FORMAT",
+      "description": "HANDOVER_OUTPUT_PATH_FORMAT",
+      "type": "string",
+      "default": "~/.claude/handovers/<kebab-case>.md"
+    }
+  }
+}

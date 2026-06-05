@@ -96,7 +96,6 @@
       "Bash(claude-yolo --split-pane *)",
       "Bash(command -v difit)",
       "Bash(difit *)",
-      "Bash(handover-path.sh)",
       "Bash(transcript-path *)",
       "Bash(read-checklist.sh)",
       "Bash(claude-p2p poll)",
@@ -134,12 +133,20 @@
     "block-long-sleep@844196-dotfiles": true,
     "git@844196-dotfiles": true,
     "github@844196-dotfiles": true,
+    "handover@844196-dotfiles": true,
     "mise@844196-dotfiles": true,
     "new-file-protocol@844196-dotfiles": true,
     "notification@844196-dotfiles": true,
     "p2p@844196-dotfiles": true,
     "personal-scratchpad@844196-dotfiles": true,
     "session-analyzer@844196-dotfiles": true
+  },
+  "pluginConfigs": {
+    "handover@844196-dotfiles": {
+      "options": {
+        "HANDOVER_OUTPUT_PATH_FORMAT": "`$(git rev-parse --show-toplevel 2>/dev/null || pwd)/.844196/handovers/$(date +%Y%m%d%H%M%S)_<kebab-case>.md` (`<kebab-case>` は内容を表す名前に置換すること)"
+      }
+    }
   },
   "skillOverrides": {
     "grill-me": "user-invocable-only",
