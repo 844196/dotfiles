@@ -93,7 +93,6 @@
       "Bash(gh issue view *)",
       "Bash(gh search *)",
       "Bash(chroma *)",
-      "Bash(claude-yolo --split-pane *)",
       "Bash(command -v difit)",
       "Bash(difit *)",
       "Bash(transcript-path *)",
@@ -144,7 +143,8 @@
   "pluginConfigs": {
     "handover@844196-dotfiles": {
       "options": {
-        "HANDOVER_OUTPUT_PATH_FORMAT": "`$(git rev-parse --show-toplevel 2>/dev/null || pwd)/.844196/handovers/$(date +%Y%m%d%H%M%S)_<kebab-case>.md` (`<kebab-case>` は内容を表す名前に置換すること)"
+        "HANDOVER_OUTPUT_PATH_FORMAT": "`$(git rev-parse --show-toplevel)/.844196/handovers/$(date +%Y%m%d%H%M%S)_<kebab-case>.md` (`<kebab-case>` は内容を表す名前に置換すること)",
+        "CLAUDE_COMMAND": "claude-yolo"
       }
     }
   },

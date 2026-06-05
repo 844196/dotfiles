@@ -1,10 +1,4 @@
 #!/usr/bin/env bash
-if [[ "$1" == "--split-pane" ]]; then
-  shift
-  cmd="claude-yolo"
-  for arg in "$@"; do
-    cmd+=" $(printf '%q' "$arg")"
-  done
-  exec tmux split-window -h -c "$PWD" -t "${TMUX_PANE:?claude-yolo --split-pane requires running inside tmux}" "$cmd"
-fi
+set -euo pipefail
+
 exec claude --enable-auto-mode --allow-dangerously-skip-permissions "$@"

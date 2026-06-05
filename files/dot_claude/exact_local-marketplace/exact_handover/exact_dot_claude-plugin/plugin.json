@@ -5,9 +5,15 @@
   "userConfig": {
     "HANDOVER_OUTPUT_PATH_FORMAT": {
       "title": "HANDOVER_OUTPUT_PATH_FORMAT",
-      "description": "HANDOVER_OUTPUT_PATH_FORMAT",
+      "description": "",
       "type": "string",
       "default": "~/.claude/handovers/<kebab-case>.md"
+    },
+    "CLAUDE_COMMAND": {
+      "title": "CLAUDE_COMMAND",
+      "description": "",
+      "type": "string",
+      "default": "claude"
     }
   }
 }
