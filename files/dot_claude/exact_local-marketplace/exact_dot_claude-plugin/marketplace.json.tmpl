@@ -14,8 +14,7 @@
 {{- $name := trimPrefix "exact_" (base (dir (dir $p))) }}
     {
       "name": {{ $plugin.name | toRawJson }},
-      "source": {{ printf "./%s" $name | toRawJson }},
-      "description": {{ $plugin.description | toRawJson }}
+      "source": {{ printf "./%s" $name | toRawJson }}
     }{{ if lt (add $i 1) (len $files) }},{{ end }}
 {{- end }}
   ]

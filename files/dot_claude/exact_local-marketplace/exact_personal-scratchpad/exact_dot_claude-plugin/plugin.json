@@ -1,6 +1,4 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
-  "name": "personal-scratchpad",
-  "version": "0.1.0",
-  "description": ".844196/ (個人スクラッチパッドディレクトリ) のオーナー。SessionStart で運用ルール (定義・サブディレクトリ規約・不可逆操作の注意) を注入、PreToolUse で破壊的操作を警告、handover-{tmux,tomorrow}・takeover スキルと handover ファイルパス生成 bin を提供する。"
+  "name": "personal-scratchpad"
 }

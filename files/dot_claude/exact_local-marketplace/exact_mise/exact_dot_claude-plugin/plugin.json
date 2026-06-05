@@ -1,6 +1,4 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
-  "name": "mise",
-  "version": "0.1.0",
-  "description": "mise を使うプロジェクト向けのプラグイン"
+  "name": "mise"
 }
