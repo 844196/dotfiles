@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "844196-dotfiles",
+  "owner": {
+    "name": "844196"
+  },
+  "plugins": [
+    {
+      "name": "atuin",
+      "source": "./plugins/atuin"
+    },
+    {
+      "name": "block-long-sleep",
+      "source": "./plugins/block-long-sleep"
+    },
+    {
+      "name": "git",
+      "source": "./plugins/git"
+    },
+    {
+      "name": "github",
+      "source": "./plugins/github"
+    },
+    {
+      "name": "handover",
+      "source": "./plugins/handover"
+    },
+    {
+      "name": "mise",
+      "source": "./plugins/mise"
+    },
+    {
+      "name": "new-file-protocol",
+      "source": "./plugins/new-file-protocol"
+    },
+    {
+      "name": "notification",
+      "source": "./plugins/notification"
+    },
+    {
+      "name": "p2p",
+      "source": "./plugins/p2p"
+    },
+    {
+      "name": "personal-scratchpad",
+      "source": "./plugins/personal-scratchpad"
+    },
+    {
+      "name": "session-analyzer",
+      "source": "./plugins/session-analyzer"
+    }
+  ]
+}
