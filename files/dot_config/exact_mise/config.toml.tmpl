@@ -5,6 +5,10 @@ experimental = true
 task_show_full_cmd = true
 env_cache = true
 env_cache_ttl = "1h"
+# `mise activate` の起動時に shims ディレクトリを PATH から削除させるために必要。
+# true (デフォルト) だと `remove_shims()` が早期 return して、shims が PATH に残り続ける。
+# https://github.com/jdx/mise/blob/main/src/cli/activate.rs
+not_found_auto_install = false
 
 [settings.github]
 credential_command = "gh auth token"
