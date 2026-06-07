@@ -1,4 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
-  "name": "git"
+  "name": "git",
+  "userConfig": {
+    "COMMIT_MESSAGE_LANGUAGE": {
+      "title": "COMMIT_MESSAGE_LANGUAGE",
+      "description": "",
+      "type": "string"
+    }
+  }
 }

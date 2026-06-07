@@ -39,7 +39,6 @@
 [commit]
   verbose = true
   cleanup = scissors
-  language = "英語"
 [fetch]
   prune = true
 [diff]
