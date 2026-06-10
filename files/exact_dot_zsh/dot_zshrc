@@ -163,5 +163,9 @@ if [[ -f $ZDOTDIR/.zshrc.local ]]; then
   source $ZDOTDIR/.zshrc.local
 fi
 
+# ZLE 初期化 (compinit/bindkey) 後かつ region_highlight/zle-hook を触りうる他の設定が全て完了したあと末尾で有効化する必要がある
+# https://github.com/michel-kraemer/zsh-patina/tree/1.7.0#troubleshooting
+eval "$(zsh-patina activate)"
+
 setopt TRANSIENT_RPROMPT
 prompt zen
