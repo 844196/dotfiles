@@ -1,20 +1,46 @@
 #!/usr/bin/env bash
 # tmux popup から起動して、CWD 配下のファイル・ディレクトリを fzf で複数選択し
 # `@` プレフィックスを付けて bracketed paste で TARGET_PANE に貼り付ける。
+# fzf 起動中に @ を押すと、`@` プレフィックスを付ける/付けないを切り替えられる。
 set -euo pipefail
 
 target="${TARGET_PANE:?TARGET_PANE is required}"
 
-selection=$(
+export ON_PROMPT='@ '
+export OFF_PROMPT='> '
+export ON_POINTER='🈁'
+export OFF_POINTER='🈚'
+
+picker_toggle() {
+  if [[ "$FZF_PROMPT" == *@* ]]; then
+    printf 'change-prompt(%s)+change-pointer(%s)' "$OFF_PROMPT" "$OFF_POINTER"
+  else
+    printf 'change-prompt(%s)+change-pointer(%s)' "$ON_PROMPT" "$ON_POINTER"
+  fi
+}
+export -f picker_toggle
+
+output=$(
   # tmp/ や .844196/ を候補に入れるため global/project の gitignore は無視する
   # でも well-known なディレクトリは除外する
   fd --strip-cwd-prefix --hidden --no-ignore-vcs --exclude .git --exclude node_modules \
-    | fzf --multi --prompt '@ '
+    | fzf --multi --prompt "$ON_PROMPT" --pointer "$ON_POINTER" \
+        --color 'prompt:8' \
+        --with-shell 'bash -c' \
+        --bind '@:transform:picker_toggle' \
+        --bind 'enter:become(printf "%s\n" "$FZF_PROMPT"; printf "%s\n" {+})'
 ) || exit 0
+
+prompt=$(printf '%s' "$output" | head -n 1)
+selection=$(printf '%s' "$output" | tail -n +2)
 
 [ -z "$selection" ] && exit 0
 
-formatted=$(printf '%s\n' "$selection" | sed 's|^|@|')
+if [[ "$prompt" == *@* ]]; then
+  formatted=$(printf '%s\n' "$selection" | sed 's|^|@|')
+else
+  formatted=$selection
+fi
 
 tmux set-buffer -b claude-file-picker -- "$formatted"
 tmux paste-buffer -p -d -b claude-file-picker -t "$target"
