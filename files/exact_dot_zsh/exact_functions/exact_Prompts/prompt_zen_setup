@@ -224,7 +224,7 @@ prompt_zen_git-branch() {
       local base_branch=$(git config "branch.${current_branch}.base" 2>/dev/null)
 
       if [[ -n "$base_branch" ]]; then
-        local count=$(git rev-list --no-merges --count origin/${base_branch}..HEAD)
+        local count=$(git rev-list --no-merges --count origin/${base_branch}..HEAD 2>/dev/null || echo 0)
         if (( count > 0 )); then
           echo $count
         fi
