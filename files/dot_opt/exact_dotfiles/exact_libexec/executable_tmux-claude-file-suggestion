@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Claude Code の fileSuggestion.command として起動され、デフォルトの @ ファイルピッカーを
+# ハイジャックして tmux popup で tmux-claude-file-picker を起動するラッパー。
+#
+# 1. stdin の JSON ({"query": "..."}) を受け取る
+# 2. 既に入力欄に挿入された `@` を消すため TMUX_PANE に BSpace を送る
+# 3. tmux popup で tmux-claude-file-picker を非同期に起動する
+# 4. 候補は空のまま返す (Claude Code 側の picker は閉じる)
+#
+# query が非空の連続呼び出し (BSpace 反映前にユーザーが追加入力した場合等) では
+# 二重起動を避けるため何もしない。
+set -euo pipefail
+
+query=$(jq -r '.query // ""')
+
+if [[ -z "${TMUX_PANE:-}" || -n "$query" ]]; then
+  exit 0
+fi
+
+tmux send-keys -t "$TMUX_PANE" BSpace
+
+project_dir="${CLAUDE_PROJECT_DIR:-$PWD}"
+
+(
+  tmux display-popup \
+    -E \
+    -w 80% -h 80% \
+    -d "$project_dir" \
+    -e "TARGET_PANE=$TMUX_PANE" \
+    -T '#[fg=white dim] @ Mention picker ' \
+    "$HOME/.opt/dotfiles/libexec/tmux-claude-file-picker" \
+    >/dev/null 2>&1 &
+)
