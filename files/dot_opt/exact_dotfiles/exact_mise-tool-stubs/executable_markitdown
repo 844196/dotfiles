@@ -1,0 +1,4 @@
+#!/usr/bin/env -S mise tool-stub
+
+tool = "pipx:markitdown"
+version = "0.1.6"
