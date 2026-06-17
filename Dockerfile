@@ -32,7 +32,7 @@ ja_JP.UTF-8 UTF-8
 EOF
 
 RUN locale-gen
-ENV LANG en_US.UTF-8
+ENV LANG=en_US.UTF-8
 
 RUN \
   echo "ubuntu ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/ubuntu && \
