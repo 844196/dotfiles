@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# HACK: tmux 内であることを検出した際 chalk.level を 3 (24bit RGB) から 2 (256色 量子化) にダウングレードしてしまう問題を回避
+# ref. https://code.claude.com/docs/ja/env-vars
+if [[ -n "${TMUX:-}" ]]; then
+  export CLAUDE_CODE_TMUX_TRUECOLOR=1
+fi
+
 exec claude --enable-auto-mode --allow-dangerously-skip-permissions "$@"
