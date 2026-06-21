@@ -5,41 +5,41 @@
       {
         "id": "1",
         "type": "model",
-        "color": "hex:414868",
+        "color": "hex:545c7e",
         "rawValue": true
       },
       {
         "id": "7b9bae8d-5ec5-42d6-8ea5-6f9ea2edff56",
         "type": "separator",
-        "color": "hex:24283B"
+        "color": "hex:292e42"
       },
       {
         "id": "3c2f0d1f-1523-48d6-b00a-7e477fc05e43",
         "type": "thinking-effort",
-        "color": "hex:414868",
+        "color": "hex:545c7e",
         "rawValue": true
       },
       {
         "id": "c57bd02d-acb6-4ffa-aa9b-e3469ba984fe",
         "type": "separator",
-        "color": "hex:24283B"
+        "color": "hex:292e42"
       },
       {
         "id": "af92b56a-8c6d-4089-9e79-90034f07871b",
         "type": "context-length",
-        "color": "hex:414868",
+        "color": "hex:545c7e",
         "rawValue": true
       },
       {
         "id": "e66018e9-98fb-47f5-a2ce-804328536682",
         "type": "custom-text",
-        "color": "hex:414868",
+        "color": "hex:545c7e",
         "customText": " ("
       },
       {
         "id": "fa07f745-84ab-4907-ad78-71693532a33b",
         "type": "context-percentage-usable",
-        "color": "hex:414868",
+        "color": "hex:545c7e",
         "rawValue": true,
         "metadata": {
           "inverse": "false"
@@ -48,13 +48,13 @@
       {
         "id": "f05d72ac-ac91-4d0c-b7e4-c96d2007afbc",
         "type": "custom-text",
-        "color": "hex:414868",
+        "color": "hex:545c7e",
         "customText": ")"
       },
       {
         "id": "5847bc7e-be43-40ae-95e2-97785d121810",
         "type": "separator",
-        "color": "hex:24283B"
+        "color": "hex:292e42"
       },
       {
         "id": "15eed0c3-eecd-4746-8573-465edb42c192",
@@ -63,13 +63,13 @@
         "metadata": {
           "display": "time"
         },
-        "color": "hex:414868"
+        "color": "hex:545c7e"
       },
       {
         "id": "a2b2deb5-205a-483c-a8b3-ff8059078519",
         "type": "custom-text",
         "customText": " (",
-        "color": "hex:414868"
+        "color": "hex:545c7e"
       },
       {
         "id": "11ce23aa-a4b5-42c0-829a-0c549063f0d5",
@@ -78,23 +78,23 @@
         "metadata": {
           "compact": "true"
         },
-        "color": "hex:414868"
+        "color": "hex:545c7e"
       },
       {
         "id": "61368bab-da79-42f0-94cf-673808242852",
         "type": "custom-text",
         "customText": ")",
-        "color": "hex:414868"
+        "color": "hex:545c7e"
       },
       {
         "id": "4a6bb4ba-9674-4f8b-8708-bfad4099522d",
         "type": "flex-separator",
-        "color": "hex:24283B"
+        "color": "hex:292e42"
       },
       {
         "id": "27f9f9db-c77c-47eb-995b-9f758174dd2a",
         "type": "current-working-dir",
-        "color": "hex:414868",
+        "color": "hex:545c7e",
         "rawValue": true,
         "metadata": {
           "fishStyle": "true"
