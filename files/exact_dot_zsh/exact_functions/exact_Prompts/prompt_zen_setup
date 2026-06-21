@@ -12,19 +12,19 @@ declare -gA __ZEN_SYMBOLS_DEFAULT=(
   git:status:behind $'\u21e3'
 )
 declare -gA __ZEN_COLORS_DEFAULT=(
-  prompt:ok:fg '#414868'
-  prompt:ng:fg '#f7768e'
+  prompt:ok:fg '#444a73'
+  prompt:ng:fg '#ff757f'
   notice:bg '#7aa2f7'
   notice:fg '#16161e'
-  path:bg '#24283b'
-  path:fg '#787c99'
-  git:branch:bg '#1d2230'
-  git:branch:fg '#bb9af7'
-  git:branch:dirty:fg '#a0a9cb'
-  git:status:unmerged:fg '#414868'
-  git:status:ahead:fg '#414868'
-  git:status:behind:fg '#414868'
-  git:user:fg '#414868'
+  path:bg '#2f334d'
+  path:fg '#a9b1d6'
+  git:branch:bg '#222436'
+  git:branch:fg '#c099ff'
+  git:branch:dirty:fg '#c8d3f5'
+  git:status:unmerged:fg '#444a73'
+  git:status:ahead:fg '#444a73'
+  git:status:behind:fg '#444a73'
+  git:user:fg '#444a73'
 )
 declare -gA __ZEN_PSVAR_INDEXES=(
   notice 1
