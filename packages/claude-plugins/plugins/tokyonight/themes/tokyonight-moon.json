@@ -1,0 +1,33 @@
+{
+  "name": "TokyoNight Moon",
+  "base": "dark",
+  "overrides": {
+    "clawd_body": "#d97757",
+    "clawd_background": "#141413",
+    "claude": "#ffc777",
+    "claudeShimmer": "#ff757f",
+    "text": "#c0caf5",
+    "inverseText": "#1e2030",
+    "inactive": "#545c7e",
+    "subtle": "#82aaff",
+    "suggestion": "#82aaff",
+    "permission": "#82aaff",
+    "userMessageBackground": "#2f334d",
+    "userMessageBackgroundHover": "#2d3f76",
+    "selectionBg": "#2d3f76",
+    "promptBorder": "#444a73",
+    "bashBorder": "#c099ff",
+    "planMode": "#82aaff",
+    "autoAccept": "#c099ff",
+    "success": "#c3e88d",
+    "warning": "#ffc777",
+    "error": "#ff757f",
+    "background": "#82aaff",
+    "diffAdded": "#20303b",
+    "diffAddedWord": "#2c5a66",
+    "diffAddedDimmed": "#20303b",
+    "diffRemoved": "#37222c",
+    "diffRemovedWord": "#713137",
+    "diffRemovedDimmed": "#37222c"
+  }
+}
