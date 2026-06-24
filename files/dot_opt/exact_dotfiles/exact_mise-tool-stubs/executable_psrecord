@@ -1,0 +1,5 @@
+#!/usr/bin/env -S mise tool-stub
+
+tool = "pipx:psrecord"
+version = "1.4"
+extras = "plot"
