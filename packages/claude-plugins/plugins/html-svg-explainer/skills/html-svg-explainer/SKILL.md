@@ -21,7 +21,7 @@ description: Explain a topic by writing a single self-contained HTML+SVG page (d
 ## 進め方
 
 1. **説明したい内容の構造を先に決める。** 何が縦軸・横軸になるか、何と何を対応づけるかを自分の中で整理してから SVG の座標を組み立てる。行き当たりばったりで rect を置き始めると、後から要素がぶつかったり文字が重なったりする。
-2. **`assets/template.html` を土台にする。** ゼロから HTML を書く必要はない。テンプレートには CSS (見出し、callout、凡例、テーブル) と SVG の矢印マーカー定義が用意済みなので、中身の `<h1>`/`<p>`/`<svg>` 要素を書き換えていく。
+2. **`${CLAUDE_SKILL_DIR}/assets/template.html` を土台にする。** ゼロから HTML を書く必要はない。テンプレートには CSS (見出し、callout、凡例、テーブル) と SVG の矢印マーカー定義が用意済みなので、中身の `<h1>`/`<p>`/`<svg>` 要素を書き換えていく。
 3. **保存先を決める。**
    - プロジェクトに scratchpad 的な置き場所の規約がある場合 (例: `.844196/` のような gitignore された個人ディレクトリ、`docs/`配下の調査メモディレクトリなど) はそれに従う。
    - 特に規約がなければ、作業中のトピックに関連するディレクトリ、それも無ければカレントディレクトリに `<説明が付く名前>.html` として置く。
@@ -50,4 +50,4 @@ description: Explain a topic by writing a single self-contained HTML+SVG page (d
 
 ## 参考実装
 
-`references/example-frame-pairing.html` に、実際に高評価だった実例 (2つの時系列データの対応関係のズレを図示したもの) を収録している。テーブルとSVGを併用した構成、複数シナリオの比較、色分けのルールなど、具体的な組み立て方を見たいときに参照する。
+`${CLAUDE_SKILL_DIR}/references/example-frame-pairing.html` に、実際に高評価だった実例 (2つの時系列データの対応関係のズレを図示したもの) を収録している。テーブルとSVGを併用した構成、複数シナリオの比較、色分けのルールなど、具体的な組み立て方を見たいときに参照する。
