@@ -30,7 +30,11 @@ description: Explain a topic by writing a single self-contained HTML+SVG page (d
    ```bash
    chroma "file://$(realpath path/to/diagram.html)"
    ```
-   `chroma` が使えない環境 (このユーザー固有のツールなので、無ければ普通に) では、ファイルパスを伝えてユーザーに自分で開いてもらう。
+   ただし WSL2 で Windows 側のブラウザが既定になっている環境では、Linux 側のパスを含む `file://` URL は解決できない。`wslpath -m` で `//wsl.localhost/<distro>/...` 形式 (UNC を URL 互換に整えたもの) に変換して渡す:
+   ```bash
+   chroma "file:$(wslpath -m path/to/diagram.html)"
+   ```
+   `wslpath` は WSL 上でしか存在しないコマンドなので、その有無で環境を分岐できる。`chroma` が使えない環境 (このユーザー固有のツールなので、無ければ普通に) では、ファイルパスを伝えてユーザーに自分で開いてもらう。
 5. **チャットにも要点を書く。** HTML ファイルは補助教材であって代替物ではない。何を図示したか、結論は何かをチャット上でも簡潔に説明する。ページを開かせて終わりにしない。
 
 ## SVG を組み立てるときのコツ
