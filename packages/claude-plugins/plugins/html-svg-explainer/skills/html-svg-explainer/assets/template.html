@@ -4,40 +4,61 @@
 <meta charset="utf-8">
 <title>タイトルをここに</title>
 <style>
+  /* Tokyo Night */
+  :root {
+    --bg: #1a1b26;
+    --fg: #c0caf5;
+    --panel: #16161e;
+    --muted: #a9b1d6;
+    --border: #292e42;
+    --rule: #414868;   /* h2 見出し用の中間トーン (bright-black) */
+    --blue: #7aa2f7;
+    --red: #f7768e;
+    --green: #9ece6a;
+    --yellow: #e0af68;
+    --orange: #ff9e64;
+    --magenta: #bb9af7;
+    --cyan: #7dcfff;
+  }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
     max-width: 1080px;
     margin: 40px auto;
     padding: 0 24px;
-    color: #222;
+    background: var(--bg);
+    color: var(--fg);
     line-height: 1.6;
   }
-  h1 { border-bottom: 2px solid #333; padding-bottom: 8px; }
-  h2 { margin-top: 40px; border-left: 4px solid #333; padding-left: 12px; }
+  /* h1/h2 の飾りは意味色 (青=info など) と混ざらないよう subdued な罫線色を使う */
+  h1 { border-bottom: 2px solid var(--border); padding-bottom: 8px; }
+  h2 { margin-top: 40px; border-left: 4px solid var(--rule); padding-left: 12px; }
   h3 { margin-top: 24px; }
   figure { margin: 24px 0; }
   figcaption {
     font-size: 0.9em;
-    color: #666;
+    color: var(--muted);
     margin-top: 8px;
     text-align: center;
   }
-  svg { display: block; margin: 0 auto; background: #fafafa; border: 1px solid #ddd; }
+  svg { display: block; margin: 0 auto; background: var(--panel); border: 1px solid var(--border); }
+  /* fill 属性が付いていない text はデフォルトで fg 色にする。明示的に fill= を書けばそれが優先される */
+  svg text:not([fill]) { fill: var(--fg); }
   .callout {
-    background: #fff8dc;
-    border-left: 4px solid #d4a017;
+    background: var(--panel);
+    border-left: 4px solid var(--yellow);
     padding: 12px 16px;
     margin: 16px 0;
   }
   /* 色の意味を固定する: info=青(補足), warn=赤(注意/未検証), ok=緑(確定/結論) */
-  .callout.warn { background: #ffe4e1; border-left-color: #c0392b; }
-  .callout.info { background: #e6f2ff; border-left-color: #2874a6; }
-  .callout.ok { background: #e8f7ea; border-left-color: #27ae60; }
-  code { background: #eee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  .callout.warn { border-left-color: var(--red); }
+  .callout.info { border-left-color: var(--blue); }
+  .callout.ok   { border-left-color: var(--green); }
+  code { background: var(--border); color: var(--fg); padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
   table { border-collapse: collapse; margin: 16px 0; }
-  th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: right; }
-  th { background: #eee; }
+  th, td { border: 1px solid var(--border); padding: 6px 10px; text-align: right; }
+  th { background: var(--panel); color: var(--muted); }
   td.label { text-align: left; }
+  a { color: var(--blue); }
   .legend {
     display: flex;
     gap: 24px;
@@ -48,8 +69,8 @@
   }
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .swatch { width: 14px; height: 14px; border-radius: 2px; display: inline-block; }
-  .fact { color: #27ae60; font-weight: bold; }
-  .hyp { color: #c0392b; font-weight: bold; }
+  .fact { color: var(--green); font-weight: bold; }
+  .hyp  { color: var(--red);   font-weight: bold; }
 </style>
 </head>
 <body>
@@ -72,59 +93,64 @@
   以下は「時系列 + 対応関係」を図示する例。
   2本のトラック(上下)を並べ、対応する要素同士を矢印で結ぶパターン。
   自分の説明したい構造に合わせて座標・要素数・色を書き換える。
+
+  配色は Tokyo Night 由来:
+    青 #7aa2f7 / 赤 #f7768e / 緑 #9ece6a / 橙 #ff9e64 / 黄 #e0af68 / 紫 #bb9af7 / 水 #7dcfff
+    枠線 #292e42 / パネル背景 #16161e / 本文 #c0caf5 / 弱色 #a9b1d6
+  色に載る短いラベルは #16161e (パネル背景色) を使うと視認性が高い。
 -->
 <figure>
 <svg width="900" height="240" viewBox="0 0 900 240" xmlns="http://www.w3.org/2000/svg">
-  <text x="450" y="24" text-anchor="middle" font-size="14" font-weight="bold">
+  <text x="450" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0caf5">
     図のタイトル
   </text>
 
   <!-- track A -->
-  <text x="20" y="80" font-size="12" font-weight="bold">系列A</text>
+  <text x="20" y="80" font-size="12" font-weight="bold" fill="#c0caf5">系列A</text>
   <g>
-    <rect x="80"  y="60" width="90" height="40" fill="#2874a6" stroke="#333"/>
-    <text x="125" y="85" text-anchor="middle" font-size="12" fill="white">A1</text>
+    <rect x="80"  y="60" width="90" height="40" fill="#7aa2f7" stroke="#292e42"/>
+    <text x="125" y="85" text-anchor="middle" font-size="12" fill="#16161e">A1</text>
 
-    <rect x="190" y="60" width="90" height="40" fill="#2874a6" stroke="#333"/>
-    <text x="235" y="85" text-anchor="middle" font-size="12" fill="white">A2</text>
+    <rect x="190" y="60" width="90" height="40" fill="#7aa2f7" stroke="#292e42"/>
+    <text x="235" y="85" text-anchor="middle" font-size="12" fill="#16161e">A2</text>
 
-    <rect x="300" y="60" width="90" height="40" fill="#2874a6" stroke="#333"/>
-    <text x="345" y="85" text-anchor="middle" font-size="12" fill="white">A3</text>
+    <rect x="300" y="60" width="90" height="40" fill="#7aa2f7" stroke="#292e42"/>
+    <text x="345" y="85" text-anchor="middle" font-size="12" fill="#16161e">A3</text>
   </g>
 
   <!-- pair arrows: 緑=対応OK、赤=対応NG/ズレ -->
   <g stroke-width="2" fill="none">
-    <line x1="125" y1="105" x2="125" y2="150" stroke="#27ae60" marker-end="url(#arrG)"/>
-    <line x1="235" y1="105" x2="235" y2="150" stroke="#c0392b" marker-end="url(#arrR)"/>
-    <line x1="345" y1="105" x2="345" y2="150" stroke="#27ae60" marker-end="url(#arrG)"/>
+    <line x1="125" y1="105" x2="125" y2="150" stroke="#9ece6a" marker-end="url(#arrG)"/>
+    <line x1="235" y1="105" x2="235" y2="150" stroke="#f7768e" marker-end="url(#arrR)"/>
+    <line x1="345" y1="105" x2="345" y2="150" stroke="#9ece6a" marker-end="url(#arrG)"/>
   </g>
 
   <!-- track B -->
-  <text x="20" y="175" font-size="12" font-weight="bold">系列B</text>
+  <text x="20" y="175" font-size="12" font-weight="bold" fill="#c0caf5">系列B</text>
   <g>
-    <rect x="80"  y="155" width="90" height="40" fill="#c0392b" stroke="#333"/>
-    <text x="125" y="180" text-anchor="middle" font-size="12" fill="white">B1</text>
+    <rect x="80"  y="155" width="90" height="40" fill="#bb9af7" stroke="#292e42"/>
+    <text x="125" y="180" text-anchor="middle" font-size="12" fill="#16161e">B1</text>
 
-    <rect x="190" y="155" width="90" height="40" fill="#e67e22" stroke="#333"/>
-    <text x="235" y="180" text-anchor="middle" font-size="12" fill="white">B2</text>
+    <rect x="190" y="155" width="90" height="40" fill="#ff9e64" stroke="#292e42"/>
+    <text x="235" y="180" text-anchor="middle" font-size="12" fill="#16161e">B2</text>
 
-    <rect x="300" y="155" width="90" height="40" fill="#c0392b" stroke="#333"/>
-    <text x="345" y="180" text-anchor="middle" font-size="12" fill="white">B3</text>
+    <rect x="300" y="155" width="90" height="40" fill="#bb9af7" stroke="#292e42"/>
+    <text x="345" y="180" text-anchor="middle" font-size="12" fill="#16161e">B3</text>
   </g>
 
   <defs>
     <marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="#27ae60"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#9ece6a"/>
     </marker>
     <marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#f7768e"/>
     </marker>
   </defs>
 </svg>
 <div class="legend">
-  <div class="legend-item"><span class="swatch" style="background:#2874a6"></span>系列A</div>
-  <div class="legend-item"><span class="swatch" style="background:#c0392b"></span>系列B</div>
-  <div class="legend-item"><span class="swatch" style="background:#e67e22"></span>系列Bの異常値</div>
+  <div class="legend-item"><span class="swatch" style="background:#7aa2f7"></span>系列A</div>
+  <div class="legend-item"><span class="swatch" style="background:#bb9af7"></span>系列B</div>
+  <div class="legend-item"><span class="swatch" style="background:#ff9e64"></span>系列Bの異常値</div>
 </div>
 <figcaption>
 図の下に、何が読み取れるかの短い説明を書く。矢印の色の意味もここで念押しするとよい。
