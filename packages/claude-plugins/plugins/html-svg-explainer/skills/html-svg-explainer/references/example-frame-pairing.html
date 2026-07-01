@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>参考実装: 人力メモ vs 自動文字起こしの発言対応</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    max-width: 1080px;
+    margin: 40px auto;
+    padding: 0 24px;
+    color: #222;
+    line-height: 1.6;
+  }
+  h1 { border-bottom: 2px solid #333; padding-bottom: 8px; }
+  h2 { margin-top: 40px; border-left: 4px solid #333; padding-left: 12px; }
+  h3 { margin-top: 24px; }
+  figure { margin: 24px 0; }
+  figcaption {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 8px;
+    text-align: center;
+  }
+  svg { display: block; margin: 0 auto; background: #fafafa; border: 1px solid #ddd; }
+  .callout {
+    background: #fff8dc;
+    border-left: 4px solid #d4a017;
+    padding: 12px 16px;
+    margin: 16px 0;
+  }
+  .callout.warn { background: #ffe4e1; border-left-color: #c0392b; }
+  .callout.info { background: #e6f2ff; border-left-color: #2874a6; }
+  .callout.ok { background: #e8f7ea; border-left-color: #27ae60; }
+  code { background: #eee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  table { border-collapse: collapse; margin: 16px 0; }
+  th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: right; }
+  th { background: #eee; }
+  td.label { text-align: left; }
+  .legend {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    font-size: 0.9em;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .swatch { width: 14px; height: 14px; border-radius: 2px; display: inline-block; }
+  .fact { color: #27ae60; font-weight: bold; }
+  .hyp { color: #c0392b; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<h1>参考実装: 人力メモ vs 自動文字起こし(ASR)の発言対応がズレる問題</h1>
+
+<p>
+これは <code>html-svg-explainer</code> スキルの組み立て方を示すための架空の題材。
+会議で人間が取った発言メモ (どの発言が何番目か) と、自動文字起こし (ASR) が出力した発言単位が
+途中から1つずつズレる、という調査の図解を想定している。
+題材そのものよりも「時系列 + 対応関係 + 複数シナリオ比較」をどう SVG に落とすかの型を見てほしい。
+</p>
+
+<div class="callout info">
+<b>色の意味:</b> <span class="fact">緑</span> = 実測で確定した事実、
+<span class="hyp">赤</span> = まだ仮説 (検証未完)。以降このページ全体で共通。
+</div>
+
+<h2>1. 実測で確定した事実</h2>
+
+<h3>1-1. 発言数の食い違い</h3>
+
+<table>
+  <tr><th>項目</th><th>人力メモ</th><th>ASR出力</th></tr>
+  <tr><td class="label">総発言数</td><td>142</td><td>139</td></tr>
+  <tr><td class="label">1発言に2人分の音声が混在した回数</td><td>-</td><td><b class="fact">3</b></td></tr>
+  <tr><td class="label">発言が2つに分割された回数</td><td>-</td><td><b class="fact">0</b></td></tr>
+</table>
+
+<p>
+<span class="fact">ASR は3箇所で「2人の発言を1つにまとめて」出力しており</span>、
+その結果 142 発言 → 139 発言になっている。分割 (1つの発言を2つに割ってしまう) は確認されなかった。
+</p>
+
+<h3>1-2. 発言 #38 付近の具体例</h3>
+
+<table>
+  <tr><th>#</th><th>人力メモ</th><th>ASR出力</th></tr>
+  <tr><td>37</td><td>杏山: 予算の件ですが</td><td>杏山: 予算の件ですが</td></tr>
+  <tr><td class="label">38</td><td class="label"><b>宇沢: それ賛成です!</b></td><td class="label" rowspan="2"><b>宇沢: それ賛成です!あと日程も見直したいです!</b> ← 2発言が結合</td></tr>
+  <tr><td class="label">39</td><td class="label"><b>宇沢: あと日程も見直したいです!</b></td></tr>
+  <tr><td>40</td><td>杏山: 了解です</td><td>杏山: 了解です</td></tr>
+</table>
+
+<p>
+人力メモでは「賛成です」と「日程も見直したいです」を <span class="fact">別の発言 (2ターン)</span> として記録しているが、
+ASR は無音区間が短かったためか <span class="fact">1発言として結合</span> して出力している。
+これ以降、ASR側の発言番号は人力メモより1つ小さいまま推移する。
+</p>
+
+<h3>1-3. ズレの発生タイミング分布</h3>
+
+<figure>
+<svg width="900" height="240" viewBox="0 0 900 240" xmlns="http://www.w3.org/2000/svg">
+  <text x="450" y="20" text-anchor="middle" font-size="14" font-weight="bold">
+    会議時間 10分区切りでの結合発生回数 (実測)
+  </text>
+
+  <line x1="60" y1="40" x2="60" y2="200" stroke="#333"/>
+  <line x1="60" y1="200" x2="860" y2="200" stroke="#333"/>
+  <g font-size="10" fill="#555">
+    <text x="55" y="45"  text-anchor="end">3</text>
+    <text x="55" y="93"  text-anchor="end">2</text>
+    <text x="55" y="141" text-anchor="end">1</text>
+    <text x="55" y="200" text-anchor="end">0</text>
+  </g>
+  <text x="30" y="120" font-size="11" transform="rotate(-90 30 120)" text-anchor="middle">結合回数</text>
+
+  <g fill="#2874a6" opacity="0.85">
+    <rect x="80"  y="200" width="60" height="0"/>
+    <rect x="180" y="152" width="60" height="48"/>
+    <rect x="280" y="200" width="60" height="0"/>
+    <rect x="380" y="104" width="60" height="96"/>
+    <rect x="480" y="200" width="60" height="0"/>
+    <rect x="580" y="200" width="60" height="0"/>
+  </g>
+
+  <g font-size="10" fill="#555">
+    <text x="110" y="216" text-anchor="middle">0-10分</text>
+    <text x="210" y="216" text-anchor="middle">10-20分</text>
+    <text x="310" y="216" text-anchor="middle">20-30分</text>
+    <text x="410" y="216" text-anchor="middle">30-40分</text>
+    <text x="510" y="216" text-anchor="middle">40-50分</text>
+    <text x="610" y="216" text-anchor="middle">50-60分</text>
+  </g>
+  <text x="410" y="232" font-size="10" fill="#c0392b" text-anchor="middle">
+    ↑ 発言が重なりがちな議論の白熱区間に集中
+  </text>
+</svg>
+<figcaption>
+結合は会議全体に均等に起きているのではなく、発言のテンポが早い区間 (10-20分, 30-40分) に集中している。
+</figcaption>
+</figure>
+
+<h2>2. なぜ結合が起きるのか (3つの仮説シナリオ)</h2>
+
+<div class="callout ok">
+<b>確定していること:</b> ASR が人力メモより発言数が少ないのは <span class="fact">複数発言の結合が原因</span>であり、
+<span class="fact">語の誤認識による欠落ではない</span> (文字起こしの内容自体は結合後も両方の発言が含まれている)。
+</div>
+
+<div class="callout warn">
+<b>ただし:</b> 結合が起きる条件 (無音区間の長さで判定しているのか、話者交代を検知できていないのか) は
+<span class="hyp">未確定</span>。ログの無音区間長を実測してさらに切り分けが必要。
+</div>
+
+<figure>
+<svg width="900" height="560" viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg">
+  <text x="450" y="20" text-anchor="middle" font-size="14" font-weight="bold">3 パターンのシナリオ</text>
+
+  <!-- 各ブロックは「ラベル2行(上)」→「矩形の帯(下)」の順に十分な間隔で積む。ラベルは横に長く伸びるため、矩形と縦座標を重ねると文字が隠れる。 -->
+  <text x="20" y="55" font-size="12" font-weight="bold">人力メモ (発言単位)</text>
+  <g>
+    <rect x="80"  y="65" width="70" height="30" fill="#2874a6" stroke="#333"/>
+    <text x="115" y="85" text-anchor="middle" font-size="11" fill="white">杏山</text>
+    <rect x="155" y="65" width="70" height="30" fill="#2874a6" stroke="#333"/>
+    <text x="190" y="85" text-anchor="middle" font-size="11" fill="white">宇沢a</text>
+    <rect x="230" y="65" width="70" height="30" fill="#2874a6" stroke="#333"/>
+    <text x="265" y="85" text-anchor="middle" font-size="11" fill="white">宇沢b</text>
+    <rect x="305" y="65" width="70" height="30" fill="#2874a6" stroke="#333"/>
+    <text x="340" y="85" text-anchor="middle" font-size="11" fill="white">杏山</text>
+  </g>
+  <text x="410" y="85" font-size="10" fill="#555">杏山 → 宇沢a → 宇沢b(無音0.3秒) → 杏山</text>
+
+  <text x="20" y="150" font-size="12" font-weight="bold">ASR出力 (パターン1: 無音長閾値)</text>
+  <text x="20" y="168" font-size="10" fill="#c0392b">無音0.3秒を「同一発言」と誤判定</text>
+  <g>
+    <rect x="80"  y="180" width="70" height="30" fill="#c0392b" stroke="#333"/>
+    <text x="115" y="200" text-anchor="middle" font-size="11" fill="white">杏山</text>
+    <rect x="155" y="180" width="145" height="30" fill="#e67e22" stroke="#333"/>
+    <text x="227" y="200" text-anchor="middle" font-size="11" fill="white">宇沢a+b(結合)</text>
+    <rect x="305" y="180" width="70" height="30" fill="#c0392b" stroke="#333"/>
+    <text x="340" y="200" text-anchor="middle" font-size="11" fill="white">杏山</text>
+  </g>
+  <text x="410" y="200" font-size="10" fill="#555">
+    無音が閾値 (例: 0.5秒) 未満だと話者交代を検知できない
+  </text>
+
+  <text x="20" y="265" font-size="12" font-weight="bold">ASR出力 (パターン2: 話者分離の取りこぼし)</text>
+  <text x="20" y="283" font-size="10" fill="#c0392b">声質が近く話者分離モデルが別人と認識できない</text>
+  <g>
+    <rect x="80"  y="295" width="70" height="30" fill="#c0392b" stroke="#333"/>
+    <text x="115" y="315" text-anchor="middle" font-size="11" fill="white">杏山</text>
+    <rect x="155" y="295" width="145" height="30" fill="#e67e22" stroke="#333"/>
+    <text x="227" y="315" text-anchor="middle" font-size="11" fill="white">宇沢a+b(結合)</text>
+    <rect x="305" y="295" width="70" height="30" fill="#c0392b" stroke="#333"/>
+    <text x="340" y="315" text-anchor="middle" font-size="11" fill="white">杏山</text>
+  </g>
+  <text x="410" y="315" font-size="10" fill="#555">
+    無音長に関係なく、話者埋め込みが近いと同一話者と誤判定
+  </text>
+
+  <text x="20" y="380" font-size="12" font-weight="bold">ASR出力 (パターン3: 常に結合しない・仮説棄却)</text>
+  <text x="20" y="398" font-size="10" fill="#27ae60">両方とも独立発言として出力</text>
+  <g>
+    <rect x="80"  y="410" width="70" height="30" fill="#c0392b" stroke="#333"/>
+    <text x="115" y="430" text-anchor="middle" font-size="11" fill="white">杏山</text>
+    <rect x="155" y="410" width="70" height="30" fill="#c0392b" stroke="#333"/>
+    <text x="190" y="430" text-anchor="middle" font-size="11" fill="white">宇沢a</text>
+    <rect x="230" y="410" width="70" height="30" fill="#c0392b" stroke="#333"/>
+    <text x="265" y="430" text-anchor="middle" font-size="11" fill="white">宇沢b</text>
+    <rect x="305" y="410" width="70" height="30" fill="#c0392b" stroke="#333"/>
+    <text x="340" y="430" text-anchor="middle" font-size="11" fill="white">杏山</text>
+  </g>
+  <text x="410" y="430" font-size="10" fill="#c0392b">
+    → 実測 (#38/#39 が結合) と矛盾するため却下
+  </text>
+
+  <text x="20" y="500" font-size="12" font-weight="bold">結論:</text>
+  <text x="90" y="500" font-size="12">
+    パターン3は却下。パターン1か2かは無音区間長の実測で切り分け可能。
+  </text>
+</svg>
+<figcaption>
+3つのシナリオ。パターン3は実測 (#38/#39 の結合実例) と矛盾するため却下。
+パターン1と2の判別には、結合が起きた箇所すべての無音区間長を集計する必要がある。
+</figcaption>
+</figure>
+
+<h2>3. まとめ</h2>
+
+<div class="callout ok">
+<b>今回の学び:</b>
+2つの時系列データ (人力メモ/ASR) を比較するときは、単に件数を突き合わせるだけでなく、
+「どの時点から」「どの要素とどの要素が」対応しなくなったかを1件レベルで特定して図示すると、
+原因の仮説がぐっと立てやすくなる。
+</div>
+
+</body>
+</html>

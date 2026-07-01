@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>タイトルをここに</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    max-width: 1080px;
+    margin: 40px auto;
+    padding: 0 24px;
+    color: #222;
+    line-height: 1.6;
+  }
+  h1 { border-bottom: 2px solid #333; padding-bottom: 8px; }
+  h2 { margin-top: 40px; border-left: 4px solid #333; padding-left: 12px; }
+  h3 { margin-top: 24px; }
+  figure { margin: 24px 0; }
+  figcaption {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 8px;
+    text-align: center;
+  }
+  svg { display: block; margin: 0 auto; background: #fafafa; border: 1px solid #ddd; }
+  .callout {
+    background: #fff8dc;
+    border-left: 4px solid #d4a017;
+    padding: 12px 16px;
+    margin: 16px 0;
+  }
+  /* 色の意味を固定する: info=青(補足), warn=赤(注意/未検証), ok=緑(確定/結論) */
+  .callout.warn { background: #ffe4e1; border-left-color: #c0392b; }
+  .callout.info { background: #e6f2ff; border-left-color: #2874a6; }
+  .callout.ok { background: #e8f7ea; border-left-color: #27ae60; }
+  code { background: #eee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  table { border-collapse: collapse; margin: 16px 0; }
+  th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: right; }
+  th { background: #eee; }
+  td.label { text-align: left; }
+  .legend {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    font-size: 0.9em;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .swatch { width: 14px; height: 14px; border-radius: 2px; display: inline-block; }
+  .fact { color: #27ae60; font-weight: bold; }
+  .hyp { color: #c0392b; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<h1>タイトルをここに</h1>
+
+<p>
+何を説明するページか、1〜3文で。誰向けの図解かも書いておくと後で見返しやすい。
+</p>
+
+<div class="callout info">
+用語や前提の凡例をここに。例: <span class="fact">緑</span> = 確定した事実、<span class="hyp">赤</span> = 未検証の仮説、のように色の意味を最初に宣言しておく。
+</div>
+
+<h2>1. セクション見出し</h2>
+
+<p>本文。必要なら <code>コード片</code> や <b>強調</b> を使う。</p>
+
+<!--
+  以下は「時系列 + 対応関係」を図示する例。
+  2本のトラック(上下)を並べ、対応する要素同士を矢印で結ぶパターン。
+  自分の説明したい構造に合わせて座標・要素数・色を書き換える。
+-->
+<figure>
+<svg width="900" height="240" viewBox="0 0 900 240" xmlns="http://www.w3.org/2000/svg">
+  <text x="450" y="24" text-anchor="middle" font-size="14" font-weight="bold">
+    図のタイトル
+  </text>
+
+  <!-- track A -->
+  <text x="20" y="80" font-size="12" font-weight="bold">系列A</text>
+  <g>
+    <rect x="80"  y="60" width="90" height="40" fill="#2874a6" stroke="#333"/>
+    <text x="125" y="85" text-anchor="middle" font-size="12" fill="white">A1</text>
+
+    <rect x="190" y="60" width="90" height="40" fill="#2874a6" stroke="#333"/>
+    <text x="235" y="85" text-anchor="middle" font-size="12" fill="white">A2</text>
+
+    <rect x="300" y="60" width="90" height="40" fill="#2874a6" stroke="#333"/>
+    <text x="345" y="85" text-anchor="middle" font-size="12" fill="white">A3</text>
+  </g>
+
+  <!-- pair arrows: 緑=対応OK、赤=対応NG/ズレ -->
+  <g stroke-width="2" fill="none">
+    <line x1="125" y1="105" x2="125" y2="150" stroke="#27ae60" marker-end="url(#arrG)"/>
+    <line x1="235" y1="105" x2="235" y2="150" stroke="#c0392b" marker-end="url(#arrR)"/>
+    <line x1="345" y1="105" x2="345" y2="150" stroke="#27ae60" marker-end="url(#arrG)"/>
+  </g>
+
+  <!-- track B -->
+  <text x="20" y="175" font-size="12" font-weight="bold">系列B</text>
+  <g>
+    <rect x="80"  y="155" width="90" height="40" fill="#c0392b" stroke="#333"/>
+    <text x="125" y="180" text-anchor="middle" font-size="12" fill="white">B1</text>
+
+    <rect x="190" y="155" width="90" height="40" fill="#e67e22" stroke="#333"/>
+    <text x="235" y="180" text-anchor="middle" font-size="12" fill="white">B2</text>
+
+    <rect x="300" y="155" width="90" height="40" fill="#c0392b" stroke="#333"/>
+    <text x="345" y="180" text-anchor="middle" font-size="12" fill="white">B3</text>
+  </g>
+
+  <defs>
+    <marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#27ae60"/>
+    </marker>
+    <marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+</svg>
+<div class="legend">
+  <div class="legend-item"><span class="swatch" style="background:#2874a6"></span>系列A</div>
+  <div class="legend-item"><span class="swatch" style="background:#c0392b"></span>系列B</div>
+  <div class="legend-item"><span class="swatch" style="background:#e67e22"></span>系列Bの異常値</div>
+</div>
+<figcaption>
+図の下に、何が読み取れるかの短い説明を書く。矢印の色の意味もここで念押しするとよい。
+</figcaption>
+</figure>
+
+<h2>2. まとめ</h2>
+
+<div class="callout ok">
+結論やアクションアイテムを最後に置く。読み手が図を全部追わなくても、ここだけ読めば要点が分かるように。
+</div>
+
+</body>
+</html>
