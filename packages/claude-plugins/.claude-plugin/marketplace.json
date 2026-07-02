@@ -30,8 +30,8 @@
       "source": "./plugins/handover"
     },
     {
-      "name": "html-svg-explainer",
-      "source": "./plugins/html-svg-explainer"
+      "name": "one-pager",
+      "source": "./plugins/one-pager"
     },
     {
       "name": "mise",
