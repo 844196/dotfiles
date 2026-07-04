@@ -98,7 +98,9 @@ zstyle ':wk:*' options '--up-one-line false'
 zstyle ':wk:*' accept-widget accept-line-with-expand-alias
 
 bindkey '^[[1~' beginning-of-line # Home
+bindkey '^[[H' beginning-of-line # Home
 bindkey '^[[4~' end-of-line # End
+bindkey '^[[F' end-of-line # End
 bindkey '^[[3~' delete-char # Delete
 bindkey '^[[Z' reverse-menu-complete # Shift+Tab
 bindkey '^R' atuin-search
