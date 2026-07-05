@@ -1,0 +1,42 @@
+onboarding = false
+
+[update]
+version_check = false
+
+[terminal]
+shell_mode = "login"
+new_cwd = "current"
+
+[ui]
+hide_tab_bar_when_single_tab = true
+confirm_close = false
+prompt_new_tab_name = false
+
+[keys]
+prefix = "F8"
+copy_mode = "prefix+y"
+next_tab = "ctrl+tab"
+previous_tab = "ctrl+shift+tab"
+focus_pane_left = "ctrl+left"
+focus_pane_down = "ctrl+down"
+focus_pane_up = "ctrl+up"
+focus_pane_right = "ctrl+right"
+swap_pane_left = "ctrl+shift+left"
+swap_pane_down = "ctrl+shift+down"
+swap_pane_up = "ctrl+shift+up"
+swap_pane_right = "ctrl+shift+right"
+settings = "prefix+,"
+split_vertical = "prefix+v"
+split_horizontal = "prefix+s"
+
+[theme]
+name = "tokyo-night"
+auto_switch = false
+
+# https://github.com/ogulcancelik/herdr/blob/04682e57e60ae4276761e95271a7ef1845127180/src/app/state.rs#L52-L93
+[theme.custom]
+panel_bg = "transparent" # tabbar background & modal background
+accent = "#82aaff"
+surface_dim = "#222436"  # sidebar border & sidebar active item background
+overlay0 = "#414868" # inactive pane border & sidebar section fg & sidebar item subtext fg
+overlay1 = "#2f334d"     # scrollbar thumb
