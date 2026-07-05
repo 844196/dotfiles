@@ -1,8 +1,23 @@
 # vim: set ft=zsh:
 
-if [[ -z ${NO_TMUX+X}${TMUX+X}${ZSH_SCRIPT+X}${ZSH_EXECUTION_STRING+X} && -n "$VSCODE_WORKSPACE" ]]; then
+if [[ -z ${NO_TMUX+X}${TMUX+X}${HERDR_ENV+X}${ZSH_SCRIPT+X}${ZSH_EXECUTION_STRING+X} && -n "$VSCODE_WORKSPACE" ]]; then
   # e.g. /home/m-takeda/.dotfiles → -home-m-takeda--dotfiles
   exec tmux new-session -A -s "vscode-${${VSCODE_WORKSPACE//\//-}//./-}"
+fi
+
+if [[ -z ${NO_HERDR+X}${TMUX+X}${HERDR_ENV+X}${ZSH_SCRIPT+X}${ZSH_EXECUTION_STRING+X} && -n "$VSCODE_WORKSPACE" ]]; then
+  workspace_id=$(
+    herdr workspace list 2>/dev/null \
+      | jq -r --arg label "${VSCODE_WORKSPACE:t}" '[.result.workspaces[] | select(.label == $label)][0] | .workspace_id // empty'
+  )
+
+  if [[ -n "$workspace_id" ]]; then
+    herdr workspace focus $workspace_id >/dev/null 2>&1
+  else
+    herdr workspace create --cwd "$VSCODE_WORKSPACE" --label "${VSCODE_WORKSPACE:t}" --focus >/dev/null 2>&1
+  fi
+
+  exec herdr
 fi
 
 autoload -Uz promptinit && promptinit
