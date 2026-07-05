@@ -29,6 +29,11 @@ settings = "prefix+,"
 split_vertical = "prefix+v"
 split_horizontal = "prefix+s"
 
+[[keys.command]]
+key = "prefix+@"
+type = "plugin_action"
+command = "844196.file-picker.open"
+
 [theme]
 name = "tokyo-night"
 auto_switch = false

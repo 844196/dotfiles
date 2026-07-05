@@ -1,0 +1,16 @@
+id = "844196.file-picker"
+name = "file picker"
+version = "0.1.0"
+min_herdr_version = "0.7.0"
+platforms = ["linux", "macos"]
+
+[[actions]]
+id = "open"
+title = "Open"
+command = ["bash", "-c", 'exec "${HERDR_PLUGIN_ROOT:?}/open.sh"']
+
+[[panes]]
+id = "picker"
+title = "Picker"
+placement = "overlay"
+command = ["bash", "-c", 'exec "${HERDR_PLUGIN_ROOT:?}/picker.sh"']

@@ -3,5 +3,4 @@
 set -euo pipefail
 
 ~/.local/bin/mise trust {{.dotfilesDir}}
-# TODO mise が対応したら //packages/tool-*:install へ置き換える
 ~/.local/bin/mise run --cd {{.dotfilesDir}} //packages/...:install
