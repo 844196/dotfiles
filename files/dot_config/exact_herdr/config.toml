@@ -5,7 +5,7 @@ version_check = false
 
 [terminal]
 shell_mode = "login"
-new_cwd = "current"
+new_cwd = "follow"
 
 [ui]
 hide_tab_bar_when_single_tab = true
