@@ -1,0 +1,2 @@
+[tasks.install]
+run = "herdr plugin link {{config_root}}"

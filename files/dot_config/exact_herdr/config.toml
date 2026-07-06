@@ -34,6 +34,11 @@ key = "prefix+@"
 type = "plugin_action"
 command = "844196.file-picker.open"
 
+[[keys.command]]
+key = "prefix+space"
+type = "plugin_action"
+command = "844196.layout-pane.toggle"
+
 [theme]
 name = "tokyo-night"
 auto_switch = false
