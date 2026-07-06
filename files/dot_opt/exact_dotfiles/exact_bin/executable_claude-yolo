@@ -7,4 +7,10 @@ if [[ -n "${TMUX:-}" ]]; then
   export CLAUDE_CODE_TMUX_TRUECOLOR=1
 fi
 
+if [[ "${TERM_PROGRAM:-}" == vscode ]]; then
+  # HACK: なぜ?
+  # https://github.com/anthropics/claude-code/issues/35148
+  export TERM_PROGRAM=
+fi
+
 exec claude --enable-auto-mode --allow-dangerously-skip-permissions "$@"
