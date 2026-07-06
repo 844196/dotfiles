@@ -2,15 +2,26 @@
 
 zmodload zsh/mathfunc
 
-local cursor unused
-echo -ne "\x1b[6n" >$TTY # => CSI {r};{c}R (CSI:\x1b[, r:row, c:column)
-read -s -d '[' unused < $TTY
-read -s -d 'R' cursor < $TTY
-local cursorY=${${(s[;])cursor}[1]}
+local height=12 # フォールバック (CPR が取れなかった場合の高さ)
 
-local height=$(( LINES - cursorY + 1 ))
-if (( height < 12 )); then
-  height=12
-fi
+# カーソル位置 (CPR) を読む間だけ端末を non-canonical + no-echo にする。
+# CPR 応答 \x1b[{r};{c}R は改行を含まないため、canonical モードのままだと
+# read が改行待ちでブロックし、応答がバッファに取り残されて次の描画に漏れる。
+local saved_stty
+saved_stty=$(stty -g <$TTY)
+stty -icanon -echo min 0 time 0 <$TTY
+{
+  local cursor
+  echo -ne "\x1b[6n" >$TTY # => CSI {r};{c}R (CSI:\x1b[, r:row, c:column)
+  if read -s -t 1 -d 'R' cursor <$TTY; then
+    local cursorY=${${(s[;])cursor#*\[}[1]} # 先頭の \x1b[ を除いた {r} を取り出す
+    if [[ $cursorY == <-> ]]; then
+      height=$(( LINES - cursorY + 1 ))
+      (( height < 12 )) && height=12
+    fi
+  fi
+} always {
+  stty "$saved_stty" <$TTY
+}
 
 echo '--height' $height
