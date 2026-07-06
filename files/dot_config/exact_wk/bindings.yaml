@@ -7,7 +7,7 @@
 - key: j
   desc: Jump
   type: command
-  buffer: ' cd -- ${(q)$(anyframe-widget-z-ghq --height 20%):-.}'
+  buffer: ' anyframe-widget-jump --height 20%'
   accept: true
 - key: tab
   desc: Navi

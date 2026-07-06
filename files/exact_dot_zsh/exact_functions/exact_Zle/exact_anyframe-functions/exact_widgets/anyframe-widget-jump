@@ -1,16 +1,32 @@
 # vim: set ft=zsh:
 
-tput cub 9999
+local selected=$(
+  zoxide query --list \
+    | anyframe-selector-fzf '' \
+      --no-multi \
+      --scheme path \
+      --prompt 'Zoxide ❯ ' \
+      --bind 'tab:transform:[[ $FZF_PROMPT =~ Zoxide ]] &&
+        echo "change-prompt(GHQ ❯ )+reload(ghq list -p)" ||
+        echo "change-prompt(Zoxide ❯ )+reload(zoxide query --list)"' \
+      "$@"
+)
 
-zoxide query --list \
-  | anyframe-selector-fzf '' \
-    --no-multi \
-    --scheme path \
-    --header 'Ctrl-J: Switch Zoxide/GHQ' \
-    --prompt 'Zoxide  ' \
-    --bind 'ctrl-j:transform:[[ ! $FZF_PROMPT =~ Zoxide ]] &&
-      echo "change-prompt(Zoxide  )+reload(zoxide query --list)" ||
-      echo "change-prompt(GHQ  )+reload(ghq list -p)"' \
-  | anyframe-action-execute cd --
+if [[ -z "$selected" ]]; then
+  return
+fi
 
-zle redisplay
+if [[ -n "${HERDR_ENV:-}" ]]; then
+  local herdr_wid=$(
+    herdr workspace list \
+      | jq -r --arg label "${selected:t}" '[.result.workspaces[] | select(.label == $label)][0] | .workspace_id // empty'
+  )
+
+  if [[ -n "$herdr_wid" ]]; then
+    herdr workspace focus $herdr_wid >/dev/null 2>&1
+  else
+    herdr workspace create --cwd "$selected" --label "${selected:t}" --focus >/dev/null 2>&1
+  fi
+else
+  cd -- "$selected"
+fi
