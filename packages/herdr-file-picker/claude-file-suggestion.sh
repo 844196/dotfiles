@@ -16,4 +16,5 @@ herdr plugin pane open \
   --plugin 844196.file-picker \
   --entrypoint picker \
   --cwd "${CLAUDE_PROJECT_DIR:-$PWD}" \
-  --env PICKER_INITIAL_MODE=atmark
+  --env PICKER_INITIAL_MODE=atmark \
+  > /dev/null 2>&1
