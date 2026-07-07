@@ -107,6 +107,7 @@ anyframe-init
 
 zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
+zstyle ':zle:backward-kill-blank-word' word-style whitespace
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
 zstyle -e ':anyframe:selector:fzf:*' command 'reply=($(mise which fzf) $(compute-anyframe-fzf-options))'
 zstyle ':wk:*' options '--up-one-line false'
@@ -129,6 +130,7 @@ bindwidget '^I' fzf-completion-or-expand-or-complete
 bindwidget '^[q' push-line-or-edit-with-show
 bindwidget '^Q' push-line-or-edit-with-show # `NO_FLOW_CONTROL` required
 bindwidget '^X^E' edit-command-line edit-command-line-shim
+bindwidget '^X^W' backward-kill-blank-word
 
 source $XDG_CACHE_HOME/wk/init.zsh
 # zsh-bench ベンチマークにおいてキー入力が行われた際にウィジェットが起動し完走できない

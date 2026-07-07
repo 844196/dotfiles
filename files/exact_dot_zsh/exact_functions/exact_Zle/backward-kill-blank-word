@@ -1,0 +1,12 @@
+# vim: set ft=zsh:
+
+# 通常の ^w (backward-kill-word) は word-chars zstyle により "/" などを区切りとして
+# 扱うため、パスがスラッシュ単位で消える。これを一時的に回避し、空白区切りで
+# ("引数のパス全体" をまとめて) 消したいとき用のウィジェット。
+#
+# backward-kill-word-match は curcontext を ":zle:$WIDGET" に設定するため、この
+# ウィジェット名 (backward-kill-blank-word) 専用の context に word-style whitespace を
+# zstyle で効かせられる。実装は backward-kill-word-match にそのまま委譲する。
+
+autoload -Uz backward-kill-word-match
+backward-kill-word-match "$@"
