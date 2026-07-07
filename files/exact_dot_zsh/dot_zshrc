@@ -107,7 +107,11 @@ anyframe-init
 
 zstyle ':zle:*' word-style unspecified
 zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
-zstyle ':zle:backward-kill-blank-word' word-style whitespace
+
+# https://www.reddit.com/r/zsh/comments/18xqsz7/comment/kg71ur3/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+# https://zsh.sourceforge.io/Doc/Release/User-Contributions.html#index-match_002dwords_002dby_002dstyle
+zstyle ':zle:backward-kill-shell-word' word-style shell
+
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
 zstyle -e ':anyframe:selector:fzf:*' command 'reply=($(mise which fzf) $(compute-anyframe-fzf-options))'
 zstyle ':wk:*' options '--up-one-line false'
@@ -130,7 +134,7 @@ bindwidget '^I' fzf-completion-or-expand-or-complete
 bindwidget '^[q' push-line-or-edit-with-show
 bindwidget '^Q' push-line-or-edit-with-show # `NO_FLOW_CONTROL` required
 bindwidget '^X^E' edit-command-line edit-command-line-shim
-bindwidget '^X^W' backward-kill-blank-word
+bindwidget '^X^W' backward-kill-shell-word backward-kill-word-match
 
 source $XDG_CACHE_HOME/wk/init.zsh
 # zsh-bench ベンチマークにおいてキー入力が行われた際にウィジェットが起動し完走できない
