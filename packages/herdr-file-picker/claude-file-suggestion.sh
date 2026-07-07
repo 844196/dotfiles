@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ -z "${HERDR_ENV:-}" ]]; then
+# 先に標準入力を消費して BrokenPipe を回避する
+query=$(jq -r '.query // ""')
+if [[ -n "$query" ]]; then
   exit 0
 fi
 
-query=$(jq -r '.query // ""')
-if [[ -n "$query" ]]; then
+if [[ -z "${HERDR_ENV:-}" ]]; then
   exit 0
 fi
 
