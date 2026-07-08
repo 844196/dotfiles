@@ -125,6 +125,7 @@ bindkey '^[[3~' delete-char # Delete
 bindkey '^[[Z' reverse-menu-complete # Shift+Tab
 bindkey '^[[1;3C' forward-word
 bindkey '^[[1;3D' backward-word
+bindkey '^[p' set-mark-command
 bindkey '^R' atuin-search
 bindkey '^X^B' anyframe-widget-insert-git-branch-name
 bindkey '^X^F' anyframe-widget-insert-git-status-file
