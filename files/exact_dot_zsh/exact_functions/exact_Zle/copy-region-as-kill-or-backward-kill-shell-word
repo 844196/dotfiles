@@ -1,0 +1,9 @@
+# vim: set ft=zsh:
+
+if (( REGION_ACTIVE )); then
+  zle copy-region-as-kill
+  zle exchange-point-and-mark
+  REGION_ACTIVE=0
+else
+  zle backward-kill-word-match
+fi

@@ -30,6 +30,7 @@ fi
 autoload -Uz add-zsh-hook
 autoload -Uz select-word-style
 autoload -Uz smart-insert-last-word
+autoload -Uz backward-kill-word-match
 autoload -Uz zman
 autoload -Uz anyframe-init
 autoload -Uz $ZDOTDIR/functions/**/*(N.:t)
@@ -110,12 +111,14 @@ zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|.'
 
 # https://www.reddit.com/r/zsh/comments/18xqsz7/comment/kg71ur3/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
 # https://zsh.sourceforge.io/Doc/Release/User-Contributions.html#index-match_002dwords_002dby_002dstyle
-zstyle ':zle:backward-kill-shell-word' word-style shell
+zstyle ':zle:copy-region-as-kill-or-backward-kill-shell-word' word-style shell
 
 zstyle ':insert-last-word' match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
 zstyle -e ':anyframe:selector:fzf:*' command 'reply=($(mise which fzf) $(compute-anyframe-fzf-options))'
 zstyle ':wk:*' options '--up-one-line false'
 zstyle ':wk:*' accept-widget accept-line-with-expand-alias
+
+zle -N backward-kill-word-match
 
 bindkey '^[[1~' beginning-of-line # Home
 bindkey '^[[H' beginning-of-line # Home
@@ -130,6 +133,7 @@ bindkey '^R' atuin-search
 bindkey '^X^B' anyframe-widget-insert-git-branch-name
 bindkey '^X^F' anyframe-widget-insert-git-status-file
 bindkey '^X^X' anyframe-widget-insert-git-commit-hash
+bindwidget '^[w' copy-region-as-kill-or-backward-kill-shell-word
 bindwidget '^[.' insert-last-word smart-insert-last-word
 bindwidget '^M' accept-line-with-expand-alias
 bindwidget '\^' self-insert-with-tweak
@@ -137,7 +141,6 @@ bindwidget '^I' fzf-completion-or-expand-or-complete
 bindwidget '^[q' push-line-or-edit-with-show
 bindwidget '^Q' push-line-or-edit-with-show # `NO_FLOW_CONTROL` required
 bindwidget '^X^E' edit-command-line edit-command-line-shim
-bindwidget '^X^W' backward-kill-shell-word backward-kill-word-match
 
 source $XDG_CACHE_HOME/wk/init.zsh
 # zsh-bench ベンチマークにおいてキー入力が行われた際にウィジェットが起動し完走できない
