@@ -1,7 +1,0 @@
-[
-  {
-    "name": "p2p",
-    "command": "claude-p2p poll",
-    "description": "他の Claude Code セッションからの P2P メッセージ。受信時の解釈・全文復元・対応方針は p2p:receive スキルを参照すること。"
-  }
-]

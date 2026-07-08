@@ -50,10 +50,6 @@
       "source": "./plugins/notification"
     },
     {
-      "name": "p2p",
-      "source": "./plugins/p2p"
-    },
-    {
       "name": "personal-scratchpad",
       "source": "./plugins/personal-scratchpad"
     },
