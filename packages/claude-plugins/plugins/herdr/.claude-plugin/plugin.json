@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "herdr",
+  "userConfig": {
+    "CLAUDE_COMMAND": {
+      "title": "CLAUDE_COMMAND",
+      "description": "",
+      "type": "string",
+      "default": "claude"
+    }
+  }
+}

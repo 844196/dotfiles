@@ -30,6 +30,10 @@
       "source": "./plugins/handover"
     },
     {
+      "name": "herdr",
+      "source": "./plugins/herdr"
+    },
+    {
       "name": "one-pager",
       "source": "./plugins/one-pager"
     },
