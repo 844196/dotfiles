@@ -54,10 +54,6 @@
       "source": "./plugins/personal-scratchpad"
     },
     {
-      "name": "session-analyzer",
-      "source": "./plugins/session-analyzer"
-    },
-    {
       "name": "tokyonight",
       "source": "./plugins/tokyonight"
     },
