@@ -40,15 +40,7 @@ description: Explain a topic by writing a self-contained "one-pager" HTML page a
    - 特に規約がなければ、作業中のトピックに関連するディレクトリ、それも無ければカレントディレクトリに置く。
    - single-file なら `<説明が付く名前>.html`、ディレクトリ構成なら `<説明が付く名前>/index.html` + `<説明が付く名前>/assets/`。
    - ファイル新規作成の際にプロジェクト固有の手順 (例: 空ファイルを touch してから Read → Write する、等) があればそれに従う。
-4. **書き終えたら `chroma` でブラウザに開く。**
-   ```bash
-   chroma "file://$(realpath path/to/one-pager.html)"
-   ```
-   ただし WSL2 で Windows 側のブラウザが既定になっている環境では、Linux 側のパスを含む `file://` URL は解決できない。`wslpath -m` で `//wsl.localhost/<distro>/...` 形式 (UNC を URL 互換に整えたもの) に変換して渡す:
-   ```bash
-   chroma "file:$(wslpath -m path/to/one-pager.html)"
-   ```
-   `wslpath` は WSL 上でしか存在しないコマンドなので、その有無で環境を分岐できる。`chroma` が使えない環境 (このユーザー固有のツールなので、無ければ普通に) では、ファイルパスを伝えてユーザーに自分で開いてもらう。
+4. **書き終えたらブラウザで開く。**
 5. **チャットにも要点を書く。** 生成した HTML は補助教材であって代替物ではない。何を図示したか、結論は何かをチャット上でも簡潔に説明する。ページを開かせて終わりにしない。
 
 ## 図を組み立てるときのコツ
