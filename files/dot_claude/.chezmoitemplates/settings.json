@@ -95,6 +95,8 @@
       "Bash(chroma *)",
       "Bash(command -v difit)",
       "Bash(difit *)",
+      "Bash(atuin search *)",
+      "Bash(atuin history *)",
       "Bash(ctx status)",
       "Bash(ctx search *)",
       "Bash(ctx show *)",
