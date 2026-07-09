@@ -1,3 +1,7 @@
 **/CLAUDE.md
 **/*.zwc
 **/*.zwc.old
+
+# ~/.claude/hooks/ は herdr integration の専有領域 (chezmoi 管理外)。
+# SEE: files/.chezmoiscripts/run_onchange_after_09-install-herdr-integration.sh.tmpl
+.claude/hooks

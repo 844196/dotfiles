@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# trigger:
+#   herdr version: {{ .versions.herdr }}
+
+set -euo pipefail
+
+~/.local/bin/mise exec -- herdr integration install claude
