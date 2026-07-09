@@ -100,7 +100,8 @@
       "Bash(ctx status)",
       "Bash(ctx search *)",
       "Bash(ctx show *)",
-      "Bash(ctx locate *)"
+      "Bash(ctx locate *)",
+      "Bash(ctx sql *)"
     ]
   },
   "statusLine": {
