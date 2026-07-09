@@ -60,7 +60,10 @@
       "Bash(git push *)",
       "Bash(git pull *)",
       "Bash(git merge *)",
-      "Bash(gh pr create *)"
+      "Bash(gh issue create *)",
+      "Bash(gh issue comment *)",
+      "Bash(gh pr create *)",
+      "Bash(gh pr comment *)"
     ],
     "allow": [
       "WebSearch",
