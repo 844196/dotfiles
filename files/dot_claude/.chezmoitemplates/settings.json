@@ -5,7 +5,7 @@
   "plansDirectory": ".844196/plans/",
   "env": {
     "CLAUDE_CODE_IDE_SKIP_AUTO_INSTALL": "1",
-    "CLAUDE_CODE_SHELL": "zsh",
+    "CLAUDE_CODE_SHELL": "bash",
     "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "1",
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
     "CLAUDE_CODE_SCROLL_SPEED": "3",
