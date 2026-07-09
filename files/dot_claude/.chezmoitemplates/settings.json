@@ -85,7 +85,6 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(git commit-language)",
-      "Bash(git claude-attribution)",
       "Bash(git fetch *)",
       "Bash(gh pr list *)",
       "Bash(gh pr view *)",

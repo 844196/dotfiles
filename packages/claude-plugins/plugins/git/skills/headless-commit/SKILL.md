@@ -8,6 +8,7 @@ allowed-tools:
   - Grep
   - Read
   - Bash(git commit *)
+  - Bash(${CLAUDE_PLUGIN_ROOT}/scripts/git-claude-attribution)
 ---
 
 # Committing Staged Changes
@@ -55,7 +56,7 @@ allowed-tools:
 
 CLAUDE.md にコミットメッセージ規約があれば、既にコンテキストに含まれているのでそれに従う。
 
-!`git claude-attribution`
+!`${CLAUDE_PLUGIN_ROOT}/scripts/git-claude-attribution`
 
 ### 3. コミットメッセージの生成
 

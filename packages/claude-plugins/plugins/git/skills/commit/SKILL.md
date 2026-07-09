@@ -1,6 +1,8 @@
 ---
 name: commit
 description: コミット依頼があったら必ず使うスキル。「コミットして」「commit」「変更をコミット」「ここまでの作業をコミット」等の指示を受けたら、このスキルを呼び出してコミットを実行する。直接 git commit を実行せずこのスキルを経由すること。
+allowed-tools:
+  - Bash(${CLAUDE_PLUGIN_ROOT}/scripts/git-claude-attribution)
 ---
 
 # Committing Changes
@@ -36,7 +38,7 @@ git log --oneline -10
 
 CLAUDE.md にコミットメッセージ規約があれば、既にコンテキストに含まれているのでそれに従う。
 
-!`git claude-attribution`
+!`${CLAUDE_PLUGIN_ROOT}/scripts/git-claude-attribution`
 
 ### 3. コミットメッセージの生成
 

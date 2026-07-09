@@ -3,6 +3,8 @@ name: headless-commit-amend
 description: 直前のコミットを修正 (amend) する。コミットメッセージを自動生成し、amend コミットを実行する。
 disable-model-invocation: true
 model: haiku
+allowed-tools:
+  - Bash(${CLAUDE_PLUGIN_ROOT}/scripts/git-claude-attribution)
 ---
 
 # Amending the Last Commit
@@ -36,7 +38,7 @@ git log --oneline -10
 
 CLAUDE.md にコミットメッセージ規約があれば、既にコンテキストに含まれているのでそれに従う。
 
-!`git claude-attribution`
+!`${CLAUDE_PLUGIN_ROOT}/scripts/git-claude-attribution`
 
 ### 3. コミットメッセージの生成
 
