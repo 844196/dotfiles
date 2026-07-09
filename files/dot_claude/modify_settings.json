@@ -1,7 +1,9 @@
 {{- /* chezmoi:modify-template */ -}}
-{{- $settings := (includeTemplate "dot_claude/.chezmoitemplates/settings.json.tmpl" .) | fromJson -}}
+{{- $settings := (includeTemplate "dot_claude/.chezmoitemplates/settings.json" .) | fromJson -}}
 {{- $onDisk := (fromJson (or .chezmoi.stdin "{}")) -}}
 {{- if hasKey $onDisk "hooks" -}}
 {{-   $settings = set $settings "hooks" (get $onDisk "hooks") -}}
 {{- end -}}
-{{ toPrettyJson $settings }}
+{{- $json := toPrettyJson $settings -}}
+{{- $json = $json | replace "~/" (printf "%s/" .chezmoi.homeDir) -}}
+{{ $json }}

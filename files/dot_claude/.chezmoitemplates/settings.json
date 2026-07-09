@@ -109,7 +109,7 @@
     "844196-dotfiles": {
       "source": {
         "source": "directory",
-        "path": "{{ .dotfilesDir }}/packages/claude-plugins"
+        "path": "~/.dotfiles/packages/claude-plugins"
       }
     }
   },

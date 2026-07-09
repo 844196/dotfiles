@@ -2,7 +2,7 @@
 
 Claude Code プラグインのマーケットプレイス。自作スキル・エージェント・フックなどは全てここにプラグインとして実装する。
 
-[`./plugins`](./plugins/) に "新しいプラグインを追加" "既存のプラグインをリネーム" "既存のプラグインを削除" したときは、必ず [ユーザーレベルの Claude Code 設定ファイル](../../files/dot_claude/.chezmoitemplates/settings.json.tmpl) の `enabledPlugins` と必要があれば `pluginSettings` を更新し `chezmoi apply` すること。
+[`./plugins`](./plugins/) に "新しいプラグインを追加" "既存のプラグインをリネーム" "既存のプラグインを削除" したときは、必ず [ユーザーレベルの Claude Code 設定ファイル](../../files/dot_claude/.chezmoitemplates/settings.json) の `enabledPlugins` と必要があれば `pluginSettings` を更新し `chezmoi apply` すること。
 
 ## 落とし穴
 
