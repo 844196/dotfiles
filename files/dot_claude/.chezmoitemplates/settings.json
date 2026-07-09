@@ -145,13 +145,7 @@
     },
     "handover@844196-dotfiles": {
       "options": {
-        "HANDOVER_OUTPUT_PATH_FORMAT": "`$(git rev-parse --show-toplevel)/.844196/handovers/$(date +%Y%m%d%H%M%S)_<kebab-case>.md` (`<kebab-case>` は内容を表す名前に置換すること)",
-        "CLAUDE_COMMAND": "claude-yolo"
-      }
-    },
-    "herdr@844196-dotfiles": {
-      "options": {
-        "CLAUDE_COMMAND": "claude-yolo"
+        "HANDOVER_OUTPUT_PATH_FORMAT": "`$(git rev-parse --show-toplevel)/.844196/handovers/$(date +%Y%m%d%H%M%S)_<kebab-case>.md` (`<kebab-case>` は内容を表す名前に置換すること)"
       }
     }
   },

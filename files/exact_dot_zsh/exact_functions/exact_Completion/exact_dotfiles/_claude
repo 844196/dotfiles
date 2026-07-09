@@ -1,4 +1,4 @@
-#compdef claude-yolo
+#compdef claude
 
 _arguments \
   '--resume[resume a previous session]' \

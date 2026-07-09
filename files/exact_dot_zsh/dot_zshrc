@@ -163,7 +163,7 @@ alias mx='mise x --'
 alias mr='mise run'
 alias dc='docker compose'
 alias pc='process-compose'
-alias cc='claude-yolo'
+alias cc='claude'
 
 # zshenv で追加したshimエントリーはこの時点で削除され
 # chpwd と precmd に "各プロジェクトで設定されたツール実体の場所を PATH の最上位に追加するフック" が登録される
