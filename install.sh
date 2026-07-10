@@ -21,4 +21,6 @@ if [[ -z "${GITHUB_TOKEN:-}" && -f "${GITHUB_TOKEN_FILE:-}" ]]; then
   : ${GITHUB_TOKEN:=$(<"$GITHUB_TOKEN_FILE")}
 fi
 
-GITHUB_TOKEN="$GITHUB_TOKEN" "$chezmoi" init --apply --source="$dotfiles"
+# 鍵が配置されてなくとも動くように
+# TODO: 環境変数で挙動を変える？
+GITHUB_TOKEN="$GITHUB_TOKEN" "$chezmoi" init --apply --source="$dotfiles" --exclude=encrypted
