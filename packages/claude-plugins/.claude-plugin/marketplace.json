@@ -38,6 +38,10 @@
       "source": "./plugins/one-pager"
     },
     {
+      "name": "opinions",
+      "source": "./plugins/opinions"
+    },
+    {
       "name": "mise",
       "source": "./plugins/mise"
     },
