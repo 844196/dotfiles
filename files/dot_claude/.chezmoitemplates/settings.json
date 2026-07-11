@@ -33,6 +33,7 @@
   "agentPushNotifEnabled": false,
   "remoteControlAtStartup": false,
   "respondToBashCommands": false,
+  "promptSuggestionEnabled": false,
   "permissions": {
     "defaultMode": "auto",
     "deny": [
