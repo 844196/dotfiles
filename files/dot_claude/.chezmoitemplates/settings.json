@@ -124,6 +124,7 @@
   "enabledPlugins": {
     "atuin@844196-dotfiles": true,
     "block-long-sleep@844196-dotfiles": true,
+    "ctx@844196-dotfiles": true,
     "git@844196-dotfiles": true,
     "github@844196-dotfiles": true,
     "handover@844196-dotfiles": true,
