@@ -149,6 +149,13 @@ if [[ -z "$ZSH_BENCH" ]]; then
   bindwidget ',' self-insert-or-trigger-wk-major
 fi
 
+source $XDG_DATA_HOME/zsh-shift-select/zsh-shift-select.plugin.zsh
+bindkey -M shift-select '^w' shift-select::kill-region
+bindkey '^[[1;4D' shift-select::backward-word
+bindkey '^[[1;4C' shift-select::forward-word
+bindkey -M shift-select '^[[1;4D' shift-select::backward-word
+bindkey -M shift-select '^[[1;4C' shift-select::forward-word
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ls=' eza'

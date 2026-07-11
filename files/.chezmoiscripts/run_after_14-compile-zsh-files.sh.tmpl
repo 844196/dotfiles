@@ -17,6 +17,6 @@ for d in ${ZDOTDIR:-$HOME}/functions/*(N-/) ${ZDOTDIR:-$HOME}/functions/Completi
   zcompile -U -M $d.zwc $d/*~*.zwc(^/)
 done
 
-for f in ${XDG_DATA_HOME:-$HOME/.local/share}/zsh-autosuggestions/**/*.zsh; do
+for f in ${XDG_DATA_HOME:-$HOME/.local/share}/zsh-autosuggestions/**/*.zsh ${XDG_DATA_HOME:-$HOME/.local/share}/zsh-shift-select/**/*.zsh; do
   zcompile -R "$f"
 done
