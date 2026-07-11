@@ -16,17 +16,25 @@ if [[ -z "$selected" ]]; then
   return
 fi
 
-if [[ -n "${HERDR_ENV:-}" ]]; then
-  local herdr_wid=$(
-    herdr workspace list \
-      | jq -r --arg label "${selected:t}" '[.result.workspaces[] | select(.label == $label)][0] | .workspace_id // empty'
-  )
+if [[ -z "${HERDR_ENV:-}" ]]; then
+  cd -- "$selected"
+  return
+fi
 
-  if [[ -n "$herdr_wid" ]]; then
-    herdr workspace focus $herdr_wid >/dev/null 2>&1
-  else
-    herdr workspace create --cwd "$selected" --label "${selected:t}" --focus >/dev/null 2>&1
-  fi
-else
+local exists_herdr_wid=$(
+  herdr workspace list \
+    | jq -r --arg label "${selected:t}" '[.result.workspaces[] | select(.label == $label)][0] | .workspace_id // empty'
+)
+if [[ -z "$exists_herdr_wid" ]]; then
+  herdr workspace create --cwd "$selected" --label "${selected:t}" --focus >/dev/null 2>&1
+  return
+fi
+
+if [[ "$exists_herdr_wid" != "$HERDR_WORKSPACE_ID" ]]; then
+  herdr workspace focus $exists_herdr_wid >/dev/null 2>&1
+  return
+fi
+
+if [[ "$PWD" != "$selected" ]]; then
   cd -- "$selected"
 fi
