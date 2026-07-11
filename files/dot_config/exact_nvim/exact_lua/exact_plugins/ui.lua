@@ -134,6 +134,11 @@ return {
           },
           sorting_strategy = "ascending",
         },
+        pickers = {
+          find_files = {
+            hidden = true
+          }
+        },
       })
 
       local builtin = require('telescope.builtin')
