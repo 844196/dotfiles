@@ -156,4 +156,22 @@ return {
       vim.keymap.set('n', '<C-p>', builtin.find_files, { noremap = true, silent = true })
     end,
   },
+
+  {
+    'stevearc/oil.nvim',
+    version = 'v2.16.0',
+    config = function()
+      require('oil').setup({
+        view_options = {
+          show_hidden = true
+        },
+        keymaps = {
+          ['q'] = { 'actions.close', mode = 'n' }
+        }
+      })
+
+      vim.keymap.set("n", "-", "<CMD>Oil<CR>")
+      vim.keymap.set("n", "_", "<CMD>Oil .<CR>")
+    end,
+  },
 }
