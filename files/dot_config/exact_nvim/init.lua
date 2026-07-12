@@ -44,6 +44,24 @@ vim.opt.smartcase = true
 -- 挿入モードでの単語補完時に大文字小文字を区別しないが、大文字を含む場合は区別する ("vim.opt.ignorecase=true" required)
 vim.opt.infercase = true
 
+vim.opt.clipboard:append('unnamedplus')
+
+-- コピー・ペーストの両方に win32yank を介すと遅い
+if vim.fn.has('wsl') == 1 then
+  vim.g.clipboard = {
+    name = 'Copy to OSC 52, paste from win32yank.',
+    copy = {
+      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+    },
+    paste = {
+      ['+'] = 'win32yank.exe -o --lf',
+      ['*'] = 'win32yank.exe -o --lf',
+    },
+    cache_enabled = true,
+  }
+end
+
 -- 忘れられないの
 vim.api.nvim_set_var('mapleader', ' ')
 vim.api.nvim_set_var('maplocalleader', ',')
