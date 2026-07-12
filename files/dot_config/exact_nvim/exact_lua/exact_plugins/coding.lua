@@ -37,11 +37,8 @@ return {
     opts = {
       delay = 0,
       triggers = {
-        { '<Leader>', group = 'Space', mode = { 'n', 'v' } },
-        { '<LocalLeader>', group = 'Major', mode = { 'n', 'v' } },
-      },
-      spec = {
-        { '<Leader>f', '<Cmd>echo "hi"<CR>' },
+        { '<Leader>', mode = { 'n', 'v' } },
+        { '<LocalLeader>', mode = { 'n', 'v' } },
       },
       plugins = {
         marks = false,

@@ -66,6 +66,30 @@ end
 vim.api.nvim_set_var('mapleader', ' ')
 vim.api.nvim_set_var('maplocalleader', ',')
 
+vim.keymap.set('n', '<Leader>wh', '<C-w>h', { noremap = true })
+vim.keymap.set('n', '<Leader>wj', '<C-w>j', { noremap = true })
+vim.keymap.set('n', '<Leader>wk', '<C-w>k', { noremap = true })
+vim.keymap.set('n', '<Leader>wl', '<C-w>l', { noremap = true })
+vim.keymap.set('n', '<Leader>wH', '<C-w>H', { noremap = true })
+vim.keymap.set('n', '<Leader>wJ', '<C-w>J', { noremap = true })
+vim.keymap.set('n', '<Leader>wK', '<C-w>K', { noremap = true })
+vim.keymap.set('n', '<Leader>wL', '<C-w>L', { noremap = true })
+vim.keymap.set('n', '<Leader>w=', '<C-w>=', { noremap = true })
+vim.keymap.set('n', '<Leader>wv', '<C-w>v', { noremap = true })
+vim.keymap.set('n', '<Leader>ws', '<C-w>s', { noremap = true })
+vim.keymap.set('n', '<Leader>wt', '<Cmd>tabnew<CR>', { noremap = true })
+vim.keymap.set('n', '<Leader>wd', '<Cmd>silent! tabclose<CR>', { noremap = true })
+vim.keymap.set('n', '<Leader>wD', '<Cmd>silent tabonly<CR>', { noremap = true })
+vim.keymap.set('n', '<Leader>wx', '<Cmd>silent %bd<CR>', { noremap = true })
+vim.keymap.set('n', '<Leader>bs', '<Cmd>enew<CR>', { noremap = true })
+vim.keymap.set('n', '<Leader>bNh', '<Cmd>leftabove vnew<CR>', { noremap = true })
+vim.keymap.set('n', '<Leader>bNj', '<Cmd>belowright new<CR>', { noremap = true })
+vim.keymap.set('n', '<Leader>bNk', '<Cmd>aboveleft new<CR>', { noremap = true })
+vim.keymap.set('n', '<Leader>bNl', '<Cmd>belowright vnew<CR>', { noremap = true })
+vim.keymap.set('n', '<Leader>bd', '<C-w>c', { noremap = true })
+vim.keymap.set('n', '<Leader>bD', '<C-w>o', { noremap = true })
+vim.keymap.set('n', '<Leader>tn', '<Cmd>setlocal number!<CR>', { noremap = true })
+
 -- 忘れられないの
 vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>', { noremap = true, silent = true })
 
@@ -121,8 +145,5 @@ vim.keymap.set('i', '<Down>', '<C-g>U<Down>', { noremap = true })
 
 -- 改行文字を除く行末を選択しやすくする
 vim.keymap.set('v', 'v', 'g_', { noremap = true })
-
--- ウィンドウごとに行番号の表示/非表示を切り替えられるように
-vim.keymap.set('n', '<C-g>', '<Cmd>set number!<CR>', { noremap = true })
 
 require('config.lazy')
