@@ -59,6 +59,10 @@ vim.keymap.set('n', '<C-_>', 'gcc', { remap = true })
 vim.keymap.set('v', '<C-/>', 'gc', { remap = true })
 vim.keymap.set('v', '<C-_>', 'gc', { remap = true })
 
+-- https://vimrc-dissection.blogspot.com/2009/02/fixing-pageup-and-pagedown.html
+vim.keymap.set({ 'n', 'v' }, '<PageUp>', '1000<C-u>zz')
+vim.keymap.set({ 'n', 'v' }, '<PageDown>', '1000<C-d>zz')
+
 -- Escでマッチハイライトを消す
 vim.keymap.set('n', '<Esc>', '<Cmd>nohl<CR>', { noremap = true })
 
