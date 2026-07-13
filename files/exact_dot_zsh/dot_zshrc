@@ -120,9 +120,7 @@ zstyle ':wk:*' accept-widget accept-line-with-expand-alias
 
 zle -N backward-kill-word-match
 
-bindkey '^[[1~' beginning-of-line # Home
 bindkey '^[[H' beginning-of-line # Home
-bindkey '^[[4~' end-of-line # End
 bindkey '^[[F' end-of-line # End
 bindkey '^[[3~' delete-char # Delete
 bindkey '^[[Z' reverse-menu-complete # Shift+Tab
