@@ -27,6 +27,13 @@ vim.opt.expandtab = true
 vim.opt.laststatus = 0
 vim.opt.cmdheight = 0
 
+require('vim._core.ui2').enable({
+  enable = true,
+  msg = {
+    targets = 'msg'
+  }
+})
+
 -- 鬱陶しいので普段は行番号のみハイライトさせる
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = 'number'
@@ -115,19 +122,8 @@ vim.keymap.set({ 'n', 'v' }, '<PageDown>', '1000<C-d>zz')
 -- Escでマッチハイライトを消す
 vim.keymap.set('n', '<Esc>', '<Cmd>nohl<CR>', { noremap = true })
 
--- "E385: search hit TOP/BOTTOM without match for: xxx" が鬱陶しい
-local movematch = function(k)
-  return function()
-    local ok = pcall(function()
-      vim.cmd('norm! ' .. k)
-    end)
-    if ok then
-      vim.cmd('norm! zz')
-    end
-  end
-end
-vim.keymap.set('n', 'n', movematch('n'), { noremap = true })
-vim.keymap.set('n', 'N', movematch('N'), { noremap = true })
+vim.keymap.set('n', 'n', 'nzz', { noremap = true })
+vim.keymap.set('n', 'N', 'Nzz', { noremap = true })
 
 -- *で最初のマッチへ移動しないように
 vim.keymap.set('n', '*', '"zyiw:let @/ = @z<CR>:<C-u>set hlsearch<CR>', { noremap = true })
