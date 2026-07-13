@@ -146,6 +146,10 @@ vim.keymap.set('i', '<Right>', '<C-g>U<Right>', { noremap = true })
 vim.keymap.set('i', '<Up>', '<C-g>U<Up>', { noremap = true })
 vim.keymap.set('i', '<Down>', '<C-g>U<Down>', { noremap = true })
 
+-- fb
+vim.keymap.set('i', '<C-f>', '<C-g>U<Right>', { noremap = true })
+vim.keymap.set('i', '<C-b>', '<C-g>U<Left>', { noremap = true })
+
 -- https://neovim.io/doc/user/insert/#i_CTRL-G_U
 -- https://golang.hateblo.jp/entry/2023/04/20/201352
 local MyHome = function()
