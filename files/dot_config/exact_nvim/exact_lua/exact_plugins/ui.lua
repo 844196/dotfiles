@@ -129,6 +129,9 @@ return {
     config = function()
       require('telescope').setup({
         defaults = {
+          file_ignore_patterns = {
+            "%.git/",
+          },
           layout_strategy = 'horizontal',
           layout_config = {
             prompt_position = 'top',
@@ -137,7 +140,8 @@ return {
         },
         pickers = {
           find_files = {
-            hidden = true
+            hidden = true,
+            no_ignore = true,
           }
         },
         extensions = {
