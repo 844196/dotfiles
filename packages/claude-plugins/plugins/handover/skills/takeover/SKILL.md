@@ -19,7 +19,7 @@ arguments:
 
 ハンドオーバー文書中に記録されている前セッションIDを軸に、以下の 2 つの手段で当時の状況を補完する:
 
-- `ctx-agent-history-search` スキル: `ctx search --session <id>` / `ctx show session <id>` などで会話内容から意図・経緯・思考過程を補完する。
+- `ctx:ctx` スキル: 会話内容から意図・経緯・思考過程を補完する。
 - `atuin:command-history-analyzer` エージェント: 実行された Bash コマンド (引数・終了コード・時刻・cwd) を時系列で取り出し、ハンドオーバー文書では省略されがちな実コマンドを補完する。
 
 atuin はサブエージェントとして spawn し、ctx スキル実行と同時に進めてよい。
