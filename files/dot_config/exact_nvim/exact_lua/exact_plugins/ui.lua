@@ -35,10 +35,6 @@ return {
       })
 
       vim.cmd([[colorscheme tokyonight]])
-
-      -- 鬱陶しいので行番号のみハイライトさせる
-      vim.opt.cursorline = true
-      vim.opt.cursorlineopt = 'number'
     end,
   },
 

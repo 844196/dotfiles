@@ -27,6 +27,10 @@ vim.opt.expandtab = true
 vim.opt.laststatus = 0
 vim.opt.cmdheight = 0
 
+-- 鬱陶しいので普段は行番号のみハイライトさせる
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = 'number'
+
 -- ウィンドウ分割で開かれる新しいウィンドウは下もしくは右に表示させる
 vim.opt.splitbelow = true
 vim.opt.splitright = true
@@ -89,6 +93,9 @@ vim.keymap.set('n', '<Leader>bNl', '<Cmd>belowright vnew<CR>', { noremap = true 
 vim.keymap.set('n', '<Leader>bd', '<C-w>c', { noremap = true })
 vim.keymap.set('n', '<Leader>bD', '<C-w>o', { noremap = true })
 vim.keymap.set('n', '<Leader>tn', '<Cmd>setlocal number!<CR>', { noremap = true })
+vim.keymap.set('n', '<Leader>thh', function()
+  vim.o.cursorlineopt = vim.o.cursorlineopt == 'number' and 'both' or 'number'
+end, { noremap = true })
 
 -- 忘れられないの
 vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>', { noremap = true, silent = true })
