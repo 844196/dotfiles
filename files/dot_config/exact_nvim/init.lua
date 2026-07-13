@@ -146,6 +146,29 @@ vim.keymap.set('i', '<Right>', '<C-g>U<Right>', { noremap = true })
 vim.keymap.set('i', '<Up>', '<C-g>U<Up>', { noremap = true })
 vim.keymap.set('i', '<Down>', '<C-g>U<Down>', { noremap = true })
 
+-- https://neovim.io/doc/user/insert/#i_CTRL-G_U
+-- https://golang.hateblo.jp/entry/2023/04/20/201352
+local MyHome = function()
+  local col = vim.fn.col('.')
+  local indent = vim.fn.indent('.')
+  if col == indent + 1 then
+    return string.rep('<C-g>U<Left>', col - 1)
+  elseif col <= indent then
+    return string.rep('<C-g>U<Right>', indent + 1 - col)
+  else
+    return string.rep('<C-g>U<Left>', col - 1 - indent)
+  end
+end
+
+local MyEnd = function()
+  return string.rep('<C-g>U<Right>', vim.fn.col('$') - vim.fn.col('.'))
+end
+
+vim.keymap.set('i', '<Home>', MyHome, { noremap = true, expr = true })
+vim.keymap.set('i', '<C-a>', MyHome, { noremap = true, expr = true })
+vim.keymap.set('i', '<End>', MyEnd, { noremap = true, expr = true })
+vim.keymap.set('i', '<C-e>', MyEnd, { noremap = true, expr = true })
+
 -- 改行文字を除く行末を選択しやすくする
 vim.keymap.set('v', 'v', 'g_', { noremap = true })
 
