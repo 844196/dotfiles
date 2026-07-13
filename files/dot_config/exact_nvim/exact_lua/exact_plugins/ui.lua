@@ -99,23 +99,6 @@ return {
         enabled = true,
         animate = { enabled = false },
       },
-      -- picker = {
-      --   enabled = true,
-      --   sources = {
-      --     explorer = {
-      --       layout = {
-      --         auto_hide = { 'input' },
-      --         layout = {
-      --           position = 'right',
-      --         },
-      --       },
-      --     },
-      --   },
-      -- },
-      -- explorer = {
-      --   enabled = true,
-      --   replace_netrw = true,
-      -- },
     },
   },
 
