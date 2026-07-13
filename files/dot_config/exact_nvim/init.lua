@@ -177,6 +177,9 @@ vim.keymap.set('i', '<C-a>', MyHome, { noremap = true, expr = true })
 vim.keymap.set('i', '<End>', MyEnd, { noremap = true, expr = true })
 vim.keymap.set('i', '<C-e>', MyEnd, { noremap = true, expr = true })
 
+-- Deletion
+vim.keymap.set('i', '<C-k>', '<C-o>"_D', { noremap = true })
+
 -- 改行文字を除く行末を選択しやすくする
 vim.keymap.set('v', 'v', 'g_', { noremap = true })
 
