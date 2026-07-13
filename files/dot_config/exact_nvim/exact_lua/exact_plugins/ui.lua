@@ -81,9 +81,6 @@ return {
     hash = '8b54c59bcb23366645ae10edca6edfb9d3a0853e',
     config = function()
       require('incline').setup()
-
-      vim.opt.laststatus = 0
-      vim.opt.cmdheight = 0
     end,
   },
 
