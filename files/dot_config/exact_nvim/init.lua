@@ -107,6 +107,19 @@ end)
 vim.keymap.set('n', '<Leader>tf', function()
   vim.o.colorcolumn = vim.o.colorcolumn ~= '120' and '120' or ''
 end)
+vim.keymap.set('n', '<Leader>fl', ':<C-u>set ft=')
+vim.keymap.set('n', '<Leader>fyn', '<Cmd>let @+ = expand("%:.")<CR>', { desc = 'Copy current file name with extension' })
+vim.keymap.set('n', '<Leader>fyy', '<Cmd>let @+ = expand("%:p")<CR>', { desc = 'Copy current file absolute path' })
+vim.keymap.set({ 'n', 'v' }, '<Leader>fyl', function()
+  local from, to = vim.fn.line('v'), vim.fn.line('.')
+  if vim.fn.mode() == 'V' and from ~= to then
+    vim.fn.setreg('+', vim.fn.expand('%:p') .. ':' .. math.min(from, to) .. '-' .. math.max(from, to))
+  else
+    vim.fn.setreg('+', vim.fn.expand('%:p') .. ':' .. to)
+  end
+end, { desc = 'Copy current file absolute path with line number(s)' })
+vim.keymap.set({ 'n', 'v' }, '<Leader>fyc', '<Cmd>let @+ = expand("%:p").":".line(".").":".col(".")<CR>', { desc = 'Copy current file absolute path with line and column number' })
+vim.keymap.set('n', '<Leader>fyd', '<Cmd>let @+ = expand("%:p:h")<CR>', { desc = 'Copy current directory absolute path' })
 
 -- 忘れられないの
 vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>', { noremap = true, silent = true })
