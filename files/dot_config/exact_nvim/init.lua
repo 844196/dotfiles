@@ -77,6 +77,7 @@ end
 vim.api.nvim_set_var('mapleader', ' ')
 vim.api.nvim_set_var('maplocalleader', ',')
 
+vim.keymap.set({ 'n', 'v' }, '<Leader><Leader>', ':')
 vim.keymap.set('n', '<Leader>wh', '<C-w>h')
 vim.keymap.set('n', '<Leader>wj', '<C-w>j')
 vim.keymap.set('n', '<Leader>wk', '<C-w>k')
