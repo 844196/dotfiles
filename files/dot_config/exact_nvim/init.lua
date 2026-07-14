@@ -122,7 +122,7 @@ vim.keymap.set({ 'n', 'v' }, '<Leader>fyc', '<Cmd>let @+ = expand("%:p").":".lin
 vim.keymap.set('n', '<Leader>fyd', '<Cmd>let @+ = expand("%:p:h")<CR>', { desc = 'Copy current directory absolute path' })
 
 -- 忘れられないの
-vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>')
 
 -- 忘れられないの
 -- https://apple.stackexchange.com/questions/24261/how-do-i-send-c-that-is-control-slash-to-the-terminal
