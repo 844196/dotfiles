@@ -77,36 +77,36 @@ end
 vim.api.nvim_set_var('mapleader', ' ')
 vim.api.nvim_set_var('maplocalleader', ',')
 
-vim.keymap.set('n', '<Leader>wh', '<C-w>h', { noremap = true })
-vim.keymap.set('n', '<Leader>wj', '<C-w>j', { noremap = true })
-vim.keymap.set('n', '<Leader>wk', '<C-w>k', { noremap = true })
-vim.keymap.set('n', '<Leader>wl', '<C-w>l', { noremap = true })
-vim.keymap.set('n', '<Leader>wH', '<C-w>H', { noremap = true })
-vim.keymap.set('n', '<Leader>wJ', '<C-w>J', { noremap = true })
-vim.keymap.set('n', '<Leader>wK', '<C-w>K', { noremap = true })
-vim.keymap.set('n', '<Leader>wL', '<C-w>L', { noremap = true })
-vim.keymap.set('n', '<Leader>w=', '<C-w>=', { noremap = true })
-vim.keymap.set('n', '<Leader>wm', '<Cmd>wincmd _ | wincmd |<CR>', { noremap = true })
-vim.keymap.set('n', '<Leader>wv', '<C-w>v', { noremap = true })
-vim.keymap.set('n', '<Leader>ws', '<C-w>s', { noremap = true })
-vim.keymap.set('n', '<Leader>wc', '<Cmd>tabnew<CR>', { noremap = true })
-vim.keymap.set('n', '<Leader>wd', '<Cmd>silent! tabclose<CR>', { noremap = true })
-vim.keymap.set('n', '<Leader>wD', '<Cmd>silent tabonly<CR>', { noremap = true })
-vim.keymap.set('n', '<Leader>wx', '<Cmd>silent %bd<CR>', { noremap = true })
-vim.keymap.set('n', '<Leader>bs', '<Cmd>enew<CR>', { noremap = true })
-vim.keymap.set('n', '<Leader>bNh', '<Cmd>leftabove vnew<CR>', { noremap = true })
-vim.keymap.set('n', '<Leader>bNj', '<Cmd>belowright new<CR>', { noremap = true })
-vim.keymap.set('n', '<Leader>bNk', '<Cmd>aboveleft new<CR>', { noremap = true })
-vim.keymap.set('n', '<Leader>bNl', '<Cmd>belowright vnew<CR>', { noremap = true })
-vim.keymap.set('n', '<Leader>bd', '<C-w>c', { noremap = true })
-vim.keymap.set('n', '<Leader>bD', '<C-w>o', { noremap = true })
-vim.keymap.set('n', '<Leader>tn', '<Cmd>setlocal number!<CR>', { noremap = true })
+vim.keymap.set('n', '<Leader>wh', '<C-w>h')
+vim.keymap.set('n', '<Leader>wj', '<C-w>j')
+vim.keymap.set('n', '<Leader>wk', '<C-w>k')
+vim.keymap.set('n', '<Leader>wl', '<C-w>l')
+vim.keymap.set('n', '<Leader>wH', '<C-w>H')
+vim.keymap.set('n', '<Leader>wJ', '<C-w>J')
+vim.keymap.set('n', '<Leader>wK', '<C-w>K')
+vim.keymap.set('n', '<Leader>wL', '<C-w>L')
+vim.keymap.set('n', '<Leader>w=', '<C-w>=')
+vim.keymap.set('n', '<Leader>wm', '<Cmd>wincmd _ | wincmd |<CR>')
+vim.keymap.set('n', '<Leader>wv', '<C-w>v')
+vim.keymap.set('n', '<Leader>ws', '<C-w>s')
+vim.keymap.set('n', '<Leader>wc', '<Cmd>tabnew<CR>')
+vim.keymap.set('n', '<Leader>wd', '<Cmd>silent! tabclose<CR>')
+vim.keymap.set('n', '<Leader>wD', '<Cmd>silent tabonly<CR>')
+vim.keymap.set('n', '<Leader>wx', '<Cmd>silent %bd<CR>')
+vim.keymap.set('n', '<Leader>bs', '<Cmd>enew<CR>')
+vim.keymap.set('n', '<Leader>bNh', '<Cmd>leftabove vnew<CR>')
+vim.keymap.set('n', '<Leader>bNj', '<Cmd>belowright new<CR>')
+vim.keymap.set('n', '<Leader>bNk', '<Cmd>aboveleft new<CR>')
+vim.keymap.set('n', '<Leader>bNl', '<Cmd>belowright vnew<CR>')
+vim.keymap.set('n', '<Leader>bd', '<C-w>c')
+vim.keymap.set('n', '<Leader>bD', '<C-w>o')
+vim.keymap.set('n', '<Leader>tn', '<Cmd>setlocal number!<CR>')
 vim.keymap.set('n', '<Leader>thh', function()
   vim.o.cursorlineopt = vim.o.cursorlineopt == 'number' and 'both' or 'number'
-end, { noremap = true })
+end)
 vim.keymap.set('n', '<Leader>tf', function()
   vim.o.colorcolumn = vim.o.colorcolumn ~= '120' and '120' or ''
-end, { noremap = true })
+end)
 
 -- 忘れられないの
 vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>', { noremap = true, silent = true })
@@ -124,35 +124,35 @@ vim.keymap.set({ 'n', 'v' }, '<PageUp>', '1000<C-u>zz')
 vim.keymap.set({ 'n', 'v' }, '<PageDown>', '1000<C-d>zz')
 
 -- Escでマッチハイライトを消す
-vim.keymap.set('n', '<Esc>', '<Cmd>nohl<CR>', { noremap = true })
+vim.keymap.set('n', '<Esc>', '<Cmd>nohl<CR>')
 
-vim.keymap.set('n', 'n', 'nzz', { noremap = true })
-vim.keymap.set('n', 'N', 'Nzz', { noremap = true })
+vim.keymap.set('n', 'n', 'nzz')
+vim.keymap.set('n', 'N', 'Nzz')
 
 -- *で最初のマッチへ移動しないように
-vim.keymap.set('n', '*', '"zyiw:let @/ = @z<CR>:<C-u>set hlsearch<CR>', { noremap = true })
-vim.keymap.set('v', '*', '"zy:let @/ = @z<CR>:<C-u>set hlsearch<CR>', { noremap = true })
+vim.keymap.set('n', '*', '"zyiw:let @/ = @z<CR>:<C-u>set hlsearch<CR>')
+vim.keymap.set('v', '*', '"zy:let @/ = @z<CR>:<C-u>set hlsearch<CR>')
 
 -- x/cで削除・選択した書き換え前テキストは削除レジスタへ送り、ヤンクレジスタを汚染しないように
-vim.keymap.set({ 'n', 'v' }, 'x', '"_x', { noremap = true })
-vim.keymap.set({ 'n', 'v' }, 'c', '"_c', { noremap = true })
+vim.keymap.set({ 'n', 'v' }, 'x', '"_x')
+vim.keymap.set({ 'n', 'v' }, 'c', '"_c')
 
 -- 範囲選択中の貼り付け時に、ヤンクレジスタを汚染しないように
-vim.keymap.set('v', 'p', 'P', { noremap = true })
+vim.keymap.set('v', 'p', 'P')
 
 -- ノーマルモードのまま現在行の上下に空行を挿入できるように
-vim.keymap.set('n', '<CR>', 'o<Esc>', { noremap = true })
-vim.keymap.set('n', '<S-CR>', 'O<Esc>', { noremap = true })
+vim.keymap.set('n', '<CR>', 'o<Esc>')
+vim.keymap.set('n', '<S-CR>', 'O<Esc>')
 
 -- 矢印キーでの移動もドットリピートに含める
-vim.keymap.set('i', '<Left>', '<C-g>U<Left>', { noremap = true })
-vim.keymap.set('i', '<Right>', '<C-g>U<Right>', { noremap = true })
-vim.keymap.set('i', '<Up>', '<C-g>U<Up>', { noremap = true })
-vim.keymap.set('i', '<Down>', '<C-g>U<Down>', { noremap = true })
+vim.keymap.set('i', '<Left>', '<C-g>U<Left>')
+vim.keymap.set('i', '<Right>', '<C-g>U<Right>')
+vim.keymap.set('i', '<Up>', '<C-g>U<Up>')
+vim.keymap.set('i', '<Down>', '<C-g>U<Down>')
 
 -- fb
-vim.keymap.set('i', '<C-f>', '<C-g>U<Right>', { noremap = true })
-vim.keymap.set('i', '<C-b>', '<C-g>U<Left>', { noremap = true })
+vim.keymap.set('i', '<C-f>', '<C-g>U<Right>')
+vim.keymap.set('i', '<C-b>', '<C-g>U<Left>')
 
 -- https://neovim.io/doc/user/insert/#i_CTRL-G_U
 -- https://golang.hateblo.jp/entry/2023/04/20/201352
@@ -172,15 +172,15 @@ local MyEnd = function()
   return string.rep('<C-g>U<Right>', vim.fn.col('$') - vim.fn.col('.'))
 end
 
-vim.keymap.set('i', '<Home>', MyHome, { noremap = true, expr = true })
-vim.keymap.set('i', '<C-a>', MyHome, { noremap = true, expr = true })
-vim.keymap.set('i', '<End>', MyEnd, { noremap = true, expr = true })
-vim.keymap.set('i', '<C-e>', MyEnd, { noremap = true, expr = true })
+vim.keymap.set('i', '<Home>', MyHome, { expr = true })
+vim.keymap.set('i', '<C-a>', MyHome, { expr = true })
+vim.keymap.set('i', '<End>', MyEnd, { expr = true })
+vim.keymap.set('i', '<C-e>', MyEnd, { expr = true })
 
 -- Deletion
-vim.keymap.set('i', '<C-k>', '<C-o>"_D', { noremap = true })
+vim.keymap.set('i', '<C-k>', '<C-o>"_D')
 
 -- 改行文字を除く行末を選択しやすくする
-vim.keymap.set('v', 'v', 'g_', { noremap = true })
+vim.keymap.set('v', 'v', 'g_')
 
 require('config.lazy')
