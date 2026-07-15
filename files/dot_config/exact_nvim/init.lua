@@ -285,6 +285,7 @@ vim.keymap.set('i', '<C-k>', '<C-o>"_D')
 -- 改行文字を除く行末を選択しやすくする
 vim.keymap.set('v', 'v', 'g_')
 
+local telescope_actions = require('telescope.actions')
 require('telescope').setup({
   defaults = {
     file_ignore_patterns = {
@@ -295,6 +296,18 @@ require('telescope').setup({
       prompt_position = 'top',
     },
     sorting_strategy = "ascending",
+    mappings = {
+      i = {
+        ['<M-s>'] = telescope_actions.select_horizontal,
+        ['<M-v>'] = telescope_actions.select_vertical,
+        ['<M-t>'] = telescope_actions.select_tab,
+      },
+      n = {
+        ['<M-s>'] = telescope_actions.select_horizontal,
+        ['<M-v>'] = telescope_actions.select_vertical,
+        ['<M-t>'] = telescope_actions.select_tab,
+      },
+    },
   },
   pickers = {
     find_files = {
@@ -319,7 +332,25 @@ require('oil').setup({
     show_hidden = true
   },
   keymaps = {
-    ['q'] = { 'actions.close', mode = 'n' }
+    ['q'] = { 'actions.close', mode = 'n' },
+    ['<C-s>'] = {
+      function()
+        vim.cmd.stopinsert()
+        require('oil').save()
+      end,
+      mode = { 'n', 'i' },
+    },
+    ['<C-p>'] = {
+      function()
+        -- https://github.com/stevearc/oil.nvim/issues/282
+        require('telescope.builtin').find_files()
+      end,
+      mode = 'n',
+    },
+    ['<M-p>'] = { 'actions.preview', mode = 'n' },
+    ['<M-s>'] = { 'actions.select', mode = 'n', opts = { horizontal = true } },
+    ['<M-v>'] = { 'actions.select', mode = 'n', opts = { vertical = true } },
+    ['<M-t>'] = { 'actions.select', mode = 'n', opts = { tab = true } },
   }
 })
 
