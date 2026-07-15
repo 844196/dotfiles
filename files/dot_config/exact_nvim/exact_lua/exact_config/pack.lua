@@ -20,7 +20,7 @@ vim.pack.add({
   },
   {
     src = 'https://github.com/nvim-lua/plenary.nvim',
-    version = "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
+    version = "74b06c6c75e4eeb3108ec01852001636d85a932b",
   },
   {
     src = 'https://github.com/nvim-telescope/telescope-fzf-native.nvim',
