@@ -1,5 +1,3 @@
-require('config.pack')
-
 vim.opt.fileencodings = {
   -- BOMの検出を最優先にしないと、BOM付きUTF-8ファイルが正しく認識されない
   'ucs-bom',
@@ -19,6 +17,8 @@ vim.opt.fileencodings = {
   -- 8ビットエンコーディングは一番最後に指定しなければならない
   'latin1',
 }
+
+require('config.pack')
 
 require('tokyonight').setup({
   style = 'night',
@@ -58,6 +58,13 @@ require('snacks').setup({
 vim.opt.laststatus = 0
 vim.opt.cmdheight = 0
 
+require('vim._core.ui2').enable({
+  enable = true,
+  msg = {
+    targets = 'msg'
+  }
+})
+
 require('incline').setup()
 
 require('bufferline').setup({
@@ -65,13 +72,6 @@ require('bufferline').setup({
     mode = 'tabs',
     separator_style = 'slant',
   },
-})
-
-require('vim._core.ui2').enable({
-  enable = true,
-  msg = {
-    targets = 'msg'
-  }
 })
 
 -- 鬱陶しいので普段は行番号のみハイライトさせる
