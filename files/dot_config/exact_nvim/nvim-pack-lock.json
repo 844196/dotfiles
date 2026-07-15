@@ -6,8 +6,9 @@
       "version": "'v4.9.1'"
     },
     "incline.nvim": {
-      "rev": "debd628e9395f7a9da57bdc31ce75ca6b40a880b",
-      "src": "https://github.com/b0o/incline.nvim"
+      "rev": "8b54c59bcb23366645ae10edca6edfb9d3a0853e",
+      "src": "https://github.com/b0o/incline.nvim",
+      "version": "'8b54c59bcb23366645ae10edca6edfb9d3a0853e'"
     },
     "mini.move": {
       "rev": "4d214202d71e0a4066b6288176bbe88f268f9777",
@@ -40,8 +41,9 @@
       "version": "'v2.30.0'"
     },
     "statuscol.nvim": {
-      "rev": "887b8a03ea3804628505c9002fd07bd06a3db2e0",
-      "src": "https://github.com/luukvbaal/statuscol.nvim"
+      "rev": "c46172d0911aa5d49ba5f39f4351d1bb7aa289cc",
+      "src": "https://github.com/luukvbaal/statuscol.nvim",
+      "version": "'c46172d0911aa5d49ba5f39f4351d1bb7aa289cc'"
     },
     "telescope-fzf-native.nvim": {
       "rev": "b25b749b9db64d375d782094e2b9dce53ad53a40",

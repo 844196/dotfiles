@@ -54,7 +54,7 @@ vim.pack.add({
 
   {
     src = 'https://github.com/luukvbaal/statuscol.nvim',
-    hash = 'c46172d0911aa5d49ba5f39f4351d1bb7aa289cc',
+    version = 'c46172d0911aa5d49ba5f39f4351d1bb7aa289cc',
   },
 
   {
@@ -64,7 +64,7 @@ vim.pack.add({
 
   {
     src = 'https://github.com/b0o/incline.nvim',
-    hash = '8b54c59bcb23366645ae10edca6edfb9d3a0853e',
+    version = '8b54c59bcb23366645ae10edca6edfb9d3a0853e',
   },
 
   {
