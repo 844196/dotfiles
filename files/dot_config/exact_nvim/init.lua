@@ -1,3 +1,5 @@
+require('config.pack')
+
 vim.opt.fileencodings = {
   -- BOMの検出を最優先にしないと、BOM付きUTF-8ファイルが正しく認識されない
   'ucs-bom',
@@ -18,14 +20,52 @@ vim.opt.fileencodings = {
   'latin1',
 }
 
+require('tokyonight').setup({
+  style = 'night',
+  styles = {
+    comments = { italic = false },
+    keywords = { italic = false },
+  },
+  on_colors = function(colors)
+    -- 行番号の明るさを下げる
+    colors.fg_gutter = require('tokyonight.util').blend_bg(colors.fg_gutter, 0.7)
+  end,
+  on_highlights = function(hl, colors)
+    hl.SnacksIndent = {
+      fg = require('tokyonight.util').blend_bg(colors.fg_gutter, 0.2),
+    }
+    hl.SnacksIndentScope = {
+      fg = colors.fg_gutter,
+    }
+  end,
+})
+
+vim.cmd([[colorscheme tokyonight]])
+
 -- 2 spaces indent (global)
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 0 -- i.e. Use tabstop value
 vim.opt.expandtab = true
 
+require('snacks').setup({
+  indent = {
+    enabled = true,
+    animate = { enabled = false },
+  },
+})
+
 -- 邪魔
 vim.opt.laststatus = 0
 vim.opt.cmdheight = 0
+
+require('incline').setup()
+
+require('bufferline').setup({
+  options = {
+    mode = 'tabs',
+    separator_style = 'slant',
+  },
+})
 
 require('vim._core.ui2').enable({
   enable = true,
@@ -37,6 +77,22 @@ require('vim._core.ui2').enable({
 -- 鬱陶しいので普段は行番号のみハイライトさせる
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = 'number'
+
+local statuscol_builtin = require('statuscol.builtin')
+require('statuscol').setup({
+  segments = {
+    {
+      text = { ' ' },
+    },
+    {
+      condition = { statuscol_builtin.not_empty, true },
+      text = { statuscol_builtin.lnumfunc, ' ' },
+    },
+    {
+      text = { ' ' },
+    },
+  },
+})
 
 -- ウィンドウ分割で開かれる新しいウィンドウは下もしくは右に表示させる
 vim.opt.splitbelow = true
@@ -74,6 +130,19 @@ if vim.fn.has('wsl') == 1 then
 end
 
 -- 忘れられないの
+require('which-key').setup({
+  delay = 0,
+  triggers = {
+    { '<Leader>', mode = { 'n', 'v' } },
+    { '<LocalLeader>', mode = { 'n', 'v' } },
+  },
+  plugins = {
+    marks = false,
+    registers = false,
+    spelling = { enabled = false }
+  },
+})
+
 vim.api.nvim_set_var('mapleader', ' ')
 vim.api.nvim_set_var('maplocalleader', ',')
 
@@ -121,6 +190,25 @@ vim.keymap.set({ 'n', 'v' }, '<Leader>fyl', function()
 end, { desc = 'Copy current file absolute path with line number(s)' })
 vim.keymap.set({ 'n', 'v' }, '<Leader>fyc', '<Cmd>let @+ = expand("%:p").":".line(".").":".col(".")<CR>', { desc = 'Copy current file absolute path with line and column number' })
 vim.keymap.set('n', '<Leader>fyd', '<Cmd>let @+ = expand("%:p:h")<CR>', { desc = 'Copy current directory absolute path' })
+
+require('mini.pairs').setup()
+
+require('mini.move').setup({
+  -- 忘れられないの
+  mappings = {
+    -- Normal mode
+    line_left = '<M-Left>',
+    line_right = '<M-Right>',
+    line_up = '<M-Up>',
+    line_down = '<M-Down>',
+
+    -- Visual mode
+    left = '<M-Left>',
+    right = '<M-Right>',
+    up = '<M-Up>',
+    down = '<M-Down>',
+  },
+})
 
 -- 忘れられないの
 vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>')
@@ -197,4 +285,43 @@ vim.keymap.set('i', '<C-k>', '<C-o>"_D')
 -- 改行文字を除く行末を選択しやすくする
 vim.keymap.set('v', 'v', 'g_')
 
-require('config.lazy')
+require('telescope').setup({
+  defaults = {
+    file_ignore_patterns = {
+      "%.git/",
+    },
+    layout_strategy = 'horizontal',
+    layout_config = {
+      prompt_position = 'top',
+    },
+    sorting_strategy = "ascending",
+  },
+  pickers = {
+    find_files = {
+      hidden = true,
+      no_ignore = true,
+    }
+  },
+  extensions = {
+    fzf = {
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
+      case_mode = "smart_case",
+    }
+  }
+})
+
+vim.keymap.set('n', '<C-p>', require('telescope.builtin').find_files)
+
+require('oil').setup({
+  view_options = {
+    show_hidden = true
+  },
+  keymaps = {
+    ['q'] = { 'actions.close', mode = 'n' }
+  }
+})
+
+vim.keymap.set("n", "-", "<CMD>Oil<CR>")
+vim.keymap.set("n", "_", "<CMD>Oil .<CR>")

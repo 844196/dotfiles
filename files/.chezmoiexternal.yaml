@@ -31,9 +31,3 @@
   exact: true
   url: https://github.com/jirutka/zsh-shift-select/archive/refs/tags/v0.1.1.tar.gz
   stripComponents: 1
-
-.local/share/nvim/lazy/lazy.nvim:
-  type: archive
-  exact: true
-  url: https://github.com/folke/lazy.nvim/archive/refs/tags/v11.17.5.tar.gz
-  stripComponents: 1
