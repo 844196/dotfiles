@@ -244,7 +244,7 @@ require('mini.move').setup({
 })
 
 -- 忘れられないの
-vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>')
+vim.keymap.set({ 'n', 'i' }, '<C-s>', '<Cmd>w<CR>')
 
 -- 忘れられないの
 -- https://apple.stackexchange.com/questions/24261/how-do-i-send-c-that-is-control-slash-to-the-terminal
