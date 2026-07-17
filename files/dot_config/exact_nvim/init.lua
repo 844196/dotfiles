@@ -20,6 +20,26 @@ vim.opt.fileencodings = {
 
 require('config.pack')
 
+require('mason').setup()
+require('mason-lspconfig').setup({
+  ensure_installed = {
+    'lua_ls',
+    'jsonls',
+    'yamlls',
+    'tombi',
+    'ts_ls',
+  },
+})
+require('lazydev').setup()
+
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+})
+
 require('tokyonight').setup({
   style = 'night',
   styles = {
@@ -110,6 +130,18 @@ vim.opt.smartcase = true
 
 -- 挿入モードでの単語補完時に大文字小文字を区別しないが、大文字を含む場合は区別する ("vim.opt.ignorecase=true" required)
 vim.opt.infercase = true
+
+require('mini.completion').setup({
+  lsp_completion = {
+    source_func = 'completefunc',
+    process_items = function (items, base)
+      return MiniCompletion.default_process_items(items, base, {
+        kind_priority = { Text = -1, Keyword = -1, Snippet = -1 },
+      })
+    end,
+  },
+})
+vim.o.complete = 'F' -- completefunc (i.e. mini.completion)
 
 vim.opt.clipboard:append('unnamedplus')
 
@@ -221,6 +253,11 @@ vim.keymap.set('n', '<C-_>', 'gcc', { remap = true })
 vim.keymap.set('v', '<C-/>', 'gc', { remap = true })
 vim.keymap.set('v', '<C-_>', 'gc', { remap = true })
 
+-- LSP
+vim.keymap.set('n', 'gh', '<Cmd>lua vim.lsp.buf.hover()<CR>')
+vim.keymap.set('n', 'g.', '<Cmd>lua vim.lsp.buf.code_action()<CR>')
+vim.keymap.set('n', '<F2>', '<Cmd>lua vim.lsp.buf.rename()<CR>')
+
 -- https://vimrc-dissection.blogspot.com/2009/02/fixing-pageup-and-pagedown.html
 vim.keymap.set({ 'n', 'v' }, '<PageUp>', '1000<C-u>zz')
 vim.keymap.set({ 'n', 'v' }, '<PageDown>', '1000<C-d>zz')
@@ -249,12 +286,30 @@ vim.keymap.set('n', '<S-CR>', 'O<Esc>')
 -- 矢印キーでの移動もドットリピートに含める
 vim.keymap.set('i', '<Left>', '<C-g>U<Left>')
 vim.keymap.set('i', '<Right>', '<C-g>U<Right>')
-vim.keymap.set('i', '<Up>', '<C-g>U<Up>')
-vim.keymap.set('i', '<Down>', '<C-g>U<Down>')
+vim.keymap.set('i', '<Up>', function()
+  return vim.fn.pumvisible() == 1 and '<C-p>' or '<C-g>U<Up>'
+end, { expr = true })
+vim.keymap.set('i', '<Down>', function()
+  return vim.fn.pumvisible() == 1 and '<C-n>' or '<C-g>U<Down>'
+end, { expr = true })
 
 -- fb
 vim.keymap.set('i', '<C-f>', '<C-g>U<Right>')
 vim.keymap.set('i', '<C-b>', '<C-g>U<Left>')
+
+-- completion menu
+vim.keymap.set('i', '<C-c>', function()
+  return vim.fn.pumvisible() == 1 and '<C-e>' or '<C-c>'
+end, { expr = true })
+vim.keymap.set('i', '<Tab>', function()
+  return vim.fn.pumvisible() == 1 and '<C-n>' or '<Tab>'
+end, { expr = true })
+vim.keymap.set('i', '<S-Tab>', function()
+  return vim.fn.pumvisible() == 1 and '<C-p>' or '<S-Tab>'
+end, { expr = true })
+vim.keymap.set('i', '<CR>', function()
+  return vim.fn.complete_info()['selected'] ~= -1 and '<C-y>' or require('mini.pairs').cr()
+end, { expr = true })
 
 -- https://neovim.io/doc/user/insert/#i_CTRL-G_U
 -- https://golang.hateblo.jp/entry/2023/04/20/201352
