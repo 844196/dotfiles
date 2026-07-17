@@ -11,6 +11,8 @@ new_cwd = "follow"
 hide_tab_bar_when_single_tab = true
 confirm_close = false
 prompt_new_tab_name = false
+host_cursor = "native"
+sidebar.spaces.row_gap = 1
 
 [keys]
 prefix = "F8"
