@@ -33,12 +33,10 @@ vim.pack.add({
     src = 'https://github.com/nvim-mini/mini.completion',
     version = 'd2a2b2a2b5350b713ade3bb744df39eee7d4229b',
   },
-
   {
     src = 'https://github.com/nvim-mini/mini.icons',
     version = '98faae31e9be1cc054ae63485e58ceb185efcad0',
   },
-
   {
     src = 'https://github.com/nvim-telescope/telescope.nvim',
     version = 'v0.2.0',
@@ -51,52 +49,42 @@ vim.pack.add({
     src = 'https://github.com/nvim-telescope/telescope-fzf-native.nvim',
     version = 'b25b749b9db64d375d782094e2b9dce53ad53a40',
   },
-
   {
     src = 'https://github.com/folke/tokyonight.nvim',
     version = 'v4.14.1',
   },
-
   {
     src = 'https://github.com/stevearc/oil.nvim',
     version = 'v2.16.0',
   },
-
   {
     src = 'https://github.com/folke/which-key.nvim',
     version = 'v3.17.0',
   },
-
   {
     src = 'https://github.com/nvim-mini/mini.pairs',
     version = 'v0.17.0',
   },
-
   {
     src = 'https://github.com/nvim-mini/mini.move',
     version = 'v0.17.0',
   },
-
   {
     src = 'https://github.com/luukvbaal/statuscol.nvim',
     version = 'c46172d0911aa5d49ba5f39f4351d1bb7aa289cc',
   },
-
   {
     src = 'https://github.com/akinsho/bufferline.nvim',
     version = "v4.9.1",
   },
-
   {
     src = 'https://github.com/b0o/incline.nvim',
     version = '8b54c59bcb23366645ae10edca6edfb9d3a0853e',
   },
-
   {
     src = 'https://github.com/folke/snacks.nvim',
     version = 'v2.30.0',
   },
-
   {
     src = 'https://github.com/nvim-mini/mini.trailspace',
     version = '82c4fb7d4336f8824ca6c97068932886b56326d0',

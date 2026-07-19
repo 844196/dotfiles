@@ -167,7 +167,6 @@ if vim.fn.has('wsl') == 1 then
   }
 end
 
--- 忘れられないの
 require('which-key').setup({
   delay = 0,
   triggers = {
@@ -234,7 +233,6 @@ vim.keymap.set('n', '<Leader>fyd', '<Cmd>let @+ = expand("%:p:h")<CR>', { desc =
 require('mini.pairs').setup()
 
 require('mini.move').setup({
-  -- 忘れられないの
   mappings = {
     -- Normal mode
     line_left = '<M-Left>',
@@ -250,10 +248,8 @@ require('mini.move').setup({
   },
 })
 
--- 忘れられないの
 vim.keymap.set({ 'n', 'i' }, '<C-s>', '<Cmd>w<CR>')
 
--- 忘れられないの
 -- https://apple.stackexchange.com/questions/24261/how-do-i-send-c-that-is-control-slash-to-the-terminal
 -- https://www.reddit.com/r/neovim/comments/1hvxlq8/comment/m5wvsnf/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
 vim.keymap.set('n', '<C-/>', 'gcc', { remap = true })
