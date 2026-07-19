@@ -147,6 +147,8 @@ require('mini.completion').setup({
 vim.o.complete = 'F' -- completefunc (i.e. mini.completion)
 MiniIcons.tweak_lsp_kind()
 
+require('mini.trailspace').setup()
+
 vim.opt.clipboard:append('unnamedplus')
 
 -- コピー・ペーストの両方に win32yank を介すと遅い
