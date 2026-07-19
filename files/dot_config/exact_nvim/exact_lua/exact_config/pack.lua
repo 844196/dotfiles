@@ -35,8 +35,8 @@ vim.pack.add({
   },
 
   {
-    src = 'https://github.com/nvim-tree/nvim-web-devicons',
-    version = '8dcb311b0c92d460fac00eac706abd43d94d68af',
+    src = 'https://github.com/nvim-mini/mini.icons',
+    version = '98faae31e9be1cc054ae63485e58ceb185efcad0',
   },
 
   {

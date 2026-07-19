@@ -20,6 +20,9 @@ vim.opt.fileencodings = {
 
 require('config.pack')
 
+require('mini.icons').setup()
+MiniIcons.mock_nvim_web_devicons()
+
 require('mason').setup()
 require('mason-lspconfig').setup({
   ensure_installed = {
@@ -142,6 +145,7 @@ require('mini.completion').setup({
   },
 })
 vim.o.complete = 'F' -- completefunc (i.e. mini.completion)
+MiniIcons.tweak_lsp_kind()
 
 vim.opt.clipboard:append('unnamedplus')
 
