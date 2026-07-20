@@ -10,6 +10,11 @@
       "src": "https://github.com/akinsho/bufferline.nvim",
       "version": "'v4.9.1'"
     },
+    "gitsigns.nvim": {
+      "rev": "31d6fb2d618bca1482b9f274751ead5f03461408",
+      "src": "https://github.com/lewis6991/gitsigns.nvim",
+      "version": "'31d6fb2d618bca1482b9f274751ead5f03461408'"
+    },
     "incline.nvim": {
       "rev": "8b54c59bcb23366645ae10edca6edfb9d3a0853e",
       "src": "https://github.com/b0o/incline.nvim",

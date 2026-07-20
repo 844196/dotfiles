@@ -89,6 +89,10 @@ vim.pack.add({
     src = 'https://github.com/nvim-mini/mini.trailspace',
     version = '82c4fb7d4336f8824ca6c97068932886b56326d0',
   },
+  {
+    src = 'https://github.com/lewis6991/gitsigns.nvim',
+    version = '31d6fb2d618bca1482b9f274751ead5f03461408',
+  },
 })
 
 require('telescope').load_extension('fzf')

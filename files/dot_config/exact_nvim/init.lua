@@ -54,11 +54,15 @@ require('tokyonight').setup({
     colors.fg_gutter = require('tokyonight.util').blend_bg(colors.fg_gutter, 0.7)
   end,
   on_highlights = function(hl, colors)
+    local util = require('tokyonight.util')
     hl.SnacksIndent = {
-      fg = require('tokyonight.util').blend_bg(colors.fg_gutter, 0.2),
+      fg = util.blend_bg(colors.fg_gutter, 0.2),
     }
     hl.SnacksIndentScope = {
       fg = colors.fg_gutter,
+    }
+    hl.GitSignsAdd = {
+      fg = util.blend_bg(colors.green1, 0.5)
     }
   end,
 })
@@ -101,6 +105,25 @@ require('bufferline').setup({
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = 'number'
 
+require('gitsigns').setup({
+  signs = {
+    add          = { text = '┃' },
+    change       = { text = '┃' },
+    delete       = { text = "" },
+    topdelete    = { text = "" },
+    changedelete = { text = '~' },
+    untracked    = { text = '┆' },
+  },
+  signs_staged = {
+    add          = { text = '┃' },
+    change       = { text = '┃' },
+    delete       = { text = "" },
+    topdelete    = { text = "" },
+    changedelete = { text = '~' },
+    untracked    = { text = '┆' },
+  },
+})
+
 local statuscol_builtin = require('statuscol.builtin')
 require('statuscol').setup({
   segments = {
@@ -110,6 +133,10 @@ require('statuscol').setup({
     {
       condition = { statuscol_builtin.not_empty, true },
       text = { statuscol_builtin.lnumfunc, ' ' },
+    },
+    {
+      sign = { namespace = { 'gitsigns' }, maxwidth = 1, colwidth = 1, auto = true },
+      click = 'v:lua.ScSa',
     },
     {
       text = { ' ' },
