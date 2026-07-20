@@ -257,6 +257,23 @@ end, { desc = 'Copy current file absolute path with line number(s)' })
 vim.keymap.set({ 'n', 'v' }, '<Leader>fyc', '<Cmd>let @+ = expand("%:p").":".line(".").":".col(".")<CR>', { desc = 'Copy current file absolute path with line and column number' })
 vim.keymap.set('n', '<Leader>fyd', '<Cmd>let @+ = expand("%:p:h")<CR>', { desc = 'Copy current directory absolute path' })
 
+local function nav_hunk(dir)
+  local before = vim.fn.line('.')
+  require('gitsigns').nav_hunk(
+    dir,
+    ---@diagnostic disable-next-line: missing-fields プラグイン側の型定義がおかしい
+    { target = 'all' },
+    function()
+      if vim.fn.line('.') ~= before then
+        vim.cmd('normal! zz')
+      end
+    end
+  )
+end
+vim.keymap.set('n', '<Leader>ghj', function() nav_hunk('next') end, { desc = 'Jump to next change' })
+vim.keymap.set('n', '<Leader>ghk', function() nav_hunk('prev') end, { desc = 'Jump to previous change' })
+vim.keymap.set('n', '<Leader>jc', function() require('which-key').show({ keys = '<Leader>gh', loop = true }) end, { desc = 'Jump to next/previous change' })
+
 require('mini.pairs').setup()
 
 require('mini.move').setup({
