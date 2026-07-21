@@ -385,9 +385,6 @@ Hydra({
     },
     timeout = 60000,
     color = 'pink',
-    on_enter = function()
-      vim.bo.modifiable = false
-    end,
   },
 })
 
