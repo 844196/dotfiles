@@ -93,6 +93,10 @@ vim.pack.add({
     src = 'https://github.com/lewis6991/gitsigns.nvim',
     version = '31d6fb2d618bca1482b9f274751ead5f03461408',
   },
+  {
+    src = 'https://github.com/nvimtools/hydra.nvim',
+    version = '8c4a9f621ec7cdc30411a1f3b6d5eebb12b469dc',
+  },
 })
 
 require('telescope').load_extension('fzf')

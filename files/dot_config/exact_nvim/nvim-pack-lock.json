@@ -15,6 +15,11 @@
       "src": "https://github.com/lewis6991/gitsigns.nvim",
       "version": "'31d6fb2d618bca1482b9f274751ead5f03461408'"
     },
+    "hydra.nvim": {
+      "rev": "8c4a9f621ec7cdc30411a1f3b6d5eebb12b469dc",
+      "src": "https://github.com/nvimtools/hydra.nvim",
+      "version": "'8c4a9f621ec7cdc30411a1f3b6d5eebb12b469dc'"
+    },
     "incline.nvim": {
       "rev": "8b54c59bcb23366645ae10edca6edfb9d3a0853e",
       "src": "https://github.com/b0o/incline.nvim",
