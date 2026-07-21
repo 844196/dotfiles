@@ -383,7 +383,7 @@ Hydra({
       type = 'window',
       show_name = false,
     },
-    timeout = 60000,
+    timeout = 30000,
     color = 'pink',
   },
 })
