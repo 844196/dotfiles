@@ -261,12 +261,14 @@ end, { desc = 'Copy current file absolute path with line number(s)' })
 vim.keymap.set({ 'n', 'v' }, '<Leader>fyc', '<Cmd>let @+ = expand("%:p").":".line(".").":".col(".")<CR>', { desc = 'Copy current file absolute path with line and column number' })
 vim.keymap.set('n', '<Leader>fyd', '<Cmd>let @+ = expand("%:p:h")<CR>', { desc = 'Copy current directory absolute path' })
 
+local gitsigns = require('gitsigns')
+
 local function nav_hunk(dir)
   local before = vim.fn.line('.')
-  require('gitsigns').nav_hunk(
+  gitsigns.nav_hunk(
     dir,
     ---@diagnostic disable-next-line: missing-fields プラグイン側の型定義がおかしい
-    { target = 'all' },
+    { target = 'all', navigation_message = false },
     function()
       if vim.fn.line('.') ~= before then
         vim.cmd('normal! zz')
@@ -274,9 +276,84 @@ local function nav_hunk(dir)
     end
   )
 end
-vim.keymap.set('n', '<Leader>ghj', function() nav_hunk('next') end, { desc = 'Jump to next change' })
-vim.keymap.set('n', '<Leader>ghk', function() nav_hunk('prev') end, { desc = 'Jump to previous change' })
-vim.keymap.set('n', '<Leader>jc', function() require('which-key').show({ keys = '<Leader>gh', loop = true }) end, { desc = 'Jump to next/previous change' })
+
+local git_hydra_heads = {
+  {
+    'n',
+    function() nav_hunk('next') end,
+    { desc = 'Next hunk' },
+  },
+  {
+    'N',
+    function() nav_hunk('prev') end,
+    { desc = 'Previous hunk' },
+  },
+  {
+    'p',
+    function() nav_hunk('prev') end,
+    { desc = 'Previous hunk' },
+  },
+  {
+    'r',
+    gitsigns.reset_hunk,
+    { desc = 'Revert hunk' },
+  },
+  {
+    's',
+    gitsigns.stage_hunk,
+    { desc = 'Stage hunk' },
+  },
+  {
+    'w',
+    gitsigns.stage_buffer,
+    { desc = 'Stage file' },
+  },
+  {
+    'u',
+    gitsigns.reset_buffer_index,
+    { desc = 'Unstage file' },
+  },
+  { '<Esc>', nil, { exit = true, desc = false } },
+  { 'q', nil, { exit = true, desc = false } },
+}
+
+-- red は非 head キーを貫通させない代わりに表示切り替えが遅く分かりづらい。
+-- pink は表示は速いが非 head キーが貫通してしまう。
+-- 折衷案として head に使っていないアルファベット1文字キーにはパススルー用の head を明示的に張る。
+-- https://github.com/nvimtools/hydra.nvim/wiki/Git#red-amaranth-and-teal-colors
+do
+  local used_head_keys = {}
+  for _, head in ipairs(git_hydra_heads) do
+    used_head_keys[head[1]] = true
+  end
+  for byte = string.byte('a'), string.byte('z') do
+    local lower = string.char(byte)
+    local upper = lower:upper()
+    if not used_head_keys[lower] then
+      table.insert(git_hydra_heads, { lower, lower, { exit = true, desc = false } })
+    end
+    if not used_head_keys[upper] then
+      table.insert(git_hydra_heads, { upper, upper, { exit = true, desc = false } })
+    end
+  end
+end
+
+Hydra({
+  mode = 'n',
+  body = '<Leader>g.',
+  heads = git_hydra_heads,
+  config = {
+    hint = {
+      type = 'window',
+      show_name = false,
+    },
+    timeout = 60000,
+    color = 'pink',
+    on_enter = function()
+      vim.bo.modifiable = false
+    end,
+  },
+})
 
 require('mini.pairs').setup()
 
