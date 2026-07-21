@@ -296,6 +296,8 @@ vim.keymap.set('n', '<Leader>pf', '<Cmd>Telescope find_files<CR>', { desc = 'Fin
 vim.keymap.set('n', '<Leader>pD', '<Cmd>Oil .<CR>', { desc = 'Open project root in oil' })
 vim.keymap.set('n', '<Leader>sp', '<Cmd>Telescope live_grep<CR>', { desc = 'Search in a project' })
 vim.keymap.set('n', '<Leader>ss', '<Cmd>Telescope current_buffer_fuzzy_find<CR>', { desc = 'Search in current file' })
+vim.keymap.set('n', '<Leader>jb', '<C-o>zz', { desc = 'Go back to previous location' })
+vim.keymap.set('n', '<Leader>jC', '`.zz', { desc = 'Go to last change' })
 
 local gitsigns = require('gitsigns')
 
