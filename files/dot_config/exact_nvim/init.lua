@@ -228,18 +228,37 @@ vim.keymap.set('n', '<Leader>w=', '<C-w>=')
 vim.keymap.set('n', '<Leader>wm', '<Cmd>wincmd _ | wincmd |<CR>')
 vim.keymap.set('n', '<Leader>wv', '<C-w>v')
 vim.keymap.set('n', '<Leader>ws', '<C-w>s')
-vim.keymap.set('n', '<Leader>wc', '<Cmd>tabnew<CR>')
-vim.keymap.set('n', '<Leader>wd', '<Cmd>silent! tabclose<CR>')
-vim.keymap.set('n', '<Leader>wD', '<Cmd>silent tabonly<CR>')
-vim.keymap.set('n', '<Leader>wx', '<Cmd>silent %bd<CR>')
+vim.keymap.set('n', '<Leader>wd', '<Cmd>close!<CR>', { desc = 'Delete a window' })
+vim.keymap.set('n', '<Leader>wD', '<Cmd>only<CR>', { desc = 'Delete another window' })
+vim.keymap.set('n', '<Leader>wx', '<Cmd>bd<CR>', { desc = 'Delete a window and its current buffer' })
 vim.keymap.set('n', '<Leader>bb', '<Cmd>Telescope buffers<CR>')
-vim.keymap.set('n', '<Leader>bs', '<Cmd>enew<CR>')
-vim.keymap.set('n', '<Leader>bNh', '<Cmd>leftabove vnew<CR>')
-vim.keymap.set('n', '<Leader>bNj', '<Cmd>belowright new<CR>')
-vim.keymap.set('n', '<Leader>bNk', '<Cmd>aboveleft new<CR>')
-vim.keymap.set('n', '<Leader>bNl', '<Cmd>belowright vnew<CR>')
-vim.keymap.set('n', '<Leader>bd', '<C-w>c')
-vim.keymap.set('n', '<Leader>bD', '<C-w>o')
+vim.keymap.set('n', '<Leader>bs', function()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.fn.bufname(buf) == [[*scratch*]] then
+      vim.api.nvim_set_current_buf(buf)
+      return
+    end
+  end
+  -- https://vi.stackexchange.com/a/21390
+  vim.cmd('enew')
+  vim.cmd('setlocal buftype=nofile bufhidden=hide noswapfile')
+  vim.cmd([[file *scratch*]])
+end, { desc = 'Switch to the scratch buffer' })
+vim.keymap.set('n', '<Leader>bNh', '<Cmd>leftabove vnew<CR>', { desc = 'Create new empty buffer in a new window on the left' })
+vim.keymap.set('n', '<Leader>bNj', '<Cmd>belowright new<CR>', { desc = 'Create new empty buffer in a new window at the bottom' })
+vim.keymap.set('n', '<Leader>bNk', '<Cmd>aboveleft new<CR>', { desc = 'Create new empty buffer in a new window above' })
+vim.keymap.set('n', '<Leader>bNl', '<Cmd>belowright vnew<CR>', { desc = 'Create new empty buffer in a new window below' })
+vim.keymap.set('n', '<Leader>bNn', '<Cmd>enew<CR>', { desc = 'Create new empty buffer in current window' })
+vim.keymap.set('n', '<Leader>bd', '<Cmd>bd<CR>', { desc = 'Kill the current buffer' })
+vim.keymap.set('n', '<Leader>b<C-d>', function()
+  local current = vim.api.nvim_get_current_buf()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    -- unkillable-scratch
+    if buf ~= current and vim.fn.bufname(buf) ~= [[*scratch*]] then
+      pcall(vim.api.nvim_buf_delete, buf, {})
+    end
+  end
+end, { desc = 'Kill other buffers' })
 vim.keymap.set('n', '<Leader>tn', '<Cmd>setlocal number!<CR>')
 vim.keymap.set('n', '<Leader>thh', function()
   vim.o.cursorlineopt = vim.o.cursorlineopt == 'number' and 'both' or 'number'
