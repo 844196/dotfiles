@@ -232,6 +232,7 @@ vim.keymap.set('n', '<Leader>wc', '<Cmd>tabnew<CR>')
 vim.keymap.set('n', '<Leader>wd', '<Cmd>silent! tabclose<CR>')
 vim.keymap.set('n', '<Leader>wD', '<Cmd>silent tabonly<CR>')
 vim.keymap.set('n', '<Leader>wx', '<Cmd>silent %bd<CR>')
+vim.keymap.set('n', '<Leader>bb', '<Cmd>Telescope buffers<CR>')
 vim.keymap.set('n', '<Leader>bs', '<Cmd>enew<CR>')
 vim.keymap.set('n', '<Leader>bNh', '<Cmd>leftabove vnew<CR>')
 vim.keymap.set('n', '<Leader>bNj', '<Cmd>belowright new<CR>')
@@ -419,7 +420,17 @@ require('telescope').setup({
     find_files = {
       hidden = true,
       no_ignore = true,
-    }
+    },
+    buffers = {
+      mappings = {
+        i = {
+          ['<M-x>'] = telescope_actions.delete_buffer,
+        },
+        n = {
+          ['<M-x>'] = telescope_actions.delete_buffer,
+        },
+      },
+    },
   },
   extensions = {
     fzf = {
