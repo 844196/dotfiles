@@ -4,8 +4,6 @@ vim.api.nvim_create_autocmd('PackChanged', { callback = function(ev)
   if name == 'telescope-fzf-native.nvim' and (kind == 'install' or kind == 'update') then
     vim.system({ 'make' }, { cwd = ev.data.path })
   end
-
-  vim.system({ 'chezmoi', 'add', '~/.config/nvim/nvim-pack-lock.json' })
 end })
 
 vim.pack.add({

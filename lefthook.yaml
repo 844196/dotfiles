@@ -9,3 +9,10 @@ pre-commit:
       run: lychee --offline --no-progress --hidden --root-dir "$PWD" .
     - name: Check editorconfig
       run: ec
+    - name: Check nvim-pack-lock.json drift
+      run: |
+        diff=$(chezmoi diff ~/.config/nvim/nvim-pack-lock.json)
+        if [ -n "$diff" ]; then
+          printf '%s\n\n%s\n' "$diff" "nvim-pack-lock.json has drift. Run: chezmoi add ~/.config/nvim/nvim-pack-lock.json" >&2
+          exit 1
+        fi
