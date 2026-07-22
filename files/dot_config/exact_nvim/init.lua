@@ -212,8 +212,6 @@ require('mini.move').setup({
   },
 })
 
-vim.keymap.set({ 'n', 'i' }, '<C-s>', '<Cmd>w<CR>')
-
 -- https://apple.stackexchange.com/questions/24261/how-do-i-send-c-that-is-control-slash-to-the-terminal
 -- https://www.reddit.com/r/neovim/comments/1hvxlq8/comment/m5wvsnf/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
 vim.keymap.set('n', '<C-/>', 'gcc', { remap = true })
@@ -364,13 +362,6 @@ require('oil').setup({
   },
   keymaps = {
     ['q'] = { 'actions.close', mode = 'n' },
-    ['<C-s>'] = {
-      function()
-        vim.cmd.stopinsert()
-        require('oil').save()
-      end,
-      mode = { 'n', 'i' },
-    },
     ['<M-p>'] = { 'actions.preview', mode = 'n' },
     ['<M-s>'] = { 'actions.select', mode = 'n', opts = { horizontal = true } },
     ['<M-v>'] = { 'actions.select', mode = 'n', opts = { vertical = true } },
