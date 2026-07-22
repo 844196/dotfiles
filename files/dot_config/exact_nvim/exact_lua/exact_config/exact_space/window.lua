@@ -108,10 +108,9 @@ vim.keymap.set('n', '<Leader>w_', '<C-w>|', { desc = 'Maximize window horizontal
 vim.keymap.set('n', '<Leader>w{', '<Leader>w.{', { desc = 'Shrink window vertically', remap = true })
 vim.keymap.set('n', '<Leader>w}', '<Leader>w.}', { desc = 'Enlarge window vertically', remap = true })
 vim.keymap.set('n', '<Leader>w|', '<C-w>_', { desc = 'Maximize window vertically' })
-vim.keymap.set('n', '<Leader>wm', '<C-w>|<C-w>_', { desc = 'Maximize a window' })
 vim.keymap.set('n', '<Leader>w=', '<C-w>=', { desc = 'Balance split windows' })
 
 -- delete
 vim.keymap.set('n', '<Leader>wd', '<Cmd>close!<CR>', { desc = 'Delete a window' })
-vim.keymap.set('n', '<Leader>wD', '<Cmd>only<CR>', { desc = 'Delete other windows' })
+vim.keymap.set('n', '<Leader>wm', '<Cmd>only<CR>', { desc = 'Delete other windows' })
 vim.keymap.set('n', '<Leader>wx', '<Cmd>bd<CR>', { desc = 'Delete a window and its current buffer' })
