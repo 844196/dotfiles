@@ -1,4 +1,4 @@
-vim.keymap.set('n', '<Leader>tn', '<Cmd>setlocal number!<CR>')
+vim.keymap.set('n', '<Leader>tnn', '<Cmd>windo set number!<CR>')
 vim.keymap.set('n', '<Leader>thh', function()
   vim.g.cursorlineopt_state = vim.g.cursorlineopt_state == 'number' and 'both' or 'number'
   vim.wo.cursorlineopt = vim.g.cursorlineopt_state
