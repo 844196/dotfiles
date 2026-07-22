@@ -109,8 +109,14 @@ vim.o.cursorlineopt = 'number'
 vim.g.cursorlineopt_state = vim.o.cursorlineopt
 
 -- アクティブなウィンドウだけカーソル行をハイライトする
-vim.api.nvim_create_autocmd({ 'WinEnter', 'BufWinEnter' }, {
+vim.api.nvim_create_autocmd({ 'WinEnter', 'BufWinEnter', 'FileType' }, {
   callback = function()
+    -- FileType も対象にしているのは、Telescope 系バッファでは WinEnter/BufWinEnter 時点で
+    -- filetype がまだ空文字列で、FileType イベントで初めて TelescopePrompt 等がセットされるため
+    if vim.bo.filetype:match('^Telescope') then
+      vim.wo.cursorline = false
+      return
+    end
     vim.wo.cursorline = true
     vim.wo.cursorlineopt = vim.g.cursorlineopt_state
   end,
