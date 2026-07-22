@@ -65,6 +65,11 @@
       "src": "https://github.com/nvim-mini/mini.trailspace",
       "version": "'82c4fb7d4336f8824ca6c97068932886b56326d0'"
     },
+    "neogit": {
+      "rev": "9abecb022a581e3a333430a4490f45c784aef5c9",
+      "src": "https://github.com/neogitorg/neogit",
+      "version": "'9abecb022a581e3a333430a4490f45c784aef5c9'"
+    },
     "nvim-lspconfig": {
       "rev": "d5b6e3db4c17b0146f63a2fc47e2027a754b2cb1",
       "src": "https://github.com/neovim/nvim-lspconfig",

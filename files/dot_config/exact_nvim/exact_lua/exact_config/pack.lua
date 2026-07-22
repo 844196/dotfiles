@@ -97,6 +97,10 @@ vim.pack.add({
     src = 'https://github.com/nvimtools/hydra.nvim',
     version = '8c4a9f621ec7cdc30411a1f3b6d5eebb12b469dc',
   },
+  {
+    src = 'https://github.com/neogitorg/neogit',
+    version = '9abecb022a581e3a333430a4490f45c784aef5c9',
+  },
 })
 
 require('telescope').load_extension('fzf')
