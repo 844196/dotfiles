@@ -1,4 +1,39 @@
-vim.keymap.set('n', '<Leader>bb', '<Cmd>Telescope buffers<CR>')
+local buffer_hydra_heads = {
+  { '<Esc>', nil, { exit = true, desc = false } },
+  { 'q', nil, { exit = true, desc = false } },
+
+  { 'n', '<Cmd>bn<CR>', { desc = 'Go to next buffer' } },
+  { 'p', '<Cmd>bp<CR>', { desc = 'Go to previous buffer' } },
+  { 'N', '<Cmd>bp<CR>', { desc = 'Go to previous buffer' } },
+  { '<Right>', '<Cmd>bn<CR>', { desc = 'Go to next buffer' } },
+  { '<Left>', '<Cmd>bp<CR>', { desc = 'Go to previous buffer' } },
+  { '<C-d>', '<Cmd>hide<CR>', { desc = 'Bury current buffer' } },
+  { 'd', '<Cmd>bd<CR>', { desc = 'Kill current buffer' } },
+  { 'x', '<Cmd>bd<CR>', { desc = 'Kill current buffer' } },
+  { 'o', '<C-w>w', { desc = 'Switch focus to other window' } },
+}
+
+local Hydra = require('hydra')
+Hydra({
+  mode = 'n',
+  body = '<Leader>b.',
+  heads = buffer_hydra_heads,
+  config = {
+    hint = {
+      type = 'window',
+      show_name = false,
+    },
+    timeout = 30000,
+    color = 'red',
+  },
+})
+
+vim.keymap.set('n', '<Leader><Tab>', '<Cmd>bp<CR>', { desc = 'Switch to previous buffer' })
+vim.keymap.set('n', '<Leader>bn', '<Cmd>bn<CR>', { desc = 'Switch to next buffer' })
+vim.keymap.set('n', '<Leader>bp', '<Cmd>bp<CR>', { desc = 'Switch to previous buffer' })
+vim.keymap.set('n', '<Leader>bN', '<Cmd>bp<CR>', { desc = 'Switch to previous buffer' })
+
+vim.keymap.set('n', '<Leader>bb', '<Cmd>Telescope buffers<CR>', { desc = 'Switch to a buffer' })
 
 vim.keymap.set('n', '<Leader>bs', function()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
@@ -19,7 +54,19 @@ vim.keymap.set('n', '<Leader>bNj', '<Cmd>belowright new<CR>', { desc = 'Create n
 vim.keymap.set('n', '<Leader>bNk', '<Cmd>aboveleft new<CR>', { desc = 'Create new empty buffer in a new window above' })
 vim.keymap.set('n', '<Leader>bNl', '<Cmd>belowright vnew<CR>', { desc = 'Create new empty buffer in a new window below' })
 
+local killed_file_buffers = {}
+
+vim.api.nvim_create_autocmd('BufDelete', {
+  group = vim.api.nvim_create_augroup('config.space.buffer.killed_file_buffers', {}),
+  callback = function(args)
+    if vim.bo[args.buf].buftype == '' and vim.fn.buflisted(args.buf) == 1 and args.file ~= '' then
+      table.insert(killed_file_buffers, args.file)
+    end
+  end,
+})
+
 vim.keymap.set('n', '<Leader>bd', '<Cmd>bd<CR>', { desc = 'Kill the current buffer' })
+vim.keymap.set('n', '<Leader>bx', '<Cmd>bd<CR>', { desc = 'Kill the current buffer' })
 vim.keymap.set('n', '<Leader>b<C-d>', function()
   local current = vim.api.nvim_get_current_buf()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
@@ -29,3 +76,14 @@ vim.keymap.set('n', '<Leader>b<C-d>', function()
     end
   end
 end, { desc = 'Kill other buffers' })
+vim.keymap.set('n', '<Leader>bu', function()
+  local file = table.remove(killed_file_buffers)
+  if file then
+    vim.cmd.edit(vim.fn.fnameescape(file))
+  end
+end, { desc = 'Reopen the most recently killed file buffer' })
+
+vim.keymap.set('n', '<Leader>bR', '<Cmd>e!<CR>', { desc = 'Revert the current buffer' })
+vim.keymap.set('n', '<Leader>be', '<Cmd>%d _<CR>', { desc = 'Erase the content of the buffer' })
+vim.keymap.set('n', '<Leader>bY', '<Cmd>%y<CR>', { desc = 'Copy whole buffer to clipboard' })
+vim.keymap.set('n', '<Leader>bP', '<Cmd>%d _<CR>P', { desc = 'Copy clipboard and replace buffer' })
