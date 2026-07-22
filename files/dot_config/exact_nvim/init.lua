@@ -103,7 +103,23 @@ require('bufferline').setup({
 
 -- 鬱陶しいので普段は行番号のみハイライトさせる
 vim.opt.cursorline = true
-vim.opt.cursorlineopt = 'number'
+vim.o.cursorlineopt = 'number'
+
+-- cursorlineopt (number/both) はグローバル状態として vim.g に保持し、各ウィンドウがアクティブになった時に反映する
+vim.g.cursorlineopt_state = vim.o.cursorlineopt
+
+-- アクティブなウィンドウだけカーソル行をハイライトする
+vim.api.nvim_create_autocmd({ 'WinEnter', 'BufWinEnter' }, {
+  callback = function()
+    vim.wo.cursorline = true
+    vim.wo.cursorlineopt = vim.g.cursorlineopt_state
+  end,
+})
+vim.api.nvim_create_autocmd('WinLeave', {
+  callback = function()
+    vim.wo.cursorline = false
+  end,
+})
 
 require('gitsigns').setup({
   signs = {
