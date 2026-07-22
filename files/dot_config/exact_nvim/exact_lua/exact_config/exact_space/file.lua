@@ -1,5 +1,7 @@
 vim.keymap.set('n', '<Leader>fj', '<Cmd>Oil<CR>', { desc = 'Jump to the current buffer file in oil' })
 vim.keymap.set('n', '<Leader>fr', '<Cmd>Telescope oldfiles<CR>', { desc = 'Open a recent file' })
+vim.keymap.set('n', '<Leader>fs', '<Cmd>w<CR>', { desc = 'Save a file' })
+vim.keymap.set('n', '<Leader>fS', '<Cmd>wa<CR>', { desc = 'Save all files' })
 
 vim.keymap.set('n', '<Leader>fyn', '<Cmd>let @+ = expand("%:.")<CR>', { desc = 'Copy current file name with extension' })
 vim.keymap.set('n', '<Leader>fyy', '<Cmd>let @+ = expand("%:p")<CR>', { desc = 'Copy current file absolute path' })
