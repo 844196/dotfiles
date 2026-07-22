@@ -358,8 +358,6 @@ require('telescope').setup({
   }
 })
 
-vim.keymap.set('n', '<C-p>', require('telescope.builtin').find_files)
-
 require('oil').setup({
   view_options = {
     show_hidden = true
@@ -373,21 +371,11 @@ require('oil').setup({
       end,
       mode = { 'n', 'i' },
     },
-    ['<C-p>'] = {
-      function()
-        -- https://github.com/stevearc/oil.nvim/issues/282
-        require('telescope.builtin').find_files()
-      end,
-      mode = 'n',
-    },
     ['<M-p>'] = { 'actions.preview', mode = 'n' },
     ['<M-s>'] = { 'actions.select', mode = 'n', opts = { horizontal = true } },
     ['<M-v>'] = { 'actions.select', mode = 'n', opts = { vertical = true } },
     ['<M-t>'] = { 'actions.select', mode = 'n', opts = { tab = true } },
   }
 })
-
-vim.keymap.set("n", "-", "<CMD>Oil<CR>")
-vim.keymap.set("n", "_", "<CMD>Oil .<CR>")
 
 require('config.space')
