@@ -32,4 +32,5 @@ require((...) .. '.project')
 require((...) .. '.search')
 require((...) .. '.jump')
 require((...) .. '.git')
+require((...) .. '.comment')
 

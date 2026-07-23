@@ -281,13 +281,6 @@ require('mini.move').setup({
   },
 })
 
--- https://apple.stackexchange.com/questions/24261/how-do-i-send-c-that-is-control-slash-to-the-terminal
--- https://www.reddit.com/r/neovim/comments/1hvxlq8/comment/m5wvsnf/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-vim.keymap.set('n', '<C-/>', 'gcc', { remap = true })
-vim.keymap.set('n', '<C-_>', 'gcc', { remap = true })
-vim.keymap.set('v', '<C-/>', 'gc', { remap = true })
-vim.keymap.set('v', '<C-_>', 'gc', { remap = true })
-
 -- LSP
 vim.keymap.set('n', 'gh', '<Cmd>lua vim.lsp.buf.hover()<CR>')
 vim.keymap.set('n', 'g.', '<Cmd>lua vim.lsp.buf.code_action()<CR>')
