@@ -486,6 +486,7 @@ require('telescope').setup({
         ['<M-s>'] = telescope_multi_open_horizontal,
         ['<M-v>'] = telescope_multi_open_vertical,
         ['<M-t>'] = telescope_multi_open_tab,
+        ['<M-p>'] = require('telescope.actions.layout').toggle_preview,
       },
       n = {
         ['<Esc>'] = require('telescope.actions').close,
@@ -494,6 +495,7 @@ require('telescope').setup({
         ['<M-s>'] = telescope_multi_open_horizontal,
         ['<M-v>'] = telescope_multi_open_vertical,
         ['<M-t>'] = telescope_multi_open_tab,
+        ['<M-p>'] = require('telescope.actions.layout').toggle_preview,
       },
     },
   },
@@ -501,6 +503,7 @@ require('telescope').setup({
     find_files = {
       hidden = true,
       no_ignore = true,
+      previewer = false,
     },
     buffers = {
       mappings = {
