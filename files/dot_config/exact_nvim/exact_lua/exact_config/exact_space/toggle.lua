@@ -1,35 +1,41 @@
+local function set_win_option(name, value)
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    vim.api.nvim_set_option_value(name, value, { scope = 'local', win = win })
+  end
+end
+
 vim.keymap.set('n', '<Leader>tnn', function()
   if vim.o.number then
-    vim.cmd('windo set nonumber')
-    vim.cmd('windo set norelativenumber')
+    set_win_option('number', false)
+    set_win_option('relativenumber', false)
   else
-    vim.cmd('windo set number')
-    vim.cmd('windo set norelativenumber')
+    set_win_option('number', true)
+    set_win_option('relativenumber', false)
   end
 end)
 vim.keymap.set('n', '<Leader>tna', function()
   local number, relativenumber = vim.o.number, vim.o.relativenumber
   if number == false and relativenumber == false then
-    vim.cmd('windo set number')
+    set_win_option('number', true)
   elseif number == true and relativenumber == false then
-    vim.cmd('windo set nonumber')
+    set_win_option('number', false)
   elseif number == true and relativenumber == true then
-    vim.cmd('windo set norelativenumber')
+    set_win_option('relativenumber', false)
   else -- number == false and relativenumber == true
-    vim.cmd('windo set nonumber')
-    vim.cmd('windo set norelativenumber')
+    set_win_option('number', false)
+    set_win_option('relativenumber', false)
   end
 end)
 vim.keymap.set('n', '<Leader>tnr', function()
   local number, relativenumber = vim.o.number, vim.o.relativenumber
   if number == false and relativenumber == false then
-    vim.cmd('windo set number')
-    vim.cmd('windo set relativenumber')
+    set_win_option('number', true)
+    set_win_option('relativenumber', true)
   elseif number == true and relativenumber == false then
-    vim.cmd('windo set relativenumber')
+    set_win_option('relativenumber', true)
   else -- (number == true and relativenumber == true) or (number == false and relativenumber == true)
-    vim.cmd('windo set nonumber')
-    vim.cmd('windo set norelativenumber')
+    set_win_option('number', false)
+    set_win_option('relativenumber', false)
   end
 end)
 
