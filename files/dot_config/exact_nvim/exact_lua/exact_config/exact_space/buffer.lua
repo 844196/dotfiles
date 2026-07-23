@@ -23,7 +23,7 @@ Hydra({
       type = 'window',
       show_name = false,
     },
-    timeout = 30000,
+    timeout = 5000,
     color = 'red',
   },
 })
