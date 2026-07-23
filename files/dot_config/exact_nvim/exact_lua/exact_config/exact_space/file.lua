@@ -15,6 +15,17 @@ vim.keymap.set({ 'n', 'v' }, '<Leader>fyl', function()
 end, { desc = 'Copy current file absolute path with line number(s)' })
 vim.keymap.set({ 'n', 'v' }, '<Leader>fyc', '<Cmd>let @+ = expand("%:p").":".line(".").":".col(".")<CR>', { desc = 'Copy current file absolute path with line and column number' })
 vim.keymap.set('n', '<Leader>fyd', '<Cmd>let @+ = expand("%:p:h")<CR>', { desc = 'Copy current directory absolute path' })
+vim.keymap.set('n', '<Leader>fyY', '<Cmd>let @+ = expand("%:.")<CR>', { desc = 'Copy current file path relative to the project root' })
+vim.keymap.set({ 'n', 'v' }, '<Leader>fyL', function()
+  local from, to = vim.fn.line('v'), vim.fn.line('.')
+  if vim.fn.mode() == 'V' and from ~= to then
+    vim.fn.setreg('+', vim.fn.expand('%:.') .. ':' .. math.min(from, to) .. '-' .. math.max(from, to))
+  else
+    vim.fn.setreg('+', vim.fn.expand('%:.') .. ':' .. to)
+  end
+end, { desc = 'Copy current file path relative to the project root with line number(s)' })
+vim.keymap.set({ 'n', 'v' }, '<Leader>fyC', '<Cmd>let @+ = expand("%:.").":".line(".").":".col(".")<CR>', { desc = 'Copy current file path relative to the project root with line and column number' })
+vim.keymap.set('n', '<Leader>fyD', '<Cmd>let @+ = expand("%:.:h")<CR>', { desc = 'Copy current directory path relative to the project root' })
 
 vim.keymap.set('n', '<Leader>fed', function()
   local result = vim.system({ 'chezmoi', 'source-path', vim.env.MYVIMRC }, { text = true }):wait()
