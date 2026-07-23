@@ -127,6 +127,9 @@ vim.api.nvim_create_autocmd('WinLeave', {
   end,
 })
 
+vim.o.scrolloff = 4
+vim.o.sidescrolloff = 8
+
 require('gitsigns').setup({
   signs = {
     add          = { text = '┃' },
