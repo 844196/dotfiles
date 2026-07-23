@@ -1,5 +1,10 @@
 require('which-key').add({ { '<Leader>f', group = 'File' } })
 
+vim.keymap.set('n', '<Leader>ff', function()
+  require('telescope.builtin').find_files({
+    cwd = require('telescope.utils').buffer_dir(),
+  })
+end, { desc = 'Find file starting from the current file directory' })
 vim.keymap.set('n', '<Leader>fj', '<Cmd>Oil<CR>', { desc = 'Jump to the current buffer file in oil' })
 vim.keymap.set('n', '<Leader>fr', '<Cmd>Telescope oldfiles<CR>', { desc = 'Open a recent file' })
 vim.keymap.set('n', '<Leader>fs', '<Cmd>w<CR>', { desc = 'Save a file' })
