@@ -1,3 +1,8 @@
+require('which-key').add({
+  { '<Leader>b', group = 'Buffer' },
+  { '<Leader>b.', desc = 'Buffer transient state' },
+})
+
 local buffer_hydra_heads = {
   { '<Esc>', nil, { exit = true, desc = false } },
   { 'q', nil, { exit = true, desc = false } },

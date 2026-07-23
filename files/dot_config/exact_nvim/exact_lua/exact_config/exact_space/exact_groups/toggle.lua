@@ -1,3 +1,5 @@
+require('which-key').add({ { '<Leader>t', group = 'Toggle' } })
+
 local function set_win_option(name, value)
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     vim.api.nvim_set_option_value(name, value, { win = win })

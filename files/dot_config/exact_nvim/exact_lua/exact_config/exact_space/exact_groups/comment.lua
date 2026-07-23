@@ -1,3 +1,5 @@
+require('which-key').add({ { '<Leader>c', group = 'Comment' } })
+
 local function invert_lines(s, e)
   local pos = vim.api.nvim_win_get_cursor(0)
   for l = s, e do

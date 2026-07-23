@@ -1,3 +1,8 @@
+require('which-key').add({
+  { '<Leader>w', group = 'Window' },
+  { '<Leader>w.', desc = 'Window transient state' },
+})
+
 local window_hydra_heads = {
   { '<Esc>', nil, { exit = true, desc = false } },
   { 'q', nil, { exit = true, desc = false } },

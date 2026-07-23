@@ -1,3 +1,8 @@
+require('which-key').add({
+  { '<Leader>g', group = 'Git' },
+  { '<Leader>g.', desc = 'Git transient state' },
+})
+
 local gitsigns = require('gitsigns')
 
 local function nav_hunk(dir)
