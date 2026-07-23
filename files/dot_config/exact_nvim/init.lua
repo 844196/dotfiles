@@ -55,6 +55,9 @@ require('tokyonight').setup({
   end,
   on_highlights = function(hl, colors)
     local util = require('tokyonight.util')
+    hl.WinSeparator = {
+      fg = util.blend_bg(colors.bg_highlight, 0.75),
+    }
     hl.SnacksIndent = {
       fg = util.blend_bg(colors.fg_gutter, 0.2),
     }
