@@ -3,8 +3,10 @@ local window_hydra_heads = {
   { 'q', nil, { exit = true, desc = false } },
 
   -- split
-  { 's', '<C-w>s', { desc = 'Horizontal split' } },
-  { 'v', '<C-w>v', { desc = 'Vertical split' } },
+  { 'S', '<C-w>s', { desc = 'Horizontal split and focus new window' } },
+  { 'V', '<C-w>v', { desc = 'Vertical split and focus new window' } },
+  { 's', '<C-w>s', { desc = 'Horizontal split and focus new window' } }, -- 本家が微妙
+  { 'v', '<C-w>v', { desc = 'Vertical split and focus new window' } }, -- 本家が微妙
 
   -- focus
   { '1', '1<C-w>w', { desc = 'Go to window #1' } },
@@ -41,15 +43,9 @@ local window_hydra_heads = {
   -- resize
   { '[', '<C-w><', { desc = 'Shrink window horizontally' } },
   { ']', '<C-w>>', { desc = 'Enlarge window horizontally' } },
-  { '_', '<C-w>|', {
-    -- `_` をヘッドキーに使うとヒント描画がクラッシュしてしまう
-    -- https://github.com/anuvyklack/hydra.nvim/issues/14
-    desc = false,
-  } },
   { '{', '<C-w>-', { desc = 'Shrink window vertically' } },
   { '}', '<C-w>+', { desc = 'Enlarge window vertically' } },
-  { '|', '<C-w>_', { desc = 'Maximize window vertically' } },
-  { 'm', '<C-w>|<C-w>_', { desc = 'Maximize a window' } },
+  { 'm', function() require('snacks.zen').zoom() end, { desc = 'Maximize a window' } },
   { '=', '<C-w>=', { desc = 'Balance split windows' } },
 
   -- delete
@@ -74,8 +70,10 @@ Hydra({
 })
 
 -- split
-vim.keymap.set('n', '<Leader>ws', '<C-w>s', { desc = 'Horizontal split' })
-vim.keymap.set('n', '<Leader>wv', '<C-w>v', { desc = 'Vertical split' })
+vim.keymap.set('n', '<Leader>wS', '<C-w>s', { desc = 'Horizontal split and focus new window' })
+vim.keymap.set('n', '<Leader>wV', '<C-w>v', { desc = 'Vertical split and focus new window' })
+vim.keymap.set('n', '<Leader>ws', '<C-w>s', { desc = 'Horizontal split and focus new window' }) -- 本家が微妙
+vim.keymap.set('n', '<Leader>wv', '<C-w>v', { desc = 'Vertical split and focus new window' }) -- 本家が微妙
 
 -- focus
 vim.keymap.set('n', '<Leader>1', '1<C-w>w', { desc = 'Go to window #1' })
@@ -104,13 +102,11 @@ vim.keymap.set('n', '<Leader>wR', '<C-w>R', { desc = 'Rotate windows backward' }
 -- resize
 vim.keymap.set('n', '<Leader>w[', '<Leader>w.[', { desc = 'Shrink window horizontally', remap = true })
 vim.keymap.set('n', '<Leader>w]', '<Leader>w.]', { desc = 'Enlarge window horizontally', remap = true })
-vim.keymap.set('n', '<Leader>w_', '<C-w>|', { desc = 'Maximize window horizontally' })
 vim.keymap.set('n', '<Leader>w{', '<Leader>w.{', { desc = 'Shrink window vertically', remap = true })
 vim.keymap.set('n', '<Leader>w}', '<Leader>w.}', { desc = 'Enlarge window vertically', remap = true })
-vim.keymap.set('n', '<Leader>w|', '<C-w>_', { desc = 'Maximize window vertically' })
 vim.keymap.set('n', '<Leader>w=', '<C-w>=', { desc = 'Balance split windows' })
 
 -- delete
 vim.keymap.set('n', '<Leader>wd', '<Cmd>close!<CR>', { desc = 'Delete a window' })
-vim.keymap.set('n', '<Leader>wm', '<Cmd>only<CR>', { desc = 'Delete other windows' })
+vim.keymap.set('n', '<Leader>wm', function() require('snacks.zen').zoom() end, { desc = 'Delete other windows' })
 vim.keymap.set('n', '<Leader>wx', '<Cmd>bd<CR>', { desc = 'Delete a window and its current buffer' })

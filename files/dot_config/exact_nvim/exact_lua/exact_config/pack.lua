@@ -99,6 +99,10 @@ vim.pack.add({
     src = 'https://github.com/neogitorg/neogit',
     version = '9abecb022a581e3a333430a4490f45c784aef5c9',
   },
+  {
+    src = 'https://github.com/nvim-mini/mini.bufremove',
+    version = '281bb1a2c60c3618c854bef2c0933276eb2362c2',
+  },
 })
 
 require('telescope').load_extension('fzf')
