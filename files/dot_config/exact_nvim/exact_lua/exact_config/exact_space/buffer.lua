@@ -35,6 +35,7 @@ vim.keymap.set('n', '<Leader>bN', '<Cmd>bp<CR>', { desc = 'Switch to previous bu
 
 vim.keymap.set('n', '<Leader>bb', '<Cmd>Telescope buffers<CR>', { desc = 'Switch to a buffer' })
 
+vim.keymap.set('n', '<Leader>bm', '<Cmd>messages<CR>', { desc = 'Open messages history' })
 vim.keymap.set('n', '<Leader>bs', function()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
     if vim.fn.bufname(buf) == [[*scratch*]] then
