@@ -540,8 +540,8 @@ require('telescope').setup({
     },
     layout_strategy = 'ivy_hermit',
     prompt_prefix = '❯ ',
-    selection_caret = '❯ ',
-    multi_icon = '│',
+    selection_caret = '▌ ',
+    multi_icon = '┃',
     sorting_strategy = "ascending",
     mappings = {
       i = {
