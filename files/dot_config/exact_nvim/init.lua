@@ -58,6 +58,47 @@ require('tokyonight').setup({
     hl.WinSeparator = {
       fg = util.blend_bg(colors.bg_highlight, 0.75),
     }
+    hl.TelescopeNormal = {
+      bg = colors.bg,
+    }
+    hl.TelescopeResultsNormal = {
+      fg = colors.dark3,
+      bg = colors.bg,
+    }
+    hl.TelescopeSelection = {
+      bg = colors.bg_highlight,
+    }
+    hl.TelescopeMatching = {
+      fg = colors.blue,
+      bg = colors.bg,
+    }
+    hl.TelescopePromptPrefix = {
+      fg = colors.blue,
+    }
+    hl.TelescopeMultiIcon = {
+      fg = colors.orange,
+    }
+    hl.TelescopeMultiSelection = {
+      fg = colors.fg,
+    }
+    hl.TelescopeResultsBorder = {
+      fg = colors.fg_gutter,
+      bg = colors.bg,
+    }
+    hl.TelescopePromptBorder = {
+      fg = colors.fg_gutter,
+      bg = colors.bg,
+    }
+    hl.TelescopePreviewBorder = {
+      fg = colors.fg_gutter,
+      bg = colors.bg,
+    }
+    hl.TelescopeTitle = {
+      fg = colors.dark5,
+    }
+    hl.TelescopePromptTitle = {
+      fg = colors.dark5,
+    }
     hl.SnacksIndent = {
       fg = util.blend_bg(colors.fg_gutter, 0.2),
     }
@@ -468,15 +509,39 @@ local telescope_multi_open_horizontal =
 local telescope_multi_open_tab =
   telescope_multi_open(telescope_actions.select_tab + telescope_actions.center, 'tabedit')
 
+local telescope_layout_strategies = require('telescope.pickers.layout_strategies')
+telescope_layout_strategies.ivy_hermit = function(picker, max_columns, max_lines, layout_config)
+  local layout = telescope_layout_strategies.bottom_pane(picker, max_columns, max_lines, layout_config)
+
+  layout.prompt.title = ''
+  layout.prompt.border = { 1, 0, 0, 0 } -- top, right, bottom, left
+
+  layout.results.title = ''
+  layout.results.border = { 0, 0, 0, 0 }
+  layout.results.height = layout.results.height + 1
+
+  if layout.preview then
+    layout.preview.title = ''
+    layout.preview.border = { 0, 0, 0, 1 }
+    layout.preview.borderchars = { '', '', '', '│', '│', '', '', '' }
+    layout.preview.col = layout.preview.col - 1
+    layout.preview.width = layout.preview.width + 1
+    layout.preview.line = layout.preview.line - 1
+    layout.preview.height = layout.preview.height + 2
+  end
+
+  return layout
+end
+
 require('telescope').setup({
   defaults = {
     file_ignore_patterns = {
       "%.git/",
     },
-    layout_strategy = 'horizontal',
-    layout_config = {
-      prompt_position = 'top',
-    },
+    layout_strategy = 'ivy_hermit',
+    prompt_prefix = '❯ ',
+    selection_caret = '❯ ',
+    multi_icon = '│',
     sorting_strategy = "ascending",
     mappings = {
       i = {
