@@ -101,9 +101,9 @@
       "version": "'b25b749b9db64d375d782094e2b9dce53ad53a40'"
     },
     "telescope.nvim": {
-      "rev": "e69b434b968a33815e2f02a5c7bd7b8dd4c7d4b2",
+      "rev": "427b576c16792edad01a92b89721d923c19ad60f",
       "src": "https://github.com/nvim-telescope/telescope.nvim",
-      "version": "'v0.2.0'"
+      "version": "'427b576c16792edad01a92b89721d923c19ad60f'"
     },
     "tokyonight.nvim": {
       "rev": "545d72cde6400835d895160ecb5853874fd5156d",

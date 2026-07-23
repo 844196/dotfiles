@@ -37,7 +37,7 @@ vim.pack.add({
   },
   {
     src = 'https://github.com/nvim-telescope/telescope.nvim',
-    version = 'v0.2.0',
+    version = '427b576c16792edad01a92b89721d923c19ad60f',
   },
   {
     src = 'https://github.com/nvim-lua/plenary.nvim',
