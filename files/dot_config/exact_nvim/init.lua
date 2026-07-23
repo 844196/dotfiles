@@ -480,12 +480,16 @@ require('telescope').setup({
     sorting_strategy = "ascending",
     mappings = {
       i = {
+        ['<Esc>'] = require('telescope.actions').close,
+        ['<C-u>'] = false, -- ビルトインのプレビュースクロールバインドを削除して、フィールドをクリアできるように
         ['<CR>'] = telescope_multi_edit,
         ['<M-s>'] = telescope_multi_open_horizontal,
         ['<M-v>'] = telescope_multi_open_vertical,
         ['<M-t>'] = telescope_multi_open_tab,
       },
       n = {
+        ['<Esc>'] = require('telescope.actions').close,
+        ['<C-u>'] = false, -- ビルトインのプレビュースクロールバインドを削除して、フィールドをクリアできるように
         ['<CR>'] = telescope_multi_edit,
         ['<M-s>'] = telescope_multi_open_horizontal,
         ['<M-v>'] = telescope_multi_open_vertical,
