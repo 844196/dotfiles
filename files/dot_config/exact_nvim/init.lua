@@ -26,6 +26,7 @@ MiniIcons.mock_nvim_web_devicons()
 require('mason').setup()
 require('mason-lspconfig').setup({
   ensure_installed = {
+    'codebook',
     'lua_ls',
     'jsonls',
     'yamlls',
