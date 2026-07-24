@@ -59,6 +59,11 @@ require('tokyonight').setup({
     hl.WinSeparator = {
       fg = util.blend_bg(colors.bg_highlight, 0.75),
     }
+    local decreased_hint = util.blend_bg(colors.hint, 0.4)
+    hl.DiagnosticVirtualTextHint = {
+      fg = decreased_hint,
+      bg = util.blend_bg(decreased_hint, 0.1),
+    }
     hl.TelescopeNormal = {
       bg = colors.bg,
     }
