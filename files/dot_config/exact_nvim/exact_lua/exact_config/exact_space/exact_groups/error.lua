@@ -1,7 +1,4 @@
-require('which-key').add({
-  { '<Leader>e', group = 'Error' },
-  { '<Leader>e.', group = 'Error transient state' },
-})
+require('which-key').add({ { '<Leader>e', group = 'Error' } })
 
 vim.keymap.set('n', '<Leader>en', ']d', { desc = 'Go to the next error', remap = true })
 vim.keymap.set('n', '<Leader>ep', '[d', { desc = 'Go to the previous error', remap = true })
@@ -21,24 +18,12 @@ vim.keymap.set('n', '<Leader>ey', function()
   end
 end, { desc = 'Copy each error at cursor position' })
 
-require('hydra')({
-  mode = 'n',
+require('config.space.hydra').create({
   body = '<Leader>e.',
   heads = {
     { 'n', '<Leader>en', { desc = 'Jump to next error', remap = true } },
     { 'p', '<Leader>ep', { desc = 'Jump to previous error', remap = true } },
     { 'N', '<Leader>eN', { desc = 'Jump to previous error', remap = true } },
     { 'y', '<Leader>ey', { desc = 'Copy each error', remap = true } }, -- 本家にない
-    { '<Esc>', nil, { exit = true, desc = false } },
-    { '<C-g>', nil, { exit = true, desc = false } },
-    { 'q', nil, { exit = true, desc = false } },
-  },
-  config = {
-    hint = {
-      type = 'window',
-      show_name = false,
-    },
-    timeout = 5000,
-    color = 'red',
   },
 })

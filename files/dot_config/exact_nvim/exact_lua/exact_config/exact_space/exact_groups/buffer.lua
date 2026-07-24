@@ -1,36 +1,17 @@
-require('which-key').add({
-  { '<Leader>b', group = 'Buffer' },
-  { '<Leader>b.', desc = 'Buffer transient state' },
-})
+require('which-key').add({ { '<Leader>b', group = 'Buffer' } })
 
-local buffer_hydra_heads = {
-  { '<Esc>', nil, { exit = true, desc = false } },
-  { '<C-g>', nil, { exit = true, desc = false } },
-  { 'q', nil, { exit = true, desc = false } },
-
-  { 'n', '<Cmd>bn<CR>', { desc = 'Go to next buffer' } },
-  { 'p', '<Cmd>bp<CR>', { desc = 'Go to previous buffer' } },
-  { 'N', '<Cmd>bp<CR>', { desc = 'Go to previous buffer' } },
-  { '<Right>', '<Cmd>bn<CR>', { desc = 'Go to next buffer' } },
-  { '<Left>', '<Cmd>bp<CR>', { desc = 'Go to previous buffer' } },
-  { '<C-d>', '<Cmd>hide<CR>', { desc = 'Bury current buffer' } },
-  { 'd', function() require('mini.bufremove').delete() end, { desc = 'Kill the current buffer' } },
-  { 'x', '<Cmd>bd<CR>', { desc = 'Kill the current buffer and window' } },
-  { 'o', '<C-w>w', { desc = 'Switch focus to other window' } },
-}
-
-local Hydra = require('hydra')
-Hydra({
-  mode = 'n',
+require('config.space.hydra').create({
   body = '<Leader>b.',
-  heads = buffer_hydra_heads,
-  config = {
-    hint = {
-      type = 'window',
-      show_name = false,
-    },
-    timeout = 5000,
-    color = 'red',
+  heads = {
+    { 'n', '<Cmd>bn<CR>', { desc = 'Go to next buffer' } },
+    { 'p', '<Cmd>bp<CR>', { desc = 'Go to previous buffer' } },
+    { 'N', '<Cmd>bp<CR>', { desc = 'Go to previous buffer' } },
+    { '<Right>', '<Cmd>bn<CR>', { desc = 'Go to next buffer' } },
+    { '<Left>', '<Cmd>bp<CR>', { desc = 'Go to previous buffer' } },
+    { '<C-d>', '<Cmd>hide<CR>', { desc = 'Bury current buffer' } },
+    { 'd', function() require('mini.bufremove').delete() end, { desc = 'Kill the current buffer' } },
+    { 'x', '<Cmd>bd<CR>', { desc = 'Kill the current buffer and window' } },
+    { 'o', '<C-w>w', { desc = 'Switch focus to other window' } },
   },
 })
 

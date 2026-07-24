@@ -1,7 +1,4 @@
-require('which-key').add({
-  { '<Leader>g', group = 'Git' },
-  { '<Leader>g.', desc = 'Git transient state' },
-})
+require('which-key').add({ { '<Leader>g', group = 'Git' } })
 
 local gitsigns = require('gitsigns')
 
@@ -55,18 +52,19 @@ local git_hydra_heads = {
     gitsigns.reset_buffer_index,
     { desc = 'Unstage file' },
   },
-  { '<Esc>', nil, { exit = true, desc = false } },
-  { '<C-g>', nil, { exit = true, desc = false } },
-  { 'q', nil, { exit = true, desc = false } },
 }
 
 -- red は非 head キーを貫通させない代わりに表示切り替えが遅く分かりづらい。
 -- pink は表示は速いが非 head キーが貫通してしまう。
 -- 折衷案として head に使っていないアルファベット1文字キーにはパススルー用の head を明示的に張る。
 -- https://github.com/nvimtools/hydra.nvim/wiki/Git#red-amaranth-and-teal-colors
+local hydra = require('config.space.hydra')
 do
   local used_head_keys = {}
   for _, head in ipairs(git_hydra_heads) do
+    used_head_keys[head[1]] = true
+  end
+  for _, head in ipairs(hydra.exit_heads) do
     used_head_keys[head[1]] = true
   end
   for byte = string.byte('a'), string.byte('z') do
@@ -81,19 +79,10 @@ do
   end
 end
 
-local Hydra = require('hydra')
-Hydra({
-  mode = 'n',
+hydra.create({
   body = '<Leader>g.',
   heads = git_hydra_heads,
-  config = {
-    hint = {
-      type = 'window',
-      show_name = false,
-    },
-    timeout = 5000,
-    color = 'pink',
-  },
+  color = 'pink',
 })
 
 vim.keymap.set('n', '<Leader>gs', '<Cmd>Neogit<CR>', { desc = 'Open a neogit' })
