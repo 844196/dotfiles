@@ -53,12 +53,22 @@ vim.keymap.set('n', '<Leader>feD', function()
 end, { desc = 'Open the nvim dotfiles in oil' })
 vim.keymap.set('n', '<Leader>feR', function()
   vim.cmd.tabnew()
+  local term_buf = vim.api.nvim_get_current_buf()
   vim.fn.jobstart({ 'chezmoi', 'apply', vim.fs.dirname(vim.env.MYVIMRC) }, {
     term = true,
     on_exit = function(_, code)
       if code == 0 then
         vim.schedule(function()
-          vim.cmd.restart()
+          for _, win in ipairs(vim.api.nvim_list_wins()) do
+            local buf = vim.api.nvim_win_get_buf(win)
+            if vim.bo[buf].filetype == 'help' then
+              vim.api.nvim_win_close(win, false)
+            end
+          end
+          if vim.api.nvim_buf_is_valid(term_buf) then
+            vim.api.nvim_buf_delete(term_buf, { force = true })
+          end
+          require('config.space.restart').restart_with_session()
         end)
       end
     end,
