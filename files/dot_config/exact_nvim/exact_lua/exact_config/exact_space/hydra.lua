@@ -23,7 +23,6 @@ function M.create(opts)
         type = 'window',
         show_name = false,
       },
-      timeout = 5000,
       color = opts.color or 'red',
       invoke_on_body = true,
       desc = 'Transient state',
