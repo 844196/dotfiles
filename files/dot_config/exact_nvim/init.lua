@@ -545,6 +545,7 @@ require('telescope').setup({
     mappings = {
       i = {
         ['<Esc>'] = require('telescope.actions').close,
+        ['<C-g>'] = require('telescope.actions').close,
         ['<C-u>'] = false, -- ビルトインのプレビュースクロールバインドを削除して、フィールドをクリアできるように
         ['<CR>'] = telescope_multi_edit,
         ['<M-s>'] = telescope_multi_open_horizontal,
@@ -554,6 +555,7 @@ require('telescope').setup({
       },
       n = {
         ['<Esc>'] = require('telescope.actions').close,
+        ['<C-g>'] = require('telescope.actions').close,
         ['<C-u>'] = false, -- ビルトインのプレビュースクロールバインドを削除して、フィールドをクリアできるように
         ['<CR>'] = telescope_multi_edit,
         ['<M-s>'] = telescope_multi_open_horizontal,
