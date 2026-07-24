@@ -3,16 +3,10 @@ require('which-key').add({ { '<Leader>g', group = 'Git' } })
 local gitsigns = require('gitsigns')
 
 local function nav_hunk(dir)
-  local before = vim.fn.line('.')
   gitsigns.nav_hunk(
     dir,
     ---@diagnostic disable-next-line: missing-fields プラグイン側の型定義がおかしい
-    { target = 'all', navigation_message = false },
-    function()
-      if vim.fn.line('.') ~= before then
-        vim.cmd('normal! zz')
-      end
-    end
+    { target = 'all', navigation_message = false }
   )
 end
 
@@ -51,6 +45,11 @@ local git_hydra_heads = {
     'u',
     gitsigns.reset_buffer_index,
     { desc = 'Unstage file' },
+  },
+  {
+    'z',
+    require('config.space.recenter'),
+    { desc = 'Recenter buffer in window' },
   },
 }
 

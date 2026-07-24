@@ -12,6 +12,7 @@ require('config.space.hydra').create({
     { 'd', function() require('mini.bufremove').delete() end, { desc = 'Kill the current buffer' } },
     { 'x', '<Cmd>bd<CR>', { desc = 'Kill the current buffer and window' } },
     { 'o', '<C-w>w', { desc = 'Switch focus to other window' } },
+    { 'z', require('config.space.recenter'), { desc = 'Recenter buffer in window' } },
   },
 })
 
