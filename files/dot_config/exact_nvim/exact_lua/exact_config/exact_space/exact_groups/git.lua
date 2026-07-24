@@ -6,7 +6,7 @@ local function nav_hunk(dir)
   gitsigns.nav_hunk(
     dir,
     ---@diagnostic disable-next-line: missing-fields プラグイン側の型定義がおかしい
-    { target = 'all', navigation_message = false }
+    { target = 'all', wrap = false }
   )
 end
 

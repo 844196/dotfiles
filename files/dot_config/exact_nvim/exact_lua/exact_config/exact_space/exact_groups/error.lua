@@ -1,7 +1,16 @@
 require('which-key').add({ { '<Leader>e', group = 'Error' } })
 
-vim.keymap.set('n', '<Leader>en', ']d', { desc = 'Go to the next error', remap = true })
-vim.keymap.set('n', '<Leader>ep', '[d', { desc = 'Go to the previous error', remap = true })
+---@param dir ('prev'|'next')?
+local jump = function(dir)
+  vim.diagnostic.jump({
+    severity = vim.diagnostic.severity.WARN,
+    count = dir == 'prev' and -1 or 1,
+    wrap = false,
+  })
+end
+
+vim.keymap.set('n', '<Leader>en', function() jump('next') end, { desc = 'Go to the next error' })
+vim.keymap.set('n', '<Leader>ep', function() jump('prev') end, { desc = 'Go to the previous error' })
 vim.keymap.set('n', '<Leader>eN', '<Leader>ep', { desc = 'Go to the previous error', remap = true })
 
 vim.keymap.set('n', '<Leader>ey', function()
