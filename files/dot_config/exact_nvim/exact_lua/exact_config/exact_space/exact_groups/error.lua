@@ -30,6 +30,7 @@ require('hydra')({
     { 'N', '<Leader>eN', { desc = 'Jump to previous error', remap = true } },
     { 'y', '<Leader>ey', { desc = 'Copy each error', remap = true } }, -- 本家にない
     { '<Esc>', nil, { exit = true, desc = false } },
+    { '<C-g>', nil, { exit = true, desc = false } },
     { 'q', nil, { exit = true, desc = false } },
   },
   config = {

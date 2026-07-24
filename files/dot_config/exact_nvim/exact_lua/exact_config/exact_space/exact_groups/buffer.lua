@@ -5,6 +5,7 @@ require('which-key').add({
 
 local buffer_hydra_heads = {
   { '<Esc>', nil, { exit = true, desc = false } },
+  { '<C-g>', nil, { exit = true, desc = false } },
   { 'q', nil, { exit = true, desc = false } },
 
   { 'n', '<Cmd>bn<CR>', { desc = 'Go to next buffer' } },

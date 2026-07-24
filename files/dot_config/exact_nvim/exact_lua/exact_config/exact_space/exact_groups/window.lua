@@ -5,6 +5,7 @@ require('which-key').add({
 
 local window_hydra_heads = {
   { '<Esc>', nil, { exit = true, desc = false } },
+  { '<C-g>', nil, { exit = true, desc = false } },
   { 'q', nil, { exit = true, desc = false } },
 
   -- split

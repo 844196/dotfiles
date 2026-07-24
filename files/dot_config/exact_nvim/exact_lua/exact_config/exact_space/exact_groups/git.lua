@@ -56,6 +56,7 @@ local git_hydra_heads = {
     { desc = 'Unstage file' },
   },
   { '<Esc>', nil, { exit = true, desc = false } },
+  { '<C-g>', nil, { exit = true, desc = false } },
   { 'q', nil, { exit = true, desc = false } },
 }
 
