@@ -605,4 +605,8 @@ require('oil').setup({
   }
 })
 
+require('neogit').setup({
+  kind = 'floating_console',
+})
+
 require('config.space')
