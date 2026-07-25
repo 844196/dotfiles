@@ -5,11 +5,6 @@
       "src": "https://github.com/b0o/SchemaStore.nvim",
       "version": "'e954496f8ef22904e8a84f5078f4a110fdc7a0d3'"
     },
-    "bufferline.nvim": {
-      "rev": "655133c3b4c3e5e05ec549b9f8cc2894ac6f51b3",
-      "src": "https://github.com/akinsho/bufferline.nvim",
-      "version": "'v4.9.1'"
-    },
     "gitsigns.nvim": {
       "rev": "31d6fb2d618bca1482b9f274751ead5f03461408",
       "src": "https://github.com/lewis6991/gitsigns.nvim",

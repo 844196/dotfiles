@@ -203,13 +203,6 @@ require('lualine').setup()
 
 require('incline').setup()
 
-require('bufferline').setup({
-  options = {
-    mode = 'tabs',
-    separator_style = 'slant',
-  },
-})
-
 -- 鬱陶しいので普段は行番号のみハイライトさせる
 vim.opt.cursorline = true
 vim.o.cursorlineopt = 'number'
