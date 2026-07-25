@@ -18,6 +18,27 @@ vim.opt.fileencodings = {
   'latin1',
 }
 
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 0 -- i.e. Use tabstop value
+vim.opt.expandtab = true
+
+vim.opt.clipboard:append('unnamedplus')
+if vim.fn.has('wsl') == 1 then
+  vim.g.clipboard = {
+    name = 'Copy to OSC 52, paste from win32yank.',
+    -- コピー・ペーストの両方に win32yank を介すと遅い
+    copy = {
+      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+    },
+    paste = {
+      ['+'] = 'win32yank.exe -o --lf',
+      ['*'] = 'win32yank.exe -o --lf',
+    },
+    cache_enabled = true,
+  }
+end
+
 require('config.pack')
 
 require('mini.icons').setup()
@@ -124,11 +145,6 @@ require('tokyonight').setup({
 })
 
 vim.cmd([[colorscheme tokyonight]])
-
--- 2 spaces indent (global)
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 0 -- i.e. Use tabstop value
-vim.opt.expandtab = true
 
 require('snacks').setup({
   indent = {
@@ -256,24 +272,6 @@ vim.o.complete = 'F' -- completefunc (i.e. mini.completion)
 MiniIcons.tweak_lsp_kind()
 
 require('mini.trailspace').setup()
-
-vim.opt.clipboard:append('unnamedplus')
-
--- コピー・ペーストの両方に win32yank を介すと遅い
-if vim.fn.has('wsl') == 1 then
-  vim.g.clipboard = {
-    name = 'Copy to OSC 52, paste from win32yank.',
-    copy = {
-      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-    },
-    paste = {
-      ['+'] = 'win32yank.exe -o --lf',
-      ['*'] = 'win32yank.exe -o --lf',
-    },
-    cache_enabled = true,
-  }
-end
 
 require('mini.pairs').setup()
 
