@@ -328,6 +328,18 @@ require('mini.move').setup({
   },
 })
 
+vim.keymap.set('n', '<M-;>',  'gcc', { remap = true })
+vim.keymap.set('i', '<M-;>', function()
+  local win = vim.api.nvim_get_current_win()
+  local row, col = unpack(vim.api.nvim_win_get_cursor(win))
+  local old_line = vim.api.nvim_get_current_line()
+  require('vim._comment').toggle_lines(row, row, { row, 0 })
+  local new_line = vim.api.nvim_get_current_line()
+  local new_col = col + (#new_line - #old_line)
+  vim.api.nvim_win_set_cursor(win, { row, math.min(math.max(new_col, 0), #new_line) })
+end)
+vim.keymap.set('v', '<M-;>',  'gc', { remap = true })
+
 -- LSP
 vim.keymap.set('n', 'gh', '<Cmd>lua vim.lsp.buf.hover()<CR>')
 vim.keymap.set('n', 'g.', '<Cmd>lua vim.lsp.buf.code_action()<CR>')
@@ -567,8 +579,6 @@ telescope_layout_strategies.ivy_hermit = function(picker, max_columns, max_lines
     layout.preview.title = ''
     layout.preview.border = { 0, 1, 0, 1 }
     layout.preview.borderchars = { '', '', '', '│', '│', '', '', '' }
-    layout.preview.col = layout.preview.col - 1
-    layout.preview.width = layout.preview.width + 1
     layout.preview.line = layout.preview.line - 1
     layout.preview.height = layout.preview.height + 2
   end
