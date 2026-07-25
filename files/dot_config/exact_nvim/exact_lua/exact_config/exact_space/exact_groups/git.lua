@@ -3,10 +3,16 @@ require('which-key').add({ { '<Leader>g', group = 'Git' } })
 local gitsigns = require('gitsigns')
 
 local function nav_hunk(dir)
+  local before = vim.fn.line('.')
   gitsigns.nav_hunk(
     dir,
     ---@diagnostic disable-next-line: missing-fields プラグイン側の型定義がおかしい
-    { target = 'all', wrap = false }
+    { target = 'all', wrap = false },
+    function()
+      if vim.fn.line('.') ~= before then
+        vim.cmd('normal! zz')
+      end
+    end
   )
 end
 
