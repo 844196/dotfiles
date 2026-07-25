@@ -14,6 +14,6 @@ require('config.space.hydra').create({
     { 'Q', codebook.disable, { desc = 'Quite transient state and disable spell check', exit = true } },
     { 'p', '<Leader>Sp', { desc = 'Jump to previous spell error', remap = true } }, -- 本家にはない
     { 'N', '<Leader>SN', { desc = 'Jump to previous spell error', remap = true } }, -- 本家にはない
-    { 'z', require('config.space.recenter'), { desc = 'Recenter buffer in window' } }, -- 本家にはない
+    { 'z', require('recenter'), { desc = 'Recenter buffer in window' } }, -- 本家にはない
   },
 })
