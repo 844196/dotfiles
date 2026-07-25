@@ -57,54 +57,52 @@ require('tokyonight').setup({
   on_highlights = function(hl, colors)
     local util = require('tokyonight.util')
     hl.WinSeparator = {
-      fg = util.blend_bg(colors.bg_highlight, 0.75),
+      fg = '#0e0e14',
+      bold = true,
     }
     local decreased_hint = util.blend_bg(colors.hint, 0.4)
     hl.DiagnosticVirtualTextHint = {
       fg = decreased_hint,
       bg = util.blend_bg(decreased_hint, 0.1),
     }
+    hl.FloatTitle = {
+      fg = colors.purple,
+      bg = colors.bg_statusline,
+      bold = true,
+    }
     hl.TelescopeNormal = {
-      bg = colors.bg,
+      bg = colors.bg_statusline,
     }
     hl.TelescopeResultsNormal = {
-      fg = colors.dark3,
-      bg = colors.bg,
+      fg = colors.dark5,
+      bg = colors.bg_statusline,
     }
     hl.TelescopeSelection = {
-      bg = colors.bg_highlight,
+      bg = util.blend_bg(colors.bg_highlight, 0.5, colors.bg_statusline),
     }
     hl.TelescopeMatching = {
       fg = colors.blue,
-      bg = colors.bg,
+      bg = colors.bg_statusline,
     }
     hl.TelescopePromptPrefix = {
       fg = colors.blue,
     }
     hl.TelescopeMultiIcon = {
-      fg = colors.orange,
+      fg = colors.fg,
     }
     hl.TelescopeMultiSelection = {
       fg = colors.fg,
     }
     hl.TelescopeResultsBorder = {
-      fg = colors.fg_gutter,
-      bg = colors.bg,
-    }
-    hl.TelescopePromptBorder = {
-      fg = colors.fg_gutter,
-      bg = colors.bg,
+      bg = colors.bg_statusline,
     }
     hl.TelescopePreviewBorder = {
-      fg = colors.fg_gutter,
-      bg = colors.bg,
+      fg = util.blend_bg(colors.bg_highlight, 0.75, colors.bg_statusline),
+      bg = colors.bg_statusline,
+      bold = true,
     }
-    hl.TelescopeTitle = {
-      fg = colors.dark5,
-    }
-    hl.TelescopePromptTitle = {
-      fg = colors.dark5,
-    }
+    hl.TelescopePromptTitle = hl.FloatTitle
+
     hl.SnacksIndent = {
       fg = util.blend_bg(colors.fg_gutter, 0.2),
     }
@@ -113,6 +111,14 @@ require('tokyonight').setup({
     }
     hl.GitSignsAdd = {
       fg = util.blend_bg(colors.green1, 0.5)
+    }
+    hl.NeogitFloatBorder = {
+      fg = colors.bg_statusline,
+      bg = colors.bg_statusline,
+    }
+    hl.NeogitNormalFloat = {
+      fg = colors.fg,
+      bg = colors.bg_statusline,
     }
   end,
 })
@@ -512,16 +518,17 @@ local telescope_layout_strategies = require('telescope.pickers.layout_strategies
 telescope_layout_strategies.ivy_hermit = function(picker, max_columns, max_lines, layout_config)
   local layout = telescope_layout_strategies.bottom_pane(picker, max_columns, max_lines, layout_config)
 
-  layout.prompt.title = ''
-  layout.prompt.border = { 1, 0, 0, 0 } -- top, right, bottom, left
+  layout.prompt.borderchars = { '', '', '', '', '', '', '', '' }
+  layout.prompt.border = { 1, 1, 0, 1 } -- top, right, bottom, left
 
   layout.results.title = ''
-  layout.results.border = { 0, 0, 0, 0 }
+  layout.results.border = { 0, 1, 0, 1 }
+  layout.results.borderchars = { '', '', '', '', '', '', '', '' }
   layout.results.height = layout.results.height + 1
 
   if layout.preview then
     layout.preview.title = ''
-    layout.preview.border = { 0, 0, 0, 1 }
+    layout.preview.border = { 0, 1, 0, 1 }
     layout.preview.borderchars = { '', '', '', '│', '│', '', '', '' }
     layout.preview.col = layout.preview.col - 1
     layout.preview.width = layout.preview.width + 1
