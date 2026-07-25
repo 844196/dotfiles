@@ -107,6 +107,10 @@ vim.pack.add({
     src = 'https://github.com/nvim-lualine/lualine.nvim',
     version = '221ce6b2d999187044529f49da6554a92f740a96',
   },
+  {
+    src = 'https://github.com/nvim-treesitter/nvim-treesitter',
+    version = '8b3a191c015dd66a92d51a112ed96af0aac13b63',
+  },
 })
 
 require('telescope').load_extension('fzf')
