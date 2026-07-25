@@ -153,16 +153,17 @@ require('snacks').setup({
   },
 })
 
--- 邪魔
-vim.opt.laststatus = 0
-vim.opt.cmdheight = 0
-
 require('vim._core.ui2').enable({
   enable = true,
   msg = {
     targets = 'msg'
   }
 })
+
+vim.opt.cmdheight = 0
+
+vim.opt.laststatus = 3
+require('lualine').setup()
 
 require('incline').setup()
 
