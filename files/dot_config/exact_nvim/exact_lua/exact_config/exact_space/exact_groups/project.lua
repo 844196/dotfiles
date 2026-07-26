@@ -18,7 +18,7 @@ vim.keymap.set('n', '<Leader>pd', function()
       actions.select_default:replace(function(prompt_bufnr)
         local entry = require('telescope.actions.state').get_selected_entry()
         actions.close(prompt_bufnr)
-        vim.cmd.Oil(vim.fn.fnameescape(entry[1]))
+        vim.cmd.Oil(vim.fn.fnameescape(entry.value))
       end)
       return true
     end,
