@@ -169,14 +169,6 @@ require('tokyonight').setup({
     hl.GitSignsAdd = {
       fg = util.blend_bg(colors.green1, 0.5)
     }
-    hl.NeogitFloatBorder = {
-      fg = colors.bg_statusline,
-      bg = colors.bg_statusline,
-    }
-    hl.NeogitNormalFloat = {
-      fg = colors.fg,
-      bg = colors.bg_statusline,
-    }
   end,
 })
 
@@ -654,7 +646,7 @@ require('oil').setup({
 })
 
 require('neogit').setup({
-  kind = 'floating_console',
+  kind = 'auto',
 })
 
 require('config.space')
