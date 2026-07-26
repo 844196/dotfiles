@@ -645,6 +645,12 @@ require('oil').setup({
 
 require('neogit').setup({
   kind = 'auto',
+  mappings = {
+    status = {
+      ['<Esc>'] = 'Close',
+      ['<C-g>'] = 'Close',
+    },
+  },
 })
 
 require('config.space')
