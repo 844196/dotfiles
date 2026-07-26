@@ -270,6 +270,8 @@ require('statuscol').setup({
   },
 })
 
+vim.opt.virtualedit:append('block')
+
 -- ウィンドウ分割で開かれる新しいウィンドウは下もしくは右に表示させる
 vim.opt.splitbelow = true
 vim.opt.splitright = true
