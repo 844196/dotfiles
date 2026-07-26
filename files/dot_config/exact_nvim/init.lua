@@ -635,6 +635,8 @@ require('oil').setup({
     show_hidden = true
   },
   keymaps = {
+    ['<Esc>'] = { 'actions.close', mode = 'n' },
+    ['<C-g>'] = { 'actions.close', mode = 'n' },
     ['q'] = { 'actions.close', mode = 'n' },
     ['<M-p>'] = { 'actions.preview', mode = 'n' },
     ['<M-s>'] = { 'actions.select', mode = 'n', opts = { horizontal = true } },
