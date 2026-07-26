@@ -11,7 +11,14 @@ vim.keymap.set('n', '<Leader>pd', function()
     prompt_title = 'Find Directory',
     find_command = { 'fd', '--type', 'd', '--strip-cwd-prefix', '--hidden', '--no-ignore-vcs', '--exclude', '.git', '--exclude', 'node_modules' },
     entry_maker = function(line)
-      return { value = line, display = line, ordinal = line }
+      local icon, hl = require('mini.icons').get('directory', line)
+      return {
+        value = line,
+        display = function(entry)
+          return icon .. ' ' .. entry.value, { { { 0, #icon }, hl } }
+        end,
+        ordinal = line,
+      }
     end,
     attach_mappings = function(_, _)
       local actions = require('telescope.actions')
