@@ -1,9 +1,11 @@
 require('which-key').add({ { '<Leader>p', group = 'Project' } })
 
 vim.keymap.set('n', '<Leader>pf', '<Cmd>Telescope find_files<CR>', { desc = 'Find file' })
-vim.keymap.set('n', '<Leader>pF', function()
+vim.keymap.set({ 'n', 'x' }, '<Leader>pF', function()
   require('telescope.builtin').find_files({
-    default_text = vim.fn.expand('<cfile>'),
+    default_text = require('config.space.util').selection_or(function()
+      return vim.fn.expand('<cfile>')
+    end),
   })
 end, { desc = 'Find file based on path around point' })
 vim.keymap.set('n', '<Leader>pd', function()
