@@ -72,10 +72,6 @@ vim.pack.add({
     version = 'c46172d0911aa5d49ba5f39f4351d1bb7aa289cc',
   },
   {
-    src = 'https://github.com/b0o/incline.nvim',
-    version = '8b54c59bcb23366645ae10edca6edfb9d3a0853e',
-  },
-  {
     src = 'https://github.com/folke/snacks.nvim',
     version = 'v2.30.0',
   },

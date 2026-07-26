@@ -192,8 +192,6 @@ vim.opt.cmdheight = 0
 
 require('config.lualine')
 
-require('incline').setup()
-
 -- 鬱陶しいので普段は行番号のみハイライトさせる
 vim.opt.cursorline = true
 vim.o.cursorlineopt = 'number'
