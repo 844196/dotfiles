@@ -5,14 +5,16 @@ vim.keymap.set('n', '<Leader>ff', function()
     cwd = require('telescope.utils').buffer_dir(),
   })
 end, { desc = 'Find file starting from the current file directory' })
-vim.keymap.set('n', '<Leader>fF', function()
+vim.keymap.set({ 'n', 'x' }, '<Leader>fF', function()
+  local util = require('config.space.util')
+  local mode = vim.fn.mode()
+  local was_visual = mode == 'v' or mode == 'V' or mode == '\22'
   local ok = pcall(vim.cmd.normal, { 'gf', bang = true })
-  if not ok then
-    require('telescope.builtin').find_files({
-      cwd = require('telescope.utils').buffer_dir(),
-      default_text = vim.fn.expand('<cfile>'),
-    })
-  end
+  if ok then return end
+  require('telescope.builtin').find_files({
+    cwd = require('telescope.utils').buffer_dir(),
+    default_text = was_visual and util.visual_selection() or vim.fn.expand('<cfile>'),
+  })
 end, { desc = 'Open the file under point, or find it if not found' })
 vim.keymap.set('n', '<Leader>fj', '<Cmd>Oil<CR>', { desc = 'Jump to the current buffer file in oil' })
 vim.keymap.set('n', '<Leader>fr', '<Cmd>Telescope oldfiles<CR>', { desc = 'Open a recent file' })
