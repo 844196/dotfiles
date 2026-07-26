@@ -46,7 +46,7 @@ require('config.space.hydra').create({
     { ']', '<C-w>>', { desc = 'Enlarge window horizontally' } },
     { '{', '<C-w>-', { desc = 'Shrink window vertically' } },
     { '}', '<C-w>+', { desc = 'Enlarge window vertically' } },
-    { 'm', function() require('snacks.zen').zoom() end, { desc = 'Maximize a window' } },
+    { 'm', '<C-w>o', { desc = 'Delete other windows' } }, -- 再現が面倒そうだった
     { '=', '<C-w>=', { desc = 'Balance split windows' } },
 
     -- delete
@@ -95,5 +95,5 @@ vim.keymap.set('n', '<Leader>w=', '<C-w>=', { desc = 'Balance split windows' })
 
 -- delete
 vim.keymap.set('n', '<Leader>wd', '<Cmd>close!<CR>', { desc = 'Delete a window' })
-vim.keymap.set('n', '<Leader>wm', function() require('snacks.zen').zoom() end, { desc = 'Delete other windows' })
+vim.keymap.set('n', '<Leader>wm', '<C-w>o', { desc = 'Delete other windows' }) -- 再現が面倒そうだった
 vim.keymap.set('n', '<Leader>wx', '<Cmd>bd<CR>', { desc = 'Delete a window and its current buffer' })
