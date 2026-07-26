@@ -14,7 +14,8 @@ function M.create(opts)
   for _, h in ipairs(opts.heads) do heads[#heads + 1] = h end
   for _, h in ipairs(M.exit_heads) do heads[#heads + 1] = h end
 
-  Hydra({
+  -- 呼び出し元が :activate() で再度 hydra に入れるようにインスタンスを返す
+  return Hydra({
     mode = 'n',
     body = opts.body,
     heads = heads,

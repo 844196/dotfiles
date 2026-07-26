@@ -1,8 +1,31 @@
 require('which-key').add({ { '<Leader>b', group = 'Buffer' } })
 
-require('config.space.hydra').create({
+local buffer_hydra ---@type Hydra
+
+buffer_hydra = require('config.space.hydra').create({
   body = '<Leader>b.',
   heads = {
+    {
+      'b',
+      function()
+        require('telescope.builtin').buffers({
+          attach_mappings = function(prompt_bufnr)
+            -- どのキーで閉じられたかに関わらず (選択・複数選択・キャンセル)
+            -- prompt バッファは必ず BufWipeout されるので、それを機に hydra へ戻る
+            -- BufWipeout は telescope が自身のウィンドウを閉じている最中 (nvim_win_close の中) に
+            -- 同期的に発火するため、その場で :activate() すると hydra のヒント用フロートを
+            -- 開けずに E1159 で失敗する。イベントループの次ティックまで遅延させる。
+            vim.api.nvim_create_autocmd('BufWipeout', {
+              buffer = prompt_bufnr,
+              once = true,
+              callback = function() vim.schedule(function() buffer_hydra:activate() end) end,
+            })
+            return true
+          end,
+        })
+      end,
+      { desc = 'Buffer list', exit = true },
+    },
     { 'n', '<Cmd>bn<CR>', { desc = 'Go to next buffer' } },
     { 'p', '<Cmd>bp<CR>', { desc = 'Go to previous buffer' } },
     { 'N', '<Cmd>bp<CR>', { desc = 'Go to previous buffer' } },
