@@ -26,6 +26,8 @@ function M.create(opts)
       color = opts.color or 'red',
       invoke_on_body = true,
       desc = 'Transient state',
+      -- https://github.com/anuvyklack/hydra.nvim/wiki/Git#red-amaranth-and-teal-colors
+      on_key = function() vim.wait(17) end,
     },
   })
 end

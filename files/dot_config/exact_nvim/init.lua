@@ -198,8 +198,7 @@ require('vim._core.ui2').enable({
 
 vim.opt.cmdheight = 0
 
-vim.opt.laststatus = 3
-require('lualine').setup()
+require('config.lualine')
 
 require('incline').setup()
 
