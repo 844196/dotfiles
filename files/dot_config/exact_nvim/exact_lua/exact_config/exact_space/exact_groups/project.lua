@@ -6,5 +6,23 @@ vim.keymap.set('n', '<Leader>pF', function()
     default_text = vim.fn.expand('<cfile>'),
   })
 end, { desc = 'Find file based on path around point' })
+vim.keymap.set('n', '<Leader>pd', function()
+  require('telescope.builtin').find_files({
+    prompt_title = 'Find Directory',
+    find_command = { 'fd', '--type', 'd', '--strip-cwd-prefix', '--hidden', '--no-ignore-vcs', '--exclude', '.git', '--exclude', 'node_modules' },
+    entry_maker = function(line)
+      return { value = line, display = line, ordinal = line }
+    end,
+    attach_mappings = function(_, _)
+      local actions = require('telescope.actions')
+      actions.select_default:replace(function(prompt_bufnr)
+        local entry = require('telescope.actions.state').get_selected_entry()
+        actions.close(prompt_bufnr)
+        vim.cmd.Oil(vim.fn.fnameescape(entry[1]))
+      end)
+      return true
+    end,
+  })
+end, { desc = 'Find directory and open it in oil' })
 vim.keymap.set('n', '<Leader>pD', '<Cmd>Oil .<CR>', { desc = 'Open project root in oil' })
 vim.keymap.set('n', '<Leader>pr', function() require('telescope.builtin').oldfiles({ only_cwd = true }) end, { desc = 'Open a recent file' })
