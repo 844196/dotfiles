@@ -472,6 +472,21 @@ require('neogit').setup({
         end)
       end)
     end,
+    NeogitResetPopup = function(builder)
+      builder:action('.', 'HEAD~    (mixed)', function()
+        local git = require('neogit.lib.git')
+        local notification = require('neogit.lib.notification')
+        local event = require('neogit.lib.event')
+
+        local target = 'HEAD~'
+        if git.reset.mixed(target) then
+          notification.info('Reset to ' .. target)
+          event.send('Reset', { commit = target, mode = 'mixed' })
+        else
+          notification.error('Reset Failed')
+        end
+      end)
+    end,
   },
 })
 
