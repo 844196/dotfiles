@@ -425,10 +425,52 @@ require('oil').setup({
     ['q'] = { 'actions.close', mode = 'n' },
     ['<C-s>'] = false,
     ['<C-h>'] = false,
-    ['<C-x>'] = { 'actions.select', mode = 'n', opts = { horizontal = true } },
-    ['<C-v>'] = { 'actions.select', mode = 'n', opts = { vertical = true } },
+    ['<C-x>'] = {
+      desc = 'Open the entry in a horizontal split, keeping focus on oil',
+      mode = 'n',
+      callback = function()
+        local oil = require('oil')
+        local winid = vim.api.nvim_get_current_win()
+        oil.select({ horizontal = true }, function()
+          vim.api.nvim_set_current_win(winid)
+        end)
+      end,
+    },
+    ['<C-v>'] = {
+      desc = 'Open the entry in a vertical split, keeping focus on oil',
+      mode = 'n',
+      callback = function()
+        local oil = require('oil')
+        local winid = vim.api.nvim_get_current_win()
+        oil.select({ vertical = true }, function()
+          vim.api.nvim_set_current_win(winid)
+        end)
+      end,
+    },
   }
 })
+
+do
+  -- mappings 設定はキー割り当てのみで挙動は変更できないため、アクション関数自体をラップする
+  local status_actions = require('neogit.buffers.status.actions')
+
+  local function keep_focus(action_name)
+    local original = status_actions[action_name]
+    status_actions[action_name] = function(self)
+      local fn = original(self)
+      return function()
+        local winid = vim.api.nvim_get_current_win()
+        fn()
+        if vim.api.nvim_win_is_valid(winid) then
+          vim.api.nvim_set_current_win(winid)
+        end
+      end
+    end
+  end
+
+  keep_focus('n_split_open')
+  keep_focus('n_vertical_split_open')
+end
 
 require('neogit').setup({
   kind = 'auto',
