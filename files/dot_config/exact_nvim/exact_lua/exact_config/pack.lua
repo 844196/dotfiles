@@ -104,5 +104,3 @@ vim.pack.add({
     version = '8b3a191c015dd66a92d51a112ed96af0aac13b63',
   },
 })
-
-require('telescope').load_extension('fzf')
