@@ -19,6 +19,17 @@ local function location()
   return string.format('%d:%2d', line, col)
 end
 
+local function indentinfo()
+  local shiftwidth = vim.bo.shiftwidth
+  if shiftwidth == 0 then
+    shiftwidth = vim.bo.tabstop
+  end
+  if vim.bo.expandtab then
+    return 'Spaces: ' .. shiftwidth
+  end
+  return 'Tab Size: ' .. shiftwidth
+end
+
 local function filestatus()
   if (not vim.bo.modifiable) or vim.bo.readonly then
     return '%%'
@@ -168,6 +179,9 @@ require('lualine').setup({
         padding = 0,
       },
       {
+        indentinfo,
+      },
+      {
         'encoding',
         show_bomb = true,
       },
@@ -253,6 +267,9 @@ require('lualine').setup({
         type = 'stl',
         separator = { left = '' },
         padding = 0,
+      },
+      {
+        indentinfo,
       },
       {
         'encoding',
