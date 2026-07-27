@@ -29,6 +29,17 @@ local function filestatus()
   return '-'
 end
 
+-- https://github.com/rebelot/heirline.nvim/blob/master/cookbook.md#cursor-position-ruler-and-scrollbar
+-- https://github.com/NeogitOrg/neogit/discussions/1217
+-- https://github.com/CKolkey/config/blob/2d9bdfbf74843d7a38b0de41a5203ee08da0500f/nvim/lua/ckolkey/plugins/ui/statusline.lua#L123-L133
+local scrollbar_chars = { '🭶', '🭷', '🭸', '🭹', '🭺', '🭻', '▁' }
+local function scrollbar()
+  local curr_line = vim.api.nvim_win_get_cursor(0)[1]
+  local lines = vim.api.nvim_buf_line_count(0)
+  local i = math.floor((curr_line - 1) / lines * #scrollbar_chars) + 1
+  return string.rep(scrollbar_chars[i], 2)
+end
+
 require('lualine').setup({
   options = {
     section_separators = { left = '', right = '' },
@@ -38,33 +49,33 @@ require('lualine').setup({
         a = { bg = night.blue, fg = night.bg_dark, gui = 'bold' },
         b = { bg = bg_sub, fg = fg_sub },
         c = { bg = bg_base, fg = fg_base },
-        x = { bg = bg_base, fg = fg_base },
-        y = { bg = bg_sub, fg = fg_sub },
-        z = { bg = bg_base, fg = fg_base },
+        x = { bg = bg_sub, fg = fg_sub },
+        y = { bg = bg_base, fg = fg_base },
+        z = { bg = bg_base, fg = util.blend_bg(night.blue, 0.9, bg_base) },
       },
       insert = {
         a = { bg = night.green, fg = night.bg_dark, gui = 'bold' },
-        z = { bg = bg_base, fg = fg_base },
+        z = { bg = bg_base, fg = util.blend_bg(night.green, 0.9, bg_base) },
       },
       visual = {
         a = { bg = night.yellow, fg = night.bg_dark, gui = 'bold' },
-        z = { bg = bg_base, fg = fg_base },
+        z = { bg = bg_base, fg = util.blend_bg(night.yellow, 0.9, bg_base) },
       },
       replace = {
         a = { bg = night.red, fg = night.bg_dark, gui = 'bold' },
-        z = { bg = bg_base, fg = fg_base },
+        z = { bg = bg_base, fg = util.blend_bg(night.red, 0.9, bg_base) },
       },
       command = {
         a = { bg = fg_base, fg = bg_base, gui = 'bold' },
-        z = { bg = bg_base, fg = fg_base },
+        z = { bg = bg_base, fg = util.blend_bg(fg_base, 0.9, bg_base) },
       },
       inactive = {
         a = { bg = bg_base_inactive, fg = fg_base, gui = 'bold' },
         b = { bg = bg_sub_inactive, fg = fg_sub },
         c = { bg = bg_base_inactive, fg = fg_base_inactive },
-        x = { bg = bg_base_inactive, fg = fg_base_inactive },
-        y = { bg = bg_sub_inactive, fg = fg_sub_inactive },
-        z = { bg = bg_base_inactive, fg = fg_base_inactive },
+        x = { bg = bg_sub, fg = fg_sub_inactive },
+        y = { bg = bg_base, fg = fg_base_inactive },
+        z = { bg = bg_base, fg = fg_base_inactive },
       },
     },
     refresh = {
@@ -135,33 +146,27 @@ require('lualine').setup({
         separator = { left = '' },
         padding = 0,
       },
-      {
-        '',
-        type = 'stl',
-      },
     },
     lualine_x = {
       {
-        'lsp_status',
-        icon = '',
-        symbols = {
-          done = '',
-        },
-        show_name = false,
+        ' ',
+        type = 'stl',
+        color = { bg = bg_base, fg = fg_base },
+        separator = { right = '' },
+        padding = 0,
       },
       {
         'diagnostics',
         colored = false,
       },
+    },
+    lualine_y = {
       {
         ' ',
         type = 'stl',
+        separator = { left = '' },
         padding = 0,
-        separator = { left = '', right = '' },
-        color = { bg = bg_base },
       },
-    },
-    lualine_y = {
       {
         'encoding',
         show_bomb = true,
@@ -171,15 +176,24 @@ require('lualine').setup({
         symbols = { unix = 'LF', dos = 'CRLF', mac = 'CR' },
       },
       {
-        location
-      }
-    },
-    lualine_z = {
+        location,
+      },
+      {
+        ' ',
+        type = 'stl',
+        separator = { right = '' },
+        padding = 0,
+      },
       {
         '%P',
         type = 'stl',
-        separator = { left = '' },
-        padding = 2,
+        color = { bg = bg_sub, fg = fg_sub },
+      },
+    },
+    lualine_z = {
+      {
+        scrollbar,
+        padding = 0,
       },
     },
   },
@@ -219,21 +233,27 @@ require('lualine').setup({
         separator = { left = '' },
         padding = 0,
       },
-      {
-        '',
-        type = 'stl',
-      },
     },
     lualine_x = {
       {
         ' ',
         type = 'stl',
+        color = { bg = bg_base, fg = fg_base },
+        separator = { right = '' },
         padding = 0,
-        separator = { left = '', right = '' },
-        color = { bg = bg_base_inactive },
+      },
+      {
+        'diagnostics',
+        colored = false,
       },
     },
     lualine_y = {
+      {
+        ' ',
+        type = 'stl',
+        separator = { left = '' },
+        padding = 0,
+      },
       {
         'encoding',
         show_bomb = true,
@@ -243,15 +263,25 @@ require('lualine').setup({
         symbols = { unix = 'LF', dos = 'CRLF', mac = 'CR' },
       },
       {
-        location
-      }
-    },
-    lualine_z = {
+        location,
+      },
+      {
+        ' ',
+        type = 'stl',
+        separator = { right = '' },
+        padding = 0,
+      },
       {
         '%P',
         type = 'stl',
-        separator = { left = '' },
-        padding = 2,
+        color = { bg = bg_sub_inactive, fg = fg_sub_inactive },
+      },
+    },
+    lualine_z = {
+      {
+        '  ',
+        type = 'stl',
+        padding = 0,
       },
     },
   },
