@@ -415,6 +415,16 @@ vim.keymap.set('v', 'v', 'g_')
 
 require('config.telescope')
 
+local function oil_select_keeping_focus(select_opts)
+  return function()
+    local oil = require('oil')
+    local winid = vim.api.nvim_get_current_win()
+    oil.select(select_opts, function()
+      vim.api.nvim_set_current_win(winid)
+    end)
+  end
+end
+
 require('oil').setup({
   view_options = {
     show_hidden = true
@@ -423,29 +433,21 @@ require('oil').setup({
     ['<Esc>'] = { 'actions.close', mode = 'n' },
     ['<C-g>'] = { 'actions.close', mode = 'n' },
     ['q'] = { 'actions.close', mode = 'n' },
-    ['<C-s>'] = false,
     ['<C-h>'] = false,
     ['<C-x>'] = {
       desc = 'Open the entry in a horizontal split, keeping focus on oil',
       mode = 'n',
-      callback = function()
-        local oil = require('oil')
-        local winid = vim.api.nvim_get_current_win()
-        oil.select({ horizontal = true }, function()
-          vim.api.nvim_set_current_win(winid)
-        end)
-      end,
+      callback = oil_select_keeping_focus({ horizontal = true }),
+    },
+    ['<C-s>'] = {
+      desc = 'Open the entry in a horizontal split, keeping focus on oil',
+      mode = 'n',
+      callback = oil_select_keeping_focus({ horizontal = true }),
     },
     ['<C-v>'] = {
       desc = 'Open the entry in a vertical split, keeping focus on oil',
       mode = 'n',
-      callback = function()
-        local oil = require('oil')
-        local winid = vim.api.nvim_get_current_win()
-        oil.select({ vertical = true }, function()
-          vim.api.nvim_set_current_win(winid)
-        end)
-      end,
+      callback = oil_select_keeping_focus({ vertical = true }),
     },
   }
 })
@@ -480,6 +482,7 @@ require('neogit').setup({
     status = {
       ['<Esc>'] = 'Close',
       ['<C-g>'] = 'Close',
+      ['<c-s>'] = 'SplitOpen',
     },
   },
   builders = {

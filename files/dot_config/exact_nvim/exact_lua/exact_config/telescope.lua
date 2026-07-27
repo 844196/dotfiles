@@ -174,6 +174,7 @@ telescope.setup({
         ['<C-u>'] = false, -- ビルトインのプレビュースクロールバインドを削除して、フィールドをクリアできるように
         ['<CR>'] = telescope_multi_edit,
         ['<C-x>'] = telescope_multi_open_horizontal,
+        ['<C-s>'] = telescope_multi_open_horizontal,
         ['<C-v>'] = telescope_multi_open_vertical,
         ['<C-t>'] = telescope_multi_open_tab,
         ['<C-Space>'] = require('telescope.actions').toggle_selection + require('telescope.actions').move_selection_worse,
@@ -185,6 +186,7 @@ telescope.setup({
         ['<C-u>'] = false, -- ビルトインのプレビュースクロールバインドを削除して、フィールドをクリアできるように
         ['<CR>'] = telescope_multi_edit,
         ['<C-x>'] = telescope_multi_open_horizontal,
+        ['<C-s>'] = telescope_multi_open_horizontal,
         ['<C-v>'] = telescope_multi_open_vertical,
         ['<C-t>'] = telescope_multi_open_tab,
         ['<C-Space>'] = require('telescope.actions').toggle_selection + require('telescope.actions').move_selection_worse,
