@@ -438,6 +438,41 @@ require('neogit').setup({
       ['<C-g>'] = 'Close',
     },
   },
+  builders = {
+    NeogitCommitPopup = function(builder)
+      builder:new_action_group('Claude'):action('C', 'Claude Commit', function()
+        local git = require('neogit.lib.git')
+        local process = require('neogit.process')
+        local runner = require('neogit.runner')
+
+        vim.ui.input({ prompt = 'Claude Commit note: ' }, function(note)
+          if note == nil then
+            return
+          end
+
+          local cmd = { 'git', '--no-pager', '--no-optional-locks', 'claude-commit', '--no-resume' }
+          if note ~= '' then
+            table.insert(cmd, note)
+          end
+
+          local proc = process.new({
+            cmd = cmd,
+            cwd = git.repo.worktree_root,
+            env = {},
+            on_error = function()
+              return false
+            end,
+            git_hook = true,
+            suppress_console = false,
+            user_command = true,
+          })
+          proc:show_console()
+
+          runner.call(proc, { pty = true })
+        end)
+      end)
+    end,
+  },
 })
 
 require('config.space')
