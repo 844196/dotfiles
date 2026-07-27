@@ -432,6 +432,8 @@ require('oil').setup({
 
 require('neogit').setup({
   kind = 'auto',
+  treesitter_diff_highlight = true,
+  word_diff_highlight = true,
   mappings = {
     status = {
       ['<Esc>'] = 'Close',
