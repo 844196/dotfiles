@@ -25,9 +25,9 @@ local function indentinfo()
     shiftwidth = vim.bo.tabstop
   end
   if vim.bo.expandtab then
-    return 'Spaces: ' .. shiftwidth
+    return 'Spc:' .. shiftwidth
   end
-  return 'Tab Size: ' .. shiftwidth
+  return 'Tab:' .. shiftwidth
 end
 
 local function filestatus()
