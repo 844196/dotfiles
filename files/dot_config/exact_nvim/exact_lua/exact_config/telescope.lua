@@ -125,6 +125,16 @@ local function telescope_multi_open(default_action, command)
   end
 end
 
+-- buffers ピッカーでのバッファ削除: mini.bufremove でウィンドウレイアウトを保ったまま削除する
+local function telescope_delete_buffer(prompt_bufnr)
+  local current_picker = telescope_action_state.get_current_picker(prompt_bufnr)
+
+  current_picker:delete_selection(function(selection)
+    local force = vim.bo[selection.bufnr].buftype == 'terminal'
+    return require('mini.bufremove').delete(selection.bufnr, force)
+  end)
+end
+
 local telescope_multi_open_vertical =
   telescope_multi_open(telescope_actions.select_vertical + telescope_actions.center, 'vsplit')
 local telescope_multi_open_horizontal =
@@ -203,10 +213,13 @@ telescope.setup({
     buffers = {
       mappings = {
         i = {
-          ['<M-x>'] = telescope_actions.delete_buffer,
+          -- nop にしておかないとノーマルモードに戻ってしまう
+          ['<C-c>'] = telescope_actions.nop,
+          ['<C-c>d'] = telescope_delete_buffer,
         },
         n = {
-          ['<M-x>'] = telescope_actions.delete_buffer,
+          ['<C-c>'] = telescope_actions.nop,
+          ['<C-c>d'] = telescope_delete_buffer,
         },
       },
     },
