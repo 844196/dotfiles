@@ -27,6 +27,18 @@ end, { desc = 'Search in a project w/ symbol under cursor' })
 vim.keymap.set('n', '<Leader>/', '<Leader>sp', { remap = true, desc = 'Search in a project' })
 vim.keymap.set({ 'n', 'x' }, '<Leader>*', '<Leader>sP', { remap = true, desc = 'Search in a project w/ symbol under cursor' })
 
+vim.keymap.set('n', '<Leader>sb', function()
+  require('telescope.builtin').live_grep({
+    grep_open_files = true,
+  })
+end, { desc = 'Search in opened buffers' })
+vim.keymap.set({ 'n', 'x' }, '<Leader>sB', function()
+  require('telescope.builtin').live_grep({
+    grep_open_files = true,
+    default_text = get_search_text(),
+  })
+end, { desc = 'Search in opened buffers w/ symbol under cursor' })
+
 vim.keymap.set('n', '<Leader>ss', '<Cmd>Telescope current_buffer_fuzzy_find<CR>', { desc = 'Search in current file' })
 vim.keymap.set({ 'n', 'x' }, '<Leader>sS', function()
   require('telescope.builtin').current_buffer_fuzzy_find({
