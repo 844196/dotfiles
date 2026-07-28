@@ -84,14 +84,16 @@ local function navigate_directory_picker(root, default_text)
           go_to(current_root .. '/' .. (entry.value:gsub('/$', '')))
         end
       end)
-      -- 何も入力されていない状態での <C-h> は親ディレクトリへ移動、それ以外は通常の backspace
-      map('i', '<C-h>', function()
+      -- 何も入力されていない状態での <C-h>/<BS> は親ディレクトリへ移動、それ以外は通常の backspace
+      local function backspace_or_go_to_parent()
         if action_state.get_current_line() == '' then
           go_to(vim.fs.dirname(current_root))
         else
           vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<BS>', true, false, true), 'n', true)
         end
-      end)
+      end
+      map('i', '<C-h>', backspace_or_go_to_parent)
+      map('i', '<BS>', backspace_or_go_to_parent)
       return true
     end,
   }):find()
