@@ -20,8 +20,9 @@ Linux (WSL2) および macOS で運用する dotfiles です。[Chezmoi](https:/
 
   ```bash
   chezmoi diff
-  chezmoi diff --exclude scripts # 実行される予定の chezmoiscripts ソースコードは除いた差分
   ```
+
+  `run_after_*` は変更の有無に関わらず毎回差分として現れるため、報告時はこの部分を無視すること。詳細は [`.chezmoiscripts/` の運用方針](.claude/rules/chezmoiscripts.md)を参照。
 
 - `chezmoi ls-scripts <next|all>` - chezmoiscripts を実行される順番に表示します。
 
