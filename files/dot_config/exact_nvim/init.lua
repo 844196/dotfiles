@@ -294,7 +294,20 @@ MiniIcons.tweak_lsp_kind()
 
 require('mini.trailspace').setup()
 
-require('mini.pairs').setup()
+-- VS Codeのデフォルト (autoClosingBrackets) に合わせ、カーソル直後の文字が空白/行末
+-- もしくは ;:.,=}])> のいずれか (バッククォート含む) のときだけ自動で閉じ括弧・閉じクォートを挿入する。
+-- それ以外 (例: 単語の途中) では単一文字のみ挿入する
+local AUTOCLOSE_BEFORE = '[%s;:,.=}%])>`]'
+require('mini.pairs').setup({
+  mappings = {
+    ['('] = { neigh_pattern = '[^\\]' .. AUTOCLOSE_BEFORE },
+    ['['] = { neigh_pattern = '[^\\]' .. AUTOCLOSE_BEFORE },
+    ['{'] = { neigh_pattern = '[^\\]' .. AUTOCLOSE_BEFORE },
+    ['"'] = { neigh_pattern = '[^\\]' .. AUTOCLOSE_BEFORE },
+    ["'"] = { neigh_pattern = '[^%a\\]' .. AUTOCLOSE_BEFORE },
+    ['`'] = { neigh_pattern = '[^\\]' .. AUTOCLOSE_BEFORE },
+  },
+})
 
 require('mini.move').setup({
   mappings = {
