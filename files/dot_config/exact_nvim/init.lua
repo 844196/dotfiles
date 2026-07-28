@@ -387,6 +387,9 @@ vim.keymap.set('i', '<C-b>', '<C-g>U<Left>')
 vim.keymap.set('i', '<C-c>', function()
   return vim.fn.pumvisible() == 1 and '<C-e>' or '<C-c>'
 end, { expr = true })
+vim.keymap.set('i', '<Esc>', function()
+  return vim.fn.pumvisible() == 1 and '<C-e>' or '<Esc>'
+end, { expr = true })
 vim.keymap.set('i', '<Tab>', function()
   return vim.fn.pumvisible() == 1 and '<C-n>' or '<Tab>'
 end, { expr = true })
