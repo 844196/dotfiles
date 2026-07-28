@@ -210,6 +210,17 @@ telescope.setup({
         },
       },
     },
+    live_grep = {
+      mappings = {
+        -- デフォルトが actions.to_fuzzy_refine で使いづらい
+        i = {
+          ['<C-Space>'] = require('telescope.actions').toggle_selection + require('telescope.actions').move_selection_worse,
+        },
+        n = {
+          ['<C-Space>'] = require('telescope.actions').toggle_selection + require('telescope.actions').move_selection_worse,
+        },
+      },
+    },
   },
   extensions = {
     fzf = {
