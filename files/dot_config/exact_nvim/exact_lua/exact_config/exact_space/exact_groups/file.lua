@@ -1,9 +1,26 @@
 require('which-key').add({ { '<Leader>f', group = 'File' } })
 
+-- find_files を cwd 付きで開く。何も入力されていない状態での <C-h> は親ディレクトリへ移動、それ以外は通常の backspace
+local function find_files_from(cwd, extra_opts)
+  require('telescope.builtin').find_files(vim.tbl_extend('force', extra_opts or {}, {
+    cwd = cwd,
+    prompt_title = 'Find Files (' .. cwd .. ')',
+    attach_mappings = function(prompt_bufnr, map)
+      map('i', '<C-h>', function()
+        if require('telescope.actions.state').get_current_line() == '' then
+          require('telescope.actions').close(prompt_bufnr)
+          find_files_from(vim.fs.dirname(cwd), extra_opts)
+        else
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<BS>', true, false, true), 'n', true)
+        end
+      end)
+      return true
+    end,
+  }))
+end
+
 vim.keymap.set('n', '<Leader>ff', function()
-  require('telescope.builtin').find_files({
-    cwd = require('telescope.utils').buffer_dir(),
-  })
+  find_files_from(require('telescope.utils').buffer_dir())
 end, { desc = 'Find file starting from the current file directory' })
 vim.keymap.set({ 'n', 'x' }, '<Leader>fF', function()
   local util = require('config.space.util')
@@ -11,8 +28,7 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>fF', function()
   local was_visual = mode == 'v' or mode == 'V' or mode == '\22'
   local ok = pcall(vim.cmd.normal, { 'gf', bang = true })
   if ok then return end
-  require('telescope.builtin').find_files({
-    cwd = require('telescope.utils').buffer_dir(),
+  find_files_from(require('telescope.utils').buffer_dir(), {
     default_text = was_visual and util.visual_selection() or vim.fn.expand('<cfile>'),
   })
 end, { desc = 'Open the file under point, or find it if not found' })
