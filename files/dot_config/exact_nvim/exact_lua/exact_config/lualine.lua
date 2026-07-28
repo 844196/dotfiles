@@ -40,6 +40,55 @@ local function filestatus()
   return '-'
 end
 
+-- nvim 起動時の cwd。以後 :cd 等で変わっても基準は変えない。
+local start_cwd = vim.uv.cwd()
+
+---@param path string 絶対パス (末尾のセパレータはあってもなくてもよい)
+---@param base string|nil 基準ディレクトリ
+---@return string|nil base 配下なら base からの相対パス (base 自身なら '')。配下でなければ nil
+local function relative_to(path, base)
+  if not base then
+    return nil
+  end
+  if path == base then
+    return ''
+  end
+  local prefix = base .. '/'
+  if path:sub(1, #prefix) == prefix then
+    return path:sub(#prefix + 1)
+  end
+  return nil
+end
+
+---@param path string 絶対ディレクトリパス
+---@return string 起動時 cwd 相対 > ~/ 相対 > 絶対パス の優先順で短縮したパス
+local function shorten_dir(path)
+  -- ルート ('/') はこのパターンにマッチしないので空文字にならない
+  path = path:gsub('(.)/+$', '%1')
+
+  local rel = relative_to(path, start_cwd)
+  if rel then
+    return rel == '' and '.' or rel
+  end
+
+  rel = relative_to(path, vim.uv.os_homedir())
+  if rel then
+    return '~/' .. rel
+  end
+
+  return path
+end
+
+-- oil.nvim のバッファなら表示中のディレクトリで名前を上書きする。それ以外はそのまま (組み込みの tail 名) を返す
+local function fmt_filename(name)
+  local ok, oil = pcall(require, 'oil')
+  local oil_dir = ok and oil.get_current_dir(0)
+  if not oil_dir then
+    return name
+  end
+  return shorten_dir(oil_dir)
+end
+
 -- https://github.com/rebelot/heirline.nvim/blob/master/cookbook.md#cursor-position-ruler-and-scrollbar
 -- https://github.com/NeogitOrg/neogit/discussions/1217
 -- https://github.com/CKolkey/config/blob/2d9bdfbf74843d7a38b0de41a5203ee08da0500f/nvim/lua/ckolkey/plugins/ui/statusline.lua#L123-L133
@@ -125,8 +174,9 @@ require('lualine').setup({
         padding = 0,
       },
       {
-        '%t',
-        type = 'stl',
+        'filename',
+        file_status = false,
+        fmt = fmt_filename,
         color = { fg = night.fg_sidebar, gui = 'bold' },
       },
       {
@@ -229,8 +279,9 @@ require('lualine').setup({
         padding = 0,
       },
       {
-        '%t',
-        type = 'stl',
+        'filename',
+        file_status = false,
+        fmt = fmt_filename,
       },
       {
         'filetype',
