@@ -54,7 +54,7 @@ local git_hydra_heads = {
   },
   {
     'z',
-    require('recenter'),
+    require('config.recenter'),
     { desc = 'Recenter buffer in window' },
   },
 }

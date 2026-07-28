@@ -352,7 +352,7 @@ vim.keymap.set('n', '<Esc>', '<Cmd>nohl<CR>')
 vim.keymap.set('n', 'n', 'nzz')
 vim.keymap.set('n', 'N', 'Nzz')
 
-vim.keymap.set('n', '<C-l>', require('recenter'))
+vim.keymap.set('n', '<C-l>', require('config.recenter'))
 
 -- *で最初のマッチへ移動しないように
 vim.keymap.set('n', '*', '"zyiw:let @/ = @z<CR>:<C-u>set hlsearch<CR>')
