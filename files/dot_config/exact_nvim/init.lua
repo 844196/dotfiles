@@ -21,6 +21,17 @@ vim.opt.fileencodings = {
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 0 -- i.e. Use tabstop value
 vim.opt.expandtab = true
+vim.opt.scrolloff = 4
+vim.opt.sidescrolloff = 8
+vim.opt.virtualedit:append('block')
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.wrapscan = false
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.infercase = true
+vim.opt.wildignorecase = true
+vim.opt.cmdheight = 0
 
 vim.opt.clipboard:append('unnamedplus')
 if vim.fn.has('wsl') == 1 then
@@ -62,8 +73,6 @@ require('vim._core.ui2').enable({
   }
 })
 
-vim.opt.cmdheight = 0
-
 require('config.lualine')
 
 -- 鬱陶しいので普段は行番号のみハイライトさせる
@@ -91,9 +100,6 @@ vim.api.nvim_create_autocmd('WinLeave', {
     vim.wo.cursorline = false
   end,
 })
-
-vim.o.scrolloff = 4
-vim.o.sidescrolloff = 8
 
 require('gitsigns').setup({
   signs = {
@@ -133,25 +139,6 @@ require('statuscol').setup({
     },
   },
 })
-
-vim.opt.virtualedit:append('block')
-
--- ウィンドウ分割で開かれる新しいウィンドウは下もしくは右に表示させる
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-
--- コマンドライン補完で大文字小文字を区別しない
-vim.opt.wildignorecase = true
-
--- n/Nで移動時に最後のマッチに到達しても、最初のマッチへ戻らないように
-vim.opt.wrapscan = false
-
--- 検索で大文字小文字を区別しないが、大文字を含む場合は区別する
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-
--- 挿入モードでの単語補完時に大文字小文字を区別しないが、大文字を含む場合は区別する ("vim.opt.ignorecase=true" required)
-vim.opt.infercase = true
 
 require('mini.completion').setup({
   lsp_completion = {
