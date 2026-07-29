@@ -33,7 +33,7 @@ require('config.space.hydra').create({
     { 'n', '<Leader>en', { desc = 'Jump to next error', remap = true } },
     { 'p', '<Leader>ep', { desc = 'Jump to previous error', remap = true } },
     { 'N', '<Leader>eN', { desc = 'Jump to previous error', remap = true } },
-    { 'z', require('config.recenter'), { desc = 'Recenter buffer in window' } },
+    { 'z', require('config.keymap_actions').recenter, { desc = 'Recenter buffer in window' } },
     { 'y', '<Leader>ey', { desc = 'Copy each error', remap = true } }, -- 本家にない
   },
 })

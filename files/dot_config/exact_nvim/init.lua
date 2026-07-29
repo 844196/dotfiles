@@ -325,19 +325,16 @@ require('mini.move').setup({
   },
 })
 
-vim.keymap.set('n', '<M-;>',  'gcc', { remap = true })
-vim.keymap.set('i', '<M-;>', function()
-  local win = vim.api.nvim_get_current_win()
-  local row, col = unpack(vim.api.nvim_win_get_cursor(win))
-  local old_line = vim.api.nvim_get_current_line()
-  require('vim._comment').toggle_lines(row, row, { row, 0 })
-  local new_line = vim.api.nvim_get_current_line()
-  local new_col = col + (#new_line - #old_line)
-  vim.api.nvim_win_set_cursor(win, { row, math.min(math.max(new_col, 0), #new_line) })
-end)
-vim.keymap.set('v', '<M-;>',  'gc', { remap = true })
+local keymap_actions = require('config.keymap_actions')
 
--- LSP
+vim.keymap.set('n', '<Esc>', '<Cmd>nohl<CR>')
+vim.keymap.set('n', '<CR>', 'o<Esc>')
+vim.keymap.set('n', '<S-CR>', 'O<Esc>')
+vim.keymap.set('n', 'n', 'nzz')
+vim.keymap.set('n', 'N', 'Nzz')
+vim.keymap.set({ 'n', 'i', 'x' }, '<C-l>', keymap_actions.recenter)
+vim.keymap.set('n', '<M-;>',  'gcc', { remap = true })
+vim.keymap.set('v', '<M-;>',  'gc', { remap = true })
 vim.keymap.set('n', 'gh', '<Cmd>lua vim.lsp.buf.hover()<CR>')
 vim.keymap.set('n', 'g.', '<Cmd>lua vim.lsp.buf.code_action()<CR>')
 vim.keymap.set('n', '<F2>', '<Cmd>lua vim.lsp.buf.rename()<CR>')
@@ -345,14 +342,6 @@ vim.keymap.set('n', '<F2>', '<Cmd>lua vim.lsp.buf.rename()<CR>')
 -- https://vimrc-dissection.blogspot.com/2009/02/fixing-pageup-and-pagedown.html
 vim.keymap.set({ 'n', 'v' }, '<PageUp>', '1000<C-u>zz')
 vim.keymap.set({ 'n', 'v' }, '<PageDown>', '1000<C-d>zz')
-
--- Escでマッチハイライトを消す
-vim.keymap.set('n', '<Esc>', '<Cmd>nohl<CR>')
-
-vim.keymap.set('n', 'n', 'nzz')
-vim.keymap.set('n', 'N', 'Nzz')
-
-vim.keymap.set('n', '<C-l>', require('config.recenter'))
 
 -- *で最初のマッチへ移動しないように
 vim.keymap.set('n', '*', '"zyiw:let @/ = @z<CR>:<C-u>set hlsearch<CR>')
@@ -365,69 +354,25 @@ vim.keymap.set({ 'n', 'v' }, 'c', '"_c')
 -- 範囲選択中の貼り付け時に、ヤンクレジスタを汚染しないように
 vim.keymap.set('v', 'p', 'P')
 
--- ノーマルモードのまま現在行の上下に空行を挿入できるように
-vim.keymap.set('n', '<CR>', 'o<Esc>')
-vim.keymap.set('n', '<S-CR>', 'O<Esc>')
-
--- 矢印キーでの移動もドットリピートに含める
-vim.keymap.set('i', '<Left>', '<C-g>U<Left>')
-vim.keymap.set('i', '<Right>', '<C-g>U<Right>')
-vim.keymap.set('i', '<Up>', function()
-  return vim.fn.pumvisible() == 1 and '<C-p>' or '<C-g>U<Up>'
-end, { expr = true })
-vim.keymap.set('i', '<Down>', function()
-  return vim.fn.pumvisible() == 1 and '<C-n>' or '<C-g>U<Down>'
-end, { expr = true })
-
--- fb
-vim.keymap.set('i', '<C-f>', '<C-g>U<Right>')
-vim.keymap.set('i', '<C-b>', '<C-g>U<Left>')
-
--- completion menu
-vim.keymap.set('i', '<C-c>', function()
-  return vim.fn.pumvisible() == 1 and '<C-e>' or '<C-c>'
-end, { expr = true })
-vim.keymap.set('i', '<Esc>', function()
-  return vim.fn.pumvisible() == 1 and '<C-e>' or '<Esc>'
-end, { expr = true })
-vim.keymap.set('i', '<Tab>', function()
-  return vim.fn.pumvisible() == 1 and '<C-n>' or '<Tab>'
-end, { expr = true })
-vim.keymap.set('i', '<S-Tab>', function()
-  return vim.fn.pumvisible() == 1 and '<C-p>' or '<S-Tab>'
-end, { expr = true })
-vim.keymap.set('i', '<CR>', function()
-  return vim.fn.complete_info()['selected'] ~= -1 and '<C-y>' or require('mini.pairs').cr()
-end, { expr = true })
-
--- https://neovim.io/doc/user/insert/#i_CTRL-G_U
--- https://golang.hateblo.jp/entry/2023/04/20/201352
-local MyHome = function()
-  local col = vim.fn.col('.')
-  local indent = vim.fn.indent('.')
-  if col == indent + 1 then
-    return string.rep('<C-g>U<Left>', col - 1)
-  elseif col <= indent then
-    return string.rep('<C-g>U<Right>', indent + 1 - col)
-  else
-    return string.rep('<C-g>U<Left>', col - 1 - indent)
-  end
-end
-
-local MyEnd = function()
-  return string.rep('<C-g>U<Right>', vim.fn.col('$') - vim.fn.col('.'))
-end
-
-vim.keymap.set('i', '<Home>', MyHome, { expr = true })
-vim.keymap.set('i', '<C-a>', MyHome, { expr = true })
-vim.keymap.set('i', '<End>', MyEnd, { expr = true })
-vim.keymap.set('i', '<C-e>', MyEnd, { expr = true })
-
--- Deletion
-vim.keymap.set('i', '<C-k>', '<C-o>"_D')
-
 -- 改行文字を除く行末を選択しやすくする
 vim.keymap.set('v', 'v', 'g_')
+
+vim.keymap.set('i', '<Left>', '<C-g>U<Left>')
+vim.keymap.set('i', '<Right>', '<C-g>U<Right>')
+vim.keymap.set('i', '<Up>', keymap_actions.pmenu_visible('<C-p>', '<C-g>U<Up>'), { expr = true })
+vim.keymap.set('i', '<Down>', keymap_actions.pmenu_visible('<C-n>', '<C-g>U<Down>'), { expr = true })
+vim.keymap.set('i', '<Esc>', keymap_actions.pmenu_selected('<C-y><Esc>', '<Esc>'), { expr = true })
+vim.keymap.set('i', '<Tab>', keymap_actions.pmenu_visible('<C-n>', '<Tab>'), { expr = true })
+vim.keymap.set('i', '<S-Tab>', keymap_actions.pmenu_visible('<C-p>', '<S-Tab>'), { expr = true })
+vim.keymap.set('i', '<CR>', keymap_actions.pmenu_selected('<C-y>', require('mini.pairs').cr), { expr = true })
+vim.keymap.set('i', '<Home>', keymap_actions.undoable_home, { expr = true })
+vim.keymap.set('i', '<End>', keymap_actions.pmenu_selected('<C-y>', keymap_actions.undoable_end), { expr = true })
+vim.keymap.set('i', '<C-f>', '<C-g>U<Right>')
+vim.keymap.set('i', '<C-b>', '<C-g>U<Left>')
+vim.keymap.set('i', '<C-a>', keymap_actions.undoable_home, { expr = true })
+vim.keymap.set('i', '<C-e>', keymap_actions.pmenu_visible('<C-y>', keymap_actions.undoable_end), { expr = true })
+vim.keymap.set('i', '<C-c>', keymap_actions.pmenu_visible('<C-e>', '<C-c>'), { expr = true })
+vim.keymap.set('i', '<C-k>', '<C-o>"_D')
 
 require('config.telescope')
 require('config.oil')

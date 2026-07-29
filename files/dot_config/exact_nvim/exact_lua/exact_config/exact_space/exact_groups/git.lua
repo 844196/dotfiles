@@ -54,7 +54,7 @@ local git_hydra_heads = {
   },
   {
     'z',
-    require('config.recenter'),
+    require('config.keymap_actions').recenter,
     { desc = 'Recenter buffer in window' },
   },
 }

@@ -44,7 +44,7 @@ buffer_hydra = require('config.space.hydra').create({
     { '<C-8>', '8<C-w>w', { desc = 'Go to window #8' } },
     { '<C-9>', '9<C-w>w', { desc = 'Go to window #9' } },
     { 'o', '<C-w>w', { desc = 'Switch focus to other window' } },
-    { 'z', require('config.recenter'), { desc = 'Recenter buffer in window' } },
+    { 'z', require('config.keymap_actions').recenter, { desc = 'Recenter buffer in window' } },
   },
 })
 
