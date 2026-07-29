@@ -7,6 +7,7 @@ vim.keymap.set('n', '<Leader>Sp', function() codebook.jump('prev') end, { desc =
 vim.keymap.set('n', '<Leader>SN', '<Leader>Sp', { desc = 'Jump to previous spell error', remap = true }) -- 本家にはない
 
 require('config.space.hydra').create({
+  name = 'Spelling',
   body = '<Leader>S.',
   heads = {
     { 'n', '<Leader>Sn', { desc = 'Jump to next spell error', remap = true } },

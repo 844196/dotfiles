@@ -3,6 +3,7 @@ require('which-key').add({ { '<Leader>w', group = 'Window' } })
 local M = {}
 
 M.hydra = require('config.space.hydra').create({
+  name = 'Window',
   body = '<Leader>w.',
   heads = {
     -- split

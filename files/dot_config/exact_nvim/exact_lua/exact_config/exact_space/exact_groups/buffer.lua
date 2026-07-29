@@ -3,6 +3,7 @@ require('which-key').add({ { '<Leader>b', group = 'Buffer' } })
 local M = {}
 
 M.hydra = require('config.space.hydra').create({
+  name = 'Buffer',
   body = '<Leader>b.',
   heads = {
     {

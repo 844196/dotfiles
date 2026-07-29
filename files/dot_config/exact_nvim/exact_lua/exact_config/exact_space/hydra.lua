@@ -16,13 +16,13 @@ function M.create(opts)
 
   -- 呼び出し元が :activate() で再度 hydra に入れるようにインスタンスを返す
   return Hydra({
+    name = opts.name,
     mode = 'n',
     body = opts.body,
     heads = heads,
     config = {
       hint = {
         type = 'window',
-        show_name = false,
       },
       color = opts.color or 'red',
       invoke_on_body = true,
