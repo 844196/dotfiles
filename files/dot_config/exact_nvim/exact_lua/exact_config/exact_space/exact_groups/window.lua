@@ -1,6 +1,8 @@
 require('which-key').add({ { '<Leader>w', group = 'Window' } })
 
-require('config.space.hydra').create({
+local M = {}
+
+M.hydra = require('config.space.hydra').create({
   body = '<Leader>w.',
   heads = {
     -- split
@@ -53,6 +55,12 @@ require('config.space.hydra').create({
     { 'd', '<Cmd>close!<CR>', { desc = 'Delete window' } },
     { 'D', '<Cmd>only<CR>', { desc = 'Delete other windows' } },
     { 'x', '<Cmd>bd<CR>', { desc = 'Delete window and kill buffer' } },
+
+    { 'b', function()
+      -- BufWipeout の同期発火など hydra 側の exit 処理と競合しないよう、
+      -- 次のイベントループまで activate を遅延させる (buffer.lua の telescope 連携と同様)
+      vim.schedule(function() require('config.space.groups.buffer').hydra:activate() end)
+    end, { exit = true, desc = 'Buffer' } },
   },
 })
 
@@ -97,3 +105,5 @@ vim.keymap.set('n', '<Leader>w=', '<C-w>=', { desc = 'Balance split windows' })
 vim.keymap.set('n', '<Leader>wd', '<Cmd>close!<CR>', { desc = 'Delete a window' })
 vim.keymap.set('n', '<Leader>wm', '<C-w>o', { desc = 'Delete other windows' }) -- 再現が面倒そうだった
 vim.keymap.set('n', '<Leader>wx', '<Cmd>bd<CR>', { desc = 'Delete a window and its current buffer' })
+
+return M

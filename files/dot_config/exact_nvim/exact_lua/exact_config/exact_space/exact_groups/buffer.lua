@@ -1,8 +1,8 @@
 require('which-key').add({ { '<Leader>b', group = 'Buffer' } })
 
-local buffer_hydra ---@type Hydra
+local M = {}
 
-buffer_hydra = require('config.space.hydra').create({
+M.hydra = require('config.space.hydra').create({
   body = '<Leader>b.',
   heads = {
     {
@@ -18,7 +18,7 @@ buffer_hydra = require('config.space.hydra').create({
             vim.api.nvim_create_autocmd('BufWipeout', {
               buffer = prompt_bufnr,
               once = true,
-              callback = function() vim.schedule(function() buffer_hydra:activate() end) end,
+              callback = function() vim.schedule(function() M.hydra:activate() end) end,
             })
             return true
           end,
@@ -45,6 +45,11 @@ buffer_hydra = require('config.space.hydra').create({
     { '<C-9>', '9<C-w>w', { desc = 'Go to window #9' } },
     { 'o', '<C-w>w', { desc = 'Switch focus to other window' } },
     { 'z', require('config.keymap_actions').recenter, { desc = 'Recenter buffer in window' } },
+
+    { 'w', function()
+      -- 同期発火するイベントとの競合を避けるため、次のイベントループまで activate を遅延させる
+      vim.schedule(function() require('config.space.groups.window').hydra:activate() end)
+    end, { exit = true, desc = 'Window' } },
   },
 })
 
@@ -134,3 +139,5 @@ vim.keymap.set('n', '<Leader>be', function()
 end, { desc = 'Erase the content of the buffer' })
 vim.keymap.set('n', '<Leader>bY', '<Cmd>%y<CR>', { desc = 'Copy whole buffer to clipboard' })
 vim.keymap.set('n', '<Leader>bP', '<Cmd>%d _<CR>P', { desc = 'Copy clipboard and replace buffer' })
+
+return M
