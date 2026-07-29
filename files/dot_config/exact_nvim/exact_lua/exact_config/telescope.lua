@@ -1,3 +1,11 @@
+vim.api.nvim_create_autocmd('FileType', {
+  -- Telescope 系バッファでは WinEnter/BufWinEnter 時点でfiletype がまだ空文字列
+  pattern = 'Telescope*',
+  callback = function()
+    vim.wo.cursorline = false
+  end,
+})
+
 local telescope_actions = require('telescope.actions')
 local telescope_action_state = require('telescope.actions.state')
 

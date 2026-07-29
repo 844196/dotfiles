@@ -75,31 +75,8 @@ require('vim._core.ui2').enable({
 
 require('config.lualine')
 
--- 鬱陶しいので普段は行番号のみハイライトさせる
-vim.opt.cursorline = true
-vim.o.cursorlineopt = 'number'
-
--- cursorlineopt (number/both) はグローバル状態として vim.g に保持し、各ウィンドウがアクティブになった時に反映する
-vim.g.cursorlineopt_state = vim.o.cursorlineopt
-
--- アクティブなウィンドウだけカーソル行をハイライトする
-vim.api.nvim_create_autocmd({ 'WinEnter', 'BufWinEnter', 'FileType' }, {
-  callback = function()
-    -- FileType も対象にしているのは、Telescope 系バッファでは WinEnter/BufWinEnter 時点で
-    -- filetype がまだ空文字列で、FileType イベントで初めて TelescopePrompt 等がセットされるため
-    if vim.bo.filetype:match('^Telescope') then
-      vim.wo.cursorline = false
-      return
-    end
-    vim.wo.cursorline = true
-    vim.wo.cursorlineopt = vim.g.cursorlineopt_state
-  end,
-})
-vim.api.nvim_create_autocmd('WinLeave', {
-  callback = function()
-    vim.wo.cursorline = false
-  end,
-})
+require('config.number').setup({ initial_state = 'off' })
+require('config.cursorline').setup({ initial_state = "number" })
 
 require('gitsigns').setup({
   signs = {
