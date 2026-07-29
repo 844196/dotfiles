@@ -92,7 +92,7 @@ end
 -- https://github.com/rebelot/heirline.nvim/blob/master/cookbook.md#cursor-position-ruler-and-scrollbar
 -- https://github.com/NeogitOrg/neogit/discussions/1217
 -- https://github.com/CKolkey/config/blob/2d9bdfbf74843d7a38b0de41a5203ee08da0500f/nvim/lua/ckolkey/plugins/ui/statusline.lua#L123-L133
-local scrollbar_chars = { '🭶', '🭷', '🭸', '🭹', '🭺', '🭻', '▁' }
+local scrollbar_chars = { '🭶', '🭷', '🭸', '🭹', '🭺', '🭻' }
 local function scrollbar()
   local curr_line = vim.api.nvim_win_get_cursor(0)[1]
   local lines = vim.api.nvim_buf_line_count(0)
