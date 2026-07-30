@@ -88,6 +88,10 @@ vim.pack.add({
     version = '9abecb022a581e3a333430a4490f45c784aef5c9',
   },
   {
+    src = 'https://github.com/esmuellert/codediff.nvim',
+    version = 'dc38f0b8a2ba8cc198cc024f3abe887341788820',
+  },
+  {
     src = 'https://github.com/nvim-mini/mini.bufremove',
     version = '281bb1a2c60c3618c854bef2c0933276eb2362c2',
   },
