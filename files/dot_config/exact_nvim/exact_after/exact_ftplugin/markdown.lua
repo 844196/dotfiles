@@ -23,6 +23,19 @@ local function port_from_url(url)
   return port and tonumber(port) or nil
 end
 
+---@param files { name: string, path: string, url: string }[]
+---@param path string
+---@return string|nil
+local function url_of_file(files, path)
+  local abs_path = vim.fn.fnamemodify(path, ':p')
+  for _, file in ipairs(files) do
+    if vim.fn.fnamemodify(file.path, ':p') == abs_path then
+      return file.url
+    end
+  end
+  return nil
+end
+
 local function open_by_mo()
   if vim.b.mo_target ~= nil then
     return
@@ -42,13 +55,21 @@ local function open_by_mo()
   end
 
   local ok, decoded = pcall(vim.json.decode, res.stdout)
-  if not ok or type(decoded) ~= 'table' or not vim.tbl_get(decoded, 'files', 1, 'url') then
+  if not ok or type(decoded) ~= 'table' or type(decoded.files) ~= 'table' then
     vim.notify('mo: unexpected output: ' .. res.stdout, vim.log.levels.ERROR)
     return
   end
   ---@cast decoded MoResult
 
-  local chroma = vim.system({ 'chroma', decoded.files[1].url }, { text = true }):wait(5000)
+  -- files はこの呼び出しで開いたファイルだけでなく、セッション全体で開いている
+  -- 全ファイルの一覧なので、自分が渡した path と一致するエントリを探す
+  local file_url = url_of_file(decoded.files, path)
+  if not file_url then
+    vim.notify('mo: opened file not found in response: ' .. res.stdout, vim.log.levels.ERROR)
+    return
+  end
+
+  local chroma = vim.system({ 'chroma', file_url }, { text = true }):wait(5000)
   if chroma.code ~= 0 then
     vim.notify('chroma: ' .. chroma.stderr, vim.log.levels.ERROR)
     return
