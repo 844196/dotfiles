@@ -38,6 +38,16 @@ local git_hydra_heads = {
     { desc = 'Revert hunk' },
   },
   {
+    'c',
+    function() require('neogit').open({ 'commit' }) end,
+    { exit = true, desc = 'Open Neogit commit popup' },
+  },
+  {
+    'C',
+    require('config.neogit').claude_commit,
+    { exit = true, desc = 'Claude Commit' },
+  },
+  {
     's',
     gitsigns.stage_hunk,
     { desc = 'Stage hunk' },

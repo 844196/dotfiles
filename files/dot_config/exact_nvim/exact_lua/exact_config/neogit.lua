@@ -27,6 +27,42 @@ local function get_diff_integration()
   end
 end
 
+local function claude_commit()
+  local git = require('neogit.lib.git')
+  local process = require('neogit.process')
+  local runner = require('neogit.runner')
+  local async = require('neogit.lib.async')
+
+  vim.ui.input({ prompt = 'Claude Commit note: ' }, function(note)
+    if note == nil then
+      return
+    end
+
+    local cmd = { 'git', '--no-pager', '--no-optional-locks', 'claude-commit', '--no-resume' }
+    if note ~= '' then
+      table.insert(cmd, note)
+    end
+
+    local proc = process.new({
+      cmd = cmd,
+      cwd = git.repo.worktree_root,
+      env = {},
+      on_error = function()
+        return false
+      end,
+      git_hook = true,
+      suppress_console = false,
+      user_command = true,
+    })
+    proc:show_console()
+
+    -- popup 経由の呼び出しは a.void 内で実行されるため spawn_async (非同期) が使われるが、
+    -- ここから直接呼ぶと非同期コンテキストが無く jobwait (同期ブロック) にフォールバックし、
+    -- 実行中のコンソール表示が更新されなくなるため、明示的に非同期コンテキストを張る。
+    async.void(function() runner.call(proc, { pty = true }) end)()
+  end)
+end
+
 require('neogit').setup({
   kind = 'auto',
   treesitter_diff_highlight = true,
@@ -40,37 +76,7 @@ require('neogit').setup({
   },
   builders = {
     NeogitCommitPopup = function(builder)
-      builder:new_action_group('Claude'):action('C', 'Claude Commit', function()
-        local git = require('neogit.lib.git')
-        local process = require('neogit.process')
-        local runner = require('neogit.runner')
-
-        vim.ui.input({ prompt = 'Claude Commit note: ' }, function(note)
-          if note == nil then
-            return
-          end
-
-          local cmd = { 'git', '--no-pager', '--no-optional-locks', 'claude-commit', '--no-resume' }
-          if note ~= '' then
-            table.insert(cmd, note)
-          end
-
-          local proc = process.new({
-            cmd = cmd,
-            cwd = git.repo.worktree_root,
-            env = {},
-            on_error = function()
-              return false
-            end,
-            git_hook = true,
-            suppress_console = false,
-            user_command = true,
-          })
-          proc:show_console()
-
-          runner.call(proc, { pty = true })
-        end)
-      end)
+      builder:new_action_group('Claude'):action('C', 'Claude Commit', claude_commit)
     end,
     NeogitDiffPopup = function(builder)
       builder:action('R', 'Diff (push preview: @{u}...HEAD)', function(popup)
@@ -116,3 +122,5 @@ require('neogit').setup({
     end,
   },
 })
+
+return { claude_commit = claude_commit }
