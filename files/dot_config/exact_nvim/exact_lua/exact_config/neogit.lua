@@ -18,6 +18,15 @@ end
 keep_focus('n_split_open')
 keep_focus('n_vertical_split_open')
 
+local function get_diff_integration()
+  local viewer = require('neogit.config').get_diff_viewer()
+  if viewer == 'codediff' then
+    return require('neogit.integrations.codediff')
+  else
+    return require('neogit.integrations.diffview')
+  end
+end
+
 require('neogit').setup({
   kind = 'auto',
   treesitter_diff_highlight = true,
@@ -61,6 +70,33 @@ require('neogit').setup({
 
           runner.call(proc, { pty = true })
         end)
+      end)
+    end,
+    NeogitDiffPopup = function(builder)
+      builder:action('R', 'Diff (push preview: @{u}...HEAD)', function(popup)
+        popup:close()
+        get_diff_integration().open('range', '@{u}...HEAD')
+      end)
+      builder:action('B', 'Diff (base branch remote vs HEAD)', function(popup)
+        popup:close()
+
+        local git = require('neogit.lib.git')
+        local notification = require('neogit.lib.notification')
+
+        local current = git.branch.current()
+        local base = current and git.config.get('branch.' .. current .. '.base'):read()
+        if not base then
+          notification.error('base branch is not configured (branch.' .. tostring(current) .. '.base)')
+          return
+        end
+
+        local remote = git.config.get('branch.' .. base .. '.remote'):read()
+        if not remote then
+          notification.error('remote is not configured (branch.' .. base .. '.remote)')
+          return
+        end
+
+        get_diff_integration().open('range', remote .. '/' .. base .. '...HEAD')
       end)
     end,
     NeogitResetPopup = function(builder)
