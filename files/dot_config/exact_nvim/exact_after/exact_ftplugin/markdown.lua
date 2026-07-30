@@ -36,28 +36,25 @@ local function url_of_file(files, path)
   return nil
 end
 
+---@return string|nil mo が開いたファイルの url
 local function open_by_mo()
-  if vim.b.mo_target ~= nil then
-    return
-  end
-
   local path = vim.api.nvim_buf_get_name(0)
   if path == '' or vim.fn.filereadable(path) == 0 then
     vim.notify('Must be visiting a file', vim.log.levels.ERROR)
-    return
+    return nil
   end
 
   local target = mo_target()
   local res = vim.system({ 'mo', '--json', '--no-open', '--target', target, path }, { text = true }):wait(5000)
   if res.code ~= 0 then
     vim.notify('mo: ' .. res.stderr, vim.log.levels.ERROR)
-    return
+    return nil
   end
 
   local ok, decoded = pcall(vim.json.decode, res.stdout)
   if not ok or type(decoded) ~= 'table' or type(decoded.files) ~= 'table' then
     vim.notify('mo: unexpected output: ' .. res.stdout, vim.log.levels.ERROR)
-    return
+    return nil
   end
   ---@cast decoded MoResult
 
@@ -66,6 +63,19 @@ local function open_by_mo()
   local file_url = url_of_file(decoded.files, path)
   if not file_url then
     vim.notify('mo: opened file not found in response: ' .. res.stdout, vim.log.levels.ERROR)
+    return nil
+  end
+
+  -- close 時に cwd が変わっていても正しいグループを狙えるように記録
+  vim.b.mo_target = target
+  vim.b.mo_url = decoded.url
+
+  return file_url
+end
+
+local function open_by_mo_and_chroma()
+  local file_url = open_by_mo()
+  if not file_url then
     return
   end
 
@@ -74,10 +84,6 @@ local function open_by_mo()
     vim.notify('chroma: ' .. chroma.stderr, vim.log.levels.ERROR)
     return
   end
-
-  -- close 時に cwd が変わっていても正しいグループを狙えるように記録
-  vim.b.mo_target = target
-  vim.b.mo_url = decoded.url
 end
 
 ---@param bufnr integer
@@ -214,4 +220,5 @@ vim.api.nvim_create_autocmd('VimLeavePre', {
 })
 
 vim.keymap.set('n', '<LocalLeader>co', open_by_mo, { desc = 'Preview by mo', buf = 0 })
+vim.keymap.set('n', '<LocalLeader>cO', open_by_mo_and_chroma, { desc = 'Preview by mo and open in chroma', buf = 0 })
 vim.keymap.set('n', '<LocalLeader>Tm', require('render-markdown').buf_toggle, { desc = 'Toggle markup hiding', buf = 0 })
