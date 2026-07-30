@@ -120,6 +120,7 @@ zstyle ':wk:*' accept-widget accept-line-with-expand-alias
 
 zle -N backward-kill-word-match
 
+bindkey -e
 bindkey '^[[H' beginning-of-line # Home
 bindkey '^[[F' end-of-line # End
 bindkey '^[[3~' delete-char # Delete
