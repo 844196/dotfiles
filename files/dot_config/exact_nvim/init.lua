@@ -117,18 +117,61 @@ require('statuscol').setup({
   },
 })
 
-require('mini.completion').setup({
-  lsp_completion = {
-    source_func = 'completefunc',
-    process_items = function (items, base)
-      return MiniCompletion.default_process_items(items, base, {
-        kind_priority = { Text = -1, Keyword = -1, Snippet = -1 },
-      })
-    end,
+require('blink.cmp').setup({
+  keymap = {
+    preset = 'default',
+    ['<C-n>'] = { 'show', 'select_next', 'fallback' },
+    ['<CR>'] = { 'accept', 'fallback' },
+    ['<Tab>'] = { 'select_next', 'fallback' },
+    ['<S-Tab>'] = { 'select_prev', 'fallback' },
+    ['<End>'] = {
+      function(cmp)
+        return cmp.accept({
+          callback = function()
+            vim.api.nvim_feedkeys(vim.keycode(require('config.keymap_actions').undoable_end()), 'n', false)
+          end,
+        })
+      end,
+      'fallback',
+    },
+    ['<C-e>'] = {
+      function(cmp)
+        return cmp.accept({
+          callback = function()
+            vim.api.nvim_feedkeys(vim.keycode(require('config.keymap_actions').undoable_end()), 'n', false)
+          end,
+        })
+      end,
+      'fallback',
+    },
+    ['<C-c>'] = { 'cancel', 'fallback' },
+    ['<Esc>'] = {
+      function(cmp)
+        return cmp.hide({
+          callback = function()
+            vim.api.nvim_feedkeys(vim.keycode('<Esc>'), 'n', false)
+          end,
+        })
+      end,
+      'fallback',
+    },
+  },
+  appearance = {
+    nerd_font_variant = 'mono',
+  },
+  completion = {
+    list = {
+      selection = { preselect = true, auto_insert = false },
+    },
+    documentation = { auto_show = true },
+  },
+  sources = {
+    default = { 'lsp', 'path', 'buffer', 'snippets' },
+  },
+  fuzzy = {
+    implementation = "prefer_rust_with_warning",
   },
 })
-vim.o.complete = 'F' -- completefunc (i.e. mini.completion)
-MiniIcons.tweak_lsp_kind()
 
 require('mini.trailspace').setup()
 
@@ -198,19 +241,14 @@ vim.keymap.set('v', 'v', 'g_')
 
 vim.keymap.set('i', '<Left>', '<C-g>U<Left>')
 vim.keymap.set('i', '<Right>', '<C-g>U<Right>')
-vim.keymap.set('i', '<Up>', keymap_actions.pmenu_visible('<C-p>', '<C-g>U<Up>'), { expr = true })
-vim.keymap.set('i', '<Down>', keymap_actions.pmenu_visible('<C-n>', '<C-g>U<Down>'), { expr = true })
-vim.keymap.set('i', '<Esc>', keymap_actions.pmenu_selected('<C-y><Esc>', '<Esc>'), { expr = true })
-vim.keymap.set('i', '<Tab>', keymap_actions.pmenu_visible('<C-n>', '<Tab>'), { expr = true })
-vim.keymap.set('i', '<S-Tab>', keymap_actions.pmenu_visible('<C-p>', '<S-Tab>'), { expr = true })
-vim.keymap.set('i', '<CR>', keymap_actions.pmenu_selected('<C-y>', require('mini.pairs').cr), { expr = true })
+vim.keymap.set('i', '<Up>', '<C-g>U<Up>', { expr = true })
+vim.keymap.set('i', '<Down>', '<C-g>U<Down>', { expr = true })
 vim.keymap.set('i', '<Home>', keymap_actions.undoable_home, { expr = true })
-vim.keymap.set('i', '<End>', keymap_actions.pmenu_selected('<C-y>', keymap_actions.undoable_end), { expr = true })
+vim.keymap.set('i', '<End>', keymap_actions.undoable_end, { expr = true })
 vim.keymap.set('i', '<C-f>', '<C-g>U<Right>')
 vim.keymap.set('i', '<C-b>', '<C-g>U<Left>')
 vim.keymap.set('i', '<C-a>', keymap_actions.undoable_home, { expr = true })
-vim.keymap.set('i', '<C-e>', keymap_actions.pmenu_visible('<C-y>', keymap_actions.undoable_end), { expr = true })
-vim.keymap.set('i', '<C-c>', keymap_actions.pmenu_visible('<C-e>', '<C-c>'), { expr = true })
+vim.keymap.set('i', '<C-e>', keymap_actions.undoable_end, { expr = true })
 vim.keymap.set('i', '<C-k>', '<C-o>"_D')
 
 require('config.telescope')

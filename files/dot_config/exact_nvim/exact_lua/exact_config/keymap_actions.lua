@@ -17,34 +17,6 @@ function M.recenter()
   recenter_state.topline = vim.fn.winsaveview().topline
 end
 
-local function call_or_return(given)
-  if type(given) == "function" then
-    return given()
-  else
-    return given
-  end
-end
-
-function M.pmenu_visible(on_visible, otherwise)
-  return function()
-    if vim.fn.pumvisible() == 1 then
-      return call_or_return(on_visible)
-    else
-      return call_or_return(otherwise)
-    end
-  end
-end
-
-function M.pmenu_selected(on_selected, otherwise)
-  return function()
-    if vim.fn.complete_info({ 'selected' }).selected ~= -1 then
-      return call_or_return(on_selected)
-    else
-      return call_or_return(otherwise)
-    end
-  end
-end
-
 -- https://neovim.io/doc/user/insert/#i_CTRL-G_U
 -- https://golang.hateblo.jp/entry/2023/04/20/201352
 function M.undoable_home()

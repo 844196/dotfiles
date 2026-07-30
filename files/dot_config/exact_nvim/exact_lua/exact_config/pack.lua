@@ -28,10 +28,6 @@ vim.pack.add({
     version = 'e954496f8ef22904e8a84f5078f4a110fdc7a0d3',
   },
   {
-    src = 'https://github.com/nvim-mini/mini.completion',
-    version = 'd2a2b2a2b5350b713ade3bb744df39eee7d4229b',
-  },
-  {
     src = 'https://github.com/nvim-mini/mini.icons',
     version = '98faae31e9be1cc054ae63485e58ceb185efcad0',
   },
@@ -102,5 +98,9 @@ vim.pack.add({
   {
     src = 'https://github.com/nvim-treesitter/nvim-treesitter',
     version = '8b3a191c015dd66a92d51a112ed96af0aac13b63',
+  },
+  {
+    src = 'https://github.com/saghen/blink.cmp',
+    version = 'v1.10.2',
   },
 })
