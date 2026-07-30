@@ -16,6 +16,13 @@ local function mo_target()
   return vim.fs.basename(assert(vim.uv.cwd()))
 end
 
+---@param url string
+---@return integer|nil
+local function port_from_url(url)
+  local port = url:match(':(%d+)$')
+  return port and tonumber(port) or nil
+end
+
 local function open_by_mo()
   if vim.b.mo_target ~= nil then
     return
@@ -49,6 +56,7 @@ local function open_by_mo()
 
   -- close 時に cwd が変わっていても正しいグループを狙えるように記録
   vim.b.mo_target = target
+  vim.b.mo_url = decoded.url
 end
 
 ---@param bufnr integer
@@ -63,8 +71,84 @@ local function close_by_mo(bufnr)
     return
   end
 
+  local cmd = { 'mo', '--close', '--target', target }
+  local url = vim.b[bufnr].mo_url
+  local port = url and port_from_url(url)
+  if port then
+    -- open 時と mo のデフォルトポートが変わっていても正しいサーバーを狙う
+    vim.list_extend(cmd, { '-p', tostring(port) })
+  end
+  table.insert(cmd, path)
+
   -- 失敗しても気にしない。nvim 終了時に殺されないよう detach する
-  vim.system({ 'mo', '--close', '--target', target, path }, { detach = true })
+  vim.system(cmd, { detach = true })
+end
+
+---@param bufs integer[]
+---@return string|nil, string|nil この nvim が mo で開いていた target と url。それぞれ 1 種類だけなら値、それ以外は nil
+local function sole_own_mo_session(bufs)
+  local targets, urls = {}, {}
+  local target_count, url_count = 0, 0
+  for _, buf in ipairs(bufs) do
+    local target = vim.b[buf].mo_target
+    local url = vim.b[buf].mo_url
+    if target and not targets[target] then
+      targets[target] = true
+      target_count = target_count + 1
+    end
+    if url and not urls[url] then
+      urls[url] = true
+      url_count = url_count + 1
+    end
+  end
+  if target_count ~= 1 or url_count ~= 1 then
+    return nil, nil
+  end
+  return next(targets), next(urls)
+end
+
+---@param url string open_by_mo の応答に含まれていた mo サーバーの url
+---@return string|nil url が指すサーバーの唯一のグループ名。稼働中でないかグループが 1 つでなければ nil
+local function sole_running_mo_group(url)
+  local res = vim.system({ 'mo', '--status', '--json' }, { text = true }):wait(5000)
+  if res.code ~= 0 then
+    return nil
+  end
+
+  local ok, decoded = pcall(vim.json.decode, res.stdout)
+  if not ok or type(decoded) ~= 'table' then
+    return nil
+  end
+
+  for _, server in ipairs(decoded) do
+    if server.url == url then
+      if server.status ~= 'running' then
+        return nil
+      end
+      local groups = server.groups or {}
+      if #groups ~= 1 then
+        return nil
+      end
+      return groups[1].name
+    end
+  end
+  return nil
+end
+
+---@param bufs integer[]
+local function close_or_shutdown_mo(bufs)
+  -- 同時に複数の nvim が mo を使うことはない前提: 自分が開いた target が
+  -- 1 種類だけで、かつそれが mo 上の唯一のグループと一致するなら、
+  -- 個別 close より速い shutdown で済ませる。それ以外は今の nvim で
+  -- 開いていた分だけ閉じる。
+  local own_target, own_url = sole_own_mo_session(bufs)
+  local port = own_url and port_from_url(own_url)
+  if own_target and port and own_target == sole_running_mo_group(own_url) then
+    vim.system({ 'mo', '--shutdown', '-p', tostring(port) }, { detach = true })
+    return
+  end
+
+  vim.iter(bufs):each(close_by_mo)
 end
 
 vim.api.nvim_clear_autocmds({ group = group, buffer = 0 })
@@ -82,7 +166,7 @@ vim.api.nvim_create_autocmd('VimLeavePre', {
   group = group,
   callback = function()
     -- :qa では BufDelete が飛ばないのでここで回収する
-    vim.iter(vim.api.nvim_list_bufs()):each(close_by_mo)
+    close_or_shutdown_mo(vim.api.nvim_list_bufs())
   end,
 })
 
