@@ -107,4 +107,8 @@ vim.pack.add({
     src = 'https://github.com/saghen/blink.cmp',
     version = 'v1.10.2',
   },
+  {
+    src = 'https://github.com/MeanderingProgrammer/render-markdown.nvim',
+    version = 'f422cb5c6855f150e2ddcfaf44e7157b98b34f6a',
+  },
 })

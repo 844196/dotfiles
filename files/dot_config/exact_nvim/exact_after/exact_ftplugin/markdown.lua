@@ -1,3 +1,10 @@
+require('render-markdown').setup({
+  enabled = false,
+  completions = {
+    lsp = { enabled = true },
+  },
+})
+
 local group = vim.api.nvim_create_augroup('markdown_layer', { clear = false })
 
 ---@class MoResult
@@ -80,3 +87,4 @@ vim.api.nvim_create_autocmd('VimLeavePre', {
 })
 
 vim.keymap.set('n', '<LocalLeader>co', open_by_mo, { desc = 'Preview by mo', buf = 0 })
+vim.keymap.set('n', '<LocalLeader>Tm', require('render-markdown').buf_toggle, { desc = 'Toggle markup hiding', buf = 0 })
