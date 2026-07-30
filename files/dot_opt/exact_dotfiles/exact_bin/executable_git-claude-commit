@@ -11,7 +11,7 @@ head_before=$(git rev-parse HEAD 2>/dev/null)
 
 session_id=$(uuidgen)
 
-claude --print --session-id "$session_id" --verbose --model haiku --output-format stream-json -p "/$skill $*" \
+HERDR_ENV= HERDR_SOCKET_PATH= HERDR_PANE_ID= claude --print --session-id "$session_id" --verbose --model haiku --output-format stream-json -p "/$skill $*" \
   | jq -r 'select(.type == "assistant") | .message.content[]? | select(.type? == "text") | .text'
 
 head_after=$(git rev-parse HEAD 2>/dev/null)
