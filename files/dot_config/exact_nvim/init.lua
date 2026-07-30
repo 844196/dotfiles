@@ -181,12 +181,12 @@ require('mini.trailspace').setup()
 local AUTOCLOSE_BEFORE = '[%s;:,.=}%])>`]'
 require('mini.pairs').setup({
   mappings = {
-    ['('] = { neigh_pattern = '[^\\]' .. AUTOCLOSE_BEFORE },
-    ['['] = { neigh_pattern = '[^\\]' .. AUTOCLOSE_BEFORE },
-    ['{'] = { neigh_pattern = '[^\\]' .. AUTOCLOSE_BEFORE },
-    ['"'] = { neigh_pattern = '[^\\]' .. AUTOCLOSE_BEFORE },
-    ["'"] = { neigh_pattern = '[^%a\\]' .. AUTOCLOSE_BEFORE },
-    ['`'] = { neigh_pattern = '[^\\]' .. AUTOCLOSE_BEFORE },
+    ['('] = { neigh_pattern = '^[^\\]' .. AUTOCLOSE_BEFORE },
+    ['['] = { neigh_pattern = '^[^\\]' .. AUTOCLOSE_BEFORE },
+    ['{'] = { neigh_pattern = '^[^\\]' .. AUTOCLOSE_BEFORE },
+    ['"'] = { neigh_pattern = '^[^\\]' .. AUTOCLOSE_BEFORE },
+    ["'"] = { neigh_pattern = '^[^%a\\]' .. AUTOCLOSE_BEFORE },
+    ['`'] = { neigh_pattern = '^[^\\]' .. AUTOCLOSE_BEFORE },
   },
 })
 
