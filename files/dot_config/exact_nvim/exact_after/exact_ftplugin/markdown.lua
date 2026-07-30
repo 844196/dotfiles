@@ -60,15 +60,16 @@ local function open_by_mo()
 end
 
 ---@param bufnr integer
-local function close_by_mo(bufnr)
+---@return string[]|nil
+local function mo_close_cmd(bufnr)
   local target = vim.b[bufnr].mo_target
   if not target then
-    return -- mo で開いていないバッファ
+    return nil -- mo で開いていないバッファ
   end
 
   local path = vim.api.nvim_buf_get_name(bufnr)
   if path == '' then
-    return
+    return nil
   end
 
   local cmd = { 'mo', '--close', '--target', target }
@@ -79,6 +80,15 @@ local function close_by_mo(bufnr)
     vim.list_extend(cmd, { '-p', tostring(port) })
   end
   table.insert(cmd, path)
+  return cmd
+end
+
+---@param bufnr integer
+local function close_by_mo(bufnr)
+  local cmd = mo_close_cmd(bufnr)
+  if not cmd then
+    return
+  end
 
   -- 失敗しても気にしない。nvim 終了時に殺されないよう detach する
   vim.system(cmd, { detach = true })
@@ -139,16 +149,28 @@ end
 local function close_or_shutdown_mo(bufs)
   -- 同時に複数の nvim が mo を使うことはない前提: 自分が開いた target が
   -- 1 種類だけで、かつそれが mo 上の唯一のグループと一致するなら、
-  -- 個別 close より速い shutdown で済ませる。それ以外は今の nvim で
-  -- 開いていた分だけ閉じる。
+  -- 自分の分を閉じたうえで mo プロセスごと畳んでしまう (個別 close だけ
+  -- では mo が残り続ける)。それ以外は今の nvim で開いていた分だけ閉じる。
   local own_target, own_url = sole_own_mo_session(bufs)
   local port = own_url and port_from_url(own_url)
-  if own_target and port and own_target == sole_running_mo_group(own_url) then
-    vim.system({ 'mo', '--shutdown', '-p', tostring(port) }, { detach = true })
+  local should_shutdown = own_target ~= nil and port ~= nil and own_target == sole_running_mo_group(own_url)
+
+  if not should_shutdown then
+    vim.iter(bufs):each(close_by_mo)
     return
   end
 
-  vim.iter(bufs):each(close_by_mo)
+  -- shutdown 前に mo のセッション状態から確実に消しておく (でないと次回
+  -- 起動時にセッションが復元され、古いファイルが残ってしまう)。close と
+  -- shutdown の順序が入れ替わらないよう detach せずに待つ。
+  for _, buf in ipairs(bufs) do
+    local cmd = mo_close_cmd(buf)
+    if cmd then
+      vim.system(cmd):wait(2000)
+    end
+  end
+
+  vim.system({ 'mo', '--shutdown', '-p', tostring(port) }, { detach = true })
 end
 
 vim.api.nvim_clear_autocmds({ group = group, buffer = 0 })
