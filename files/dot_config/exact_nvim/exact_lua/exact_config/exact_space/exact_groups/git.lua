@@ -104,3 +104,5 @@ vim.keymap.set('n', '<Leader>gs', '<Cmd>Neogit<CR>', { desc = 'Open a neogit' })
 vim.keymap.set('n', '<Leader>gm', '<Cmd>Neogit<CR>', { desc = 'Open a neogit' })
 vim.keymap.set('n', '<Leader>gS', gitsigns.stage_buffer, { desc = 'Stage current file' })
 vim.keymap.set('n', '<Leader>gU', gitsigns.reset_buffer_index, { desc = 'Unstage current file' })
+
+vim.keymap.set('n', '<Leader>gff', require('telescope.builtin').git_status, { desc = 'Uncommitted files' })
