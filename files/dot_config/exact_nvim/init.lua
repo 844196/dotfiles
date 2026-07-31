@@ -217,9 +217,7 @@ vim.keymap.set('n', 'N', 'Nzz')
 vim.keymap.set({ 'n', 'i', 'x' }, '<C-l>', keymap_actions.recenter)
 vim.keymap.set('n', '<M-;>',  'gcc', { remap = true })
 vim.keymap.set('v', '<M-;>',  'gc', { remap = true })
-vim.keymap.set('n', 'gh', '<Cmd>lua vim.lsp.buf.hover()<CR>')
-vim.keymap.set('n', 'g.', '<Cmd>lua vim.lsp.buf.code_action()<CR>')
-vim.keymap.set('n', '<F2>', '<Cmd>lua vim.lsp.buf.rename()<CR>')
+vim.keymap.set('n', 'gh', function() vim.lsp.buf.hover({ border = 'solid' }) end)
 
 -- https://vimrc-dissection.blogspot.com/2009/02/fixing-pageup-and-pagedown.html
 vim.keymap.set({ 'n', 'v' }, '<PageUp>', '1000<C-u>zz')
