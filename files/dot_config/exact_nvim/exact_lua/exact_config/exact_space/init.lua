@@ -50,10 +50,16 @@ local function map_unless_taken(bufnr, mode, lhs, rhs, desc)
   end
 
   for _, m in ipairs(modes) do
+    local found = false
     for _, map in ipairs(vim.api.nvim_buf_get_keymap(bufnr, m)) do
-      if map.lhs ~= vim.fn.keytrans(vim.keycode(lhs)) then
-        vim.keymap.set(mode, lhs, rhs, { buf = bufnr, desc = desc })
+      if map.lhs == vim.fn.keytrans(vim.keycode(lhs)) then
+        found = true
+        break
       end
+    end
+
+    if not found then
+      vim.keymap.set(mode, lhs, rhs, { buf = bufnr, desc = desc })
     end
   end
 end
