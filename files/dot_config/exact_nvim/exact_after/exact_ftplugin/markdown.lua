@@ -219,6 +219,6 @@ vim.api.nvim_create_autocmd('VimLeavePre', {
   end,
 })
 
-vim.keymap.set('n', '<LocalLeader>co', open_by_mo, { desc = 'Preview by mo', buf = 0 })
-vim.keymap.set('n', '<LocalLeader>cO', open_by_mo_and_chroma, { desc = 'Preview by mo and open in chroma', buf = 0 })
-vim.keymap.set('n', '<LocalLeader>Tm', require('render-markdown').buf_toggle, { desc = 'Toggle markup hiding', buf = 0 })
+vim.keymap.set('n', '<Leader>co', open_by_mo, { desc = 'Preview by mo', buf = 0 })
+vim.keymap.set('n', '<Leader>cO', open_by_mo_and_chroma, { desc = 'Preview by mo and open in chroma', buf = 0 })
+vim.keymap.set('n', '<Leader>Tm', require('render-markdown').buf_toggle, { desc = 'Toggle markup hiding', buf = 0 })

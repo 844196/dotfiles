@@ -3,6 +3,10 @@ vim.api.nvim_set_var('maplocalleader', ',')
 
 require('which-key').setup({
   delay = 0,
+  spec = {
+    { '<Leader>m', group = 'Major' },
+    { '<LocalLeader>', proxy = '<Leader>m' },
+  },
   triggers = {
     { '<Leader>', mode = { 'n', 'v' } },
     { '<LocalLeader>', mode = { 'n', 'v' } },
@@ -11,6 +15,11 @@ require('which-key').setup({
     marks = false,
     registers = false,
     spelling = { enabled = false }
+  },
+  replace = {
+    key = {
+      { '<Space>', 'SPC' },
+    },
   },
   icons = {
     rules = false,
@@ -54,8 +63,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(evt)
     local cl = vim.lsp.get_client_by_id(evt.data.client_id)
     if assert(cl):supports_method('textDocument/formatting') then
-      map_unless_taken(evt.buf, { 'n', 'x' }, '<LocalLeader>==', vim.lsp.buf.format, 'Format region or buffer')
-      map_unless_taken(evt.buf, 'n', '<LocalLeader>=b', vim.lsp.buf.format, 'Format buffer')
+      map_unless_taken(evt.buf, { 'n', 'x' }, '<Leader>m==', vim.lsp.buf.format, 'Format region or buffer')
+      map_unless_taken(evt.buf, 'n', '<Leader>m=b', vim.lsp.buf.format, 'Format buffer')
     end
   end,
 })
