@@ -67,6 +67,10 @@ end
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(evt)
     local cl = vim.lsp.get_client_by_id(evt.data.client_id)
+    if cl == nil or cl.name == 'codebook' then
+      return
+    end
+
     if assert(cl):supports_method('textDocument/formatting') then
       map_unless_taken(evt.buf, { 'n', 'x' }, '<Leader>m==', vim.lsp.buf.format, 'Format region or buffer')
       map_unless_taken(evt.buf, 'n', '<Leader>m=b', vim.lsp.buf.format, 'Format buffer')
