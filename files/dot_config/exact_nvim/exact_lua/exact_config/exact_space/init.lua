@@ -5,11 +5,10 @@ require('which-key').setup({
   delay = 0,
   spec = {
     { '<Leader>m', group = 'Major' },
-    { '<LocalLeader>', proxy = '<Leader>m' },
+    { '<LocalLeader>', mode = { 'n', 'v' }, proxy = '<Leader>m' },
   },
   triggers = {
     { '<Leader>', mode = { 'n', 'v' } },
-    { '<LocalLeader>', mode = { 'n', 'v' } },
   },
   plugins = {
     marks = false,
