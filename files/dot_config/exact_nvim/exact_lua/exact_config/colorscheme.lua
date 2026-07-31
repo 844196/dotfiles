@@ -64,7 +64,35 @@ require('tokyonight').setup({
       fg = colors.fg_gutter,
     }
     hl.GitSignsAdd = {
-      fg = util.blend_bg(colors.green1, 0.5)
+      fg = util.blend_bg(colors.green, 0.8),
+    }
+    hl.GitSignsAddLn = {
+      bg = util.blend_bg(colors.green, 0.1),
+    }
+    hl.GitSignsChange = {
+      fg = util.blend_bg(colors.blue, 0.9),
+    }
+    hl.GitSignsChangeLn = {
+      bg = util.blend_bg(colors.blue, 0.1),
+    }
+    hl.GitSignsDelete = {
+      fg = util.blend_bg(colors.red, 0.7),
+    }
+    hl.GitSignsDeleteLn = {
+      bg = util.blend_bg(colors.red, 0.1),
+    }
+    hl.GitSignsTopDelete = {
+      fg = util.blend_bg(colors.red, 0.7),
+    }
+    hl.GitSignsDeleteVirt = {
+      fg = util.blend_bg(colors.red, 0.7),
+    }
+    hl.GitSignsDeleteVirtLn = {
+      bg = util.blend_bg(colors.red, 0.1),
+      fg = util.blend_bg(colors.red, 0.7, util.blend_bg(colors.red, 0.1)),
+    }
+    hl.CodeDiffFiller = {
+      fg = colors.fg_gutter,
     }
   end,
 })
