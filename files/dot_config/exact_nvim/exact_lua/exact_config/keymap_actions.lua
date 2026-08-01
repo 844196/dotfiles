@@ -5,13 +5,20 @@ function M.recenter()
   local positions = { 'zz', 'zt', 'zb' }
   local win = vim.api.nvim_get_current_win()
   local lnum = vim.api.nvim_win_get_cursor(win)[1]
+  local topline_before = vim.fn.winsaveview().topline
 
   local repeated = recenter_state.win == win
     and recenter_state.lnum == lnum
-    and recenter_state.topline == vim.fn.winsaveview().topline
+    and recenter_state.topline == topline_before
 
   recenter_state.idx = repeated and (recenter_state.idx % #positions) + 1 or 1
   vim.cmd.normal({ positions[recenter_state.idx], bang = true })
+
+  -- 初回 (zz) が画面を動かさなかった場合は、zz を素通りして zt から始める
+  if not repeated and vim.fn.winsaveview().topline == topline_before then
+    recenter_state.idx = (recenter_state.idx % #positions) + 1
+    vim.cmd.normal({ positions[recenter_state.idx], bang = true })
+  end
 
   recenter_state.win, recenter_state.lnum = win, lnum
   recenter_state.topline = vim.fn.winsaveview().topline
