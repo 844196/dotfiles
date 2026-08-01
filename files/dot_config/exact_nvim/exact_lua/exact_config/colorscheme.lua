@@ -3,6 +3,7 @@ require('tokyonight').setup({
   styles = {
     comments = { italic = false },
     keywords = { italic = false },
+    floats = 'transparent',
   },
   on_colors = function(colors)
     -- 行番号の明るさを下げる
@@ -20,8 +21,11 @@ require('tokyonight').setup({
       bg = util.blend_bg(decreased_hint, 0.1),
     }
     hl.FloatTitle = {
-      fg = colors.purple,
-      bg = colors.bg_statusline,
+      fg = colors.comment,
+      bold = true,
+    }
+    hl.FloatBorder = {
+      fg = util.darken(colors.comment, 0.5),
       bold = true,
     }
     hl.TelescopeNormal = {
@@ -55,7 +59,14 @@ require('tokyonight').setup({
       bg = colors.bg_statusline,
       bold = true,
     }
-    hl.TelescopePromptTitle = hl.FloatTitle
+    hl.TelescopePromptBorder = {
+      bg = colors.bg_statusline,
+    }
+    hl.TelescopePromptTitle = {
+      fg = colors.purple,
+      bg = colors.bg_statusline,
+      bold = true,
+    }
 
     hl.SnacksIndent = {
       fg = util.blend_bg(colors.fg_gutter, 0.2),
