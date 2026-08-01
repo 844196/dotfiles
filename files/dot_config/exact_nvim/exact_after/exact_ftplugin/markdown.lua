@@ -219,6 +219,41 @@ vim.api.nvim_create_autocmd('VimLeavePre', {
   end,
 })
 
+-- render-markdown はグローバルに enabled = false (常時オフ) で運用しているため、
+-- preview() で新規に開かれたプレビューバッファも何もしなければ enabled = false を
+-- 引き継いでしまい、レンダリングされない。プレビューバッファだけ明示的に有効化し、
+-- 閉じたときに render-markdown 本体が元バッファを enabled = true に戻してしまう
+-- (core/preview.lua の BufWipeout ハンドラ) のを打ち消して常時オフの状態を保つ。
+local function preview_with_render()
+  local src_buf = vim.api.nvim_get_current_buf()
+  local wins_before = vim.api.nvim_tabpage_list_wins(0)
+  require('render-markdown').preview()
+
+  local was_open = {}
+  for _, w in ipairs(wins_before) do
+    was_open[w] = true
+  end
+  for _, w in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    if not was_open[w] then
+      local dst_buf = vim.api.nvim_win_get_buf(w)
+      vim.api.nvim_win_call(w, function()
+        require('render-markdown').buf_enable()
+      end)
+      vim.keymap.set('n', 'q', function()
+        vim.api.nvim_buf_delete(dst_buf, { force = true })
+      end, { buffer = dst_buf, desc = 'Close preview' })
+      vim.api.nvim_create_autocmd('BufWipeout', {
+        buffer = dst_buf,
+        once = true,
+        callback = function()
+          require('render-markdown.core.manager').set_buf(src_buf, false)
+        end,
+      })
+    end
+  end
+end
+
+vim.keymap.set('n', '<Leader>mcp', preview_with_render, { desc = 'Preview', buf = 0 })
 vim.keymap.set('n', '<Leader>mco', open_by_mo, { desc = 'Preview by mo', buf = 0 })
 vim.keymap.set('n', '<Leader>mcO', open_by_mo_and_chroma, { desc = 'Preview by mo and open in chroma', buf = 0 })
 vim.keymap.set('n', '<Leader>mTm', require('render-markdown').buf_toggle, { desc = 'Toggle markup hiding', buf = 0 })

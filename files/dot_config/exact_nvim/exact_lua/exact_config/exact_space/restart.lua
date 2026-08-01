@@ -30,7 +30,23 @@ vim.api.nvim_create_autocmd('User', {
   end,
 })
 
+-- render-markdown のプレビューウィンドウ (nofile の使い捨てバッファ) は
+-- mksession でもウィンドウ構成として保存されてしまい、リスタート後に
+-- 空のウィンドウとして残ってしまうため、セッション保存前に閉じておく。
+local function close_render_markdown_previews()
+  local ok, preview = pcall(require, 'render-markdown.core.preview')
+  if not ok then
+    return
+  end
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if preview.get(buf) then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
+  end
+end
+
 function M.restart_with_session()
+  close_render_markdown_previews()
   -- codediff.nvim のタブは、上記バッファだけを削除すると diff 対象だった実ファイルの
   -- ウィンドウだけがそのタブに取り残される。実ファイルのバッファ自体は
   -- (mksession の badd で) 保持しつつ、単独タブとしては残らないようタブごと閉じる。
