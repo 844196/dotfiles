@@ -24,3 +24,14 @@ require('nvim-lightbulb').setup({
   sign = { enabled = false },
   float = { enabled = true },
 })
+
+require('tiny-code-action').setup({
+  picker = {
+    'buffer',
+    opts = {
+      keymaps = {
+        close = { '<Esc>', '<C-g>', 'q' },
+      },
+    },
+  },
+})
