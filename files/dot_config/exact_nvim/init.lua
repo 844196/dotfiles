@@ -64,6 +64,35 @@ require('snacks').setup({
     enabled = true,
     animate = { enabled = false },
   },
+  scroll = {
+    animate = {
+      duration = { total = 25 },
+      easing = 'linear',
+    },
+    filter = function(buf)
+      -- codediff.nvim は独自のスクロール同期 (scrollsync) で diff ウィンドウ間の表示位置を直接書き換えるため、スクロール位置がおかしくなる。
+      -- diff ビューに属するウィンドウ (同一タブページの scrollsync グループのメンバー) ではアニメーションを無効化する。
+      local ok, codediff_scroll = pcall(require, 'codediff.ui.scroll')
+      if not ok then
+        return true
+      end
+      local tabpage = vim.api.nvim_get_current_tabpage()
+      local group = codediff_scroll.get(tabpage)
+      if not group then
+        return true
+      end
+      for _, win in ipairs(vim.fn.win_findbuf(buf)) do
+        if vim.api.nvim_win_get_tabpage(win) == tabpage then
+          for _, member in ipairs(group.wins) do
+            if member == win then
+              return false
+            end
+          end
+        end
+      end
+      return true
+    end,
+  },
 })
 
 require('vim._core.ui2').enable({
@@ -220,8 +249,17 @@ vim.keymap.set('v', '<M-;>',  'gc', { remap = true })
 vim.keymap.set('n', 'gh', function() vim.lsp.buf.hover({ border = 'solid' }) end)
 
 -- https://vimrc-dissection.blogspot.com/2009/02/fixing-pageup-and-pagedown.html
-vim.keymap.set({ 'n', 'v' }, '<PageUp>', '1000<C-u>zz')
-vim.keymap.set({ 'n', 'v' }, '<PageDown>', '1000<C-d>zz')
+-- https://github.com/folke/snacks.nvim/discussions/1030#discussioncomment-12109404
+vim.keymap.set({ 'n', 'v' }, '<PageUp>', function()
+  vim.wo.scrolloff = 1000
+  vim.defer_fn(function() vim.wo.scrolloff = 4 end, 33)
+  return '<C-u>'
+end, { expr = true })
+vim.keymap.set({ 'n', 'v' }, '<PageDown>', function()
+  vim.wo.scrolloff = 1000
+  vim.defer_fn(function() vim.wo.scrolloff = 4 end, 33)
+  return '<C-d>'
+end, { expr = true })
 
 -- *で最初のマッチへ移動しないように
 vim.keymap.set('n', '*', '"zyiw:let @/ = @z<CR>:<C-u>set hlsearch<CR>')
