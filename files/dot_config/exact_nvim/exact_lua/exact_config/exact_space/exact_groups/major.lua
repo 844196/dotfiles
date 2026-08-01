@@ -65,27 +65,39 @@ remap('n', '<Leader>mrr', vim.lsp.buf.rename, {
   lsp = { method = 'textDocument/rename' },
 })
 
-remap('n', '<Leader>mgM', telescope_builtin.lsp_document_symbols, {
+remap('n', '<Leader>mgM', function()
+  telescope_builtin.lsp_document_symbols({ layout_strategy = 'ivy_hermit' })
+end, {
   desc = 'Browse symbols in buffer',
   lsp = { method = 'textDocument/documentSymbol' },
 })
-remap('n', '<Leader>mgs', telescope_builtin.lsp_workspace_symbols, {
+remap('n', '<Leader>mgs', function()
+  telescope_builtin.lsp_workspace_symbols({ layout_strategy = 'ivy_hermit' })
+end, {
   desc = 'Find symbol in project',
   lsp = { method = 'workspace/symbol' },
 })
-remap('n', '<Leader>mgd', telescope_builtin.lsp_definitions, {
+remap('n', '<Leader>mgd', function()
+  telescope_builtin.lsp_definitions({ layout_strategy = 'ivy_hermit' })
+end, {
   desc = 'Peek definition',
   lsp = { method = 'textDocument/definition' },
 })
-remap('n', '<Leader>mgt', telescope_builtin.lsp_type_definitions, {
+remap('n', '<Leader>mgt', function()
+  telescope_builtin.lsp_type_definitions({ layout_strategy = 'ivy_hermit' })
+end, {
   desc = 'Peek type definition',
   lsp = { method = 'textDocument/typeDefinition' },
 })
-remap('n', '<Leader>mgi', telescope_builtin.lsp_implementations, {
+remap('n', '<Leader>mgi', function()
+  telescope_builtin.lsp_implementations({ layout_strategy = 'ivy_hermit' })
+end, {
   desc = 'Peek implementations',
   lsp = { method = 'textDocument/implementation' },
 })
-remap('n', '<Leader>mgr', telescope_builtin.lsp_references, {
+remap('n', '<Leader>mgr', function()
+  telescope_builtin.lsp_references({ layout_strategy = 'ivy_hermit' })
+end, {
   desc = 'Peek references',
   lsp = { method = 'textDocument/references' },
 })

@@ -10,6 +10,7 @@ M.hydra = require('config.hydra').create({
       'b',
       function()
         require('telescope.builtin').buffers({
+          layout_strategy = 'ivy_hermit',
           attach_mappings = function(prompt_bufnr)
             -- どのキーで閉じられたかに関わらず (選択・複数選択・キャンセル)
             -- prompt バッファは必ず BufWipeout されるので、それを機に hydra へ戻る
@@ -58,7 +59,7 @@ vim.keymap.set('n', '<Leader><Tab>', '<C-^>', { desc = 'Switch to previous buffe
 vim.keymap.set('n', '<Leader>bn', '<Cmd>bn<CR>', { desc = 'Switch to next buffer' })
 vim.keymap.set('n', '<Leader>bp', '<Cmd>bp<CR>', { desc = 'Switch to previous buffer' })
 
-vim.keymap.set('n', '<Leader>bb', '<Cmd>Telescope buffers<CR>', { desc = 'Switch to a buffer' })
+vim.keymap.set('n', '<Leader>bb', '<Cmd>Telescope buffers layout_strategy=ivy_hermit<CR>', { desc = 'Switch to a buffer' })
 
 vim.keymap.set('n', '<Leader>bm', function()
   local name = '*Messages*'

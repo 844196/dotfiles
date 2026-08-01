@@ -28,41 +28,43 @@ require('tokyonight').setup({
       fg = util.darken(colors.comment, 0.5),
       bold = true,
     }
-    hl.TelescopeNormal = {
+    -- `Telescope<X>_<layout_strategy>` はそのレイアウト戦略でのみ `Telescope<X>` に適用される
+    -- (差し替えは config.telescope が行う)。以下は画面下部に横長で表示する ivy_hermit 向けの配色。
+    hl.TelescopeNormal_ivy_hermit = {
       bg = colors.bg_statusline,
     }
-    hl.TelescopeResultsNormal = {
+    hl.TelescopeResultsNormal_ivy_hermit = {
       fg = colors.dark5,
       bg = colors.bg_statusline,
     }
-    hl.TelescopeSelection = {
+    hl.TelescopeSelection_ivy_hermit = {
       bg = util.blend_bg(colors.bg_highlight, 0.5, colors.bg_statusline),
     }
-    hl.TelescopeMatching = {
+    hl.TelescopeMatching_ivy_hermit = {
       fg = colors.blue,
       bg = colors.bg_statusline,
     }
-    hl.TelescopePromptPrefix = {
+    hl.TelescopePromptPrefix_ivy_hermit = {
       fg = colors.blue,
     }
-    hl.TelescopeMultiIcon = {
+    hl.TelescopeMultiIcon_ivy_hermit = {
       fg = colors.fg,
     }
-    hl.TelescopeMultiSelection = {
+    hl.TelescopeMultiSelection_ivy_hermit = {
       fg = colors.fg,
     }
-    hl.TelescopeResultsBorder = {
+    hl.TelescopeResultsBorder_ivy_hermit = {
       bg = colors.bg_statusline,
     }
-    hl.TelescopePreviewBorder = {
+    hl.TelescopePreviewBorder_ivy_hermit = {
       fg = util.blend_bg(colors.bg_highlight, 0.75, colors.bg_statusline),
       bg = colors.bg_statusline,
       bold = true,
     }
-    hl.TelescopePromptBorder = {
+    hl.TelescopePromptBorder_ivy_hermit = {
       bg = colors.bg_statusline,
     }
-    hl.TelescopePromptTitle = {
+    hl.TelescopePromptTitle_ivy_hermit = {
       fg = colors.purple,
       bg = colors.bg_statusline,
       bold = true,

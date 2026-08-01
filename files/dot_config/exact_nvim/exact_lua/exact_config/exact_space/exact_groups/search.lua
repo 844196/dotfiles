@@ -8,11 +8,13 @@ end
 
 vim.keymap.set('n', '<Leader>sd', function()
   require('telescope.builtin').live_grep({
+    layout_strategy = 'ivy_hermit',
     cwd = require('telescope.utils').buffer_dir(),
   })
 end, { desc = 'Search in current directory' })
 vim.keymap.set({ 'n', 'x' }, '<Leader>sD', function()
   require('telescope.builtin').live_grep({
+    layout_strategy = 'ivy_hermit',
     cwd = require('telescope.utils').buffer_dir(),
     default_text = get_search_text(),
   })
@@ -58,7 +60,7 @@ local function navigate_directory_picker(root, default_text)
   local actions = require('telescope.actions')
   local action_state = require('telescope.actions.state')
 
-  require('telescope.pickers').new({}, {
+  require('telescope.pickers').new({ layout_strategy = 'ivy_hermit' }, {
     prompt_title = 'Search in Directory (' .. root .. ')',
     finder = directory_finder(root),
     sorter = require('telescope.config').values.generic_sorter({}),
@@ -76,7 +78,7 @@ local function navigate_directory_picker(root, default_text)
         local entry = action_state.get_selected_entry()
         if entry.value == '.' then
           actions.close(prompt_bufnr)
-          require('telescope.builtin').live_grep({ cwd = current_root, default_text = default_text })
+          require('telescope.builtin').live_grep({ layout_strategy = 'ivy_hermit', cwd = current_root, default_text = default_text })
         elseif entry.value == '..' then
           go_to(vim.fs.dirname(current_root))
         else
@@ -106,9 +108,10 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>sF', function()
   navigate_directory_picker(require('telescope.utils').buffer_dir(), get_search_text())
 end, { desc = 'Search in a directory w/ symbol under cursor' })
 
-vim.keymap.set('n', '<Leader>sp', '<Cmd>Telescope live_grep<CR>', { desc = 'Search in a project' })
+vim.keymap.set('n', '<Leader>sp', '<Cmd>Telescope live_grep layout_strategy=ivy_hermit<CR>', { desc = 'Search in a project' })
 vim.keymap.set({ 'n', 'x' }, '<Leader>sP', function()
   require('telescope.builtin').live_grep({
+    layout_strategy = 'ivy_hermit',
     default_text = get_search_text(),
   })
 end, { desc = 'Search in a project w/ symbol under cursor' })
@@ -117,11 +120,13 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>*', '<Leader>sP', { remap = true, desc = '
 
 vim.keymap.set('n', '<Leader>sb', function()
   require('telescope.builtin').live_grep({
+    layout_strategy = 'ivy_hermit',
     grep_open_files = true,
   })
 end, { desc = 'Search in opened buffers' })
 vim.keymap.set({ 'n', 'x' }, '<Leader>sB', function()
   require('telescope.builtin').live_grep({
+    layout_strategy = 'ivy_hermit',
     grep_open_files = true,
     default_text = get_search_text(),
   })
@@ -129,6 +134,7 @@ end, { desc = 'Search in opened buffers w/ symbol under cursor' })
 
 vim.keymap.set({ 'n', 'x' }, '<Leader>ss', function()
   require('telescope.builtin').current_buffer_fuzzy_find({
+    layout_strategy = 'ivy_hermit',
     default_text = get_search_text(),
   })
 end, { desc = 'Search in current file w/ symbol under cursor' })
@@ -136,6 +142,7 @@ end, { desc = 'Search in current file w/ symbol under cursor' })
 -- TODO: 本家の helm-multi-swoop は検索対象のバッファを選択できる SPC s B に近い？
 vim.keymap.set({ 'n', 'x' }, '<Leader>sS', function()
   require('telescope.builtin').current_buffer_fuzzy_find({
+    layout_strategy = 'ivy_hermit',
     default_text = get_search_text(),
   })
 end, { desc = '?' })
