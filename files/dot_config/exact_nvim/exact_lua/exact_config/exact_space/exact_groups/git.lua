@@ -73,7 +73,7 @@ local git_hydra_heads = {
 -- pink は表示は速いが非 head キーが貫通してしまう。
 -- 折衷案として head に使っていないアルファベット1文字キーにはパススルー用の head を明示的に張る。
 -- https://github.com/nvimtools/hydra.nvim/wiki/Git#red-amaranth-and-teal-colors
-local hydra = require('config.space.hydra')
+local hydra = require('config.hydra')
 do
   local used_head_keys = {}
   for _, head in ipairs(git_hydra_heads) do

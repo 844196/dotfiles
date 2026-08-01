@@ -27,7 +27,7 @@ vim.keymap.set('n', '<Leader>ey', function()
   end
 end, { desc = 'Copy each error at cursor position' })
 
-require('config.space.hydra').create({
+require('config.hydra').create({
   name = 'Error',
   body = '<Leader>e.',
   heads = {
