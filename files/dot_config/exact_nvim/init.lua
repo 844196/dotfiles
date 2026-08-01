@@ -192,6 +192,9 @@ require('blink.cmp').setup({
     list = {
       selection = { preselect = true, auto_insert = false },
     },
+    menu = {
+      border = nil,
+    },
     documentation = { auto_show = true },
   },
   sources = {
