@@ -28,7 +28,7 @@ function M.create(opts)
       invoke_on_body = true,
       desc = 'Transient state',
       -- https://github.com/anuvyklack/hydra.nvim/wiki/Git#red-amaranth-and-teal-colors
-      on_key = function() vim.wait(50) end,
+      on_key = function() vim.wait(17) end,
       on_enter = function()
         require('config.number').absolute()
         require('config.cursorline').both()
