@@ -28,30 +28,41 @@ require('tokyonight').setup({
       fg = util.darken(colors.comment, 0.5),
       bold = true,
     }
+
+    hl.TelescopePromptTitle = hl.FloatTitle
+    hl.TelescopePromptBorder = hl.FloatBorder
+    hl.TelescopeResultsTitle = hl.FloatTitle
+    hl.TelescopeResultsBorder = hl.FloatBorder
+    hl.TelescopePreviewTitle = hl.FloatTitle
+    hl.TelescopePreviewBorder = hl.FloatBorder
+    hl.TelescopePromptPrefix = {
+      fg = colors.blue,
+    }
+    hl.TelescopeMultiIcon = {
+      fg = colors.fg,
+    }
+    hl.TelescopeMultiSelection = {
+      fg = colors.fg,
+    }
+    hl.TelescopeResultsNormal = {
+      fg = colors.dark3,
+    }
+    hl.TelescopeSelection = {
+      bg = util.blend_bg(colors.bg_highlight, 0.5),
+    }
+    hl.TelescopeMatching = {
+      fg = colors.blue,
+    }
+
     -- `Telescope<X>_<layout_strategy>` はそのレイアウト戦略でのみ `Telescope<X>` に適用される
     -- (差し替えは config.telescope が行う)。以下は画面下部に横長で表示する ivy_hermit 向けの配色。
-    hl.TelescopeNormal_ivy_hermit = {
+    hl.TelescopePromptTitle_ivy_hermit = {
+      fg = colors.purple,
       bg = colors.bg_statusline,
+      bold = true,
     }
-    hl.TelescopeResultsNormal_ivy_hermit = {
-      fg = colors.dark5,
+    hl.TelescopePromptBorder_ivy_hermit = {
       bg = colors.bg_statusline,
-    }
-    hl.TelescopeSelection_ivy_hermit = {
-      bg = util.blend_bg(colors.bg_highlight, 0.5, colors.bg_statusline),
-    }
-    hl.TelescopeMatching_ivy_hermit = {
-      fg = colors.blue,
-      bg = colors.bg_statusline,
-    }
-    hl.TelescopePromptPrefix_ivy_hermit = {
-      fg = colors.blue,
-    }
-    hl.TelescopeMultiIcon_ivy_hermit = {
-      fg = colors.fg,
-    }
-    hl.TelescopeMultiSelection_ivy_hermit = {
-      fg = colors.fg,
     }
     hl.TelescopeResultsBorder_ivy_hermit = {
       bg = colors.bg_statusline,
@@ -61,13 +72,15 @@ require('tokyonight').setup({
       bg = colors.bg_statusline,
       bold = true,
     }
-    hl.TelescopePromptBorder_ivy_hermit = {
+    hl.TelescopeNormal_ivy_hermit = {
       bg = colors.bg_statusline,
     }
-    hl.TelescopePromptTitle_ivy_hermit = {
-      fg = colors.purple,
+    hl.TelescopeResultsNormal_ivy_hermit = {
+      fg = colors.dark5,
       bg = colors.bg_statusline,
-      bold = true,
+    }
+    hl.TelescopeSelection_ivy_hermit = {
+      bg = util.blend_bg(colors.bg_highlight, 0.5, colors.bg_statusline),
     }
 
     hl.SnacksIndent = {
