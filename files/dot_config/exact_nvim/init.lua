@@ -155,7 +155,7 @@ require('blink.cmp').setup({
     ['<S-Tab>'] = { 'select_prev', 'fallback' },
     ['<End>'] = {
       function(cmp)
-        return cmp.accept({
+        return cmp.hide({
           callback = function()
             vim.api.nvim_feedkeys(vim.keycode(require('config.keymap_actions').undoable_end()), 'n', false)
           end,
@@ -165,7 +165,7 @@ require('blink.cmp').setup({
     },
     ['<C-e>'] = {
       function(cmp)
-        return cmp.accept({
+        return cmp.hide({
           callback = function()
             vim.api.nvim_feedkeys(vim.keycode(require('config.keymap_actions').undoable_end()), 'n', false)
           end,
