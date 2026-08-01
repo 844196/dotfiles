@@ -1,14 +1,54 @@
 local M = {}
 
+local function is_disposable_buffer_name(name)
+  return name == [[*scratch*]] or name == '*Messages*' or string.match(name, '^Neogit') ~= nil
+end
+
+-- codediff.nvim は診断中の diff タブを `User CodeDiffOpen` / `User CodeDiffClose`
+-- で通知してくれるため、名前パターンでの推測ではなくタブハンドルを直接追跡する。
+-- diff を通常通り閉じた場合は CodeDiffClose で自動的に追跡から外れる。
+local codediff_tabpages = {}
+local codediff_augroup = vim.api.nvim_create_augroup('config.space.restart.codediff', { clear = true })
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'CodeDiffOpen',
+  group = codediff_augroup,
+  callback = function(ev)
+    local tabpage = ev.data and ev.data.tabpage
+    if tabpage then
+      codediff_tabpages[tabpage] = true
+    end
+  end,
+})
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'CodeDiffClose',
+  group = codediff_augroup,
+  callback = function(ev)
+    local tabpage = ev.data and ev.data.tabpage
+    if tabpage then
+      codediff_tabpages[tabpage] = nil
+    end
+  end,
+})
+
 function M.restart_with_session()
-  -- *scratch* / *Messages* は buftype=nofile の使い捨てバッファだが、
-  -- mksession はウィンドウに表示中のバッファを badd + enew/file で復元しようとする。
-  -- 名前が衝突すると buftype=nofile 等の設定を引き継げず modified=true になり、
-  -- 復元後の :qa が E37/E162 でブロックされることがある。
-  -- どちらも <Leader>bs / <Leader>bm で必要なときに作り直せるため、保存前に破棄する。
+  -- codediff.nvim のタブは、上記バッファだけを削除すると diff 対象だった実ファイルの
+  -- ウィンドウだけがそのタブに取り残される。実ファイルのバッファ自体は
+  -- (mksession の badd で) 保持しつつ、単独タブとしては残らないようタブごと閉じる。
+  for tabpage in pairs(codediff_tabpages) do
+    if vim.api.nvim_tabpage_is_valid(tabpage) then
+      if #vim.api.nvim_list_tabpages() == 1 then
+        vim.cmd('tabnew')
+      end
+      vim.cmd(vim.api.nvim_tabpage_get_number(tabpage) .. 'tabclose!')
+    end
+    codediff_tabpages[tabpage] = nil
+  end
+
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
     local name = vim.fn.bufname(buf)
-    if name == [[*scratch*]] or name == '*Messages*' then vim.api.nvim_buf_delete(buf, { force = true }) end
+    if is_disposable_buffer_name(name) then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
   end
 
   local tpl = vim.fs.joinpath(vim.uv.os_tmpdir(), 'nvim-restart-XXXXXX')
