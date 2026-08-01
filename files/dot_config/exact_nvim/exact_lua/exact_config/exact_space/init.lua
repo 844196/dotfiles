@@ -78,51 +78,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     if cl:supports_method('textDocument/formatting') then
       map_unless_taken(evt.buf, { 'n', 'x' }, '<Leader>m==', vim.lsp.buf.format, 'Format region or buffer')
-      map_unless_taken(evt.buf, 'n', '<Leader>m=b', vim.lsp.buf.format, 'Format buffer')
     end
 
     if cl:supports_method('textDocument/codeAction') then
       map_unless_taken(evt.buf, 'n', '<Leader>maa', vim.lsp.buf.code_action, 'Execute code action')
-
-      local code_action_kinds = cl.server_capabilities.codeActionProvider.codeActionKinds
-
-      ---@param kind lsp.CodeActionKind
-      local function is_support_code_action(kind)
-        if type(code_action_kinds) ~= 'table' then
-          return false
-        end
-
-        for _, k in ipairs(code_action_kinds) do
-          if k ~= '' and string.sub(k, 1, #kind) == kind then
-            return true
-          end
-        end
-
-        return false
-      end
-
-      ---@param kind lsp.CodeActionKind
-      local function code_action(kind)
-        return function()
-          vim.lsp.buf.code_action({ context = { only = kind and { kind } or nil } })
-        end
-      end
-
-      if is_support_code_action('quickfix') then
-        map_unless_taken(evt.buf, 'n', '<Leader>maf', code_action('quickfix'), 'Execute fix action')
-      end
-      if is_support_code_action('refactor') then
-        map_unless_taken(evt.buf, { 'n', 'x' }, '<Leader>mar', code_action('refactor'), 'Execute refactor action')
-      end
-      if is_support_code_action('source') then
-        map_unless_taken(evt.buf, 'n', '<Leader>mas', code_action('source'), 'Execute source action')
-      end
-      if is_support_code_action('source.fixAll') then
-        map_unless_taken(evt.buf, 'n', '<Leader>maF', code_action('source.fixAll'), 'Fix all')
-      end
-      if is_support_code_action('source.organizeImports') then
-        map_unless_taken(evt.buf, 'n', '<Leader>m=o', code_action('source.organizeImports'), 'Organize imports')
-      end
     end
 
     if cl:supports_method('textDocument/rename') then
