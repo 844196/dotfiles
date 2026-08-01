@@ -75,10 +75,7 @@ local function remap(mode, lhs, rhs, opts)
   local lsp = opts.lsp
   opts.lsp = nil
 
-  require('snacks.util').lsp.on(lsp, function(buf, client)
-    if client.name == 'codebook' then
-      return
-    end
+  require('snacks.util').lsp.on(lsp, function(buf)
     if not is_remapped(buf, mode, lhs) then
       vim.keymap.set(mode, lhs, rhs, vim.tbl_deep_extend('force', opts or {}, { buf = buf }))
     end

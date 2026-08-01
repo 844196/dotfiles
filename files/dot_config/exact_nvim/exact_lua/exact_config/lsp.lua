@@ -19,3 +19,8 @@ vim.diagnostic.config({
   severity_sort = true,
 })
 
+require('nvim-lightbulb').setup({
+  autocmd = { enabled = true },
+  sign = { enabled = false },
+  float = { enabled = true },
+})

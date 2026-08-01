@@ -75,6 +75,11 @@
       "src": "https://github.com/neogitorg/neogit",
       "version": "'9abecb022a581e3a333430a4490f45c784aef5c9'"
     },
+    "nvim-lightbulb": {
+      "rev": "b8c08c5f3b1586dfcdd9f34d7d54fe6982e01ac9",
+      "src": "https://github.com/kosayoda/nvim-lightbulb",
+      "version": "'b8c08c5f3b1586dfcdd9f34d7d54fe6982e01ac9'"
+    },
     "nvim-lspconfig": {
       "rev": "d5b6e3db4c17b0146f63a2fc47e2027a754b2cb1",
       "src": "https://github.com/neovim/nvim-lspconfig",

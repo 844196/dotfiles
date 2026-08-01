@@ -111,4 +111,8 @@ vim.pack.add({
     src = 'https://github.com/MeanderingProgrammer/render-markdown.nvim',
     version = 'f422cb5c6855f150e2ddcfaf44e7157b98b34f6a',
   },
+  {
+    src = 'https://github.com/kosayoda/nvim-lightbulb',
+    version = 'b8c08c5f3b1586dfcdd9f34d7d54fe6982e01ac9',
+  },
 })
