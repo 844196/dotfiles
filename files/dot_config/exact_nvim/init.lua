@@ -32,6 +32,7 @@ vim.opt.smartcase = true
 vim.opt.infercase = true
 vim.opt.wildignorecase = true
 vim.opt.cmdheight = 0
+vim.opt.wrap = false
 
 vim.opt.clipboard:append('unnamedplus')
 if vim.fn.has('wsl') == 1 then
