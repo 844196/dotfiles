@@ -44,76 +44,102 @@ for _, name in ipairs(names) do
   require(group .. '.' .. name)
 end
 
----@param bufnr integer
----@param mode string | string[]
-local function map_unless_taken(bufnr, mode, lhs, rhs, desc)
-  local modes = {}
-  if type(mode) == 'string' then
-    modes = { mode }
-  else
-    modes = mode
-  end
-
-  for _, m in ipairs(modes) do
-    local found = false
-    for _, map in ipairs(vim.api.nvim_buf_get_keymap(bufnr, m)) do
-      if map.lhs == vim.fn.keytrans(vim.keycode(lhs)) then
-        found = true
-        break
-      end
-    end
-
-    if not found then
-      vim.keymap.set(mode, lhs, rhs, { buf = bufnr, desc = desc })
+---@param buf integer
+---@param mode string
+---@param lhs string
+---@return boolean
+local function is_remapped(buf, mode, lhs)
+  for _, remap in ipairs(vim.api.nvim_buf_get_keymap(buf, mode)) do
+    if remap.lhs == vim.fn.keytrans(vim.keycode(lhs)) then
+      return true
     end
   end
+  return false
 end
 
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(evt)
-    local cl = vim.lsp.get_client_by_id(evt.data.client_id)
-    if cl == nil or cl.name == 'codebook' then
+---@class RemapOpts : vim.keymap.set.Opts
+---@field lsp vim.lsp.get_clients.Filter
+
+---@param mode string|string[]
+---@param lhs string
+---@param rhs string|function
+---@param opts RemapOpts
+local function remap(mode, lhs, rhs, opts)
+  if type(mode) == 'table' then
+    for _, m in ipairs(mode) do
+      remap(m, lhs, rhs, opts)
+    end
+    return
+  end
+
+  local lsp = opts.lsp
+  opts.lsp = nil
+
+  require('snacks.util').lsp.on(lsp, function(buf, client)
+    if client.name == 'codebook' then
       return
     end
-
-    if cl:supports_method('textDocument/formatting') then
-      map_unless_taken(evt.buf, { 'n', 'x' }, '<Leader>m==', vim.lsp.buf.format, 'Format region or buffer')
+    if not is_remapped(buf, mode, lhs) then
+      vim.keymap.set(mode, lhs, rhs, vim.tbl_deep_extend('force', opts or {}, { buf = buf }))
     end
+  end)
+end
 
-    if cl:supports_method('textDocument/codeAction') then
-      map_unless_taken(evt.buf, 'n', '<Leader>maa', vim.lsp.buf.code_action, 'Execute code action')
-    end
+local telescope = require('telescope.builtin')
 
-    if cl:supports_method('textDocument/rename') then
-      map_unless_taken(evt.buf, 'n', '<Leader>mrr', vim.lsp.buf.rename, 'Rename symbol')
-    end
+remap({ 'n', 'x' }, '<Leader>m==', vim.lsp.buf.format, {
+  desc = 'Format region or buffer',
+  lsp = { method = 'textDocument/formatting' },
+})
 
-    if cl:supports_method('textDocument/documentSymbol') then
-      map_unless_taken(evt.buf, 'n', '<Leader>mgM', require('telescope.builtin').lsp_document_symbols, 'Browse file symbols')
-    end
+remap({ 'n', 'x' }, '<Leader>maa', vim.lsp.buf.code_action, {
+  desc = 'Execute code action',
+  lsp = { method = 'textDocument/codeAction' },
+})
 
-    if cl:supports_method('textDocument/definition') then
-      map_unless_taken(evt.buf, 'n', '<Leader>mgd', require('telescope.builtin').lsp_definitions, 'Peek definition')
-      map_unless_taken(evt.buf, 'n', '<Leader>mGd', vim.lsp.buf.definition, 'Goto definition')
-    end
+remap('n', '<Leader>mrr', vim.lsp.buf.rename, {
+  desc = 'Rename symbol',
+  lsp = { method = 'textDocument/rename' },
+})
 
-    if cl:supports_method('textDocument/typeDefinition') then
-      map_unless_taken(evt.buf, 'n', '<Leader>mgt', require('telescope.builtin').lsp_type_definitions, 'Peek type definition')
-      map_unless_taken(evt.buf, 'n', '<Leader>mGt', vim.lsp.buf.type_definition, 'Goto type definition')
-    end
+remap('n', '<Leader>mgM', telescope.lsp_document_symbols, {
+  desc = 'Browse symbols in buffer',
+  lsp = { method = 'textDocument/documentSymbol' },
+})
+remap('n', '<Leader>mgs', telescope.lsp_workspace_symbols, {
+  desc = 'Find symbol in project',
+  lsp = { method = 'workspace/symbol' },
+})
+remap('n', '<Leader>mgd', telescope.lsp_definitions, {
+  desc = 'Peek definition',
+  lsp = { method = 'textDocument/definition' },
+})
+remap('n', '<Leader>mgt', telescope.lsp_type_definitions, {
+  desc = 'Peek type definition',
+  lsp = { method = 'textDocument/typeDefinition' },
+})
+remap('n', '<Leader>mgi', telescope.lsp_implementations, {
+  desc = 'Peek implementations',
+  lsp = { method = 'textDocument/implementation' },
+})
+remap('n', '<Leader>mgr', telescope.lsp_references, {
+  desc = 'Peek references',
+  lsp = { method = 'textDocument/references' },
+})
 
-    if cl:supports_method('textDocument/implementation') then
-      map_unless_taken(evt.buf, 'n', '<Leader>mgi', require('telescope.builtin').lsp_implementations, 'Peek implementations')
-      map_unless_taken(evt.buf, 'n', '<Leader>mGi', vim.lsp.buf.implementation, 'Goto implementations')
-    end
-
-    if cl:supports_method('textDocument/references') then
-      map_unless_taken(evt.buf, 'n', '<Leader>mgr', require('telescope.builtin').lsp_references, 'Peek references')
-      map_unless_taken(evt.buf, 'n', '<Leader>mGr', vim.lsp.buf.references, 'Goto references')
-    end
-
-    if cl:supports_method('workspace/symbol') then
-      map_unless_taken(evt.buf, 'n', '<Leader>mgs', require('telescope.builtin').lsp_workspace_symbols, 'Find symbol in project')
-    end
-  end,
+remap('n', '<Leader>mGd', vim.lsp.buf.definition, {
+  desc = 'Goto definition',
+  lsp = { method = 'textDocument/definition' },
+})
+remap('n', '<Leader>mGt', vim.lsp.buf.type_definition, {
+  desc = 'Goto type definition',
+  lsp = { method = 'textDocument/typeDefinition' },
+})
+remap('n', '<Leader>mGi', vim.lsp.buf.implementation, {
+  desc = 'Goto implementations',
+  lsp = { method = 'textDocument/implementation' },
+})
+remap('n', '<Leader>mGr', vim.lsp.buf.references, {
+  desc = 'Goto references',
+  lsp = { method = 'textDocument/references' },
 })
