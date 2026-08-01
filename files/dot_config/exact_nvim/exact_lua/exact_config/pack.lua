@@ -115,4 +115,8 @@ vim.pack.add({
     src = 'https://github.com/kosayoda/nvim-lightbulb',
     version = 'b8c08c5f3b1586dfcdd9f34d7d54fe6982e01ac9',
   },
+  {
+    src = 'https://github.com/rachartier/tiny-code-action.nvim',
+    version = '0d040ed81f7953118b81cd12681fcdfcac069803',
+  },
 })

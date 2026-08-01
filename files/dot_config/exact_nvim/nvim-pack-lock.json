@@ -125,6 +125,11 @@
       "src": "https://github.com/nvim-telescope/telescope.nvim",
       "version": "'427b576c16792edad01a92b89721d923c19ad60f'"
     },
+    "tiny-code-action.nvim": {
+      "rev": "0d040ed81f7953118b81cd12681fcdfcac069803",
+      "src": "https://github.com/rachartier/tiny-code-action.nvim",
+      "version": "'0d040ed81f7953118b81cd12681fcdfcac069803'"
+    },
     "tokyonight.nvim": {
       "rev": "545d72cde6400835d895160ecb5853874fd5156d",
       "src": "https://github.com/folke/tokyonight.nvim",

@@ -53,7 +53,9 @@ remap({ 'n', 'x' }, '<Leader>m==', vim.lsp.buf.format, {
   lsp = { method = 'textDocument/formatting' },
 })
 
-remap({ 'n', 'x' }, '<Leader>maa', vim.lsp.buf.code_action, {
+remap({ 'n', 'x' }, '<Leader>maa', function()
+  require("tiny-code-action").code_action({})
+end, {
   desc = 'Execute code action',
   lsp = { method = 'textDocument/codeAction' },
 })
