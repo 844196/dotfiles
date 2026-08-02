@@ -1,7 +1,18 @@
 local M = {}
 
-local function is_disposable_buffer_name(name)
-  return name == [[*scratch*]] or name == '*Messages*' or string.match(name, '^Neogit') ~= nil
+---@param buf integer
+local function is_disposable_buffer(buf)
+  local filetype = vim.bo[buf].filetype
+  if filetype == 'no-neck-pain' then
+    return true
+  end
+
+  local name = vim.fn.bufname(buf)
+  if name == [[*scratch*]] or name == '*Messages*' or string.match(name, '^Neogit') ~= nil then
+    return true
+  end
+
+  return false
 end
 
 -- codediff.nvim は診断中の diff タブを `User CodeDiffOpen` / `User CodeDiffClose`
@@ -61,8 +72,7 @@ function M.restart_with_session()
   end
 
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    local name = vim.fn.bufname(buf)
-    if is_disposable_buffer_name(name) then
+    if is_disposable_buffer(buf) then
       vim.api.nvim_buf_delete(buf, { force = true })
     end
   end

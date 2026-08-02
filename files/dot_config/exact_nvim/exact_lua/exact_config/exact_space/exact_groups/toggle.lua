@@ -11,3 +11,5 @@ vim.keymap.set('n', '<Leader>tf', function()
 end)
 
 vim.keymap.set('n', '<Leader>tS', require('config.space.codebook').toggle, { desc = 'Toggle spell check' })
+
+vim.keymap.set('n', '<Leader>TZ', require('no-neck-pain').toggle, { desc = 'Toggle no-neck-pain' })

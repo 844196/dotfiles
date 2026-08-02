@@ -102,6 +102,9 @@ end
 
 require('lualine').setup({
   options = {
+    disabled_filetypes = {
+      statusline = { 'no-neck-pain' }
+    },
     section_separators = { left = '', right = '' },
     component_separators = { left = '', right = '' },
     theme = {

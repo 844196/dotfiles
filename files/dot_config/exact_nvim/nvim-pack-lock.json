@@ -75,6 +75,11 @@
       "src": "https://github.com/neogitorg/neogit",
       "version": "'9abecb022a581e3a333430a4490f45c784aef5c9'"
     },
+    "no-neck-pain.nvim": {
+      "rev": "0df6659e25401c3f3c40e82f1ddd48714b1a659c",
+      "src": "https://github.com/shortcuts/no-neck-pain.nvim",
+      "version": "'0df6659e25401c3f3c40e82f1ddd48714b1a659c'"
+    },
     "nvim-lightbulb": {
       "rev": "b8c08c5f3b1586dfcdd9f34d7d54fe6982e01ac9",
       "src": "https://github.com/kosayoda/nvim-lightbulb",

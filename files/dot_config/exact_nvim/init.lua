@@ -147,6 +147,12 @@ require('statuscol').setup({
   },
 })
 
+require('no-neck-pain').setup({
+  width = 180,
+  disableOnLastBuffer = true,
+  killAllBuffersOnDisable = true,
+})
+
 require('blink.cmp').setup({
   keymap = {
     preset = 'default',

@@ -119,4 +119,8 @@ vim.pack.add({
     src = 'https://github.com/rachartier/tiny-code-action.nvim',
     version = '0d040ed81f7953118b81cd12681fcdfcac069803',
   },
+  {
+    src = 'https://github.com/shortcuts/no-neck-pain.nvim',
+    version = '0df6659e25401c3f3c40e82f1ddd48714b1a659c',
+  },
 })
