@@ -27,11 +27,7 @@ require('nvim-lightbulb').setup({
 
 require('tiny-code-action').setup({
   picker = {
-    'buffer',
-    opts = {
-      keymaps = {
-        close = { '<Esc>', '<C-g>', 'q' },
-      },
-    },
+    'telescope',
+    opts = require('config.telescope.themes').get_peek(),
   },
 })
