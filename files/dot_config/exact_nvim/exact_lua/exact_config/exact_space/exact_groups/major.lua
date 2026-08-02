@@ -77,26 +77,31 @@ end, {
   desc = 'Find symbol in project',
   lsp = { method = 'workspace/symbol' },
 })
+
+local function get_peek(opts)
+  return require('config.telescope.themes').get_peek(vim.tbl_deep_extend('force', { jump_type = 'never', layout_config = { height = 0.2 } }, opts or {}))
+end
+
 remap('n', '<Leader>mgd', function()
-  telescope_builtin.lsp_definitions({ layout_strategy = 'ivy_hermit' })
+  telescope_builtin.lsp_definitions(get_peek())
 end, {
   desc = 'Peek definition',
   lsp = { method = 'textDocument/definition' },
 })
 remap('n', '<Leader>mgt', function()
-  telescope_builtin.lsp_type_definitions({ layout_strategy = 'ivy_hermit' })
+  telescope_builtin.lsp_type_definitions(get_peek())
 end, {
   desc = 'Peek type definition',
   lsp = { method = 'textDocument/typeDefinition' },
 })
 remap('n', '<Leader>mgi', function()
-  telescope_builtin.lsp_implementations({ layout_strategy = 'ivy_hermit' })
+  telescope_builtin.lsp_implementations(get_peek())
 end, {
   desc = 'Peek implementations',
   lsp = { method = 'textDocument/implementation' },
 })
 remap('n', '<Leader>mgr', function()
-  telescope_builtin.lsp_references({ layout_strategy = 'ivy_hermit' })
+  telescope_builtin.lsp_references(get_peek())
 end, {
   desc = 'Peek references',
   lsp = { method = 'textDocument/references' },

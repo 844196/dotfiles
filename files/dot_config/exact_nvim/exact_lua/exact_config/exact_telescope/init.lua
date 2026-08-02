@@ -1,3 +1,5 @@
+require('config.telescope.layout_strategies')
+
 vim.api.nvim_create_autocmd('FileType', {
   -- Telescope 系バッファでは WinEnter/BufWinEnter 時点でfiletype がまだ空文字列
   pattern = 'Telescope*',
