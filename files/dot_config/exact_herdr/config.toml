@@ -13,6 +13,7 @@ confirm_close = false
 prompt_new_tab_name = false
 host_cursor = "native"
 sidebar.spaces.row_gap = 1
+pane_scrollbars = false
 
 [keys]
 prefix = "F8"
