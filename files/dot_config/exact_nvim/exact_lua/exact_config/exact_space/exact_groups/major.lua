@@ -71,8 +71,9 @@ end, {
   desc = 'Browse symbols in buffer',
   lsp = { method = 'textDocument/documentSymbol' },
 })
-remap('n', '<Leader>mgs', function()
-  telescope_builtin.lsp_workspace_symbols({ layout_strategy = 'ivy_hermit' })
+remap({ 'n', 'x' }, '<Leader>mgs', function()
+  local cursor = require('config.cursor')
+  telescope_builtin.lsp_workspace_symbols({ layout_strategy = 'ivy_hermit', default_text = cursor.region_or(cursor.cword) })
 end, {
   desc = 'Find symbol in project',
   lsp = { method = 'workspace/symbol' },
