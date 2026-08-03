@@ -15,10 +15,9 @@ require('tokyonight').setup({
       fg = '#0e0e14',
       bold = true,
     }
-    local decreased_hint = util.blend_bg(colors.hint, 0.4)
     hl.DiagnosticVirtualTextHint = {
-      fg = decreased_hint,
-      bg = util.blend_bg(decreased_hint, 0.1),
+      fg = util.blend_bg(colors.hint, 0.4),
+      bg = colors.none,
     }
     hl.FloatTitle = {
       fg = colors.comment,
