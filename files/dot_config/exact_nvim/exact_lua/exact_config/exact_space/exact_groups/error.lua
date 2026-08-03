@@ -38,3 +38,32 @@ require('config.hydra').create({
     { 'y', '<Leader>ey', { desc = 'Copy each error', remap = true } }, -- 本家にない
   },
 })
+
+local function toggle_quickfix_window()
+  local wins = vim.fn.getwininfo()
+  for _, win in ipairs(wins) do
+    if win.quickfix == 1 then
+      vim.cmd.cclose()
+      return
+    end
+  end
+  vim.cmd.copen()
+end
+
+vim.keymap.set('n', '<Leader>eqn', '<Cmd>cnext<CR>')
+vim.keymap.set('n', '<Leader>eqp', '<Cmd>cprev<CR>')
+vim.keymap.set('n', '<Leader>eqN', '<Cmd>cprev<CR>')
+vim.keymap.set('n', '<Leader>eql', toggle_quickfix_window)
+vim.keymap.set('n', '<Leader>eqC', '<Cmd>cexpr [] | cclose<CR>')
+
+require('config.hydra').create({
+  name = 'Quickfix',
+  body = '<Leader>eq.',
+  heads = {
+    { 'n', '<Cmd>cnext<CR>', { desc = 'next' } },
+    { 'p', '<Cmd>cprev<CR>', { desc = 'prev' } },
+    { 'N', '<Cmd>cprev<CR>', { desc = 'prev' } },
+    { 'l', toggle_quickfix_window, { desc = 'open/close quickfix window' } },
+    { 'C', '<Cmd>cexpr [] | cclose<CR>', { desc = 'clear', exit = true } },
+  },
+})
