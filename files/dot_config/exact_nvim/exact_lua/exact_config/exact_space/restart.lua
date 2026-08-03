@@ -3,7 +3,7 @@ local M = {}
 ---@param buf integer
 local function is_disposable_buffer(buf)
   local filetype = vim.bo[buf].filetype
-  if filetype == 'no-neck-pain' then
+  if filetype == 'no-neck-pain' or filetype == 'qf' then
     return true
   end
 
