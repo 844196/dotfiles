@@ -12,6 +12,7 @@ hide_tab_bar_when_single_tab = true
 confirm_close = false
 prompt_new_tab_name = false
 host_cursor = "native"
+sidebar_collapsed_mode = 'hidden'
 sidebar.spaces.row_gap = 1
 pane_scrollbars = false
 
