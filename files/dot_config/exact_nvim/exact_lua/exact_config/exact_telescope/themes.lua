@@ -1,5 +1,32 @@
 local M = {}
 
+function M.get_ivy_hermit(opts)
+  opts = opts or {}
+
+  local theme_opts = {
+    theme = 'bottom_pane',
+    layout_strategy = 'bottom_pane',
+    results_title = false,
+    preview_title = false,
+    borderchars = {
+      prompt = { '─', '', '', '', '─', '─', '', '' },
+      results = { '', '', '', '', '', '', '', '' },
+      preview = { '', '', '', '│', '│', '', '', '│' },
+    },
+  }
+
+  if opts.layout_config and opts.layout_config.prompt_position == 'bottom' then
+    theme_opts.borderchars = {
+      prompt = { '─', '', '─', '', '', '', '─', '─' },
+      results = { '─', '', '', '', '─', '─', '', '' },
+      preview = { '─', '', '', '│', '─', '─', '', '│' },
+    }
+    theme_opts.sorting_strategy = 'descending'
+  end
+
+  return vim.tbl_deep_extend('force', theme_opts, opts)
+end
+
 function M.get_peek(opts)
   opts = opts or {}
 

@@ -1,9 +1,10 @@
 require('which-key').add({ { '<Leader>f', group = 'File' } })
 
+local get_ivy_hermit = require('config.telescope.themes').get_ivy_hermit
+
 -- find_files を cwd 付きで開く。何も入力されていない状態での <C-h>/<BS> は親ディレクトリへ移動、それ以外は通常の backspace
 local function find_files_from(cwd, extra_opts)
-  require('telescope.builtin').find_files(vim.tbl_extend('force', extra_opts or {}, {
-    layout_strategy = 'ivy_hermit',
+  require('telescope.builtin').find_files(get_ivy_hermit(vim.tbl_extend('force', extra_opts or {}, {
     cwd = cwd,
     prompt_title = 'Find Files (' .. cwd .. ')',
     attach_mappings = function(prompt_bufnr, map)
@@ -19,7 +20,7 @@ local function find_files_from(cwd, extra_opts)
       map('i', '<BS>', backspace_or_go_to_parent)
       return true
     end,
-  }))
+  })))
 end
 
 vim.keymap.set('n', '<Leader>ff', function()
@@ -39,7 +40,7 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>fF', function()
   })
 end, { desc = 'Open the file under point, or find it if not found' })
 vim.keymap.set('n', '<Leader>fj', '<Cmd>Oil<CR>', { desc = 'Jump to the current buffer file in oil' })
-vim.keymap.set('n', '<Leader>fr', '<Cmd>Telescope oldfiles layout_strategy=ivy_hermit<CR>', { desc = 'Open a recent file' })
+vim.keymap.set('n', '<Leader>fr', function() require('telescope.builtin').oldfiles(get_ivy_hermit()) end, { desc = 'Open a recent file' })
 vim.keymap.set('n', '<Leader>fs', '<Cmd>w<CR>', { desc = 'Save a file' })
 vim.keymap.set('n', '<Leader>fS', '<Cmd>wa<CR>', { desc = 'Save all files' })
 

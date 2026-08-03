@@ -65,15 +65,17 @@ remap('n', '<Leader>mrr', vim.lsp.buf.rename, {
   lsp = { method = 'textDocument/rename' },
 })
 
+local get_ivy_hermit = require('config.telescope.themes').get_ivy_hermit
+
 remap('n', '<Leader>mgM', function()
-  telescope_builtin.lsp_document_symbols({ layout_strategy = 'ivy_hermit' })
+  telescope_builtin.lsp_document_symbols(get_ivy_hermit())
 end, {
   desc = 'Browse symbols in buffer',
   lsp = { method = 'textDocument/documentSymbol' },
 })
 remap({ 'n', 'x' }, '<Leader>mgs', function()
   local cursor = require('config.cursor')
-  telescope_builtin.lsp_workspace_symbols({ layout_strategy = 'ivy_hermit', default_text = cursor.region_or(cursor.cword) })
+  telescope_builtin.lsp_workspace_symbols(get_ivy_hermit({ default_text = cursor.region_or(cursor.cword) }))
 end, {
   desc = 'Find symbol in project',
   lsp = { method = 'workspace/symbol' },

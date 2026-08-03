@@ -106,6 +106,6 @@ vim.keymap.set('n', '<Leader>gS', gitsigns.stage_buffer, { desc = 'Stage current
 vim.keymap.set('n', '<Leader>gU', gitsigns.reset_buffer_index, { desc = 'Unstage current file' })
 
 vim.keymap.set('n', '<Leader>gff', function()
-  require('telescope.builtin').git_status({ layout_strategy = 'ivy_hermit' })
+  require('telescope.builtin').git_status(require('config.telescope.themes').get_ivy_hermit())
 end, { desc = 'Uncommitted files' })
 vim.keymap.set('n', '<Leader>gfd', '<Cmd>CodeDiff file HEAD<CR>', { desc = 'Buffer diff' })
