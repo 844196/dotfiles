@@ -2,14 +2,17 @@ require('which-key').add({ { '<Leader>p', group = 'Project' } })
 
 vim.keymap.set('n', '<Leader>pf', '<Cmd>Telescope find_files layout_strategy=ivy_hermit<CR>', { desc = 'Find file' })
 vim.keymap.set({ 'n', 'x' }, '<Leader>pF', function()
-  local util = require('config.space.util')
-  local mode = vim.fn.mode()
-  local was_visual = mode == 'v' or mode == 'V' or mode == '\22'
-  local ok = pcall(vim.cmd.normal, { 'gf', bang = true })
-  if ok then return end
+  -- ビジュアルモードだったとしても gf トライで抜けてしまうため、先にフォールバックテキストを取得しておく
+  local cursor = require('config.cursor')
+  local default_text = cursor.region_or(cursor.cfile)
+
+  if pcall(vim.cmd.normal, { 'gf', bang = true }) then
+    return
+  end
+
   require('telescope.builtin').find_files({
     layout_strategy = 'ivy_hermit',
-    default_text = was_visual and util.visual_selection() or vim.fn.expand('<cfile>'),
+    default_text = default_text,
   })
 end, { desc = 'Open the file under point, or find it based on path around point if not found' })
 vim.keymap.set('n', '<Leader>pd', function()

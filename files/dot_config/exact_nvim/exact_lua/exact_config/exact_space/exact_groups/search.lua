@@ -1,9 +1,9 @@
 require('which-key').add({ { '<Leader>s', group = 'Search' } })
 
-local util = require('config.space.util')
+local cursor = require('config.cursor')
 
 local function get_search_text()
-  return util.selection_or(function() return vim.fn.expand('<cword>') end)
+  return cursor.region_or(cursor.cword)
 end
 
 vim.keymap.set('n', '<Leader>sd', function()

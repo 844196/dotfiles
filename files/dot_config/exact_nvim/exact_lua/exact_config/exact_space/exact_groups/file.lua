@@ -26,13 +26,16 @@ vim.keymap.set('n', '<Leader>ff', function()
   find_files_from(require('telescope.utils').buffer_dir())
 end, { desc = 'Find file starting from the current file directory' })
 vim.keymap.set({ 'n', 'x' }, '<Leader>fF', function()
-  local util = require('config.space.util')
-  local mode = vim.fn.mode()
-  local was_visual = mode == 'v' or mode == 'V' or mode == '\22'
-  local ok = pcall(vim.cmd.normal, { 'gf', bang = true })
-  if ok then return end
+  -- ビジュアルモードだったとしても gf トライで抜けてしまうため、先にフォールバックテキストを取得しておく
+  local cursor = require('config.cursor')
+  local default_text = cursor.region_or(cursor.cfile)
+
+  if pcall(vim.cmd.normal, { 'gf', bang = true }) then
+    return
+  end
+
   find_files_from(require('telescope.utils').buffer_dir(), {
-    default_text = was_visual and util.visual_selection() or vim.fn.expand('<cfile>'),
+    default_text = default_text,
   })
 end, { desc = 'Open the file under point, or find it if not found' })
 vim.keymap.set('n', '<Leader>fj', '<Cmd>Oil<CR>', { desc = 'Jump to the current buffer file in oil' })
