@@ -40,7 +40,7 @@ local function claude_commit()
 
     local cmd = { 'git', '--no-pager', '--no-optional-locks', 'claude-commit', '--no-resume' }
     if note ~= '' then
-      table.insert(cmd, note)
+      table.insert(cmd, vim.fn.shellescape(note))
     end
 
     local proc = process.new({
