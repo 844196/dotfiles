@@ -248,7 +248,10 @@ require('mini.move').setup({
 local keymap_actions = require('config.keymap_actions')
 
 vim.keymap.set('n', '<Esc>', '<Cmd>nohl<CR>')
-vim.keymap.set('n', '<CR>', 'o<Esc>')
+vim.keymap.set('n', '<CR>', function()
+  -- quickfix リスト内で選択できるように
+  return vim.bo.modifiable and 'o<Esc>' or '<CR>'
+end, { expr = true })
 vim.keymap.set('n', '<S-CR>', 'O<Esc>')
 vim.keymap.set('n', '/', [[/\v]])
 vim.keymap.set('n', 'n', 'nzz')
