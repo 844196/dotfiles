@@ -130,6 +130,11 @@
       "src": "https://github.com/nvim-telescope/telescope.nvim",
       "version": "'427b576c16792edad01a92b89721d923c19ad60f'"
     },
+    "text-case.nvim": {
+      "rev": "e898cfd46fa6cde0e83abb624a16e67d2ffc6457",
+      "src": "https://github.com/johmsalas/text-case.nvim",
+      "version": "'e898cfd46fa6cde0e83abb624a16e67d2ffc6457'"
+    },
     "tiny-code-action.nvim": {
       "rev": "0d040ed81f7953118b81cd12681fcdfcac069803",
       "src": "https://github.com/rachartier/tiny-code-action.nvim",

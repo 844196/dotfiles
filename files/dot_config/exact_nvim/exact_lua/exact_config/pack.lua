@@ -123,4 +123,8 @@ vim.pack.add({
     src = 'https://github.com/shortcuts/no-neck-pain.nvim',
     version = '0df6659e25401c3f3c40e82f1ddd48714b1a659c',
   },
+  {
+    src = 'https://github.com/johmsalas/text-case.nvim',
+    version = 'e898cfd46fa6cde0e83abb624a16e67d2ffc6457',
+  },
 })
