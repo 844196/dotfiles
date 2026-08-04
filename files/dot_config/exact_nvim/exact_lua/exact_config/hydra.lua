@@ -17,7 +17,7 @@ function M.create(opts)
   -- 呼び出し元が :activate() で再度 hydra に入れるようにインスタンスを返す
   return Hydra({
     name = opts.name,
-    mode = 'n',
+    mode = opts.mode or 'n',
     body = opts.body,
     heads = heads,
     config = {
@@ -25,7 +25,7 @@ function M.create(opts)
         type = 'window',
       },
       color = opts.color or 'red',
-      invoke_on_body = true,
+      invoke_on_body = opts.invoke_on_body == nil and true or opts.invoke_on_body,
       desc = 'Transient state',
       -- https://github.com/anuvyklack/hydra.nvim/wiki/Git#red-amaranth-and-teal-colors
       on_key = function() vim.wait(17) end,
