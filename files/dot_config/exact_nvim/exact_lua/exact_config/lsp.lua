@@ -28,6 +28,6 @@ require('nvim-lightbulb').setup({
 require('tiny-code-action').setup({
   picker = {
     'telescope',
-    opts = require('config.telescope.themes').get_peek(),
+    opts = require('config.telescope.themes').get_peek({ layout_config = { mirror = false } }),
   },
 })
