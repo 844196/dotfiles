@@ -8,121 +8,70 @@ require('which-key').add({
   { '<Leader>mG', group = 'Goto' },
 })
 
----@param buf integer
----@param mode string
----@param lhs string
----@return boolean
-local function is_remapped(buf, mode, lhs)
-  for _, remap in ipairs(vim.api.nvim_buf_get_keymap(buf, mode)) do
-    if remap.lhs == vim.fn.keytrans(vim.keycode(lhs)) then
-      return true
-    end
-  end
-  return false
-end
-
----@class RemapOpts : vim.keymap.set.Opts
----@field lsp vim.lsp.get_clients.Filter
-
----@param mode string|string[]
----@param lhs string
----@param rhs string|function
----@param opts RemapOpts
-local function remap(mode, lhs, rhs, opts)
-  if type(mode) == 'table' then
-    for _, m in ipairs(mode) do
-      remap(m, lhs, rhs, opts)
-    end
-    return
-  end
-
-  local lsp = opts.lsp
-  opts.lsp = nil
-
-  require('snacks.util').lsp.on(lsp, function(buf)
-    if not is_remapped(buf, mode, lhs) then
-      vim.keymap.set(mode, lhs, rhs, vim.tbl_deep_extend('force', opts or {}, { buf = buf }))
-    end
-  end)
-end
-
 local telescope_builtin = require('telescope.builtin')
 
-remap({ 'n', 'x' }, '<Leader>m==', vim.lsp.buf.format, {
+vim.keymap.set({ 'n', 'x' }, '<Leader>m==', vim.lsp.buf.format, {
   desc = 'Format region or buffer',
-  lsp = { method = 'textDocument/formatting' },
 })
 
-remap({ 'n', 'x' }, '<Leader>maa', function()
+vim.keymap.set({ 'n', 'x' }, '<Leader>maa', function()
   require("tiny-code-action").code_action({})
 end, {
   desc = 'Execute code action',
-  lsp = { method = 'textDocument/codeAction' },
 })
 
-remap('n', '<Leader>mrr', vim.lsp.buf.rename, {
+vim.keymap.set('n', '<Leader>mrr', vim.lsp.buf.rename, {
   desc = 'Rename symbol',
-  lsp = { method = 'textDocument/rename' },
 })
 
 local get_ivy_hermit = require('config.telescope.themes').get_ivy_hermit
 
-remap('n', '<Leader>mgM', function()
+vim.keymap.set('n', '<Leader>mgM', function()
   telescope_builtin.lsp_document_symbols(get_ivy_hermit())
 end, {
   desc = 'Browse symbols in buffer',
-  lsp = { method = 'textDocument/documentSymbol' },
 })
-remap({ 'n', 'x' }, '<Leader>mgs', function()
+vim.keymap.set({ 'n', 'x' }, '<Leader>mgs', function()
   local cursor = require('config.cursor')
   telescope_builtin.lsp_workspace_symbols(get_ivy_hermit({ default_text = cursor.region_or(cursor.cword) }))
 end, {
   desc = 'Find symbol in project',
-  lsp = { method = 'workspace/symbol' },
 })
 
 local function get_peek(opts)
   return require('config.telescope.themes').get_peek(vim.tbl_deep_extend('force', { jump_type = 'never', layout_config = { height = 0.2 } }, opts or {}))
 end
 
-remap('n', '<Leader>mgd', function()
+vim.keymap.set('n', '<Leader>mgd', function()
   telescope_builtin.lsp_definitions(get_peek())
 end, {
   desc = 'Peek definition',
-  lsp = { method = 'textDocument/definition' },
 })
-remap('n', '<Leader>mgt', function()
+vim.keymap.set('n', '<Leader>mgt', function()
   telescope_builtin.lsp_type_definitions(get_peek())
 end, {
   desc = 'Peek type definition',
-  lsp = { method = 'textDocument/typeDefinition' },
 })
-remap('n', '<Leader>mgi', function()
+vim.keymap.set('n', '<Leader>mgi', function()
   telescope_builtin.lsp_implementations(get_peek())
 end, {
   desc = 'Peek implementations',
-  lsp = { method = 'textDocument/implementation' },
 })
-remap('n', '<Leader>mgr', function()
+vim.keymap.set('n', '<Leader>mgr', function()
   telescope_builtin.lsp_references(get_peek())
 end, {
   desc = 'Peek references',
-  lsp = { method = 'textDocument/references' },
 })
 
-remap('n', '<Leader>mGd', vim.lsp.buf.definition, {
+vim.keymap.set('n', '<Leader>mGd', vim.lsp.buf.definition, {
   desc = 'Goto definition',
-  lsp = { method = 'textDocument/definition' },
 })
-remap('n', '<Leader>mGt', vim.lsp.buf.type_definition, {
+vim.keymap.set('n', '<Leader>mGt', vim.lsp.buf.type_definition, {
   desc = 'Goto type definition',
-  lsp = { method = 'textDocument/typeDefinition' },
 })
-remap('n', '<Leader>mGi', vim.lsp.buf.implementation, {
+vim.keymap.set('n', '<Leader>mGi', vim.lsp.buf.implementation, {
   desc = 'Goto implementations',
-  lsp = { method = 'textDocument/implementation' },
 })
-remap('n', '<Leader>mGr', vim.lsp.buf.references, {
+vim.keymap.set('n', '<Leader>mGr', vim.lsp.buf.references, {
   desc = 'Goto references',
-  lsp = { method = 'textDocument/references' },
 })
