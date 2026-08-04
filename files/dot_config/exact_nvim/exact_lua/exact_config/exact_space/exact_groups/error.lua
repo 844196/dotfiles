@@ -1,17 +1,45 @@
 require('which-key').add({ { '<Leader>e', group = 'Error' } })
 
----@param dir ('prev'|'next')?
-local jump = function(dir)
-  vim.diagnostic.jump({
-    severity = vim.diagnostic.severity.WARN,
-    count = dir == 'prev' and -1 or 1,
-    wrap = false,
-  })
+local function is_qf_visible()
+  return vim.fn.getqflist({ winid = 0 }).winid ~= 0
+end
+
+---@param dir 'prev'|'next'
+local function jump(dir)
+  if is_qf_visible() then
+    local ok, err = pcall(vim.cmd, dir == 'prev' and 'cprev' or 'cnext')
+    if ok then
+      return
+    end
+    if err:match('E553') then
+      vim.cmd(dir == 'prev' and 'clast' or 'cfirst')
+    else
+      vim.notify(err, vim.log.levels.WARN)
+    end
+  else
+    vim.diagnostic.jump({ severity = vim.diagnostic.severity.WARN, count = dir == 'prev' and -1 or 1, wrap = false })
+  end
+end
+
+local function toggle_qf_window()
+  if is_qf_visible() then
+    vim.cmd.cclose()
+  else
+    vim.cmd('copen | wincmd p')
+  end
 end
 
 vim.keymap.set('n', '<Leader>en', function() jump('next') end, { desc = 'Go to the next error' })
 vim.keymap.set('n', '<Leader>ep', function() jump('prev') end, { desc = 'Go to the previous error' })
 vim.keymap.set('n', '<Leader>eN', '<Leader>ep', { desc = 'Go to the previous error', remap = true })
+
+vim.keymap.set('n', '<Leader>el', toggle_qf_window, { desc = 'Open/Close quickfix window' })
+vim.keymap.set('n', '<Leader>eL', '<Cmd>copen<CR>', { desc = 'Focus quickfix window' })
+
+vim.keymap.set('n', '<Leader>eq', vim.diagnostic.setqflist, { desc = 'Set quickfix list from vim.diagnostic' })
+vim.keymap.set('n', '<Leader>ec', '<Cmd>cexpr [] | cclose<CR>', { desc = 'Clear quickfix list' })
+
+vim.keymap.set('n', '<Leader>ex', function() vim.diagnostic.open_float({ border = 'rounded' }) end, { desc = 'Hover diagnostic messages' })
 
 vim.keymap.set('n', '<Leader>ey', function()
   local diags = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
@@ -35,35 +63,5 @@ require('config.hydra').create({
     { 'p', '<Leader>ep', { desc = 'Jump to previous error', remap = true } },
     { 'N', '<Leader>eN', { desc = 'Jump to previous error', remap = true } },
     { 'z', require('config.keymap_actions').recenter, { desc = 'Recenter buffer in window' } },
-    { 'y', '<Leader>ey', { desc = 'Copy each error', remap = true } }, -- 本家にない
-  },
-})
-
-local function toggle_quickfix_window()
-  local wins = vim.fn.getwininfo()
-  for _, win in ipairs(wins) do
-    if win.quickfix == 1 then
-      vim.cmd.cclose()
-      return
-    end
-  end
-  vim.cmd.copen()
-end
-
-vim.keymap.set('n', '<Leader>eqn', '<Cmd>cnext<CR>')
-vim.keymap.set('n', '<Leader>eqp', '<Cmd>cprev<CR>')
-vim.keymap.set('n', '<Leader>eqN', '<Cmd>cprev<CR>')
-vim.keymap.set('n', '<Leader>eql', toggle_quickfix_window)
-vim.keymap.set('n', '<Leader>eqC', '<Cmd>cexpr [] | cclose<CR>')
-
-require('config.hydra').create({
-  name = 'Quickfix',
-  body = '<Leader>eq.',
-  heads = {
-    { 'n', '<Cmd>cnext<CR>', { desc = 'next' } },
-    { 'p', '<Cmd>cprev<CR>', { desc = 'prev' } },
-    { 'N', '<Cmd>cprev<CR>', { desc = 'prev' } },
-    { 'l', toggle_quickfix_window, { desc = 'open/close quickfix window' } },
-    { 'C', '<Cmd>cexpr [] | cclose<CR>', { desc = 'clear', exit = true } },
   },
 })
