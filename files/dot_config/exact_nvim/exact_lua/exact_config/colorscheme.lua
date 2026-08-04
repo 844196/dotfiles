@@ -16,7 +16,19 @@ require('tokyonight').setup({
       bold = true,
     }
     hl.DiagnosticVirtualTextHint = {
-      fg = util.blend_bg(colors.hint, 0.4),
+      fg = util.blend_bg(colors.hint, 0.5),
+      bg = colors.none,
+    }
+    hl.DiagnosticVirtualTextInfo = {
+      fg = util.blend_bg(colors.info, 0.5),
+      bg = colors.none,
+    }
+    hl.DiagnosticVirtualTextWarn = {
+      fg = util.blend_bg(colors.warning, 0.5),
+      bg = colors.none,
+    }
+    hl.DiagnosticVirtualTextError = {
+      fg = util.blend_bg(colors.error, 0.75),
       bg = colors.none,
     }
     hl.FloatTitle = {
