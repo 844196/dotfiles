@@ -66,4 +66,32 @@ function M.undoable_end()
   return string.rep('<C-g>U<Right>', vim.fn.col('$') - vim.fn.col('.'))
 end
 
+function M.open()
+  local cursor = require('config.cursor')
+  local path = cursor.region_or(function()
+    ---@type vim.context.mods
+    local ctx = {
+      go = {
+        isfname = vim.o.isfname .. ',@-@', -- @ を含む URL に対応する
+      },
+    }
+    return vim._with(ctx, cursor.cfile)
+  end)
+
+  local opts = {} ---@type vim.ui.open.Opts
+  if path:match('^https?://') then
+    opts.cmd = { 'chroma' }
+  elseif path:match('%.html?$') then
+    path = 'file://' .. vim.fs.normalize(vim.fs.joinpath(vim.fn.expand('%:p:h'), path))
+    opts.cmd = { 'chroma' }
+  elseif vim.uv.cwd() ~= vim.fn.expand('%:h') then
+    path = vim.fs.normalize(vim.fs.joinpath(vim.fn.expand('%:p:h'), path))
+  end
+
+  local _, err = vim.ui.open(path, opts)
+  if err then
+    vim.notify(err, vim.log.levels.ERROR)
+  end
+end
+
 return M
