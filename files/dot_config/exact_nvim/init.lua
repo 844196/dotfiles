@@ -260,7 +260,7 @@ vim.keymap.set({ 'n', 'i', 'x' }, '<C-l>', keymap_actions.recenter)
 vim.keymap.set({ 'n', 'x' }, 'M', keymap_actions.recenter_cursor)
 vim.keymap.set('n', '<M-;>',  'gcc', { remap = true })
 vim.keymap.set('v', '<M-;>',  'gc', { remap = true })
-vim.keymap.set('n', 'gh', function() vim.lsp.buf.hover({ border = 'rounded' }) end)
+vim.keymap.set('n', 'K', function() vim.lsp.buf.hover({ border = 'rounded' }) end)
 
 -- https://vimrc-dissection.blogspot.com/2009/02/fixing-pageup-and-pagedown.html
 -- https://github.com/folke/snacks.nvim/discussions/1030#discussioncomment-12109404
