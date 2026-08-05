@@ -85,8 +85,12 @@ function Agent:kill()
   herdr({ 'pane', 'close', self.pane_id })
 end
 
+function Agent:is_visible()
+  return self.tab_id == vim.env.HERDR_TAB_ID
+end
+
 function Agent:show()
-  if self.tab_id == vim.env.HERDR_TAB_ID then
+  if self:is_visible() then
     return
   end
 
@@ -96,7 +100,7 @@ function Agent:show()
 end
 
 function Agent:hide()
-  if self.tab_id ~= vim.env.HERDR_TAB_ID then
+  if not self:is_visible() then
     return
   end
 
@@ -110,7 +114,7 @@ function Agent:focus()
 end
 
 function Agent:toggle_visibility()
-  if self.tab_id == vim.env.HERDR_TAB_ID then
+  if self:is_visible() then
     self:hide()
   else
     self:show()
@@ -142,19 +146,25 @@ end, {
   desc = 'Stop current session',
 })
 
-vim.keymap.set('n', '<Leader>$db', function()
+vim.keymap.set('n', '<Leader>$dt', function()
   local agent = Agent.find()
   if agent then
     agent:toggle_visibility()
   end
 end, {
-  desc = 'Switch to Claude pane',
+  desc = 'Toggle Claude pane',
 })
 
 vim.keymap.set('n', '<Leader>$db', function()
   local agent = Agent.find()
-  if agent then
-    agent:toggle_visibility()
+  if not agent then
+    return
+  end
+  if agent:is_visible() then
+    agent:focus()
+  else
+    agent:show()
+    agent:focus()
   end
 end, {
   desc = 'Switch to Claude pane',
