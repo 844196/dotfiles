@@ -14,6 +14,7 @@ prompt_new_tab_name = false
 host_cursor = "native"
 sidebar_collapsed_mode = 'hidden'
 sidebar.spaces.row_gap = 1
+sidebar.agents.row_gap = 1
 pane_scrollbars = false
 
 [keys]
