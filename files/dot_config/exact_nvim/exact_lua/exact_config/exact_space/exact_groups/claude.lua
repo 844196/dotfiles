@@ -45,12 +45,17 @@ local function herdr(args)
     error(rv.stderr)
   end
 
-  return assert(vim.json.decode(rv.stdout).result)
+  local stdout = rv.stdout
+  if stdout == nil or stdout == '' then
+    return {}
+  end
+
+  return assert(vim.json.decode(stdout))
 end
 
 ---@return Agent?
 function Agent.find()
-  local agents = assert(herdr({ 'agent', 'list' }).agents) --[=[@as HerdrAgentData[]]=]
+  local agents = assert(herdr({ 'agent', 'list' }).result.agents) --[=[@as HerdrAgentData[]]=]
   for _, a in ipairs(agents) do
     if a.workspace_id == vim.env.HERDR_WORKSPACE_ID and a.name and a.name:find('^nvim[0-9]+$') then
       return Agent.new(a)
@@ -61,13 +66,13 @@ end
 ---@return Agent
 function Agent.spawn()
   local split = herdr({ 'pane', 'split', '--current', '--direction', 'right', '--no-focus' })
-  local splitted_pane_id = assert(split.pane.pane_id) --[[@as string]]
+  local splitted_pane_id = assert(split.result.pane.pane_id) --[[@as string]]
 
   -- Avoid "agent target pane {pane_id} is not an available shell"
   vim.wait(500)
 
   local spawn = herdr({ 'agent', 'start', 'nvim' .. tostring(vim.fn.getpid()), '--kind', 'claude', '--pane', splitted_pane_id })
-  local spawned = assert(spawn.agent) --[[@as HerdrAgentData]]
+  local spawned = assert(spawn.result.agent) --[[@as HerdrAgentData]]
 
   return Agent.new(spawned)
 end
@@ -76,6 +81,7 @@ function Agent:kill()
   if self.status ~= 'idle' and self.status ~= 'done' then
     vim.notify('Agent busy', vim.log.levels.ERROR)
   end
+
   herdr({ 'pane', 'close', self.pane_id })
 end
 
@@ -93,8 +99,10 @@ function Agent:hide()
   if self.tab_id ~= vim.env.HERDR_TAB_ID then
     return
   end
+
   local hide = herdr({ 'pane', 'move', self.pane_id, '--new-tab', '--no-focus' })
-  self.tab_id = assert(hide.move_result.created_tab.tab_id) --[[@as string]]
+
+  self.tab_id = assert(hide.result.move_result.created_tab.tab_id) --[[@as string]]
 end
 
 function Agent:focus()
@@ -107,6 +115,10 @@ function Agent:toggle_visibility()
   else
     self:show()
   end
+end
+
+function Agent:send_to_prompt(prompt)
+  herdr({ 'pane', 'send-text', self.pane_id, prompt })
 end
 
 vim.keymap.set('n', '<Leader>$ds', function()
@@ -146,4 +158,15 @@ vim.keymap.set('n', '<Leader>$db', function()
   end
 end, {
   desc = 'Switch to Claude pane',
+})
+
+vim.keymap.set('x', '<Leader>$di', function()
+  local agent = Agent.find()
+  if agent then
+    agent:show()
+    agent:send_to_prompt(require('config.cursor').region_or('', { multiline = 'KEEP' }))
+    agent:focus()
+  end
+end, {
+  desc = 'Insert selected text to Claude prompt',
 })
