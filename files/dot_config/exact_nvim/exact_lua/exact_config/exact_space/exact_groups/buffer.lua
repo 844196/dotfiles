@@ -62,37 +62,23 @@ vim.keymap.set('n', '<Leader>bp', '<Cmd>bp<CR>', { desc = 'Switch to previous bu
 
 vim.keymap.set('n', '<Leader>bb', function() require('telescope.builtin').buffers(get_ivy_hermit()) end, { desc = 'Switch to a buffer' })
 
+local Buffer = require('config.buffer')
 vim.keymap.set('n', '<Leader>bm', function()
-  local name = '*messages*'
-  local buf
-  for _, b in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.fn.bufname(b) == name then buf = b break end
-  end
-  if not buf then
-    buf = vim.api.nvim_create_buf(true, true)
-    vim.api.nvim_buf_set_name(buf, name)
-    vim.bo[buf].bufhidden = 'hide'
-    vim.bo[buf].swapfile = false
-    vim.bo[buf].buflisted = true -- :ls に出るように
-  end
-  local out = vim.api.nvim_exec2('messages', { output = true }).output
+  local buf = Buffer.find_or_create('*messages*', Buffer.ephemeralize)
   vim.bo[buf].modifiable = true
-  vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(out, '\n'))
+
+  local messages = vim.api.nvim_exec2('messages', { output = true }).output
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(messages, '\n'))
   vim.bo[buf].modifiable = false
+  vim.bo[buf].modified = false
+  vim.bo[buf].filetype = 'vim'
+
   vim.api.nvim_set_current_buf(buf)
-  vim.cmd('normal! G')
+  vim.cmd.normal({ 'G', bang = true })
 end, { desc = 'Open messages history' })
 vim.keymap.set('n', '<Leader>bs', function()
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.fn.bufname(buf) == [[*scratch*]] then
-      vim.api.nvim_set_current_buf(buf)
-      return
-    end
-  end
-  -- https://vi.stackexchange.com/a/21390
-  vim.cmd('enew')
-  vim.cmd('setlocal buftype=nofile bufhidden=hide noswapfile')
-  vim.cmd([[file *scratch*]])
+  local buf = Buffer.find_or_create('*scratch*', Buffer.ephemeralize)
+  vim.api.nvim_set_current_buf(buf)
 end, { desc = 'Switch to the scratch buffer' })
 
 vim.keymap.set('n', '<Leader>bNn', '<Cmd>enew<CR>', { desc = 'Create new empty buffer in current window' })
