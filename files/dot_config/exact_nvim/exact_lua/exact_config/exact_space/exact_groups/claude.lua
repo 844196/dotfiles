@@ -187,3 +187,67 @@ vim.keymap.set('x', '<Leader>$di', function()
 end, {
   desc = 'Insert selected text to Claude prompt',
 })
+
+vim.keymap.set({ 'n', 'x' }, '<Leader>$dp', function()
+  local Buffer = require('config.buffer')
+
+  local buf = Buffer.find_or_create('*claude-prompt*', function(buf)
+    Buffer.ephemeralize(buf)
+    vim.bo[buf].filetype = 'markdown'
+
+    vim.keymap.set('n', '<Leader>mcs', function()
+      local agent = Agent.find()
+      if not agent then
+        return
+      end
+
+      local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+      if #lines == 1 and lines[1] == '' then
+        return
+      end
+
+      agent:show():send_to_prompt(table.concat(lines, '\n')):focus()
+
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end, {
+      desc = 'Send to Claude prompt',
+      buf = buf,
+    })
+  end)
+
+  local mode = vim.fn.mode()
+  if mode == 'v' or mode == 'V' then
+    local path, from, to = Buffer.path(), vim.fn.getpos('v'), vim.fn.getpos('.')
+    local region = vim.fn.getregion(from, to, { type = mode })
+
+    local ln = (function()
+      if from[2] == to[2] then
+        return mode == 'V' and from[2] or (from[2] .. ':' .. from[3])
+      else
+        return (math.min(from[2], to[2]) .. '-' .. math.max(from[2], to[2]))
+      end
+    end)()
+    table.insert(region, 1, path .. ':' .. ln)
+
+    table.insert(region, 2, '```' .. vim.bo.filetype)
+    table.insert(region, '```')
+
+    local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+    if #lines == 1 and lines[1] == '' then
+      vim.api.nvim_buf_set_lines(buf, 0, -1, false, region)
+    else
+      table.insert(region, 1, '')
+      vim.api.nvim_buf_set_lines(buf, -1, -1, false, region)
+    end
+  end
+
+  local winid = vim.fn.bufwinid(buf)
+  if winid == -1 then
+    vim.cmd.vsplit()
+    vim.api.nvim_set_current_buf(buf)
+  else
+    vim.api.nvim_set_current_win(winid)
+  end
+end, {
+  desc = 'Open prompt buffer',
+})
