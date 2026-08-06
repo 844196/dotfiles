@@ -127,4 +127,8 @@ vim.pack.add({
     src = 'https://github.com/johmsalas/text-case.nvim',
     version = 'e898cfd46fa6cde0e83abb624a16e67d2ffc6457',
   },
+  {
+    src = 'https://github.com/mfussenegger/nvim-lint',
+    version = 'a219b2c9e5b4765e5c845aba119dad55806fcaf1',
+  },
 })

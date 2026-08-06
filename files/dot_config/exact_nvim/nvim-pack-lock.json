@@ -85,6 +85,11 @@
       "src": "https://github.com/kosayoda/nvim-lightbulb",
       "version": "'b8c08c5f3b1586dfcdd9f34d7d54fe6982e01ac9'"
     },
+    "nvim-lint": {
+      "rev": "a219b2c9e5b4765e5c845aba119dad55806fcaf1",
+      "src": "https://github.com/mfussenegger/nvim-lint",
+      "version": "'a219b2c9e5b4765e5c845aba119dad55806fcaf1'"
+    },
     "nvim-lspconfig": {
       "rev": "d5b6e3db4c17b0146f63a2fc47e2027a754b2cb1",
       "src": "https://github.com/neovim/nvim-lspconfig",
