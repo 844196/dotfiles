@@ -196,10 +196,7 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>$dp', function()
     vim.bo[buf].filetype = 'markdown'
 
     vim.keymap.set('n', '<Leader>mcs', function()
-      local agent = Agent.find()
-      if not agent then
-        return
-      end
+      local agent = Agent.find() or Agent.spawn()
 
       local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
       if #lines == 1 and lines[1] == '' then
