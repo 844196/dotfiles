@@ -59,6 +59,7 @@ MiniIcons.mock_nvim_web_devicons()
 
 require('config.treesitter')
 require('config.lsp')
+require('config.linting')
 
 require('snacks').setup({
   indent = {

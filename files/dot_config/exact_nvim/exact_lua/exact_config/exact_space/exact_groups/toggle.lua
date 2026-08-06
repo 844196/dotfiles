@@ -10,6 +10,6 @@ vim.keymap.set('n', '<Leader>tf', function()
   vim.o.colorcolumn = vim.o.colorcolumn ~= '120' and '120' or ''
 end)
 
-vim.keymap.set('n', '<Leader>tS', require('config.space.codebook').toggle, { desc = 'Toggle spell check' })
+vim.keymap.set('n', '<Leader>tS', require('config.spellcheck').toggle, { desc = 'Toggle spell check' })
 
 vim.keymap.set('n', '<Leader>TZ', require('no-neck-pain').toggle, { desc = 'Toggle no-neck-pain' })

@@ -1,7 +1,6 @@
 require('mason').setup()
 require('mason-lspconfig').setup({
   ensure_installed = {
-    'codebook',
     'lua_ls',
     'jsonls',
     'yamlls',
