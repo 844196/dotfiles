@@ -8,7 +8,7 @@ local function is_disposable_buffer(buf)
   end
 
   local name = vim.fn.bufname(buf)
-  if name == '*scratch*' or name == '*Messages*' or name == '*claude-prompt*' or string.match(name, '^Neogit') ~= nil then
+  if name == '*scratch*' or name == '*messages*' or name == '*claude-prompt*' or string.match(name, '^Neogit') ~= nil then
     return true
   end
 

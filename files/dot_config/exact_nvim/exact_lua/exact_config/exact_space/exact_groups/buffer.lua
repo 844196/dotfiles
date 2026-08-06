@@ -63,7 +63,7 @@ vim.keymap.set('n', '<Leader>bp', '<Cmd>bp<CR>', { desc = 'Switch to previous bu
 vim.keymap.set('n', '<Leader>bb', function() require('telescope.builtin').buffers(get_ivy_hermit()) end, { desc = 'Switch to a buffer' })
 
 vim.keymap.set('n', '<Leader>bm', function()
-  local name = '*Messages*'
+  local name = '*messages*'
   local buf
   for _, b in ipairs(vim.api.nvim_list_bufs()) do
     if vim.fn.bufname(b) == name then buf = b break end
