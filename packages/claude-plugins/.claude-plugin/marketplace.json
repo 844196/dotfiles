@@ -38,10 +38,6 @@
       "source": "./plugins/opinions"
     },
     {
-      "name": "mise",
-      "source": "./plugins/mise"
-    },
-    {
       "name": "motd",
       "source": "./plugins/motd"
     },
