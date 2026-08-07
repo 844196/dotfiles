@@ -46,10 +46,6 @@
       "source": "./plugins/motd"
     },
     {
-      "name": "new-file-protocol",
-      "source": "./plugins/new-file-protocol"
-    },
-    {
       "name": "notification",
       "source": "./plugins/notification"
     },
