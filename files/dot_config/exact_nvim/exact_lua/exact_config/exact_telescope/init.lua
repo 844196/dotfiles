@@ -158,6 +158,12 @@ telescope.setup({
   defaults = {
     file_ignore_patterns = {
       "%.git/",
+      -- ~/.config/git/ignore (global gitignore) 由来。find_files が --no-ignore-global で
+      -- global gitignore を無視するため、エディタ/OS が撒き散らすゴミファイルはここで個別に除外する
+      "~$",
+      "%.DS_Store$",
+      "Thumbs%.db$",
+      ":Zone%.Identifier$",
     },
     prompt_prefix = '❯ ',
     selection_caret = '▌ ',
@@ -192,8 +198,7 @@ telescope.setup({
   },
   pickers = {
     find_files = {
-      hidden = true,
-      no_ignore = true,
+      find_command = { 'rg', '--files', '--hidden', '--no-ignore-global' },
       previewer = false,
     },
     buffers = {
