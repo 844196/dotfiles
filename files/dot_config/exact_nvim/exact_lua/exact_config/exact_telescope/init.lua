@@ -215,6 +215,11 @@ telescope.setup({
       },
     },
     live_grep = {
+      -- find_files と同様、隠しディレクトリ (.claude-plugin/ 等) とグローバル gitignore 済みファイルも検索対象にする
+      vimgrep_arguments = {
+        'rg', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case',
+        '--hidden', '--no-ignore-global',
+      },
       mappings = {
         -- デフォルトが actions.to_fuzzy_refine で使いづらい
         i = {
