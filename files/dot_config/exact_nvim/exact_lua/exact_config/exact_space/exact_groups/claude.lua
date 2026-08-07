@@ -214,7 +214,9 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>$dp', function()
   end)
 
   local mode = vim.fn.mode()
-  if mode == 'v' or mode == 'V' then
+  local with_snippet = mode == 'v' or mode == 'V'
+
+  if with_snippet then
     local region_start, region_end = vim.fn.getpos('v'), vim.fn.getpos('.')
     local from_ln, to_ln = math.min(region_start[2], region_end[2]), math.max(region_start[2], region_end[2])
     local from_col = (function()
@@ -266,6 +268,10 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>$dp', function()
     vim.api.nvim_set_current_buf(buf)
   else
     vim.api.nvim_set_current_win(winid)
+  end
+
+  if with_snippet then
+    vim.cmd.normal({ 'G', bang = true })
   end
 end, {
   desc = 'Open prompt buffer',
