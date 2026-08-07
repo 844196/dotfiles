@@ -195,6 +195,7 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>$dp', function()
     Buffer.ephemeralize(buf)
     vim.bo[buf].filetype = 'markdown'
 
+    vim.keymap.set('n', 'q', '<Cmd>close!<CR>', { buf = buf })
     vim.keymap.set('n', '<Leader>mcs', function()
       local agent = Agent.find() or Agent.spawn()
 
