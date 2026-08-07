@@ -215,27 +215,48 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>$dp', function()
 
   local mode = vim.fn.mode()
   if mode == 'v' or mode == 'V' then
-    local path, from, to = Buffer.path(), vim.fn.getpos('v'), vim.fn.getpos('.')
-    local region = vim.fn.getregion(from, to, { type = mode })
-
-    local ln = (function()
-      if from[2] == to[2] then
-        return mode == 'V' and from[2] or (from[2] .. ':' .. from[3])
+    local region_start, region_end = vim.fn.getpos('v'), vim.fn.getpos('.')
+    local from_ln, to_ln = math.min(region_start[2], region_end[2]), math.max(region_start[2], region_end[2])
+    local from_col = (function()
+      if region_start[2] < region_end[2] then
+        return region_start[3]
+      elseif region_start[2] > region_end[2] then
+        return region_end[3]
       else
-        return (math.min(from[2], to[2]) .. '-' .. math.max(from[2], to[2]))
+        if region_start[3] < region_end[3] then
+          return region_start[3]
+        else
+          return region_end[3]
+        end
       end
     end)()
-    table.insert(region, 1, path .. ':' .. ln)
 
-    table.insert(region, 2, '```' .. vim.bo.filetype)
-    table.insert(region, '```')
+    ---@type string[]
+    local prompt = {}
+
+    local ln = (function()
+      if from_ln == to_ln then
+        return mode == 'V' and from_ln or (from_ln .. ':' .. from_col)
+      else
+        return mode == 'V' and (from_ln .. '-' .. to_ln) or (from_ln .. ':' .. from_col)
+      end
+    end)()
+    table.insert(prompt, Buffer.path() .. ':' .. ln)
+
+    if to_ln - from_ln <= 10 then
+      table.insert(prompt, '```' .. vim.bo.filetype)
+      for _, l in ipairs(vim.fn.getregion(region_start, region_end, { type = mode })) do
+        table.insert(prompt, l)
+      end
+      table.insert(prompt, '```')
+    end
 
     local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
     if #lines == 1 and lines[1] == '' then
-      vim.api.nvim_buf_set_lines(buf, 0, -1, false, region)
+      vim.api.nvim_buf_set_lines(buf, 0, -1, false, prompt)
     else
-      table.insert(region, 1, '')
-      vim.api.nvim_buf_set_lines(buf, -1, -1, false, region)
+      table.insert(prompt, 1, '')
+      vim.api.nvim_buf_set_lines(buf, -1, -1, false, prompt)
     end
   end
 
