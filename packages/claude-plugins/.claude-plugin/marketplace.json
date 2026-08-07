@@ -46,10 +46,6 @@
       "source": "./plugins/motd"
     },
     {
-      "name": "notification",
-      "source": "./plugins/notification"
-    },
-    {
       "name": "personal-scratchpad",
       "source": "./plugins/personal-scratchpad"
     },
