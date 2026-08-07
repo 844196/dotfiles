@@ -15,6 +15,10 @@ host_cursor = "native"
 sidebar_collapsed_mode = 'hidden'
 sidebar.spaces.row_gap = 1
 sidebar.agents.row_gap = 1
+sidebar.agents.rows = [
+  ["state_icon", "workspace", "tab"],
+  [{ token = "agent", dim = false }],
+]
 pane_scrollbars = false
 
 [keys]
