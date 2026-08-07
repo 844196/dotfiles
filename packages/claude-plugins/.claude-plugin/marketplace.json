@@ -10,10 +10,6 @@
       "source": "./plugins/atuin"
     },
     {
-      "name": "block-long-sleep",
-      "source": "./plugins/block-long-sleep"
-    },
-    {
       "name": "ctx",
       "source": "./plugins/ctx"
     },
