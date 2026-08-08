@@ -102,7 +102,7 @@ vim.keymap.set('n', '<Leader>feR', function()
           if vim.api.nvim_buf_is_valid(term_buf) then
             vim.api.nvim_buf_delete(term_buf, { force = true })
           end
-          require('config.space.restart').restart_with_session()
+          require('config.power').restart_with_session()
         end)
       end
     end,

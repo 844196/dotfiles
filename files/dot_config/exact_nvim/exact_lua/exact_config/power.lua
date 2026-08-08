@@ -19,7 +19,7 @@ end
 -- で通知してくれるため、名前パターンでの推測ではなくタブハンドルを直接追跡する。
 -- diff を通常通り閉じた場合は CodeDiffClose で自動的に追跡から外れる。
 local codediff_tabpages = {}
-local codediff_augroup = vim.api.nvim_create_augroup('config.space.restart.codediff', { clear = true })
+local codediff_augroup = vim.api.nvim_create_augroup('config.power.codediff', { clear = true })
 vim.api.nvim_create_autocmd('User', {
   pattern = 'CodeDiffOpen',
   group = codediff_augroup,
