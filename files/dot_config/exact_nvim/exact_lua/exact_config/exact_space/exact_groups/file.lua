@@ -93,12 +93,6 @@ vim.keymap.set('n', '<Leader>feR', function()
     on_exit = function(_, code)
       if code == 0 then
         vim.schedule(function()
-          for _, win in ipairs(vim.api.nvim_list_wins()) do
-            local buf = vim.api.nvim_win_get_buf(win)
-            if vim.bo[buf].filetype == 'help' then
-              vim.api.nvim_win_close(win, false)
-            end
-          end
           if vim.api.nvim_buf_is_valid(term_buf) then
             vim.api.nvim_buf_delete(term_buf, { force = true })
           end
