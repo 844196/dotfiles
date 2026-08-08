@@ -8,7 +8,7 @@ local function is_disposable_buffer(buf)
   end
 
   local name = vim.fn.bufname(buf)
-  if name == '*scratch*' or name == '*messages*' or name == '*claude-prompt*' or string.match(name, '^Neogit') ~= nil then
+  if string.match(name, '^Neogit') ~= nil then
     return true
   end
 
@@ -81,8 +81,14 @@ function M.restart_with_session()
   local session_dir = assert(vim.uv.fs_mkdtemp(tpl))
   local path = vim.fs.joinpath(session_dir, 'session.vim')
   local escaped = vim.fn.fnameescape(path)
-  vim.cmd('mksession! ' .. escaped)
-  vim.cmd('restart source ' .. escaped)
+
+  -- 0.13 から増えるらしいが、今はない
+  -- https://github.com/neovim/neovim/pull/39688
+  vim.api.nvim_exec_autocmds('User', { pattern = 'SessionWritePre' })
+
+  vim.cmd.mksession({ escaped, bang = true })
+
+  vim.cmd.restart({ 'source', escaped })
 end
 
 return M

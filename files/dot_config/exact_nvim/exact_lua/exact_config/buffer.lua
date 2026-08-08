@@ -35,6 +35,15 @@ function M.ephemeralize(buf)
   vim.bo[buf].bufhidden = 'hide'
   vim.bo[buf].swapfile = false
   vim.bo[buf].buflisted = true
+
+  local handle_quit = function()
+    if vim.api.nvim_buf_is_loaded(buf) then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
+  end
+
+  vim.api.nvim_create_autocmd('VimLeavePre', { callback = handle_quit })
+  vim.api.nvim_create_autocmd('User', { pattern = 'SessionWritePre', callback = handle_quit })
 end
 
 ---@param opts? { type?: ('absolute' | 'relative') }
