@@ -145,9 +145,6 @@
     }
   },
   "skillOverrides": {
-    "grill-me": "user-invocable-only",
-    "skill-creator": "user-invocable-only",
-    "claude-md-improver": "user-invocable-only",
-    "revise-claude-md": "user-invocable-only"
+    "grill-me": "user-invocable-only"
   }
 }
