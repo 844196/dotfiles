@@ -6,7 +6,34 @@ vim.keymap.set('n', '<Leader>Sn', function() checker.jump('next') end, { desc = 
 vim.keymap.set('n', '<Leader>Sp', function() checker.jump('prev') end, { desc = 'Jump to previous spell error' }) -- 本家にはない
 vim.keymap.set('n', '<Leader>SN', '<Leader>Sp', { desc = 'Jump to previous spell error', remap = true }) -- 本家にはない
 
-require('config.hydra').create({
+vim.keymap.set('n', '<Leader>Ss', function()
+  local err = checker.get_error()
+  if not err then
+    vim.notify('Spell error not found', vim.log.levels.WARN)
+    return
+  end
+  checker.correct(err)
+end, {
+  desc = 'Correct spell error at cursor',
+})
+
+vim.keymap.set('n', '<Leader>Sc', function()
+  local err = checker.get_error()
+  if not err then
+    err = checker.jump('prev')
+    if not err then
+      vim.notify('Spell error not found', vim.log.levels.WARN)
+      return
+    end
+  end
+  checker.correct(err)
+end, {
+  desc = 'Correct spell error before point',
+})
+
+local M = {}
+
+M.hydra = require('config.hydra').create({
   name = 'Spelling',
   body = '<Leader>S.',
   heads = {
@@ -15,6 +42,14 @@ require('config.hydra').create({
     { 'Q', checker.disable, { desc = 'Quite transient state and disable spell check', exit = true } },
     { 'p', '<Leader>Sp', { desc = 'Jump to previous spell error', remap = true } }, -- 本家にはない
     { 'N', '<Leader>SN', { desc = 'Jump to previous spell error', remap = true } }, -- 本家にはない
+    {
+      's',
+      function()
+        local err = checker.get_error() --[[@as CSpellDiagnostic]]
+        checker.correct(err, { on_close = function() M.hydra:activate() end })
+      end,
+      { desc = 'Correct spell error at cursor', exit = true },
+    },
     { 'z', require('config.keymap_actions').recenter, { desc = 'Recenter buffer in window' } }, -- 本家にはない
   },
 })
