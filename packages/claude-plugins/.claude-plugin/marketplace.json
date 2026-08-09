@@ -26,10 +26,6 @@
       "source": "./plugins/handover"
     },
     {
-      "name": "one-pager",
-      "source": "./plugins/one-pager"
-    },
-    {
       "name": "motd",
       "source": "./plugins/motd"
     },
