@@ -73,6 +73,31 @@ function M.get_error()
   end
 end
 
+-- `vim.lsp.buf.rename` はカーソル位置の識別子全体を置き換えるため、誤字部分だけの訂正文字列を渡すと識別子の残りが失われる。
+---@param diag CSpellDiagnostic
+---@param repl string
+---@return string
+local function build_full_identifier(diag, repl)
+  local line = vim.api.nvim_buf_get_lines(diag.bufnr, diag.lnum, diag.lnum + 1, false)[1]
+
+  -- lua の 1-indexed / inclusive な文字列添字に変換
+  local word_start = diag.col + 1
+  local word_end = diag.end_col
+
+  local id_start = word_start
+  while id_start > 1 and line:sub(id_start - 1, id_start - 1):match('[%w_]') do
+    id_start = id_start - 1
+  end
+  local id_end = word_end
+  while id_end < #line and line:sub(id_end + 1, id_end + 1):match('[%w_]') do
+    id_end = id_end + 1
+  end
+
+  local prefix = line:sub(id_start, word_start - 1)
+  local suffix = line:sub(word_end + 1, id_end)
+  return prefix .. repl .. suffix
+end
+
 ---@param diag CSpellDiagnostic
 ---@param repl string
 local function apply_correction(diag, repl)
@@ -93,7 +118,8 @@ local function apply_correction(diag, repl)
     end
 
     if should_rename_by_ls then
-      vim.lsp.buf.rename(repl, { bufnr = diag.bufnr })
+      local full_repl = build_full_identifier(diag, repl)
+      vim.lsp.buf.rename(full_repl, { bufnr = diag.bufnr })
     else
       vim.api.nvim_buf_set_text(diag.bufnr, diag.lnum, diag.col, diag.end_lnum, diag.end_col, { repl })
     end
