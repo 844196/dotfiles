@@ -132,8 +132,7 @@
     "motd@844196-dotfiles": true,
     "opinions@844196-dotfiles": true,
     "personal-scratchpad@844196-dotfiles": true,
-    "tokyonight@844196-dotfiles": true,
-    "what-would-you-do@844196-dotfiles": true
+    "tokyonight@844196-dotfiles": true
   },
   "pluginConfigs": {
     "git@844196-dotfiles": {

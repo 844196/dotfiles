@@ -44,10 +44,6 @@
     {
       "name": "tokyonight",
       "source": "./plugins/tokyonight"
-    },
-    {
-      "name": "what-would-you-do",
-      "source": "./plugins/what-would-you-do"
     }
   ]
 }
