@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "language": "タメでいいよ",
+  "language": "日本語",
   "includeGitInstructions": false,
   "plansDirectory": ".844196/plans/",
   "env": {
