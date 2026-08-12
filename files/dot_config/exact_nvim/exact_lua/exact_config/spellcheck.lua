@@ -103,9 +103,13 @@ end
 local function apply_correction(diag, repl)
   -- telescope の prompt (insert mode) を閉じた直後は、insert mode 終了に伴うカーソル列の補正が非同期に (次の event loop tick で) 入ることがある。
   -- 同期的にカーソルを合わせてもその後の vim.lsp.buf.rename 側の非同期処理でずれた位置を参照してしまうため、その補正が確定してから実行されるよう 1 tick 遅らせる
+  --
+  -- FIXME vim.lsp.buf.rename がカーソル下の単語のみを対象としていることに依存している
+  -- 本来ならジャンプの必要もないし、カーソル位置に依存しない処理であれば telescope の挙動を考慮する必要もない
   vim.schedule(function()
     vim.diagnostic.jump({ diagnostic = diag })
 
+    -- FIXME textDocument/prepareRename に対応していないことをもって textDocument/rename に対応していないとは言えないのでは？
     local clients = vim.lsp.get_clients({ bufnr = diag.bufnr, method = 'textDocument/prepareRename' })
     local should_rename_by_ls = false
     for _, cl in ipairs(clients) do
