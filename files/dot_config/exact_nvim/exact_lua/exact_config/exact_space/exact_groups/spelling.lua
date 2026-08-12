@@ -31,9 +31,7 @@ end, {
   desc = 'Correct spell error before point',
 })
 
-local M = {}
-
-M.hydra = require('config.hydra').create({
+require('config.hydra').create({
   name = 'Spelling',
   body = '<Leader>S.',
   heads = {
@@ -42,14 +40,6 @@ M.hydra = require('config.hydra').create({
     { 'Q', checker.disable, { desc = 'Quite transient state and disable spell check', exit = true } },
     { 'p', '<Leader>Sp', { desc = 'Jump to previous spell error', remap = true } }, -- 本家にはない
     { 'N', '<Leader>SN', { desc = 'Jump to previous spell error', remap = true } }, -- 本家にはない
-    {
-      's',
-      function()
-        local err = checker.get_error() --[[@as CSpellDiagnostic]]
-        checker.correct(err, { on_close = function() M.hydra:activate() end })
-      end,
-      { desc = 'Correct spell error at cursor', exit = true },
-    },
     { 'z', require('config.keymap_actions').recenter, { desc = 'Recenter buffer in window' } }, -- 本家にはない
   },
 })

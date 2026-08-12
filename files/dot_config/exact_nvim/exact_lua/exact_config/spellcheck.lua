@@ -127,15 +127,12 @@ local function apply_correction(diag, repl)
 end
 
 ---@param diag CSpellDiagnostic
----@param opts { on_close?: fun() }?
-function M.correct(diag, opts)
+function M.correct(diag)
   local suggestions = diag.user_data.suggestions
   if #suggestions == 0 then
     vim.notify('No spelling suggestions at cursor', vim.log.levels.WARN)
     return
   end
-
-  opts = opts or {}
 
   require('telescope.pickers').new(require('telescope.themes').get_cursor({ layout_config = { width = 40 } }), {
     prompt_title = 'Suggestions',
@@ -148,14 +145,6 @@ function M.correct(diag, opts)
         acts.close(buf)
         apply_correction(diag, entry.value)
       end)
-
-      if opts.on_close then
-        vim.api.nvim_create_autocmd('BufWipeout', {
-          buf = buf,
-          once = true,
-          callback = function() vim.schedule(opts.on_close) end,
-        })
-      end
 
       return true
     end,
