@@ -26,6 +26,10 @@
       "source": "./plugins/handover"
     },
     {
+      "name": "herdr",
+      "source": "./plugins/herdr"
+    },
+    {
       "name": "motd",
       "source": "./plugins/motd"
     },
