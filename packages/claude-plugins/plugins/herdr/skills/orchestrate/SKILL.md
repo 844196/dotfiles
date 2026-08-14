@@ -9,7 +9,7 @@ description: Herdr で子エージェントを立ち上げて作業を委任す�
 
 ## 手順
 
-0. (まだ読んでいない場合): `herdr` スキルをロードする
+0. (まだ読んでいない場合): `herdr` スキルと `herdr:gotcha` スキルをロードする
 
 1. 自分の pane ID / agent name を控える:
 
