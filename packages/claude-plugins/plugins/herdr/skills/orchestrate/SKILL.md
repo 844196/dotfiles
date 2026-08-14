@@ -43,22 +43,29 @@ description: Herdr で子エージェントを立ち上げて作業を委任す�
 
 3. 子を起動して引き継がせる。
 
-   `herdr` (本体) スキルの手順で兄弟ペインを split し、そこで子を起動する。
+   **別タブ**で起動する。画面幅をフルに使わせることで、`blocked` かどうかを一目で判別できる状態を保つ。
 
    ```bash
-   herdr agent start <name> --kind claude --pane <split したペインの pane_id>
-   herdr agent prompt <name> "/herdr:delegate-receive <手順 2 で書き出した文書のパス>"
+   herdr tab create --workspace "$HERDR_WORKSPACE_ID" --cwd "$PWD" --no-focus # .result.tab, .result.root_pane
+   herdr agent start <name> --kind claude --pane <root_pane の pane_id>
+   herdr agent prompt <name> "/herdr:delegate-receive <手順 2 で書き出した文書のパス>" --wait --timeout 15000
    ```
+
+   タブ ID (`.result.tab.tab_id`) は手順 6 の後始末で使うので控えておく。
 
    `/herdr:delegate-receive` は Claude Code のスラッシュコマンドなので、kind は `claude` 固定。
 
    この prompt 自体は自由記述テキストではなく固定形式 (コマンド名 + パス) なので、ダブルクォート直書きで構わない。
 
+   `--wait --timeout` は起動直後の詰まりだけを検知するためのもの (下記「詰まりは自分からは分からない」を参照)。`blocked` で戻ってきたら `herdr agent read <name> --source recent-unwrapped --lines 120` で中身を確認し、必要ならユーザーに報告してから手順 4 へ進む。それ以外 (タイムアウト、あるいは `idle`/`done` への正常な遷移) はそのまま手順 4 へ進んでよい。
+
 4. ターンを終えて、子の割り込みを待つ。
 
    割り込みはあなたのペインの入力行に着地する。承認待ちや実行中のコマンドを抱えたまま終わらないこと。着地点が空でないと、今度はあなたが `herdr:gotcha` の入力行汚染を踏む。
 
-   ターンを終える前に、**子の名前・pane ID と「割り込み待ちである」ことをユーザーへ伝える。** 子が落ちたり無言で `blocked` になったりすると割り込みが来ず、誰もあなたを起こさない。TUI を見ているユーザーだけが復旧経路になる。
+   ターンを終える前に、**子の名前・pane ID と「割り込み待ちである」ことをユーザーへ伝える。**
+
+   **詰まりは自分からは分からない。** 子が `blocked` (承認待ちなど) になった場合、割り込みを送ってあなたを起こすのは子自身の役目だが、`blocked` の間は子はどのツールも実行できず、割り込みを送ること自体ができない。手順 3 の起動直後チェックはこの一瞬だけを拾うもので、作業の途中で `blocked` になった場合はカバーしない。したがって、子が落ちたり途中で無言の `blocked` になったりすると誰もあなたを起こせず、TUI を見ているユーザーだけが復旧経路になる。委任が長時間音沙汰なしになったら、ユーザーに `herdr agent get <name>` での確認を依頼してよい。
 
 5. 割り込みで起こされたら、内容で分岐する。
 
@@ -66,14 +73,16 @@ description: Herdr で子エージェントを立ち上げて作業を委任す�
    - 質問・相談 → 回答を送り、手順 4 に戻る
    - 最終報告 → 手順 6 へ
 
-   子へ送る文面は自由記述テキストなので、`herdr:gotcha` の固定形式 (ファイルに書き出してから `"$(cat ...)"`) で送ること。
+   子へ送る文面は自由記述テキストなので、`herdr:gotcha` のタグ付きポインタで送ること。
 
    報告と実状態が食い違っていないかは `herdr agent get <name>` で裏を取る。`blocked` なら `herdr agent read <name> --source recent-unwrapped --lines 120` で中身を読んでから対応する。子が自分から質問を送ってきた場合、子は `idle` / `done` になっていて `blocked` にはならない点に注意。
 
 6. 後始末する。
 
    ```bash
-   herdr pane close <子の pane ID>
+   herdr tab close <手順 3 で控えたタブ ID>
    ```
 
-   閉じてよいのは自分が作ったペインだけ。agent 名は live agent の間でユニークなので、放置すると次の委任で同じ名前が取れなくなる。ユーザーが子のペインを残す意向を示している場合は閉じず、その旨を伝える。
+   閉じてよいのは自分が作ったタブだけ。agent 名は live agent の間でユニークなので、放置すると次の委任で同じ名前が取れなくなる。ユーザーが子のタブを残す意向を示している場合は閉じず、その旨を伝える。
+
+   後始末が済んだら、結果をユーザーへ報告してターンを終える。子のタブはもう無いので、これ以降は割り込みで起きようがない。中途半端な「まだ何か来るかもしれない」待ちに入らないこと。
