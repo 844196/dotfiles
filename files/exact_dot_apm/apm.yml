@@ -2,6 +2,7 @@ name: global
 version: 1.0.0
 dependencies:
   apm:
-    - mattpocock/skills/grill-me#8868f54212dfcf450b665d2e2a5bf521ada64c3e
+    - mattpocock/skills/skills/productivity/grilling#f054defc3f694558dbd1f418cd9046057594283b
+    - mattpocock/skills/skills/productivity/grill-me#f054defc3f694558dbd1f418cd9046057594283b
     - yoshiko-pg/difit/skills/difit#eff116ddbf8e1c1ab102a1208162bc2cb9c3fcf7
     - herdrdev/herdr/skills/herdr#f6060cf682f69ef8302c25e8924c0b27aef7ae16
