@@ -129,7 +129,6 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>$dp', function()
 
   local winid = vim.fn.bufwinid(buf)
   if winid == -1 then
-    vim.cmd.vsplit()
     vim.api.nvim_set_current_buf(buf)
   else
     vim.api.nvim_set_current_win(winid)
