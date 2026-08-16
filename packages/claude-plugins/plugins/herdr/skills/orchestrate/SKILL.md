@@ -59,6 +59,8 @@ description: Herdr で子エージェントを立ち上げて作業を委任・�
    herdr agent start <name> --kind claude --pane <root_pane の pane_id>
    ```
 
+   `agent start` は失敗しうる (`--cwd` 先のツールがシェルを掴んでいると `agent_pane_busy`)。応答を `jq` に通すと終了コードが消えるので、失敗を握り潰さないこと — どちらも `herdr:gotcha` にある。
+
    タブ ID (`.result.tab.tab_id`) は名前とセットで手順 8 の後始末まで控えておく。子が複数いる場合、この対応が崩れると後始末で違うタブを閉じたり、閉じ忘れたりする。
 
    全員起動できたら、子ごとに brief を送る:
@@ -69,7 +71,19 @@ description: Herdr で子エージェントを立ち上げて作業を委任・�
 
    この prompt 自体は自由記述テキストではなく固定形式 (コマンド名 + パス) なので、ダブルクォート直書きで構わない。
 
-   `--wait --timeout` は起動直後の `blocked` だけを検知するためのもの (手順 5 のデッドロックを参照)。`blocked` で戻ってきたら `herdr agent read <name> --source recent-unwrapped --lines 120` で中身を確認し、必要ならユーザーに報告してから次の子 (または手順 5) へ進む。それ以外 (タイムアウト、あるいは `idle`/`done` への正常な遷移) はそのまま進んでよい。
+   **手順 4 は全員が `working` になったら完了。** `agent prompt` の戻り値では判定できない — 起動直後の確認ダイアログが brief を飲むと、`--wait` は正常に戻って状態は `done` になる (`herdr:gotcha` 参照)。送信後に必ず裏を取る:
+
+   ```bash
+   herdr agent get <name> # .result.agent.agent_status
+   ```
+
+   | 状態 | 意味 | すること |
+   |---|---|---|
+   | `working` | brief が着弾した | 次の子へ。全員 `working` なら手順 5 へ |
+   | `idle` / `done` | まだ割れない | `herdr agent read <name> --source visible --lines 30` で確認。コンテキスト 0% の空プロンプトなら飲まれているので同じ prompt を再送、作業の跡があれば着弾済み |
+   | `blocked` | 起動直後に詰まった | `herdr agent read <name> --source recent-unwrapped --lines 120` で中身を確認し、必要ならユーザーに報告してから進む |
+
+   ここで拾えるのは起動直後だけ。作業の途中で `blocked` になった場合は手順 5 のデッドロックを参照。
 
 5. ターンを終えて、子の割り込みを待つ。
 

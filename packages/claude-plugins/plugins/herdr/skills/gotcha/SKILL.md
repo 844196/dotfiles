@@ -54,6 +54,35 @@ herdr pane run <id> "git commit -m \"\$(cat <手順 1 のファイル>)\""
 
 **実際に起きた事故**: あるセッションで、調査結果を子エージェントに伝えるメッセージ本文に「`` `git reset --hard HEAD~` が実行されて壊れた」という説明を引用として書いた。この本文をそのままダブルクォートに埋め込んで `herdr agent prompt` に渡したところ、引用のつもりで書いた `git reset --hard HEAD~` がコマンド置換として実際に実行され、直近のコミット (実装一式を含む squash commit) がまるごと失われた。dangling commit として git オブジェクトに残っていたため復旧できたが、`git gc` のタイミング次第では完全に消えていた。
 
+## 罠: 起動直後のペインは、まだ指示を受け付ける状態とは限らない
+
+子を初めて動かすディレクトリでは確認ダイアログが 2 段階で挟まる。どちらも「起動できた」ように見えるのに指示が通らない。
+
+### `agent start` が落ちる — ディレクトリスコープのツール
+
+mise や direnv が `--cwd` 先で trust プロンプトを出すと、シェルは対話プロンプトに到達せず、ペインは「利用可能なシェル」にならない。
+
+- **症状**: `agent start` が `{"error":{"code":"agent_pane_busy","message":"... is not an available shell"}}` で失敗する。`pane list` の `agent_status` は `blocked` ではなく **`unknown`** — agent が存在しないので `agent` 系コマンドは一切使えない
+- **対処**: `herdr pane read <pane> --source visible` で中身を読み、`herdr pane send-keys <pane> <キー>` で答えてから `agent start` をやり直す
+
+### brief が飲まれる — エージェント自身の初回ダイアログ
+
+claude は初めて動くディレクトリで確認ダイアログを出す。この状態でも `agent start` は正常終了するが、直後に送った `agent prompt` はターンにならず消える。後から読む頃にはダイアログも解消されているので、綺麗な空プロンプトに見える。
+
+- **症状**: `agent prompt --wait` は正常に戻り、`agent_status` は **`done`**、ペインはコンテキスト 0% の空プロンプト
+- **対処**: 送信後に `herdr agent get <name>` で `working` を確認する。`idle` / `done` は「飲まれた」と「着弾して即完了した」の両方がありうるので `herdr agent read <name> --source visible --lines 30` で割る — コンテキスト 0% の空プロンプトなら飲まれているので同じ prompt を再送し、作業の跡があれば着弾済み
+
+## 罠: `herdr ... | jq` は終了コードを握り潰す
+
+herdr は失敗を **stderr への JSON + exit 1** で返す。jq を挟むとパイプラインの終了コードは jq のもの (0) になり、jq には何も渡らないので出力も空になる。エラー本文は端末には出るので人間は気づけるが、機械的な失敗シグナルは消える。
+
+```bash
+herdr agent get no-such-agent          # exit 1
+herdr agent get no-such-agent | jq .   # exit 0 ← 失敗が消える
+```
+
+**対策**: `set -o pipefail` を付ける。あるいは jq を挟まず一度変数に受け、終了コードを見てから整形する。
+
 ## 罠: 壊れた入力行は `esc` 一発では消えない
 
 上記の事故 (あるいは単なる誤送信) で対象ペインの入力行が中途半端な状態になったとき、消えたかどうか確認せずに送り直すと、二重入力や意図しないキー入力の混入につながる。
