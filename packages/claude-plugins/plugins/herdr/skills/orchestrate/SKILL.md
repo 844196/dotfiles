@@ -53,8 +53,6 @@ description: Herdr で子エージェントを立ち上げて作業を委任す�
 
    タブ ID (`.result.tab.tab_id`) は手順 6 の後始末で使うので控えておく。
 
-   `/herdr:delegate-receive` は Claude Code のスラッシュコマンドなので、kind は `claude` 固定。
-
    この prompt 自体は自由記述テキストではなく固定形式 (コマンド名 + パス) なので、ダブルクォート直書きで構わない。
 
    `--wait --timeout` は起動直後の詰まりだけを検知するためのもの (下記「詰まりは自分からは分からない」を参照)。`blocked` で戻ってきたら `herdr agent read <name> --source recent-unwrapped --lines 120` で中身を確認し、必要ならユーザーに報告してから手順 4 へ進む。それ以外 (タイムアウト、あるいは `idle`/`done` への正常な遷移) はそのまま手順 4 へ進んでよい。
