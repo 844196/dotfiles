@@ -91,8 +91,9 @@ function M.agents(opts)
     prompt_title = '',
     results_title = 'Agents',
     preview_title = 'Session',
+    layout_strategy = 'vertical',
     layout_config = {
-      preview_width = 0.8,
+      preview_height = 0.8,
     },
   })
 
