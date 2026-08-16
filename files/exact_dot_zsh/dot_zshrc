@@ -36,6 +36,7 @@ autoload -Uz anyframe-init
 autoload -Uz $ZDOTDIR/functions/**/*(N.:t)
 
 add-zsh-hook precmd send-osc7
+add-zsh-hook precmd blink-off-wt
 
 # TODO そのうちいらなくなるかも
 # https://github.com/dandavison/delta/pull/2084

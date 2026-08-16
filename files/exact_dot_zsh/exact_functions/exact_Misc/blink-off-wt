@@ -1,0 +1,8 @@
+# vim: set ft=zsh:
+
+# https://github.com/microsoft/terminal/issues/1040
+# Windows Terminal のプロファイル側で設定中
+if [[ "${TERM_PROGRAM:-}" = "Windows_Terminal" ]]; then
+  # https://github.com/microsoft/terminal/issues/1379#issuecomment-4936628414
+  echo -ne "\x1b[2 q" > $TTY
+fi
