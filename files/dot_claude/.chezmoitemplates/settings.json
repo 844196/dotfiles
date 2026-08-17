@@ -131,7 +131,7 @@
     "handover@844196-dotfiles": true,
     "herdr@844196-dotfiles": true,
     "motd@844196-dotfiles": true,
-    "personal-scratchpad@844196-dotfiles": true,
+    "personal-scratchpad@844196-dotfiles": false,
     "tokyonight@844196-dotfiles": true
   },
   "pluginConfigs": {
