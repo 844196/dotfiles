@@ -14,6 +14,13 @@
 ---@field cwd string
 ---@field agent_status HerdrAgentStatus
 
+---@class HerdrPaneSkeleton
+---@field pane_id string
+---@field tab_id string
+---@field workspace_id string
+
+---@alias HerdrPaneCurrentResponse { result: { pane: HerdrPaneSkeleton } }
+
 ---@alias HerdrPaneSplitResponse { result: { pane: { pane_id: string } } }
 
 ---@alias HerdrAgentListResponse { result: { agents: HerdrAgentSkeleton[] } }
@@ -79,6 +86,12 @@ local M = {}
 function M.get_agents()
   local res = herdr({ 'agent', 'list' }) --[[@as HerdrAgentListResponse]]
   return vim.tbl_map(HerdrAgent.new, res.result.agents)
+end
+
+---@return HerdrPaneSkeleton
+function M.get_current_pane()
+  local res = herdr({ 'pane', 'current' }) --[[@as HerdrPaneCurrentResponse]]
+  return res.result.pane
 end
 
 ---@return HerdrAgent

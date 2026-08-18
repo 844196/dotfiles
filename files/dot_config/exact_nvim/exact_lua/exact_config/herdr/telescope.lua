@@ -15,6 +15,45 @@ local displayer = entry_display.create({
   },
 })
 
+local STATUS_ORDER = {
+  blocked = 1,
+  done = 2,
+  working = 3,
+  idle = 4,
+  unknown = 5,
+}
+
+-- 同じタブ(0) < 同じワークスペースの別タブ(1) < 別のワークスペース(2)
+local function locality_rank(current_pane, agent)
+  if not current_pane then
+    return 0
+  elseif agent.tab_id == current_pane.tab_id then
+    return 0
+  elseif agent.workspace_id == current_pane.workspace_id then
+    return 1
+  else
+    return 2
+  end
+end
+
+local function sort_agents(agents)
+  local ok, current_pane = pcall(Herdr.get_current_pane)
+  if not ok then
+    current_pane = nil
+  end
+
+  table.sort(agents, function(a, b)
+    local status_a = STATUS_ORDER[a.agent_status] or math.huge
+    local status_b = STATUS_ORDER[b.agent_status] or math.huge
+    if status_a ~= status_b then
+      return status_a < status_b
+    end
+
+    return locality_rank(current_pane, a) < locality_rank(current_pane, b)
+  end)
+  return agents
+end
+
 local function make_status_column(status)
   if status == 'idle' then
     return { '○', '@character' }
@@ -91,7 +130,7 @@ local M = {}
 function M.agents(opts)
   local function make_finder()
     return finders.new_table({
-      results = Herdr.get_agents(),
+      results = sort_agents(Herdr.get_agents()),
       entry_maker = function(entry)
         return {
           value = entry,
