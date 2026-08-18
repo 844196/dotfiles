@@ -14,3 +14,6 @@ indent_size = unset
 
 [*.php]
 indent_size = 4
+
+[*.ans]
+indent_size = unset

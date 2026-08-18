@@ -63,6 +63,35 @@ require('config.lsp')
 require('config.linting')
 
 require('snacks').setup({
+  styles = {
+    dashboard = {
+      wo = {
+        winhighlight = 'MiniTrailspace:None',
+      },
+    },
+  },
+  dashboard = {
+    enabled = true,
+    sections = {
+      -- { section = 'header' },
+      -- lazy.nvim がある前提の作りらしい。無いのでオフにしないと死ぬ
+      { section = 'startup', enabled = false },
+      {
+        section = 'terminal',
+        -- terminal セクションはターミナルバッファの出力を後から読み取る
+        -- cat が即座に終了すると読み取りが完了する前にプロセスが消えて表示が欠ける
+        cmd = 'cat ' .. vim.fn.stdpath('config') .. '/kokona.ans; sleep .1',
+        ttl = 0,
+        -- ドット絵の桁数
+        -- 指定しないとターミナルの幅が dashboard の width (60) - indent となり、それを超える行が折り返されて 1 行おきに断片が挟まる
+        width = 60,
+        height = 28,
+        pane = 1,
+        padding = 2,
+      },
+      { section = 'recent_files' },
+    },
+  },
   indent = {
     enabled = true,
     animate = { enabled = false },
