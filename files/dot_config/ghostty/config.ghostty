@@ -9,6 +9,9 @@ font-thicken = true
 adjust-cell-width = -20%
 adjust-cell-height = 25%
 
+title = " "
+macos-titlebar-proxy-icon = hidden
+
 cursor-style-blink = false
 
 # Kitty protocol (https://sw.kovidgoyal.net/kitty/keyboard-protocol/)
