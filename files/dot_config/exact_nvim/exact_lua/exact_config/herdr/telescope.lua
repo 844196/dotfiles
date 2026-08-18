@@ -38,6 +38,54 @@ local function make_display(entry)
   })
 end
 
+local MODEL_NAMES = { 'Opus', 'Sonnet', 'Haiku' }
+
+local function is_separator_line(line)
+  return line ~= '' and line:gsub('─', '') == ''
+end
+
+local function has_model_name(line)
+  for _, name in ipairs(MODEL_NAMES) do
+    if line:find(name, 1, true) then
+      return true
+    end
+  end
+  return false
+end
+
+-- Claude Codeの入力欄・ステータスバー・ショートカットヒントは末尾に固定表示され、
+-- 罫線 → 入力欄 → 罫線 → ステータス行(モデル名を含む) → ヒント行の形をしている。
+-- 直近のやり取りを見せたいので、このUI部分だけを除いて末尾を詰める。
+-- モデル名を含む行が見当たらない場合(選択メニューなど)は何もしない。
+local function strip_prompt_chrome(text)
+  local lines = vim.split(text, '\n')
+
+  local status_idx = nil
+  for i = #lines, math.max(1, #lines - 10), -1 do
+    if has_model_name(lines[i]) then
+      status_idx = i
+      break
+    end
+  end
+  if not status_idx then
+    return text
+  end
+
+  local top_sep_idx = status_idx - 1
+  if top_sep_idx < 1 or not is_separator_line(lines[top_sep_idx]) then
+    return text
+  end
+
+  for i = top_sep_idx - 1, 1, -1 do
+    if is_separator_line(lines[i]) then
+      top_sep_idx = i
+      break
+    end
+  end
+
+  return table.concat(vim.list_slice(lines, 1, top_sep_idx - 1), '\n')
+end
+
 local M = {}
 
 function M.agents(opts)
@@ -58,8 +106,40 @@ function M.agents(opts)
     finder = make_finder(),
     sorter = config.generic_sorter(opts),
     previewer = require('telescope.previewers').new_termopen_previewer({
-      get_command = function(entry)
-        return { 'herdr', 'agent', 'read', entry.value.pane_id, '--source', 'recent-unwrapped' }
+      get_command = function(entry, status)
+        -- ジョブ完了時、プレビューは先頭にスクロールされたままになることがある。
+        -- 直近のやり取りを見せたいので、出力が終わり次第末尾へスクロールする。
+        local preview_winid = status.layout.preview and status.layout.preview.winid
+        if preview_winid then
+          local bufnr = vim.api.nvim_win_get_buf(preview_winid)
+          vim.api.nvim_create_autocmd('TermClose', {
+            buffer = bufnr,
+            once = true,
+            callback = function()
+              vim.schedule(function()
+                for _, winid in ipairs(vim.fn.win_findbuf(bufnr)) do
+                  pcall(vim.api.nvim_win_call, winid, function()
+                    vim.cmd('normal! G')
+                  end)
+                end
+              end)
+            end,
+          })
+        end
+
+        local cmd = { 'herdr', 'agent', 'read', entry.value.pane_id, '--source', 'recent-unwrapped' }
+
+        local ok, proc = pcall(vim.system, cmd, { text = true })
+        if not ok then
+          return cmd
+        end
+        local completed = proc:wait()
+        if completed.code ~= 0 or not completed.stdout or completed.stdout == '' then
+          return cmd
+        end
+
+        local filtered = strip_prompt_chrome(completed.stdout)
+        return { 'sh', '-c', "cat <<'HERDR_PREVIEW_EOF'\n" .. filtered .. "\nHERDR_PREVIEW_EOF\n" }
       end,
     }),
     attach_mappings = function(_, map)
