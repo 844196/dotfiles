@@ -37,8 +37,15 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>$dp', function()
         if #lines == 1 and lines[1] == '' then
           return
         end
+
         a:send_text(table.concat(lines, '\n')):focus()
-        vim.api.nvim_buf_delete(buf, { force = true })
+
+        local normal_wins = vim.tbl_filter(function(w) return vim.api.nvim_win_get_config(w).relative == '' end, vim.api.nvim_tabpage_list_wins(0))
+        if #normal_wins > 1 then
+          vim.api.nvim_win_close(win, true)
+        else
+          vim.api.nvim_win_call(win, function() vim.cmd('buffer #') end)
+        end
       end
 
       local agents = Herdr.get_agents()
