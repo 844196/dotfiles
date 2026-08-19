@@ -218,6 +218,15 @@ require('blink.cmp').setup({
       end,
       'fallback',
     },
+    ['/'] = {
+      function(cmp)
+        local item = cmp.get_selected_item()
+        if item and item.kind == require('blink.cmp.types').CompletionItemKind.Folder then
+          return cmp.accept()
+        end
+      end,
+      'fallback',
+    },
     ['<C-c>'] = { 'cancel', 'fallback' },
     ['<Esc>'] = {
       function(cmp)
