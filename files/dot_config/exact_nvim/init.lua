@@ -89,7 +89,14 @@ require('snacks').setup({
         pane = 1,
         padding = 2,
       },
-      { section = 'recent_files' },
+      { section = 'keys', padding = 1 },
+      { section = 'recent_files', cwd = true },
+    },
+    preset = {
+      keys = {
+        { icon = require('mini.icons').get('file', 'file'), desc = 'Open file picker', key = 'f', action = function() require('telescope.builtin').find_files(require('config.telescope.themes').get_ivy_hermit()) end },
+        { icon = require('mini.icons').get('file', '.git'), desc = 'Open Neogit', key = 'g', action = ':Neogit' },
+      },
     },
   },
   indent = {
