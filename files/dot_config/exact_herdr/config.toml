@@ -52,10 +52,10 @@ command = "844196.layout-pane.toggle"
 name = "tokyo-night"
 auto_switch = false
 
-# https://github.com/ogulcancelik/herdr/blob/04682e57e60ae4276761e95271a7ef1845127180/src/app/state.rs#L52-L93
 [theme.custom]
 panel_bg = "transparent" # tabbar background & modal background
 accent = "#82aaff"
-surface_dim = "#222436"  # sidebar border & sidebar active item background
+surface_dim = "#222436"  # sidebar border & scrollbar track
+active_row_bg = "#222436" # sidebar active item background
 overlay0 = "#414868" # inactive pane border & sidebar section fg & sidebar item subtext fg
 overlay1 = "#2f334d"     # scrollbar thumb
