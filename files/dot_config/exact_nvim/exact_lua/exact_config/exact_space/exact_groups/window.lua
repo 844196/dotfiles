@@ -2,6 +2,17 @@ require('which-key').add({ { '<Leader>w', group = 'Window' } })
 
 local M = {}
 
+-- Spacemacs の `SPC 0` (サイドバーウィンドウを選択する) に相当
+-- https://www.spacemacs.org/doc/DOCUMENTATION.html
+local function focus_sidebar()
+  local explorer = Snacks.picker.get({ source = 'explorer' })[1]
+  if explorer then
+    explorer:focus()
+  else
+    Snacks.explorer()
+  end
+end
+
 M.hydra = require('config.hydra').create({
   name = 'Window',
   body = '<Leader>w.',
@@ -13,6 +24,7 @@ M.hydra = require('config.hydra').create({
     { 'v', '<C-w>v', { desc = 'Vertical split and focus new window' } }, -- 本家が微妙
 
     -- focus
+    { '0', focus_sidebar, { desc = 'Go to the file tree (sidebar)' } },
     { '1', '1<C-w>w', { desc = 'Go to window #1' } },
     { '2', '2<C-w>w', { desc = 'Go to window #2' } },
     { '3', '3<C-w>w', { desc = 'Go to window #3' } },
@@ -72,6 +84,7 @@ vim.keymap.set('n', '<Leader>ws', '<C-w>s', { desc = 'Horizontal split and focus
 vim.keymap.set('n', '<Leader>wv', '<C-w>v', { desc = 'Vertical split and focus new window' }) -- 本家が微妙
 
 -- focus
+vim.keymap.set('n', '<Leader>0', focus_sidebar, { desc = 'Go to the file tree (sidebar)' })
 vim.keymap.set('n', '<Leader>1', '1<C-w>w', { desc = 'Go to window #1' })
 vim.keymap.set('n', '<Leader>2', '2<C-w>w', { desc = 'Go to window #2' })
 vim.keymap.set('n', '<Leader>3', '3<C-w>w', { desc = 'Go to window #3' })

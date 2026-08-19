@@ -103,7 +103,7 @@ end
 require('lualine').setup({
   options = {
     disabled_filetypes = {
-      statusline = { 'no-neck-pain' }
+      statusline = { 'no-neck-pain', 'snacks_layout_box' }
     },
     section_separators = { left = '', right = '' },
     component_separators = { left = '', right = '' },

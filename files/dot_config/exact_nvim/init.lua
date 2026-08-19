@@ -70,6 +70,51 @@ require('snacks').setup({
       },
     },
   },
+  explorer = {
+    replace_netrw = false,
+  },
+  picker = {
+    sources = {
+      explorer = {
+        hidden = true,
+        follow_file = false,
+        diagnostics = false,
+        icons = {
+          tree = {
+            vertical = '  ',
+            middle = '  ',
+            last = '  ',
+          },
+        },
+        layout = {
+          auto_hide = { 'input' },
+          layout = {
+            position = 'right',
+            width = 0.11,
+          },
+        },
+        win = {
+          list = {
+            keys = {
+              ['<S-CR>'] = 'explorer_open_oil',
+            },
+          },
+        },
+        actions = {
+          explorer_open_oil = function(picker, item)
+            if not item then
+              return
+            end
+            local path = item.dir and item.file or vim.fs.dirname(item.file)
+            if vim.api.nvim_win_is_valid(picker.main) then
+              vim.api.nvim_set_current_win(picker.main)
+            end
+            require('oil').open(path)
+          end,
+        },
+      },
+    },
+  },
   dashboard = {
     enabled = true,
     sections = {

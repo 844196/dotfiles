@@ -40,6 +40,13 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>fF', function()
   })
 end, { desc = 'Open the file under point, or find it if not found' })
 vim.keymap.set('n', '<Leader>fj', '<Cmd>Oil<CR>', { desc = 'Jump to the current buffer file in oil' })
+vim.keymap.set('n', '<Leader>ft', function() Snacks.explorer() end, { desc = 'Open the file tree' })
+vim.keymap.set('n', '<Leader>fT', function()
+  local explorer = Snacks.explorer.reveal()
+  if explorer then
+    explorer:focus()
+  end
+end, { desc = 'Reveal the current file in the file tree' })
 vim.keymap.set('n', '<Leader>fr', function() require('telescope.builtin').oldfiles(get_ivy_hermit()) end, { desc = 'Open a recent file' })
 vim.keymap.set('n', '<Leader>fs', '<Cmd>w<CR>', { desc = 'Save a file' })
 vim.keymap.set('n', '<Leader>fS', '<Cmd>wa<CR>', { desc = 'Save all files' })

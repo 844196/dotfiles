@@ -56,8 +56,22 @@ local function close_render_markdown_previews()
   end
 end
 
+-- snacks explorer のツリーウィンドウ (nofile の使い捨てバッファ) は
+-- mksession でもウィンドウ構成として保存されてしまい、リスタート後に
+-- 空のウィンドウとして残ってしまうため、セッション保存前に閉じておく。
+local function close_explorer()
+  local explorer = Snacks.picker.get({ source = 'explorer' })[1]
+  if explorer then
+    -- picker:close() 自体はウィンドウを閉じる処理を vim.schedule 越しに行うため、
+    -- 直後の mksession に間に合わない。layout を直接同期的に閉じる。
+    explorer:close()
+    explorer.layout:close()
+  end
+end
+
 function M.restart_with_session()
   close_render_markdown_previews()
+  close_explorer()
   -- codediff.nvim のタブは、上記バッファだけを削除すると diff 対象だった実ファイルの
   -- ウィンドウだけがそのタブに取り残される。実ファイルのバッファ自体は
   -- (mksession の badd で) 保持しつつ、単独タブとしては残らないようタブごと閉じる。
