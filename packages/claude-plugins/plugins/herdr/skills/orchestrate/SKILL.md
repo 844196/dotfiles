@@ -59,7 +59,7 @@ description: Herdr で子エージェントを立ち上げて作業を委任・�
    herdr agent start <name> --kind claude --pane <root_pane の pane_id>
    ```
 
-   `agent start` は失敗しうる。`--cwd` 先のツールがシェルを掴んでいると `agent_pane_busy` で返るので、`herdr:gotcha` のリトライで抜ける。
+   `agent start` は失敗しうる。`agent_pane_busy` (シェルがまだ利用可能でない) と `agent_not_ready` (エージェントが起動時ダイアログで止まっている) の 2 通りがあり、対処が違う。どちらも `herdr:gotcha` を参照。
 
    タブ ID (`.result.tab.tab_id`) は名前とセットで**台帳**にし、手順 9 の後始末まで持つ。子が複数いる場合、この対応が崩れると後始末で違うタブを閉じたり、閉じ忘れたりする。
 
@@ -73,21 +73,21 @@ description: Herdr で子エージェントを立ち上げて作業を委任・�
 
    この prompt 自体は自由記述テキストではなく固定形式 (コマンド名 + パス) なので、ダブルクォート直書きで構わない。
 
-   **手順 4 は全員が `working` になったら完了。** `agent prompt` の戻り値では判定できない。両方向に外れる — 起動直後の確認ダイアログが brief を飲むと `--wait` は正常に戻って状態は `done` になり (`herdr:gotcha` 参照)、逆に brief が着弾して子が働き出すと `--wait` は `timeout` エラー (exit 1) で返る。送信後に必ず裏を取る:
+   **手順 4 は全員が `working` になったら完了。** `agent prompt --wait` の終了コードでは判定できない。**brief が着弾して子が働き出すと `--wait` は `timeout` エラー (exit 1) で返る** — `--wait` は settled state (`idle` / `done` / `blocked`) を待つ仕様なので、これは正常な経路であって送信の失敗ではない。**exit 1 を失敗と読んで再送すると二重送信になる。** 終了コードではなく状態で裏を取る:
 
    ```bash
    herdr agent get <name> # .result.agent.agent_status
    ```
 
-   | 状態 | 意味 | すること |
-   |---|---|---|
-   | `working` | brief が着弾した | 次の子へ。全員 `working` なら手順 5 へ |
-   | `idle` / `done` | まだ割れない | `herdr:gotcha` の「brief が飲まれる」で割る。飲まれていれば同じ prompt を再送 |
-   | `blocked` | 起動直後に詰まった | `herdr agent read <name> --source visible` で中身を読み、`herdr:gotcha` の規律に従って対処してから進む |
+   | 状態 | すること |
+   |---|---|
+   | `working` | brief が着弾した。次の子へ。全員 `working` なら手順 5 へ |
+   | `idle` / `done` | 短いタスクなら着弾して即完了した可能性がある。`herdr agent read <name> --source visible` で作業の跡を見て割る |
+   | `blocked` | 最初のツールで権限ゲートに当たった。`herdr agent read <name> --source visible` で中身を読み、`herdr:gotcha` の規律に従って対処してから進む |
 
 5. 子ごとに watchdog を仕掛ける。
 
-   **全員が `working` であることを手順 4 で確認してから仕掛ける。** watchdog は子が `blocked` になるのを待つだけで、brief が飲まれて何もしていない子と黙々と働いている子を区別しない。`working` を確認せずに張ると、着手すらしていない子をチェックイン間隔いっぱい見張ることになる。
+   **全員が `working` であることを手順 4 で確認してから仕掛ける。** watchdog は子が `blocked` になるのを待つだけで、brief が届いていない子と黙々と働いている子を区別しない。`working` を確認せずに張ると、着手すらしていない子をチェックイン間隔いっぱい見張ることになる。
 
    Bash ツールの `run_in_background: true` で、子 1 人につき 1 本:
 
@@ -103,7 +103,7 @@ description: Herdr で子エージェントを立ち上げて作業を委任・�
 
 6. ターンを終えて、起こされるのを待つ。
 
-   終える前に、**自分のペインの入力行を空にし、承認ダイアログと実行中のコマンドを片付ける。** 子の割り込みはこの入力行に着地する。抱えたまま終わると、子の報告があなたのダイアログを承認する (`herdr:gotcha`)。
+   終える前に、**自分のペインの入力行を空にし、承認ダイアログと実行中のコマンドを片付ける。** 子の割り込みはこの入力行に着地する。**あなたが `blocked` のまま終わると、子の `agent prompt` は `agent_blocked` で弾かれ、報告が届かない。** 子がペイン系の API で送ってきた場合は、代わりにあなたのダイアログが勝手に承認される (`herdr:gotcha`)。
 
    そのうえで、**子の名前・pane ID と「起こされるのを待っている」ことをユーザーへ伝える。**
 
@@ -119,7 +119,7 @@ description: Herdr で子エージェントを立ち上げて作業を委任・�
    - `質問` → 回答を送り、手順 6 に戻る
    - `最終報告` → **台帳に記録する。** 全員分揃ったら手順 8 へ。まだの子が残っていれば手順 6 に戻って待つ
 
-   子へ送る文面は自由記述テキストなので、`herdr:gotcha` のタグ付きポインタで送る。**送る前に `herdr agent get <name>` で状態を確認すること。** 報告と実状態の食い違いはここで拾える。`blocked` なら `agent prompt` は送らず、下の watchdog の場合と同じ手順を踏む。子が自分から質問を送ってきた場合、子は `idle` / `done` になっていて `blocked` にはならない点に注意。
+   子へ送る文面は自由記述テキストなので、`herdr:gotcha` のタグ付きポインタで送る。**送る前に `herdr agent get <name>` で状態を確認する。** 誤爆を防ぐためではなく (`agent prompt` は `blocked` の相手を `agent_blocked` で拒否する)、**報告と実状態の食い違いをここで拾うため。** `blocked` を見つけたか `agent_blocked` が返ったら、下の watchdog の場合と同じ手順を踏む。子が自分から質問を送ってきた場合、子は `idle` / `done` になっていて `blocked` にはならない点に注意。
 
    この経路で起きたとき、その子の watchdog はまだ走っている。張り直す必要はない。
 
