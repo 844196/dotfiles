@@ -84,6 +84,8 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>$dp', function()
       desc = 'Send to Claude prompt',
       buf = buf,
     })
+
+    vim.keymap.set('i', '@', '@./', { buf = buf })
   end)
 
   local mode = vim.fn.mode()
