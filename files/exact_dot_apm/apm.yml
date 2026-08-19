@@ -6,4 +6,4 @@ dependencies:
     - mattpocock/skills/skills/productivity/grill-me#f054defc3f694558dbd1f418cd9046057594283b
     - mattpocock/skills/skills/productivity/writing-for-agents#f054defc3f694558dbd1f418cd9046057594283b
     - yoshiko-pg/difit/skills/difit#eff116ddbf8e1c1ab102a1208162bc2cb9c3fcf7
-    - herdrdev/herdr/skills/herdr#f6060cf682f69ef8302c25e8924c0b27aef7ae16
+    - herdrdev/herdr/skills/herdr#9eb521456ac0d19d3ab3d9d7cea3cca10baa8a4c
