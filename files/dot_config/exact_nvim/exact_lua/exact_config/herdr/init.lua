@@ -25,16 +25,46 @@
 
 ---@alias HerdrAgentListResponse { result: { agents: HerdrAgentSkeleton[] } }
 
+---@alias HerdrAgentGetResponse { result: { agent: HerdrAgentSkeleton } }
+
 ---@alias HerdrAgentStartResponse { result: { agent: HerdrAgentSkeleton } }
 
+---@class HerdrError
+---@field code string?
+---@field message string
+
+--- エラーコードごとの人間向けの文面。ここに無いコードは herdr のメッセージをそのまま見せる
+---@type table<string, string>
+local ERROR_MESSAGES = {
+  agent_blocked = 'Agent is waiting on a dialog; answer it before sending',
+  agent_name_taken = 'Agent name is already taken',
+  agent_not_ready = 'Agent pane is not ready; it may be waiting on a trust dialog',
+  agent_pane_busy = 'Agent pane is busy; wait for the running command to finish',
+}
+
+--- herdr はエラー時、エラー JSON を stderr に出して終了コード 1 を返す
+---@param stderr string?
+---@return HerdrError
+local function parse_error(stderr)
+  local fallback = stderr and stderr ~= '' and stderr or 'herdr failed'
+
+  local ok, decoded = pcall(vim.json.decode, stderr or '')
+  if not ok or type(decoded) ~= 'table' or type(decoded.error) ~= 'table' then
+    return { message = fallback }
+  end
+
+  local err = decoded.error
+  return { code = err.code, message = ERROR_MESSAGES[err.code] or err.message or fallback }
+end
+
 ---@param args string[]
----@return { [string]: any }
-local function herdr(args)
+---@return { [string]: any }? res, HerdrError? err
+local function try_herdr(args)
   table.insert(args, 1, 'herdr')
 
   local rv = vim.system(args, { text = true }):wait()
   if rv.code ~= 0 then
-    error(rv.stderr)
+    return nil, parse_error(rv.stderr)
   end
 
   local stdout = rv.stdout
@@ -43,6 +73,17 @@ local function herdr(args)
   end
 
   return assert(vim.json.decode(stdout))
+end
+
+---@param args string[]
+---@return { [string]: any }
+local function herdr(args)
+  local res, err = try_herdr(args)
+  if err then
+    error(err.message, 0)
+  end
+
+  return assert(res)
 end
 
 ---@class HerdrAgent : HerdrAgentSkeleton
@@ -68,6 +109,13 @@ function HerdrAgent:focus()
 end
 
 function HerdrAgent:send_text(txt)
+  -- pane send-text は blocked のペインにも素通しで届くため、送る側で確認する。
+  -- 自身が持つ agent_status は取得してから選択するまでの間に古くなっているので取り直す
+  local res = herdr({ 'agent', 'get', self.pane_id }) --[[@as HerdrAgentGetResponse]]
+  if res.result.agent.agent_status == 'blocked' then
+    error(ERROR_MESSAGES.agent_blocked, 0)
+  end
+
   herdr({ 'pane', 'send-text', self.pane_id, txt })
   return self
 end
@@ -96,12 +144,18 @@ end
 
 ---@return HerdrAgent
 function M.spawn_agent()
-  local split_res = herdr({ 'pane', 'split', '--current', '--direction', 'right', '--no-focus' }) --[[@as HerdrPaneSplitResponse]]
+  local split_res = herdr({ 'pane', 'split', '--current', '--cwd', vim.fn.getcwd(), '--direction', 'right', '--no-focus' }) --[[@as HerdrPaneSplitResponse]]
 
-  -- Avoid "agent target pane {pane_id} is not an available shell"
-  vim.wait(500)
+  local start_res, err = try_herdr({ 'agent', 'start', 'nvim' .. vim.fn.strftime('%Y%m%d%H%M%S'), '--kind', 'claude', '--pane', split_res.result.pane.pane_id })
+  if err then
+    -- 起動できなくてもペインは生きているので、ダイアログに答えられるようフォーカスを渡す
+    if err.code == 'agent_not_ready' then
+      pcall(herdr, { 'pane', 'focus', '--current', '--direction', 'right' })
+    end
 
-  local start_res = herdr({ 'agent', 'start', 'nvim' .. vim.fn.strftime('%Y%m%d%H%M%S'), '--kind', 'claude', '--pane', split_res.result.pane.pane_id }) --[[@as HerdrAgentStartResponse]]
+    error(err.message, 0)
+  end
+  ---@cast start_res HerdrAgentStartResponse
 
   return HerdrAgent.new(start_res.result.agent)
 end
