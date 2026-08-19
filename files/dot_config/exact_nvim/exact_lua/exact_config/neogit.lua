@@ -1,5 +1,34 @@
 -- mappings 設定はキー割り当てのみで挙動は変更できないため、アクション関数自体をラップする
 local status_actions = require('neogit.buffers.status.actions')
+local CommitViewBuffer = require('neogit.buffers.commit_view')
+local LogViewBuffer = require('neogit.buffers.log_view')
+
+-- CommitView から LogView の PeekUp/PeekDown (前後のコミットへ移動しつつ CommitView を更新) を
+-- 代行実行する。`<c-w>h<c-j><c-w>l` 相当を 1 キーにまとめたもの。LogView 側の実装詳細に依存する
+-- キー送信ベースの間借りなので、LogView の挙動が変わると壊れる可能性がある。
+local function peek_via_log_view(key)
+  return function()
+    if not LogViewBuffer.is_open() then
+      return
+    end
+
+    LogViewBuffer.instance.buffer:win_call(
+      function() vim.cmd({ cmd = 'normal', args = { vim.keycode(key) }, bang = false }) end
+    )
+  end
+end
+
+local commit_view_open = CommitViewBuffer.open
+CommitViewBuffer.open = function(self, ...)
+  local result = commit_view_open(self, ...)
+
+  if result and result.buffer and result.buffer.handle then
+    vim.keymap.set('n', '<c-j>', peek_via_log_view('<c-j>'), { buffer = result.buffer.handle })
+    vim.keymap.set('n', '<c-k>', peek_via_log_view('<c-k>'), { buffer = result.buffer.handle })
+  end
+
+  return result
+end
 
 local function keep_focus(action_name)
   local original = status_actions[action_name]
