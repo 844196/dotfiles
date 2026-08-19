@@ -132,6 +132,7 @@
     "herdr@844196-dotfiles": true,
     "motd@844196-dotfiles": true,
     "personal-scratchpad@844196-dotfiles": false,
+    "proofread-markdown@844196-dotfiles": true,
     "tokyonight@844196-dotfiles": true
   },
   "pluginConfigs": {
