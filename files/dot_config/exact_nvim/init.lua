@@ -90,7 +90,7 @@ require('snacks').setup({
           auto_hide = { 'input' },
           layout = {
             position = 'right',
-            width = 0.11,
+            width = 50,
           },
         },
         win = {
