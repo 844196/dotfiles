@@ -47,4 +47,4 @@ if [[ -z "$picked" ]]; then
   exit 0
 fi
 
-herdr pane send-text ${callback_pane_id:?} "$picked"
+"${HERDR_BIN_PATH:-herdr}" pane send-text ${callback_pane_id:?} "$picked"

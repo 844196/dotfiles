@@ -11,9 +11,9 @@ if [[ -z "${HERDR_ENV:-}" ]]; then
   exit 0
 fi
 
-herdr pane send-keys ${HERDR_PANE_ID:?} backspace
+"${HERDR_BIN_PATH:-herdr}" pane send-keys ${HERDR_PANE_ID:?} backspace
 
-herdr plugin pane open \
+"${HERDR_BIN_PATH:-herdr}" plugin pane open \
   --plugin 844196.file-picker \
   --entrypoint picker \
   --cwd "${CLAUDE_PROJECT_DIR:-$PWD}" \
