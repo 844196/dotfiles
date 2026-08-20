@@ -297,12 +297,16 @@ require('blink.cmp').setup({
     documentation = { auto_show = true },
   },
   sources = {
-    default = { 'lsp', 'path', 'buffer', 'snippets' },
+    default = { 'lsp', 'path', 'buffer', 'snippets', 'claude_skills' },
     providers = {
       path = {
         opts = {
           show_hidden_files_by_default = true,
         },
+      },
+      claude_skills = {
+        name = 'Skill',
+        module = 'config.claude_skills.blink',
       },
     },
   },

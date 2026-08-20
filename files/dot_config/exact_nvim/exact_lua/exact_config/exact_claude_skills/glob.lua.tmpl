@@ -1,0 +1,56 @@
+--- ファイルシステムを走査してスキル名を集めるバックエンド。
+---
+--- 走査するのは次の 3 か所だけ。再帰はせず、設定ファイルもマニフェストも読まない。
+--- - `~/.claude/skills/<name>/SKILL.md`                              -> `<name>`
+--- - `<plugins>/<plugin>/skills/<skill>/SKILL.md`                    -> `<plugin>:<skill>`
+--- - `<cwd>/.claude/skills/<name>/SKILL.md`                          -> `<name>`
+---
+--- 組み込みスキル (`code-review` など) はファイルシステム上に無いので拾えない
+
+local USER_SKILLS = vim.fs.normalize('~/.claude/skills')
+local PLUGINS = '{{ .chezmoi.workingTree }}/packages/claude-plugins/plugins'
+
+--- `<dir>/<name>/SKILL.md` を持つ `<name>` を集める
+---@param dir string
+---@param prefix string 名前空間 (`''` または `'<plugin>:'`)
+---@param into table<string, true>
+local function scan(dir, prefix, into)
+  local ok, iter = pcall(vim.fs.dir, dir)
+  if not ok then
+    return
+  end
+
+  for name, type_ in iter do
+    if type_ == 'directory' and vim.uv.fs_stat(dir .. '/' .. name .. '/SKILL.md') then
+      into[prefix .. name] = true
+    end
+  end
+end
+
+---@type ClaudeSkillBackend
+return function(callback)
+  ---@type table<string, true>
+  local names = {}
+
+  scan(USER_SKILLS, '', names)
+
+  local ok, iter = pcall(vim.fs.dir, PLUGINS)
+  if ok then
+    for plugin, type_ in iter do
+      if type_ == 'directory' then
+        scan(PLUGINS .. '/' .. plugin .. '/skills', plugin .. ':', names)
+      end
+    end
+  end
+
+  scan(vim.fs.normalize(vim.fn.getcwd()) .. '/.claude/skills', '', names)
+
+  ---@type ClaudeSkill[]
+  local skills = {}
+  for name in pairs(names) do
+    table.insert(skills, { name = name })
+  end
+  table.sort(skills, function(a, b) return a.name < b.name end)
+
+  callback(skills)
+end

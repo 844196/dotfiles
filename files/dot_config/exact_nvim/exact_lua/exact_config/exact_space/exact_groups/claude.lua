@@ -25,9 +25,13 @@ vim.keymap.set('n', '<Leader>$dl', function() require('config.herdr.telescope').
 vim.keymap.set({ 'n', 'x' }, '<Leader>$dp', function()
   local Buffer = require('config.buffer')
 
+  -- セッション中に追加されたスキルも拾えるよう、開くたびに取り直す
+  require('config.claude_skills').refresh()
+
   local buf = Buffer.find_or_create('*claude-prompt*', function(buf)
     Buffer.ephemeralize(buf)
     vim.bo[buf].filetype = 'markdown'
+    vim.b[buf].claude_prompt = true
 
     vim.keymap.set('n', 'q', '<Cmd>close!<CR>', { buf = buf })
     vim.keymap.set('n', '<Leader>mcs', function()
